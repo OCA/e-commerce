@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>		
+
+		<record model="ir.ui.view" id="sale_simple_pos_view_shop_form">
+			<field name="name">sale_simple_pos_view_shop_form</field>
+			<field name="model">sale.shop</field>
+			<field name="inherit_id" ref="sale.view_shop_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Sale Shop" position="inside">
+					
+						<separator string="Sale Multi Channels" colspan="4" />
+						<notebook colspan="4">
+							<page string="Actions">
+								<group col="4" colspan="4">
+									<separator string="Catalog" colspan="4" />
+									<button name="export_catalog" string="Export Catalog" colspan="2" type="object" />
+									<button name="import_catalog" string="Import Catalog" colspan="2" type="object" />
+									<separator string="Orders" colspan="4" />
+									<button name="import_orders" string="Import Orders" colspan="2" type="object" />
+									<button name="update_orders" string="update Orders Status" colspan="2" type="object" />
+								</group>
+							</page>
+							<page string="Settings">
+								<group col="4" colspan="4">
+									<field name="referential_id" />
+									<field name="sub_entity_id" />
+									<field name="exportable_root_category_ids" />
+									<field name="exportable_product_ids" />							
+								</group>
+							</page>
+						</notebook>
+				</form>
+			</field>
+		</record>
+
+	</data>
+</openerp>
