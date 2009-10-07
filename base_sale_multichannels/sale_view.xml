@@ -25,7 +25,7 @@
 							<page string="Settings">
 								<group col="4" colspan="4">
 									<field name="referential_id" />
-									<field name="sub_entity_id" />
+									<field name="entity_id" />
 									<field name="exportable_root_category_ids" />
 									<field name="exportable_product_ids" />							
 								</group>
