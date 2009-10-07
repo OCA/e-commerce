@@ -24,24 +24,24 @@ from base_external_referentials import external_osv
 from sets import Set
 
 
-class referential_sub_entity(osv.osv):
-    _name = 'referential.sub.entity'
+class referential_entity(osv.osv):
+    _name = 'referential.entity'
     _description = 'Referential Sub Entity'
     
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'referential_id': fields.many2one('external.referential', 'Referential', select=True, ondelete='cascade'),
-        'shop_ids': fields.one2many('sale.shop', 'sub_entity_id', 'Sale Shops'),
+        'shop_ids': fields.one2many('sale.shop', 'entity_id', 'Sale Shops'),
     }
     
-referential_sub_entity()
+referential_entity()
 
 
 class external_referential(osv.osv):
     _inherit = 'external.referential'
     
     _columns = {
-        'sub_entity_ids': fields.one2many('referential.sub.entity', 'referential_id', 'Sub Entities'),
+        'entity_ids': fields.one2many('referential.entity', 'referential_id', 'Sub Entities'),
     }
 
 external_referential()
@@ -88,8 +88,8 @@ class sale_shop(external_osv.external_osv):
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
-        'referential_id': fields.related('sub_entity_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
-        'sub_entity_id':fields.many2one('referential.sub.entity', 'Referential Sub Entity')
+        'referential_id': fields.related('entity_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
+        'entity_id':fields.many2one('referential.entity', 'Referential Sub Entity')
     }
     
     _defaults = {
