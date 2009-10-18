@@ -34,12 +34,6 @@ class external_shop_group(external_osv.external_osv):
         'shop_ids': fields.one2many('sale.shop', 'entity_id', 'Sale Shops'),
     }
     
-    def ext_import(self,cr, uid, data, external_referential_id, defaults={}, context={}):
-        res = super(external_shop_group, self).ext_import(cr, uid, data, external_referential_id, defaults, context)
-        all_ids = res['create_ids'] + res['create_ids']
-        self.write(cr, uid, all_ids, {'referential_id': external_referential_id}, context)
-        return res
-    
 external_shop_group()
 
 
@@ -93,7 +87,7 @@ class sale_shop(external_osv.external_osv):
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
-        'shop_group_id':fields.many2one('external.shop.group', 'Shop Group'),
+        'shop_group_id':fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential')
     }
     
