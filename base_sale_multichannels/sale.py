@@ -102,12 +102,9 @@ class sale_shop(external_osv.external_osv):
                 categories.add(child)
         ctx['shop_id'] = shop.id
         self.pool.get('product.category').ext_export(cr, uid, [categ.id for categ in categories], [shop.referential_id.id], {}, ctx)
-        
-    def export_categories_collection(self, cr, uid, shop, categories, ctx):
-        osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
-        
+       
     def export_products_collection(self, cr, uid, shop, products, ctx):
-        osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        self.pool.get('product.product').ext_export(cr, uid, [product.id for product in exportable_products] ,[shop.referential_id.id], {}, ctx)
 
     def export_products(self, cr, uid, shop, ctx):
         self.export_products_collection(cr, uid, shop, shop.exportable_product_ids, ctx)
