@@ -26,7 +26,8 @@
 									<field name="referential_id" />
 									<field name="shop_group_id" />
 									<field name="exportable_root_category_ids" />
-									<field name="exportable_product_ids" />							
+									<field name="exportable_product_ids" />		
+									<field anme="is_tax_included" />					
 								</group>
 							</page>
 						</notebook>
