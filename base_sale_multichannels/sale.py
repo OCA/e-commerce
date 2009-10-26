@@ -104,7 +104,7 @@ class sale_shop(external_osv.external_osv):
         self.pool.get('product.category').ext_export(cr, uid, [categ.id for categ in categories], [shop.referential_id.id], {}, ctx)
        
     def export_products_collection(self, cr, uid, shop, products, ctx):
-        self.pool.get('product.product').ext_export(cr, uid, [product.id for product in exportable_products] ,[shop.referential_id.id], {}, ctx)
+        self.pool.get('product.product').ext_export(cr, uid, [product.id for product in shop.exportable_product_ids] ,[shop.referential_id.id], {}, ctx)
 
     def export_products(self, cr, uid, shop, ctx):
         self.export_products_collection(cr, uid, shop, shop.exportable_product_ids, ctx)
