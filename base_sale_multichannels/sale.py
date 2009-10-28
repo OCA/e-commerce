@@ -98,11 +98,12 @@ class sale_shop(external_osv.external_osv):
     
     def export_categories(self, cr, uid, shop, ctx):
         categories = Set([])
-        for category in shop.exportable_root_category_ids:#TODO ensure order is from root to leaf
-            for child in category.recursive_childen_ids:
-                categories.add(child)
+        for category in shop.exportable_root_category_ids:
+            categ_ids = self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], ctx)[category.id]
+            for categ_id in categ_ids:
+                categories.add(categ_id)
         ctx['shop_id'] = shop.id
-        self.pool.get('product.category').ext_export(cr, uid, [categ.id for categ in categories], [shop.referential_id.id], {}, ctx)
+        self.pool.get('product.category').ext_export(cr, uid, [categ_id for categ_id in categ_ids], [shop.referential_id.id], {}, ctx)
        
     def export_products_collection(self, cr, uid, shop, products, ctx):
         self.pool.get('product.product').ext_export(cr, uid, [product.id for product in shop.exportable_product_ids] ,[shop.referential_id.id], {}, ctx)
