@@ -31,7 +31,7 @@ class external_shop_group(external_osv.external_osv):
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'referential_id': fields.many2one('external.referential', 'Referential', select=True, ondelete='cascade'),
-        'shop_ids': fields.one2many('sale.shop', 'entity_id', 'Sale Shops'),
+        'shop_ids': fields.one2many('sale.shop', 'shop_group_id', 'Sale Shops'),
     }
     
 external_shop_group()
