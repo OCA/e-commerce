@@ -26,8 +26,14 @@
 									<field name="referential_id" />
 									<field name="shop_group_id" />
 									<field name="exportable_root_category_ids" />
-									<field name="exportable_product_ids" />		
-									<field name="is_tax_included" />					
+									<field name="exportable_product_ids" />						
+								</group>
+								<group col="4" colspan="4">
+									<separator string="Order Generation" colspan="4" />
+									<field name="is_tax_included" />
+									<field name="picking_policy" />
+									<field name="order_policy" />
+									<field name="invoice_quantity" />
 								</group>
 							</page>
 						</notebook>

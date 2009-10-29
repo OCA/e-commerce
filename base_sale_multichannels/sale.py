@@ -90,11 +90,33 @@ class sale_shop(external_osv.external_osv):
         'shop_group_id':fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
+        'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')],
+                                           'Packing Policy', required=True, help="""If you don't have enough stock available to deliver all at once, do you accept partial shipments or not?"""),
+        'order_policy': fields.selection([
+            ('prepaid', 'Payment Before Delivery'),
+            ('manual', 'Shipping & Manual Invoice'),
+            ('postpaid', 'Invoice on Order After Delivery'),
+            ('picking', 'Invoice from the Packing'),
+        ], 'Shipping Policy', help="""The Shipping Policy is used to synchronise invoice and delivery operations.
+  - The 'Pay before delivery' choice will first generate the invoice and then generate the packing order after the payment of this invoice.
+  - The 'Shipping & Manual Invoice' will create the packing order directly and wait for the user to manually click on the 'Invoice' button to generate the draft invoice.
+  - The 'Invoice on Order After Delivery' choice will generate the draft invoice based on sale order after all packing lists have been finished.
+  - The 'Invoice from the packing' choice is used to create an invoice during the packing process."""),
+        'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on', help="The sale order will automatically create the invoice proposition (draft invoice). Ordered and delivered quantities may not be the same. You have to choose if you invoice based on ordered or shipped quantities. If the product is a service, shipped quantities means hours spent on the associated tasks.", required=True),
     }
     
     _defaults = {
         'payment_default_id': lambda *a: 1, #required field that would cause trouble if not set when importing
+        'picking_policy': lambda *a: 'direct',
+        'order_policy': lambda *a: 'manual',
+        'invoice_quantity': lambda *a: 'order',
     }
+
+    def _get_pricelist(self, cr, uid, shop):
+        if shop.pricelist_id:
+            return shop.pricelist_id.id
+        else:
+            return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)])[0]
     
     def export_categories(self, cr, uid, shop, ctx):
         categories = Set([])
@@ -125,9 +147,29 @@ class sale_shop(external_osv.external_osv):
     def import_orders(self, cr, uid, ids, ctx):
         for shop in self.browse(cr, uid, ids):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            self.import_shop_orders(cr, uid, shop, ctx)
+            defaults = {
+                            'pricelist_id':self._get_pricelist(cr, uid, shop),
+                            'shop_id': shop.id,
+                            'picking_policy': shop.picking_policy,
+                            'order_policy': shop.order_policy,
+                            'invoice_quantity': shop.invoice_quantity
+                        }
             
-    def import_shop_orders(self, cr, uid, shop, ctx):
+            #get last imported order:
+            cr.execute("select ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and ir_model_data.external_referential_id NOTNULL order by ir_model_data.write_date DESC;")
+            results = cr.fetchone()
+            last_external_id = 0
+            if results and len(results) > 0:
+                last_id = results[0].split('sale.order_')[1]
+                last_external_id = self.pool.get('sale.order').browse(cr, uid, last_id)
+            ctx['last_external_id'] = last_external_id
+            
+            if shop.is_tax_included:
+                defaults.update({'price_type': 'tax_included'})
+
+            self.import_shop_orders(cr, uid, shop, defaults, ctx)
+            
+    def import_shop_orders(self, cr, uid, shop, defaults, ctx):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def update_orders(self, cr, uid, ids, ctx):
