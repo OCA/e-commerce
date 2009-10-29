@@ -160,12 +160,11 @@ class sale_shop(external_osv.external_osv):
                         }
             
             #get last imported order:
-            cr.execute("select ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and ir_model_data.external_referential_id NOTNULL order by ir_model_data.write_date DESC;")
+            cr.execute("select ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL order by ir_model_data.write_date DESC;" % shop.id)
             results = cr.fetchone()
             last_external_id = 0
             if results and len(results) > 0:
-                last_id = results[0].split('sale.order_')[1]
-                last_external_id = self.pool.get('sale.order').browse(cr, uid, last_id)
+                last_external_id = results[0].split('sale.order_')[1]
             ctx['last_external_id'] = last_external_id
             
             if shop.is_tax_included:
