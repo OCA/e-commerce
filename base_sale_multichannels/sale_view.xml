@@ -34,6 +34,8 @@
 									<field name="picking_policy" />
 									<field name="order_policy" />
 									<field name="invoice_quantity" />
+									<field name="invoice_generation_policy" />
+									<field name="picking_generation_policy" />
 								</group>
 							</page>
 						</notebook>

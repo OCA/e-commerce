@@ -91,7 +91,7 @@ class sale_shop(external_osv.external_osv):
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')],
-                                           'Packing Policy', required=True, help="""If you don't have enough stock available to deliver all at once, do you accept partial shipments or not?"""),
+                                           'Packing Policy', help="""If you don't have enough stock available to deliver all at once, do you accept partial shipments or not?"""),
         'order_policy': fields.selection([
             ('prepaid', 'Payment Before Delivery'),
             ('manual', 'Shipping & Manual Invoice'),
@@ -102,7 +102,9 @@ class sale_shop(external_osv.external_osv):
   - The 'Shipping & Manual Invoice' will create the packing order directly and wait for the user to manually click on the 'Invoice' button to generate the draft invoice.
   - The 'Invoice on Order After Delivery' choice will generate the draft invoice based on sale order after all packing lists have been finished.
   - The 'Invoice from the packing' choice is used to create an invoice during the packing process."""),
-        'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on', help="The sale order will automatically create the invoice proposition (draft invoice). Ordered and delivered quantities may not be the same. You have to choose if you invoice based on ordered or shipped quantities. If the product is a service, shipped quantities means hours spent on the associated tasks.", required=True),
+        'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on', help="The sale order will automatically create the invoice proposition (draft invoice). Ordered and delivered quantities may not be the same. You have to choose if you invoice based on ordered or shipped quantities. If the product is a service, shipped quantities means hours spent on the associated tasks."),
+        'invoice_generation_policy': fields.selection([('none', 'None'), ('draft', 'Draft'), ('valid', 'Validated')], 'Invoice Generation Policy', help="Should orders create an invoice after import?"),
+        'picking_generation_policy': fields.selection([('none', 'None'), ('draft', 'Draft'), ('valid', 'Validated')], 'Picking Generation Policy', help="Should orders create a picking after import?"),
     }
     
     _defaults = {
@@ -110,6 +112,8 @@ class sale_shop(external_osv.external_osv):
         'picking_policy': lambda *a: 'direct',
         'order_policy': lambda *a: 'manual',
         'invoice_quantity': lambda *a: 'order',
+        'invoice_generation_policy': lambda *a: 'draft',
+        'picking_generation_policy': lambda *a: 'draft',
     }
 
     def _get_pricelist(self, cr, uid, shop):
