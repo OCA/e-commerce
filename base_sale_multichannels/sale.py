@@ -22,6 +22,8 @@
 from osv import osv, fields
 from base_external_referentials import external_osv
 from sets import Set
+import netsvc
+from tools.translate import _
 
 
 class external_shop_group(external_osv.external_osv):
@@ -176,12 +178,23 @@ class sale_shop(external_osv.external_osv):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def update_orders(self, cr, uid, ids, ctx):
+        logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            ext_connection = self.external_connection(cr, uid, shop.referential_id)
-            if ext_connection:
-                self.update_shop_orders(cr, uid, shop, ctx)
+            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            #get all orders to exports
+            cr.execute("select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL;" % shop.id)
+            results = cr.fetchall()
+            for result in results:
+                ids = self.pool.get('sale.order').search(cr, uid, [('id', '=', result[0])])
+                if ids:
+                    id = ids[0]
+                    order = self.pool.get('sale.order').browse(cr, uid, id, ctx)
+                    order_ext_id = result[1].split('sale.order_')[1]
+                    self.update_shop_orders(cr, uid, order, order_ext_id, ctx)
+                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully updated order with OpenERP id %s and ext id %s in external sale system" %(id, order_ext_id))
+
         
-    def update_shop_orders(self, cr, uid, shop, ctx):
+    def update_shop_orders(self, cr, uid, order, ext_id, ctx):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
 sale_shop()
