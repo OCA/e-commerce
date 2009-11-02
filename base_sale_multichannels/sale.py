@@ -146,6 +146,12 @@ class sale_shop(external_osv.external_osv):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             self.export_categories(cr, uid, shop, ctx)
             self.export_products(cr, uid, shop, ctx)
+            
+    def export_inventory(self, cr, uid, ids, ctx):
+        for shop in self.browse(cr, uid, ids):
+            ctx['shop_id'] = shop.id
+            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            self.pool.get('product.product').export_inventory(cr, uid, [product.id for product in shop.exportable_product_ids], '', ctx)
         
     def import_catalog(self, cr, uid, ids, ctx):
         #TODO import categories, then products
