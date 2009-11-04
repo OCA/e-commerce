@@ -16,7 +16,7 @@
 									<separator string="Catalog" colspan="4" />
 									<button name="export_catalog" string="Export Catalog" colspan="2" type="object" />
 									<button name="export_inventory" string="Export Inventory Only" colspan="2" type="object" />
-									<button name="import_catalog" string="Import Catalog" colspan="2" type="object" />
+<!--									<button name="import_catalog" string="Import Catalog" colspan="2" type="object" />-->
 									<separator string="Orders" colspan="4" />
 									<button name="import_orders" string="Import Orders" colspan="2" type="object" />
 									<button name="update_orders" string="update Orders Status" colspan="2" type="object" />
