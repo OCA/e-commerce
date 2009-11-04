@@ -24,6 +24,7 @@ from base_external_referentials import external_osv
 from sets import Set
 import netsvc
 from tools.translate import _
+from datetime import datetime
 
 
 class external_shop_group(external_osv.external_osv):
@@ -156,7 +157,9 @@ class sale_shop(external_osv.external_osv):
             if shop.last_inventory_export_date:
                 recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids)])
                 product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids)]
-            self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', ctx)
+            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', ctx)
+            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_inventory_export_date': datetime.now()})
+            return res
         
     def import_catalog(self, cr, uid, ids, ctx):
         #TODO import categories, then products
