@@ -89,7 +89,8 @@ class sale_shop(external_osv.external_osv):
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
-        'shop_group_id':fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
+        'shop_group_id': fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
+        'last_inventory_export_date': fields.datetime('Last Export Time'),
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')],
@@ -151,7 +152,11 @@ class sale_shop(external_osv.external_osv):
         for shop in self.browse(cr, uid, ids):
             ctx['shop_id'] = shop.id
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            self.pool.get('product.product').export_inventory(cr, uid, [product.id for product in shop.exportable_product_ids], '', ctx)
+            product_ids = [product.id for product in shop.exportable_product_ids]
+            if shop.last_inventory_export_date:
+                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids)])
+                product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids)]
+            self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', ctx)
         
     def import_catalog(self, cr, uid, ids, ctx):
         #TODO import categories, then products
