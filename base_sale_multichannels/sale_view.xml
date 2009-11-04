@@ -15,6 +15,7 @@
 								<group col="4" colspan="4">
 									<separator string="Catalog" colspan="4" />
 									<button name="export_catalog" string="Export Catalog" colspan="2" type="object" />
+									<field name="last_inventory_export_date" />
 									<button name="export_inventory" string="Export Inventory Only" colspan="2" type="object" />
 <!--									<button name="import_catalog" string="Import Catalog" colspan="2" type="object" />-->
 									<separator string="Orders" colspan="4" />
