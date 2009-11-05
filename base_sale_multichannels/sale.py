@@ -44,7 +44,7 @@ class external_referential(osv.osv):
     _inherit = 'external.referential'
     
     _columns = {
-        'entity_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
+        'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
     }
 
 external_referential()
