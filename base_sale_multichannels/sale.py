@@ -91,7 +91,8 @@ class sale_shop(external_osv.external_osv):
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
         'shop_group_id': fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
-        'last_inventory_export_date': fields.datetime('Last Export Time'),
+        'last_inventory_export_date': fields.datetime('Last Inventory Export Time'),
+        'last_update_order_export_date' : fields.datetime('Last Order Update  Time'),
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')],
@@ -196,17 +197,26 @@ class sale_shop(external_osv.external_osv):
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            #get all orders to exports
-            cr.execute("select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL;" % shop.id)
+            #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
+            req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL and sale_order.state != 'draft'"
+            param = (shop.id,)
+
+            if shop.last_update_order_export_date:
+                req += "and sale_order.write_date > %s" 
+                param = (shop.id, shop.last_update_order_export_date)
+
+            cr.execute(req, param)
             results = cr.fetchall()
+
             for result in results:
                 ids = self.pool.get('sale.order').search(cr, uid, [('id', '=', result[0])])
                 if ids:
                     id = ids[0]
-                    order = self.pool.get('sale.order').browse(cr, uid, id, ctx)
+                    order = self.pool.get('sale.order').browse(cr, uid, id, ctx)            
                     order_ext_id = result[1].split('sale.order_')[1]
                     self.update_shop_orders(cr, uid, order, order_ext_id, ctx)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully updated order with OpenERP id %s and ext id %s in external sale system" %(id, order_ext_id))
+            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': datetime.now()})
 
         
     def update_shop_orders(self, cr, uid, order, ext_id, ctx):
