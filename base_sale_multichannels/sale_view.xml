@@ -28,15 +28,20 @@
 								</group>
 							</group>
 						</page>
-						<page string="Settings">
+						<page string="External Shop Settings">
 							<group col="4" colspan="4">
 								<field name="referential_id" />
 								<field name="shop_group_id" />
 								<field name="exportable_root_category_ids" />
-								<field name="exportable_product_ids" />
 							</group>
+						</page>
+							
+						<page string="Exportable Products">
+							<field name="exportable_product_ids" nolabel="1" colspan="4" />
+						</page>
+						
+						<page string="Order Generation">
 							<group col="4" colspan="4">
-								<separator string="Order Generation" colspan="4" />
 								<field name="is_tax_included" />
 								<field name="picking_policy" />
 								<field name="order_policy" />
