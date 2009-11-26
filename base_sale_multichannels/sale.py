@@ -223,3 +223,47 @@ class sale_shop(external_osv.external_osv):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
 sale_shop()
+
+
+class sale_order(osv.osv):
+    _inherit = "sale.order"
+
+    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, ctx):
+        journal_ids = self.pool.get("account.journal").search(cr, uid, [('external_payment_codes', 'ilike', payment_code)])
+        if journal_ids and len(journal_ids) > 0:
+            return self.generate_payment_with_journal(cr, uid, journal_ids[0], partner_id, amount, payment_ref, entry_name, ctx)
+        
+    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, ctx):
+        statement_vals = {
+                'journal_id': journal_id,
+                'balance_start': 0,
+                'balance_end': amount
+                }
+        statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, ctx)
+        statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, ctx)
+        account_id = self.pool.get('account.bank.statement.line').onchange_partner_id(cr, uid, False, partner_id, "customer", statement.currency.id, ctx)['value']['account_id']
+        statement_line_vals = {
+                                'statement_id': statement_id,
+                                'name': entry_name,
+                                'ref': payment_ref,
+                                'amount': amount,
+                                'partner_id': partner_id,
+                                'account_id': account_id
+                               }
+        statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, ctx)
+#        self.pool.get('account.bank.statement').write(cr, uid, statement_id, {
+#                                                                                'balance_start': 0,
+#                                                                                'balance_end': amount
+#                                                                              })
+
+sale_order()
+
+class account_journal(osv.osv):
+    _inherit = "account.journal"
+    
+    _columns = {
+                'external_payment_codes': fields.char('External Payemnt Codes', size=256),
+    }
+    
+account_journal()
+
