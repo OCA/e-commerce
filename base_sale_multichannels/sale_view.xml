@@ -54,6 +54,19 @@
 				</form>
 			</field>
 		</record>
+		
+		
+        <record id="simple_pos_view_account_journal_form" model="ir.ui.view">
+            <field name="name">simple_pos_view_account_journal_form</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+    			<field name="type" position="after">
+					<field name="external_payment_codes" /> 
+				</field>
+            </field>
+        </record>
 
 	</data>
 </openerp>
