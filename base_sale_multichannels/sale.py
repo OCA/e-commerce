@@ -228,12 +228,12 @@ sale_shop()
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
-    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, ctx):
+    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, should_validate, ctx):
         journal_ids = self.pool.get("account.journal").search(cr, uid, [('external_payment_codes', 'ilike', payment_code)])
         if journal_ids and len(journal_ids) > 0:
-            return self.generate_payment_with_journal(cr, uid, journal_ids[0], partner_id, amount, payment_ref, entry_name, ctx)
+            return self.generate_payment_with_journal(cr, uid, journal_ids[0], partner_id, amount, payment_ref, entry_name, should_validate, ctx)
         
-    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, ctx):
+    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, should_validate, ctx):
         statement_vals = {
                 'journal_id': journal_id,
                 'balance_start': 0,
@@ -251,6 +251,8 @@ class sale_order(osv.osv):
                                 'account_id': account_id
                                }
         statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, ctx)
+        #TODO understand why balance_start and balance_end are not set
+        #TODO validate if should_validate
 #        self.pool.get('account.bank.statement').write(cr, uid, statement_id, {
 #                                                                                'balance_start': 0,
 #                                                                                'balance_end': amount
