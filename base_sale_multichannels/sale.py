@@ -235,10 +235,11 @@ class sale_order(osv.osv):
         
     def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, should_validate, ctx):
         statement_vals = {
-                'journal_id': journal_id,
-                'balance_start': 0,
-                'balance_end': amount
-                }
+                            'name': 'ST_' + entry_name,
+                            'journal_id': journal_id,
+                            'balance_start': 0,
+                            'balance_end_real': amount
+                        }
         statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, ctx)
         statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, ctx)
         account_id = self.pool.get('account.bank.statement.line').onchange_partner_id(cr, uid, False, partner_id, "customer", statement.currency.id, ctx)['value']['account_id']
@@ -251,12 +252,8 @@ class sale_order(osv.osv):
                                 'account_id': account_id
                                }
         statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, ctx)
-        #TODO understand why balance_start and balance_end are not set
-        #TODO validate if should_validate
-#        self.pool.get('account.bank.statement').write(cr, uid, statement_id, {
-#                                                                                'balance_start': 0,
-#                                                                                'balance_end': amount
-#                                                                              })
+        if should_validate:
+            self.pool.get('account.bank.statement').button_confirm(cr, uid, [statement_id], ctx)
 
 sale_order()
 
