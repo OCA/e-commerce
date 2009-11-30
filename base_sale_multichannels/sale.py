@@ -228,17 +228,18 @@ sale_shop()
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
-    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, should_validate, ctx):
+    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, should_validate, ctx):
         journal_ids = self.pool.get("account.journal").search(cr, uid, [('external_payment_codes', 'ilike', payment_code)])
         if journal_ids and len(journal_ids) > 0:
-            return self.generate_payment_with_journal(cr, uid, journal_ids[0], partner_id, amount, payment_ref, entry_name, should_validate, ctx)
+            return self.generate_payment_with_journal(cr, uid, journal_ids[0], partner_id, amount, payment_ref, entry_name, date, should_validate, ctx)
         
-    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, should_validate, ctx):
+    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, ctx):
         statement_vals = {
                             'name': 'ST_' + entry_name,
                             'journal_id': journal_id,
                             'balance_start': 0,
-                            'balance_end_real': amount
+                            'balance_end_real': amount,
+                            'date' : date
                         }
         statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, ctx)
         statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, ctx)
