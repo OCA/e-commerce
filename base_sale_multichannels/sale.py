@@ -262,7 +262,7 @@ class account_journal(osv.osv):
     _inherit = "account.journal"
     
     _columns = {
-                'external_payment_codes': fields.char('External Payemnt Codes', size=256),
+                'external_payment_codes': fields.char('External Payment Codes', size=256, help="Enter the external payment codes, comma separated. They will be used to select the payment journal."),
     }
     
 account_journal()
