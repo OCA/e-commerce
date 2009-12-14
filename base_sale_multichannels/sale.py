@@ -176,15 +176,7 @@ class sale_shop(external_osv.external_osv):
                             'order_policy': shop.order_policy,
                             'invoice_quantity': shop.invoice_quantity
                         }
-            
-            #get last imported order:
-            cr.execute("select ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL order by sale_order.create_date DESC;" % shop.id)
-            results = cr.fetchone()
-            last_external_id = False
-            if results and len(results) > 0:
-                last_external_id = results[0].split('sale.order_')[1]
-            ctx['last_external_id'] = last_external_id
-            
+          
             if shop.is_tax_included:
                 defaults.update({'price_type': 'tax_included'})
 
