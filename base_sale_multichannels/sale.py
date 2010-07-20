@@ -52,10 +52,14 @@ external_referential()
 class product_category(osv.osv):
     _inherit = "product.category"
     
-    def collect_children(self, category, children=[]):
+    def collect_children(self, category, children=None):
+        if children is None:
+            children = []
+
         for child in category.child_id:
             children.append(child.id)
             self.collect_children(child, children)
+
         return children
     
     def _get_recursive_children_ids(self, cr, uid, ids, name, args, context=None):
@@ -76,7 +80,7 @@ class sale_shop(external_osv.external_osv):
 
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for shop in self.browse(cr, uid, ids):
+        for shop in self.browse(cr, uid, ids, context=context):
             root_categories = [category for category in shop.exportable_root_category_ids]
             all_categories = []
             for category in root_categories:
@@ -136,7 +140,9 @@ class sale_shop(external_osv.external_osv):
         else:
             return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)])[0]
     
-    def export_categories(self, cr, uid, shop, ctx):
+    def export_categories(self, cr, uid, shop, ctx=None):
+        if ctx is None:
+            ctx = {}
         categories = Set([])
         categ_ids = []
         for category in shop.exportable_root_category_ids:
@@ -152,7 +158,9 @@ class sale_shop(external_osv.external_osv):
     def export_products(self, cr, uid, shop, ctx):
         self.export_products_collection(cr, uid, shop, shop.exportable_product_ids, ctx)
     
-    def export_catalog(self, cr, uid, ids, ctx):
+    def export_catalog(self, cr, uid, ids, ctx=None):
+        if ctx is None:
+            ctx = {}
         for shop in self.browse(cr, uid, ids):
             ctx['shop_id'] = shop.id
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
@@ -161,7 +169,9 @@ class sale_shop(external_osv.external_osv):
         self.export_inventory(cr, uid, ids, ctx)
         return False
             
-    def export_inventory(self, cr, uid, ids, ctx):
+    def export_inventory(self, cr, uid, ids, ctx=None):
+        if ctx is None:
+            ctx = {}
         for shop in self.browse(cr, uid, ids):
             ctx['shop_id'] = shop.id
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
@@ -178,9 +188,11 @@ class sale_shop(external_osv.external_osv):
     
     def import_catalog(self, cr, uid, ids, ctx):
         #TODO import categories, then products
-        osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
         
-    def import_orders(self, cr, uid, ids, ctx):
+    def import_orders(self, cr, uid, ids, ctx=None):
+        if ctx is None:
+            ctx = {}
         for shop in self.browse(cr, uid, ids):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             defaults = {
@@ -198,9 +210,11 @@ class sale_shop(external_osv.external_osv):
         return False
             
     def import_shop_orders(self, cr, uid, shop, defaults, ctx):
-        osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
-    def update_orders(self, cr, uid, ids, ctx):
+    def update_orders(self, cr, uid, ids, ctx=None):
+        if ctx is None:
+            ctx = {}
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
@@ -228,7 +242,7 @@ class sale_shop(external_osv.external_osv):
 
         
     def update_shop_orders(self, cr, uid, order, ext_id, ctx):
-        osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
 sale_shop()
 
