@@ -202,7 +202,11 @@ class sale_shop(external_osv.external_osv):
                             'order_policy': shop.order_policy,
                             'invoice_quantity': shop.invoice_quantity
                         }
-          
+            if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'sale.shop')]): #OpenERP v6 needs a company_id field on the sale order but v5 doesn't have it, same for shop...
+                if not shop.company_id.id:
+                    raise osv.except_osv(_('Warning!'), _('You have to set a company for this OpenERP sale shop!'))
+                defaults.update({'company_id': shop.company_id.id}
+
             if shop.is_tax_included:
                 defaults.update({'price_type': 'tax_included'})
 
