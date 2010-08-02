@@ -210,6 +210,8 @@ class sale_shop(external_osv.external_osv):
             if shop.is_tax_included:
                 defaults.update({'price_type': 'tax_included'})
 
+            defaults.update(self.pool.get('sale.order').onchange_shop_id(cr, uid, ids, shop.id)['value'])
+
             self.import_shop_orders(cr, uid, shop, defaults, ctx)
         return False
             
