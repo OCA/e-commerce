@@ -166,6 +166,7 @@ class sale_shop(external_osv.external_osv):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             self.export_categories(cr, uid, shop, ctx)
             self.export_products(cr, uid, shop, ctx)
+            shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
         self.export_inventory(cr, uid, ids, ctx)
         return False
             
@@ -183,7 +184,7 @@ class sale_shop(external_osv.external_osv):
             product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
             product_ids = [x for x in set(product_ids)]
             res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', ctx)
-            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_inventory_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
+            shop.write({'last_inventory_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         return res
     
     def import_catalog(self, cr, uid, ids, ctx):
