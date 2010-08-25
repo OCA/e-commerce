@@ -94,7 +94,7 @@ class sale_shop(external_osv.external_osv):
     _defaults = {
         'payment_default_id': lambda *a: 1, #required field that would cause trouble if not set when importing
     }
-    
+
     def export_categories(self, cr, uid, ids, ctx):
         for shop in self.browse(cr, uid, ids):
             categories = Set([])
