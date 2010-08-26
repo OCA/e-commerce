@@ -1,0 +1,11 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_base_sale_multichannels_external_shop_group","base_sale_multichannels_external_shop_group","model_external_shop_group","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_referential","base_external_referentials_external_referential","base_external_referentials.model_external_referential","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_referential_type","base_external_referentials_external_referential_type","base_external_referentials.model_external_referential_type","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_mapping_template","base_external_referentials_external_mapping_template","base_external_referentials.model_external_mapping_template","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_mappinglines_template","base_external_referentials_external_mappinglines_template","base_external_referentials.model_external_mappinglines_template","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_referential","base_external_referentials_external_referential","base_external_referentials.model_external_referential","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_mapping_line","base_external_referentials_external_mapping_line","base_external_referentials.model_external_mapping_line","product.group_product_manager",1,1,1,1
+"access_base_external_referentials_external_mapping","base_external_referentials_external_mapping","base_external_referentials.model_external_mapping","product.group_product_manager",1,1,1,1
+"access_sale_sale_shop","sale_sale_shop","sale.model_sale_shop","sale.group_sale_manager",1,1,1,1
+"access_base_sale_multichannels_ir_model_data","base_sale_multichannels_ir_model_data","base.model_ir_model_data","sale.group_sale_manager",1,1,1,1

@@ -51,7 +51,10 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
     'website': 'http://www.akretion.com',
     'depends': ['sale', 'base_external_referentials'],
     'init_xml': [],
-    'update_xml': ['sale_view.xml'],
+    'update_xml': [
+        'security/ir.model.access.csv',
+        'sale_view.xml',
+    ],
     'demo_xml': [],
     'installable': True,
     'certificate': '',

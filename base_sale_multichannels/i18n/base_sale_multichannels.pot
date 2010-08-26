@@ -1,0 +1,306 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_sale_multichannels
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.6\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-12-20 17:22:08+0000\n"
+"PO-Revision-Date: 2009-12-20 17:22:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,picking_policy:0
+msgid "Partial Delivery"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: model:ir.module.module,description:base_sale_multichannels.module_meta_information
+msgid "\n"
+"This module provide an abstract common minimal base to multi-channels sales.\n"
+"Say you want to expose your product catalog to\n"
+"* several instances of flashy-sluggish Magento web sites\n"
+"* a cutting edge Spree web shop\n"
+"* a Neteven online Marketplace\n"
+"* EBay\n"
+"* Amazon\n"
+"* Google Base\n"
+"* an external Point Of Sale system\n"
+"* ...\n"
+"Then this module allows you to:\n"
+"* use several external references ids on every OpenERP object matching those all those external referentials\n"
+"* per referential instance, use several sale sub platform entities (ex: several Magento websites per instance)\n"
+"* per sub platform, use several shops (ex: several Magento web shops per website)\n"
+"\n"
+"For each sale shop (matching OpenERP sale.shop object), this module abstract the interfaces to:\n"
+"* export the catalog, shop warehouse stock level wise, shop pricelist wise\n"
+"* import the catalog\n"
+"* import orders\n"
+"* export orders/picking status\n"
+"    "
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,order_policy:0
+msgid "Shipping Policy"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,invoice_generation_policy:0
+#: selection:sale.shop,picking_generation_policy:0
+msgid "None"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,invoice_quantity:0
+msgid "Shipped Quantities"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:external.shop.group,referential_id:0
+msgid "Referential"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,invoice_generation_policy:0
+#: selection:sale.shop,picking_generation_policy:0
+msgid "Draft"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:sale.shop,invoice_quantity:0
+msgid "The sale order will automatically create the invoice proposition (draft invoice). Ordered and delivered quantities may not be the same. You have to choose if you invoice based on ordered or shipped quantities. If the product is a service, shipped quantities means hours spent on the associated tasks."
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,shop_group_id:0
+msgid "Shop Group"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:product.category,recursive_childen_ids:0
+msgid "All Child Categories"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Update Orders Status"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:sale.shop,picking_policy:0
+msgid "If you don't have enough stock available to deliver all at once, do you accept partial shipments or not?"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:account.journal,external_payment_codes:0
+msgid "Enter the external payment codes, comma separated. They will be used to select the payment journal."
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,picking_policy:0
+msgid "Packing Policy"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,picking_policy:0
+msgid "Complete Delivery"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,invoice_generation_policy:0
+msgid "Invoice Generation Policy"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,invoice_quantity:0
+msgid "Ordered Quantities"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:sale.shop,is_tax_included:0
+msgid "Requires sale_tax_include module to be installed"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Catalog"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "External Shop Settings"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Export Catalog"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,order_policy:0
+msgid "Invoice from the Packing"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Order Generation"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:account.journal,external_payment_codes:0
+msgid "External Payment Codes"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,order_policy:0
+msgid "Invoice on Order After Delivery"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:external.shop.group,shop_ids:0
+msgid "Sale Shops"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:external.shop.group,name:0
+msgid "Name"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,invoice_quantity:0
+msgid "Invoice on"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:sale.shop,order_policy:0
+msgid "The Shipping Policy is used to synchronise invoice and delivery operations.\n"
+"  - The 'Pay before delivery' choice will first generate the invoice and then generate the packing order after the payment of this invoice.\n"
+"  - The 'Shipping & Manual Invoice' will create the packing order directly and wait for the user to manually click on the 'Invoice' button to generate the draft invoice.\n"
+"  - The 'Invoice on Order After Delivery' choice will generate the draft invoice based on sale order after all packing lists have been finished.\n"
+"  - The 'Invoice from the packing' choice is used to create an invoice during the packing process."
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,last_inventory_export_date:0
+msgid "Last Inventory Export Time"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:external.referential,shop_group_ids:0
+msgid "Sub Entities"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,referential_id:0
+msgid "External Referential"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,order_policy:0
+msgid "Payment Before Delivery"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: model:ir.module.module,shortdesc:base_sale_multichannels.module_meta_information
+msgid "Base Sale MultiChannels"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+#: field:sale.shop,exportable_product_ids:0
+msgid "Exportable Products"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Import Orders"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,picking_generation_policy:0
+msgid "Picking Generation Policy"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:sale.shop,invoice_generation_policy:0
+msgid "Should orders create an invoice after import?"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,last_update_order_export_date:0
+msgid "Last Order Update  Time"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: help:sale.shop,picking_generation_policy:0
+msgid "Should orders create a picking after import?"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,invoice_generation_policy:0
+#: selection:sale.shop,picking_generation_policy:0
+msgid "Validated"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: model:ir.model,name:base_sale_multichannels.model_external_shop_group
+msgid "External Referential Shop Group"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Export Stock Levels Only"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: selection:sale.shop,order_policy:0
+msgid "Shipping & Manual Invoice"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Actions"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,exportable_root_category_ids:0
+msgid "Root Category"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: field:sale.shop,is_tax_included:0
+msgid "Prices Include Tax?"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Sale Shop"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Sale Multi Channels"
+msgstr ""
+
+#. module: base_sale_multichannels
+#: view:sale.shop:0
+msgid "Orders"
+msgstr ""
+
