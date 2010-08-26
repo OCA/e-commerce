@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
-	<data>
+	<data>		
 
 		<record model="ir.ui.view" id="base_sale_multichannels_view_shop_form">
 			<field name="name">base_sale_multichannels_view_shop_form</field>
@@ -9,64 +9,40 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Sale Shop" position="inside">
-					<separator string="Sale Multi Channels" colspan="4" />
-					<notebook colspan="4">
-						<page string="Actions">
-							<group col="4" colspan="4">
-								<separator string="Catalog" colspan="4" />
-								<button name="export_catalog" string="Export Catalog" colspan="2" type="object" />
+						<separator string="Sale Multi Channels" colspan="4" />
+						<notebook colspan="4">
+							<page string="Actions">
 								<group col="4" colspan="4">
-									<button name="export_inventory" string="Export Stock Levels Only" type="object" />
-									<field name="last_inventory_export_date" />
+									<separator string="Catalog" colspan="4" />
+									<button name="export_catalog" string="Export Catalog" colspan="2" type="object" />
+									<button name="export_inventory" string="Export Inventory Only" colspan="2" type="object" />
+									<button name="import_catalog" string="Import Catalog" colspan="2" type="object" />
+									<separator string="Orders" colspan="4" />
+									<button name="import_orders" string="Import Orders" colspan="2" type="object" />
+									<button name="update_orders" string="update Orders Status" colspan="2" type="object" />
 								</group>
-								<!--									<button name="import_catalog" string="Import Catalog" colspan="2" type="object" />-->
-								<separator string="Orders" colspan="4" />
-								<button name="import_orders" string="Import Orders" colspan="2" type="object" />
+							</page>
+							<page string="Settings">
 								<group col="4" colspan="4">
-									<button name="update_orders" string="Update Orders Status" colspan="2" type="object" />
-									<field name="last_update_order_export_date" />
+									<field name="referential_id" />
+									<field name="shop_group_id" />
+									<field name="exportable_root_category_ids" />
+									<field name="exportable_product_ids" />						
 								</group>
-							</group>
-						</page>
-						<page string="External Shop Settings">
-							<group col="4" colspan="4">
-								<field name="referential_id" />
-								<field name="shop_group_id" />
-								<field name="exportable_root_category_ids" />
-							</group>
-						</page>
-							
-						<page string="Exportable Products">
-							<field name="exportable_product_ids" nolabel="1" colspan="4" />
-						</page>
-						
-						<page string="Order Generation">
-							<group col="4" colspan="4">
-								<field name="is_tax_included" />
-								<field name="picking_policy" />
-								<field name="order_policy" />
-								<field name="invoice_quantity" />
-								<field name="invoice_generation_policy" />
-								<field name="picking_generation_policy" />
-							</group>
-						</page>
-					</notebook>
+								<group col="4" colspan="4">
+									<separator string="Order Generation" colspan="4" />
+									<field name="is_tax_included" />
+									<field name="picking_policy" />
+									<field name="order_policy" />
+									<field name="invoice_quantity" />
+									<field name="invoice_generation_policy" />
+									<field name="picking_generation_policy" />
+								</group>
+							</page>
+						</notebook>
 				</form>
 			</field>
 		</record>
-		
-		
-        <record id="simple_pos_view_account_journal_form" model="ir.ui.view">
-            <field name="name">simple_pos_view_account_journal_form</field>
-            <field name="model">account.journal</field>
-            <field name="type">form</field>
-            <field name="inherit_id" ref="account.view_account_journal_form" />
-            <field name="arch" type="xml">
-    			<field name="type" position="after">
-					<field name="external_payment_codes" /> 
-				</field>
-            </field>
-        </record>
 
 	</data>
 </openerp>

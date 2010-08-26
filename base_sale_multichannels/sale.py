@@ -24,7 +24,6 @@ from base_external_referentials import external_osv
 from sets import Set
 import netsvc
 from tools.translate import _
-from datetime import datetime
 
 
 class external_shop_group(external_osv.external_osv):
@@ -44,7 +43,7 @@ class external_referential(osv.osv):
     _inherit = 'external.referential'
     
     _columns = {
-        'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
+        'entity_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
     }
 
 external_referential()
@@ -90,9 +89,7 @@ class sale_shop(external_osv.external_osv):
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
-        'shop_group_id': fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
-        'last_inventory_export_date': fields.datetime('Last Inventory Export Time'),
-        'last_update_order_export_date' : fields.datetime('Last Order Update  Time'),
+        'shop_group_id':fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')],
@@ -154,13 +151,7 @@ class sale_shop(external_osv.external_osv):
         for shop in self.browse(cr, uid, ids):
             ctx['shop_id'] = shop.id
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            product_ids = [product.id for product in shop.exportable_product_ids]
-            if shop.last_inventory_export_date:
-                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids)])
-                product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids)]
-            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', ctx)
-            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_inventory_export_date': datetime.now()})
-            return res
+            self.pool.get('product.product').export_inventory(cr, uid, [product.id for product in shop.exportable_product_ids], '', ctx)
         
     def import_catalog(self, cr, uid, ids, ctx):
         #TODO import categories, then products
@@ -180,7 +171,7 @@ class sale_shop(external_osv.external_osv):
             #get last imported order:
             cr.execute("select ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL order by sale_order.create_date DESC;" % shop.id)
             results = cr.fetchone()
-            last_external_id = False
+            last_external_id = 0
             if results and len(results) > 0:
                 last_external_id = results[0].split('sale.order_')[1]
             ctx['last_external_id'] = last_external_id
@@ -197,73 +188,20 @@ class sale_shop(external_osv.external_osv):
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
             ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
-            req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL and sale_order.state != 'draft'"
-            param = (shop.id,)
-
-            if shop.last_update_order_export_date:
-                req += "and sale_order.write_date > %s" 
-                param = (shop.id, shop.last_update_order_export_date)
-
-            cr.execute(req, param)
+            #get all orders to exports
+            cr.execute("select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL;" % shop.id)
             results = cr.fetchall()
-
             for result in results:
                 ids = self.pool.get('sale.order').search(cr, uid, [('id', '=', result[0])])
                 if ids:
                     id = ids[0]
-                    order = self.pool.get('sale.order').browse(cr, uid, id, ctx)            
+                    order = self.pool.get('sale.order').browse(cr, uid, id, ctx)
                     order_ext_id = result[1].split('sale.order_')[1]
                     self.update_shop_orders(cr, uid, order, order_ext_id, ctx)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully updated order with OpenERP id %s and ext id %s in external sale system" %(id, order_ext_id))
-            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': datetime.now()})
 
         
     def update_shop_orders(self, cr, uid, order, ext_id, ctx):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
 sale_shop()
-
-
-class sale_order(osv.osv):
-    _inherit = "sale.order"
-
-    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, should_validate, ctx):
-        journal_ids = self.pool.get("account.journal").search(cr, uid, [('external_payment_codes', 'ilike', payment_code)])
-        if journal_ids and len(journal_ids) > 0:
-            return self.generate_payment_with_journal(cr, uid, journal_ids[0], partner_id, amount, payment_ref, entry_name, date, should_validate, ctx)
-        
-    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, ctx):
-        statement_vals = {
-                            'name': 'ST_' + entry_name,
-                            'journal_id': journal_id,
-                            'balance_start': 0,
-                            'balance_end_real': amount,
-                            'date' : date
-                        }
-        statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, ctx)
-        statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, ctx)
-        account_id = self.pool.get('account.bank.statement.line').onchange_partner_id(cr, uid, False, partner_id, "customer", statement.currency.id, ctx)['value']['account_id']
-        statement_line_vals = {
-                                'statement_id': statement_id,
-                                'name': entry_name,
-                                'ref': payment_ref,
-                                'amount': amount,
-                                'partner_id': partner_id,
-                                'account_id': account_id
-                               }
-        statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, ctx)
-        if should_validate:
-            self.pool.get('account.bank.statement').button_confirm(cr, uid, [statement_id], ctx)
-
-sale_order()
-
-class account_journal(osv.osv):
-    _inherit = "account.journal"
-    
-    _columns = {
-                'external_payment_codes': fields.char('External Payment Codes', size=256, help="Enter the external payment codes, comma separated. They will be used to select the payment journal."),
-    }
-    
-account_journal()
-
