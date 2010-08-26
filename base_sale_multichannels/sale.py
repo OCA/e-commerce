@@ -248,6 +248,39 @@ class sale_shop(external_osv.external_osv):
     def update_shop_orders(self, cr, uid, order, ext_id, ctx):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
+    def export_shipping(self, cr, uid, ids, ctx):
+        logger = netsvc.Logger()
+        for shop in self.browse(cr, uid, ids):
+            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)        
+        
+            cr.execute("""
+                select stock_picking.id, sale_order.id, count(pickings.id) from stock_picking
+                left join sale_order on sale_order.id = stock_picking.sale_id
+                left join stock_picking as pickings on sale_order.id = pickings.sale_id
+                left join ir_model_data on stock_picking.id = ir_model_data.res_id and ir_model_data.model='stock.picking'
+                where shop_id = %s and ir_model_data.res_id ISNULL and stock_picking.state = 'done'
+                Group By stock_picking.id, sale_order.id
+                """, (shop.id,))
+            results = cr.fetchall()
+            for result in results:
+                if result[2] == 1:
+                    picking_type = 'complete'
+                else:
+                    picking_type = 'partial'
+                
+                ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(cr, uid, result[0], picking_type, shop.referential_id.id, ctx)
+
+                if ext_shipping_id:
+                    ir_model_data_vals = {
+                        'name': "stock_picking_" + str(ext_shipping_id),
+                        'model': "stock.picking",
+                        'res_id': result[0],
+                        'external_referential_id': shop.referential_id.id,
+                        'module': 'extref.' + shop.referential_id.name
+                      }
+                    self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
+                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result[0], ext_shipping_id))
+
 sale_shop()
 
 
@@ -343,6 +376,8 @@ class sale_order(osv.osv):
                     for invoice in order.invoice_ids:
                         wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
         return res
+
+
 
 sale_order()
 
