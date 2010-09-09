@@ -362,7 +362,7 @@ class sale_order(osv.osv):
         
                     if order.order_policy == 'picking':
                         if payment_settings.create_invoice:
-                           invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, order.picking_ids)
+                           invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, [picking.id for picking in order.picking_ids])
                            if payment_settings.validate_invoice:
                                wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
 
