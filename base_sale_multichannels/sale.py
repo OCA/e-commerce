@@ -327,7 +327,7 @@ class sale_order(osv.osv):
                         }
         statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, ctx)
         statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, ctx)
-        account_id = self.pool.get('account.bank.statement.line').onchange_partner_id(cr, uid, [], partner_id, "customer", statement.currency.id, ctx)['value']['account_id']
+        account_id = self.pool.get('account.bank.statement.line').onchange_type(cr, uid, [], partner_id, "customer", ctx)['value']['account_id']
         statement_line_vals = {
                                 'statement_id': statement_id,
                                 'name': entry_name,
