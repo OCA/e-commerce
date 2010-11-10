@@ -247,6 +247,15 @@ class sale_shop(external_osv.external_osv):
             self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         return False
 
+    def update_shop_partners(self, cr, uid, ids, ctx=None):
+        if ctx is None:
+            ctx = {}
+        ctx.update({'force': True}) #FIXME
+        for shop in self.browse(cr, uid, ids):
+            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, ctx))])
+            self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, ctx)
+        return True
         
     def update_shop_orders(self, cr, uid, order, ext_id, ctx):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))

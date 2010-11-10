@@ -23,6 +23,8 @@
                                         type="object" />
                                     <field name="last_inventory_export_date" />
                                 </group>
+                                <separator string="Partners" colspan="4" />
+                                <button name="update_shop_partners" string="Update Partners" colspan="2" type="object" />
                                 <separator string="Orders" colspan="4" />
                                 <button name="import_orders" string="Import Orders"
                                     colspan="2" type="object" />
