@@ -123,6 +123,7 @@ class sale_shop(external_osv.external_osv):
         'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on', help="The sale order will automatically create the invoice proposition (draft invoice). Ordered and delivered quantities may not be the same. You have to choose if you invoice based on ordered or shipped quantities. If the product is a service, shipped quantities means hours spent on the associated tasks."),
         'invoice_generation_policy': fields.selection([('none', 'None'), ('draft', 'Draft'), ('valid', 'Validated')], 'Invoice Generation Policy', help="Should orders create an invoice after import?"),
         'picking_generation_policy': fields.selection([('none', 'None'), ('draft', 'Draft'), ('valid', 'Validated')], 'Picking Generation Policy', help="Should orders create a picking after import?"),
+        'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
     }
     
     _defaults = {
@@ -376,6 +377,13 @@ class sale_order(osv.osv):
                                wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
 
         return True
+
+
+    def _make_invoice(self, cr, uid, order, lines, context={}):
+        inv_id = super(sale_order, self)._make_invoice(cr, uid, order, lines, context)
+        if order.shop_id.sale_journal:
+            self.pool.get('account.invoice').write(cr, uid, [inv_id], {'journal_id' : order.shop_id.sale_journal.id}, context=context)
+        return inv_id
 
     def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
         wf_service = netsvc.LocalService("workflow")
