@@ -13,32 +13,34 @@
                         <field name="sale_journal" domain="[('type','=','sale')]"/>
                     </field>
                     <form string="Sale Shop" position="inside">
+                        <field name="is_tax_included"/>
                         <separator string="Sale Multi Channels" colspan="4" />
                         <notebook colspan="4">
                             <page string="Actions">
-                                <group col="4" colspan="4">
-                                    <separator string="Catalog" colspan="4" />
-                                    <group col="4" colspan="4">
-                                        <button name="export_catalog" string="Export Catalog" type="object" />
-                                        <field name="last_products_export_date" />
+                                <group col="6" colspan="4">
+                                    <group col="3" colspan="3">
+                                    <separator string="Catalog" colspan="3"/>
+                                    <group col="1" colspan="1">
+                                        <button name="export_catalog" string="Export Catalog" colspan="1" type="object"/>
+                                        <button name="export_inventory" string="Export Stock Levels Only" colspan="1" type="object"/>
                                     </group>
-                                    <group col="4" colspan="4">
-                                        <button name="export_inventory" string="Export Stock Levels Only"
-                                            type="object" />
-                                        <field name="last_inventory_export_date" />
+                                    <group col="2" colspan="2">
+                                        <field name="last_products_export_date" colspan="2"/>
+                                        <field name="last_inventory_export_date" colspan="2"/>
                                     </group>
-                                    <separator string="Partners" colspan="4" />
-                                    <button name="update_shop_partners" string="Update Partners" colspan="2" type="object" />
-                                    <separator string="Orders" colspan="4" />
-                                    <button name="import_orders" string="Import Orders"
-                                          colspan="2" type="object" />
-                                    <group col="4" colspan="4">
-                                        <button name="update_orders" string="Update Orders Status"
-                                            colspan="2" type="object" />
-                                        <field name="last_update_order_export_date" />
+                                </group>
+                                <group col="3" colspan="3">
+                                    <separator string="Orders" colspan="3"/>
+                                    <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
+                                    <newline/>
+                                    <button name="update_orders" string="Update Orders Status" colspan="1" type="object"/>
+                                    <field name="last_update_order_export_date" colspan="2"/>
+                                    <button name="export_shipping" string="Export Shipping" colspan="1" type="object"/>
                                     </group>
-                                    <button name="export_shipping" string="Export Shipping"
-									    colspan="2" type="object" />
+                                    <separator string="Partners" colspan="3"/>
+                                    <newline/>
+                                    <button name="update_shop_partners" string="Update Partners" colspan="1" type="object"/>
+                                    <newline/>
                                 </group>
                             </page>
                             <page string="External Shop Settings">
@@ -48,20 +50,8 @@
                                     <field name="exportable_root_category_ids" />
                                 </group>
                             </page>
-
                             <page string="Exportable Products">
                                 <field name="exportable_product_ids" nolabel="1" colspan="4" />
-                            </page>
-
-                            <page string="Order Generation">
-                                <group col="4" colspan="4">
-                                    <field name="is_tax_included" />
-                                    <field name="picking_policy" />
-                                    <field name="order_policy" />
-                                    <field name="invoice_quantity" />
-                                    <field name="invoice_generation_policy" />
-                                    <field name="picking_generation_policy" />
-                                </group>
                             </page>
                         </notebook>
                     </form>
