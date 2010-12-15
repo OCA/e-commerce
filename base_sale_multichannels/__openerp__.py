@@ -49,7 +49,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
     """,
     'author': 'Raphaël Valyi (Akretion.com), Sharoon Thomas (Openlabs.co.in)',
     'website': 'http://www.akretion.com',
-    'depends': ['sale', 'base_external_referentials'],
+    'depends': ['sale', 'base_external_referentials', 'account_voucher'],
     'init_xml': [],
     'update_xml': [
         'security/ir.model.access.csv',

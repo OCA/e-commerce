@@ -294,29 +294,35 @@ class sale_order(osv.osv):
         return False
         
     def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, context):
+        voucher_obj = self.pool.get('account.voucher')
+        voucher_line_obj = self.pool.get('account.voucher.line')
+        data = voucher_obj.onchange_partner_id(cr, uid, [], partner_id, journal_id, int(amount), False, 'receipt')['value']
+        account_id = data['account_id']
+        currency_id = data['currency_id']
         statement_vals = {
-                            'name': 'ST_' + entry_name,
+                            'reference': 'ST_' + entry_name,
                             'journal_id': journal_id,
-                            'balance_start': 0,
-                            'balance_end_real': amount,
-                            'date' : date
+                            'amount': amount,
+                            'date' : date,
+                            'partner_id': partner_id,
+                            'account_id': account_id,
+                            'type': 'receipt',
+                            'currency_id': currency_id,
                         }
-        statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, context)
-        statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, context)
-        account_id = self.pool.get('account.bank.statement.line').onchange_type(cr, uid, [], partner_id, "customer", context)['value']['account_id']
+        statement_id = voucher_obj.create(cr, uid, statement_vals, context)
+        context.update({'type': 'receipt', 'partner_id': partner_id, 'journal_id': journal_id, 'default_type': 'cr'})
+        line_account_id = voucher_line_obj.default_get(cr, uid, ['account_id'], context)['account_id']
         statement_line_vals = {
-                                'statement_id': statement_id,
-                                'name': entry_name,
-                                'ref': payment_ref,
+                                'voucher_id': statement_id,
                                 'amount': amount,
-                                'partner_id': partner_id,
-                                'account_id': account_id
+                                'account_id': line_account_id,
+                                'type': 'cr',
                                }
-        statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, context)
+        statement_line_id = voucher_line_obj.create(cr, uid, statement_line_vals, context)
         if should_validate:
-            self.pool.get('account.bank.statement').button_confirm(cr, uid, [statement_id], context)
-            self.pool.get('account.move.line').write(cr, uid, [statement.move_line_ids[0].id], {'date': date})
-        return statement_line_id
+            wf_service = netsvc.LocalService("workflow")
+            wf_service.trg_validate(uid, 'account.voucher', statement_id, 'proforma_voucher', cr)
+        return statement_id
 
 
     def oe_status(self, cr, uid, order_id, paid = True, context = None):
