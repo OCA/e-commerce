@@ -12,7 +12,7 @@
                     <field name="payment_default_id" position="after">
                         <field name="sale_journal" domain="[('type','=','sale')]"/>
                     </field>
-                    <form string="Sale Shop" position="inside">
+                    <form position="inside">
                         <field name="is_tax_included"/>
                         <separator string="Sale Multi Channels" colspan="4" />
                         <notebook colspan="4">
