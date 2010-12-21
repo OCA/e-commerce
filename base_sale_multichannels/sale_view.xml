@@ -72,6 +72,19 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="base_sale_multichannel_view_order_form">
+            <field name="name">base_sale_multichannel_view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="ext_payment_method" />
+                    <field name="need_to_update" />
+                </field>
+            </field>
+        </record>
+
         <record id="view_base_sale_payment_type_form" model="ir.ui.view">
             <field name="name">base.sale.payment.type</field>
             <field name="model">base.sale.payment.type</field>
@@ -128,6 +141,60 @@
         </record>
 
         <menuitem action="act_base_sale_payment_type_form" id="menu_base_sale_payment_type" name="E-Commerce Payment Configuration" parent="account.menu_finance" sequence="25"/>
+
+        <record id="base_external_referentials.ext_Product" model="ir.actions.act_window">
+            <field name="name">External Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.data</field>
+            <field name="view_type">form</field>
+            <field name="src_model">product.product</field>
+            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'product.product')]</field>
+        </record>
+
+        <record id="base_external_referentials.ext_Product Category" model="ir.actions.act_window">
+            <field name="name">External Product Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.data</field>
+            <field name="view_type">form</field>
+            <field name="src_model">product.category</field>
+            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'product.category')]</field>
+        </record>
+
+        <record id="base_external_referentials.ext_Sale Order" model="ir.actions.act_window">
+            <field name="name">External Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.data</field>
+            <field name="view_type">form</field>
+            <field name="src_model">sale.order</field>
+            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'sale.order')]</field>
+        </record>
+		
+        <record id="base_external_referentials.ext_Sale Shop" model="ir.actions.act_window">
+            <field name="name">External Sale Shop</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.data</field>
+            <field name="view_type">form</field>
+            <field name="src_model">sale.shop</field>
+            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'sale.shop')]</field>
+        </record>
+
+        <record id="base_external_referentials.ext_Partner" model="ir.actions.act_window">
+            <field name="name">External Partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.data</field>
+            <field name="view_type">form</field>
+            <field name="src_model">res.partner</field>
+            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'res.partner')]</field>
+        </record>
+		
+        <record id="base_external_referentials.ext_Partner Addresses" model="ir.actions.act_window">
+            <field name="name">External Partner Addresses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.model.data</field>
+            <field name="view_type">form</field>
+            <field name="src_model">res.partner.address</field>
+            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'res.partner.address')]</field>
+        </record>
 
     </data>
 </openerp>
