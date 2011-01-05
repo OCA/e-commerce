@@ -367,12 +367,15 @@ class sale_order(osv.osv):
         return inv_id
 
     def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
+        inv_obj = self.pool.get('account.invoice')
         wf_service = netsvc.LocalService("workflow")
         res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
-        for order_id in ids:
-            order = self.browse(cr, uid, order_id)
+        
+        for order in self.browse(cr, uid, ids, context=context):
+            payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context=context)
+            if payment_settings and payment_settings.invoice_date_is_order_date:
+                inv_obj.write(cr, uid, [inv.id for inv in order.invoice_ids], {'date_invoice' : order.date_order}, context=context)
             if order.order_policy == 'postpaid':
-                payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method)
                 if payment_settings and payment_settings.validate_invoice:
                     for invoice in order.invoice_ids:
                         wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
@@ -403,6 +406,7 @@ class base_sale_payment_type(osv.osv):
         'create_invoice': fields.boolean('Create Invoice?'),
         'validate_invoice': fields.boolean('Validate Invoice?'),
         'check_if_paid': fields.boolean('Check if Paid?'),
+        'invoice_date_is_order_date' : fields.boolean('Force Invoice Date?', help="If it's check the invoice date will be the same as the order date"),
     }
     
     _defaults = {

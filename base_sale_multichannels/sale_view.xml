@@ -101,6 +101,7 @@
                     <field name="validate_order"/>
                     <field name="create_invoice" />
                     <field name="validate_invoice"/>
+                    <field name="invoice_date_is_order_date"/>
                     <separator string="Account Option" colspan="4" />
                     <field name="journal_id"/>
                     <field name="check_if_paid"/>
