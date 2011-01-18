@@ -102,6 +102,7 @@
                     <field name="create_invoice" />
                     <field name="validate_invoice"/>
                     <field name="invoice_date_is_order_date"/>
+                    <field name="days_before_order_cancel"/>
                     <separator string="Account Option" colspan="4" />
                     <field name="journal_id"/>
                     <field name="check_if_paid"/>
