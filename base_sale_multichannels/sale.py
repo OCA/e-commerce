@@ -368,14 +368,14 @@ class sale_order(osv.osv):
         
                     elif order.order_policy == 'picking':
                         if payment_settings.create_invoice:
-                           try:
-                               invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, [picking.id for picking in order.picking_ids])
-                           except Exception, e:
-                               self.log(cr, uid, order.id, "Cannot create invoice from picking for order %s" %(order.name,))
-                           if payment_settings.validate_invoice:
-                               wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
-                               if payment_settings.is_auto_reconcile:
-                                   self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
+                            try:
+                                invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, [picking.id for picking in order.picking_ids])
+                            except Exception, e:
+                                self.log(cr, uid, order.id, "Cannot create invoice from picking for order %s" %(order.name,))
+                            if payment_settings.validate_invoice:
+                                wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
+                                if payment_settings.is_auto_reconcile:
+                                    self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
 
         return True
 
