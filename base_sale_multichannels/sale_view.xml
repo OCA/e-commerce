@@ -107,7 +107,7 @@
                     <field name="journal_id"/>
                     <field name="check_if_paid"/>
                     <field name="validate_payment"/>
-                    <!-- <field name="is_auto_reconcile"/> -->
+                    <field name="is_auto_reconcile"/>
                 </form>
             </field>
         </record>

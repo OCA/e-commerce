@@ -353,12 +353,16 @@ class sale_order(osv.osv):
                         if payment_settings.validate_invoice:
                             for invoice in order.invoice_ids:
                                 wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
+                                if payment_settings.is_auto_reconcile:
+                                    invoice.auto_reconcile(context=context)
         
                     elif order.order_policy == 'manual':
                         if payment_settings.create_invoice:
                            invoice_id = self.pool.get('sale.order').action_invoice_create(cr, uid, [order_id])
                            if payment_settings.validate_invoice:
                                wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
+                               if payment_settings.is_auto_reconcile:
+                                   self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
         
                     # IF postpaid DO NOTHING
         
@@ -370,6 +374,8 @@ class sale_order(osv.osv):
                                self.log(cr, uid, order.id, "Cannot create invoice from picking for order %s" %(order.name,))
                            if payment_settings.validate_invoice:
                                wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
+                               if payment_settings.is_auto_reconcile:
+                                   self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
 
         return True
 
@@ -393,6 +399,8 @@ class sale_order(osv.osv):
                 if payment_settings and payment_settings.validate_invoice:
                     for invoice in order.invoice_ids:
                         wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
+                        if payment_settings.is_auto_reconcile:
+                            invoice.auto_reconcile(context=context)
         return res
 
 
@@ -435,4 +443,20 @@ class base_sale_payment_type(osv.osv):
     }
 
 base_sale_payment_type()
+
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+
+    def auto_reconcile(self, cr, uid, ids, context=None):
+        obj_move_line = self.pool.get('account.move.line')
+        for invoice in self.browse(cr, uid, ids, context=context):
+            line_ids = obj_move_line.search(cr, uid, ['|', ['ref', 'ilike', invoice.origin], ['ref', '=', invoice.move_id.ref], ['account_id', '=', invoice.account_id.id]], context=context)
+            if len(line_ids) == 2:
+                lines = obj_move_line.read(cr, uid, line_ids, ['debit', 'credit'], context=context)
+                if abs(lines[1]['debit'] - lines[0]['credit']) < 0.001 and abs(lines[0]['debit'] - lines[1]['credit']) < 0.001:
+                    obj_move_line.reconcile(cr, uid, line_ids, context=context)
+
+        return True
+
+account_invoice()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
