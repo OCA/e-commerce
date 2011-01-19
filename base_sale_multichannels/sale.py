@@ -347,7 +347,7 @@ class sale_order(osv.osv):
                         wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
                         self.write(cr, uid, order.id, {'need_to_update': False})
                     except Exception, e:
-                        self.log(order.id, "ERROR could not valid order")
+                        self.log(cr, uid, order.id, "ERROR could not valid order")
 
                     if order.order_policy == 'prepaid':
                         if payment_settings.validate_invoice:
