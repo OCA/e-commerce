@@ -296,7 +296,7 @@ class sale_order(osv.osv):
     def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, context):
         voucher_obj = self.pool.get('account.voucher')
         voucher_line_obj = self.pool.get('account.voucher.line')
-        data = voucher_obj.onchange_partner_id(cr, uid, [], partner_id, journal_id, int(amount), False, 'payment', date, context)['value']
+        data = voucher_obj.onchange_partner_id(cr, uid, [], partner_id, journal_id, int(amount), False, 'receipt', date, context)['value']
         account_id = data['account_id']
         currency_id = data['currency_id']
         statement_vals = {
@@ -306,11 +306,11 @@ class sale_order(osv.osv):
                             'date' : date,
                             'partner_id': partner_id,
                             'account_id': account_id,
-                            'type': 'payment',
+                            'type': 'receipt',
                             'currency_id': currency_id,
                         }
         statement_id = voucher_obj.create(cr, uid, statement_vals, context)
-        context.update({'type': 'payment', 'partner_id': partner_id, 'journal_id': journal_id, 'default_type': 'cr'})
+        context.update({'type': 'receipt', 'partner_id': partner_id, 'journal_id': journal_id, 'default_type': 'cr'})
         line_account_id = voucher_line_obj.default_get(cr, uid, ['account_id'], context)['account_id']
         statement_line_vals = {
                                 'voucher_id': statement_id,
