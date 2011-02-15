@@ -157,7 +157,7 @@ class sale_shop(external_osv.external_osv):
             context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             product_ids = [product.id for product in shop.exportable_product_ids]
             if shop.last_inventory_export_date:
-                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids), ('state', '!=', 'draft'), ('state', '!=', 'cancel')])
+                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('write_date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids), ('state', '!=', 'draft'), ('state', '!=', 'cancel')])
             else:
                 recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('product_id', 'in', product_ids)])
             product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
