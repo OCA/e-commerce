@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="product_export_wizard_view">
+			<field name="name">product.export.wizard.view</field>
+			<field name="model">product.export.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+                <form string="Select The Shop To Syncronize">
+				    <field name="shop" nolabel="1" colspan='4'/>
+                    <button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                    <button icon="gtk-ok" name="export_product" string="Export Product" type="object"/>
+				    <button icon="gtk-ok" name="export_inventory" string="Export Stock" type="object"/>
+                    <button icon="gtk-ok" name="export_product_and_inventory" string="Export Product And Stock" type="object"/>
+                </form>
+			</field>
+		</record>
+
+		<record id="action_product_export_wizard" model="ir.actions.act_window">
+			<field name="name">Export Product</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.export.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+            <field name="context">{}</field>
+		</record>
+
+		<record id="ir_action_export_product_wizard" model="ir.values">
+			<field name="key2">client_action_multi</field>
+			<field name="model">product.product</field>
+			<field name="name">Export Product</field>
+			<field eval="'ir.actions.act_window,%d'%action_product_export_wizard" name="value"/>
+			<field eval="True" name="object"/>
+		</record>
+	</data>
+</openerp>
