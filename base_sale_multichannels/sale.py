@@ -285,8 +285,13 @@ class sale_order(osv.osv):
     }
 
     def payment_code_to_payment_settings(self, cr, uid, payment_code, context=None):
-        payment_setting_ids = self.pool.get('base.sale.payment.type').search(cr, uid, [['name', 'ilike', payment_code]])
-        return payment_setting_ids and self.pool.get('base.sale.payment.type').browse(cr, uid, payment_setting_ids[0], context) or False
+        pay_type_obj = self.pool.get('base.sale.payment.type')
+        payment_setting_ids = pay_type_obj.search(cr, uid, [['name', 'like', payment_code]])
+        payment_setting_id = False
+        for type in pay_type_obj.read(cr, uid, payment_setting_ids, fields=['name'], context=context):
+            if payment_code in [x.strip() for x in type['name'].split(';')]:
+                payment_setting_id = type['id']
+        return payment_setting_id and pay_type_obj.browse(cr, uid, payment_setting_id, context) or False
 
     def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, paid, context):
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_code, context)
