@@ -9,3 +9,4 @@
 "access_base_external_referentials_external_mapping","base_external_referentials_external_mapping","base_external_referentials.model_external_mapping","base.group_sale_manager",1,1,1,1
 "access_sale_sale_shop","sale_sale_shop","sale.model_sale_shop","base.group_sale_manager",1,1,1,1
 "access_base_sale_multichannels_ir_model_data","base_sale_multichannels_ir_model_data","base.model_ir_model_data","base.group_sale_manager",1,1,1,1
+"access_base_sale_payment_type","base_sale_payment_type","model_base_sale_payment_type","base.group_sale_salesman",1,1,1,1
