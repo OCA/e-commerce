@@ -74,6 +74,10 @@ class product_category(osv.osv):
     
 product_category()
 
+class product_product(external_osv.external_osv):
+    _inherit = "product.product"
+    
+product_product()
 
 class sale_shop(external_osv.external_osv):
     _inherit = "sale.shop"
@@ -358,6 +362,9 @@ class sale_order(osv.osv):
                         self.write(cr, uid, order.id, {'need_to_update': False})
                     except Exception, e:
                         self.log(cr, uid, order.id, "ERROR could not valid order")
+                    
+                    if payment_settings.validate_picking:
+                        self.pool.get('stock.picking').validate_picking(cr, uid, order_id)
 
                     if order.order_policy == 'prepaid':
                         if payment_settings.validate_invoice:
@@ -437,6 +444,7 @@ class base_sale_payment_type(osv.osv):
         'validate_payment': fields.boolean('Validate Payment?'),
         'create_invoice': fields.boolean('Create Invoice?'),
         'validate_invoice': fields.boolean('Validate Invoice?'),
+        'validate_picking': fields.boolean('Validate Picking?'),
         'check_if_paid': fields.boolean('Check if Paid?'),
         'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
         'invoice_date_is_order_date' : fields.boolean('Force Invoice Date?', help="If it's check the invoice date will be the same as the order date"),
@@ -470,4 +478,20 @@ class account_invoice(osv.osv):
         return True
 
 account_invoice()
+
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+    
+    def validate_picking(self, cr, uid, order_id, context=None):
+        so_name = self.pool.get('sale.order').read(cr, uid, order_id, ['name'])['name']
+        picking_id = self.search(cr, uid, [('origin', '=', so_name)])[0]
+        picking = self.browse(cr, uid, picking_id)
+        self.force_assign(cr, uid, [picking_id])
+        partial_data = {}
+        for move in picking.move_lines:
+            partial_data["move" + str(move.id)] = {'product_qty': move.product_qty}
+        self.do_partial(cr, uid, [picking_id], partial_data)
+        return True
+        
+stock_picking()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
