@@ -260,11 +260,11 @@ class sale_shop(external_osv.external_osv):
 
                 if ext_shipping_id:
                     ir_model_data_vals = {
-                        'name': "stock_picking_" + str(ext_shipping_id),
+                        'name': "stock_picking/" + str(ext_shipping_id),
                         'model': "stock.picking",
                         'res_id': result[0],
                         'external_referential_id': shop.referential_id.id,
-                        'module': 'extref.' + shop.referential_id.name
+                        'module': 'extref/' + shop.referential_id.name
                       }
                     self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result[0], ext_shipping_id))
