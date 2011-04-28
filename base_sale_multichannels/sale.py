@@ -331,7 +331,10 @@ class sale_order(osv.osv):
         order = self.browse(cr, uid, order_id, context)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context)
                 
-        if payment_settings: 
+        if payment_settings:
+            if payment_settings.payment_term_id:
+                self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
+
             if payment_settings.check_if_paid and not paid:
                 if order.state == 'draft' and datetime.strptime(order.date_order, '%Y-%m-%d') < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
                     wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
@@ -430,6 +433,7 @@ class base_sale_payment_type(osv.osv):
         'check_if_paid': fields.boolean('Check if Paid?'),
         'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
         'invoice_date_is_order_date' : fields.boolean('Force Invoice Date?', help="If it's check the invoice date will be the same as the order date"),
+        'payment_term_id': fields.many2one('account.payment.term', 'Payment Term'),
     }
     
     _defaults = {

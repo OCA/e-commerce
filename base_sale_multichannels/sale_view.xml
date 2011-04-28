@@ -97,6 +97,7 @@
                     <field name="picking_policy"/>
                     <field name="order_policy"/>
                     <field name="invoice_quantity"/>
+                    <field name="payment_term_id"/>
                     <separator string="Worflow Option" colspan="4" />
                     <field name="validate_order"/>
                     <field name="create_invoice" />
@@ -123,6 +124,7 @@
                     <field name="picking_policy"/>
                     <field name="order_policy"/>
                     <field name="invoice_quantity"/>
+                    <field name="payment_term_id"/>
                     <field name="is_auto_reconcile"/>
                     <field name="validate_order"/>
                     <field name="validate_payment"/>
