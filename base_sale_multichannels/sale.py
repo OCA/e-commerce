@@ -285,6 +285,7 @@ class sale_shop(osv.osv):
                       }
                     self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result[0], ext_shipping_id))
+        return True
 
 sale_shop()
 
@@ -379,7 +380,7 @@ class sale_order(osv.osv):
                     
                     cr.execute('select * from ir_module_module where name=%s and state=%s', ('mrp','installed'))
                     if payment_settings.validate_manufactoring_order and cr.fetchone(): #if mrp module is installed
-                        self.pool.get('stock.picking').validate_manufactoring_order(cr, uid, order_id, context)
+                        self.pool.get('stock.picking').validate_manufactoring_order(cr, uid, order.name, context)
 
                     if order.order_policy == 'prepaid':
                         if payment_settings.validate_invoice:
@@ -510,23 +511,20 @@ class stock_picking(osv.osv):
         self.do_partial(cr, uid, [picking_id], partial_data)
         return True
         
-    def validate_manufactoring_order(self, cr, uid, order_id, context=None): #we do not create class mrp.production to avoid dependence with the module mrp
+    def validate_manufactoring_order(self, cr, uid, origin, context=None): #we do not create class mrp.production to avoid dependence with the module mrp
         if context == None:
             context = {}
         wf_service = netsvc.LocalService("workflow")
-        so_name = self.pool.get('sale.order').read(cr, uid, order_id, ['name'])['name']
         mrp_prod_obj = self.pool.get('mrp.production')
         mrp_product_produce_obj = self.pool.get('mrp.product.produce')
-        production_ids = mrp_prod_obj.search(cr, uid, [('origin', '=', so_name)])
+        production_ids = mrp_prod_obj.search(cr, uid, [('origin', 'ilike', origin)])
         for production in mrp_prod_obj.browse(cr, uid, production_ids):
             mrp_prod_obj.force_production(cr, uid, [production.id])
             wf_service.trg_validate(uid, 'mrp.production', production.id, 'button_produce', cr)
-            print context
             context.update({'active_model': 'mrp.production', 'active_ids': [production.id], 'search_default_ready': 1, 'active_id': production.id})
-            print context
             produce = mrp_product_produce_obj.create(cr, uid, {'mode': 'consume_produce', 'product_qty': production.product_qty}, context)
-            print produce
             mrp_product_produce_obj.do_produce(cr, uid, [produce], context)
+            self.validate_manufactoring_order(cr, uid, production.name, context)
         return True
         
 stock_picking()
