@@ -348,68 +348,70 @@ class sale_order(osv.osv):
         return statement_id
 
 
-    def oe_status(self, cr, uid, order_id, paid = True, context = None):
+    def oe_status(self, cr, uid, ids, paid = True, context = None):
+        if type(ids) in [int, long]:
+            ids =[ids]
         wf_service = netsvc.LocalService("workflow")
         logger = netsvc.Logger()
-        order = self.browse(cr, uid, order_id, context)
-        payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context)
-                
-        if payment_settings:
-            if payment_settings.payment_term_id:
-                self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
+        for order in self.browse(cr, uid, ids, context):
+            payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context)
+            
+            if payment_settings:
+                if payment_settings.payment_term_id:
+                    self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
 
-            if payment_settings.check_if_paid and not paid:
-                if order.state == 'draft' and datetime.strptime(order.date_order, '%Y-%m-%d') < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
-                    wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
-                    self.write(cr, uid, order.id, {'need_to_update': False})
-                    self.log(cr, uid, order.id, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
-                    #TODO eventually call a trigger to cancel the order in the external system too
-                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
-                else:
-                    self.write(cr, uid, order.id, {'need_to_update': True})
-            else:
-                if payment_settings.validate_order:
-                    try:
-                        wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
+                if payment_settings.check_if_paid and not paid:
+                    if order.state == 'draft' and datetime.strptime(order.date_order, '%Y-%m-%d') < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
+                        wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
                         self.write(cr, uid, order.id, {'need_to_update': False})
-                    except Exception, e:
-                        self.log(cr, uid, order.id, "ERROR could not valid order")
-                    
-                    if payment_settings.validate_picking:
-                        self.pool.get('stock.picking').validate_picking_from_order(cr, uid, order_id)
-                    
-                    cr.execute('select * from ir_module_module where name=%s and state=%s', ('mrp','installed'))
-                    if payment_settings.validate_manufactoring_order and cr.fetchone(): #if mrp module is installed
-                        self.pool.get('stock.picking').validate_manufactoring_order(cr, uid, order.name, context)
+                        self.log(cr, uid, order.id, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
+                        #TODO eventually call a trigger to cancel the order in the external system too
+                        logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
+                    else:
+                        self.write(cr, uid, order.id, {'need_to_update': True})
+                else:
+                    if payment_settings.validate_order:
+                        try:
+                            wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
+                            self.write(cr, uid, order.id, {'need_to_update': False})
+                        except Exception, e:
+                            self.log(cr, uid, order.id, "ERROR could not valid order")
+                        
+                        if payment_settings.validate_picking:
+                            self.pool.get('stock.picking').validate_picking_from_order(cr, uid, order.id)
+                        
+                        cr.execute('select * from ir_module_module where name=%s and state=%s', ('mrp','installed'))
+                        if payment_settings.validate_manufactoring_order and cr.fetchone(): #if mrp module is installed
+                            self.pool.get('stock.picking').validate_manufactoring_order(cr, uid, order.name, context)
 
-                    if order.order_policy == 'prepaid':
-                        if payment_settings.validate_invoice:
-                            for invoice in order.invoice_ids:
-                                wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
-                                if payment_settings.is_auto_reconcile:
-                                    invoice.auto_reconcile(context=context)
-        
-                    elif order.order_policy == 'manual':
-                        if payment_settings.create_invoice:
-                           wf_service.trg_validate(uid, 'sale.order', order_id, 'manual_invoice', cr)
-                           invoice_id = self.browse(cr, uid, order_id).invoice_ids[0].id
-                           if payment_settings.validate_invoice:
-                               wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
-                               if payment_settings.is_auto_reconcile:
-                                   self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
-        
-                    # IF postpaid DO NOTHING
-        
-                    elif order.order_policy == 'picking':
-                        if payment_settings.create_invoice:
-                            try:
-                                invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, [picking.id for picking in order.picking_ids])
-                            except Exception, e:
-                                self.log(cr, uid, order.id, "Cannot create invoice from picking for order %s" %(order.name,))
+                        if order.order_policy == 'prepaid':
                             if payment_settings.validate_invoice:
-                                wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
-                                if payment_settings.is_auto_reconcile:
-                                    self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
+                                for invoice in order.invoice_ids:
+                                    wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
+                                    if payment_settings.is_auto_reconcile:
+                                        invoice.auto_reconcile(context=context)
+            
+                        elif order.order_policy == 'manual':
+                            if payment_settings.create_invoice:
+                               wf_service.trg_validate(uid, 'sale.order', order.id, 'manual_invoice', cr)
+                               invoice_id = self.browse(cr, uid, order.id).invoice_ids[0].id
+                               if payment_settings.validate_invoice:
+                                   wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
+                                   if payment_settings.is_auto_reconcile:
+                                       self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
+            
+                        # IF postpaid DO NOTHING
+            
+                        elif order.order_policy == 'picking':
+                            if payment_settings.create_invoice:
+                                try:
+                                    invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, [picking.id for picking in order.picking_ids])
+                                except Exception, e:
+                                    self.log(cr, uid, order.id, "Cannot create invoice from picking for order %s" %(order.name,))
+                                if payment_settings.validate_invoice:
+                                    wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
+                                    if payment_settings.is_auto_reconcile:
+                                        self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
 
         return True
 
