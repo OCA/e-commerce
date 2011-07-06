@@ -376,7 +376,7 @@ class sale_order(osv.osv):
                         self.log(cr, uid, order.id, "ERROR could not valid order")
                     
                     if payment_settings.validate_picking:
-                        self.pool.get('stock.picking').validate_picking(cr, uid, order_id)
+                        self.pool.get('stock.picking').validate_picking_from_order(cr, uid, order_id)
                     
                     cr.execute('select * from ir_module_module where name=%s and state=%s', ('mrp','installed'))
                     if payment_settings.validate_manufactoring_order and cr.fetchone(): #if mrp module is installed
@@ -500,15 +500,18 @@ account_invoice()
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
     
-    def validate_picking(self, cr, uid, order_id, context=None):
+    def validate_picking_from_order(self, cr, uid, order_id, context=None):
         so_name = self.pool.get('sale.order').read(cr, uid, order_id, ['name'])['name']
         picking_id = self.search(cr, uid, [('origin', '=', so_name)])[0]
-        picking = self.browse(cr, uid, picking_id)
-        self.force_assign(cr, uid, [picking_id])
-        partial_data = {}
-        for move in picking.move_lines:
-            partial_data["move" + str(move.id)] = {'product_qty': move.product_qty}
-        self.do_partial(cr, uid, [picking_id], partial_data)
+        return self.validate_picking(self, cr, uid, [picking_id], context=context)
+        
+    def validate_picking(self, cr, uid, ids, context=None):
+        for picking in self.browse(cr, uid, ids, context=context):
+            self.force_assign(cr, uid, [picking.id])
+            partial_data = {}
+            for move in picking.move_lines:
+                partial_data["move" + str(move.id)] = {'product_qty': move.product_qty}
+            self.do_partial(cr, uid, [picking.id], partial_data)
         return True
         
     def validate_manufactoring_order(self, cr, uid, origin, context=None): #we do not create class mrp.production to avoid dependence with the module mrp
