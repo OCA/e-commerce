@@ -503,7 +503,7 @@ class stock_picking(osv.osv):
     def validate_picking_from_order(self, cr, uid, order_id, context=None):
         so_name = self.pool.get('sale.order').read(cr, uid, order_id, ['name'])['name']
         picking_id = self.search(cr, uid, [('origin', '=', so_name)])[0]
-        return self.validate_picking(self, cr, uid, [picking_id], context=context)
+        return self.validate_picking(cr, uid, [picking_id], context=context)
         
     def validate_picking(self, cr, uid, ids, context=None):
         for picking in self.browse(cr, uid, ids, context=context):
