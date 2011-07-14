@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
-#    Copyright (C) 2009 Akretion (<http://www.akretion.com>). All Rights Reserved
-#    authors: Raphaël Valyi, Sharoon Thomas
+#    Author Guewen Baconnier. Copyright 2011 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,10 +18,14 @@
 #
 ##############################################################################
 
-import sale
-import stock
-import report
-import wizard
-import delivery
+from osv import fields, osv
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class delivery_carrier(osv.osv):
+    _inherit = "delivery.carrier"
+
+    _columns = {
+        'export_needs_tracking': fields.boolean('Export only shippings with a tracking number'),
+    }
+
+delivery_carrier()

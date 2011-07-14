@@ -255,12 +255,16 @@ class sale_shop(osv.osv):
             context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)        
         
             cr.execute("""
-                select stock_picking.id, sale_order.id, count(pickings.id) from stock_picking
+                select stock_picking.id, sale_order.id, count(pickings.id),
+                       delivery_carrier.export_needs_tracking, stock_picking.carrier_tracking_ref
+                from stock_picking
                 left join sale_order on sale_order.id = stock_picking.sale_id
                 left join stock_picking as pickings on sale_order.id = pickings.sale_id
                 left join ir_model_data on stock_picking.id = ir_model_data.res_id and ir_model_data.model='stock.picking'
+                left join delivery_carrier on delivery_carrier.id = stock_picking.carrier_id
                 where shop_id = %s and ir_model_data.res_id ISNULL and stock_picking.state = 'done'
-                Group By stock_picking.id, sale_order.id
+                Group By stock_picking.id, sale_order.id,
+                         delivery_carrier.export_needs_tracking, stock_picking.carrier_tracking_ref
                 """, (shop.id,))
             results = cr.fetchall()
             for result in results:
@@ -268,6 +272,11 @@ class sale_shop(osv.osv):
                     picking_type = 'complete'
                 else:
                     picking_type = 'partial'
+
+               # only export the shipping if a tracking number exists when the flag
+               # export_needs_tracking is flagged on the delivery carrier
+                if result[3] and not result[4]:
+                    continue
                 
                 ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(cr, uid, result[0], picking_type, shop.referential_id.id, context)
 
