@@ -11,6 +11,7 @@
                 <data>
                     <field name="payment_default_id" position="after">
                         <field name="sale_journal" domain="[('type','=','sale')]"/>
+                        <field name="order_prefix"/>
                     </field>
                     <form position="inside">
                         <field name="is_tax_included"/>
@@ -84,6 +85,55 @@
                 </field>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="base_sale_multichannel_view_order_form">
+            <field name="name">base_sale_multichannel_view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after">
+                        <group name='External Syncronization' colspan="4">
+                            <separator string="External syncronization" colspan="4" />
+                            <field name="ext_product_ref" select="1" />
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="base_sale_multichannel_view_order_line_tree">
+            <field name="name">base_sale_multichannel_view_order_tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="product_id" position="after">
+                        <field name="ext_product_ref" select="1" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="base_sale_multichannel_view_order_line_form">
+            <field name="name">base_sale_multichannel_view_order_form</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_form2" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/notebook/page[@string='Order Lines']/group" position="after">
+                        <group name='External Syncronization' colspan="4">
+                            <separator string="External syncronization" colspan="4" />
+                            <field name="ext_product_ref" select="1" />
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
 
         <record id="view_base_sale_payment_type_form" model="ir.ui.view">
             <field name="name">base.sale.payment.type</field>

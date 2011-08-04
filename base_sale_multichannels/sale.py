@@ -44,6 +44,7 @@ class external_referential(osv.osv):
     
     _columns = {
         'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
+        'unique_shop_id': fields.many2one('sale.shop', 'Shop'),
     }
 
 external_referential()
@@ -106,6 +107,7 @@ class sale_shop(osv.osv):
         'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
+        'order_prefix': fields.char('Order Prefix', size=64),
     }
     
     _defaults = {
@@ -426,7 +428,6 @@ class sale_order(osv.osv):
         inv_obj = self.pool.get('account.invoice')
         wf_service = netsvc.LocalService("workflow")
         res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
-        
         for order in self.browse(cr, uid, ids, context=context):
             payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context=context)
             if payment_settings and payment_settings.invoice_date_is_order_date:
@@ -439,9 +440,16 @@ class sale_order(osv.osv):
                             invoice.auto_reconcile(context=context)
         return res
 
-
-
 sale_order()
+
+class sale_order_line(osv.osv):
+    _inherit='sale.order.line'
+    
+    _columns = {
+        'ext_product_ref': fields.char('Product Ext Ref', help="This is the original external product reference", size=256),
+    }
+
+sale_order_line()
 
 class base_sale_payment_type(osv.osv):
     _name = "base.sale.payment.type"
