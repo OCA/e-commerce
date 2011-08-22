@@ -55,7 +55,6 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'security/ir.model.access.csv',
         'sale_view.xml',
         'report_view.xml',
-        'product_links_view.xml',
         'wizard/export_product.xml',
     ],
     'demo_xml': [],

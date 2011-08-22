@@ -156,7 +156,6 @@ class sale_shop(osv.osv):
             context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             self.export_categories(cr, uid, shop, context)
             self.export_products(cr, uid, shop, context)
-            self.export_product_links(cr, uid, shop, context)
             shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
             report_obj.end_report(cr, uid, report_id, context=context)
         self.export_inventory(cr, uid, ids, context)
@@ -282,13 +281,6 @@ class sale_shop(osv.osv):
                       }
                     self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result[0], ext_shipping_id))
-
-    def export_product_links(self, cr, uid, shop, context=None):
-        link_obj = self.pool.get('product.link')
-        links_modified = link_obj.get_modified_ids(cr, uid, shop.last_products_export_date, context)
-        link_ids = [ link[0] for link in links_modified ]
-        res = link_obj.ext_export(cr, uid, link_ids, [shop.referential_id.id], {}, context)
-        return res
 
 sale_shop()
 

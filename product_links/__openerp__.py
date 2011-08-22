@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
-#    Copyright (C) 2009 Akretion (<http://www.akretion.com>). All Rights Reserved
-#    authors: Raphaël Valyi, Sharoon Thomas
+#    Copyright Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,9 +18,27 @@
 #
 ##############################################################################
 
-import sale
-import stock
-import report
-import wizard
+{
+    'name': 'Product links',
+    'version': '1.0',
+    'category': 'Generic Modules/Products',
+    'description': """
+This module adds links between products :
+ - cross-selling
+ - up-selling
+ - related
+These types of links are common in e-commerce shops.
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+It can be used as a base to implement synchronisations with e-commerce (used in magentoerpconnect).
+    """,
+    'author': 'Camptocamp',
+    'website': 'http://www.camptocamp.com',
+    'depends': ['base','product'],
+    'init_xml': [],
+    'update_xml': [
+                   'product_links_view.xml'
+                   ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}
