@@ -117,10 +117,10 @@ class sale_shop(osv.osv):
                 cr.execute('update sale_shop set referential_id = %s where id=%s', (value, id))
         return True
 
-    def _get_shop_id(self, cr, uid, ids, context=None):
+    def _get_shop_ids(self, cr, uid, ids, context=None):
         shop_ids=[]
         for group in self.pool.get('external.shop.group').browse(cr, uid, ids, context=context):
-            shop_ids.append([shop.id for shop in group.shop_ids])
+            shop_ids += [shop.id for shop in group.shop_ids]
         return shop_ids
         
     _columns = {
@@ -135,7 +135,7 @@ class sale_shop(osv.osv):
         'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
                 relation='external.referential', string='External Referential', method=True,
                 store={
-                    'external.shop.group': (_get_shop_id, ['referential_id'], 10),
+                    'external.shop.group': (_get_shop_ids, ['referential_id'], 10),
                  }),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
