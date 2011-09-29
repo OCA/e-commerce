@@ -99,6 +99,8 @@ class sale_shop(osv.osv):
         for shop in self.browse(cr, uid, ids, context=context):
             if shop.shop_group_id:
                 res[shop.id] = shop.shop_group_id.referential_id.id
+                #path to fix orm bug indeed even if function field are store, the value is not store in the database
+                cr.execute('update sale_shop set referential_id = %s where id=%s', (shop.shop_group_id.referential_id.id, shop.id))
             else:
                 #path to fix orm bug indeed even if function field are store, the value is never read for many2one fields
                 cr.execute('select referential_id from sale_shop where id=%s', (shop.id,))
