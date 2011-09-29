@@ -28,7 +28,7 @@ class product_export_wizard(osv.osv_memory):
     _description = 'product export wizard'
 
     _columns = {
-        'shop': fields.many2many('sale.shop', 'shop_rel', 'id', 'id', 'Shop', required=True),
+        'shop': fields.many2many('sale.shop', string='Shop', required=True),
         }
 
     def export(self, cr, uid, id, option, context=None):
