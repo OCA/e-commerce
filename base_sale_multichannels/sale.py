@@ -378,6 +378,11 @@ class sale_order(osv.osv):
         self.oe_status(cr, uid, order_id, is_paid, context)
         return order_id
     
+    def oe_create(self, cr, uid, vals, data, external_referential_id, defaults, context):
+        order_id = super(sale_order, self).oe_create(cr, uid, vals, data, external_referential_id, defaults, context)
+        self.oe_status_and_paid(cr, uid, order_id, data, external_referential_id, defaults, context)
+        return order_id
+    
     def generate_payment_from_order(self, cr, uid, ids, payment_ref, entry_name=None, paid=True, date=None, context=None):
         if type(ids) in [int, long]:
             ids = [ids]
@@ -440,7 +445,6 @@ class sale_order(osv.osv):
             wf_service = netsvc.LocalService("workflow")
             wf_service.trg_validate(uid, 'account.voucher', statement_id, 'proforma_voucher', cr)
         return statement_id
-
 
     def oe_status(self, cr, uid, ids, paid = True, context = None):
         if type(ids) in [int, long]:
