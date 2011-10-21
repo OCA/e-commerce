@@ -351,7 +351,7 @@ class sale_order(osv.osv):
     _columns = {
                 'ext_payment_method': fields.char('External Payment Method', size=32, help = "Spree, Magento, Oscommerce... Payment Method"),
                 'need_to_update': fields.boolean('Need To Update'),
-                'ext_total_amount': fields.float('Origin External Amount', required=True, digits_compute=dp.get_precision('Sale Price'), readonly=True),
+                'ext_total_amount': fields.float('Origin External Amount', digits_compute=dp.get_precision('Sale Price'), readonly=True),
     }
     
     _defaults = {
