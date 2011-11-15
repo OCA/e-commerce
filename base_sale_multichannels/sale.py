@@ -150,6 +150,9 @@ class sale_shop(osv.osv):
         'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
         'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
         'auto_import': fields.boolean('Automatic Import'),
+        'address_id':fields.many2one('res.partner.address', 'Address'),
+        'website': fields.char('Website', size=64),
+        'image':fields.binary('Image', filters='*.png,*.jpg,*.gif'),
         
     }
     

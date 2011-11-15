@@ -49,9 +49,6 @@
                                     <field name="exportable_root_category_ids" />
                                 </group>
                             </page>
-                            <page string="Exportable Products">
-                                <field name="exportable_product_ids" nolabel="1" colspan="4" />
-                            </page>
                             <page string="Extra Information">
                                 <separator string='Accounting' colspan="4"/>
                                     <field name="auto_import"/>
@@ -60,6 +57,10 @@
                                     <field name="default_payment_method"/>
                                     <field name="default_fiscal_position"/>
                                     <field name="default_customer_account"/>
+                                <separator string='Other Information' colspan="4"/>
+						            <field name="address_id" colspan="2" />
+						            <field name="website" colspan="2" />
+                                    <field name="image" widget='image' colspan="2" />
                             </page>
                         </notebook>
                     </form>
