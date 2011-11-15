@@ -57,6 +57,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'report_view.xml',
         'wizard/export_product.xml',
         'delivery_view.xml',
+        'base_sale_data.xml',
     ],
     'demo_xml': [],
     'installable': True,

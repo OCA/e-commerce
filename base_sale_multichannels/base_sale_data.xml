@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+	<data noupdate="1">
+
+        <record id="categ_0" model="product.category">
+            <field name="parent_id" ref="null"/>
+            <field name="name">Service</field>
+        </record>
+
+		<record id="product_product_shipping" model="product.product">
+			<field name="default_code">SHIP</field>
+			<field name="list_price">0.0</field>
+			<field name="standard_price">0.0</field>
+			<field name="type">service</field>
+			<field name="name">Shipping and Handling</field>
+			<field name="magento_exportable" eval="False" />
+			<field name="categ_id" ref="categ_0"/>
+		</record>
+
+	</data>
+</openerp>
