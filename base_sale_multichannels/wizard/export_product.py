@@ -32,12 +32,7 @@ class product_export_wizard(osv.osv_memory):
         }
 
     def export(self, cr, uid, id, option, context=None):
-                    
-        ##TODO remove : do_not_update_date not needed since magento 6.1 #######################
-        context.update({'force_export':True, 'do_not_update_date':True})                      #
-        #replace by context.update({'force_export':True})                                     #
-        #######################################################################################
-        
+        context.update({'force_export':True})
         shop_ids = self.read(cr, uid, id, context=context)[0]['shop']
         sale_shop_obj = self.pool.get('sale.shop')
         product_obj = self.pool.get('product.product')
@@ -46,7 +41,7 @@ class product_export_wizard(osv.osv_memory):
             context['shop_id'] = shop.id
             if not shop.referential_id:
                 raise osv.except_osv(_("User Error"), _("The shop '%s' doesn't have any external referential are you sure that it's an externe sale shop? If yes syncronize it before exporting product")%(shop.name,))
-            context['conn_obj'] = sale_shop_obj.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = shop.referential_id.external_connection()
             none_exportable_product = set(context['force_product_ids']) - set([product.id for product in shop.exportable_product_ids])
             if none_exportable_product:
                 products = ', '.join([x['name'] for x in product_obj.read(cr, uid, list(none_exportable_product), fields = ['name'], context=context)])
