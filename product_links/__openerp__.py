@@ -36,7 +36,8 @@ It can be used as a base to implement synchronisations with e-commerce (used in 
     'depends': ['base','product'],
     'init_xml': [],
     'update_xml': [
-                   'product_links_view.xml'
+                   'security/ir.model.access.csv',
+                   'product_links_view.xml',
                    ],
     'demo_xml': [],
     'installable': True,
