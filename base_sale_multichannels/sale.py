@@ -208,6 +208,13 @@ class sale_shop(osv.osv):
     def export_inventory(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+        if self.pool.get('ir.module.module').is_installed(cr, uid, 'stock_available_immediately', context=None):
+            stock_field = 'immediately_usable_qty'
+        else:
+            stock_field = 'virtual_available'
+
+        print 'stock field is', stock_field
+
         for shop in self.browse(cr, uid, ids):
             context['shop_id'] = shop.id
             context['conn_obj'] = shop.referential_id.external_connection()
@@ -219,7 +226,7 @@ class sale_shop(osv.osv):
                 recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('product_id', 'in', product_ids)])
             product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
             product_ids = [x for x in set(product_ids)]
-            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', context)
+            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, stock_field, context)
             shop.write({'last_inventory_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         return res
     

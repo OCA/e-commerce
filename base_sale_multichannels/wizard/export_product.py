@@ -32,11 +32,21 @@ class product_export_wizard(osv.osv_memory):
         }
 
     def export(self, cr, uid, id, option, context=None):
+        if not context:
+            context={}
         context.update({'force_export':True})
         shop_ids = self.read(cr, uid, id, context=context)[0]['shop']
         sale_shop_obj = self.pool.get('sale.shop')
         product_obj = self.pool.get('product.product')
         context['force_product_ids'] = context['active_ids']
+
+        if self.pool.get('ir.module.module').is_installed(cr, uid, 'stock_available_immediately', context=context):
+            stock_field = 'immediately_usable_qty'
+        else:
+            stock_field = 'virtual_available'
+
+        print 'stock field is', stock_field
+
         for shop in sale_shop_obj.browse(cr, uid, shop_ids, context=context):
             context['shop_id'] = shop.id
             if not shop.referential_id:
@@ -49,10 +59,10 @@ class product_export_wizard(osv.osv_memory):
             if option == 'export_product':
                 sale_shop_obj.export_products(cr, uid, shop, context)
             elif option == 'export_inventory':
-                product_obj.export_inventory(cr, uid, context['force_product_ids'], '', context)
+                product_obj.export_inventory(cr, uid, context['force_product_ids'], stock_field, context)
             elif option == 'export_product_and_inventory':
                 sale_shop_obj.export_products(cr, uid, shop, context)
-                product_obj.export_inventory(cr, uid, context['force_product_ids'], '', context)
+                product_obj.export_inventory(cr, uid, context['force_product_ids'], stock_field, context)
             
         return {'type': 'ir.actions.act_window_close'}
 
