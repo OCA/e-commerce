@@ -140,6 +140,7 @@ class sale_shop(osv.osv):
         'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
                 relation='external.referential', string='External Referential', method=True,
                 store={
+                    'sale.shop': (lambda self, cr, uid, ids, c=None: ids, ['shop_group_id'], 10),
                     'external.shop.group': (_get_shop_ids, ['referential_id'], 10),
                  }),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
