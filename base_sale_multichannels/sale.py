@@ -270,7 +270,7 @@ class sale_shop(osv.osv):
             
     def import_shop_orders(self, cr, uid, shop, defaults, context):
         """Not Implemented in abstract base module!"""
-        return False
+        return {}
 
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
