@@ -494,9 +494,9 @@ class sale_order(osv.osv):
                         try:
                             wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
                             self.write(cr, uid, order.id, {'need_to_update': False})
-                        except Exception, e:
+                        except Exception:
                             self.log(cr, uid, order.id, "ERROR could not valid order")
-                            raise Exception(e)
+                            raise
                         
                         if payment_settings.validate_picking:
                             self.pool.get('stock.picking').validate_picking_from_order(cr, uid, order.id)
