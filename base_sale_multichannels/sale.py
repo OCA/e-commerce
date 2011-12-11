@@ -251,13 +251,15 @@ class sale_shop(osv.osv):
         if context is None:
             context = {}
         for shop in self.browse(cr, uid, ids):
+            if not shop.company_id.id:
+                raise osv.except_osv(_('Warning!'), _('You have to set a company for this OpenERP sale shop!'))
+
             defaults = {
                             'pricelist_id':self._get_pricelist(cr, uid, shop),
                             'shop_id': shop.id,
                             'fiscal_position': shop.default_fiscal_position.id,
-                            'property_account_receivable': shop.default_customer_account.id,
-                            'order_prefix': shop.order_prefix,
                             'ext_payment_method': shop.default_payment_method,
+                            'company_id': shop.company_id.id,
                         }
             
             context.update({
@@ -265,17 +267,11 @@ class sale_shop(osv.osv):
                             'shop_name': shop.name,
                             'shop_id': shop.id,
                             'external_referential_type': shop.referential_id.type_id.name,
+                            'order_prefix': shop.order_prefix,
                         })
-            
-            if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'sale.shop')]): #OpenERP v6 needs a company_id field on the sale order but v5 doesn't have it, same for shop...
-                if not shop.company_id.id:
-                    raise osv.except_osv(_('Warning!'), _('You have to set a company for this OpenERP sale shop!'))
-                defaults.update({'company_id': shop.company_id.id})
 
             if shop.is_tax_included:
-                defaults.update({'price_type': 'tax_included'})
-
-            defaults.update(self.pool.get('sale.order').onchange_shop_id(cr, uid, ids, shop.id)['value'])
+                context.update({'price_is_tax_included': True})
 
             self.import_shop_orders(cr, uid, shop, defaults, context)
         return False
