@@ -4,6 +4,7 @@
 # Copyright (C) 2009  Raphaël Valyi                                     #
 # Copyright (C) 2010-2011 Akretion Sébastien BEAU                       #
 #                                        <sebastien.beau@akretion.com>  #
+# Copyright (C) 2011 by Openlabs Technologies & Consulting (P) Limited  #
 #                                                                       #
 #This program is free software: you can redistribute it and/or modify   #
 #it under the terms of the GNU General Public License as published by   #
@@ -28,6 +29,17 @@ import time
 import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+
+class StockPicking(osv.osv):
+    '''Add a flag for marking picking as exported'''
+    _inherit = 'stock.picking'
+
+    _columns = {
+        'exported_to_magento': fields.boolean('Exported to Magento',
+            readonly=True),
+    }
+
+StockPicking()
 
 class external_shop_group(osv.osv):
     _name = 'external.shop.group'
@@ -324,7 +336,7 @@ class sale_shop(osv.osv):
                 left join stock_picking as pickings on sale_order.id = pickings.sale_id
                 left join ir_model_data on stock_picking.id = ir_model_data.res_id and ir_model_data.model='stock.picking'
                 left join delivery_carrier on delivery_carrier.id = stock_picking.carrier_id
-                where shop_id = %s and ir_model_data.res_id ISNULL and stock_picking.state = 'done'
+                where shop_id = %s and ir_model_data.res_id ISNULL and stock_picking.state = 'done' and stock_picking.exported_to_magento IS NOT TRUE
                 Group By stock_picking.id, sale_order.id,
                          delivery_carrier.export_needs_tracking, stock_picking.carrier_tracking_ref
                 """, (shop.id,))
@@ -347,6 +359,14 @@ class sale_shop(osv.osv):
                # export_needs_tracking is flagged on the delivery carrier
                 if result["need_tracking"] and not result["carrier_tracking"]:
                     continue
+
+                # Mark shipping as exported here itself because export might
+                # fail in next step due to only one visible reason, i.e., 
+                # shipping already exists in magento which does not need to be
+                # exported anyway.
+                picking_obj.write(cr, uid, result["picking_id"], {
+                        'exported_to_magento': True
+                    }, context=context)
                 
                 ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(picking_cr, uid, result["picking_id"], picking_type, shop.referential_id.id, context)
 
