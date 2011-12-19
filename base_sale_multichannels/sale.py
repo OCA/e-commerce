@@ -411,8 +411,8 @@ class sale_order(osv.osv):
         'need_to_update': lambda *a: False,
     }
     
-    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key_field, mapping_lines, defaults, context):
-        res = super(sale_order, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, key_field, mapping_lines, defaults, context)
+    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data, defaults, context):
+        res = super(sale_order, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data, defaults, context)
         payment_method = res.get('ext_payment_method', False) or defaults.get('ext_payment_method', False)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
         if payment_settings:
@@ -427,13 +427,14 @@ class sale_order(osv.osv):
         return False
     
     def oe_status_and_paid(self, cr, uid, order_id, data, external_referential_id, defaults, context):
+        #TODO fix me data is not the vals converted
         is_paid = self.create_payments(cr, uid, order_id, data, context)
         self.oe_status(cr, uid, order_id, is_paid, context)
         return order_id
     
-    def oe_create(self, cr, uid, vals, data, external_referential_id, defaults, context):
-        order_id = super(sale_order, self).oe_create(cr, uid, vals, data, external_referential_id, defaults, context)
-        self.oe_status_and_paid(cr, uid, order_id, data, external_referential_id, defaults, context)
+    def oe_create(self, cr, uid, vals, external_referential_id, defaults, context):
+        order_id = super(sale_order, self).oe_create(cr, uid, vals, external_referential_id, defaults, context)
+        self.oe_status_and_paid(cr, uid, order_id, vals, external_referential_id, defaults, context)
         return order_id
     
     def generate_payment_from_order(self, cr, uid, ids, payment_ref, entry_name=None, paid=True, date=None, context=None):
