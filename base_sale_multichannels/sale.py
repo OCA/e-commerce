@@ -591,8 +591,8 @@ class sale_order(osv.osv):
         # It's better to have the order not imported and to know it than having order with duplicated line.
         if not (context and context.get('oe_update_supported', False)):
             #TODO found a clean solution to raise the osv.except_osv error in the try except of the function import_with_try
-            raise osv.except_osv(_("""Not Implemented, the order with the id %s try to be updated from the external system.
-This feature is not supported. Maybe the import try to reimport an existing sale order"""%(existing_rec_id,)), "  ")
+            raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system"
+                                "This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
         return existing_rec_id
 
 sale_order()
