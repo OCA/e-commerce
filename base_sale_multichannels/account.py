@@ -25,18 +25,18 @@ from osv import osv, fields
 class account_tax_code(osv.osv):
     _inherit='account.tax'
     
-    def get_tax_from_amount(self, cr, uid, rate, is_tax_included=False, context=None):
+    def get_tax_from_rate(self, cr, uid, rate, is_tax_included=False, context=None):
         #TODO improve, if tax are not correctly mapped the order should be in exception (integration with sale_execption)
         tax_ids = self.pool.get('account.tax').search(cr, uid, [('price_include', '=', is_tax_included),
                 ('type_tax_use', '=', 'sale'), ('amount', '>=', rate - 0.001), ('amount', '<=', rate + 0.001)])
         if tax_ids and len(tax_ids) > 0:
-            return [(6, 0, [tax_ids[0]])]
+            return tax_ids[0]
         else:
         #try to find a tax with less precision 
             tax_ids = self.pool.get('account.tax').search(cr, uid, [('price_include', '=', is_tax_included), 
                     ('type_tax_use', '=', 'sale'), ('amount', '>=', rate - 0.01), ('amount', '<=', rate + 0.01)])
             if tax_ids and len(tax_ids) > 0:
-                return [(6, 0, [tax_ids[0]])]
+                return tax_ids[0]
         return False
 
 account_tax_code()

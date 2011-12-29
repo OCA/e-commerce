@@ -411,16 +411,26 @@ class sale_order(osv.osv):
     _defaults = {
         'need_to_update': lambda *a: False,
     }
+
+    def _get_kwargs_onchange_partner_id(self, cr, uid, vals, context=None):
+        return {
+            'ids': None,
+            'part': vals.get('partner_id'),
+        }
+
+    def play_order_onchange(self, cr, uid, vals, defaults=None, context=None):
+        vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, context=context)
+        return vals
     
-    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data=None, previous_lines=None, defaults=None, context=None):
-        res = super(sale_order, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data, previous_lines, defaults, context)
-        payment_method = res.get('ext_payment_method', False) or defaults.get('ext_payment_method', False)
+    def call_sub_mapping(self, cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=None, context=None):
+        payment_method = vals.get('ext_payment_method', False)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
         if payment_settings:
-            res['order_policy'] = payment_settings.order_policy
-            res['picking_policy'] = payment_settings.picking_policy
-            res['invoice_quantity'] = payment_settings.invoice_quantity
-        return res    
+            vals['order_policy'] = payment_settings.order_policy
+            vals['picking_policy'] = payment_settings.picking_policy
+            vals['invoice_quantity'] = payment_settings.invoice_quantity
+        vals = self.play_order_onchange(cr, uid, vals, defaults=defaults, context=context)
+        return super(sale_order, self).call_sub_mapping(cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=defaults, context=context)
     
     def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
