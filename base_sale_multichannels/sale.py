@@ -326,6 +326,7 @@ class sale_shop(osv.osv):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def export_shipping(self, cr, uid, ids, context):
+	picking_obj = self.pool.get('stock.picking')
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
             cr.execute("""
