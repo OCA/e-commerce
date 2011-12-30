@@ -265,7 +265,7 @@ class sale_shop(osv.osv):
                             'ext_payment_method': shop.default_payment_method,
                             'company_id': shop.company_id.id,
                         }
-            
+
             context.update({
                             'conn_obj': shop.referential_id.external_connection(),
                             'shop_name': shop.name,
@@ -345,7 +345,6 @@ class sale_shop(osv.osv):
                 """, (shop.id,))
             results = cr.dictfetchall()
             if not results:
-                print results
                 logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "There is no shipping to export for the shop '%s' to the external referential" % (shop.name,))
                 return True
             context['conn_obj'] = shop.referential_id.external_connection()        
@@ -423,11 +422,24 @@ class sale_order(osv.osv):
             'part': vals.get('partner_id'),
         }
 
+
+    #I will probably extract this code in order to put it in a "glue" module
+    def _get_kwargs_onchange_partner_invoice_id(self, cr, uid, vals, context=None):
+        return {
+            'ids': None,
+            'partner_invoice_id': vals.get('partner_invoice_id'),
+            'partner_id': vals.get('partner_id'),
+            'shop_id': vals.get('shop_id'),
+        }
+
     def play_order_onchange(self, cr, uid, vals, defaults=None, context=None):
-        vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, context=context)
+        ir_module_obj= self.pool.get('ir.module.module')
+        vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
+        if ir_module_obj.is_installed(cr, uid, 'account_fiscal_position_rule_sale', context=context):
+            vals = self.call_onchange(cr, uid, 'onchange_partner_invoice_id', vals, defaults, context=context)
         return vals
     
-    def call_sub_mapping(self, cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=None, context=None):
+    def merge_with_default_value(self, cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=None, context=None):
         payment_method = vals.get('ext_payment_method', False)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
         if payment_settings:
@@ -436,7 +448,7 @@ class sale_order(osv.osv):
             vals['invoice_quantity'] = payment_settings.invoice_quantity
         if context.get('play_sale_order_onchange'):
             vals = self.play_order_onchange(cr, uid, vals, defaults=defaults, context=context)
-        return super(sale_order, self).call_sub_mapping(cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=defaults, context=context)
+        return super(sale_order, self).merge_with_default_value(cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=defaults, context=context)
     
     def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
@@ -633,7 +645,7 @@ class sale_order_line(osv.osv):
         'ext_product_ref': fields.char('Product Ext Ref', help="This is the original external product reference", size=256),
     }
 
-    def _get_kwargs_product_id_change(self, cr, uid, line, parent_data, previous_lines, defaults, context=None):
+    def _get_kwargs_product_id_change(self, cr, uid, line, parent_data, previous_lines, context=None):
         return {
             'ids': None,
             'pricelist': parent_data.get('pricelist_id'),
@@ -654,7 +666,7 @@ class sale_order_line(osv.osv):
         }
     
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults, context=None):
-        line = self.call_onchange(cr, uid, 'product_id_change', line, parent_data=parent_data, previous_lines=previous_lines, defaults=defaults, context=context)
+        line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
         #TODO all m2m should be mapped correctly
         if line.get('tax_id'):
             line['tax_id'] = [(6, 0, line['tax_id'])]
