@@ -31,7 +31,7 @@
                                 <group col="3" colspan="3">
                                     <separator string="Orders" colspan="3"/>
                                     <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
-                                    <newline/>
+                                    <field name="import_orders_from_date" colspan="2"/>
                                     <button name="update_orders" string="Update Orders Status" colspan="1" type="object"/>
                                     <field name="last_update_order_export_date" colspan="2"/>
                                     <button name="export_shipping" string="Export Shipping" colspan="1" type="object"/>

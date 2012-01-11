@@ -166,7 +166,7 @@ class sale_shop(osv.osv):
         'address_id':fields.many2one('res.partner.address', 'Address'),
         'website': fields.char('Website', size=64),
         'image':fields.binary('Image', filters='*.png,*.jpg,*.gif'),
-        
+        'import_orders_from_date': fields.datetime('Only created after'),
     }
     
     _defaults = {
