@@ -350,39 +350,41 @@ class sale_shop(osv.osv):
         
 
             picking_cr = pooler.get_db(cr.dbname).cursor()
-            for result in results:
-                if result["picking_number"] == 1:
-                    picking_type = 'complete'
-                else:
-                    picking_type = 'partial'
+            try:
+                for result in results:
+                    if result["picking_number"] == 1:
+                        picking_type = 'complete'
+                    else:
+                        picking_type = 'partial'
 
-               # only export the shipping if a tracking number exists when the flag
-               # export_needs_tracking is flagged on the delivery carrier
-                if result["need_tracking"] and not result["carrier_tracking"]:
-                    continue
+                   # only export the shipping if a tracking number exists when the flag
+                   # export_needs_tracking is flagged on the delivery carrier
+                    if result["need_tracking"] and not result["carrier_tracking"]:
+                        continue
 
-                # Mark shipping as exported here itself because export might
-                # fail in next step due to only one visible reason, i.e., 
-                # shipping already exists in magento which does not need to be
-                # exported anyway.
-                picking_obj.write(cr, uid, result["picking_id"], {
-                        'exported_to_magento': True
-                    }, context=context)
-                
-                ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(picking_cr, uid, result["picking_id"], picking_type, shop.referential_id.id, context)
+                    # Mark shipping as exported here itself because export might
+                    # fail in next step due to only one visible reason, i.e.,
+                    # shipping already exists in magento which does not need to be
+                    # exported anyway.
+                    picking_obj.write(cr, uid, result["picking_id"], {
+                            'exported_to_magento': True
+                        }, context=context)
 
-                if ext_shipping_id:
-                    ir_model_data_vals = {
-                        'name': "stock_picking/" + str(ext_shipping_id),
-                        'model': "stock.picking",
-                        'res_id': result["picking_id"],
-                        'external_referential_id': shop.referential_id.id,
-                        'module': 'extref/' + shop.referential_id.name
-                      }
-                    self.pool.get('ir.model.data').create(picking_cr, uid, ir_model_data_vals)
-                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result["picking_id"], ext_shipping_id))
-                picking_cr.commit()
-            picking_cr.close()
+                    ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(picking_cr, uid, result["picking_id"], picking_type, shop.referential_id.id, context)
+
+                    if ext_shipping_id:
+                        ir_model_data_vals = {
+                            'name': "stock_picking/" + str(ext_shipping_id),
+                            'model': "stock.picking",
+                            'res_id': result["picking_id"],
+                            'external_referential_id': shop.referential_id.id,
+                            'module': 'extref/' + shop.referential_id.name
+                          }
+                        self.pool.get('ir.model.data').create(picking_cr, uid, ir_model_data_vals)
+                        logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result["picking_id"], ext_shipping_id))
+                    picking_cr.commit()
+            finally:
+                picking_cr.close()
         return True
 
 sale_shop()
