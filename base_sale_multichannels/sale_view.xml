@@ -132,12 +132,12 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <data>
-                    <xpath expr="/form/notebook/page[@string='Order Lines']/group" position="after">
+                    <field name="notes" position="after">
                         <group name='External Syncronization' colspan="4">
                             <separator string="External syncronization" colspan="4" />
                             <field name="ext_product_ref" select="1" />
                         </group>
-                    </xpath>
+                    </field>
                 </data>
             </field>
         </record>
