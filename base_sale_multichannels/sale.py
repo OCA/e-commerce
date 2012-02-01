@@ -173,6 +173,7 @@ class sale_shop(osv.osv):
         'use_external_tax': fields.boolean('Use External Taxe', help="This will force OpenERP to use the external tax instead of recomputing them"),
         'play_sale_order_onchange': fields.boolean('Play Sale Order Onchange', help=("This will play the Sale Order and Sale Order Line Onchange,"
                                                                                "this option is required is you when to recompute the tax in OpenERP")),
+        'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale_order is in exception"),
     }
     
     _defaults = {
