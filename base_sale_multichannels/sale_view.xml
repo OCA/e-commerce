@@ -53,6 +53,8 @@
                                 <separator string='Accounting' colspan="4"/>
                                     <field name="auto_import"/>
                                     <field name="is_tax_included"/>
+                                    <field name="use_external_tax"/>
+                                    <field name="play_sale_order_onchange"/>
                                     <field name="order_prefix"/>
                                     <field name="default_payment_method"/>
                                     <field name="default_fiscal_position"/>

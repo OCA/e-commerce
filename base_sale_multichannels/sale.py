@@ -170,6 +170,9 @@ class sale_shop(osv.osv):
         'website': fields.char('Website', size=64),
         'image':fields.binary('Image', filters='*.png,*.jpg,*.gif'),
         'import_orders_from_date': fields.datetime('Only created after'),
+        'use_external_tax': fields.boolean('Use External Taxe', help="This will force OpenERP to use the external tax instead of recomputing them"),
+        'play_sale_order_onchange': fields.boolean('Play Sale Order Onchange', help=("This will play the Sale Order and Sale Order Line Onchange,"
+                                                                               "this option is required is you when to recompute the tax in OpenERP")),
     }
     
     _defaults = {
@@ -269,6 +272,8 @@ class sale_shop(osv.osv):
                             'shop_id': shop.id,
                             'external_referential_type': shop.referential_id.type_id.name,
                             'order_prefix': shop.order_prefix,
+                            'use_external_tax': shop.use_external_tax,
+                            'play_sale_order_onchange': shop.play_sale_order_onchange,
                         })
 
             if shop.is_tax_included:
@@ -429,7 +434,8 @@ class sale_order(osv.osv):
             vals['order_policy'] = payment_settings.order_policy
             vals['picking_policy'] = payment_settings.picking_policy
             vals['invoice_quantity'] = payment_settings.invoice_quantity
-        vals = self.play_order_onchange(cr, uid, vals, defaults=defaults, context=context)
+        if context.get('play_sale_order_onchange'):
+            vals = self.play_order_onchange(cr, uid, vals, defaults=defaults, context=context)
         return super(sale_order, self).call_sub_mapping(cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=defaults, context=context)
     
     def create_payments(self, cr, uid, order_id, data_record, context):
@@ -649,11 +655,18 @@ class sale_order_line(osv.osv):
     
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults, context=None):
         line = self.call_onchange(cr, uid, 'product_id_change', line, parent_data=parent_data, previous_lines=previous_lines, defaults=defaults, context=context)
+        #TODO all m2m should be mapped correctly
+        if line.get('tax_id'):
+            line['tax_id'] = [(6, 0, line['tax_id'])]
         return line
 
     def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, mapping_lines, key_for_external_id=None, parent_data=None, previous_lines=None, defaults=None, context=None):
         line = super(sale_order_line, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, mapping_lines, key_for_external_id=key_for_external_id,  parent_data=parent_data, previous_lines=previous_lines, defaults=defaults, context=context)
-        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_lines, defaults, context=context)
+        if context.get('play_sale_order_onchange'):
+            line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_lines, defaults, context=context)
+        if context.get('use_external_tax') and line.get('tax_rate'):
+            line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included'), context=context)
+            line['tax_id'] = [(6, 0, line_tax_id)]
         return line
 
 sale_order_line()
