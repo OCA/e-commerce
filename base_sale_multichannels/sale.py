@@ -31,6 +31,7 @@ import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
+import inspect
 
 class StockPicking(osv.osv):
     '''Add a flag for marking picking as exported'''
@@ -411,8 +412,8 @@ class sale_order(osv.osv):
         'need_to_update': lambda *a: False,
     }
     
-    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data, defaults, context):
-        res = super(sale_order, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data, defaults, context)
+    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data=None, previous_lines=None, defaults=None, context=None):
+        res = super(sale_order, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, key_field, mapping_lines, parent_data, previous_lines, defaults, context)
         payment_method = res.get('ext_payment_method', False) or defaults.get('ext_payment_method', False)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
         if payment_settings:
@@ -615,6 +616,35 @@ class sale_order_line(osv.osv):
     _columns = {
         'ext_product_ref': fields.char('Product Ext Ref', help="This is the original external product reference", size=256),
     }
+
+    def _get_kwargs_product_id_change(self, cr, uid, line, parent_data, previous_lines, defaults, context=None):
+        return {
+            'ids': None,
+            'pricelist': parent_data.get('pricelist_id'),
+            'product': line.get('product_id'),
+            'qty': float(line.get('product_uom_qty')),
+            'uom': line.get('product_uom'),
+            'qty_uos': float(line.get('product_uos_qty')),
+            'uos': line.get('product_uos'),
+            'name': line.get('name'),
+            'partner_id': parent_data.get('partner_id'),
+            'lang': False,
+            'update_tax': True,
+            'date_order': parent_data.get('date_order'),
+            'packaging': line.get('product_packaging'),
+            'fiscal_position': parent_data.get('fiscal_position'),
+            'flag': False,
+            'context': context,
+        }
+    
+    def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults, context=None):
+        line = self.call_onchange(cr, uid, 'product_id_change', line, parent_data=parent_data, previous_lines=previous_lines, defaults=defaults, context=context)
+        return line
+
+    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, mapping_lines, key_for_external_id=None, parent_data=None, previous_lines=None, defaults=None, context=None):
+        line = super(sale_order_line, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, mapping_lines, key_for_external_id=key_for_external_id,  parent_data=parent_data, previous_lines=previous_lines, defaults=defaults, context=context)
+        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_lines, defaults, context=context)
+        return line
 
 sale_order_line()
 
