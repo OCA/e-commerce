@@ -174,6 +174,7 @@ class sale_shop(osv.osv):
         'play_sale_order_onchange': fields.boolean('Play Sale Order Onchange', help=("This will play the Sale Order and Sale Order Line Onchange,"
                                                                                "this option is required is you when to recompute the tax in OpenERP")),
         'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale_order is in exception"),
+        'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
     }
     
     _defaults = {
@@ -251,7 +252,19 @@ class sale_shop(osv.osv):
     def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
-        
+  
+    def _import_orders(self, cr, uid, shop, defaults, context=None):
+        """
+        This method will import the order for the shop
+
+        :param browse_record shop: shop called for importing order
+        :param dict defaults: defaults value for sale_order
+
+        :return: A dict with the key 'create_ids', 'write_ids', 'unchanged_ids'
+        """
+        method='_import_orders_from_%s'%shop.type_id.name
+        return self._call_specific_method(method, cr, uid, shop, defaults=defaults, context=context)
+
     def import_orders(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -267,11 +280,14 @@ class sale_shop(osv.osv):
                             'company_id': shop.company_id.id,
                         }
 
+            #TODO refactor passing external_referential_id seem ok but passing all option for shop is maybe useless, maybe the best solution is to pass the variable shop everywhere
+
             context.update({
                             'conn_obj': shop.referential_id.external_connection(),
                             'shop_name': shop.name,
                             'shop_id': shop.id,
-                            'external_referential_type': shop.referential_id.type_id.name,
+                            'referential_id': shop.referential_id.id,
+                            #'external_referential_type': shop.referential_id.type_id.name,
                             'order_prefix': shop.order_prefix,
                             'use_external_tax': shop.use_external_tax,
                             'play_sale_order_onchange': shop.play_sale_order_onchange,
@@ -280,12 +296,8 @@ class sale_shop(osv.osv):
             if shop.is_tax_included:
                 context.update({'price_is_tax_included': True})
 
-            self.import_shop_orders(cr, uid, shop, defaults, context)
-        return False
-            
-    def import_shop_orders(self, cr, uid, shop, defaults, context):
-        """Not Implemented in abstract base module!"""
-        return {}
+            self._import_orders(cr, uid, shop, defaults=defaults, context=context)
+        return True
 
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
