@@ -173,8 +173,11 @@ class sale_shop(osv.osv):
         'use_external_tax': fields.boolean('Use External Taxe', help="This will force OpenERP to use the external tax instead of recomputing them"),
         'play_sale_order_onchange': fields.boolean('Play Sale Order Onchange', help=("This will play the Sale Order and Sale Order Line Onchange,"
                                                                                "this option is required is you when to recompute the tax in OpenERP")),
-        'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale_order is in exception"),
+        'check_total_amount': fields.boolean('Check Total Amount', help=("The total amount computed by OpenERP should match"
+                                                                "with the external amount, if not the sale_order is in exception")),
         'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
+
+
     }
     
     _defaults = {
@@ -255,6 +258,7 @@ class sale_shop(osv.osv):
   
     def _import_orders(self, cr, uid, shop, defaults, context=None):
         """
+        Not implemented here
         This method will import the order for the shop
 
         :param browse_record shop: shop called for importing order
@@ -262,8 +266,7 @@ class sale_shop(osv.osv):
 
         :return: A dict with the key 'create_ids', 'write_ids', 'unchanged_ids'
         """
-        method='_import_orders_from_%s'%shop.type_id.name
-        return self._call_specific_method(method, cr, uid, shop, defaults=defaults, context=context)
+        return {}
 
     def import_orders(self, cr, uid, ids, context=None):
         if context is None:
@@ -287,7 +290,7 @@ class sale_shop(osv.osv):
                             'shop_name': shop.name,
                             'shop_id': shop.id,
                             'referential_id': shop.referential_id.id,
-                            #'external_referential_type': shop.referential_id.type_id.name,
+                            'referential_type': shop.type_id.name,
                             'order_prefix': shop.order_prefix,
                             'use_external_tax': shop.use_external_tax,
                             'play_sale_order_onchange': shop.play_sale_order_onchange,
