@@ -190,11 +190,14 @@ class sale_shop(osv.osv):
         'auto_import': lambda * a: True,
     }
 
-    def _get_pricelist(self, cr, uid, shop):
+    def get_pricelist(self, cr, uid, id, context=None):
+        if isinstance(id, list):
+            id=id[0]
+        shop = self.browse(cr, uid, id, context=context)
         if shop.pricelist_id:
             return shop.pricelist_id.id
         else:
-            return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)])[0]
+            return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)], context=context)[0]
     
     def export_categories(self, cr, uid, shop, context=None):
         if context is None:
@@ -406,6 +409,18 @@ class sale_order(osv.osv):
     _defaults = {
         'need_to_update': lambda *a: False,
     }
+
+    def _get_default_import_values(self, cr, uid, external_session, context=None):
+        shop_id = context['sale.shop_id']
+        shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
+        defaults = {
+                'pricelist_id': shop.get_pricelist(context=context),
+                'shop_id': shop.id,
+                'fiscal_position': shop.default_fiscal_position.id,
+                'ext_payment_method': shop.default_payment_method,
+                'company_id': shop.company_id.id,
+        }
+        return defaults
 
     def _get_kwargs_onchange_partner_id(self, cr, uid, vals, context=None):
         return {
