@@ -43,14 +43,16 @@ class external_referential(osv.osv):
         }
 
     def import_customer_groups(self, cr, uid, ids, context=None):
-        print 'ids', ids
-        return self.import_resources(cr, uid, ids, 'res.partner', context=context)
+        self.import_resources(cr, uid, ids, 'res.partner', context=context)
+        return True 
 
     def import_product_categories(self, cr, uid, ids, context=None):
-        return self.import_resources(cr, uid, ids, 'product.category', context=context)
+        self.import_resources(cr, uid, ids, 'product.category', context=context)
+        return True 
 
     def import_customers(self, cr, uid, ids, context=None):
-        return self.import_resources(cr, uid, ids, 'res.partner', context=context)
+        self.import_resources(cr, uid, ids, 'res.partner', context=context)
+        return True 
 
 #    def import_product_attributes_sets(self, cr, uid, ids, context=None):
 #        return self.import_resources(cr, uid, ids, 'TODO', context=context)
@@ -62,14 +64,17 @@ class external_referential(osv.osv):
 #        return self.import_resources(cr, uid, ids, 'TODO', context=context)
 
     def import_products(self, cr, uid, ids, context=None):
-        return self.import_resources(cr, uid, ids, 'product.product', context=context)
+        self.import_resources(cr, uid, ids, 'product.product', context=context)
+        return True 
 
 #If we want to support that feature we need to add a dependancy on product_images_olbs
     def import_product_images(self, cr, uid, ids, context=None):
-        return self.import_resources(cr, uid, ids, 'product.image', context=context)
+        self.import_resources(cr, uid, ids, 'product.image', context=context)
+        return True 
 
     def import_product_links(self, cr, uid, ids, context=None):
-        return self.import_resources(cr, uid, ids, 'product.link', context=context)
+        self.import_resources(cr, uid, ids, 'product.link', context=context)
+        return True 
 
 
 
