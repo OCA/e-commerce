@@ -193,13 +193,45 @@
             </field>
         </record>
 
+        <record id="view_base_sale_external_shop_group_form" model="ir.ui.view">
+            <field name="name">base.sale.external.shop.group.form</field>
+            <field name="model">external.shop.group</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="External shop group">
+                    <field name="name" select="1" />
+                    <field name="referential_id" widget="selection" select="1" />
+                    <newline />
+                    <field name="shop_ids" colspan="4" />
+                </form>
+            </field>
+        </record>
+
+        <record id="view_base_sale_external_shop_group_tree" model="ir.ui.view">
+            <field name="name">base.sale.external.shop.group.tree</field>
+            <field name="model">external.shop.group</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="External shop groups">
+                    <field name="name" />
+                    <field name="referential_id" />
+                    <field name="shop_ids" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="act_base_sale_external_shop_group" model="ir.actions.act_window">
+            <field name="name">External referential shop groups</field>
+            <field name="res_model">external.shop.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
         <record id="act_base_sale_payment_type_form" model="ir.actions.act_window">
             <field name="name">Base Sale Payment Type</field>
-            <field name="type">ir.actions.act_window</field>
             <field name="res_model">base.sale.payment.type</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_base_sale_payment_type_tree"/>
         </record>
 
         <menuitem action="act_base_sale_payment_type_form" id="menu_base_sale_payment_type" name="E-Commerce Payment Configuration" parent="account.menu_finance" sequence="25"/>
