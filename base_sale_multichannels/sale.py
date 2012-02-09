@@ -54,6 +54,11 @@ class external_shop_group(osv.osv):
         'shop_ids': fields.one2many('sale.shop', 'shop_group_id', 'Sale Shops'),
     }
     
+
+    def _get_default_import_values(self, cr, uid, external_session, context=None):
+        print 'get default value'
+        return {'referential_id' : external_session.referential_id.id}
+
 external_shop_group()
 
 
@@ -269,37 +274,7 @@ class sale_shop(osv.osv):
         return {}
 
     def import_orders(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-        for shop in self.browse(cr, uid, ids):
-            if not shop.company_id.id:
-                raise osv.except_osv(_('Warning!'), _('You have to set a company for this OpenERP sale shop!'))
-
-            defaults = {
-                            'pricelist_id':self._get_pricelist(cr, uid, shop),
-                            'shop_id': shop.id,
-                            'fiscal_position': shop.default_fiscal_position.id,
-                            'ext_payment_method': shop.default_payment_method,
-                            'company_id': shop.company_id.id,
-                        }
-
-            #TODO refactor passing external_referential_id seem ok but passing all option for shop is maybe useless, maybe the best solution is to pass the variable shop everywhere
-
-            context.update({
-                            'conn_obj': shop.referential_id.external_connection(),
-                            'shop_name': shop.name,
-                            'shop_id': shop.id,
-                            'referential_id': shop.referential_id.id,
-                            'referential_type': shop.type_id.name,
-                            'order_prefix': shop.order_prefix,
-                            'use_external_tax': shop.use_external_tax,
-                            'play_sale_order_onchange': shop.play_sale_order_onchange,
-                        })
-
-            if shop.is_tax_included:
-                context.update({'price_is_tax_included': True})
-
-            self._import_orders(cr, uid, shop, defaults=defaults, context=context)
+        self.import_resources(cr, uid, ids, 'sale.order', context=context)
         return True
 
     def update_orders(self, cr, uid, ids, context=None):
