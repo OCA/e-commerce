@@ -49,6 +49,9 @@ class external_referential(osv.osv):
     def import_product_categories(self, cr, uid, ids, context=None):
         return self.import_resources(cr, uid, ids, 'product.category', context=context)
 
+    def import_customers(self, cr, uid, ids, context=None):
+        return self.import_resources(cr, uid, ids, 'res.partner', context=context)
+
 #    def import_product_attributes_sets(self, cr, uid, ids, context=None):
 #        return self.import_resources(cr, uid, ids, 'TODO', context=context)
 #

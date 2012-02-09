@@ -9,11 +9,12 @@
 			<field name="inherit_id" ref="base_external_referentials.external_referential_form_view" />
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-			    <xpath expr="/form/group/notebook/page/button[@name='import_referential']" position="after">
+			    <xpath expr="/form/group/notebook/page/button[@name='import_referentials']" position="after">
                     <group colspan="4" attrs="{'invisible':[('categ_name','!=','e-commerce')]}">
         				<separator string="Optional - Initial import only" colspan="4" />
                         <group name='left' colspan="2" col="2">
 						    <button name="import_customer_groups" string="1 - Import Customer Groups (Partner Categories)" colspan="2" type="object" />
+						    <button name="import_customers" string="1 - Import Customer" colspan="2" type="object" />
 						    <button name="import_product_categories" string="2 - Import Product Categories" colspan="2" type="object" />
 						    <button name="import_product_attributes_sets" string="3 - Import Product Attribute Sets" colspan="2" type="object" />
 						    <button name="import_product_attributes_groups" string="4 - Import Attribute Groups" colspan="2" type="object" />
