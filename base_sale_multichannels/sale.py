@@ -510,6 +510,7 @@ class sale_order(osv.osv):
         data = voucher_obj.onchange_partner_id(cr, uid, [], partner_id, journal_id, int(amount), False, 'receipt', date, context)['value']
         account_id = data['account_id']
         currency_id = data['currency_id']
+        pids = self.pool.get('account.period').find(cr, uid, date, context=context)
         statement_vals = {
                             'reference': 'ST_' + entry_name,
                             'journal_id': journal_id,
@@ -519,6 +520,7 @@ class sale_order(osv.osv):
                             'account_id': account_id,
                             'type': 'receipt',
                             'currency_id': currency_id,
+                            'period_id': pids and pids[0] or False,
                         }
         statement_id = voucher_obj.create(cr, uid, statement_vals, context)
         context.update({'type': 'receipt', 'partner_id': partner_id, 'journal_id': journal_id, 'default_type': 'cr'})
