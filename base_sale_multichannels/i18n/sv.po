@@ -4,32 +4,28 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.6\n"
+"Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-12-20 17:22+0000\n"
-"PO-Revision-Date: 2011-02-14 10:04+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-02-14 11:51+0000\n"
+"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2012-01-17 05:05+0000\n"
 "X-Generator: Launchpad (build 14676)\n"
-"X-Poedit-Language: Catalan\n"
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,picking_policy:0
 msgid "Partial Delivery"
-msgstr "Enviament parcial"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
-"El nom de l'objecte ha de començar amb x_ i no contenir cap caràcter "
-"especial!"
 
 #. module: base_sale_multichannels
 #: model:ir.module.module,description:base_sale_multichannels.module_meta_information
@@ -62,61 +58,33 @@ msgid ""
 "* export orders/picking status\n"
 "    "
 msgstr ""
-"\n"
-"Aquest mòdul proporciona una mínima base d'abstracció comuna a diversos "
-"canals de vendes.\n"
-"Suposem que voleu exposar el vostre catàleg de productes a:\n"
-"* Diverses instàncies de botiga web de Magento\n"
-"* Una botiga web d'última generació Spree\n"
-"* Un mercat Neteven\n"
-"* EBay\n"
-"* Amazon\n"
-"* Google Base\n"
-"* Un sistema punt de venda extern\n"
-"* ...\n"
-"Llavors, aquest mòdul us permet:\n"
-"* L'ús de diverses referències externes a tots els identificadors d'objectes "
-"OpenERP que apunten a totes aquestes referències externes.\n"
-"* Referències per instància, l'ús de diverses sub entitats de vendes (per "
-"exemple diversos llocs web Magento per instància)\n"
-"* Referències per sub entitat, l'ús de diverses botigues (per exemple "
-"diverses botigues web Magento per lloc web)\n"
-"\n"
-"Per a cada botiga de venda (que es correspondrà a l'objecte sale.shop de "
-"OpenERP), aquest mòdul abstreu les interfícies de:\n"
-"* Exportar el catàleg, nivell d'estoc del magatzem de la botiga, tarifa de "
-"preus de la botiga\n"
-"* Importar el catàleg\n"
-"* Importar comandes\n"
-"* Exportar l'estat de les comandes/albarans\n"
-"    "
 
 #. module: base_sale_multichannels
 #: field:sale.shop,order_policy:0
 msgid "Shipping Policy"
-msgstr "Política de facturació"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,invoice_generation_policy:0
 #: selection:sale.shop,picking_generation_policy:0
 msgid "None"
-msgstr "Cap"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,invoice_quantity:0
 msgid "Shipped Quantities"
-msgstr "Quantitats enviades"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:external.shop.group,referential_id:0
 msgid "Referential"
-msgstr "Referència"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,invoice_generation_policy:0
 #: selection:sale.shop,picking_generation_policy:0
 msgid "Draft"
-msgstr "Esborrany"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: help:sale.shop,invoice_quantity:0
@@ -126,26 +94,21 @@ msgid ""
 "choose if you invoice based on ordered or shipped quantities. If the product "
 "is a service, shipped quantities means hours spent on the associated tasks."
 msgstr ""
-"La comanda de venda crearà automàticament la proposta de factura (factura "
-"esborrany). Les quantitats demanades i les quantitats enviades poden no ser "
-"les mateixes. Heu de decidir si factureu basat en quantitats demanades o "
-"enviades. Si el producte és un servei, quantitats enviades significa hores "
-"dedicades a les tasques associades."
 
 #. module: base_sale_multichannels
 #: field:sale.shop,shop_group_id:0
 msgid "Shop Group"
-msgstr "Grup botigues"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:product.category,recursive_childen_ids:0
 msgid "All Child Categories"
-msgstr "Totes categories filles"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Update Orders Status"
-msgstr "Actualitza estat comandes"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: help:sale.shop,picking_policy:0
@@ -153,8 +116,6 @@ msgid ""
 "If you don't have enough stock available to deliver all at once, do you "
 "accept partial shipments or not?"
 msgstr ""
-"Si no disposeu de suficient estoc disponible per a enviar-ho tot a la "
-"vegada, accepteu enviaments parcials?"
 
 #. module: base_sale_multichannels
 #: help:account.journal,external_payment_codes:0
@@ -162,88 +123,86 @@ msgid ""
 "Enter the external payment codes, comma separated. They will be used to "
 "select the payment journal."
 msgstr ""
-"Indiqueu els codis de pagament externs, separats per coma. S'utilitzaran per "
-"a seleccionar el diari de pagament."
 
 #. module: base_sale_multichannels
 #: field:sale.shop,picking_policy:0
 msgid "Packing Policy"
-msgstr "Política d'enviament"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,picking_policy:0
 msgid "Complete Delivery"
-msgstr "Enviament complet"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,invoice_generation_policy:0
 msgid "Invoice Generation Policy"
-msgstr "Política generació de factures"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,invoice_quantity:0
 msgid "Ordered Quantities"
-msgstr "Quantitats ordenades"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: help:sale.shop,is_tax_included:0
 msgid "Requires sale_tax_include module to be installed"
-msgstr "Requereix que el mòdul sale_tax_include sigui instal·lat."
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Catalog"
-msgstr "Catàleg"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "External Shop Settings"
-msgstr "Configuració botiga externa"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Export Catalog"
-msgstr "Exporta catàleg"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,order_policy:0
 msgid "Invoice from the Packing"
-msgstr "Factura des d'albarà"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Order Generation"
-msgstr "Generació comanda"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:account.journal,external_payment_codes:0
 msgid "External Payment Codes"
-msgstr "Codis de pagament externs"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,order_policy:0
 msgid "Invoice on Order After Delivery"
-msgstr "Factura comanda després de l'enviament"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "﻿XML invàlid per a la definició de la vista!"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:external.shop.group,shop_ids:0
 msgid "Sale Shops"
-msgstr "Botigues venda"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:external.shop.group,name:0
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,invoice_quantity:0
 msgid "Invoice on"
-msgstr "Factura les"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: help:sale.shop,order_policy:0
@@ -259,122 +218,110 @@ msgid ""
 "  - The 'Invoice from the packing' choice is used to create an invoice "
 "during the packing process."
 msgstr ""
-"La política d'enviament s'utilitza per sincronitzar la factura i les "
-"operacions d'enviament.\n"
-"  - L'opció 'Pagament abans de l'enviament' primer genera la factura i "
-"després genera l'albarà al fer efectiu el pagament d'aquesta factura.\n"
-"  - L'opció 'Enviament' & Factura manual 'crearà l'albarà directament i "
-"esperarà que l'usuari faci clic manualment al botó' Factura 'per generar la "
-"factura esborrany.\n"
-"  - L'opció 'Factura segons comanda després enviament' generarà la factura "
-"esborrany basada en la comanda de venda després que tots els albarans es "
-"processin.\n"
-"  - L'opció 'Factura des d'albarà' s'utilitza per a crear una factura des "
-"dels albarans processats."
 
 #. module: base_sale_multichannels
 #: field:sale.shop,last_inventory_export_date:0
 msgid "Last Inventory Export Time"
-msgstr "Data última exportació inventari"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:external.referential,shop_group_ids:0
 msgid "Sub Entities"
-msgstr "Sub entitats"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,referential_id:0
 msgid "External Referential"
-msgstr "Referència externa"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,order_policy:0
 msgid "Payment Before Delivery"
-msgstr "Pagament abans de l'enviament"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: model:ir.module.module,shortdesc:base_sale_multichannels.module_meta_information
 msgid "Base Sale MultiChannels"
-msgstr "Base vendes multicanal"
+msgstr "Base Sale MultiChannels"
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 #: field:sale.shop,exportable_product_ids:0
 msgid "Exportable Products"
-msgstr "Productes exportables"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Import Orders"
-msgstr "Importa comandes"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,picking_generation_policy:0
 msgid "Picking Generation Policy"
-msgstr "Política generació d'albarans"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: help:sale.shop,invoice_generation_policy:0
 msgid "Should orders create an invoice after import?"
-msgstr "Les comandes haurien de crear una factura després de la importació?"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,last_update_order_export_date:0
 msgid "Last Order Update  Time"
-msgstr "Data última actualització comandes"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: help:sale.shop,picking_generation_policy:0
 msgid "Should orders create a picking after import?"
-msgstr "Les comandes haurien de crear un albarà després de la importació?"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,invoice_generation_policy:0
 #: selection:sale.shop,picking_generation_policy:0
 msgid "Validated"
-msgstr "Validat"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: model:ir.model,name:base_sale_multichannels.model_external_shop_group
 msgid "External Referential Shop Group"
-msgstr "Referència externa grup botigues"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Export Stock Levels Only"
-msgstr "Exporta només nivells d'estoc"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,order_policy:0
 msgid "Shipping & Manual Invoice"
-msgstr "Envia & Factura manual"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Actions"
-msgstr "Accions"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,exportable_root_category_ids:0
 msgid "Root Category"
-msgstr "Categoria arrel"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: field:sale.shop,is_tax_included:0
 msgid "Prices Include Tax?"
-msgstr "Preus inclouen impostos?"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Sale Shop"
-msgstr "Botiga venda"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Sale Multi Channels"
-msgstr "Vendes Multi canal"
+msgstr ""
 
 #. module: base_sale_multichannels
 #: view:sale.shop:0
 msgid "Orders"
-msgstr "Comandes"
+msgstr ""
