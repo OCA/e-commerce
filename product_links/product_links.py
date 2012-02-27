@@ -19,9 +19,8 @@
 ##############################################################################
 
 from osv import fields, osv
-from base_external_referentials import external_osv
 
-class product_link(external_osv.external_osv):
+class product_link(osv.osv):
     _name = 'product.link'
     _rec_name = 'linked_product_id'
 

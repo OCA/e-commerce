@@ -18,7 +18,6 @@
 #########################################################################
 
 from osv import osv, fields
-from base_external_referentials import external_osv
 from sets import Set as set
 import netsvc
 from tools.translate import _
@@ -255,7 +254,7 @@ class sale_shop(osv.osv):
             
     def import_shop_orders(self, cr, uid, shop, defaults, context):
         '''Not Implemented in abstract base module!'''
-        return False
+        return []
 
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
