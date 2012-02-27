@@ -19,7 +19,7 @@
 
 from osv import osv, fields
 from base_external_referentials import external_osv
-from sets import Set
+from sets import Set as set
 import netsvc
 from tools.translate import _
 #from datetime import datetime
@@ -143,7 +143,7 @@ class sale_shop(external_osv.external_osv):
     def export_categories(self, cr, uid, shop, ctx=None):
         if ctx is None:
             ctx = {}
-        categories = Set([])
+        categories = set([])
         categ_ids = []
         for category in shop.exportable_root_category_ids:
             categ_ids = self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], ctx)[category.id]
@@ -368,9 +368,9 @@ class sale_order(osv.osv):
 
         return True
 
-    def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception']):
+    def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
         wf_service = netsvc.LocalService("workflow")
-        res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states)
+        res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
         for order_id in ids:
             order = self.browse(cr, uid, order_id)
             if order.order_policy == 'postpaid':
