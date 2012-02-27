@@ -224,7 +224,6 @@ class sale_shop(osv.osv):
         if context is None:
             context = {}
         for shop in self.browse(cr, uid, ids):
-            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             defaults = {
                             'pricelist_id':self._get_pricelist(cr, uid, shop),
                             'shop_id': shop.id,
@@ -234,11 +233,12 @@ class sale_shop(osv.osv):
                             'ext_payment_method': shop.default_payment_method,
                         }
             
-            context = {
+            context.update({
+                            'conn_obj': self.external_connection(cr, uid, shop.referential_id),
                             'shop_name': shop.name,
                             'shop_id': shop.id,
                             'external_referential_type': shop.referential_id.type_id.name,
-                        }
+                        })
             
             if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'sale.shop')]): #OpenERP v6 needs a company_id field on the sale order but v5 doesn't have it, same for shop...
                 if not shop.company_id.id:
