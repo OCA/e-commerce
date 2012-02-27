@@ -104,7 +104,6 @@ class sale_shop(osv.osv):
                 cr.execute('select referential_id from sale_shop where id=%s', (shop.id,))
                 result = cr.fetchone()
                 res[shop.id] = result[0]
-            print 'shop result', shop.name, res[shop.id]
         return res
                 
     def _set_referential_id(self, cr, uid, id, name, value, arg, context=None):
@@ -233,6 +232,7 @@ class sale_shop(osv.osv):
             
             context = {
                             'shop_id': shop.id,
+                            'external_referential_type': shop.referential_id.type_id.name,
                         }
             
             if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'sale.shop')]): #OpenERP v6 needs a company_id field on the sale order but v5 doesn't have it, same for shop...
