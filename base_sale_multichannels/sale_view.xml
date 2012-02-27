@@ -2,14 +2,13 @@
 <openerp>
 	<data>		
 
-		<record model="ir.ui.view" id="sale_simple_pos_view_shop_form">
-			<field name="name">sale_simple_pos_view_shop_form</field>
+		<record model="ir.ui.view" id="base_sale_multichannels_view_shop_form">
+			<field name="name">base_sale_multichannels_view_shop_form</field>
 			<field name="model">sale.shop</field>
 			<field name="inherit_id" ref="sale.view_shop_form" />
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Sale Shop" position="inside">
-					
 						<separator string="Sale Multi Channels" colspan="4" />
 						<notebook colspan="4">
 							<page string="Actions">
@@ -25,7 +24,7 @@
 							<page string="Settings">
 								<group col="4" colspan="4">
 									<field name="referential_id" />
-									<field name="entity_id" />
+									<field name="shop_group_id" />
 									<field name="exportable_root_category_ids" />
 									<field name="exportable_product_ids" />							
 								</group>

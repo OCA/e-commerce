@@ -24,7 +24,7 @@ from base_external_referentials import external_osv
 from sets import Set
 
 
-class external_shop_group(osv.osv):
+class external_shop_group(external_osv.external_osv):
     _name = 'external.shop.group'
     _description = 'External Referential Shop Group'
     
@@ -33,6 +33,12 @@ class external_shop_group(osv.osv):
         'referential_id': fields.many2one('external.referential', 'Referential', select=True, ondelete='cascade'),
         'shop_ids': fields.one2many('sale.shop', 'entity_id', 'Sale Shops'),
     }
+    
+    def ext_import(self,cr, uid, data, external_referential_id, defaults={}, context={}):
+        res = super(external_shop_group, self).ext_import(cr, uid, data, external_referential_id, defaults, context)
+        all_ids = res['create_ids'] + res['create_ids']
+        self.write(cr, uid, all_ids, {'referential_id': external_referential_id}, context)
+        return res
     
 external_shop_group()
 
@@ -73,7 +79,6 @@ class sale_shop(external_osv.external_osv):
     _inherit = "sale.shop"
 
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
-        
         res = {}
         for shop in self.browse(cr, uid, ids):
             root_categories = [category for category in shop.exportable_root_category_ids]
@@ -88,8 +93,8 @@ class sale_shop(external_osv.external_osv):
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
-        'referential_id': fields.related('entity_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
-        'entity_id':fields.many2one('external.shop.group', 'Referential Sub Entity')
+        'shop_group_id':fields.many2one('external.shop.group', 'Shop Group'),
+        'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential')
     }
     
     _defaults = {
