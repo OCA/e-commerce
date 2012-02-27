@@ -26,7 +26,7 @@ import time
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-class external_shop_group(external_osv.external_osv):
+class external_shop_group(osv.osv):
     _name = 'external.shop.group'
     _description = 'External Referential Shop Group'
     
@@ -74,12 +74,12 @@ class product_category(osv.osv):
     
 product_category()
 
-class product_product(external_osv.external_osv):
+class product_product(osv.osv):
     _inherit = "product.product"
     
 product_product()
 
-class sale_shop(external_osv.external_osv):
+class sale_shop(osv.osv):
     _inherit = "sale.shop"
 
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
