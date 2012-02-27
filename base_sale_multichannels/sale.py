@@ -30,6 +30,7 @@ import time
 import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 
 class StockPicking(osv.osv):
     '''Add a flag for marking picking as exported'''
@@ -214,7 +215,7 @@ class sale_shop(osv.osv):
             context['conn_obj'] = shop.referential_id.external_connection()
             self.export_categories(cr, uid, shop, context)
             self.export_products(cr, uid, shop, context)
-            shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
+            shop.write({'last_products_export_date' : time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
             report_obj.end_report(cr, uid, report_id, context=context)
         self.export_inventory(cr, uid, ids, context)
         return False
@@ -239,7 +240,7 @@ class sale_shop(osv.osv):
             product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
             product_ids = [x for x in set(product_ids)]
             res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, stock_field, context)
-            shop.write({'last_inventory_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
+            shop.write({'last_inventory_export_date': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return res
     
     def import_catalog(self, cr, uid, ids, context):
@@ -308,7 +309,7 @@ class sale_shop(osv.osv):
                     order_ext_id = result[1].split('sale_order/')[1]
                     self.update_shop_orders(cr, uid, order, order_ext_id, context)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully updated order with OpenERP id %s and ext id %s in external sale system" % (id, order_ext_id))
-            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
+            self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return False
 
     def update_shop_partners(self, cr, uid, ids, context=None):
@@ -515,7 +516,7 @@ class sale_order(osv.osv):
                     self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
 
                 if payment_settings.check_if_paid and not paid:
-                    if order.state == 'draft' and datetime.strptime(order.date_order, '%Y-%m-%d') < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
+                    if order.state == 'draft' and datetime.strptime(order.date_order, DEFAULT_SERVER_DATE_FORMAT) < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
                         wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
                         self.write(cr, uid, order.id, {'need_to_update': False})
                         self.log(cr, uid, order.id, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
