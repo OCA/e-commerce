@@ -23,6 +23,7 @@ from sets import Set as set
 import netsvc
 from tools.translate import _
 import time
+import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
@@ -231,6 +232,7 @@ class sale_shop(osv.osv):
                         }
             
             context = {
+                            'shop_name': shop.name,
                             'shop_id': shop.id,
                             'external_referential_type': shop.referential_id.type_id.name,
                         }
@@ -344,11 +346,43 @@ class sale_order(osv.osv):
 
     _columns = {
                 'ext_payment_method': fields.char('External Payment Method', size=32, help = "Spree, Magento, Oscommerce... Payment Method"),
-                'need_to_update': fields.boolean('Need To Update')
+                'need_to_update': fields.boolean('Need To Update'),
+                'ext_total_amount': fields.float('Origin External Amount', required=True, digits_compute=dp.get_precision('Sale Price'), readonly=True),
     }
+    
     _defaults = {
         'need_to_update': lambda *a: False,
     }
+    
+    def create_payments(self, cr, uid, data_record, order_id, context):
+        """not implemented in this abstract module"""
+        #TODO use the mapping tools from the data_record to extract the information about the payment
+        return False
+    
+    def oe_create(self, cr, uid, vals, data, external_referential_id, defaults, context):
+        order_id = super(sale_order, self).oe_create(cr, uid, vals, data, external_referential_id, defaults, context)
+        is_paid = self.create_payments(cr, uid, data, order_id, context)
+        self.oe_status(cr, uid, order_id, is_paid, context)
+        return order_id
+    
+    def generate_payment_from_order(self, cr, uid, ids, payment_ref, entry_name=None, paid=True, date=None, context=None):
+        print 'ids', ids, type(ids)
+        if type(ids) in [int, long]:
+            ids = [ids]
+        res = []
+        print 'ids', ids, type(ids)
+        for order in self.browse(cr, uid, ids, context=context):
+            id = self.generate_payment_with_pay_code(cr, uid,
+                                                    order.ext_payment_method,
+                                                    order.partner_id.id,
+                                                    order.ext_total_amount or order.amount_total,
+                                                    payment_ref,
+                                                    entry_name or order.name,
+                                                    date or order.date_order,
+                                                    paid,
+                                                    context)
+            id and res.append(id)
+        return res
 
     def payment_code_to_payment_settings(self, cr, uid, payment_code, context=None):
         pay_type_obj = self.pool.get('base.sale.payment.type')
@@ -558,9 +592,11 @@ class stock_picking(osv.osv):
     _inherit = "stock.picking"
     
     def validate_picking_from_order(self, cr, uid, order_id, context=None):
-        so_name = self.pool.get('sale.order').read(cr, uid, order_id, ['name'])['name']
-        picking_id = self.search(cr, uid, [('origin', '=', so_name)])[0]
-        return self.validate_picking(cr, uid, [picking_id], context=context)
+        order= self.pool.get('sale.order').browse(cr, uid, order_id, context=context)
+        print 'picking', order.picking_ids
+        for picking in order.picking_ids:
+            picking.validate_picking(context=context)
+        return True
         
     def validate_picking(self, cr, uid, ids, context=None):
         for picking in self.browse(cr, uid, ids, context=context):
