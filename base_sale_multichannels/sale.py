@@ -197,7 +197,7 @@ class sale_shop(osv.osv):
                                                 external_referential_id=shop.referential_id.id,
                                                 context=context)
             context['external_report_id'] = report_id
-            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = shop.referential_id.external_connection()
             self.export_categories(cr, uid, shop, context)
             self.export_products(cr, uid, shop, context)
             shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
@@ -210,7 +210,7 @@ class sale_shop(osv.osv):
             context = {}
         for shop in self.browse(cr, uid, ids):
             context['shop_id'] = shop.id
-            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = shop.referential_id.external_connection()
             product_ids = [product.id for product in shop.exportable_product_ids]
             if shop.last_inventory_export_date:
                 # we do not exclude canceled moves because it means some stock levels could have increased since last export
@@ -241,7 +241,7 @@ class sale_shop(osv.osv):
                         }
             
             context.update({
-                            'conn_obj': self.external_connection(cr, uid, shop.referential_id),
+                            'conn_obj': shop.referential_id.external_connection(),
                             'shop_name': shop.name,
                             'shop_id': shop.id,
                             'external_referential_type': shop.referential_id.type_id.name,
@@ -269,7 +269,7 @@ class sale_shop(osv.osv):
             context = {}
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = shop.referential_id.external_connection()
             #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
             req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL and sale_order.state != 'draft'"
             param = (shop.id,)
@@ -297,7 +297,7 @@ class sale_shop(osv.osv):
             context = {}
         context.update({'force': True}) #FIXME
         for shop in self.browse(cr, uid, ids):
-            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = shop.referential_id.external_connection()
             ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, context))])
             self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, context)
         return True
@@ -325,7 +325,7 @@ class sale_shop(osv.osv):
                 print results
                 logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "There is no shipping to export for the shop '%s' to the external referential" % (shop.name,))
                 return True
-            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)        
+            context['conn_obj'] = shop.referential_id.external_connection()        
         
 
             picking_cr = pooler.get_db(cr.dbname).cursor()
