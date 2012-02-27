@@ -32,7 +32,12 @@ class product_export_wizard(osv.osv_memory):
         }
 
     def export(self, cr, uid, id, option, context=None):
-        context.update({'force_export':True, 'do_not_update_date':True})
+                    
+        ##TODO remove : do_not_update_date not needed since magento 6.1 #######################
+        context.update({'force_export':True, 'do_not_update_date':True})                      #
+        #replace by context.update({'force_export':True})                                     #
+        #######################################################################################
+        
         shop_ids = self.read(cr, uid, id, context=context)[0]['shop']
         sale_shop_obj = self.pool.get('sale.shop')
         product_obj = self.pool.get('product.product')
