@@ -11,10 +11,8 @@
                 <data>
                     <field name="payment_default_id" position="after">
                         <field name="sale_journal" domain="[('type','=','sale')]"/>
-                        <field name="order_prefix"/>
                     </field>
                     <form position="inside">
-                        <field name="is_tax_included"/>
                         <separator string="Sale Multi Channels" colspan="4" />
                         <notebook colspan="4">
                             <page string="Actions">
@@ -53,6 +51,14 @@
                             </page>
                             <page string="Exportable Products">
                                 <field name="exportable_product_ids" nolabel="1" colspan="4" />
+                            </page>
+                            <page string="Extra Information">
+                                <separator string='Accounting' colspan="4"/>
+                                    <field name="is_tax_included"/>
+                                    <field name="order_prefix"/>
+                                    <field name="default_payment_method"/>
+                                    <field name="default_fiscal_position"/>
+                                    <field name="default_customer_account"/>
                             </page>
                         </notebook>
                     </form>

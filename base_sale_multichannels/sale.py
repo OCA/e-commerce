@@ -44,7 +44,6 @@ class external_referential(osv.osv):
     
     _columns = {
         'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
-        'unique_shop_id': fields.many2one('sale.shop', 'Shop'),
     }
 
 external_referential()
@@ -94,7 +93,37 @@ class sale_shop(osv.osv):
                 product_ids = self.pool.get("product.product").search(cr, uid, [('categ_id', 'in', all_categories)])
             res[shop.id] = product_ids
         return res
+    
+    def _get_referential_id(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for shop in self.browse(cr, uid, ids, context=context):
+            if shop.shop_group_id:
+                res[shop.id] = shop.shop_group_id.referential_id.id
+            else:
+                #path to fix orm bug indeed even if function field are store, the value is never read for many2one fields
+                cr.execute('select referential_id from sale_shop where id=%s', (shop.id,))
+                result = cr.fetchone()
+                res[shop.id] = result[0]
+            print 'shop result', shop.name, res[shop.id]
+        return res
+                
+    def _set_referential_id(self, cr, uid, id, name, value, arg, context=None):
+        shop = self.browse(cr, uid, id, context=context)
+        if shop.shop_group_id:
+            raise osv.except_osv(_("User Error"), _("You can not change the referential of this shop, please change the referential of the shop group!"))
+        else:
+            if value == False:
+                cr.execute('update sale_shop set referential_id = NULL where id=%s', (id,))
+            else:
+                cr.execute('update sale_shop set referential_id = %s where id=%s', (value, id))
+        return True
 
+    def _get_shop_id(self, cr, uid, ids, context=None):
+        shop_ids=[]
+        for group in self.pool.get('external.shop.group').browse(cr, uid, ids, context=context):
+            shop_ids.append([shop.id for shop in group.shop_ids])
+        return shop_ids
+        
     _columns = {
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
@@ -104,10 +133,18 @@ class sale_shop(osv.osv):
         'last_images_export_date': fields.datetime('Last Images Export Time'),
         'last_update_order_export_date' : fields.datetime('Last Order Update  Time'),
         'last_products_export_date' : fields.datetime('Last Product Export  Time'),
-        'referential_id': fields.related('shop_group_id', 'referential_id', type='many2one', relation='external.referential', string='External Referential'),
+        'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
+                relation='external.referential', string='External Referential', method=True,
+                store={
+                    'external.shop.group': (_get_shop_id, ['referential_id'], 10),
+                 }),
         'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
+        'default_payment_method': fields.char('Default Payment Method', size=64),
+        'default_language': fields.many2one('res.lang', 'Default Language'),
+        'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
+        'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
     }
     
     _defaults = {
@@ -188,7 +225,16 @@ class sale_shop(osv.osv):
             defaults = {
                             'pricelist_id':self._get_pricelist(cr, uid, shop),
                             'shop_id': shop.id,
+                            'fiscal_position': shop.default_fiscal_position.id,
+                            'property_account_receivable': shop.default_customer_account.id,
+                            'order_prefix': shop.order_prefix,
+                            'ext_payment_method': shop.default_payment_method,
                         }
+            
+            context = {
+                            'shop_id': shop.id,
+                        }
+            
             if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'sale.shop')]): #OpenERP v6 needs a company_id field on the sale order but v5 doesn't have it, same for shop...
                 if not shop.company_id.id:
                     raise osv.except_osv(_('Warning!'), _('You have to set a company for this OpenERP sale shop!'))
@@ -203,7 +249,8 @@ class sale_shop(osv.osv):
         return False
             
     def import_shop_orders(self, cr, uid, shop, defaults, context):
-        raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        '''Not Implemented in abstract base module!'''
+        return False
 
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
