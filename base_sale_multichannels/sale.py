@@ -140,42 +140,42 @@ class sale_shop(external_osv.external_osv):
         else:
             return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)])[0]
     
-    def export_categories(self, cr, uid, shop, ctx=None):
-        if ctx is None:
-            ctx = {}
+    def export_categories(self, cr, uid, shop, context=None):
+        if context is None:
+            context = {}
         categories = set([])
         categ_ids = []
         for category in shop.exportable_root_category_ids:
-            categ_ids = self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], ctx)[category.id]
+            categ_ids = self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], context)[category.id]
             for categ_id in categ_ids:
                 categories.add(categ_id)
-        ctx['shop_id'] = shop.id
-        self.pool.get('product.category').ext_export(cr, uid, [categ_id for categ_id in categories], [shop.referential_id.id], {}, ctx)
+        context['shop_id'] = shop.id
+        self.pool.get('product.category').ext_export(cr, uid, [categ_id for categ_id in categories], [shop.referential_id.id], {}, context)
        
-    def export_products_collection(self, cr, uid, shop, products, ctx):
-        self.pool.get('product.product').ext_export(cr, uid, [product.id for product in shop.exportable_product_ids] , [shop.referential_id.id], {}, ctx)
+    def export_products_collection(self, cr, uid, shop, products, context):
+        self.pool.get('product.product').ext_export(cr, uid, [product.id for product in shop.exportable_product_ids] , [shop.referential_id.id], {}, context)
 
-    def export_products(self, cr, uid, shop, ctx):
-        self.export_products_collection(cr, uid, shop, shop.exportable_product_ids, ctx)
+    def export_products(self, cr, uid, shop, context):
+        self.export_products_collection(cr, uid, shop, shop.exportable_product_ids, context)
     
-    def export_catalog(self, cr, uid, ids, ctx=None):
-        if ctx is None:
-            ctx = {}
+    def export_catalog(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         for shop in self.browse(cr, uid, ids):
-            ctx['shop_id'] = shop.id
-            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            self.export_categories(cr, uid, shop, ctx)
-            self.export_products(cr, uid, shop, ctx)
+            context['shop_id'] = shop.id
+            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            self.export_categories(cr, uid, shop, context)
+            self.export_products(cr, uid, shop, context)
             shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
-        self.export_inventory(cr, uid, ids, ctx)
+        self.export_inventory(cr, uid, ids, context)
         return False
             
-    def export_inventory(self, cr, uid, ids, ctx=None):
-        if ctx is None:
-            ctx = {}
+    def export_inventory(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         for shop in self.browse(cr, uid, ids):
-            ctx['shop_id'] = shop.id
-            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['shop_id'] = shop.id
+            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             product_ids = [product.id for product in shop.exportable_product_ids]
             if shop.last_inventory_export_date:
                 recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('date_planned', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids), ('state', '!=', 'draft'), ('state', '!=', 'cancel')])
@@ -183,19 +183,19 @@ class sale_shop(external_osv.external_osv):
                 recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('product_id', 'in', product_ids)])
             product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
             product_ids = [x for x in set(product_ids)]
-            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', ctx)
+            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, '', context)
             shop.write({'last_inventory_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         return res
     
-    def import_catalog(self, cr, uid, ids, ctx):
+    def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
         
-    def import_orders(self, cr, uid, ids, ctx=None):
-        if ctx is None:
-            ctx = {}
+    def import_orders(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         for shop in self.browse(cr, uid, ids):
-            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             defaults = {
                             'pricelist_id':self._get_pricelist(cr, uid, shop),
                             'shop_id': shop.id,
@@ -213,18 +213,18 @@ class sale_shop(external_osv.external_osv):
 
             defaults.update(self.pool.get('sale.order').onchange_shop_id(cr, uid, ids, shop.id)['value'])
 
-            self.import_shop_orders(cr, uid, shop, defaults, ctx)
+            self.import_shop_orders(cr, uid, shop, defaults, context)
         return False
             
-    def import_shop_orders(self, cr, uid, shop, defaults, ctx):
+    def import_shop_orders(self, cr, uid, shop, defaults, context):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
-    def update_orders(self, cr, uid, ids, ctx=None):
-        if ctx is None:
-            ctx = {}
+    def update_orders(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
             req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL and sale_order.state != 'draft'"
             param = (shop.id,)
@@ -240,30 +240,30 @@ class sale_shop(external_osv.external_osv):
                 ids = self.pool.get('sale.order').search(cr, uid, [('id', '=', result[0])])
                 if ids:
                     id = ids[0]
-                    order = self.pool.get('sale.order').browse(cr, uid, id, ctx)            
+                    order = self.pool.get('sale.order').browse(cr, uid, id, context)            
                     order_ext_id = result[1].split('sale.order_')[1]
-                    self.update_shop_orders(cr, uid, order, order_ext_id, ctx)
+                    self.update_shop_orders(cr, uid, order, order_ext_id, context)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully updated order with OpenERP id %s and ext id %s in external sale system" % (id, order_ext_id))
             self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         return False
 
-    def update_shop_partners(self, cr, uid, ids, ctx=None):
-        if ctx is None:
-            ctx = {}
-        ctx.update({'force': True}) #FIXME
+    def update_shop_partners(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        context.update({'force': True}) #FIXME
         for shop in self.browse(cr, uid, ids):
-            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
-            ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, ctx))])
-            self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, ctx)
+            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
+            ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, context))])
+            self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, context)
         return True
         
-    def update_shop_orders(self, cr, uid, order, ext_id, ctx):
+    def update_shop_orders(self, cr, uid, order, ext_id, context):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
-    def export_shipping(self, cr, uid, ids, ctx):
+    def export_shipping(self, cr, uid, ids, context):
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            ctx['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)        
+            context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)        
         
             cr.execute("""
                 select stock_picking.id, sale_order.id, count(pickings.id) from stock_picking
@@ -280,7 +280,7 @@ class sale_shop(external_osv.external_osv):
                 else:
                     picking_type = 'partial'
                 
-                ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(cr, uid, result[0], picking_type, shop.referential_id.id, ctx)
+                ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(cr, uid, result[0], picking_type, shop.referential_id.id, context)
 
                 if ext_shipping_id:
                     ir_model_data_vals = {
@@ -307,17 +307,17 @@ class sale_order(osv.osv):
         'need_to_update': lambda *a: False,
     }
 
-    def payment_code_to_payment_settings(self, cr, uid, payment_code, ctx=None):
+    def payment_code_to_payment_settings(self, cr, uid, payment_code, context=None):
         payment_setting_ids = self.pool.get('base.sale.payment.type').search(cr, uid, [['name', 'ilike', payment_code]])
-        return payment_setting_ids and self.pool.get('base.sale.payment.type').browse(cr, uid, payment_setting_ids[0], ctx) or False
+        return payment_setting_ids and self.pool.get('base.sale.payment.type').browse(cr, uid, payment_setting_ids[0], context) or False
 
-    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, paid, ctx):
-        payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_code, ctx)
+    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, paid, context):
+        payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_code, context)
         if payment_settings and payment_settings.journal_id and (payment_settings.check_if_paid and paid or not payment_settings.check_if_paid):
-            return self.generate_payment_with_journal(cr, uid, payment_settings.journal_id.id, partner_id, amount, payment_ref, entry_name, date, payment_settings.validate_payment, ctx)
+            return self.generate_payment_with_journal(cr, uid, payment_settings.journal_id.id, partner_id, amount, payment_ref, entry_name, date, payment_settings.validate_payment, context)
         return False
         
-    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, ctx):
+    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, context):
         statement_vals = {
                             'name': 'ST_' + entry_name,
                             'journal_id': journal_id,
@@ -325,9 +325,9 @@ class sale_order(osv.osv):
                             'balance_end_real': amount,
                             'date' : date
                         }
-        statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, ctx)
-        statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, ctx)
-        account_id = self.pool.get('account.bank.statement.line').onchange_type(cr, uid, [], partner_id, "customer", ctx)['value']['account_id']
+        statement_id = self.pool.get('account.bank.statement').create(cr, uid, statement_vals, context)
+        statement = self.pool.get('account.bank.statement').browse(cr, uid, statement_id, context)
+        account_id = self.pool.get('account.bank.statement.line').onchange_type(cr, uid, [], partner_id, "customer", context)['value']['account_id']
         statement_line_vals = {
                                 'statement_id': statement_id,
                                 'name': entry_name,
@@ -336,9 +336,9 @@ class sale_order(osv.osv):
                                 'partner_id': partner_id,
                                 'account_id': account_id
                                }
-        statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, ctx)
+        statement_line_id = self.pool.get('account.bank.statement.line').create(cr, uid, statement_line_vals, context)
         if should_validate:
-            self.pool.get('account.bank.statement').button_confirm(cr, uid, [statement_id], ctx)
+            self.pool.get('account.bank.statement').button_confirm(cr, uid, [statement_id], context)
             self.pool.get('account.move.line').write(cr, uid, [statement.move_line_ids[0].id], {'date': date})
         return statement_line_id
 
