@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <record model="ir.ui.view" id="external_report_form_view_shop">
+            <field name="name">external_report_form_view_shop</field>
+            <field name="model">external.report</field>
+            <field name="inherit_id" ref="base_external_referentials.external_report_form_view" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                 <field name="external_referential_id" position="after">
+                     <field name="shop_id"/>
+                 </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

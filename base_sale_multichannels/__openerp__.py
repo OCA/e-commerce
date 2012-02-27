@@ -54,6 +54,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
     'update_xml': [
         'security/ir.model.access.csv',
         'sale_view.xml',
+        'report_view.xml',
         'wizard/export_product.xml',
     ],
     'demo_xml': [],
