@@ -145,10 +145,13 @@ class sale_shop(osv.osv):
         'default_language': fields.many2one('res.lang', 'Default Language'),
         'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
         'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
+        'auto_import': fields.boolean('Automatic Import'),
+        
     }
     
     _defaults = {
         'payment_default_id': lambda * a: 1, #required field that would cause trouble if not set when importing
+        'auto_import': lambda * a: True,
     }
 
     def _get_pricelist(self, cr, uid, shop):
@@ -354,23 +357,30 @@ class sale_order(osv.osv):
         'need_to_update': lambda *a: False,
     }
     
-    def create_payments(self, cr, uid, data_record, order_id, context):
+    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key_field, mapping_lines, defaults, context):
+        res = super(sale_order, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, key_field, mapping_lines, defaults, context)
+        payment_method = res.get('ext_payment_method', False) or defaults.get('ext_payment_method', False)
+        payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
+        if payment_settings:
+            res['order_policy'] = payment_settings.order_policy
+            res['picking_policy'] = payment_settings.picking_policy
+            res['invoice_quantity'] = payment_settings.invoice_quantity
+        return res    
+    
+    def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
         #TODO use the mapping tools from the data_record to extract the information about the payment
         return False
     
-    def oe_create(self, cr, uid, vals, data, external_referential_id, defaults, context):
-        order_id = super(sale_order, self).oe_create(cr, uid, vals, data, external_referential_id, defaults, context)
-        is_paid = self.create_payments(cr, uid, data, order_id, context)
+    def oe_status_and_paid(self, cr, uid, order_id, data, external_referential_id, defaults, context):
+        is_paid = self.create_payments(cr, uid, order_id, data, context)
         self.oe_status(cr, uid, order_id, is_paid, context)
         return order_id
     
     def generate_payment_from_order(self, cr, uid, ids, payment_ref, entry_name=None, paid=True, date=None, context=None):
-        print 'ids', ids, type(ids)
         if type(ids) in [int, long]:
             ids = [ids]
         res = []
-        print 'ids', ids, type(ids)
         for order in self.browse(cr, uid, ids, context=context):
             id = self.generate_payment_with_pay_code(cr, uid,
                                                     order.ext_payment_method,
@@ -459,6 +469,7 @@ class sale_order(osv.osv):
                             self.write(cr, uid, order.id, {'need_to_update': False})
                         except Exception, e:
                             self.log(cr, uid, order.id, "ERROR could not valid order")
+                            raise Exception(e)
                         
                         if payment_settings.validate_picking:
                             self.pool.get('stock.picking').validate_picking_from_order(cr, uid, order.id)
@@ -520,6 +531,22 @@ class sale_order(osv.osv):
                         if payment_settings.is_auto_reconcile:
                             invoice.auto_reconcile(context=context)
         return res
+
+    def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
+        '''Not implemented in this abstract module, if it's not implemented in your module it will raise an error'''
+        # Explication :
+        # sometime customer can do ugly thing like renamming a sale_order and try to reimported it,
+        # sometime openerp run two scheduler at the same time, or the customer launch two openerp at the same time
+        # or the external system give us again an already imported order
+        # As the update of an existing order (this is not the update of the status but the update of the line, the address...)
+        # is not supported by base_sale_multichannels and also not in magentoerpconnect.
+        # It's better to don't allow this feature to avoid hidding a problem.
+        # It's better to have the order not imported and to know it than having order with duplicated line.
+        if not (context and context.get('oe_update_supported', False)):
+            #TODO found a clean solution to raise the osv.except_osv error in the try except of the function import_with_try
+            raise osv.except_osv(_("""Not Implemented, the order with the id %s try to be updated from the external system.
+This feature is not supported. Maybe the import try to reimport an existing sale order"""%(existing_rec_id,)), "  ")
+        return existing_rec_id
 
 sale_order()
 
@@ -593,7 +620,8 @@ class stock_picking(osv.osv):
     
     def validate_picking_from_order(self, cr, uid, order_id, context=None):
         order= self.pool.get('sale.order').browse(cr, uid, order_id, context=context)
-        print 'picking', order.picking_ids
+        if not order.picking_ids:
+            raise Exception('For an unknow reason the picking for the sale order %s was not created'%order.name)
         for picking in order.picking_ids:
             picking.validate_picking(context=context)
         return True
