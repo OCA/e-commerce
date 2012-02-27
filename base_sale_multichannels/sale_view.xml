@@ -143,59 +143,53 @@
 
         <menuitem action="act_base_sale_payment_type_form" id="menu_base_sale_payment_type" name="E-Commerce Payment Configuration" parent="account.menu_finance" sequence="25"/>
 
-        <record id="base_external_referentials.ext_Product" model="ir.actions.act_window">
-            <field name="name">External Product</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">ir.model.data</field>
-            <field name="view_type">form</field>
-            <field name="src_model">product.product</field>
-            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'product.product')]</field>
-        </record>
-
-        <record id="base_external_referentials.ext_Product Category" model="ir.actions.act_window">
-            <field name="name">External Product Category</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">ir.model.data</field>
-            <field name="view_type">form</field>
-            <field name="src_model">product.category</field>
-            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'product.category')]</field>
-        </record>
-
-        <record id="base_external_referentials.ext_Sale Order" model="ir.actions.act_window">
-            <field name="name">External Sale Order</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">ir.model.data</field>
-            <field name="view_type">form</field>
-            <field name="src_model">sale.order</field>
-            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'sale.order')]</field>
-        </record>
+        <act_window
+		    id="base_external_referentials.ext_product_product"
+            name="External Product"
+		    res_model="ir.model.data"
+            src_model="product.product"
+            domain="[('res_id', '=', 'active_id'), ('model', '=', 'product.product')]"
+        />
 		
-        <record id="base_external_referentials.ext_Sale Shop" model="ir.actions.act_window">
-            <field name="name">External Sale Shop</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">ir.model.data</field>
-            <field name="view_type">form</field>
-            <field name="src_model">sale.shop</field>
-            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'sale.shop')]</field>
-        </record>
+        <act_window
+		    id="base_external_referentials.ext_product_category"
+            name="External Category"
+		    res_model="ir.model.data"
+            src_model="product.category"
+            domain="[('res_id', '=', 'active_id'), ('model', '=', 'product.category')]"
+        />
 
-        <record id="base_external_referentials.ext_Partner" model="ir.actions.act_window">
-            <field name="name">External Partner</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">ir.model.data</field>
-            <field name="view_type">form</field>
-            <field name="src_model">res.partner</field>
-            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'res.partner')]</field>
-        </record>
+        <act_window
+		    id="base_external_referentials.ext_sale_order"
+            name="External Order"
+		    res_model="ir.model.data"
+            src_model="sale.order"
+            domain="[('res_id', '=', 'active_id'), ('model', '=', 'sale.order')]"
+        />
 		
-        <record id="base_external_referentials.ext_Partner Addresses" model="ir.actions.act_window">
-            <field name="name">External Partner Addresses</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">ir.model.data</field>
-            <field name="view_type">form</field>
-            <field name="src_model">res.partner.address</field>
-            <field name="domain">[('res_id', '=', 'active_id'), ('model', '=', 'res.partner.address')]</field>
-        </record>
+        <act_window
+		    id="base_external_referentials.ext_sale_shop"
+            name="External Shop"
+		    res_model="ir.model.data"
+            src_model="sale.shop"
+            domain="[('res_id', '=', 'active_id'), ('model', '=', 'sale.shop')]"
+        />
+		
+        <act_window
+		    id="base_external_referentials.ext_res_partner"
+            name="External Partner"
+		    res_model="ir.model.data"
+            src_model="res.partner"
+            domain="[('res_id', '=', 'active_id'), ('model', '=', 'res.partner')]"
+        />
+		
+        <act_window
+		    id="base_external_referentials.ext_res_partner_address"
+            name="External Address"
+		    res_model="ir.model.data"
+            src_model="res.partner.address"
+            domain="[('res_id', '=', 'active_id'), ('model', '=', 'res.partner.address')]"
+        />
 
     </data>
 </openerp>
