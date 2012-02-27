@@ -145,12 +145,19 @@ class sale_shop(osv.osv):
     def export_catalog(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+        report_obj = self.pool.get('external.report')
         for shop in self.browse(cr, uid, ids):
             context['shop_id'] = shop.id
+            report_id = report_obj.start_report(cr, uid,
+                                                ref='export_catalog',
+                                                external_referential_id=shop.referential_id.id,
+                                                context=context)
+            context['external_report_id'] = report_id
             context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             self.export_categories(cr, uid, shop, context)
             self.export_products(cr, uid, shop, context)
             shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
+            report_obj.end_report(cr, uid, report_id, context=context)
         self.export_inventory(cr, uid, ids, context)
         return False
             
