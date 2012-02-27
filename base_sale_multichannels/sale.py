@@ -26,7 +26,7 @@ from sets import Set
 
 class external_shop_group(osv.osv):
     _name = 'external.shop.group'
-    _description = 'Referential Sub Entity'
+    _description = 'External Referential Shop Group'
     
     _columns = {
         'name': fields.char('Name', size=64, required=True),
