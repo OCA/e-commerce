@@ -4,6 +4,7 @@
 # Copyright (C) 2009  Raphaël Valyi                                     #
 # Copyright (C) 2010-2011 Akretion Sébastien BEAU                       #
 #                                        <sebastien.beau@akretion.com>  #
+# Copyright (C) 2011-2012 Camptocamp Guewen Baconnier                   #
 # Copyright (C) 2011 by Openlabs Technologies & Consulting (P) Limited  #
 #                                                                       #
 #This program is free software: you can redistribute it and/or modify   #
@@ -226,8 +227,6 @@ class sale_shop(osv.osv):
         else:
             stock_field = 'virtual_available'
 
-        print 'stock field is', stock_field
-
         for shop in self.browse(cr, uid, ids):
             context['shop_id'] = shop.id
             context['conn_obj'] = shop.referential_id.external_connection()
@@ -366,6 +365,18 @@ class sale_shop(osv.osv):
                     # fail in next step due to only one visible reason, i.e.,
                     # shipping already exists in magento which does not need to be
                     # exported anyway.
+                    # FIXME: to refactorize
+                    # Guewen Baconnier wrote:
+                    #
+                    #  1. this column should not be named "exported_to_magento" as base_sale_multichannels should be "external_referential-agnostic".
+                    #     I think we could rename it as "do_not_export" because according to the above description, "it is NOT exported and we
+                    #     do NOT want to export it". Also we could add it on the stock.picking.out view to reactivate the
+                    #     export or prevent an export if it is done manually.
+                    #
+                    #  2. The issue with this implementation is that the exception management is way too large. With any sort of error,
+                    #     the "exported_to_magento" field will be set to true and the picking will never be exported agin (python error, network error or anything).
+                    #     What we should do : in create_ext_partial_shipping and create_ext_complete_shipping we do not silent the exception (it is except Exception: now!)
+                    #     We catch it at this level with a fine exception management, only errors returned by magento with some error codes must write "do_not_export".
                     picking_obj.write(cr, uid, result["picking_id"], {
                             'exported_to_magento': True
                         }, context=context)
