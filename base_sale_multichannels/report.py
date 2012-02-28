@@ -29,22 +29,21 @@ class external_report(osv.osv):
         'shop_id': fields.many2one('sale.shop', 'Shop', readonly=True),
         }
     
-    def get_report_filter(self, cr, uid, ref, external_referential_id, name=None,
-                          context=None):
+    def get_report_filter(self, cr, uid, ref, external_referential_id,
+                          name=None, context=None):
         filter = super(external_report, self).get_report_filter(cr, uid, ref,
                                         external_referential_id, name=name,
                                         context=context)                  
         filter.append(('shop_id', '=', context.get('shop_id', False)))
         return filter
 
-    #TODO maybe it will be better to fill the shop id at the creation of the report
-    def end_report(self, cr, uid, id, context=None):
-        report_id = super(external_report, self).\
-        end_report(cr, uid, id, context)
-        if context.get('shop_id', False):
-            self.write(cr, uid, report_id,
-                       {'shop_id': context['shop_id']},
-                       context)
-        return id
+    def _prepare_start_report(self, cr, uid, method, object, context=None):
+        res = super(external_report, self)._prepare_start_report(
+            cr, uid, method, object, context=context)
+        if context is None: context = {}
+        if not context.get('shop_id'):
+            raise Exception('Missing shop_id while creating a synchronisation report')
+        res['shop_id'] = context['shop_id']
+        return res
 
 external_report()
