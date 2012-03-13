@@ -468,6 +468,9 @@ class sale_order(osv.osv):
         return order_id
     
     def oe_create(self, cr, uid, vals, external_referential_id, defaults, context):
+        #depending of the external system the contact address can be optionnal
+        if not vals.get('partner_order_id'):
+            vals['partner_order_id'] = vals['partner_invoice_id']
         order_id = super(sale_order, self).oe_create(cr, uid, vals, external_referential_id, defaults, context)
         self.oe_status_and_paid(cr, uid, order_id, vals, external_referential_id, defaults, context)
         return order_id
