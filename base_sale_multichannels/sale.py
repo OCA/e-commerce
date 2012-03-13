@@ -469,6 +469,7 @@ class sale_order(osv.osv):
     
     def oe_create(self, cr, uid, vals, external_referential_id, defaults, context):
         #depending of the external system the contact address can be optionnal
+        vals = self._convert_special_fields(cr, uid, vals, external_referential_id, context=context)
         if not vals.get('partner_order_id'):
             vals['partner_order_id'] = vals['partner_invoice_id']
         order_id = super(sale_order, self).oe_create(cr, uid, vals, external_referential_id, defaults, context)
@@ -642,6 +643,92 @@ class sale_order(osv.osv):
             raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system"
                                 "This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
         return existing_rec_id
+
+
+    def _convert_special_fields(self, cr, uid, vals, referential_id, context=None):
+        """
+        Convert the special 'fake' field into an order line
+        special field are :
+        - shipping amount and shipping_tax_rate
+        - cash_on_delivery and cash_on_delivery_taxe_rate
+        - gift_certificates
+
+        :param dict vals : values of the sale order to create
+        :param int referential_id : external referential id
+        :return: the value for the sale order with the special field converted
+        :rtype: dict
+        """
+        for option in self. _get_special_fields(cr, uid, context=context):
+            vals = self._add_order_extra_line(cr, uid, vals, option, context=context)
+        return vals
+
+
+    def _get_special_fields(self, cr, uid, context=None):
+        return [
+            {
+            'price_unit_tax_excluded' : 'shipping_amount_tax_excluded',
+            'price_unit_tax_included' : 'shipping_amount_tax_included',
+            'tax_rate_field' : 'shipping_tax_rate',
+            'product_ref' : ('base_sale_multichannels', 'product_product_shipping'),
+            },
+            {
+            'tax_rate_field' : 'cash_on_delivery_taxe_rate',
+            'price_unit_tax_excluded' : 'cash_on_delivery_amount_tax_excluded',
+            'price_unit_tax_included' : 'cash_on_delivery_amount_tax_included',
+            'product_ref' : ('base_sale_multichannels', 'product_product_cash_on_delivery'),
+            },
+            {
+            'price_unit_tax_excluded' : 'gift_certificates_amount', #gift certificate doesn't have any tax
+            'price_unit_tax_included' : 'gift_certificates_amount',
+            'product_ref' : ('base_sale_multichannels', 'product_product_gift'),
+            'code_field': 'gift_certificates_code',
+            'sign': -1,
+            },
+        ]
+
+    def _add_order_extra_line(self, cr, uid, vals, option, context=None):
+        """ Add or substract amount on order as a separate line item with single quantity for each type of amounts like :
+        shipping, cash on delivery, discount, gift certificates...
+
+        :param dict vals: values of the sale order to create
+        :param option: dictionnary of option for the special field to process
+        """
+        if not context: context={}
+
+        sign = option.get('sign', 1)
+        if context.get('is_tax_included') and vals.get(option['price_unit_tax_included']):
+            price_unit = vals[option['price_unit_tax_included']] * sign
+        elif vals.get(option['price_unit_tax_excluded']):
+            price_unit = vals[option['price_unit_tax_excluded']] * sign
+        else:
+            return vals #if there is not price, we have nothing to import
+
+        model_data_obj = self.pool.get('ir.model.data')
+
+        model, product_id = model_data_obj.get_object_reference(cr, uid, *option['product_ref'])
+        product = self.pool.get('product.product').browse(cr, uid, product_id, context)
+
+        extra_line = {
+                        'product_id': product.id,
+                        'name': product.name,
+                        'product_uom': product.uom_id.id,
+                        'product_uom_qty': 1,
+                        'price_unit': price_unit,
+                    }
+
+        if context.get('play_sale_order_onchange'):
+            extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], defaults, context=context)
+        if context.get('use_external_tax'):
+            tax_rate = vals[option['tax_rate_field']]
+            line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
+            extra_line['tax_id'] = [(6, 0, line_tax_id)]
+
+        ext_code_field = option.get('code_field')
+        if ext_code_field and vals.get(ext_code_field):
+            extra_line['name'] = "%s [%s]" % (extra_line['name'], vals[ext_code_field])
+
+        vals['order_line'].append((0, 0, extra_line))
+        return vals
 
 sale_order()
 
