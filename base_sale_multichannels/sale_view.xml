@@ -60,6 +60,8 @@
                                     <field name="default_payment_method"/>
                                     <field name="default_fiscal_position"/>
                                     <field name="default_customer_account"/>
+                                <separator string='Stock' colspan="4"/>
+                                    <field name="product_stock_field_id"/>
                                 <separator string='Other Information' colspan="4"/>
 						            <field name="address_id" colspan="2" />
 						            <field name="website" colspan="2" />

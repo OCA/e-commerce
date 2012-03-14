@@ -31,7 +31,9 @@ class product_export_wizard(osv.osv_memory):
         'shop': fields.many2many('sale.shop', 'shop_rel', 'shop_id', 'product_id', 'Shop', required=True),
         }
 
-    def export(self, cr, uid, id, option, context=None):
+    def export(self, cr, uid, id, options=None, context=None):
+        if options is None:
+            options = []
         if not context:
             context={}
         context.update({'force_export':True})
@@ -40,40 +42,39 @@ class product_export_wizard(osv.osv_memory):
         product_obj = self.pool.get('product.product')
         context['force_product_ids'] = context['active_ids']
 
-        if self.pool.get('ir.module.module').is_installed(cr, uid, 'stock_available_immediately', context=context):
-            stock_field = 'immediately_usable_qty'
-        else:
-            stock_field = 'virtual_available'
-
-        print 'stock field is', stock_field
-
         for shop in sale_shop_obj.browse(cr, uid, shop_ids, context=context):
             context['shop_id'] = shop.id
             if not shop.referential_id:
                 raise osv.except_osv(_("User Error"), _("The shop '%s' doesn't have any external referential are you sure that it's an externe sale shop? If yes syncronize it before exporting product")%(shop.name,))
-            context['conn_obj'] = shop.referential_id.external_connection()
+            connection = shop.referential_id.external_connection()
+            context['conn_obj'] = connection
             none_exportable_product = set(context['force_product_ids']) - set([product.id for product in shop.exportable_product_ids])
             if none_exportable_product:
                 products = ', '.join([x['name'] for x in product_obj.read(cr, uid, list(none_exportable_product), fields = ['name'], context=context)])
                 raise osv.except_osv(_("User Error"), _("The product '%s' can not be exported to the shop '%s'. \nPlease check : \n    - if their are in the root category \n    - if the website option is correctly configured. \n    - if the check box Magento exportable is checked")%(products, shop.name))
-            if option == 'export_product':
+
+            if 'export_product' in options:
                 sale_shop_obj.export_products(cr, uid, shop, context)
-            elif option == 'export_inventory':
-                product_obj.export_inventory(cr, uid, context['force_product_ids'], stock_field, context)
-            elif option == 'export_product_and_inventory':
-                sale_shop_obj.export_products(cr, uid, shop, context)
-                product_obj.export_inventory(cr, uid, context['force_product_ids'], stock_field, context)
+            if 'export_inventory' in options:
+                product_obj.export_inventory(
+                    cr, uid,
+                    context['force_product_ids'],
+                    shop.id,
+                    connection,
+                    context=context)
             
         return {'type': 'ir.actions.act_window_close'}
 
     def export_product(self, cr, uid, id,context=None):
-        return self.export(cr, uid, id, 'export_product', context)
+        return self.export(cr, uid, id, ['export_product'], context)
 
     def export_inventory(self, cr, uid, id,context=None):
-        return self.export(cr, uid, id, 'export_inventory', context)
+        return self.export(
+            cr, uid, id, ['export_inventory'], context)
 
     def export_product_and_inventory(self, cr, uid, id, context=None):
-        return self.export(cr, uid, id, 'export_product_and_inventory', context)
+        return self.export(
+            cr, uid, id, ['export_product', 'export_inventory'], context)
 
 
 
