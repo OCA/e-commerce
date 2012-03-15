@@ -146,7 +146,22 @@ class sale_shop(osv.osv):
         for group in self.pool.get('external.shop.group').browse(cr, uid, ids, context=context):
             shop_ids += [shop.id for shop in group.shop_ids]
         return shop_ids
-        
+
+    def _get_stock_field_id(self, cr, uid, context=None):
+        # TODO : Hidden dependency, put in a glue module ?
+        if self.pool.get('ir.module.module').is_installed(
+            cr, uid, 'stock_available_immediately', context=None):
+            stock_field = 'immediately_usable_qty'
+        else:
+            stock_field = 'virtual_available'
+
+        field_ids = self.pool.get('ir.model.fields').search(
+            cr, uid,
+            [('model', '=', 'product.product'),
+             ('name', '=', stock_field)],
+            context=context)
+        return field_ids[0]
+
     _columns = {
         #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
@@ -180,14 +195,21 @@ class sale_shop(osv.osv):
         'check_total_amount': fields.boolean('Check Total Amount', help=("The total amount computed by OpenERP should match"
                                                                 "with the external amount, if not the sale_order is in exception")),
         'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
-
-
+        'product_stock_field_id': fields.many2one(
+            'ir.model.fields',
+            string='Stock Field',
+            domain="[('model', 'in', ['product.product', 'product.template']),"
+                   " ('ttype', '=', 'float')]",
+            help="Choose the field of the product which will be used for "
+                 "stock inventory updates.\nIf empty, Quantity Available "
+                 "is used")
     }
     
     _defaults = {
         'payment_default_id': lambda * a: 1, #required field that would cause trouble if not set when importing
         'auto_import': lambda * a: True,
         'use_external_tax':  lambda * a: True,
+        'product_stock_field_id': _get_stock_field_id,
     }
 
     def get_pricelist(self, cr, uid, id, context=None):
@@ -236,28 +258,45 @@ class sale_shop(osv.osv):
             report_obj.end_report(cr, uid, report_id, context=context)
         self.export_inventory(cr, uid, ids, context)
         return False
-            
+
     def export_inventory(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        if self.pool.get('ir.module.module').is_installed(cr, uid, 'stock_available_immediately', context=None):
-            stock_field = 'immediately_usable_qty'
-        else:
-            stock_field = 'virtual_available'
 
+        stock_move_obj = self.pool.get('stock.move')
         for shop in self.browse(cr, uid, ids):
-            context['shop_id'] = shop.id
-            context['conn_obj'] = shop.referential_id.external_connection()
-            product_ids = [product.id for product in shop.exportable_product_ids]
+            connection = shop.referential_id.external_connection()
+
+            product_ids = [product.id for product
+                           in shop.exportable_product_ids]
             if shop.last_inventory_export_date:
-                # we do not exclude canceled moves because it means some stock levels could have increased since last export
-                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('write_date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids), ('state', '!=', 'draft')])
+                # we do not exclude canceled moves because it means
+                # some stock levels could have increased since last export
+                recent_move_ids = stock_move_obj.search(
+                    cr, uid,
+                    [('write_date', '>', shop.last_inventory_export_date),
+                     ('product_id', 'in', product_ids),
+                     ('state', '!=', 'draft')],
+                    context=context)
             else:
-                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('product_id', 'in', product_ids)])
-            product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
-            product_ids = [x for x in set(product_ids)]
-            res = self.pool.get('product.product').export_inventory(cr, uid, product_ids, stock_field, context)
-            shop.write({'last_inventory_export_date': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
+                recent_move_ids = stock_move_obj.search(
+                    cr, uid,
+                    [('product_id', 'in', product_ids)],
+                    context=context)
+
+            recent_moves = stock_move_obj.browse(
+                cr, uid, recent_move_ids, context=context)
+
+            product_ids = [move.product_id.id
+                           for move
+                           in recent_moves
+                           if move.product_id.state != 'obsolete']
+            product_ids = list(set(product_ids))
+
+            res = self.pool.get('product.product').export_inventory(
+                cr, uid, product_ids, shop.id, connection, context=context)
+            shop.write({'last_inventory_export_date':
+                            time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return res
     
     def import_catalog(self, cr, uid, ids, context):
