@@ -55,8 +55,7 @@ class external_shop_group(osv.osv):
     }
     
 
-    def _get_default_import_values(self, cr, uid, external_session, context=None):
-        print 'get default value'
+    def _get_default_import_values(self, cr, uid, external_session, **kwargs):
         return {'referential_id' : external_session.referential_id.id}
 
 external_shop_group()
@@ -188,6 +187,7 @@ class sale_shop(osv.osv):
     _defaults = {
         'payment_default_id': lambda * a: 1, #required field that would cause trouble if not set when importing
         'auto_import': lambda * a: True,
+        'use_external_tax':  lambda * a: True,
     }
 
     def get_pricelist(self, cr, uid, id, context=None):
@@ -263,18 +263,6 @@ class sale_shop(osv.osv):
     def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
-  
-    def _import_orders(self, cr, uid, shop, defaults, context=None):
-        """
-        Not implemented here
-        This method will import the order for the shop
-
-        :param browse_record shop: shop called for importing order
-        :param dict defaults: defaults value for sale_order
-
-        :return: A dict with the key 'create_ids', 'write_ids', 'unchanged_ids'
-        """
-        return {}
 
     def import_orders(self, cr, uid, ids, context=None):
         self.import_resources(cr, uid, ids, 'sale.order', context=context)
@@ -410,17 +398,31 @@ class sale_order(osv.osv):
         'need_to_update': lambda *a: False,
     }
 
-    def _get_default_import_values(self, cr, uid, external_session, context=None):
-        shop_id = context['sale.shop_id']
-        shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
-        defaults = {
-                'pricelist_id': shop.get_pricelist(context=context),
-                'shop_id': shop.id,
-                'fiscal_position': shop.default_fiscal_position.id,
-                'ext_payment_method': shop.default_payment_method,
-                'company_id': shop.company_id.id,
-        }
+    def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
+        shop_id = context.get('sale_shop_id')
+        if shop_id:
+            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
+            if not defaults: defaults = {}
+            defaults.update({
+                    'pricelist_id': shop.get_pricelist(context=context),
+                    'shop_id': shop.id,
+                    'fiscal_position': shop.default_fiscal_position.id,
+                    'ext_payment_method': shop.default_payment_method,
+                    'company_id': shop.company_id.id,
+            })
         return defaults
+
+    def _import_resources(self, cr, uid, external_session, defaults=None, method="search_then_read", context=None):
+        shop_id = context.get('sale_shop_id')
+        if shop_id:
+            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
+            context = {
+                    'use_external_tax': shop.use_external_tax,
+                    'play_sale_order_onchange': shop.play_sale_order_onchange,
+                    'is_tax_included': shop.is_tax_included,
+                }
+        return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
+
 
     def _get_kwargs_onchange_partner_id(self, cr, uid, vals, context=None):
         return {
@@ -438,14 +440,15 @@ class sale_order(osv.osv):
             'shop_id': vals.get('shop_id'),
         }
 
-    def play_order_onchange(self, cr, uid, vals, defaults=None, context=None):
+    def play_sale_order_onchange(self, cr, uid, vals, defaults=None, context=None):
         ir_module_obj= self.pool.get('ir.module.module')
         vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
         if ir_module_obj.is_installed(cr, uid, 'account_fiscal_position_rule_sale', context=context):
             vals = self.call_onchange(cr, uid, 'onchange_partner_invoice_id', vals, defaults, context=context)
         return vals
-    
-    def merge_with_default_value(self, cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=None, context=None):
+
+    def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
+        if not context: context ={}
         payment_method = vals.get('ext_payment_method', False)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
         if payment_settings:
@@ -453,8 +456,8 @@ class sale_order(osv.osv):
             vals['picking_policy'] = payment_settings.picking_policy
             vals['invoice_quantity'] = payment_settings.invoice_quantity
         if context.get('play_sale_order_onchange'):
-            vals = self.play_order_onchange(cr, uid, vals, defaults=defaults, context=context)
-        return super(sale_order, self).merge_with_default_value(cr, uid, sub_mapping_list, external_data, external_referential_id, vals, defaults=defaults, context=context)
+            vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
+        return super(sale_order, self)._merge_with_default_values(cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=defaults, context=context)
     
     def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
@@ -658,7 +661,7 @@ class sale_order(osv.osv):
         :return: the value for the sale order with the special field converted
         :rtype: dict
         """
-        for option in self. _get_special_fields(cr, uid, context=context):
+        for option in self._get_special_fields(cr, uid, context=context):
             vals = self._add_order_extra_line(cr, uid, vals, option, context=context)
         return vals
 
@@ -686,7 +689,7 @@ class sale_order(osv.osv):
             },
         ]
 
-    def _add_order_extra_line(self, cr, uid, vals, option, context=None):
+    def _add_order_extra_line(self, cr, uid, vals, option, context):
         """ Add or substract amount on order as a separate line item with single quantity for each type of amounts like :
         shipping, cash on delivery, discount, gift certificates...
 
@@ -694,7 +697,6 @@ class sale_order(osv.osv):
         :param option: dictionnary of option for the special field to process
         """
         if not context: context={}
-
         sign = option.get('sign', 1)
         if context.get('is_tax_included') and vals.get(option['price_unit_tax_included']):
             price_unit = vals[option['price_unit_tax_included']] * sign
@@ -704,7 +706,6 @@ class sale_order(osv.osv):
             return vals #if there is not price, we have nothing to import
 
         model_data_obj = self.pool.get('ir.model.data')
-
         model, product_id = model_data_obj.get_object_reference(cr, uid, *option['product_ref'])
         product = self.pool.get('product.product').browse(cr, uid, product_id, context)
 
@@ -717,11 +718,11 @@ class sale_order(osv.osv):
                     }
 
         if context.get('play_sale_order_onchange'):
-            extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], defaults, context=context)
+            extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
         if context.get('use_external_tax'):
             tax_rate = vals[option['tax_rate_field']]
             line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
-            extra_line['tax_id'] = [(6, 0, line_tax_id)]
+            extra_line['tax_id'] = [(6, 0, [line_tax_id])]
 
         ext_code_field = option.get('code_field')
         if ext_code_field and vals.get(ext_code_field):
@@ -759,20 +760,30 @@ class sale_order_line(osv.osv):
             'context': context,
         }
     
-    def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults, context=None):
+    def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
         line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
         #TODO all m2m should be mapped correctly
         if line.get('tax_id'):
             line['tax_id'] = [(6, 0, line['tax_id'])]
         return line
 
-    def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, mapping_lines, key_for_external_id=None, parent_data=None, previous_lines=None, defaults=None, context=None):
-        line = super(sale_order_line, self).oevals_from_extdata(cr, uid, external_referential_id, data_record, mapping_lines, key_for_external_id=key_for_external_id,  parent_data=parent_data, previous_lines=previous_lines, defaults=defaults, context=context)
+    def _transform_one_resource(self, cr, uid, external_session, convertion_type, resource, mapping, mapping_id,
+                     mapping_line_filter_ids=None, parent_data=None, previous_result=None, defaults=None, context=None):
+        if not context: context={}
+        line = super(sale_order_line, self)._transform_one_resource(cr, uid, external_session, convertion_type, resource,
+                            mapping, mapping_id, mapping_line_filter_ids=mapping_line_filter_ids, parent_data=parent_data,
+                            previous_result=previous_result, defaults=defaults, context=context)
+
+        if context.get('is_tax_included') and line.get('price_unit_tax_included'):
+            line['price_unit'] = line['price_unit_tax_included']
+        elif line.get('price_unit_tax_excluded'):
+            line['price_unit']  = line['price_unit_tax_excluded']
+
         if context.get('play_sale_order_onchange'):
-            line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_lines, defaults, context=context)
+            line = self.play_sale_order_line_onchange(cr, uid, resource, parent_data, previous_result, defaults, context=context)
         if context.get('use_external_tax') and line.get('tax_rate'):
-            line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included'), context=context)
-            line['tax_id'] = [(6, 0, line_tax_id)]
+            line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
+            line['tax_id'] = [(6, 0, [line_tax_id])]
         return line
 
 sale_order_line()
