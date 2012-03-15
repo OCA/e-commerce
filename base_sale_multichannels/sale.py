@@ -416,6 +416,7 @@ class sale_order(osv.osv):
         shop_id = context.get('sale_shop_id')
         if shop_id:
             shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
+            self._check_need_to_update(cr, uid, external_session, shop_id, context=context)
             context = {
                     'use_external_tax': shop.use_external_tax,
                     'play_sale_order_onchange': shop.play_sale_order_onchange,
@@ -423,6 +424,12 @@ class sale_order(osv.osv):
                 }
         return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
 
+    def _check_need_to_update(self, cr, uid, external_session, ids, context=None):
+        """
+        You should overwrite this fonction in your module in order to update the order
+        with the status need to update
+        """
+        return True
 
     def _get_kwargs_onchange_partner_id(self, cr, uid, vals, context=None):
         return {
