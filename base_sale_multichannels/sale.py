@@ -31,7 +31,6 @@ import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
-import inspect
 
 class StockPicking(osv.osv):
     '''Add a flag for marking picking as exported'''
@@ -509,11 +508,29 @@ class sale_order(osv.osv):
         """not implemented in this abstract module"""
         #TODO use the mapping tools from the data_record to extract the information about the payment
         return False
-    
+
+    def _parse_external_payment(self, cr, uid, data, context=None):
+        """
+        Not implemented in this abstract module
+
+        Parse the external order data and return if the sale order
+        has been paid and the amount to pay or to be paid
+
+        :param dict data: payment information of the magento sale
+            order
+        :return: tuple where :
+            - first item indicates if the payment has been done (True or False)
+            - second item represents the amount paid or to be paid
+        """
+        return False, 0.0
+
     def oe_status_and_paid(self, cr, uid, order_id, data, external_referential_id, defaults, context):
-        #TODO fix me data is not the vals converted
-        is_paid = self.create_payments(cr, uid, order_id, data, context)
+        is_paid, amount = self._parse_external_payment(
+            cr, uid, data, context=context)
+        # create_payments has to be called after oe_status
+        # because oe_status may create an invoice
         self.oe_status(cr, uid, order_id, is_paid, context)
+        self.create_payments(cr, uid, order_id, data, context)
         return order_id
     
     def oe_create(self, cr, uid, vals, external_referential_id, defaults, context):
@@ -551,44 +568,98 @@ class sale_order(osv.osv):
                 payment_setting_id = type['id']
         return payment_setting_id and pay_type_obj.browse(cr, uid, payment_setting_id, context) or False
 
-    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, paid, context):
-        payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_code, context)
-        if payment_settings and payment_settings.journal_id and (payment_settings.check_if_paid and paid or not payment_settings.check_if_paid):
-            return self.generate_payment_with_journal(cr, uid, payment_settings.journal_id.id, partner_id, amount, payment_ref, entry_name, date, payment_settings.validate_payment, context)
+    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id,
+                                       amount, payment_ref, entry_name,
+                                       date, paid, context):
+        payment_settings = self.payment_code_to_payment_settings(
+            cr, uid, payment_code, context)
+        if payment_settings and \
+           payment_settings.journal_id and \
+           (payment_settings.check_if_paid and
+            paid or not payment_settings.check_if_paid):
+            return self.generate_payment_with_journal(
+                cr, uid, payment_settings.journal_id.id,
+                partner_id, amount, payment_ref,
+                entry_name, date, payment_settings.validate_payment,
+                context=context)
         return False
         
-    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id, amount, payment_ref, entry_name, date, should_validate, context):
+    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id,
+                                      amount, payment_ref, entry_name,
+                                      date, should_validate, context):
+        """
+        Generate a voucher for the payment
+
+        It will try to match with the invoice of the order by
+        matching the payment ref and the invoice origin.
+
+        The invoice does not necessarily exists at this point, so if yes,
+        it will be matched in the voucher, otherwise, the voucher won't
+        have any invoice lines and the payment lines will be reconciled
+        later with "auto-reconcile" if the option is used.
+
+        """
         voucher_obj = self.pool.get('account.voucher')
         voucher_line_obj = self.pool.get('account.voucher.line')
-        data = voucher_obj.onchange_partner_id(cr, uid, [], partner_id, journal_id, int(amount), False, 'receipt', date, context)['value']
-        account_id = data['account_id']
-        statement_vals = {'reference': 'ST_' + entry_name,
-                          'journal_id': journal_id,
-                          'amount': amount,
-                          'date' : date,
-                          'partner_id': partner_id,
-                          'account_id': account_id,
-                          'type': 'receipt', }
-        if data.get('payment_rate_currency_id'):
-            statement_vals['payment_rate_currency_id'] = data['payment_rate_currency_id']
-        statement_id = voucher_obj.create(cr, uid, statement_vals, context)
-        context.update({'type': 'receipt', 'partner_id': partner_id, 'journal_id': journal_id, 'default_type': 'cr'})
-        line_account_id = voucher_line_obj.default_get(cr, uid, ['account_id'], context)['account_id']
-        statement_line_vals = {
-                                'voucher_id': statement_id,
-                                'amount': amount,
-                                'account_id': line_account_id,
-                                'type': 'cr',
-                               }
-        statement_line_id = voucher_line_obj.create(cr, uid, statement_line_vals, context)
+        move_line_obj = self.pool.get('account.move.line')
+
+        journal = self.pool.get('account.journal').browse(
+            cr, uid, journal_id, context=context)
+
+        voucher_vals = {'reference': entry_name,
+                        'journal_id': journal.id,
+                        'amount': amount,
+                        'date': date,
+                        'partner_id': partner_id,
+                        'account_id': journal.default_credit_account_id.id,
+                        'currency_id': journal.company_id.currency_id.id,
+                        'company_id': journal.company_id.id,
+                        'type': 'receipt', }
+        voucher_id = voucher_obj.create(cr, uid, voucher_vals, context=context)
+
+        # call on change to search the invoice lines
+        onchange_voucher = voucher_obj.onchange_partner_id(
+            cr, uid, [],
+            partner_id=partner_id,
+            journal_id=journal.id,
+            amount=amount,
+            currency_id=journal.company_id.currency_id.id,
+            ttype='receipt',
+            date=date,
+            context=context)['value']
+
+        # keep in the voucher only the move line of the
+        # invoice (eventually) created for this order
+        matching_line = {}
+        if onchange_voucher.get('line_cr_ids'):
+            voucher_lines = onchange_voucher['line_cr_ids']
+            line_ids = [line['move_line_id'] for line in voucher_lines]
+            matching_ids = [line.id for line
+                            in move_line_obj.browse(
+                                cr, uid, line_ids, context=context)
+                            if line.ref == entry_name]
+            matching_lines = [line for line
+                              in voucher_lines
+                              if line['move_line_id'] in matching_ids]
+            if matching_lines:
+                matching_line = matching_lines[0]
+                matching_line.update({
+                    'amount': amount,
+                    'voucher_id': voucher_id,
+                })
+
+        if matching_line:
+            voucher_line_obj.create(cr, uid, matching_line, context=context)
+
         if should_validate:
             wf_service = netsvc.LocalService("workflow")
-            wf_service.trg_validate(uid, 'account.voucher', statement_id, 'proforma_voucher', cr)
-        return statement_id
+            wf_service.trg_validate(
+                uid, 'account.voucher', voucher_id, 'proforma_voucher', cr)
+        return voucher_id
 
-    def oe_status(self, cr, uid, ids, paid = True, context = None):
+    def oe_status(self, cr, uid, ids, paid=True, context=None):
         if type(ids) in [int, long]:
-            ids =[ids]
+            ids = [ids]
         wf_service = netsvc.LocalService("workflow")
         logger = netsvc.Logger()
         for order in self.browse(cr, uid, ids, context):
@@ -654,12 +725,21 @@ class sale_order(osv.osv):
 
         return True
 
+    def _prepare_invoice(self, cr, uid, order, lines, context=None):
+        """Prepare the dict of values to create the new invoice for a
+           sale order. This method may be overridden to implement custom
+           invoice generation (making sure to call super() to establish
+           a clean extension chain).
 
-    def _make_invoice(self, cr, uid, order, lines, context={}):
-        inv_id = super(sale_order, self)._make_invoice(cr, uid, order, lines, context)
+           :param browse_record order: sale.order record to invoice
+           :param list(int) lines: list of invoice line IDs that must be
+                                  attached to the invoice
+           :return: dict of value to create() the invoice
+        """
+        vals = super(sale_order, self)._prepare_invoice(cr, uid, order, lines, context=context)
         if order.shop_id.sale_journal:
-            self.pool.get('account.invoice').write(cr, uid, [inv_id], {'journal_id' : order.shop_id.sale_journal.id}, context=context)
-        return inv_id
+            vals['journal_id'] = order.shop_id.sale_journal.id
+        return vals
 
     def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
         inv_obj = self.pool.get('account.invoice')
@@ -840,7 +920,7 @@ class base_sale_payment_type(osv.osv):
 
     _columns = {
         'name': fields.char('Payment Codes', help="List of Payment Codes separated by ;", size=256, required=True),
-        'journal_id': fields.many2one('account.journal','Payment Journal'),
+        'journal_id': fields.many2one('account.journal','Payment Journal', help='When a Payment Journal is defined on a Payment Type, a Customer Payment (Voucher) will be automatically created once the payment is done on the external system.'),
         'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')], 'Packing Policy'),
         'order_policy': fields.selection([
             ('prepaid', 'Payment Before Delivery'),
@@ -849,16 +929,16 @@ class base_sale_payment_type(osv.osv):
             ('picking', 'Invoice from the Packing'),
         ], 'Shipping Policy'),
         'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on'),
-        'is_auto_reconcile': fields.boolean('Auto-reconcile?', help="if true will try to reconcile the order payment statement and the open invoice"),
-        'validate_order': fields.boolean('Validate Order?'),
-        'validate_payment': fields.boolean('Validate Payment?'),
-        'create_invoice': fields.boolean('Create Invoice?'),
-        'validate_invoice': fields.boolean('Validate Invoice?'),
-        'validate_picking': fields.boolean('Validate Picking?'),
-        'validate_manufactoring_order': fields.boolean('Validate Manufactoring Order?'),
-        'check_if_paid': fields.boolean('Check if Paid?'),
+        'is_auto_reconcile': fields.boolean('Auto-reconcile', help="If checked, will try to reconcile the Customer Payment (voucher) and the open invoice by matching the origin."),
+        'validate_order': fields.boolean('Validate Order'),
+        'validate_payment': fields.boolean('Validate Payment in Journal', help='If checked, the Customer Payment (voucher) generated in the  Payment Journal will be validated and reconciled if the invoice already exists.'),
+        'create_invoice': fields.boolean('Create Invoice'),
+        'validate_invoice': fields.boolean('Validate Invoice'),
+        'validate_picking': fields.boolean('Validate Picking'),
+        'validate_manufactoring_order': fields.boolean('Validate Manufactoring Order'),
+        'check_if_paid': fields.boolean('Check if Paid'),
         'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
-        'invoice_date_is_order_date' : fields.boolean('Force Invoice Date?', help="If it's check the invoice date will be the same as the order date"),
+        'invoice_date_is_order_date' : fields.boolean('Force Invoice Date', help="If it's check the invoice date will be the same as the order date"),
         'payment_term_id': fields.many2one('account.payment.term', 'Payment Term'),
     }
     
@@ -880,10 +960,25 @@ class account_invoice(osv.osv):
     def auto_reconcile(self, cr, uid, ids, context=None):
         obj_move_line = self.pool.get('account.move.line')
         for invoice in self.browse(cr, uid, ids, context=context):
-            line_ids = obj_move_line.search(cr, uid, ['|', ['ref', 'ilike', invoice.origin], ['ref', '=', invoice.move_id.ref], ['account_id', '=', invoice.account_id.id]], context=context)
+            line_ids = obj_move_line.search(
+                cr, uid,
+                ['|', '|',
+                    ('ref', '=', invoice.origin),
+                    # keep ST_ for backward compatibility
+                    # previously the voucher ref
+                    ('ref', '=', "ST_%s" % invoice.origin),
+                    ('ref', '=', invoice.move_id.ref),
+                 ('reconcile_id', '=', False),
+                 ('account_id', '=', invoice.account_id.id)],
+                context=context)
+
             if len(line_ids) == 2:
-                lines = obj_move_line.read(cr, uid, line_ids, ['debit', 'credit'], context=context)
-                if abs(lines[1]['debit'] - lines[0]['credit']) < 0.001 and abs(lines[0]['debit'] - lines[1]['credit']) < 0.001:
+                lines = obj_move_line.read(
+                    cr, uid, line_ids, ['debit', 'credit'], context=context)
+                balance = abs(lines[1]['debit'] - lines[0]['credit'])
+                precision = self.pool.get('decimal.precision').precision_get(
+                    cr, uid, 'Account')
+                if not round(balance, precision):
                     obj_move_line.reconcile(cr, uid, line_ids, context=context)
 
         return True
@@ -911,7 +1006,7 @@ class stock_picking(osv.osv):
         return True
         
     def validate_manufactoring_order(self, cr, uid, origin, context=None): #we do not create class mrp.production to avoid dependence with the module mrp
-        if context == None:
+        if context is None:
             context = {}
         wf_service = netsvc.LocalService("workflow")
         mrp_prod_obj = self.pool.get('mrp.production')

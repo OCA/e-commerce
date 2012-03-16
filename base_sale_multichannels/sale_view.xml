@@ -167,7 +167,7 @@
                     <separator string="Account Option" colspan="4" />
                     <field name="journal_id"/>
                     <field name="check_if_paid"/>
-                    <field name="validate_payment"/>
+                    <field name="validate_payment" attrs="{'readonly': [('journal_id', '=', False)]}"/>
                     <field name="is_auto_reconcile"/>
                 </form>
             </field>
