@@ -753,8 +753,19 @@ class sale_order(osv.osv):
                 if payment_settings and payment_settings.validate_invoice:
                     for invoice in order.invoice_ids:
                         wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
-                        if payment_settings.is_auto_reconcile:
-                            invoice.auto_reconcile(context=context)
+                        # we could not auto-reconcile here because
+                        # action_invoice_create is an action of the activity (subflow)
+                        # invoice, and so the workflow is going crazy, and the
+                        # activity never pass from "invoice" to "invoice_end"
+                        # the workflow engine seems to not support when the subflow
+                        # is modified from the activity action.
+                        # sale.order's workflow stucks in "progress"
+                        # when the payment is reconciled at the invoice creation
+                        # FIXME: find a way to cheat the workflow, meanwhile
+                        # the reconciliation have to be done manually or
+                        # with a module
+#                        if payment_settings.is_auto_reconcile:
+#                            invoice.auto_reconcile(context=context)
         return res
 
     def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
@@ -858,6 +869,7 @@ class sale_order(osv.osv):
         return vals
 
 sale_order()
+
 
 class sale_order_line(osv.osv):
     _inherit='sale.order.line'
