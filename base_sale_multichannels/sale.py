@@ -426,10 +426,40 @@ sale_shop()
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
+    def _get_payment_type_id(self, cr, uid, ids, field_name, args, context=None):
+        res = {}
+        pay_type_obj = self.pool.get('base.sale.payment.type')
+        for sale in self.browse(cr, uid, ids, context=context):
+            res[sale.id] = False
+            if not sale.ext_payment_method:
+                continue
+            pay_type = pay_type_obj.find_by_payment_code(
+                cr, uid, sale.ext_payment_method, context=context)
+            if not pay_type:
+                continue
+            res[sale.id] = pay_type.id
+        return res
+
     _columns = {
-                'ext_payment_method': fields.char('External Payment Method', size=32, help = "Spree, Magento, Oscommerce... Payment Method"),
-                'need_to_update': fields.boolean('Need To Update'),
-                'ext_total_amount': fields.float('Origin External Amount', digits_compute=dp.get_precision('Sale Price'), readonly=True),
+        'ext_payment_method': fields.char(
+            'External Payment Method',
+            size=32,
+            help="Spree, Magento, Oscommerce... Payment Method"),
+        'need_to_update': fields.boolean('Need To Update'),
+        'ext_total_amount': fields.float(
+            'Origin External Amount',
+            digits_compute=dp.get_precision('Sale Price'),
+            readonly=True),
+        'base_payment_type_id': fields.function(
+            _get_payment_type_id,
+            string='Payment Type',
+            type='many2one',
+            relation='base.sale.payment.type',
+            store={
+                'sale.order':
+                    (lambda self, cr, uid, ids, c=None: ids, ['ext_payment_method'], 20),
+            }
+        )
     }
     
     _defaults = {
@@ -494,8 +524,10 @@ class sale_order(osv.osv):
 
     def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
         if not context: context ={}
+        pay_type_obj = self.pool.get('base.sale.payment.type')
         payment_method = vals.get('ext_payment_method', False)
-        payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
+        payment_settings = pay_type_obj.find_by_payment_code(
+            cr, uid, payment_method, context=context)
         if payment_settings:
             vals['order_policy'] = payment_settings.order_policy
             vals['picking_policy'] = payment_settings.picking_policy
@@ -506,7 +538,10 @@ class sale_order(osv.osv):
     
     def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
-        #TODO use the mapping tools from the data_record to extract the information about the payment
+        if not context.get('external_referential_type'):
+            raise osv.except_osv(
+                _('Error'), _('Missing external referential type '
+                              ' when creating payment'))
         return False
 
     def _parse_external_payment(self, cr, uid, data, context=None):
@@ -559,20 +594,12 @@ class sale_order(osv.osv):
             id and res.append(id)
         return res
 
-    def payment_code_to_payment_settings(self, cr, uid, payment_code, context=None):
-        pay_type_obj = self.pool.get('base.sale.payment.type')
-        payment_setting_ids = pay_type_obj.search(cr, uid, [['name', 'like', payment_code]])
-        payment_setting_id = False
-        for type in pay_type_obj.read(cr, uid, payment_setting_ids, fields=['name'], context=context):
-            if payment_code in [x.strip() for x in type['name'].split(';')]:
-                payment_setting_id = type['id']
-        return payment_setting_id and pay_type_obj.browse(cr, uid, payment_setting_id, context) or False
-
     def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id,
                                        amount, payment_ref, entry_name,
                                        date, paid, context):
-        payment_settings = self.payment_code_to_payment_settings(
-            cr, uid, payment_code, context)
+        pay_type_obj = self.pool.get('base.sale.payment.type')
+        payment_settings = pay_type_obj.find_by_payment_code(
+            cr, uid, payment_code, context=context)
         if payment_settings and \
            payment_settings.journal_id and \
            (payment_settings.check_if_paid and
@@ -660,11 +687,12 @@ class sale_order(osv.osv):
     def oe_status(self, cr, uid, ids, paid=True, context=None):
         if type(ids) in [int, long]:
             ids = [ids]
+
         wf_service = netsvc.LocalService("workflow")
         logger = netsvc.Logger()
         for order in self.browse(cr, uid, ids, context):
-            payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context)
-            
+            payment_settings = order.base_payment_type_id
+
             if payment_settings:
                 if payment_settings.payment_term_id:
                     self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
@@ -746,7 +774,7 @@ class sale_order(osv.osv):
         wf_service = netsvc.LocalService("workflow")
         res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
         for order in self.browse(cr, uid, ids, context=context):
-            payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context=context)
+            payment_settings = order.base_payment_type_id
             if payment_settings and payment_settings.invoice_date_is_order_date:
                 inv_obj.write(cr, uid, [inv.id for inv in order.invoice_ids], {'date_invoice' : order.date_order}, context=context)
             if order.order_policy == 'postpaid':
@@ -963,6 +991,20 @@ class base_sale_payment_type(osv.osv):
         'validate_invoice': lambda *a: False,
         'days_before_order_cancel': lambda *a: 30,
     }
+
+    def find_by_payment_code(self, cr, uid, payment_code, context=None):
+        payment_setting_ids = self.search(
+            cr, uid, [['name', 'like', payment_code]], context=context)
+        payment_setting = False
+        payment_settings = self.browse(
+            cr, uid, payment_setting_ids, context=context)
+        for pay_type in payment_settings:
+            # payment codes are in this form "bankpayment;checkmo"
+            payment_codes = [x.strip() for x in pay_type.name.split(';')]
+            if payment_code in payment_codes:
+                payment_setting = pay_type
+                break
+        return payment_setting
 
 base_sale_payment_type()
 
