@@ -176,7 +176,7 @@ class sale_shop(osv.osv):
                     'sale.shop': (lambda self, cr, uid, ids, c=None: ids, ['shop_group_id'], 10),
                     'external.shop.group': (_get_shop_ids, ['referential_id'], 10),
                  }),
-        'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
+        'is_tax_included': fields.boolean('Prices Include Tax', help="Does the external system work with Taxes Inclusive Prices ?"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
         'default_payment_method': fields.char('Default Payment Method', size=64),
