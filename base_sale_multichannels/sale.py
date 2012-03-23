@@ -458,8 +458,7 @@ class sale_order(osv.osv):
             store={
                 'sale.order':
                     (lambda self, cr, uid, ids, c=None: ids, ['ext_payment_method'], 20),
-            }
-        )
+            }),
     }
     
     _defaults = {
@@ -771,6 +770,7 @@ class sale_order(osv.osv):
 
     def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
         inv_obj = self.pool.get('account.invoice')
+        job_obj = self.pool.get('base.sale.auto.reconcile.job')
         wf_service = netsvc.LocalService("workflow")
         res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
         for order in self.browse(cr, uid, ids, context=context):
@@ -781,19 +781,23 @@ class sale_order(osv.osv):
                 if payment_settings and payment_settings.validate_invoice:
                     for invoice in order.invoice_ids:
                         wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
-                        # we could not auto-reconcile here because
-                        # action_invoice_create is an action of the activity (subflow)
-                        # invoice, and so the workflow is going crazy, and the
-                        # activity never pass from "invoice" to "invoice_end"
-                        # the workflow engine seems to not support when the subflow
-                        # is modified from the activity action.
-                        # sale.order's workflow stucks in "progress"
-                        # when the payment is reconciled at the invoice creation
-                        # FIXME: find a way to cheat the workflow, meanwhile
-                        # the reconciliation have to be done manually or
-                        # with a module
-#                        if payment_settings.is_auto_reconcile:
-#                            invoice.auto_reconcile(context=context)
+                        if payment_settings.is_auto_reconcile:
+                            # we could not auto-reconcile here because
+                            # action_invoice_create is an action of the activity (subflow)
+                            # invoice, and so the workflow is going crazy, and the
+                            # activity never pass from "invoice" to "invoice_end"
+                            # the signal subflow.paid never move the sale order
+                            # workflow to invoice_end
+                            # sale.order's workflow stucks in "progress"
+                            # even if the invoice is paid and the picking delivered
+                            #
+                            # workaround: create an autoreconcile job to
+                            # reconcile the payment later
+                            # report for the workflow: https://bugs.launchpad.net/openobject-server/+bug/961919
+                            # report for this module: https://bugs.launchpad.net/magentoerpconnect/+bug/957136
+                            job_obj.create(
+                                cr, uid, {'invoice_id': invoice.id}, context=context)
+
         return res
 
     def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
@@ -1011,30 +1015,36 @@ base_sale_payment_type()
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
 
-    def auto_reconcile(self, cr, uid, ids, context=None):
+    def auto_reconcile_single(self, cr, uid, invoice_id, context=None):
         obj_move_line = self.pool.get('account.move.line')
-        for invoice in self.browse(cr, uid, ids, context=context):
-            line_ids = obj_move_line.search(
-                cr, uid,
-                ['|', '|',
-                    ('ref', '=', invoice.origin),
-                    # keep ST_ for backward compatibility
-                    # previously the voucher ref
-                    ('ref', '=', "ST_%s" % invoice.origin),
-                    ('ref', '=', invoice.move_id.ref),
-                 ('reconcile_id', '=', False),
-                 ('account_id', '=', invoice.account_id.id)],
-                context=context)
+        invoice = self.browse(cr, uid, invoice_id, context=context)
+        line_ids = obj_move_line.search(
+            cr, uid,
+            ['|', '|',
+                ('ref', '=', invoice.origin),
+                # keep ST_ for backward compatibility
+                # previously the voucher ref
+                ('ref', '=', "ST_%s" % invoice.origin),
+                ('ref', '=', invoice.move_id.ref),
+             ('reconcile_id', '=', False),
+             ('account_id', '=', invoice.account_id.id)],
+            context=context)
 
-            if len(line_ids) == 2:
-                lines = obj_move_line.read(
-                    cr, uid, line_ids, ['debit', 'credit'], context=context)
-                balance = abs(lines[1]['debit'] - lines[0]['credit'])
-                precision = self.pool.get('decimal.precision').precision_get(
-                    cr, uid, 'Account')
-                if not round(balance, precision):
-                    obj_move_line.reconcile(cr, uid, line_ids, context=context)
+        if len(line_ids) == 2:
+            lines = obj_move_line.read(
+                cr, uid, line_ids, ['debit', 'credit'], context=context)
+            balance = abs(lines[1]['debit'] - lines[0]['credit'])
+            precision = self.pool.get('decimal.precision').precision_get(
+                cr, uid, 'Account')
+            if not round(balance, precision):
+                obj_move_line.reconcile(cr, uid, line_ids, context=context)
+                return True
 
+        return False
+
+    def auto_reconcile(self, cr, uid, ids, context=None):
+        for invoice_id in ids:
+            self.auto_reconcile_single(cr, uid, invoice_id, context=context)
         return True
 
 account_invoice()
