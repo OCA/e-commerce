@@ -1,5 +1,6 @@
 "id","active","name","description","sequence","model","code"
-"excep_wrong_total_amount",1,"Wrong Computed Total Amount","The amount computed doesn't match with the external amount.
-Please fix it manually.
-NB : This check have being applyed because you check the option 'check total amount' on the shop of this sale order",30,"sale.order","if order.shop_id.check_total_amount and abs(order.amount_total - order.ext_total_amount) >= 0.01:
+"excep_wrong_total_amount",1,"Total Amount differs from external system","The amount computed doesn't match with the external amount because the taxes have not been configured properly (maybe some fiscal positions have changed the final price).
+Please fix it manually and check your taxes rules.
+
+NB : This check have being applied because you have checked the option \"check total amount\" on the shop of this sale order",30,"sale.order","if order.shop_id.check_total_amount and abs(order.amount_total - order.ext_total_amount) >= 0.01:
     failed = True"
