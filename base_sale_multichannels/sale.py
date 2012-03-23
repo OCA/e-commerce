@@ -460,6 +460,10 @@ class sale_order(osv.osv):
                 'sale.order':
                     (lambda self, cr, uid, ids, c=None: ids, ['ext_payment_method'], 20),
             }),
+        'referential_id': fields.related(
+                    'shop_id', 'referential_id',
+                    type='many2one', relation='external.referential',
+                    string='External Referential')
     }
     
     _defaults = {
