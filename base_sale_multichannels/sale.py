@@ -292,11 +292,12 @@ class sale_shop(osv.osv):
                            if move.product_id.state != 'obsolete']
             product_ids = list(set(product_ids))
 
-            res = self.pool.get('product.product').export_inventory(
-                cr, uid, product_ids, shop.id, connection, context=context)
+            for p_id in product_ids:
+                self.pool.get('product.product').export_inventory(
+                    cr, uid, [p_id], shop.id, connection, context=context)
             shop.write({'last_inventory_export_date':
                             time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
-        return res
+        return True
     
     def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
