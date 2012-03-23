@@ -55,7 +55,6 @@
                                     <field name="is_tax_included"/>
                                     <field name="use_external_tax"/>
                                     <field name="check_total_amount"/>
-                                    <field name="play_sale_order_onchange"/>
                                     <field name="order_prefix"/>
                                     <field name="default_payment_method"/>
                                     <field name="default_fiscal_position"/>
