@@ -1039,7 +1039,8 @@ class account_invoice(osv.osv):
         if len(line_ids) == 2:
             lines = obj_move_line.read(
                 cr, uid, line_ids, ['debit', 'credit'], context=context)
-            balance = abs(lines[1]['debit'] - lines[0]['credit'])
+            balance = abs((lines[0]['debit'] + lines[0]['credit']) -
+                          (lines[1]['debit'] + lines[1]['credit']))
             precision = self.pool.get('decimal.precision').precision_get(
                 cr, uid, 'Account')
             if not round(balance, precision):
