@@ -95,6 +95,17 @@ class product_category(osv.osv):
     
 product_category()
 
+
+class ExternalShippingCreateError(Exception):
+     """
+      This error has to be raised when we tried to create a stock.picking on
+      the external referential and the external referential has failed
+      to create it. It must be raised only when we are SURE that the
+      external referential will never be able to create it!
+     """
+     pass
+
+
 class sale_shop(osv.osv):
     _inherit = "sale.shop"
 
@@ -345,26 +356,47 @@ class sale_shop(osv.osv):
             ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, context))])
             self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, context)
         return True
-        
+
     def update_shop_orders(self, cr, uid, order, ext_id, context):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
+    def _export_shipping_query(self, cr, uid, shop, context=None):
+        query = """
+        SELECT stock_picking.id AS picking_id,
+               sale_order.id AS order_id,
+               count(pickings.id) AS picking_number
+        FROM stock_picking
+        LEFT JOIN sale_order
+                  ON sale_order.id = stock_picking.sale_id
+        LEFT JOIN stock_picking as pickings
+                  ON sale_order.id = pickings.sale_id
+        LEFT JOIN ir_model_data
+                  ON stock_picking.id = ir_model_data.res_id
+                  AND ir_model_data.model = 'stock.picking'
+        LEFT JOIN delivery_carrier
+                  ON delivery_carrier.id = stock_picking.carrier_id
+        WHERE shop_id = %(shop_id)s
+              AND ir_model_data.res_id ISNULL
+              AND stock_picking.state = 'done'
+              AND NOT stock_picking.do_not_export
+              AND (NOT delivery_carrier.export_needs_tracking
+                   OR stock_picking.carrier_tracking_ref IS NOT NULL)
+        GROUP BY stock_picking.id,
+                 sale_order.id,
+                 delivery_carrier.export_needs_tracking,
+                 stock_picking.carrier_tracking_ref,
+                 stock_picking.backorder_id
+        ORDER BY sale_order.id ASC,
+                 COALESCE(stock_picking.backorder_id, NULL, 0) ASC"""
+        params = {'shop_id': shop.id}
+        return query, params
+
     def export_shipping(self, cr, uid, ids, context):
-	picking_obj = self.pool.get('stock.picking')
+        picking_obj = self.pool.get('stock.picking')
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            cr.execute("""
-                select stock_picking.id as picking_id, sale_order.id as order_id, count(pickings.id) as picking_number,
-                       delivery_carrier.export_needs_tracking as need_tracking, stock_picking.carrier_tracking_ref as carrier_tracking
-                from stock_picking
-                left join sale_order on sale_order.id = stock_picking.sale_id
-                left join stock_picking as pickings on sale_order.id = pickings.sale_id
-                left join ir_model_data on stock_picking.id = ir_model_data.res_id and ir_model_data.model='stock.picking'
-                left join delivery_carrier on delivery_carrier.id = stock_picking.carrier_id
-                where shop_id = %s and ir_model_data.res_id ISNULL and stock_picking.state = 'done' and stock_picking.exported_to_magento IS NOT TRUE
-                Group By stock_picking.id, sale_order.id,
-                         delivery_carrier.export_needs_tracking, stock_picking.carrier_tracking_ref
-                """, (shop.id,))
+            cr.execute(*self._export_shipping_query(
+                            cr, uid, shop, context=context))
             results = cr.dictfetchall()
             if not results:
                 logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "There is no shipping to export for the shop '%s' to the external referential" % (shop.name,))
@@ -375,47 +407,38 @@ class sale_shop(osv.osv):
             picking_cr = pooler.get_db(cr.dbname).cursor()
             try:
                 for result in results:
+                    picking_id = result['picking_id']
+
                     if result["picking_number"] == 1:
                         picking_type = 'complete'
                     else:
                         picking_type = 'partial'
 
-                   # only export the shipping if a tracking number exists when the flag
-                   # export_needs_tracking is flagged on the delivery carrier
-                    if result["need_tracking"] and not result["carrier_tracking"]:
-                        continue
-
-                    # Mark shipping as exported here itself because export might
-                    # fail in next step due to only one visible reason, i.e.,
-                    # shipping already exists in magento which does not need to be
-                    # exported anyway.
-                    # FIXME: to refactorize
-                    # Guewen Baconnier wrote:
-                    #
-                    #  1. this column should not be named "exported_to_magento" as base_sale_multichannels should be "external_referential-agnostic".
-                    #     I think we could rename it as "do_not_export" because according to the above description, "it is NOT exported and we
-                    #     do NOT want to export it". Also we could add it on the stock.picking.out view to reactivate the
-                    #     export or prevent an export if it is done manually.
-                    #
-                    #  2. The issue with this implementation is that the exception management is way too large. With any sort of error,
-                    #     the "exported_to_magento" field will be set to true and the picking will never be exported agin (python error, network error or anything).
-                    #     What we should do : in create_ext_partial_shipping and create_ext_complete_shipping we do not silent the exception (it is except Exception: now!)
-                    #     We catch it at this level with a fine exception management, only errors returned by magento with some error codes must write "do_not_export".
-                    picking_obj.write(cr, uid, result["picking_id"], {
-                            'exported_to_magento': True
-                        }, context=context)
-
-                    ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(picking_cr, uid, result["picking_id"], picking_type, shop.referential_id.id, context)
+                    ext_shipping_id = False
+                    try:
+                        ext_shipping_id = picking_obj.create_ext_shipping(
+                            picking_cr, uid, picking_id, picking_type,
+                            shop.referential_id.id, context)
+                    except ExternalShippingCreateError, e:
+                        # when the creation has failed on the external
+                        # referential and we know that we can never
+                        # create it, we flag it as do_not_export
+                        # ExternalShippingCreateError raising has to be
+                        # correctly handled by create_ext_shipping()
+                        picking_obj.write(
+                            picking_cr, uid,
+                            picking_id,
+                            {'do_not_export': True},
+                            context=context)
 
                     if ext_shipping_id:
-                        ir_model_data_vals = {
-                            'name': "stock_picking/" + str(ext_shipping_id),
-                            'model': "stock.picking",
-                            'res_id': result["picking_id"],
-                            'external_referential_id': shop.referential_id.id,
-                            'module': 'extref/' + shop.referential_id.name
-                          }
-                        self.pool.get('ir.model.data').create(picking_cr, uid, ir_model_data_vals)
+                        picking_obj.create_external_id_vals(
+                            picking_cr,
+                            uid,
+                            picking_id,
+                            ext_shipping_id,
+                            shop.referential_id.id,
+                            context=context)
                         logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result["picking_id"], ext_shipping_id))
                     picking_cr.commit()
             finally:
@@ -466,7 +489,7 @@ class sale_order(osv.osv):
                     type='many2one', relation='external.referential',
                     string='External Referential')
     }
-    
+
     _defaults = {
         'need_to_update': lambda *a: False,
     }

@@ -67,6 +67,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'settings/sale.exception.csv',
         'settings/external.referential.category.csv',
         'external_referential_view.xml',
+        'stock_view.xml',
     ],
     'demo_xml': [],
     'installable': True,
