@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_picking_out_form_ext" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.ext</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <page string="Additional info" position="inside">
+                    <field name="do_not_export"/>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
