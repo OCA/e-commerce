@@ -944,7 +944,7 @@ class sale_order_line(osv.osv):
             'product': line.get('product_id'),
             'qty': float(line.get('product_uom_qty')),
             'uom': line.get('product_uom'),
-            'qty_uos': float(line.get('product_uos_qty')),
+            'qty_uos': float(line.get('product_uos_qty') or line.get('product_uom_qty')),
             'uos': line.get('product_uos'),
             'name': line.get('name'),
             'partner_id': parent_data.get('partner_id'),
@@ -976,7 +976,7 @@ class sale_order_line(osv.osv):
         elif line.get('price_unit_tax_excluded'):
             line['price_unit']  = line['price_unit_tax_excluded']
 
-        line = self.play_sale_order_line_onchange(cr, uid, resource, parent_data, previous_result, defaults, context=context)
+        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result, defaults, context=context)
         if context.get('use_external_tax'):
             if line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
