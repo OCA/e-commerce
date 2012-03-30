@@ -233,30 +233,32 @@ class sale_shop(osv.osv):
         self.pool.get('product.category').ext_export(cr, uid, [categ_id for categ_id in categories], [shop.referential_id.id], {}, context)
        
     def export_products_collection(self, cr, uid, shop, context):
-        product_to_export = context.get('force_product_ids', [product.id for product in shop.exportable_product_ids])
-        self.pool.get('product.product').ext_export(cr, uid, product_to_export, [shop.referential_id.id], {}, context)
+        #product_to_export = context.get('force_product_ids', [product.id for product in shop.exportable_product_ids])
+        return self.pool.get('product.product')._export_resources_into_external_referential(cr, uid, external_session, ids=None, fields=None, defaults=None, context=context)
 
     def export_products(self, cr, uid, shop, context):
         self.export_products_collection(cr, uid, shop, context)
     
     def export_catalog(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-        report_obj = self.pool.get('external.report')
-        for shop in self.browse(cr, uid, ids):
-            context['shop_id'] = shop.id
-            report_id = report_obj.start_report(cr, uid,
-                                                ref='export_catalog',
-                                                external_referential_id=shop.referential_id.id,
-                                                context=context)
-            context['external_report_id'] = report_id
-            context['conn_obj'] = shop.referential_id.external_connection()
-            self.export_categories(cr, uid, shop, context)
-            self.export_products(cr, uid, shop, context)
-            shop.write({'last_products_export_date' : time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
-            report_obj.end_report(cr, uid, report_id, context=context)
-        self.export_inventory(cr, uid, ids, context)
-        return False
+        print 'export catalog'
+        return self.export_resources(cr, uid, ids, 'product.product', context=context)
+#        if context is None:
+#            context = {}
+#        report_obj = self.pool.get('external.report')
+#        for shop in self.browse(cr, uid, ids):
+#            context['shop_id'] = shop.id
+#            report_id = report_obj.start_report(cr, uid,
+#                                                ref='export_catalog',
+#                                                external_referential_id=shop.referential_id.id,
+#                                                context=context)
+#            context['external_report_id'] = report_id
+#            context['conn_obj'] = shop.referential_id.external_connection()
+#            self.export_categories(cr, uid, shop, context)
+#            self.export_products(cr, uid, shop, context)
+#            shop.write({'last_products_export_date' : time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
+#            report_obj.end_report(cr, uid, report_id, context=context)
+#        self.export_inventory(cr, uid, ids, context)
+#        return False
 
     def export_inventory(self, cr, uid, ids, context=None):
         if context is None:
