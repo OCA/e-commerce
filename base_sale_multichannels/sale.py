@@ -560,7 +560,7 @@ class sale_order(osv.osv):
             vals['picking_policy'] = payment_settings.picking_policy
             vals['invoice_quantity'] = payment_settings.invoice_quantity
         # update vals with order onchange in order to compute taxes
-        vals = self.play_order_onchange(cr, uid, vals, defaults=defaults, context=context)
+        vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
         return super(sale_order, self)._merge_with_default_values(cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=defaults, context=context)
     
     def create_payments(self, cr, uid, order_id, data_record, context):
@@ -914,12 +914,11 @@ class sale_order(osv.osv):
                         'price_unit': price_unit,
                     }
 
+        extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
         if context.get('use_external_tax'):
             tax_rate = vals[option['tax_rate_field']]
             line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
             extra_line['tax_id'] = [(6, 0, [line_tax_id])]
-        else:
-            extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
 
         ext_code_field = option.get('code_field')
         if ext_code_field and vals.get(ext_code_field):
@@ -977,12 +976,12 @@ class sale_order_line(osv.osv):
         elif line.get('price_unit_tax_excluded'):
             line['price_unit']  = line['price_unit_tax_excluded']
 
+        line = self.play_sale_order_line_onchange(cr, uid, resource, parent_data, previous_result, defaults, context=context)
         if context.get('use_external_tax'):
             if line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
                 line['tax_id'] = [(6, 0, [line_tax_id])]
-        else:
-            line = self.play_sale_order_line_onchange(cr, uid, resource, parent_data, previous_result, defaults, context=context)
+
         return line
 
 sale_order_line()
