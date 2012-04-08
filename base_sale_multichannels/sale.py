@@ -96,6 +96,17 @@ class product_category(osv.osv):
     
 product_category()
 
+
+class ExternalShippingCreateError(Exception):
+     """
+      This error has to be raised when we tried to create a stock.picking on
+      the external referential and the external referential has failed
+      to create it. It must be raised only when we are SURE that the
+      external referential will never be able to create it!
+     """
+     pass
+
+
 class sale_shop(osv.osv):
     _inherit = "sale.shop"
 
@@ -177,7 +188,7 @@ class sale_shop(osv.osv):
                     'sale.shop': (lambda self, cr, uid, ids, c=None: ids, ['shop_group_id'], 10),
                     'external.shop.group': (_get_shop_ids, ['referential_id'], 10),
                  }),
-        'is_tax_included': fields.boolean('Prices Include Tax?', help="Requires sale_tax_include module to be installed"),
+        'is_tax_included': fields.boolean('Prices Include Tax', help="Does the external system work with Taxes Inclusive Prices ?"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
         'default_payment_method': fields.char('Default Payment Method', size=64),
@@ -188,12 +199,13 @@ class sale_shop(osv.osv):
         'address_id':fields.many2one('res.partner.address', 'Address'),
         'website': fields.char('Website', size=64),
         'image':fields.binary('Image', filters='*.png,*.jpg,*.gif'),
+        'use_external_tax': fields.boolean(
+            'Use External Taxes',
+            help="If activated, the external taxes will be applied.\n"
+                 "If not activated, OpenERP will compute them "
+                 "according to default values and fiscal positions."),
         'import_orders_from_date': fields.datetime('Only created after'),
-        'use_external_tax': fields.boolean('Use External Taxe', help="This will force OpenERP to use the external tax instead of recomputing them"),
-        'play_sale_order_onchange': fields.boolean('Play Sale Order Onchange', help=("This will play the Sale Order and Sale Order Line Onchange,"
-                                                                               "this option is required is you when to recompute the tax in OpenERP")),
-        'check_total_amount': fields.boolean('Check Total Amount', help=("The total amount computed by OpenERP should match"
-                                                                "with the external amount, if not the sale_order is in exception")),
+        'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale order can not be confirmed."),
         'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
         'product_stock_field_id': fields.many2one(
             'ir.model.fields',
@@ -297,11 +309,12 @@ class sale_shop(osv.osv):
                            if move.product_id.state != 'obsolete']
             product_ids = list(set(product_ids))
 
-            res = self.pool.get('product.product').export_inventory(
-                cr, uid, product_ids, shop.id, connection, context=context)
+            for p_id in product_ids:
+                self.pool.get('product.product').export_inventory(
+                    cr, uid, [p_id], shop.id, connection, context=context)
             shop.write({'last_inventory_export_date':
                             time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
-        return res
+        return True
     
     def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
@@ -348,26 +361,47 @@ class sale_shop(osv.osv):
             ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, context))])
             self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, context)
         return True
-        
+
     def update_shop_orders(self, cr, uid, order, ext_id, context):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
+    def _export_shipping_query(self, cr, uid, shop, context=None):
+        query = """
+        SELECT stock_picking.id AS picking_id,
+               sale_order.id AS order_id,
+               count(pickings.id) AS picking_number
+        FROM stock_picking
+        LEFT JOIN sale_order
+                  ON sale_order.id = stock_picking.sale_id
+        LEFT JOIN stock_picking as pickings
+                  ON sale_order.id = pickings.sale_id
+        LEFT JOIN ir_model_data
+                  ON stock_picking.id = ir_model_data.res_id
+                  AND ir_model_data.model = 'stock.picking'
+        LEFT JOIN delivery_carrier
+                  ON delivery_carrier.id = stock_picking.carrier_id
+        WHERE shop_id = %(shop_id)s
+              AND ir_model_data.res_id ISNULL
+              AND stock_picking.state = 'done'
+              AND NOT stock_picking.do_not_export
+              AND (NOT delivery_carrier.export_needs_tracking
+                   OR stock_picking.carrier_tracking_ref IS NOT NULL)
+        GROUP BY stock_picking.id,
+                 sale_order.id,
+                 delivery_carrier.export_needs_tracking,
+                 stock_picking.carrier_tracking_ref,
+                 stock_picking.backorder_id
+        ORDER BY sale_order.id ASC,
+                 COALESCE(stock_picking.backorder_id, NULL, 0) ASC"""
+        params = {'shop_id': shop.id}
+        return query, params
+
     def export_shipping(self, cr, uid, ids, context):
-	picking_obj = self.pool.get('stock.picking')
+        picking_obj = self.pool.get('stock.picking')
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            cr.execute("""
-                select stock_picking.id as picking_id, sale_order.id as order_id, count(pickings.id) as picking_number,
-                       delivery_carrier.export_needs_tracking as need_tracking, stock_picking.carrier_tracking_ref as carrier_tracking
-                from stock_picking
-                left join sale_order on sale_order.id = stock_picking.sale_id
-                left join stock_picking as pickings on sale_order.id = pickings.sale_id
-                left join ir_model_data on stock_picking.id = ir_model_data.res_id and ir_model_data.model='stock.picking'
-                left join delivery_carrier on delivery_carrier.id = stock_picking.carrier_id
-                where shop_id = %s and ir_model_data.res_id ISNULL and stock_picking.state = 'done' and stock_picking.exported_to_magento IS NOT TRUE
-                Group By stock_picking.id, sale_order.id,
-                         delivery_carrier.export_needs_tracking, stock_picking.carrier_tracking_ref
-                """, (shop.id,))
+            cr.execute(*self._export_shipping_query(
+                            cr, uid, shop, context=context))
             results = cr.dictfetchall()
             if not results:
                 logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "There is no shipping to export for the shop '%s' to the external referential" % (shop.name,))
@@ -378,47 +412,38 @@ class sale_shop(osv.osv):
             picking_cr = pooler.get_db(cr.dbname).cursor()
             try:
                 for result in results:
+                    picking_id = result['picking_id']
+
                     if result["picking_number"] == 1:
                         picking_type = 'complete'
                     else:
                         picking_type = 'partial'
 
-                   # only export the shipping if a tracking number exists when the flag
-                   # export_needs_tracking is flagged on the delivery carrier
-                    if result["need_tracking"] and not result["carrier_tracking"]:
-                        continue
-
-                    # Mark shipping as exported here itself because export might
-                    # fail in next step due to only one visible reason, i.e.,
-                    # shipping already exists in magento which does not need to be
-                    # exported anyway.
-                    # FIXME: to refactorize
-                    # Guewen Baconnier wrote:
-                    #
-                    #  1. this column should not be named "exported_to_magento" as base_sale_multichannels should be "external_referential-agnostic".
-                    #     I think we could rename it as "do_not_export" because according to the above description, "it is NOT exported and we
-                    #     do NOT want to export it". Also we could add it on the stock.picking.out view to reactivate the
-                    #     export or prevent an export if it is done manually.
-                    #
-                    #  2. The issue with this implementation is that the exception management is way too large. With any sort of error,
-                    #     the "exported_to_magento" field will be set to true and the picking will never be exported agin (python error, network error or anything).
-                    #     What we should do : in create_ext_partial_shipping and create_ext_complete_shipping we do not silent the exception (it is except Exception: now!)
-                    #     We catch it at this level with a fine exception management, only errors returned by magento with some error codes must write "do_not_export".
-                    picking_obj.write(cr, uid, result["picking_id"], {
-                            'exported_to_magento': True
-                        }, context=context)
-
-                    ext_shipping_id = self.pool.get('stock.picking').create_ext_shipping(picking_cr, uid, result["picking_id"], picking_type, shop.referential_id.id, context)
+                    ext_shipping_id = False
+                    try:
+                        ext_shipping_id = picking_obj.create_ext_shipping(
+                            picking_cr, uid, picking_id, picking_type,
+                            shop.referential_id.id, context)
+                    except ExternalShippingCreateError, e:
+                        # when the creation has failed on the external
+                        # referential and we know that we can never
+                        # create it, we flag it as do_not_export
+                        # ExternalShippingCreateError raising has to be
+                        # correctly handled by create_ext_shipping()
+                        picking_obj.write(
+                            picking_cr, uid,
+                            picking_id,
+                            {'do_not_export': True},
+                            context=context)
 
                     if ext_shipping_id:
-                        ir_model_data_vals = {
-                            'name': "stock_picking/" + str(ext_shipping_id),
-                            'model': "stock.picking",
-                            'res_id': result["picking_id"],
-                            'external_referential_id': shop.referential_id.id,
-                            'module': 'extref/' + shop.referential_id.name
-                          }
-                        self.pool.get('ir.model.data').create(picking_cr, uid, ir_model_data_vals)
+                        picking_obj.create_external_id_vals(
+                            picking_cr,
+                            uid,
+                            picking_id,
+                            ext_shipping_id,
+                            shop.referential_id.id,
+                            context=context)
                         logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result["picking_id"], ext_shipping_id))
                     picking_cr.commit()
             finally:
@@ -445,12 +470,45 @@ sale_shop()
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
+    def _get_payment_type_id(self, cr, uid, ids, field_name, args, context=None):
+        res = {}
+        pay_type_obj = self.pool.get('base.sale.payment.type')
+        for sale in self.browse(cr, uid, ids, context=context):
+            res[sale.id] = False
+            if not sale.ext_payment_method:
+                continue
+            pay_type = pay_type_obj.find_by_payment_code(
+                cr, uid, sale.ext_payment_method, context=context)
+            if not pay_type:
+                continue
+            res[sale.id] = pay_type.id
+        return res
+
     _columns = {
-                'ext_payment_method': fields.char('External Payment Method', size=32, help = "Spree, Magento, Oscommerce... Payment Method"),
-                'need_to_update': fields.boolean('Need To Update'),
-                'ext_total_amount': fields.float('Origin External Amount', digits_compute=dp.get_precision('Sale Price'), readonly=True),
+        'ext_payment_method': fields.char(
+            'External Payment Method',
+            size=32,
+            help="Spree, Magento, Oscommerce... Payment Method"),
+        'need_to_update': fields.boolean('Need To Update'),
+        'ext_total_amount': fields.float(
+            'Origin External Amount',
+            digits_compute=dp.get_precision('Sale Price'),
+            readonly=True),
+        'base_payment_type_id': fields.function(
+            _get_payment_type_id,
+            string='Payment Type',
+            type='many2one',
+            relation='base.sale.payment.type',
+            store={
+                'sale.order':
+                    (lambda self, cr, uid, ids, c=None: ids, ['ext_payment_method'], 20),
+            }),
+        'referential_id': fields.related(
+                    'shop_id', 'referential_id',
+                    type='many2one', relation='external.referential',
+                    string='External Referential')
     }
-    
+
     _defaults = {
         'need_to_update': lambda *a: False,
     }
@@ -476,7 +534,6 @@ class sale_order(osv.osv):
             self._check_need_to_update(cr, uid, external_session, shop_id, context=context)
             context = {
                     'use_external_tax': shop.use_external_tax,
-                    'play_sale_order_onchange': shop.play_sale_order_onchange,
                     'is_tax_included': shop.is_tax_included,
                 }
         return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
@@ -513,19 +570,24 @@ class sale_order(osv.osv):
 
     def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
         if not context: context ={}
+        pay_type_obj = self.pool.get('base.sale.payment.type')
         payment_method = vals.get('ext_payment_method', False)
-        payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_method, context)
+        payment_settings = pay_type_obj.find_by_payment_code(
+            cr, uid, payment_method, context=context)
         if payment_settings:
             vals['order_policy'] = payment_settings.order_policy
             vals['picking_policy'] = payment_settings.picking_policy
             vals['invoice_quantity'] = payment_settings.invoice_quantity
-        if context.get('play_sale_order_onchange'):
-            vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
+        # update vals with order onchange in order to compute taxes
+        vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
         return super(sale_order, self)._merge_with_default_values(cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=defaults, context=context)
     
     def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
-        #TODO use the mapping tools from the data_record to extract the information about the payment
+        if not context.get('external_referential_type'):
+            raise osv.except_osv(
+                _('Error'), _('Missing external referential type '
+                              ' when creating payment'))
         return False
 
     def _parse_external_payment(self, cr, uid, data, context=None):
@@ -578,20 +640,12 @@ class sale_order(osv.osv):
             id and res.append(id)
         return res
 
-    def payment_code_to_payment_settings(self, cr, uid, payment_code, context=None):
-        pay_type_obj = self.pool.get('base.sale.payment.type')
-        payment_setting_ids = pay_type_obj.search(cr, uid, [['name', 'like', payment_code]])
-        payment_setting_id = False
-        for type in pay_type_obj.read(cr, uid, payment_setting_ids, fields=['name'], context=context):
-            if payment_code in [x.strip() for x in type['name'].split(';')]:
-                payment_setting_id = type['id']
-        return payment_setting_id and pay_type_obj.browse(cr, uid, payment_setting_id, context) or False
-
     def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id,
                                        amount, payment_ref, entry_name,
                                        date, paid, context):
-        payment_settings = self.payment_code_to_payment_settings(
-            cr, uid, payment_code, context)
+        pay_type_obj = self.pool.get('base.sale.payment.type')
+        payment_settings = pay_type_obj.find_by_payment_code(
+            cr, uid, payment_code, context=context)
         if payment_settings and \
            payment_settings.journal_id and \
            (payment_settings.check_if_paid and
@@ -679,11 +733,12 @@ class sale_order(osv.osv):
     def oe_status(self, cr, uid, ids, paid=True, context=None):
         if type(ids) in [int, long]:
             ids = [ids]
+
         wf_service = netsvc.LocalService("workflow")
         logger = netsvc.Logger()
         for order in self.browse(cr, uid, ids, context):
-            payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context)
-            
+            payment_settings = order.base_payment_type_id
+
             if payment_settings:
                 if payment_settings.payment_term_id:
                     self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
@@ -762,29 +817,34 @@ class sale_order(osv.osv):
 
     def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
         inv_obj = self.pool.get('account.invoice')
+        job_obj = self.pool.get('base.sale.auto.reconcile.job')
         wf_service = netsvc.LocalService("workflow")
         res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
         for order in self.browse(cr, uid, ids, context=context):
-            payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context=context)
+            payment_settings = order.base_payment_type_id
             if payment_settings and payment_settings.invoice_date_is_order_date:
                 inv_obj.write(cr, uid, [inv.id for inv in order.invoice_ids], {'date_invoice' : order.date_order}, context=context)
             if order.order_policy == 'postpaid':
                 if payment_settings and payment_settings.validate_invoice:
                     for invoice in order.invoice_ids:
                         wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
-                        # we could not auto-reconcile here because
-                        # action_invoice_create is an action of the activity (subflow)
-                        # invoice, and so the workflow is going crazy, and the
-                        # activity never pass from "invoice" to "invoice_end"
-                        # the workflow engine seems to not support when the subflow
-                        # is modified from the activity action.
-                        # sale.order's workflow stucks in "progress"
-                        # when the payment is reconciled at the invoice creation
-                        # FIXME: find a way to cheat the workflow, meanwhile
-                        # the reconciliation have to be done manually or
-                        # with a module
-#                        if payment_settings.is_auto_reconcile:
-#                            invoice.auto_reconcile(context=context)
+                        if payment_settings.is_auto_reconcile:
+                            # we could not auto-reconcile here because
+                            # action_invoice_create is an action of the activity (subflow)
+                            # invoice, and so the workflow is going crazy, and the
+                            # activity never pass from "invoice" to "invoice_end"
+                            # the signal subflow.paid never move the sale order
+                            # workflow to invoice_end
+                            # sale.order's workflow stucks in "progress"
+                            # even if the invoice is paid and the picking delivered
+                            #
+                            # workaround: create an autoreconcile job to
+                            # reconcile the payment later
+                            # report for the workflow: https://bugs.launchpad.net/openobject-server/+bug/961919
+                            # report for this module: https://bugs.launchpad.net/magentoerpconnect/+bug/957136
+                            job_obj.create(
+                                cr, uid, {'invoice_id': invoice.id}, context=context)
+
         return res
 
     def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
@@ -873,8 +933,7 @@ class sale_order(osv.osv):
                         'price_unit': price_unit,
                     }
 
-        if context.get('play_sale_order_onchange'):
-            extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
+        extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
         if context.get('use_external_tax'):
             tax_rate = vals[option['tax_rate_field']]
             line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
@@ -904,7 +963,7 @@ class sale_order_line(osv.osv):
             'product': line.get('product_id'),
             'qty': float(line.get('product_uom_qty')),
             'uom': line.get('product_uom'),
-            'qty_uos': float(line.get('product_uos_qty')),
+            'qty_uos': float(line.get('product_uos_qty') or line.get('product_uom_qty')),
             'uos': line.get('product_uos'),
             'name': line.get('name'),
             'partner_id': parent_data.get('partner_id'),
@@ -936,11 +995,12 @@ class sale_order_line(osv.osv):
         elif line.get('price_unit_tax_excluded'):
             line['price_unit']  = line['price_unit_tax_excluded']
 
-        if context.get('play_sale_order_onchange'):
-            line = self.play_sale_order_line_onchange(cr, uid, resource, parent_data, previous_result, defaults, context=context)
-        if context.get('use_external_tax') and line.get('tax_rate'):
-            line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
-            line['tax_id'] = [(6, 0, [line_tax_id])]
+        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result, defaults, context=context)
+        if context.get('use_external_tax'):
+            if line.get('tax_rate'):
+                line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
+                line['tax_id'] = [(6, 0, [line_tax_id])]
+
         return line
 
 sale_order_line()
@@ -983,35 +1043,56 @@ class base_sale_payment_type(osv.osv):
         'days_before_order_cancel': lambda *a: 30,
     }
 
+    def find_by_payment_code(self, cr, uid, payment_code, context=None):
+        payment_setting_ids = self.search(
+            cr, uid, [['name', 'like', payment_code]], context=context)
+        payment_setting = False
+        payment_settings = self.browse(
+            cr, uid, payment_setting_ids, context=context)
+        for pay_type in payment_settings:
+            # payment codes are in this form "bankpayment;checkmo"
+            payment_codes = [x.strip() for x in pay_type.name.split(';')]
+            if payment_code in payment_codes:
+                payment_setting = pay_type
+                break
+        return payment_setting
+
 base_sale_payment_type()
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
 
-    def auto_reconcile(self, cr, uid, ids, context=None):
+    def auto_reconcile_single(self, cr, uid, invoice_id, context=None):
         obj_move_line = self.pool.get('account.move.line')
-        for invoice in self.browse(cr, uid, ids, context=context):
-            line_ids = obj_move_line.search(
-                cr, uid,
-                ['|', '|',
-                    ('ref', '=', invoice.origin),
-                    # keep ST_ for backward compatibility
-                    # previously the voucher ref
-                    ('ref', '=', "ST_%s" % invoice.origin),
-                    ('ref', '=', invoice.move_id.ref),
-                 ('reconcile_id', '=', False),
-                 ('account_id', '=', invoice.account_id.id)],
-                context=context)
+        invoice = self.browse(cr, uid, invoice_id, context=context)
+        line_ids = obj_move_line.search(
+            cr, uid,
+            ['|', '|',
+                ('ref', '=', invoice.origin),
+                # keep ST_ for backward compatibility
+                # previously the voucher ref
+                ('ref', '=', "ST_%s" % invoice.origin),
+                ('ref', '=', invoice.move_id.ref),
+             ('reconcile_id', '=', False),
+             ('account_id', '=', invoice.account_id.id)],
+            context=context)
 
-            if len(line_ids) == 2:
-                lines = obj_move_line.read(
-                    cr, uid, line_ids, ['debit', 'credit'], context=context)
-                balance = abs(lines[1]['debit'] - lines[0]['credit'])
-                precision = self.pool.get('decimal.precision').precision_get(
-                    cr, uid, 'Account')
-                if not round(balance, precision):
-                    obj_move_line.reconcile(cr, uid, line_ids, context=context)
+        if len(line_ids) == 2:
+            lines = obj_move_line.read(
+                cr, uid, line_ids, ['debit', 'credit'], context=context)
+            balance = abs((lines[0]['debit'] + lines[0]['credit']) -
+                          (lines[1]['debit'] + lines[1]['credit']))
+            precision = self.pool.get('decimal.precision').precision_get(
+                cr, uid, 'Account')
+            if not round(balance, precision):
+                obj_move_line.reconcile(cr, uid, line_ids, context=context)
+                return True
 
+        return False
+
+    def auto_reconcile(self, cr, uid, ids, context=None):
+        for invoice_id in ids:
+            self.auto_reconcile_single(cr, uid, invoice_id, context=context)
         return True
 
 account_invoice()

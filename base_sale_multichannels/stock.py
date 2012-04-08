@@ -24,9 +24,16 @@ from tools.translate import _
 
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
-    
+
+    _columns = {
+        'do_not_export': fields.boolean(
+            'Do not export',
+            help="This delivery order will not be exported to the "
+                 "external referential."
+        ),
+    }
+
     def create_ext_shipping(self, cr, uid, id, picking_type, external_referential_id, context):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
  
 stock_picking()
-
