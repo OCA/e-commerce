@@ -9,43 +9,47 @@
 			<field name="inherit_id" ref="base_external_referentials.external_referential_form_view" />
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-			    <xpath expr="/form/group/notebook/page/button[@name='import_referentials']" position="after">
-                    <group colspan="4" attrs="{'invisible':[('categ_name','!=','e-commerce')]}">
-        				<separator string="Optional - Initial import only" colspan="4" />
-                        <group name='left' colspan="2" col="2">
-						    <button name="import_customer_groups" string="1 - Import Customer Groups (Partner Categories)" colspan="2" type="object" />
-						    <button name="import_customers" string="1 - Import Customer" colspan="2" type="object" />
-						    <button name="import_product_categories" string="2 - Import Product Categories" colspan="2" type="object" />
-						    <button name="import_product_attributes_sets" string="3 - Import Product Attribute Sets" colspan="2" type="object" />
-						    <button name="import_product_attributes_groups" string="4 - Import Attribute Groups" colspan="2" type="object" />
-                        </group>
-                        <group name="right" colspan="2" col="2">
-						     <group colspan="2" col="12">
-						        <button name="import_product_attributes" string="5 - Import Product Attributes" colspan="10" type="object" />
-						    <!--	<field name="import_all_attributs"/> -->
-						    </group> 
-						    <group colspan="2" col="14">
-                                <group colspan="8">
-							        <button name="import_products" string="6 - Import Products" type="object" attrs="{'invisible':[('import_image_with_product','=',True)]}" />
-                                    <button name="import_products" string="6 - Import Products And Images" type="object" attrs="{'invisible':[('import_image_with_product','=',False)]}" />
-                                </group>
-							    <field name="import_image_with_product"/>
-                                <field name="import_links_with_product"/>
-							    <field name="last_imported_product_id" string=""/>
-						    </group>
-						    <button name="import_product_images" string="7 - Import Images" colspan="2" type="object" attrs="{'invisible':[('import_image_with_product','=',True)]}"/>
-                            <button name="import_product_links" string="8 - Import Product Links" colspan="2" type="object" />
-                        </group>
-        <!--				<separator string="Default values" colspan="4" />
-						<field name="default_pro_cat" required="1"/>
-						<field name="default_lang_id" required="1"/>
--->
-<!--							<button name="sync_customer_addresses" string="Sync Customer Addresses" colspan="2" type="object" />-->
-<!--							<button name="export_products" string="Export Products" colspan="2" type="object" />-->
+			        <xpath expr="/form/group/notebook/page/button[@name='import_referentials']" position="after">
+                        <group colspan="4" attrs="{'invisible':[('categ_name','!=','e-commerce')]}">
+            				<separator string="Optional - Initial import only" colspan="4" />
+                            <group name='left' colspan="2" col="2">
+						        <button name="import_customer_groups" string="1 - Import Customer Groups (Partner Categories)" colspan="2" type="object" />
+						        <button name="import_customers" string="1 - Import Customer" colspan="2" type="object" />
+						        <button name="import_product_categories" string="2 - Import Product Categories" colspan="2" type="object" />
+						        <button name="import_product_attributes_sets" string="3 - Import Product Attribute Sets" colspan="2" type="object" />
+						        <button name="import_product_attributes_groups" string="4 - Import Attribute Groups" colspan="2" type="object" />
+                            </group>
+                            <group name="right" colspan="2" col="2">
+						         <group colspan="2" col="12">
+						            <button name="import_product_attributes" string="5 - Import Product Attributes" colspan="10" type="object" />
+						        <!--	<field name="import_all_attributs"/> -->
+						        </group> 
+						        <group colspan="2" col="14">
+                                    <group colspan="8">
+							            <button name="import_products" string="6 - Import Products" type="object" attrs="{'invisible':[('import_image_with_product','=',True)]}" />
+                                        <button name="import_products" string="6 - Import Products And Images" type="object" attrs="{'invisible':[('import_image_with_product','=',False)]}" />
+                                    </group>
+							        <field name="import_image_with_product"/>
+                                    <field name="import_links_with_product"/>
+							        <field name="last_imported_product_id" string=""/>
+						        </group>
+						        <button name="import_product_images" string="7 - Import Images" colspan="2" type="object" attrs="{'invisible':[('import_image_with_product','=',True)]}"/>
+                                <button name="import_product_links" string="8 - Import Product Links" colspan="2" type="object" />
+                            </group>
+            <!--				<separator string="Default values" colspan="4" />
+						    <field name="default_pro_cat" required="1"/>
+						    <field name="default_lang_id" required="1"/>
+    -->
+    <!--							<button name="sync_customer_addresses" string="Sync Customer Addresses" colspan="2" type="object" />-->
+    <!--							<button name="export_products" string="Export Products" colspan="2" type="object" />-->
 					</group>
 				</xpath>
+
+                <field name="location" position="after">
+                    <field name="ext_report_referential_id"/>
+                </field>
 			</field>
 		</record>
 
-	</data>
+    </data>
 </openerp>

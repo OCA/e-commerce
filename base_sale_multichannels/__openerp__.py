@@ -55,6 +55,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'account_voucher',
         'delivery',
         'base_onchange_player',
+        'base_external_file_protocole',
     ],
     'init_xml': [],
     'update_xml': [

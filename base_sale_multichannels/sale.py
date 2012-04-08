@@ -31,6 +31,7 @@ import decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
+from base_external_referentials.external_osv import ExternalSession
 
 class StockPicking(osv.osv):
     '''Add a flag for marking picking as exported'''
@@ -201,7 +202,9 @@ class sale_shop(osv.osv):
                    " ('ttype', '=', 'float')]",
             help="Choose the field of the product which will be used for "
                  "stock inventory updates.\nIf empty, Quantity Available "
-                 "is used")
+                 "is used"),
+        'invoice_report': fields.many2one('ir.actions.report.xml', 'Invoice Report'),
+        'refund_report': fields.many2one('ir.actions.report.xml', 'Refund Report'),
     }
     
     _defaults = {
@@ -421,6 +424,20 @@ class sale_shop(osv.osv):
             finally:
                 picking_cr.close()
         return True
+
+    def export_invoices(self, cr, uid, ids, context=None):
+        invoice_obj = self.pool.get('account.invoice')
+        for shop in self.browse(cr, uid, ids, context=None):
+            external_session = ExternalSession(shop.referential_id.ext_report_referential_id)
+            invoice_ids = [1] # TODO
+            if not shop.invoice_report:
+                raise osv.except_osv(_("User Error"), _("You must define a report for the invoice for your sale shop"))
+            report_name = "report.%s"%shop.invoice_report.report_name
+            for invoice in invoice_obj.browse(cr, uid, invoice_ids, context=context):
+                invoice_number = invoice.number.replace('/', '-')
+                invoice_obj.send_report(cr, uid, external_session, [invoice.id], report_name, invoice_number, '/home/sebastien/output/', context=None)
+        return True
+
 
 sale_shop()
 

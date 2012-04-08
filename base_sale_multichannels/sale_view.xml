@@ -34,6 +34,7 @@
                                     <field name="import_orders_from_date" colspan="2"/>
                                     <button name="update_orders" string="Update Orders Status" colspan="1" type="object"/>
                                     <field name="last_update_order_export_date" colspan="2"/>
+                                    <button name="export_invoices" string="Export Invoices and Refund" colspan="1" type="object"/>
                                     <button name="export_shipping" string="Export Shipping" colspan="1" type="object"/>
                                     </group>
                                     <separator string="Partners" colspan="3"/>
@@ -66,6 +67,9 @@
 						            <field name="address_id" colspan="2" />
 						            <field name="website" colspan="2" />
                                     <field name="image" widget='image' colspan="2" />
+                                <separator string='Report' colspan="4"/>
+                                    <field name="invoice_report" colspan="2" />
+                                    <field name="refund_report" colspan="2" />
                             </page>
                         </notebook>
                     </form>
