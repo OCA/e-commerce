@@ -25,6 +25,7 @@
                                     </group>
                                     <group col="2" colspan="2">
                                         <field name="last_products_export_date" colspan="2"/>
+                                        <field name="last_category_export_date" colspan="2"/>
                                         <field name="last_inventory_export_date" colspan="2"/>
                                     </group>
                                 </group>

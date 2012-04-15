@@ -71,32 +71,6 @@ class external_referential(osv.osv):
 external_referential()
 
 
-class product_category(osv.osv):
-    _inherit = "product.category"
-    
-    def collect_children(self, category, children=None):
-        if children is None:
-            children = []
-
-        for child in category.child_id:
-            children.append(child.id)
-            self.collect_children(child, children)
-
-        return children
-    
-    def _get_recursive_children_ids(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for category in self.browse(cr, uid, ids):
-            res[category.id] = self.collect_children(category, [category.id])
-        return res
-
-    _columns = {
-        'recursive_childen_ids': fields.function(_get_recursive_children_ids, method=True, type='one2many', relation="product.category", string='All Child Categories'),
-    }
-    
-product_category()
-
-
 class ExternalShippingCreateError(Exception):
      """
       This error has to be raised when we tried to create a stock.picking on
@@ -110,6 +84,14 @@ class ExternalShippingCreateError(Exception):
 class sale_shop(osv.osv):
     _inherit = "sale.shop"
 
+    def _get_exportable_category_ids(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for shop in self.browse(cr, uid, ids, context=context):
+            res[shop.id] = set()
+            for category in shop.exportable_root_category_ids:
+                res[shop.id] = res[shop.id].union(set(self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], context)[category.id]))
+        return res
+    
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
         for shop in self.browse(cr, uid, ids, context=context):
@@ -174,14 +156,15 @@ class sale_shop(osv.osv):
         return field_ids[0]
 
     _columns = {
-        #'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
+        'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
         'shop_group_id': fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
         'last_inventory_export_date': fields.datetime('Last Inventory Export Time'),
         'last_images_export_date': fields.datetime('Last Images Export Time'),
         'last_update_order_export_date' : fields.datetime('Last Order Update  Time'),
-        'last_products_export_date' : fields.datetime('Last Product Export  Time'),
+        'last_products_export_date' : fields.datetime('Last Product Export Time'),
+        'last_category_export_date' : fields.datetime('Last Category Export Time'),
         'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
                 relation='external.referential', string='External Referential', method=True,
                 store={
@@ -192,7 +175,7 @@ class sale_shop(osv.osv):
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
         'default_payment_method': fields.char('Default Payment Method', size=64),
-        'default_language': fields.many2one('res.lang', 'Default Language'),
+        'default_language': fields.many2one('res.lang', 'Default Language'),    
         'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
         'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
         'auto_import': fields.boolean('Automatic Import'),
@@ -206,7 +189,7 @@ class sale_shop(osv.osv):
                  "according to default values and fiscal positions."),
         'import_orders_from_date': fields.datetime('Only created after'),
         'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale order can not be confirmed."),
-        'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
+        'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type', store=True),
         'product_stock_field_id': fields.many2one(
             'ir.model.fields',
             string='Stock Field',
@@ -234,29 +217,12 @@ class sale_shop(osv.osv):
             return shop.pricelist_id.id
         else:
             return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)], context=context)[0]
-    
-    def export_categories(self, cr, uid, shop, context=None):
-        if context is None:
-            context = {}
-        categories = set([])
-        categ_ids = []
-        for category in shop.exportable_root_category_ids:
-            categ_ids = self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], context)[category.id]
-            for categ_id in categ_ids:
-                categories.add(categ_id)
-        context['shop_id'] = shop.id
-        self.pool.get('product.category').ext_export(cr, uid, [categ_id for categ_id in categories], [shop.referential_id.id], {}, context)
-       
-    def export_products_collection(self, cr, uid, shop, context):
-        #product_to_export = context.get('force_product_ids', [product.id for product in shop.exportable_product_ids])
-        return self.pool.get('product.product')._export_resources_into_external_referential(cr, uid, external_session, ids=None, fields=None, defaults=None, context=context)
 
-    def export_products(self, cr, uid, shop, context):
-        self.export_products_collection(cr, uid, shop, context)
-    
     def export_catalog(self, cr, uid, ids, context=None):
         print 'export catalog'
-        return self.export_resources(cr, uid, ids, 'product.product', context=context)
+        self.export_resources(cr, uid, ids, 'product.category', context=context)
+        self.export_resources(cr, uid, ids, 'product.product', context=context)
+        return True
 #        if context is None:
 #            context = {}
 #        report_obj = self.pool.get('external.report')
