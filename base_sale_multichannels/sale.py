@@ -209,6 +209,12 @@ class sale_shop(osv.osv):
         'product_stock_field_id': _get_stock_field_id,
     }
 
+    def init_context_before_exporting_resource(self, cr, uid, external_session, object_id, resource_name, context=None):
+        context = super(sale_shop, self).init_context_before_exporting_resource(cr, uid, external_session, object_id, resource_name, context=context)
+        context['pricelist'] = external_session.sync_from_object.get_pricelist(context=context)
+        return context
+
+
     def get_pricelist(self, cr, uid, id, context=None):
         if isinstance(id, list):
             id=id[0]
@@ -219,27 +225,12 @@ class sale_shop(osv.osv):
             return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)], context=context)[0]
 
     def export_catalog(self, cr, uid, ids, context=None):
-        print 'export catalog'
         self.export_resources(cr, uid, ids, 'product.category', context=context)
         self.export_resources(cr, uid, ids, 'product.product', context=context)
+        #TODO update the last date
+        #I don't know where it's thebest to update it ere or in the epxot functions
+        #take care about concurent write with diferent cursor
         return True
-#        if context is None:
-#            context = {}
-#        report_obj = self.pool.get('external.report')
-#        for shop in self.browse(cr, uid, ids):
-#            context['shop_id'] = shop.id
-#            report_id = report_obj.start_report(cr, uid,
-#                                                ref='export_catalog',
-#                                                external_referential_id=shop.referential_id.id,
-#                                                context=context)
-#            context['external_report_id'] = report_id
-#            context['conn_obj'] = shop.referential_id.external_connection()
-#            self.export_categories(cr, uid, shop, context)
-#            self.export_products(cr, uid, shop, context)
-#            shop.write({'last_products_export_date' : time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
-#            report_obj.end_report(cr, uid, report_id, context=context)
-#        self.export_inventory(cr, uid, ids, context)
-#        return False
 
     def export_inventory(self, cr, uid, ids, context=None):
         if context is None:
