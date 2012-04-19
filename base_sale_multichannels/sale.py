@@ -541,10 +541,10 @@ class sale_order(osv.osv):
     
     def create_payments(self, cr, uid, order_id, data_record, context):
         """not implemented in this abstract module"""
-        if not context.get('external_referential_type'):
-            raise osv.except_osv(
-                _('Error'), _('Missing external referential type '
-                              ' when creating payment'))
+#        if not context.get('external_referential_type'):
+#            raise osv.except_osv(
+#                _('Error'), _('Missing external referential type '
+#                              ' when creating payment'))
         return False
 
     def _parse_external_payment(self, cr, uid, data, context=None):
@@ -947,9 +947,9 @@ class sale_order_line(osv.osv):
                             mapping, mapping_id, mapping_line_filter_ids=mapping_line_filter_ids, parent_data=parent_data,
                             previous_result=previous_result, defaults=defaults, context=context)
 
-        if context.get('is_tax_included') and line.get('price_unit_tax_included'):
+        if context.get('is_tax_included') and 'price_unit_tax_included' in line:
             line['price_unit'] = line['price_unit_tax_included']
-        elif line.get('price_unit_tax_excluded'):
+        elif 'price_unit_tax_excluded' in line:
             line['price_unit']  = line['price_unit_tax_excluded']
 
         line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result, defaults, context=context)
@@ -1070,7 +1070,7 @@ class stock_picking(osv.osv):
             self.force_assign(cr, uid, [picking.id])
             partial_data = {}
             for move in picking.move_lines:
-                partial_data["move" + str(move.id)] = {'product_qty': move.product_qty}
+                partial_data["move" + str(move.id)] = {'product_qty': move.product_qty, 'product_uom': move.product_uom.id}
             self.do_partial(cr, uid, [picking.id], partial_data)
         return True
         
