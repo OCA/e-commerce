@@ -84,7 +84,6 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <field name="state" position="after">
-                    <field name="ext_payment_method" select="1" />
                     <field name="need_to_update" select="1" />
                 </field>
             </field>
@@ -97,16 +96,13 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <data>
-                    <page string="Other Information" position="after">
-                        <page string="External Information" attrs="{'invisible': [('referential_id', '=', False)]}">
+                    <group name="Automatic Workflow" position="after">
+                        <group name="External Information" attrs="{'invisible': [('referential_id', '=', False)]}" colspan="2" col="2">
                             <field name="referential_id" invisible="True"/>
-                            <separator string="Payment" colspan="4"/>
-                            <field name="ext_payment_method"/>
-                            <field name="base_payment_type_id"/>
                             <field name="ext_total_amount" />
                             <field name="need_to_update" select="1" />
-                        </page>
-                    </page>
+                        </group>
+                    </group>
                     <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after">
                         <group name='External Information' colspan="4">
                             <separator string="External Information" colspan="4" />
@@ -148,59 +144,6 @@
             </field>
         </record>
 
-
-        <record id="view_base_sale_payment_type_form" model="ir.ui.view">
-            <field name="name">base.sale.payment.type</field>
-            <field name="model">base.sale.payment.type</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Payment Type">
-                    <separator string="Payment Code" colspan="4" />
-                    <field name="name"/>
-                    <separator string="Order Configuration" colspan="4" />
-                    <field name="picking_policy"/>
-                    <field name="order_policy"/>
-                    <field name="invoice_quantity"/>
-                    <field name="payment_term_id"/>
-                    <separator string="Worflow Option" colspan="4" />
-                    <field name="validate_order"/>
-                    <field name="validate_picking"/>
-                    <field name="validate_manufactoring_order"/>
-                    <field name="create_invoice" />
-                    <field name="validate_invoice"/>
-                    <field name="invoice_date_is_order_date"/>
-                    <field name="days_before_order_cancel"/>
-                    <separator string="Account Option" colspan="4" />
-                    <field name="journal_id"/>
-                    <field name="check_if_paid"/>
-                    <field name="validate_payment" attrs="{'readonly': [('journal_id', '=', False)]}"/>
-                    <field name="is_auto_reconcile"/>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_base_sale_payment_type_tree" model="ir.ui.view">
-            <field name="name">base.sale.payment.type</field>
-            <field name="model">base.sale.payment.type</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Payment Type">
-                    <field name="name"/>
-                    <field name="journal_id"/>
-                    <field name="picking_policy"/>
-                    <field name="order_policy"/>
-                    <field name="invoice_quantity"/>
-                    <field name="payment_term_id"/>
-                    <field name="is_auto_reconcile"/>
-                    <field name="validate_order"/>
-                    <field name="validate_payment"/>
-                    <field name="create_invoice"/>
-                    <field name="validate_invoice"/>
-                    <field name="check_if_paid"/>
-                </tree>
-            </field>
-        </record>
-
         <record id="view_base_sale_external_shop_group_form" model="ir.ui.view">
             <field name="name">base.sale.external.shop.group.form</field>
             <field name="model">external.shop.group</field>
@@ -234,15 +177,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <record id="act_base_sale_payment_type_form" model="ir.actions.act_window">
-            <field name="name">Base Sale Payment Type</field>
-            <field name="res_model">base.sale.payment.type</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <menuitem action="act_base_sale_payment_type_form" id="menu_base_sale_payment_type" name="E-Commerce Payment Configuration" parent="account.menu_finance" sequence="25"/>
 
         <act_window
 		    id="base_external_referentials.ext_product_product"

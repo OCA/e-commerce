@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+o# -*- encoding: utf-8 -*-
 #########################################################################
 #                                                                       #
 # Copyright (C) 2009  Raphaël Valyi                                     #
@@ -281,6 +281,18 @@ class sale_shop(osv.osv):
         self.import_resources(cr, uid, ids, 'sale.order', context=context)
         return True
 
+    def _check_need_to_update(self, cr, uid, external_session, context=None):
+        """ This function will update the order status in OpenERP for
+        the order which are in the state 'need to update' """
+        so_obj = self.pool.get('sale.order')
+        shop = external_session.sync_from_object
+        orders_to_update = so_obj.search(cr, uid,
+                [('need_to_update', '=', True),
+                 ('shop_id', '=', shop.id)],
+                context=context)
+        so_obj._check_need_to_update(cr, uid, external_session, orders_to_update, context=context)
+        return False
+
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -427,39 +439,12 @@ sale_shop()
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
-    def _get_payment_type_id(self, cr, uid, ids, field_name, args, context=None):
-        res = {}
-        pay_type_obj = self.pool.get('base.sale.payment.type')
-        for sale in self.browse(cr, uid, ids, context=context):
-            res[sale.id] = False
-            if not sale.ext_payment_method:
-                continue
-            pay_type = pay_type_obj.find_by_payment_code(
-                cr, uid, sale.ext_payment_method, context=context)
-            if not pay_type:
-                continue
-            res[sale.id] = pay_type.id
-        return res
-
     _columns = {
-        'ext_payment_method': fields.char(
-            'External Payment Method',
-            size=32,
-            help="Spree, Magento, Oscommerce... Payment Method"),
         'need_to_update': fields.boolean('Need To Update'),
         'ext_total_amount': fields.float(
             'Origin External Amount',
             digits_compute=dp.get_precision('Sale Price'),
             readonly=True),
-        'base_payment_type_id': fields.function(
-            _get_payment_type_id,
-            string='Payment Type',
-            type='many2one',
-            relation='base.sale.payment.type',
-            store={
-                'sale.order':
-                    (lambda self, cr, uid, ids, c=None: ids, ['ext_payment_method'], 20),
-            }),
         'referential_id': fields.related(
                     'shop_id', 'referential_id',
                     type='many2one', relation='external.referential',
@@ -485,10 +470,9 @@ class sale_order(osv.osv):
         return defaults
 
     def _import_resources(self, cr, uid, external_session, defaults=None, method="search_then_read", context=None):
-        shop_id = context.get('sale_shop_id')
-        if shop_id:
-            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
-            self._check_need_to_update(cr, uid, external_session, shop_id, context=context)
+        self.pool.get('sale.shop')._check_need_to_update(cr, uid, external_session, context=context)
+        shop = external_session.sync_from_object
+        if shop:
             context = {
                     'use_external_tax': shop.use_external_tax,
                     'is_tax_included': shop.is_tax_included,
@@ -497,9 +481,16 @@ class sale_order(osv.osv):
 
     def _check_need_to_update(self, cr, uid, external_session, ids, context=None):
         """
-        You should overwrite this fonction in your module in order to update the order
-        with the status need to update
+        For each order, check in external system if it has been paid since last
+        check. If so, it will launch the defined flow based on the
+        payment type (validate order, invoice, ...)
         """
+        for order in self.browse(cr, uid, ids, context=context):
+            self._check_need_to_update_single(cr, uid, external_session, order, context=context)
+        return True
+
+    def _check_need_to_update_single(self, cr, uid, external_session, order, context=None):
+        """Not implemented in this abstract module"""
         return True
 
     def _get_kwargs_onchange_partner_id(self, cr, uid, vals, context=None):
@@ -527,234 +518,79 @@ class sale_order(osv.osv):
 
     def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
         if not context: context ={}
-        pay_type_obj = self.pool.get('base.sale.payment.type')
-        payment_method = vals.get('ext_payment_method', False)
-        payment_settings = pay_type_obj.find_by_payment_code(
-            cr, uid, payment_method, context=context)
-        if payment_settings:
-            vals['order_policy'] = payment_settings.order_policy
-            vals['picking_policy'] = payment_settings.picking_policy
-            vals['invoice_quantity'] = payment_settings.invoice_quantity
+        if vals.get('payment_method_id'):
+            payment_method = self.pool.get('payment.method').browse(cr, uid, vals['payment_method_id'], context=context)
+            workflow_process = payment_method.workflow_process_id
+            if workflow_process:
+                vals['order_policy'] = workflow_process.order_policy
+                vals['picking_policy'] = workflow_process.picking_policy
+                vals['invoice_quantity'] = workflow_process.invoice_quantity
         # update vals with order onchange in order to compute taxes
         vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
         return super(sale_order, self)._merge_with_default_values(cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=defaults, context=context)
-    
-    def create_payments(self, cr, uid, order_id, data_record, context):
-        """not implemented in this abstract module"""
-#        if not context.get('external_referential_type'):
-#            raise osv.except_osv(
-#                _('Error'), _('Missing external referential type '
-#                              ' when creating payment'))
-        return False
 
-    def _parse_external_payment(self, cr, uid, data, context=None):
-        """
-        Not implemented in this abstract module
-
-        Parse the external order data and return if the sale order
-        has been paid and the amount to pay or to be paid
-
-        :param dict data: payment information of the magento sale
-            order
-        :return: tuple where :
-            - first item indicates if the payment has been done (True or False)
-            - second item represents the amount paid or to be paid
-        """
-        return False, 0.0
-
-    def oe_status_and_paid(self, cr, uid, order_id, data, external_referential_id, defaults, context):
-        is_paid, amount = self._parse_external_payment(
-            cr, uid, data, context=context)
-        # create_payments has to be called after oe_status
-        # because oe_status may create an invoice
-        self.oe_status(cr, uid, order_id, is_paid, context)
-        self.create_payments(cr, uid, order_id, data, context)
-        return order_id
-    
-    def oe_create(self, cr, uid, vals, external_referential_id, defaults, context):
+    def oe_create(self, cr, uid, external_session, vals, resource, defaults, context):
         #depending of the external system the contact address can be optionnal
-        vals = self._convert_special_fields(cr, uid, vals, external_referential_id, context=context)
+        vals = self._convert_special_fields(cr, uid, vals, external_session.referential_id.id, context=context)
         if not vals.get('partner_order_id'):
             vals['partner_order_id'] = vals['partner_invoice_id']
-        order_id = super(sale_order, self).oe_create(cr, uid, vals, external_referential_id, defaults, context)
-        self.oe_status_and_paid(cr, uid, order_id, vals, external_referential_id, defaults, context)
+        order_id = super(sale_order, self).oe_create(cr, uid, external_session, vals, resource, defaults, context)
+        self.paid_and_update(cr, uid, external_session, order_id, resource, context=context)
         return order_id
-    
-    def generate_payment_from_order(self, cr, uid, ids, payment_ref, entry_name=None, paid=True, date=None, context=None):
-        if type(ids) in [int, long]:
-            ids = [ids]
-        res = []
-        for order in self.browse(cr, uid, ids, context=context):
-            id = self.generate_payment_with_pay_code(cr, uid,
-                                                    order.ext_payment_method,
-                                                    order.partner_id.id,
-                                                    order.ext_total_amount or order.amount_total,
-                                                    payment_ref,
-                                                    entry_name or order.name,
-                                                    date or order.date_order,
-                                                    paid,
-                                                    context)
-            id and res.append(id)
-        return res
 
-    def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id,
-                                       amount, payment_ref, entry_name,
-                                       date, paid, context):
-        pay_type_obj = self.pool.get('base.sale.payment.type')
-        payment_settings = pay_type_obj.find_by_payment_code(
-            cr, uid, payment_code, context=context)
-        if payment_settings and \
-           payment_settings.journal_id and \
-           (payment_settings.check_if_paid and
-            paid or not payment_settings.check_if_paid):
-            return self.generate_payment_with_journal(
-                cr, uid, payment_settings.journal_id.id,
-                partner_id, amount, payment_ref,
-                entry_name, date, payment_settings.validate_payment,
-                context=context)
-        return False
-        
-    def generate_payment_with_journal(self, cr, uid, journal_id, partner_id,
-                                      amount, payment_ref, entry_name,
-                                      date, should_validate, context):
-        """
-        Generate a voucher for the payment
-
-        It will try to match with the invoice of the order by
-        matching the payment ref and the invoice origin.
-
-        The invoice does not necessarily exists at this point, so if yes,
-        it will be matched in the voucher, otherwise, the voucher won't
-        have any invoice lines and the payment lines will be reconciled
-        later with "auto-reconcile" if the option is used.
-
-        """
-        voucher_obj = self.pool.get('account.voucher')
-        voucher_line_obj = self.pool.get('account.voucher.line')
-        move_line_obj = self.pool.get('account.move.line')
-
-        journal = self.pool.get('account.journal').browse(
-            cr, uid, journal_id, context=context)
-
-        voucher_vals = {'reference': entry_name,
-                        'journal_id': journal.id,
-                        'amount': amount,
-                        'date': date,
-                        'partner_id': partner_id,
-                        'account_id': journal.default_credit_account_id.id,
-                        'currency_id': journal.company_id.currency_id.id,
-                        'company_id': journal.company_id.id,
-                        'type': 'receipt', }
-        voucher_id = voucher_obj.create(cr, uid, voucher_vals, context=context)
-
-        # call on change to search the invoice lines
-        onchange_voucher = voucher_obj.onchange_partner_id(
-            cr, uid, [],
-            partner_id=partner_id,
-            journal_id=journal.id,
-            amount=amount,
-            currency_id=journal.company_id.currency_id.id,
-            ttype='receipt',
-            date=date,
-            context=context)['value']
-
-        # keep in the voucher only the move line of the
-        # invoice (eventually) created for this order
-        matching_line = {}
-        if onchange_voucher.get('line_cr_ids'):
-            voucher_lines = onchange_voucher['line_cr_ids']
-            line_ids = [line['move_line_id'] for line in voucher_lines]
-            matching_ids = [line.id for line
-                            in move_line_obj.browse(
-                                cr, uid, line_ids, context=context)
-                            if line.ref == entry_name]
-            matching_lines = [line for line
-                              in voucher_lines
-                              if line['move_line_id'] in matching_ids]
-            if matching_lines:
-                matching_line = matching_lines[0]
-                matching_line.update({
-                    'amount': amount,
-                    'voucher_id': voucher_id,
-                })
-
-        if matching_line:
-            voucher_line_obj.create(cr, uid, matching_line, context=context)
-
-        if should_validate:
-            wf_service = netsvc.LocalService("workflow")
-            wf_service.trg_validate(
-                uid, 'account.voucher', voucher_id, 'proforma_voucher', cr)
-        return voucher_id
-
-    def oe_status(self, cr, uid, ids, paid=True, context=None):
-        if type(ids) in [int, long]:
-            ids = [ids]
-
+    def paid_and_update(self, cr, uid, external_session, order_id, resource, context=None):
         wf_service = netsvc.LocalService("workflow")
-        logger = netsvc.Logger()
-        for order in self.browse(cr, uid, ids, context):
-            payment_settings = order.base_payment_type_id
+        paid = self.create_external_payment(cr, uid, external_session, order_id, resource, context)
+        order = self.browse(cr, uid, order_id, context=context)
+        validate_order = order.workflow_process_id.validate_order
+        if validate_order == 'always' or validate_order == 'if_paid' and paid:
+            try:
+                wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
+            except Exception as e:
+                raise 'error', e#What we should do?? creating the order but not validating it???
+                #Maybe setting a special flag can be a good solution? with a retry method?
+            return True
 
-            if payment_settings:
-                if payment_settings.payment_term_id:
-                    self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
+        elif validate_order == 'if_paid':
+            days_before_order_cancel = order.workflow_process_id.days_before_order_cancel or 30
+            order_date = datetime.strptime(order.date_order, DEFAULT_SERVER_DATE_FORMAT)
+            order_cancel_date = order_date + relativedelta(days=days_before_order_cancel)
+            if order.state == 'draft' and order_cancel_date < datetime.now():
+                wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
+                self.write(cr, uid, order.id, {'need_to_update': False})
+                self.log(cr, uid, order.id, ("order %s canceled in OpenERP because older than % days"
+                                     "and still not confirmed") % (order.id, days_before_order_cancel))
+                #TODO eventually call a trigger to cancel the order in the external system too
+                external_session.logger.notifyChannel('ext synchro', netsvc.LOG_INFO, 
+                                ("order %s canceled in OpenERP because older than % days and "
+                                "still not confirmed") %(order.id, days_before_order_cancel))
+            else:
+                self.write(cr, uid, order_id, {'need_to_update': True}, context=context)
+        return False
 
-                if payment_settings.check_if_paid and not paid:
-                    if order.state == 'draft' and datetime.strptime(order.date_order, DEFAULT_SERVER_DATE_FORMAT) < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
-                        wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
-                        self.write(cr, uid, order.id, {'need_to_update': False})
-                        self.log(cr, uid, order.id, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
-                        #TODO eventually call a trigger to cancel the order in the external system too
-                        logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "order %s canceled in OpenERP because older than % days and still not confirmed" % (order.id, payment_settings.days_before_order_cancel or 30))
-                    else:
-                        self.write(cr, uid, order.id, {'need_to_update': True})
-                else:
-                    if payment_settings.validate_order:
-                        try:
-                            wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
-                            self.write(cr, uid, order.id, {'need_to_update': False})
-                        except Exception:
-                            self.log(cr, uid, order.id, "ERROR could not valid order")
-                            raise
-                        
-                        if payment_settings.validate_picking:
-                            self.pool.get('stock.picking').validate_picking_from_order(cr, uid, order.id)
-                        
-                        cr.execute('select * from ir_module_module where name=%s and state=%s', ('mrp','installed'))
-                        if payment_settings.validate_manufactoring_order and cr.fetchone(): #if mrp module is installed
-                            self.pool.get('stock.picking').validate_manufactoring_order(cr, uid, order.name, context)
+    def create_external_payment(self, cr, uid, external_session, order_id, resource, context):
+        """
+        Fonction that will create a payment from the external resource
+        """
+        vals = self._get_payment_information(cr, uid, external_session, order_id, resource, context=context)
+        if vals.get('paid'):
+            if not vals.get('journal_id'):
+                external_session.logger.warning(_("Not journal found for payment method %s. Can not create payment")%vals['payment_method'])
+                vals['paid'] = False
+            else:
+                self.pay_sale_order(cr, uid, order_id, vals['journal_id'], vals['amount'], vals['date'], context=context)
+        return vals.get('paid')
 
-                        if order.order_policy == 'prepaid':
-                            if payment_settings.validate_invoice:
-                                for invoice in order.invoice_ids:
-                                    wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
-                                    if payment_settings.is_auto_reconcile:
-                                        invoice.auto_reconcile(context=context)
-            
-                        elif order.order_policy == 'manual':
-                            if payment_settings.create_invoice:
-                               wf_service.trg_validate(uid, 'sale.order', order.id, 'manual_invoice', cr)
-                               invoice_id = self.browse(cr, uid, order.id).invoice_ids[0].id
-                               if payment_settings.validate_invoice:
-                                   wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
-                                   if payment_settings.is_auto_reconcile:
-                                       self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
-            
-                        # IF postpaid DO NOTHING
-            
-                        elif order.order_policy == 'picking':
-                            if payment_settings.create_invoice:
-                                try:
-                                    invoice_id = self.pool.get('stock.picking').action_invoice_create(cr, uid, [picking.id for picking in order.picking_ids])
-                                except Exception, e:
-                                    self.log(cr, uid, order.id, "Cannot create invoice from picking for order %s" %(order.name,))
-                                if payment_settings.validate_invoice:
-                                    wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
-                                    if payment_settings.is_auto_reconcile:
-                                        self.pool.get('account.invoice').auto_reconcile(cr, uid, [invoice_id], context=context)
-
-        return True
+    def _get_payment_information(self, cr, uid, external_session, order_id, resource, context=None):
+        """
+        Function that will return the information in order to create the payment
+        """
+        vals = {}
+        sale = self.browse(cr, uid, order_id, context=context)
+        vals['payment_method'] = sale.payment_method_id.name
+        vals['journal_id'] = sale.payment_method_id.journal_id and sale.payment_method_id.journal_id.id
+        vals['date'] = sale.date_order
+        return vals
 
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
         """Prepare the dict of values to create the new invoice for a
@@ -772,38 +608,6 @@ class sale_order(osv.osv):
             vals['journal_id'] = order.shop_id.sale_journal.id
         return vals
 
-    def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
-        inv_obj = self.pool.get('account.invoice')
-        job_obj = self.pool.get('base.sale.auto.reconcile.job')
-        wf_service = netsvc.LocalService("workflow")
-        res = super(sale_order, self).action_invoice_create(cr, uid, ids, grouped, states, date_inv, context)
-        for order in self.browse(cr, uid, ids, context=context):
-            payment_settings = order.base_payment_type_id
-            if payment_settings and payment_settings.invoice_date_is_order_date:
-                inv_obj.write(cr, uid, [inv.id for inv in order.invoice_ids], {'date_invoice' : order.date_order}, context=context)
-            if order.order_policy == 'postpaid':
-                if payment_settings and payment_settings.validate_invoice:
-                    for invoice in order.invoice_ids:
-                        wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
-                        if payment_settings.is_auto_reconcile:
-                            # we could not auto-reconcile here because
-                            # action_invoice_create is an action of the activity (subflow)
-                            # invoice, and so the workflow is going crazy, and the
-                            # activity never pass from "invoice" to "invoice_end"
-                            # the signal subflow.paid never move the sale order
-                            # workflow to invoice_end
-                            # sale.order's workflow stucks in "progress"
-                            # even if the invoice is paid and the picking delivered
-                            #
-                            # workaround: create an autoreconcile job to
-                            # reconcile the payment later
-                            # report for the workflow: https://bugs.launchpad.net/openobject-server/+bug/961919
-                            # report for this module: https://bugs.launchpad.net/magentoerpconnect/+bug/957136
-                            job_obj.create(
-                                cr, uid, {'invoice_id': invoice.id}, context=context)
-
-        return res
-
     def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
         '''Not implemented in this abstract module, if it's not implemented in your module it will raise an error'''
         # Explication :
@@ -819,7 +623,6 @@ class sale_order(osv.osv):
             raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system"
                                 "This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
         return existing_rec_id
-
 
     def _convert_special_fields(self, cr, uid, vals, referential_id, context=None):
         """
@@ -961,134 +764,4 @@ class sale_order_line(osv.osv):
         return line
 
 sale_order_line()
-
-class base_sale_payment_type(osv.osv):
-    _name = "base.sale.payment.type"
-    _description = "Base Sale Payment Type"
-
-    _columns = {
-        'name': fields.char('Payment Codes', help="List of Payment Codes separated by ;", size=256, required=True),
-        'journal_id': fields.many2one('account.journal','Payment Journal', help='When a Payment Journal is defined on a Payment Type, a Customer Payment (Voucher) will be automatically created once the payment is done on the external system.'),
-        'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')], 'Packing Policy'),
-        'order_policy': fields.selection([
-            ('prepaid', 'Payment Before Delivery'),
-            ('manual', 'Shipping & Manual Invoice'),
-            ('postpaid', 'Invoice on Order After Delivery'),
-            ('picking', 'Invoice from the Packing'),
-        ], 'Shipping Policy'),
-        'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on'),
-        'is_auto_reconcile': fields.boolean('Auto-reconcile', help="If checked, will try to reconcile the Customer Payment (voucher) and the open invoice by matching the origin."),
-        'validate_order': fields.boolean('Validate Order'),
-        'validate_payment': fields.boolean('Validate Payment in Journal', help='If checked, the Customer Payment (voucher) generated in the  Payment Journal will be validated and reconciled if the invoice already exists.'),
-        'create_invoice': fields.boolean('Create Invoice'),
-        'validate_invoice': fields.boolean('Validate Invoice'),
-        'validate_picking': fields.boolean('Validate Picking'),
-        'validate_manufactoring_order': fields.boolean('Validate Manufactoring Order'),
-        'check_if_paid': fields.boolean('Check if Paid'),
-        'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
-        'invoice_date_is_order_date' : fields.boolean('Force Invoice Date', help="If it's check the invoice date will be the same as the order date"),
-        'payment_term_id': fields.many2one('account.payment.term', 'Payment Term'),
-    }
-    
-    _defaults = {
-        'picking_policy': lambda *a: 'direct',
-        'order_policy': lambda *a: 'manual',
-        'invoice_quantity': lambda *a: 'order',
-        'is_auto_reconcile': lambda *a: False,
-        'validate_payment': lambda *a: False,
-        'validate_invoice': lambda *a: False,
-        'days_before_order_cancel': lambda *a: 30,
-    }
-
-    def find_by_payment_code(self, cr, uid, payment_code, context=None):
-        payment_setting_ids = self.search(
-            cr, uid, [['name', 'like', payment_code]], context=context)
-        payment_setting = False
-        payment_settings = self.browse(
-            cr, uid, payment_setting_ids, context=context)
-        for pay_type in payment_settings:
-            # payment codes are in this form "bankpayment;checkmo"
-            payment_codes = [x.strip() for x in pay_type.name.split(';')]
-            if payment_code in payment_codes:
-                payment_setting = pay_type
-                break
-        return payment_setting
-
-base_sale_payment_type()
-
-class account_invoice(osv.osv):
-    _inherit = "account.invoice"
-
-    def auto_reconcile_single(self, cr, uid, invoice_id, context=None):
-        obj_move_line = self.pool.get('account.move.line')
-        invoice = self.browse(cr, uid, invoice_id, context=context)
-        line_ids = obj_move_line.search(
-            cr, uid,
-            ['|', '|',
-                ('ref', '=', invoice.origin),
-                # keep ST_ for backward compatibility
-                # previously the voucher ref
-                ('ref', '=', "ST_%s" % invoice.origin),
-                ('ref', '=', invoice.move_id.ref),
-             ('reconcile_id', '=', False),
-             ('account_id', '=', invoice.account_id.id)],
-            context=context)
-
-        if len(line_ids) == 2:
-            lines = obj_move_line.read(
-                cr, uid, line_ids, ['debit', 'credit'], context=context)
-            balance = abs((lines[0]['debit'] + lines[0]['credit']) -
-                          (lines[1]['debit'] + lines[1]['credit']))
-            precision = self.pool.get('decimal.precision').precision_get(
-                cr, uid, 'Account')
-            if not round(balance, precision):
-                obj_move_line.reconcile(cr, uid, line_ids, context=context)
-                return True
-
-        return False
-
-    def auto_reconcile(self, cr, uid, ids, context=None):
-        for invoice_id in ids:
-            self.auto_reconcile_single(cr, uid, invoice_id, context=context)
-        return True
-
-account_invoice()
-
-class stock_picking(osv.osv):
-    _inherit = "stock.picking"
-    
-    def validate_picking_from_order(self, cr, uid, order_id, context=None):
-        order= self.pool.get('sale.order').browse(cr, uid, order_id, context=context)
-        if not order.picking_ids:
-            raise Exception('For an unknow reason the picking for the sale order %s was not created'%order.name)
-        for picking in order.picking_ids:
-            picking.validate_picking(context=context)
-        return True
-        
-    def validate_picking(self, cr, uid, ids, context=None):
-        for picking in self.browse(cr, uid, ids, context=context):
-            self.force_assign(cr, uid, [picking.id])
-            partial_data = {}
-            for move in picking.move_lines:
-                partial_data["move" + str(move.id)] = {'product_qty': move.product_qty, 'product_uom': move.product_uom.id}
-            self.do_partial(cr, uid, [picking.id], partial_data)
-        return True
-        
-    def validate_manufactoring_order(self, cr, uid, origin, context=None): #we do not create class mrp.production to avoid dependence with the module mrp
-        if context is None:
-            context = {}
-        wf_service = netsvc.LocalService("workflow")
-        mrp_prod_obj = self.pool.get('mrp.production')
-        mrp_product_produce_obj = self.pool.get('mrp.product.produce')
-        production_ids = mrp_prod_obj.search(cr, uid, [('origin', 'ilike', origin)])
-        for production in mrp_prod_obj.browse(cr, uid, production_ids):
-            mrp_prod_obj.force_production(cr, uid, [production.id])
-            wf_service.trg_validate(uid, 'mrp.production', production.id, 'button_produce', cr)
-            context.update({'active_model': 'mrp.production', 'active_ids': [production.id], 'search_default_ready': 1, 'active_id': production.id})
-            produce = mrp_product_produce_obj.create(cr, uid, {'mode': 'consume_produce', 'product_qty': production.product_qty}, context)
-            mrp_product_produce_obj.do_produce(cr, uid, [produce], context)
-            self.validate_manufactoring_order(cr, uid, production.name, context)
-        return True
-        
-stock_picking()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

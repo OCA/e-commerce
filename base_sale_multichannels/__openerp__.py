@@ -50,9 +50,9 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
     'author': 'Akretion, Sharoon Thomas (Openlabs.co.in)',
     'website': 'http://www.akretion.com',
     'depends': [
+        'sale_automatic_workflow',
         'sale_exceptions',
         'base_external_referentials',
-        'account_voucher',
         'delivery',
         'base_onchange_player',
         'base_external_file_protocole',
