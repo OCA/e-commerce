@@ -1,4 +1,4 @@
-o# -*- encoding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 #########################################################################
 #                                                                       #
 # Copyright (C) 2009  Raphaël Valyi                                     #
@@ -164,6 +164,7 @@ class sale_shop(osv.osv):
         'last_images_export_date': fields.datetime('Last Images Export Time'),
         'last_update_order_export_date' : fields.datetime('Last Order Update  Time'),
         'last_products_export_date' : fields.datetime('Last Product Export Time'),
+        'last_special_products_export_date' : fields.datetime('Last Special Product Export Time'),
         'last_category_export_date' : fields.datetime('Last Category Export Time'),
         'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
                 relation='external.referential', string='External Referential', method=True,
@@ -225,8 +226,16 @@ class sale_shop(osv.osv):
             return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)], context=context)[0]
 
     def export_catalog(self, cr, uid, ids, context=None):
+        if not context: context={}
         self.export_resources(cr, uid, ids, 'product.category', context=context)
+        # In various e-commerce system product can depend of other products
+        # So the simple product (with no dependency) are exported in priority
+        # Than the special product (with dependency) are exported at the end
+        context['export_product'] = 'simple'
         self.export_resources(cr, uid, ids, 'product.product', context=context)
+        context['export_product'] = 'special'
+        self.export_resources(cr, uid, ids, 'product.product', context=context)
+        #TODO export link
         #TODO update the last date
         #I don't know where it's thebest to update it ere or in the epxot functions
         #take care about concurent write with diferent cursor

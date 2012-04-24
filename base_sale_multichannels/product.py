@@ -26,20 +26,37 @@ from base_external_referentials.decorator import only_for_referential
 class product_product(osv.osv):
     _inherit='product.product'
 
-    @only_for_referential(ref_categ ='Multichannel Sale')#, module_name=__name__)
+    def _check_if_export(self, cr, uid, external_session, product, context=None):
+        if context.get('export_product') == 'simple':
+            return True
+        return False
+
+    @only_for_referential(ref_categ ='Multichannel Sale')
     def _get_last_exported_date(self, cr, uid, external_session, context):
-        shop = self.pool.get('sale.shop').browse(cr, uid, context['sale_shop_id'], context=context)
-        return shop.last_products_export_date
+        shop = external_session.sync_from_object
+        if context.get('export_product') == 'simple':
+            return shop.last_products_export_date
+        elif context.get('export_product') == 'special':
+            return shop.last_special_products_export_date
+        return False
 
-    @only_for_referential(ref_categ ='Multichannel Sale')#, module_name=__name__)
+    @only_for_referential(ref_categ ='Multichannel Sale')
     def _set_last_exported_date(self, cr, uid, external_session, date, context):
-        return self.pool.get('sale.shop').write(cr, uid, context['sale_shop_id'], {'last_products_export_date': date}, context=context)
+        shop = external_session.sync_from_object
+        if context.get('export_product') == 'simple':
+            return shop.write({'last_products_export_date': date}, context=context)
+        elif context.get('export_product') == 'special':
+            return shop.write({'last_special_products_export_date': date}, context=context)
 
-    def get_ids_and_update_date(self, cr, uid, ids=None, last_exported_date=None, context=None):
-        shop = self.pool.get('sale.shop').browse(cr, uid, context['sale_shop_id'],context=context)
+    @only_for_referential(ref_categ ='Multichannel Sale')
+    def get_ids_and_update_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
+        shop = external_session.sync_from_object
         if shop.exportable_product_ids:
-            res = super(product_product, self).get_ids_and_update_date(cr, uid, 
-                                                            ids=[product.id for product in shop.exportable_product_ids],
+            product_ids = [product.id for product in shop.exportable_product_ids if self._check_if_export(cr, uid, external_session, product, context=context)]
+            if ids:
+                product_ids = set(ids).intersection(set(product_ids))
+            res = super(product_product, self).get_ids_and_update_date(cr, uid, external_session,
+                                                            ids=product_ids,
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
@@ -78,10 +95,10 @@ class product_category(osv.osv):
     def _set_last_exported_date(self, cr, uid, external_session, date, context):
         return self.pool.get('sale.shop').write(cr, uid, context['sale_shop_id'], {'last_category_export_date': date}, context=context)
 
-    def get_ids_and_update_date(self, cr, uid, ids=None, last_exported_date=None, context=None):
+    def get_ids_and_update_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
         shop = self.pool.get('sale.shop').browse(cr, uid, context['sale_shop_id'],context=context)
         if shop.exportable_category_ids:
-            res = super(product_category, self).get_ids_and_update_date(cr, uid, 
+            res = super(product_category, self).get_ids_and_update_date(cr, uid, external_session,
                                                             ids=[product.id for product in shop.exportable_category_ids],
                                                             last_exported_date=last_exported_date,
                                                             context=context)
