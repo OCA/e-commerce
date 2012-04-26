@@ -41,7 +41,7 @@
                                     </group>
                                     <separator string="Partners" colspan="3"/>
                                     <newline/>
-                                    <button name="update_shop_partners" string="Update Partners" colspan="1" type="object"/>
+                                    <button name="export_shop_partners" string="Export Partners" colspan="1" type="object"/>
                                     <newline/>
                                 </group>
                             </page>

@@ -330,14 +330,9 @@ class sale_shop(osv.osv):
             self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return False
 
-    def update_shop_partners(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-        context.update({'force': True}) #FIXME
-        for shop in self.browse(cr, uid, ids):
-            context['conn_obj'] = shop.referential_id.external_connection()
-            ids = self.pool.get('res.partner').search(cr, uid, [('store_id', '=', self.pool.get('sale.shop').oeid_to_extid(cr, uid, shop.id, shop.referential_id.id, context))])
-            self.pool.get('res.partner').ext_export(cr, uid, ids, [shop.referential_id.id], {}, context)
+    def export_shop_partners(self, cr, uid, ids, context=None):
+        if not context: context={}
+        self.export_resources(cr, uid, ids, 'res.partner', context=context)
         return True
 
     def update_shop_orders(self, cr, uid, order, ext_id, context):
