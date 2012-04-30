@@ -235,6 +235,9 @@ class sale_shop(osv.osv):
         self.export_resources(cr, uid, ids, 'product.product', context=context)
         context['export_product'] = 'special'
         self.export_resources(cr, uid, ids, 'product.product', context=context)
+        #Export Images
+        self.export_resources(cr, uid, ids, 'product.images', context=context)
+
         #TODO export link
         #TODO update the last date
         #I don't know where it's thebest to update it ere or in the epxot functions
@@ -426,16 +429,38 @@ class sale_shop(osv.osv):
     def export_invoices(self, cr, uid, ids, context=None):
         invoice_obj = self.pool.get('account.invoice')
         for shop in self.browse(cr, uid, ids, context=None):
-            external_session = ExternalSession(shop.referential_id.ext_report_referential_id)
-            invoice_ids = [1] # TODO
+            external_session = ExternalSession(shop.referential_id, shop)
+            invoice_ids = self.get_invoice_to_export(cr, uid, shop.id, context=context)
+            if not invoice_ids:
+                external_session.logger.info("There is no invoice to export for the shop '%s' to the external referential" % (shop.name,))
+            print 'invoice_ids', invoice_ids
             if not shop.invoice_report:
                 raise osv.except_osv(_("User Error"), _("You must define a report for the invoice for your sale shop"))
-            report_name = "report.%s"%shop.invoice_report.report_name
-            for invoice in invoice_obj.browse(cr, uid, invoice_ids, context=context):
-                invoice_number = invoice.number.replace('/', '-')
-                invoice_obj.send_report(cr, uid, external_session, [invoice.id], report_name, invoice_number, '/home/sebastien/output/', context=None)
+            for invoice_id in invoice_ids:
+                self.pool.get('account.invoice').export_one_invoice(cr, uid, external_session, invoice_id, context=context)
         return True
 
+    def get_invoice_to_export(self, cr, uid, shop_id, context=None):
+        shop = self.browse(cr, uid, shop_id, context=context)
+        cr.execute(*self._export_invoice_query(cr, uid, shop, context=context))
+        results = cr.dictfetchall()
+        return [res['invoice_id'] for res in results]
+
+    def _export_invoice_query(self, cr, uid, shop, context=None):
+        query = """
+        SELECT account_invoice.id AS invoice_id
+        FROM account_invoice
+        LEFT JOIN ir_model_data
+                  ON account_invoice.id = ir_model_data.res_id
+                  AND ir_model_data.model = 'account.invoice'
+                  AND referential_id = %(referential_id)s
+        WHERE shop_id = %(shop_id)s
+              AND ir_model_data.res_id ISNULL
+              AND account_invoice.state in ('done', 'open')
+              AND NOT account_invoice.do_not_export
+        """
+        params = {'shop_id': shop.id, 'referential_id': shop.referential_id.id}
+        return query, params
 
 sale_shop()
 
@@ -610,6 +635,12 @@ class sale_order(osv.osv):
         vals = super(sale_order, self)._prepare_invoice(cr, uid, order, lines, context=context)
         if order.shop_id.sale_journal:
             vals['journal_id'] = order.shop_id.sale_journal.id
+        vals['shop_id'] = order.shop_id.id
+        return vals
+
+    def _prepare_order_picking(self, cr, uid, order, context=None):
+        vals = super(sale_order, self)._prepare_order_picking(cr, uid, order, context=context)
+        vals['shop_id'] = order.shop_id.id
         return vals
 
     def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):

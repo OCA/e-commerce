@@ -60,7 +60,7 @@ class product_product(osv.osv):
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
-            res= []
+            res= [False, False]
         return res
 
 class product_category(osv.osv):
@@ -103,6 +103,6 @@ class product_category(osv.osv):
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
-            res= []
+            res= [False, False]
         return res
 

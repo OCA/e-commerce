@@ -46,7 +46,7 @@
 				</xpath>
 
                 <field name="location" position="after">
-                    <field name="ext_report_referential_id"/>
+                    <field name="ext_file_referential_id"/>
                 </field>
 			</field>
 		</record>

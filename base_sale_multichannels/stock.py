@@ -31,9 +31,16 @@ class stock_picking(osv.osv):
             help="This delivery order will not be exported to the "
                  "external referential."
         ),
+        'shop_id': fields.many2one('sale.shop', 'Shop', readonly=True, states={'draft': [('readonly', False)]}),
     }
 
     def create_ext_shipping(self, cr, uid, id, picking_type, external_referential_id, context):
         osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
- 
+
+    def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id, context=None):
+        vals = super(stock_picking, self)._prepare_invoice(cr, uid, picking, partner, \
+                                                            inv_type, journal_id, context=context)
+        vals['shop_id'] = picking.shop_id.id
+        return vals
+
 stock_picking()
