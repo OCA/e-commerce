@@ -250,7 +250,7 @@ class sale_shop(osv.osv):
 
         stock_move_obj = self.pool.get('stock.move')
         for shop in self.browse(cr, uid, ids):
-            connection = shop.referential_id.external_connection()
+            external_session = ExternalSession(shop.referential_id, shop)
 
             product_ids = [product.id for product
                            in shop.exportable_product_ids]
@@ -278,9 +278,8 @@ class sale_shop(osv.osv):
                            if move.product_id.state != 'obsolete']
             product_ids = list(set(product_ids))
 
-            for p_id in product_ids:
-                self.pool.get('product.product').export_inventory(
-                    cr, uid, [p_id], shop.id, connection, context=context)
+            self.pool.get('product.product').export_inventory(
+                    cr, uid, external_session, product_ids, context=context)
             shop.write({'last_inventory_export_date':
                             time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return True
@@ -429,11 +428,10 @@ class sale_shop(osv.osv):
     def export_invoices(self, cr, uid, ids, context=None):
         invoice_obj = self.pool.get('account.invoice')
         for shop in self.browse(cr, uid, ids, context=None):
-            external_session = ExternalSession(shop.referential_id, shop)
+            external_session = ExternalSession(shop.referential_id, shop, load_linked_referential=True)
             invoice_ids = self.get_invoice_to_export(cr, uid, shop.id, context=context)
             if not invoice_ids:
                 external_session.logger.info("There is no invoice to export for the shop '%s' to the external referential" % (shop.name,))
-            print 'invoice_ids', invoice_ids
             if not shop.invoice_report:
                 raise osv.except_osv(_("User Error"), _("You must define a report for the invoice for your sale shop"))
             for invoice_id in invoice_ids:
