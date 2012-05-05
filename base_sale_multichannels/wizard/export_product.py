@@ -60,13 +60,8 @@ class product_export_wizard(osv.osv_memory):
             for product_id in product_ids:
                 if 'export_product' in options:
                     self.pool.get('product.product')._export_one_resource(cr, uid, external_session, product_id, context=context)
-#                if 'export_inventory' in options:
-#                    product_obj.export_inventory(
-#                        cr, uid,
-#                        context['force_product_ids'],
-#                        shop.id,
-#                        connection,
-#                        context=context)
+                if 'export_inventory' in options:
+                    product_obj.export_inventory(cr, uid, external_session, [product_id], context=context)
             
         return {'type': 'ir.actions.act_window_close'}
 
