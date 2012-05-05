@@ -44,9 +44,9 @@ class product_product(osv.osv):
     def _set_last_exported_date(self, cr, uid, external_session, date, context):
         shop = external_session.sync_from_object
         if context.get('export_product') == 'simple':
-            return shop.write({'last_products_export_date': date}, context=context)
+            return self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_products_export_date': date}, context=context)
         elif context.get('export_product') == 'special':
-            return shop.write({'last_special_products_export_date': date}, context=context)
+            return self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_special_products_export_date': date}, context=context)
 
     @only_for_referential(ref_categ ='Multichannel Sale')
     def get_ids_and_update_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
