@@ -242,6 +242,10 @@ class sale_shop(osv.osv):
         #TODO update the last date
         #I don't know where it's thebest to update it ere or in the epxot functions
         #take care about concurent write with diferent cursor
+        #Export Images
+        self.export_resources(cr, uid, ids, 'product.images', context=context)
+
+
         return True
 
     def export_inventory(self, cr, uid, ids, context=None):
@@ -655,7 +659,7 @@ class sale_order(osv.osv):
             #TODO found a clean solution to raise the osv.except_osv error in the try except of the function import_with_try
             raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system"
                                 "This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
-        return existing_rec_id
+        return super(sale_order, self).oe_update(cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context)
 
     def _convert_special_fields(self, cr, uid, vals, referential_id, context=None):
         """
