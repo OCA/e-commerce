@@ -582,7 +582,7 @@ class sale_order(osv.osv):
                 #Maybe setting a special flag can be a good solution? with a retry method?
             return True
 
-        elif validate_order == 'if_paid':
+        elif validate_order == 'if_paid' and order.payment_method_id.automatic_update:
             days_before_order_cancel = order.workflow_process_id.days_before_order_cancel or 30
             order_date = datetime.strptime(order.date_order, DEFAULT_SERVER_DATE_FORMAT)
             order_cancel_date = order_date + relativedelta(days=days_before_order_cancel)
