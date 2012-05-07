@@ -313,9 +313,9 @@ class sale_shop(osv.osv):
             context = {}
         logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
-            context['conn_obj'] = shop.referential_id.external_connection()
+            external_session = ExternalSession(shop.referential_id, shop)
             #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
-            req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.external_referential_id NOTNULL and sale_order.state != 'draft'"
+            req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.referential_id NOTNULL and sale_order.state != 'draft'"
             param = (shop.id,)
 
             if shop.last_update_order_export_date:
@@ -331,8 +331,9 @@ class sale_shop(osv.osv):
                     id = ids[0]
                     order = self.pool.get('sale.order').browse(cr, uid, id, context)
                     order_ext_id = result[1].split('sale_order/')[1]
-                    self.update_shop_orders(cr, uid, order, order_ext_id, context)
-                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully updated order with OpenERP id %s and ext id %s in external sale system" % (id, order_ext_id))
+                    res = self.update_shop_orders(cr, uid, external_session, order, order_ext_id, context)
+                    if res:
+                        external_session.logger.info(_("Successfully updated order with OpenERP id %s and ext id %s in external sale system") % (id, order_ext_id))
             self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_update_order_export_date': time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return False
 
@@ -341,7 +342,7 @@ class sale_shop(osv.osv):
         self.export_resources(cr, uid, ids, 'res.partner', context=context)
         return True
 
-    def update_shop_orders(self, cr, uid, order, ext_id, context):
+    def update_shop_orders(self, cr, uid, external_session, order, ext_id, context):
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def _export_shipping_query(self, cr, uid, shop, context=None):
