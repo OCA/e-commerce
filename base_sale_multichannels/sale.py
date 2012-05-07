@@ -116,13 +116,8 @@ class sale_shop(osv.osv):
         for shop in self.browse(cr, uid, ids, context=context):
             if shop.shop_group_id:
                 res[shop.id] = shop.shop_group_id.referential_id.id
-                #path to fix orm bug indeed even if function field are store, the value is not store in the database
-                cr.execute('update sale_shop set referential_id = %s where id=%s', (shop.shop_group_id.referential_id.id, shop.id))
             else:
-                #path to fix orm bug indeed even if function field are store, the value is never read for many2one fields
-                cr.execute('select referential_id from sale_shop where id=%s', (shop.id,))
-                result = cr.fetchone()
-                res[shop.id] = result[0]
+                res[shop.id] = shop.referential_integer_id
         return res
                 
     def _set_referential_id(self, cr, uid, id, name, value, arg, context=None):
@@ -131,9 +126,9 @@ class sale_shop(osv.osv):
             raise osv.except_osv(_("User Error"), _("You can not change the referential of this shop, please change the referential of the shop group!"))
         else:
             if value == False:
-                cr.execute('update sale_shop set referential_id = NULL where id=%s', (id,))
+                cr.execute('update sale_shop set referential_integer_id = NULL where id=%s', (id,))
             else:
-                cr.execute('update sale_shop set referential_id = %s where id=%s', (value, id))
+                cr.execute('update sale_shop set referential_integer_id = %s where id=%s', (value, id))
         return True
 
     def _get_shop_ids(self, cr, uid, ids, context=None):
@@ -169,11 +164,8 @@ class sale_shop(osv.osv):
         'last_special_products_export_date' : fields.datetime('Last Special Product Export Time'),
         'last_category_export_date' : fields.datetime('Last Category Export Time'),
         'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
-                relation='external.referential', string='External Referential', method=True,
-                store={
-                    'sale.shop': (lambda self, cr, uid, ids, c=None: ids, ['shop_group_id'], 10),
-                    'external.shop.group': (_get_shop_ids, ['referential_id'], 10),
-                 }),
+                relation='external.referential', string='External Referential'),
+        'referential_integer_id': fields.integer('Referential Integer ID'),
         'is_tax_included': fields.boolean('Prices Include Tax', help="Does the external system work with Taxes Inclusive Prices ?"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
@@ -192,7 +184,7 @@ class sale_shop(osv.osv):
                  "according to default values and fiscal positions."),
         'import_orders_from_date': fields.datetime('Only created after'),
         'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale order can not be confirmed."),
-        'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type', store=True),
+        'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
         'product_stock_field_id': fields.many2one(
             'ir.model.fields',
             string='Stock Field',
