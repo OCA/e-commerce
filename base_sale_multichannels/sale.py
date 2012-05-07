@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+    # -*- encoding: utf-8 -*-
 #########################################################################
 #                                                                       #
 # Copyright (C) 2009  Raphaël Valyi                                     #
@@ -32,6 +32,8 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from base_external_referentials.external_osv import ExternalSession
+from base_external_referentials.decorator import open_report
+from base_external_referentials.decorator import catch_error_in_report
 
 class StockPicking(osv.osv):
     '''Add a flag for marking picking as exported'''
@@ -501,6 +503,7 @@ class sale_order(osv.osv):
             })
         return defaults
 
+    @open_report
     def _import_resources(self, cr, uid, external_session, defaults=None, method="search_then_read", context=None):
         self.pool.get('sale.shop')._check_need_to_update(cr, uid, external_session, context=context)
         shop = external_session.sync_from_object
@@ -510,6 +513,12 @@ class sale_order(osv.osv):
                     'is_tax_included': shop.is_tax_included,
                 }
         return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
+
+    @catch_error_in_report
+    def _record_one_external_resource(self, cr, uid, external_session, resource, defaults=None, mapping=None, mapping_id=None, context=None):
+        return super(sale_order, self)._record_one_external_resource(cr, uid, external_session, resource, defaults=defaults, mapping=mapping, mapping_id=mapping_id, context=context)
+
+
 
     def _check_need_to_update(self, cr, uid, external_session, ids, context=None):
         """
@@ -734,8 +743,11 @@ class sale_order(osv.osv):
         extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
         if context.get('use_external_tax'):
             tax_rate = vals[option['tax_rate_field']]
-            line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
-            extra_line['tax_id'] = [(6, 0, [line_tax_id])]
+            if tax_rate:
+                line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
+                if not line_tax_id:
+                    raise osv.except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(tax_rate, context.get('is_tax_included')))
+                extra_line['tax_id'] = [(6, 0, [line_tax_id])]
 
         ext_code_field = option.get('code_field')
         if ext_code_field and vals.get(ext_code_field):
