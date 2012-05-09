@@ -353,7 +353,7 @@ class sale_shop(osv.osv):
                   AND ir_model_data.model = 'stock.picking'
         LEFT JOIN delivery_carrier
                   ON delivery_carrier.id = stock_picking.carrier_id
-        WHERE shop_id = %(shop_id)s
+        WHERE sale_order.shop_id = %(shop_id)s
               AND ir_model_data.res_id ISNULL
               AND stock_picking.state = 'done'
               AND NOT stock_picking.do_not_export
