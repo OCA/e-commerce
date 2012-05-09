@@ -302,6 +302,20 @@ class sale_shop(osv.osv):
         so_obj._check_need_to_update(cr, uid, external_session, orders_to_update, context=context)
         return False
 
+    def _update_order_query(self, cr, uid, shop, context=None):
+        req = """
+            SELECT ir_model_data.res_id, ir_model_data.name 
+                FROM sale_order
+                INNER JOIN ir_model_data ON sale_order.id = ir_model_data.res_id
+                WHERE ir_model_data.model='sale.order' AND sale_order.shop_id=%s
+                    AND ir_model_data.referential_id NOTNULL AND sale_order.state != 'draft'
+        """
+        params = (shop.id,)
+        if shop.last_update_order_export_date:
+            req += "AND sale_order.write_date > %s" 
+            params = (shop.id, shop.last_update_order_export_date)
+        return req, params
+
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -309,14 +323,7 @@ class sale_shop(osv.osv):
         for shop in self.browse(cr, uid, ids):
             external_session = ExternalSession(shop.referential_id, shop)
             #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
-            req = "select ir_model_data.res_id, ir_model_data.name from sale_order inner join ir_model_data on sale_order.id = ir_model_data.res_id where ir_model_data.model='sale.order' and sale_order.shop_id=%s and ir_model_data.referential_id NOTNULL and sale_order.state != 'draft'"
-            param = (shop.id,)
-
-            if shop.last_update_order_export_date:
-                req += "and sale_order.write_date > %s" 
-                param = (shop.id, shop.last_update_order_export_date)
-
-            cr.execute(req, param)
+            cr.execute(*self._update_order_query(cr, uid, shop, context=context))
             results = cr.fetchall()
             for result in results:
                 ids = self.pool.get('sale.order').search(cr, uid, [('id', '=', result[0])])
