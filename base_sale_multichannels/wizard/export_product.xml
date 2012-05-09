@@ -12,7 +12,8 @@
                     <button icon="gtk-cancel" special="cancel" string="Cancel"/>
                     <button icon="gtk-ok" name="export_product" string="Export Product" type="object"/>
 				    <button icon="gtk-ok" name="export_inventory" string="Export Stock" type="object"/>
-                    <button icon="gtk-ok" name="export_product_and_inventory" string="Export Product And Stock" type="object"/>
+				    <button icon="gtk-ok" name="export_image" string="Export Image" type="object"/>
+                    <button icon="gtk-ok" name="export_all" string="Export All" type="object"/>
                 </form>
 			</field>
 		</record>

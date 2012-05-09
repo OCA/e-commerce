@@ -318,7 +318,6 @@ class sale_shop(osv.osv):
 
             cr.execute(req, param)
             results = cr.fetchall()
-
             for result in results:
                 ids = self.pool.get('sale.order').search(cr, uid, [('id', '=', result[0])])
                 if ids:
@@ -497,13 +496,14 @@ class sale_order(osv.osv):
 
     @open_report
     def _import_resources(self, cr, uid, external_session, defaults=None, method="search_then_read", context=None):
+        if not context: context={}
         self.pool.get('sale.shop')._check_need_to_update(cr, uid, external_session, context=context)
         shop = external_session.sync_from_object
         if shop:
-            context = {
+            context.update({
                     'use_external_tax': shop.use_external_tax,
                     'is_tax_included': shop.is_tax_included,
-                }
+                })
         return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
 
     @catch_error_in_report

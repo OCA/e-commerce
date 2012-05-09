@@ -62,6 +62,8 @@ class product_export_wizard(osv.osv_memory):
                     self.pool.get('product.product')._export_one_resource(cr, uid, external_session, product_id, context=context)
                 if 'export_inventory' in options:
                     product_obj.export_inventory(cr, uid, external_session, [product_id], context=context)
+                if 'export_image' in options:
+                    product_obj.export_product_images(cr, uid, external_session, [product_id], context=context)
             
         return {'type': 'ir.actions.act_window_close'}
 
@@ -72,9 +74,13 @@ class product_export_wizard(osv.osv_memory):
         return self.export(
             cr, uid, id, ['export_inventory'], context)
 
-    def export_product_and_inventory(self, cr, uid, id, context=None):
+    def export_image(self, cr, uid, id, context=None):
         return self.export(
-            cr, uid, id, ['export_product', 'export_inventory'], context)
+            cr, uid, id, ['export_image'], context)
+
+    def export_all(self, cr, uid, id, context=None):
+        return self.export(
+            cr, uid, id, ['export_product', 'export_inventory', 'export_image'], context)
 
 
 
