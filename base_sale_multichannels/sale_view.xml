@@ -185,7 +185,7 @@
             name="External Product"
 		    res_model="ir.model.data"
             src_model="product.product"
-            domain="[('res_id', '=', 'active_id'), ('model', '=', 'product.product')]"
+            domain="[('res_id', '=', active_id), ('model', '=', 'product.product')]"
         />
 		
         <act_window
@@ -193,7 +193,7 @@
             name="External Category"
 		    res_model="ir.model.data"
             src_model="product.category"
-            domain="[('res_id', '=', 'active_id'), ('model', '=', 'product.category')]"
+            domain="[('res_id', '=', active_id), ('model', '=', 'product.category')]"
         />
 
         <act_window
@@ -201,7 +201,7 @@
             name="External Order"
 		    res_model="ir.model.data"
             src_model="sale.order"
-            domain="[('res_id', '=', 'active_id'), ('model', '=', 'sale.order')]"
+            domain="[('res_id', '=', active_id), ('model', '=', 'sale.order')]"
         />
 		
         <act_window
@@ -209,7 +209,7 @@
             name="External Shop"
 		    res_model="ir.model.data"
             src_model="sale.shop"
-            domain="[('res_id', '=', 'active_id'), ('model', '=', 'sale.shop')]"
+            domain="[('res_id', '=', active_id), ('model', '=', 'sale.shop')]"
         />
 		
         <act_window
@@ -217,7 +217,7 @@
             name="External Partner"
 		    res_model="ir.model.data"
             src_model="res.partner"
-            domain="[('res_id', '=', 'active_id'), ('model', '=', 'res.partner')]"
+            domain="[('res_id', '=', active_id), ('model', '=', 'res.partner')]"
         />
 		
         <act_window
@@ -225,7 +225,7 @@
             name="External Address"
 		    res_model="ir.model.data"
             src_model="res.partner.address"
-            domain="[('res_id', '=', 'active_id'), ('model', '=', 'res.partner.address')]"
+            domain="[('res_id', '=', active_id), ('model', '=', 'res.partner.address')]"
         />
 
     </data>
