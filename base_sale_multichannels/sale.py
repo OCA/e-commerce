@@ -224,7 +224,7 @@ class sale_shop(osv.osv):
         self.export_resources(cr, uid, ids, 'product.category', context=context)
         # In various e-commerce system product can depend of other products
         # So the simple product (with no dependency) are exported in priority
-        # Than the special product (with dependency) are exported at the end
+        # Then the special product (with dependency) are exported at the end
         context['export_product'] = 'simple'
         self.export_resources(cr, uid, ids, 'product.product', context=context)
         context['export_product'] = 'special'
@@ -234,10 +234,8 @@ class sale_shop(osv.osv):
 
         #TODO export link
         #TODO update the last date
-        #I don't know where it's thebest to update it ere or in the epxot functions
-        #take care about concurent write with diferent cursor
-        #Export Images
-        self.export_resources(cr, uid, ids, 'product.images', context=context)
+        #I don't know where it's the best to update it here or in the export functions
+        #take care about concurent write with different cursor
 
 
         return True
@@ -470,6 +468,8 @@ sale_shop()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
+
+    _order = 'date_order desc, name desc'
 
     _columns = {
         'need_to_update': fields.boolean('Need To Update'),
