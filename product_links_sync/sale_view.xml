@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="sale_shop_view_form">
+            <field name="name">product_link_sync.sale_shop.view_form</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="sale.view_shop_form" />
+            <field eval="20" name="priority"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                    <field name="last_special_products_export_date" position="after">
+                        <field name="last_products_links_export_date"/>
+                    </field>
+            </field>
+        </record>
+    </data>
+</openerp>
