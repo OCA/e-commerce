@@ -28,10 +28,19 @@ class product_link(osv.osv):
         # selection can be inherited
         return [('cross_sell', 'Cross-Sell'), ('up_sell', 'Up-Sell'), ('related', 'Related')]
 
+    def _get_link_type_selection(self, cr, uid, context=None):
+        return self.get_link_type_selection(cr, uid, context=context)
+
     _columns = {
         'product_id': fields.many2one('product.product', 'Source product', required=True),
         'linked_product_id': fields.many2one('product.product', 'Linked product', required=True),
-        'type': fields.selection(get_link_type_selection, 'Link type', required=True)
+        'type': fields.selection(_get_link_type_selection, 'Link type', required=True),
+        'is_active': fields.boolean('Active'),
+    }
+
+
+    _defaults = {
+        'is_active': True,
     }
 
 product_link()

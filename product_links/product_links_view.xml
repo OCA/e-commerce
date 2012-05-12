@@ -10,7 +10,8 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Product Links">
-                    <field name="product_id" select="1" />
+                    <!--<field name="product_id" select="1" invisible="not context.get('product_link_main_view')"/>-->
+                    <field name="is_active" select="1" />
                     <field name="linked_product_id" select="1" />
                     <field name="type" select="1" />
                 </form>
@@ -25,7 +26,8 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Product Links">
-                    <field name="product_id" select="1" />
+                    <!--<field name="product_id" select="1" invisible="not context.get('product_link_main_view')" />-->
+                    <field name="is_active" select="1" />
                     <field name="linked_product_id" select="1" />
                     <field name="type" select="1" />
                 </tree>
@@ -40,16 +42,7 @@
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Product Links">
-                        <field name="product_link_ids" colspan="4" nolabel="1" >
-                            <form string="Product Links">
-                                <field name="linked_product_id" />
-                                <field name="type" />
-                            </form>
-                            <tree string="Product Links">
-                                <field name="linked_product_id" />
-                                <field name="type" />
-                            </tree>
-                        </field>
+                        <field name="product_link_ids" colspan="4" nolabel="1" />
                     </page>
                 </notebook>
             </field>
