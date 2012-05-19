@@ -607,8 +607,7 @@ class sale_order(osv.osv):
                 self.log(cr, uid, order.id, ("order %s canceled in OpenERP because older than % days"
                                      "and still not confirmed") % (order.id, days_before_order_cancel))
                 #TODO eventually call a trigger to cancel the order in the external system too
-                external_session.logger.notifyChannel('ext synchro', netsvc.LOG_INFO, 
-                                ("order %s canceled in OpenERP because older than % days and "
+                external_session.logger.info(("order %s canceled in OpenERP because older than % days and "
                                 "still not confirmed") %(order.id, days_before_order_cancel))
             else:
                 self.write(cr, uid, order_id, {'need_to_update': True}, context=context)
