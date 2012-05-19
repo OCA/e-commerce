@@ -32,8 +32,8 @@ class product_link(osv.osv):
         return self.get_link_type_selection(cr, uid, context=context)
 
     _columns = {
-        'product_id': fields.many2one('product.product', 'Source product', required=True),
-        'linked_product_id': fields.many2one('product.product', 'Linked product', required=True),
+        'product_id': fields.many2one('product.product', 'Source product', required=True, ondelete='cascade'),
+        'linked_product_id': fields.many2one('product.product', 'Linked product', required=True, ondelete='cascade'),
         'type': fields.selection(_get_link_type_selection, 'Link type', required=True),
         'is_active': fields.boolean('Active'),
     }
@@ -55,6 +55,7 @@ class product(osv.osv):
             'product_id',
             'Product links',
             required=False,
+            
             ),
         }
 
