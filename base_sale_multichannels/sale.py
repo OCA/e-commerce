@@ -592,8 +592,9 @@ class sale_order(osv.osv):
         if validate_order == 'always' or validate_order == 'if_paid' and paid:
             try:
                 wf_service.trg_validate(uid, 'sale.order', order.id, 'order_confirm', cr)
-            except Exception as e:
-                raise 'error', e#What we should do?? creating the order but not validating it???
+            except:
+                raise
+                #What we should do?? creating the order but not validating it???
                 #Maybe setting a special flag can be a good solution? with a retry method?
             return True
 
