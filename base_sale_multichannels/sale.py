@@ -814,6 +814,8 @@ class sale_order_line(osv.osv):
         if context.get('use_external_tax'):
             if line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
+                if not line_tax_id:
+                    raise osv.except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(line['tax_rate'], context.get('is_tax_included')))
                 line['tax_id'] = [(6, 0, [line_tax_id])]
 
         return line
