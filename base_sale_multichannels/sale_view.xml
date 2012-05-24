@@ -93,16 +93,17 @@
         <record model="ir.ui.view" id="base_sale_multichannel_view_order_form">
             <field name="name">base_sale_multichannel_view_order_form</field>
             <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="inherit_id" ref="sale_automatic_workflow.sale_order_view_form" />
             <field name="type">form</field>
             <field eval="20" name="priority"/>
             <field name="arch" type="xml">
                 <data>
-                    <group name="Automatic Workflow" position="after">
-                        <group name="External Information" attrs="{'invisible': [('referential_id', '=', False)]}" colspan="2" col="2">
-                            <field name="referential_id" invisible="True"/>
+                    <group name="automatic_workflow" position="after">
+                        <field name="referential_id" invisible="True"/>
+                        <group name="external_payment" attrs="{'invisible': [('referential_id', '=', False)]}">
+                            <separator string="External Payment" colspan="4"/>
                             <field name="ext_total_amount" />
-                            <field name="need_to_update" select="1" />
+                            <field name="need_to_update" select="1"/>
                         </group>
                     </group>
                     <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after">
