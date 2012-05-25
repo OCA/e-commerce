@@ -35,6 +35,11 @@ from base_external_referentials.external_osv import ExternalSession
 from base_external_referentials.decorator import open_report
 from base_external_referentials.decorator import catch_error_in_report
 
+#TODO use external_session.logger when it's posible
+import logging
+_logger = logging.getLogger(__name__)
+
+
 class StockPicking(osv.osv):
     '''Add a flag for marking picking as exported'''
     _inherit = 'stock.picking'
@@ -317,7 +322,6 @@ class sale_shop(osv.osv):
     def update_orders(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
             external_session = ExternalSession(shop.referential_id, shop)
             #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
@@ -376,13 +380,12 @@ class sale_shop(osv.osv):
 
     def export_shipping(self, cr, uid, ids, context):
         picking_obj = self.pool.get('stock.picking')
-        logger = netsvc.Logger()
         for shop in self.browse(cr, uid, ids):
             cr.execute(*self._export_shipping_query(
                             cr, uid, shop, context=context))
             results = cr.dictfetchall()
             if not results:
-                logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "There is no shipping to export for the shop '%s' to the external referential" % (shop.name,))
+                _logger.info("There is no shipping to export for the shop '%s' to the external referential", shop.name)
                 return True
             context['conn_obj'] = shop.referential_id.external_connection()        
         
@@ -422,7 +425,7 @@ class sale_shop(osv.osv):
                             ext_shipping_id,
                             shop.referential_id.id,
                             context=context)
-                        logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result["picking_id"], ext_shipping_id))
+                        _logger.info("Successfully creating shipping with OpenERP id %s and ext id %s in external sale system", result["picking_id"], ext_shipping_id)
                     picking_cr.commit()
             finally:
                 picking_cr.close()
