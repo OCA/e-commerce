@@ -83,7 +83,7 @@ class product_category(osv.osv):
         return res
 
     _columns = {
-        'recursive_childen_ids': fields.function(_get_recursive_children_ids, method=True, type='one2many', relation="product.category", string='All Child Categories'),
+        'recursive_children_ids': fields.function(_get_recursive_children_ids, method=True, type='one2many', relation="product.category", string='All Child Categories'),
     }
 
     @only_for_referential(ref_categ ='Multichannel Sale')#, module_name=__name__)

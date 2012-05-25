@@ -100,7 +100,7 @@ class sale_shop(osv.osv):
             root_categories = [category for category in shop.exportable_root_category_ids]
             all_categories = []
             for category in root_categories:
-                all_categories += [category.id for category in category.recursive_childen_ids]
+                all_categories += [category.id for category in category.recursive_children_ids]
 
             # If product_m2mcategories module is installed search in main category and extra categories. If not, only in main category
             cr.execute('select * from ir_module_module where name=%s and state=%s', ('product_m2mcategories','installed'))
