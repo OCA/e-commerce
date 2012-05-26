@@ -29,3 +29,11 @@ class res_partner(osv.osv):
     }
 
 res_partner()
+
+class res_partner_address(osv.osv):
+    _inherit='res.partner.address'
+    
+    def _transform_one_resource(self, *args, **kwargs):
+        if kwargs.get('parent_data') and kwargs['parent_data'].get('partner_id'):
+            kwargs['defaults']['partner_id'] = kwargs['parent_data']['parent_id']
+        return super(res_partner_address, self)._transform_one_resource(*args, **kwargs)

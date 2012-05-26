@@ -174,7 +174,7 @@ class sale_shop(osv.osv):
         'is_tax_included': fields.boolean('Prices Include Tax', help="Does the external system work with Taxes Inclusive Prices ?"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
-        'default_payment_method': fields.char('Default Payment Method', size=64),
+        'default_payment_method_id': fields.many2one('payment.method', 'Payment Method'),
         'default_language': fields.many2one('res.lang', 'Default Language'),    
         'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
         'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
@@ -505,7 +505,7 @@ class sale_order(osv.osv):
                     'pricelist_id': shop.get_pricelist(context=context),
                     'shop_id': shop.id,
                     'fiscal_position': shop.default_fiscal_position.id,
-                    'ext_payment_method': shop.default_payment_method,
+                    'payment_method_id': shop.default_payment_method_id.id,
                     'company_id': shop.company_id.id,
             })
         return defaults
@@ -522,11 +522,38 @@ class sale_order(osv.osv):
                 })
         return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
 
+
+    def check_if_order_exist(self, cr, uid, external_session, resource, order_mapping=None, context=None):
+        mapping_name = False
+        for line in order_mapping['mapping_lines']:
+            if line['internal_field'] == 'name':
+                mapping_name = line
+        if mapping_name:
+            local_mapping = {1: {'mapping_lines': [mapping_name]}}
+            vals = self._transform_one_resource(cr, uid, external_session, 
+                                        'from_external_to_openerp', resource,
+                                        mapping=local_mapping,
+                                        mapping_id=1,
+                                        context=context)
+            if vals.get('name'):
+                exist_id = self.search(cr, uid, [['name', '=', vals['name']]], context=context)
+                if exist_id:
+                    external_session.logger.info("Sale Order %s already exist in OpenERP,"
+                                                    "no need to import it again"%vals['name'])
+                    return True
+        
+        return False
+
     @catch_error_in_report
-    def _record_one_external_resource(self, cr, uid, external_session, resource, defaults=None, mapping=None, mapping_id=None, context=None):
-        return super(sale_order, self)._record_one_external_resource(cr, uid, external_session, resource, defaults=defaults, mapping=mapping, mapping_id=mapping_id, context=context)
-
-
+    def _record_one_external_resource(self, cr, uid, external_session, resource, defaults=None,
+                                                        mapping=None, mapping_id=None, context=None):
+        exist_id = self.check_if_order_exist(cr, uid, external_session, resource, 
+                                            order_mapping=mapping[mapping_id], context=context)
+        if exist_id:
+            return {}
+        else:
+            return super(sale_order, self)._record_one_external_resource(cr, uid, external_session, resource, 
+                                defaults=defaults, mapping=mapping, mapping_id=mapping_id, context=context)
 
     def _check_need_to_update(self, cr, uid, external_session, ids, context=None):
         """
@@ -566,6 +593,10 @@ class sale_order(osv.osv):
         return vals
 
     def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
+        if vals.get('name'):
+            shop = external_session.sync_from_object
+            if shop.order_prefix:
+                vals['name'] = '%s%s' %(shop.order_prefix, vals['name'])
         if not context: context ={}
         if vals.get('payment_method_id'):
             payment_method = self.pool.get('payment.method').browse(cr, uid, vals['payment_method_id'], context=context)
@@ -663,7 +694,7 @@ class sale_order(osv.osv):
         vals['shop_id'] = order.shop_id.id
         return vals
 
-    def oe_update(self, cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
+    def oe_update(self, cr, uid, external_session, existing_rec_id, vals, resource, defaults, context=None):
         '''Not implemented in this abstract module, if it's not implemented in your module it will raise an error'''
         # Explication :
         # sometime customer can do ugly thing like renamming a sale_order and try to reimported it,
@@ -677,7 +708,7 @@ class sale_order(osv.osv):
             #TODO found a clean solution to raise the osv.except_osv error in the try except of the function import_with_try
             raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system"
                                 "This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
-        return super(sale_order, self).oe_update(cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context)
+        return super(sale_order, self).oe_update(cr, uid, external_session, existing_rec_id, vals, resource, defaults, context=context)
 
     def _convert_special_fields(self, cr, uid, vals, referential_id, context=None):
         """
@@ -692,6 +723,27 @@ class sale_order(osv.osv):
         :return: the value for the sale order with the special field converted
         :rtype: dict
         """
+        def check_key(keys):
+            return len(set([
+                        'shipping_amount_tax_excluded',
+                        'shipping_amount_tax_included', 
+                        'shipping_tax_amount']) 
+                    & set(keys)) >= 2
+            
+        for line in vals['order_line']:
+            for field in ['shipping_amount_tax_excluded','shipping_amount_tax_included', 'shipping_tax_amount']:
+                if field in line[2]:
+                    vals[field] = vals.get(field, 0.0) + line[2][field]
+                    del line[2][field]
+        
+        if not 'shipping_tax_rate' in vals and check_key(vals.keys()):
+            if not 'shipping_amount_tax_excluded' in vals:
+                vals['shipping_amount_tax_excluded'] = vals['shipping_amount_tax_included'] - vals['shipping_tax_amount']
+            elif not 'shipping_tax_amount' in vals:
+                vals['shipping_tax_amount'] = vals['shipping_amount_tax_included'] - vals['shipping_amount_tax_excluded']
+            vals['shipping_tax_rate'] = vals['shipping_amount_tax_excluded'] and \
+                            vals['shipping_tax_amount'] / vals['shipping_amount_tax_excluded'] or 0
+            del vals['shipping_tax_amount']
         for option in self._get_special_fields(cr, uid, context=context):
             vals = self._add_order_extra_line(cr, uid, vals, option, context=context)
         return vals
@@ -730,10 +782,13 @@ class sale_order(osv.osv):
         if not context: context={}
         sign = option.get('sign', 1)
         if context.get('is_tax_included') and vals.get(option['price_unit_tax_included']):
-            price_unit = vals[option['price_unit_tax_included']] * sign
+            price_unit = vals.pop(option['price_unit_tax_included']) * sign
         elif vals.get(option['price_unit_tax_excluded']):
-            price_unit = vals[option['price_unit_tax_excluded']] * sign
+            price_unit = vals.pop(option['price_unit_tax_excluded']) * sign
         else:
+            for key in ['price_unit_tax_excluded', 'price_unit_tax_included', 'tax_rate_field']:
+                if option.get(key) and option[key] in vals:
+                    del vals[option[key]]
             return vals #if there is not price, we have nothing to import
 
         model_data_obj = self.pool.get('ir.model.data')
@@ -750,7 +805,7 @@ class sale_order(osv.osv):
 
         extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
         if context.get('use_external_tax'):
-            tax_rate = vals[option['tax_rate_field']]
+            tax_rate = vals.pop(option['tax_rate_field'])
             if tax_rate:
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
                 if not line_tax_id:
@@ -772,6 +827,9 @@ class sale_order_line(osv.osv):
     
     _columns = {
         'ext_product_ref': fields.char('Product Ext Ref', help="This is the original external product reference", size=256),
+        'shipping_tax_amount': fields.dummy(string = 'Shipping Taxe Amount'),
+        'shipping_amount_tax_excluded': fields.dummy(string = 'Shipping Price Tax Exclude'),
+        'shipping_amount_tax_included': fields.dummy(string = 'Shipping Price Tax Include'),
     }
 
     def _get_kwargs_product_id_change(self, cr, uid, line, parent_data, previous_lines, context=None):

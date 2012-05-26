@@ -59,7 +59,7 @@
                                     <field name="use_external_tax"/>
                                     <field name="check_total_amount"/>
                                     <field name="order_prefix"/>
-                                    <field name="default_payment_method"/>
+                                    <field name="default_payment_method_id"/>
                                     <field name="default_fiscal_position"/>
                                     <field name="default_customer_account"/>
                                 <separator string='Stock' colspan="4"/>
@@ -95,7 +95,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_automatic_workflow.sale_order_view_form" />
             <field name="type">form</field>
-            <field eval="20" name="priority"/>
+            <field eval="30" name="priority"/>
             <field name="arch" type="xml">
                 <data>
                     <group name="automatic_workflow" position="after">
