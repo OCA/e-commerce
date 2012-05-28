@@ -460,7 +460,7 @@ class sale_shop(osv.osv):
                   AND referential_id = %(referential_id)s
         WHERE shop_id = %(shop_id)s
               AND ir_model_data.res_id ISNULL
-              AND account_invoice.state in ('done', 'open')
+              AND account_invoice.state in ('paid', 'open')
               AND NOT account_invoice.do_not_export
         """
         params = {'shop_id': shop.id, 'referential_id': shop.referential_id.id}
