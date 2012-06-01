@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="base_sale_multichannels_view_shop_form">
+            <field name="name">base_sale_multichannels_view_shop_form</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="sale.view_shop_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="image" position="after">
+                    <separator string='Report' colspan="4"/>
+                    <field name="invoice_report" colspan="2" />
+                    <field name="refund_report" colspan="2" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
