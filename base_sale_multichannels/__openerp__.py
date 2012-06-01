@@ -55,7 +55,6 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'base_external_referentials',
         'delivery',
         'base_onchange_player',
-        'base_external_file_protocole',
     ],
     'init_xml': [],
     'update_xml': [
