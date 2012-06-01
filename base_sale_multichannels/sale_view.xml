@@ -68,9 +68,6 @@
 						            <field name="address_id" colspan="2" />
 						            <field name="website" colspan="2" />
                                     <field name="image" widget='image' colspan="2" />
-                                <separator string='Report' colspan="4"/>
-                                    <field name="invoice_report" colspan="2" />
-                                    <field name="refund_report" colspan="2" />
                             </page>
                         </notebook>
                     </form>

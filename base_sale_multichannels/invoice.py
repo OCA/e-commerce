@@ -29,27 +29,6 @@ class account_invoice(osv.osv):
         'do_not_export': fields.boolean('Do not export',
                  help="This delivery order will not be exported to the external referential."),
     }
-    
-    def export_one_invoice(self, cr, uid, external_session, invoice_id, context=None):
-        invoice = self.browse(cr, uid, invoice_id, context=context)
-        invoice_number = invoice.number.replace('/', '-')
-        invoice_path = self._get_invoice_path(cr, uid, external_session, invoice, context=context)
-        report_name = "report.%s"%external_session.sync_from_object.invoice_report.report_name
-        context['report_name'] = self.send_report(cr, uid, external_session, [invoice.id], report_name, invoice_number, invoice_path, context=context)
-        #TODO think about a better solution to do get the report_name
-        self._export_one_resource(cr, uid, external_session, invoice_id, context=context)
-        return True
-
-    def _get_invoice_path(self, cr, uid, external_session, invoice, context=None):
-        ref_id = external_session.referential_id.id
-        ext_partner_id = invoice.partner_id.get_extid(ref_id, context=context)
-        ext_sale_id = invoice.sale_ids[0].get_extid(ref_id, context=context)
-        if invoice.type == 'out_invoice':
-            basepath = 'invoice'
-        elif invoice.type == 'out_refund':
-            basepath = 'creditmemo'
-        return os.path.join(basepath, str(ext_partner_id), str(ext_sale_id))
-
 
     def _prepare_invoice_refund(self, cr, uid, ids, invoice_vals, date=None, period_id=None, description=None, journal_id=None, context=None):
         invoice = self.browse(cr, uid, invoice_vals['id'], context=context)

@@ -45,9 +45,6 @@
 					</group>
 				</xpath>
 
-                <field name="location" position="after">
-                    <field name="ext_file_referential_id"/>
-                </field>
 			</field>
 		</record>
 

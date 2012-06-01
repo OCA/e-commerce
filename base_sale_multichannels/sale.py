@@ -198,8 +198,6 @@ class sale_shop(osv.osv):
             help="Choose the field of the product which will be used for "
                  "stock inventory updates.\nIf empty, Quantity Available "
                  "is used"),
-        'invoice_report': fields.many2one('ir.actions.report.xml', 'Invoice Report'),
-        'refund_report': fields.many2one('ir.actions.report.xml', 'Refund Report'),
     }
     
     _defaults = {
@@ -434,14 +432,12 @@ class sale_shop(osv.osv):
     def export_invoices(self, cr, uid, ids, context=None):
         invoice_obj = self.pool.get('account.invoice')
         for shop in self.browse(cr, uid, ids, context=None):
-            external_session = ExternalSession(shop.referential_id, shop, load_linked_referential=True)
+            external_session = ExternalSession(shop.referential_id, shop)
             invoice_ids = self.get_invoice_to_export(cr, uid, shop.id, context=context)
             if not invoice_ids:
                 external_session.logger.info("There is no invoice to export for the shop '%s' to the external referential" % (shop.name,))
-            if not shop.invoice_report:
-                raise osv.except_osv(_("User Error"), _("You must define a report for the invoice for your sale shop"))
             for invoice_id in invoice_ids:
-                self.pool.get('account.invoice').export_one_invoice(cr, uid, external_session, invoice_id, context=context)
+                self.pool.get('account.invoice')._export_one_resource(cr, uid, external_session, invoice_id, context=context)
         return True
 
     def get_invoice_to_export(self, cr, uid, shop_id, context=None):
