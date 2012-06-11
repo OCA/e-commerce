@@ -543,6 +543,8 @@ class sale_order(osv.osv):
     @catch_error_in_report
     def _record_one_external_resource(self, cr, uid, external_session, resource, defaults=None,
                                                         mapping=None, mapping_id=None, context=None):
+        mapping, mapping_id = self._init_mapping(cr, uid, external_session.referential_id.id,
+                                            mapping=mapping, mapping_id=mapping_id, context=context)
         exist_id = self.check_if_order_exist(cr, uid, external_session, resource, 
                                             order_mapping=mapping[mapping_id], context=context)
         if exist_id:
@@ -702,8 +704,8 @@ class sale_order(osv.osv):
         # It's better to have the order not imported and to know it than having order with duplicated line.
         if not (context and context.get('oe_update_supported', False)):
             #TODO found a clean solution to raise the osv.except_osv error in the try except of the function import_with_try
-            raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system"
-                                "This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
+            raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system."
+                                " This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
         return super(sale_order, self).oe_update(cr, uid, external_session, existing_rec_id, vals, resource, defaults, context=context)
 
     def _convert_special_fields(self, cr, uid, vals, referential_id, context=None):
