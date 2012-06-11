@@ -748,18 +748,21 @@ class sale_order(osv.osv):
     def _get_special_fields(self, cr, uid, context=None):
         return [
             {
+            'key': 'shipping',
             'price_unit_tax_excluded' : 'shipping_amount_tax_excluded',
             'price_unit_tax_included' : 'shipping_amount_tax_included',
             'tax_rate_field' : 'shipping_tax_rate',
             'product_ref' : ('base_sale_multichannels', 'product_product_shipping'),
             },
             {
+            'key': 'cash_on_delivery',
             'tax_rate_field' : 'cash_on_delivery_taxe_rate',
             'price_unit_tax_excluded' : 'cash_on_delivery_amount_tax_excluded',
             'price_unit_tax_included' : 'cash_on_delivery_amount_tax_included',
             'product_ref' : ('base_sale_multichannels', 'product_product_cash_on_delivery'),
             },
             {
+            'key': 'gift_certificate',
             'price_unit_tax_excluded' : 'gift_certificates_amount', #gift certificate doesn't have any tax
             'price_unit_tax_included' : 'gift_certificates_amount',
             'product_ref' : ('base_sale_multichannels', 'product_product_gift'),
@@ -787,8 +790,16 @@ class sale_order(osv.osv):
                     del vals[option[key]]
             return vals #if there is not price, we have nothing to import
 
-        model_data_obj = self.pool.get('ir.model.data')
-        model, product_id = model_data_obj.get_object_reference(cr, uid, *option['product_ref'])
+        product_id = False
+        # shipping product should be the one of the delivery method
+        # otherwise, it uses the default one
+        if option.get('key') == 'shipping' and vals.get('carrier_id'):
+            carrier = self.pool.get('delivery.carrier').browse(cr, uid, vals['carrier_id'], context=context)
+            product_id = carrier.product_id.id
+        if not product_id:
+            model_data_obj = self.pool.get('ir.model.data')
+            dummy, product_id = model_data_obj.get_object_reference(cr, uid, *option['product_ref'])
+
         product = self.pool.get('product.product').browse(cr, uid, product_id, context)
 
         extra_line = {
