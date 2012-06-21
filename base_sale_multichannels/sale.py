@@ -276,7 +276,7 @@ class sale_shop(osv.osv):
                            in recent_moves
                            if move.product_id.state != 'obsolete']
             product_ids = list(set(product_ids))
-
+            external_session.logger.info('Export Stock for %s products' %len(product_ids))
             self.pool.get('product.product').export_inventory(
                     cr, uid, external_session, product_ids, context=context)
             shop.write({'last_inventory_export_date':
@@ -291,16 +291,21 @@ class sale_shop(osv.osv):
         self.import_resources(cr, uid, ids, 'sale.order', context=context)
         return True
 
-    def _check_need_to_update(self, cr, uid, external_session, context=None):
+    def import_orders(self, cr, uid, ids, context=None):
+        self.import_resources(cr, uid, ids, 'sale.order', context=context)
+        return True
+
+    def check_need_to_update(self, cr, uid, ids, context=None):
         """ This function will update the order status in OpenERP for
         the order which are in the state 'need to update' """
-        so_obj = self.pool.get('sale.order')
-        shop = external_session.sync_from_object
-        orders_to_update = so_obj.search(cr, uid,
-                [('need_to_update', '=', True),
-                 ('shop_id', '=', shop.id)],
-                context=context)
-        so_obj._check_need_to_update(cr, uid, external_session, orders_to_update, context=context)
+        for shop in self.browse(cr, uid, ids, context=context):
+            external_session = ExternalSession(shop.referential_id, shop)
+            so_obj = self.pool.get('sale.order')
+            orders_to_update = so_obj.search(cr, uid,
+                    [('need_to_update', '=', True),
+                     ('shop_id', '=', shop.id)],
+                    context=context)
+            so_obj._check_need_to_update(cr, uid, external_session, orders_to_update, context=context)
         return False
 
     def _update_order_query(self, cr, uid, shop, context=None):
@@ -509,7 +514,6 @@ class sale_order(osv.osv):
     @open_report
     def _import_resources(self, cr, uid, external_session, defaults=None, method="search_then_read", context=None):
         if not context: context={}
-        self.pool.get('sale.shop')._check_need_to_update(cr, uid, external_session, context=context)
         shop = external_session.sync_from_object
         if shop:
             context.update({
