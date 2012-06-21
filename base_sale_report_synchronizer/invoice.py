@@ -19,6 +19,7 @@
 #                                                                             #
 ###############################################################################
 from osv import osv, fields
+from tools.translate import _
 from base_external_referentials.external_osv import ExternalSession
 import os
 
