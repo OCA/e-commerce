@@ -24,7 +24,7 @@ import netsvc
 from tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 from base_external_referentials.decorator import only_for_referential
-
+from base_external_referentials.decorator import commit_now
 
 class product_product(osv.osv):
     _inherit = "product.product"
@@ -96,6 +96,7 @@ class product_product(osv.osv):
             return super(product_product, self)._get_last_exported_date(cr, uid, external_session, context)
 
     @only_for_referential(ref_categ ='Multichannel Sale')
+    @commit_now
     def _set_last_exported_date(self, cr, uid, external_session, date, context):
         shop = external_session.sync_from_object
         if context.get('export_product') == 'link':
