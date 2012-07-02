@@ -23,6 +23,7 @@
                         <field name="start_date"/>
                         <field name="end_date"/>
                         <field name="quantity"/>
+                        <field name="uom_id"/>
                         <field name="supplier_goodies"/>
                         <field name="cost_price" attrs="{'invisible':[('supplier_goodies','!=',True)]}"/>
                     </group>

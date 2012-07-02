@@ -30,10 +30,11 @@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['product_links'], 
+    'depends': ['product_links', 'purchase'], 
     'init_xml': [],
     'update_xml': [ 
-           'product_links_view.xml',
+            'product_links_view.xml',
+            'purchase_view.xml',
     ],
     'demo_xml': [],
     'installable': True,
