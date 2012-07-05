@@ -32,6 +32,16 @@ class product_export_wizard(osv.osv_memory):
         'shop': fields.many2many('sale.shop', 'shop_rel', 'shop_id', 'product_id', 'Shop', required=True),
         }
 
+    def _export_one_product(self, cr, uid, external_session, product_id, options, context=None):
+        product_obj = self.pool.get('product.product')
+        if 'export_product' in options:
+            product_obj._export_one_resource(cr, uid, external_session, product_id, context=context)
+        if 'export_inventory' in options:
+            product_obj.export_inventory(cr, uid, external_session, [product_id], context=context)
+        if 'export_image' in options:
+            product_obj.export_product_images(cr, uid, external_session, [product_id], context=context)
+        return True
+
     def export(self, cr, uid, id, options, context=None):
         if not context:
             context={}
@@ -58,13 +68,7 @@ class product_export_wizard(osv.osv_memory):
                         "    - if the check box Magento exportable is checked"))%(products, shop.name))
 
             for product_id in product_ids:
-                if 'export_product' in options:
-                    self.pool.get('product.product')._export_one_resource(cr, uid, external_session, product_id, context=context)
-                if 'export_inventory' in options:
-                    product_obj.export_inventory(cr, uid, external_session, [product_id], context=context)
-                if 'export_image' in options:
-                    product_obj.export_product_images(cr, uid, external_session, [product_id], context=context)
-            
+                self._export_one_product(cr, uid, external_session, product_id, options, context=context)
         return {'type': 'ir.actions.act_window_close'}
 
     def export_product(self, cr, uid, id, context=None):
@@ -78,9 +82,11 @@ class product_export_wizard(osv.osv_memory):
         return self.export(
             cr, uid, id, ['export_image'], context)
 
+    def _get_all_options(self, cr, uid, context=None):
+        return ['export_product', 'export_inventory', 'export_image']
+
     def export_all(self, cr, uid, id, context=None):
-        return self.export(
-            cr, uid, id, ['export_product', 'export_inventory', 'export_image'], context)
+        return self.export(cr, uid, id, self._get_all_options(cr, uid, context=context), context)
 
 
 
