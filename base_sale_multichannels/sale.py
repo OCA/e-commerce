@@ -97,6 +97,7 @@ class sale_shop(osv.osv):
             res[shop.id] = set()
             for category in shop.exportable_root_category_ids:
                 res[shop.id] = res[shop.id].union(set(self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], context)[category.id]))
+            res[shop.id] = list(res[shop.id])
         return res
     
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
