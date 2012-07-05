@@ -35,6 +35,7 @@
     'update_xml': [ 
             'product_links_view.xml',
             'purchase_view.xml',
+            'product_goodies_data.xml',
     ],
     'demo_xml': [],
     'installable': True,

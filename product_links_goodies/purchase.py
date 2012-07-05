@@ -43,7 +43,7 @@ class purchase_order_line(osv.osv):
                     super(purchase_order_line, self).write(cr, uid, line.id, vals, context=ctx)
                     
                     qty_added = vals['product_qty'] - line.product_qty
-                    for goodie in line.product_id._supplier_goodies_ids:
+                    for goodie in line.product_id.supplier_goodies_ids:
                         qty = goodie.get_quantity(qty_added, context=ctx)
                         po_line_for_goodie = False
                         for goodies_line in line.goodies_line_ids:
@@ -76,7 +76,7 @@ class purchase_order_line(osv.osv):
             line_id = super(purchase_order_line, self).create(cr, uid, vals, context=context)
             
             order = self.pool.get('purchase.order').browse(cr, uid, vals['order_id'], context=context)
-            for goodie in product._supplier_goodies_ids:
+            for goodie in product.supplier_goodies_ids:
                 qty = goodie.get_quantity(vals['product_qty'], context=ctx)
                 self.create(cr, uid, 
                         self._prepare_goodies_line(cr, uid, line_id, goodie, qty, order, vals.get('date_planned'), context=ctx),

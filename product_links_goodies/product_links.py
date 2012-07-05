@@ -49,10 +49,29 @@ class product_link(osv.osv):
         res = super(product_link, self).get_link_type_selection(cr, uid, context=context)
         res.append(('goodies', 'Goodies'))
         return res
-        
+
+
     def get_quantity(self, cr, uid, ids, qty, context=None):
         link = self.browse(cr, uid, ids[0], context=context)
         return link.quantity * qty
+
+    def run_active_unactive(self, cr, uid, context=None):
+        
+        to_unactive_ids = self.search(cr, uid, [
+                        ['is_active', '=', True],
+                        '|',
+                            ['end_date', '<', datetime.today().strftime("%Y-%m-%d")],
+                            ['start_date', '>', datetime.today().strftime("%Y-%m-%d")]
+                        ], context=context)
+        self.write(cr, uid, to_unactive_ids, {'is_active': False}, context=context)
+        
+        to_active_ids = self.search(cr, uid, [
+                        ['is_active', '=', True],
+                        '|',
+                            ['end_date', '>=', datetime.today().strftime("%Y-%m-%d")],
+                            ['start_date', '<=', datetime.today().strftime("%Y-%m-%d")]
+                        ], context=context)
+        self.write(cr, uid, to_active_ids, {'is_active': True}, context=context)
 
 class product_product(osv.osv):
     _inherit = 'product.product'
@@ -69,14 +88,14 @@ class product_product(osv.osv):
             res[product_id] = link_obj.search(cr, uid, [
                                     ['product_id','=', ids[0]], 
                                     ['type','=', 'goodies'],
-                                    ['start_date', '<=', date],
-                                    ['end_date', '>=', date],
+                                    '|', ['start_date', '<=', date], ['start_date', '=', False],
+                                    '|', ['end_date', '>=', date], ['end_date', '=', False],
                                     ['supplier_goodies', '=', True],
                             ], context=context)
         return res
 
     _columns = {
-        '_supplier_goodies_ids': fields.function(_get_supplier_goodies_ids, type='many2many', relation="product.link"),
+        'supplier_goodies_ids': fields.function(_get_supplier_goodies_ids, type='many2many', relation="product.link"),
     }
     
     def is_purchase_goodies(self, cr, uid, ids, context=None):
