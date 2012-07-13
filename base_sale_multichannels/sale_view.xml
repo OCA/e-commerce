@@ -34,13 +34,13 @@
                                     <separator string="Orders" colspan="3"/>
                                     <group col="4" colspan="3">
                                         <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
-                                        <button name="check_need_to_update" string="Update Order from Magento" colspan="1" type="object"/>
+                                        <button name="check_need_to_update" string="Check Payments from Channel" colspan="1" type="object"/>
                                         <field name="import_orders_from_date" colspan="2"/>
                                     </group>
-                                    <button name="update_orders" string="Update Orders Status" colspan="1" type="object"/>
+                                    <button name="update_orders" string="Update Orders State on Channel" colspan="1" type="object"/>
                                     <field name="last_update_order_export_date" colspan="2"/>
-                                    <button name="export_invoices" string="Export Invoices and Refund" colspan="1" type="object"/>
-                                    <button name="export_shipping" string="Export Shipping" colspan="1" type="object"/>
+                                    <button name="export_invoices" string="Export Invoices" colspan="1" type="object"/>
+                                    <button name="export_shipping" string="Export Shippings" colspan="1" type="object"/>
                                     </group>
                                     <separator string="Partners" colspan="3"/>
                                     <newline/>
