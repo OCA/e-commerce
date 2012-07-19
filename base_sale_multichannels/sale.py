@@ -54,13 +54,13 @@ StockPicking()
 class external_shop_group(osv.osv):
     _name = 'external.shop.group'
     _description = 'External Referential Shop Group'
-    
+
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'referential_id': fields.many2one('external.referential', 'Referential', select=True, ondelete='cascade'),
         'shop_ids': fields.one2many('sale.shop', 'shop_group_id', 'Sale Shops'),
     }
-    
+
 
     def _get_default_import_values(self, cr, uid, external_session, **kwargs):
         return {'referential_id' : external_session.referential_id.id}
@@ -70,7 +70,7 @@ external_shop_group()
 
 class external_referential(osv.osv):
     _inherit = 'external.referential'
-    
+
     _columns = {
         'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
     }
@@ -98,7 +98,7 @@ class sale_shop(osv.osv):
             for category in shop.exportable_root_category_ids:
                 res[shop.id] = res[shop.id].union(set(self.pool.get('product.category')._get_recursive_children_ids(cr, uid, [category.id], "", [], context)[category.id]))
         return res
-    
+
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
         for shop in self.browse(cr, uid, ids, context=context):
@@ -115,7 +115,7 @@ class sale_shop(osv.osv):
                 product_ids = self.pool.get("product.product").search(cr, uid, [('categ_id', 'in', all_categories)])
             res[shop.id] = product_ids
         return res
-    
+
     def _get_referential_id(self, cr, uid, ids, name, args, context=None):
         res = {}
         for shop in self.browse(cr, uid, ids, context=context):
@@ -124,7 +124,7 @@ class sale_shop(osv.osv):
             else:
                 res[shop.id] = shop.referential_integer_id
         return res
-                
+
     def _set_referential_id(self, cr, uid, id, name, value, arg, context=None):
         shop = self.browse(cr, uid, id, context=context)
         if shop.shop_group_id:
@@ -175,7 +175,7 @@ class sale_shop(osv.osv):
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),
         'order_prefix': fields.char('Order Prefix', size=64),
         'default_payment_method_id': fields.many2one('payment.method', 'Payment Method'),
-        'default_language': fields.many2one('res.lang', 'Default Language'),    
+        'default_language': fields.many2one('res.lang', 'Default Language'),
         'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
         'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
         'auto_import': fields.boolean('Automatic Import'),
@@ -199,7 +199,7 @@ class sale_shop(osv.osv):
                  "stock inventory updates.\nIf empty, Quantity Available "
                  "is used"),
     }
-    
+
     _defaults = {
         'payment_default_id': lambda * a: 1, #required field that would cause trouble if not set when importing
         'auto_import': lambda * a: True,
@@ -282,7 +282,7 @@ class sale_shop(osv.osv):
             shop.write({'last_inventory_export_date':
                             time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)})
         return True
-    
+
     def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
         raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
@@ -305,7 +305,7 @@ class sale_shop(osv.osv):
 
     def _update_order_query(self, cr, uid, shop, context=None):
         req = """
-            SELECT ir_model_data.res_id, ir_model_data.name 
+            SELECT ir_model_data.res_id, ir_model_data.name
                 FROM sale_order
                 INNER JOIN ir_model_data ON sale_order.id = ir_model_data.res_id
                 WHERE ir_model_data.model='sale.order' AND sale_order.shop_id=%s
@@ -313,7 +313,7 @@ class sale_shop(osv.osv):
         """
         params = (shop.id,)
         if shop.last_update_order_export_date:
-            req += "AND sale_order.update_state_date > %s" 
+            req += "AND sale_order.update_state_date > %s"
             params = (shop.id, shop.last_update_order_export_date)
         return req, params
 
@@ -322,7 +322,7 @@ class sale_shop(osv.osv):
             context = {}
         for shop in self.browse(cr, uid, ids):
             external_session = ExternalSession(shop.referential_id, shop)
-            #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports 
+            #get all orders, which the state is not draft and the date of modification is superior to the last update, to exports
             cr.execute(*self._update_order_query(cr, uid, shop, context=context))
             results = cr.fetchall()
             for result in results:
@@ -385,8 +385,8 @@ class sale_shop(osv.osv):
             if not results:
                 _logger.info("There is no shipping to export for the shop '%s' to the external referential", shop.name)
                 return True
-            context['conn_obj'] = shop.referential_id.external_connection()        
-        
+            context['conn_obj'] = shop.referential_id.external_connection()
+
 
             picking_cr = pooler.get_db(cr.dbname).cursor()
             try:
@@ -526,7 +526,7 @@ class sale_order(osv.osv):
                 mapping_name = line
         if mapping_name:
             local_mapping = {1: {'mapping_lines': [mapping_name]}}
-            vals = self._transform_one_resource(cr, uid, external_session, 
+            vals = self._transform_one_resource(cr, uid, external_session,
                                         'from_external_to_openerp', resource,
                                         mapping=local_mapping,
                                         mapping_id=1,
@@ -537,18 +537,18 @@ class sale_order(osv.osv):
                     external_session.logger.info("Sale Order %s already exist in OpenERP,"
                                                     "no need to import it again"%vals['name'])
                     return True
-        
+
         return False
 
     @catch_error_in_report
     def _record_one_external_resource(self, cr, uid, external_session, resource, defaults=None,
                                                         mapping=None, mapping_id=None, context=None):
-        exist_id = self.check_if_order_exist(cr, uid, external_session, resource, 
+        exist_id = self.check_if_order_exist(cr, uid, external_session, resource,
                                             order_mapping=mapping[mapping_id], context=context)
         if exist_id:
             return {}
         else:
-            return super(sale_order, self)._record_one_external_resource(cr, uid, external_session, resource, 
+            return super(sale_order, self)._record_one_external_resource(cr, uid, external_session, resource,
                                 defaults=defaults, mapping=mapping, mapping_id=mapping_id, context=context)
 
     def _check_need_to_update(self, cr, uid, external_session, ids, context=None):
@@ -722,16 +722,16 @@ class sale_order(osv.osv):
         def check_key(keys):
             return len(set([
                         'shipping_amount_tax_excluded',
-                        'shipping_amount_tax_included', 
-                        'shipping_tax_amount']) 
+                        'shipping_amount_tax_included',
+                        'shipping_tax_amount'])
                     & set(keys)) >= 2
-            
+
         for line in vals['order_line']:
             for field in ['shipping_amount_tax_excluded','shipping_amount_tax_included', 'shipping_tax_amount']:
                 if field in line[2]:
                     vals[field] = vals.get(field, 0.0) + line[2][field]
                     del line[2][field]
-        
+
         if not 'shipping_tax_rate' in vals and check_key(vals.keys()):
             if not 'shipping_amount_tax_excluded' in vals:
                 vals['shipping_amount_tax_excluded'] = vals['shipping_amount_tax_included'] - vals['shipping_tax_amount']
@@ -811,7 +811,6 @@ class sale_order(osv.osv):
         ext_code_field = option.get('code_field')
         if ext_code_field and vals.get(ext_code_field):
             extra_line['name'] = "%s [%s]" % (extra_line['name'], vals[ext_code_field])
-
         vals['order_line'].append((0, 0, extra_line))
         return vals
 
@@ -820,7 +819,7 @@ sale_order()
 
 class sale_order_line(osv.osv):
     _inherit='sale.order.line'
-    
+
     _columns = {
         'ext_product_ref': fields.char('Product Ext Ref', help="This is the original external product reference", size=256),
         'shipping_tax_amount': fields.dummy(string = 'Shipping Taxe Amount'),
@@ -847,7 +846,7 @@ class sale_order_line(osv.osv):
             'flag': False,
             'context': context,
         }
-    
+
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
         line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
         #TODO all m2m should be mapped correctly
