@@ -487,6 +487,9 @@ class sale_order(osv.osv):
                     type='many2one', relation='external.referential',
                     string='External Referential'),
         'update_state_date': fields.datetime('Update State Date'),
+        'shipping_tax_amount': fields.dummy(string = 'Shipping Taxe Amount'),
+        'shipping_amount_tax_excluded': fields.dummy(string = 'Shipping Price Tax Exclude'),
+        'shipping_amount_tax_included': fields.dummy(string = 'Shipping Price Tax Include'),
     }
 
     _defaults = {
