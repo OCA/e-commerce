@@ -62,7 +62,7 @@ class product_product(osv.osv):
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
-            res= [(), {}]
+            res = (), {} # list of ids, dict of ids to date_changed
         return res
 
 class product_category(osv.osv):
