@@ -51,7 +51,8 @@ class sale_shop(osv.osv):
                                 'name': field_name, 
                                 'field_description': field, 
                                 'attribute_type': field_type, 
-                                'based_on': 'product_product'
+                                'based_on': 'product_product',
+                                'translate': field_type in ('char', 'text'),
                                 }
                         prod_attribute_id = attr_obj.create(cr, uid, vals, context=context)
                     else:
