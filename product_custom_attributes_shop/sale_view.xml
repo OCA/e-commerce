@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  product_custom_attributes_shop for OpenERP
+  Copyright (C) 2012 Akretion Benoît GUILLOT <benoit.guillot@akretion.com>
+  The licence is in the file __openerp__.py
+-->
+
+<openerp>
+    <data>
+    
+        <!-- INHERITED VIEW FOR THE OBJECT : sale_shop -->
+
+        <record id="attributes_sale_shop_view_form" model="ir.ui.view">
+            <field name="name">product_custom_attributs_shop.sale_shop.view_form</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="base_sale_multichannels.base_sale_multichannels_view_shop_form" />
+            <field eval="16" name="priority"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/notebook/page[@string='Extra Information']" position="after">
+                        <page string="Custom Attributes" >
+                            <button name="generate_shop_attributes" string="Generate Default Shop Attributes" colspan="1" type="object" />
+                            <field name="shop_attribute_ids" nolabel="1" colspan="4">
+                                <form string="Product Shop Attributes" >
+                                    <field name="attribute_id" />
+                                    <field name="sequence" />
+                                    <field name="external_name" />
+                                </form>
+                                <tree stirng="Product Shop Attributes" >
+                                    <field name="attribute_id" />
+                                    <field name="external_name" />
+                                    <field name="sequence" />
+                                </tree>
+                            </field>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>
