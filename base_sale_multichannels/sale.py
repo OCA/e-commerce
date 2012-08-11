@@ -158,9 +158,21 @@ class sale_shop(osv.osv):
             context=context)
         return field_ids[0]
 
+    #Depending of the e-commerce solution use you can have one or more root category
+    #If you need only one the value will be stored in the exportable_root_category_ids fields
+    def _get_rootcategory(self, cr, uid, ids, name, value, context=None):
+        res = {}
+        for shop in self.browse(cr, uid, ids, context):
+            res[shop.id] = shop.exportable_root_category_ids and shop.exportable_root_category_ids[0].id or False
+        return res
+
+    def _set_rootcategory(self, cr, uid, id, name, value, fnct_inv_arg, context=None):
+        return self.write(cr, uid, id, {'exportable_root_category_ids': [(6,0,[value])]}, context=context)
+
     _columns = {
         'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
+        'exportable_root_category_id':fields.function(_get_rootcategory, fnct_inv = _set_rootcategory, type="many2one", relation="product.category", string="Root Category"),
         'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
         'shop_group_id': fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
         'last_inventory_export_date': fields.datetime('Last Inventory Export Time'),

@@ -52,7 +52,6 @@
                                 <group col="4" colspan="4">
                                     <field name="referential_id" />
                                     <field name="shop_group_id" />
-                                    <field name="exportable_root_category_ids" />
                                 </group>
                             </page>
                             <page string="Extra Information">
