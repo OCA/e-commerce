@@ -26,14 +26,22 @@ import netsvc
 class sale_shop(osv.osv):
     
     _inherit = "sale.shop"
-    
+
+    def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for shop in self.browse(cr, uid, ids, context=context):
+            res['shop_id'] = self.pool.get('product.product').search(cr, uid, [['x_shop%s_attr_active'%shop.id, '=', True], ['active', '=', True]], context=context)
+        return res
 
     _columns = {
         'shop_attribute_ids': fields.one2many('attribute.shop.location', 'shop_id', 'Attributes'),
+        'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
     }
 
+
+
     def _prepare_attribute_shop_fields(self, cr, uid, context=None):
-        return {'name': 'char', 'description': 'text'}
+        return {'name': 'char', 'description': 'text', 'active': 'boolean'}
 
     def generate_shop_attributes(self, cr, uid, ids, context=None):
         attr_loc_obj = self.pool.get('attribute.shop.location')
@@ -44,7 +52,7 @@ class sale_shop(osv.osv):
             for field, field_type in fields.items():
                 attribute_loc_ids = attr_loc_obj.search(cr, uid, [('shop_id', '=', shop.id),('external_name', '=', field)], context=context)
                 if not attribute_loc_ids:
-                    field_name = 'x_%s_attr_%s' %(shop.name.replace(' ','_').lower(), field)
+                    field_name = 'x_shop%s_attr_%s' %(shop.id, field)
                     prod_attribute_ids = attr_obj.search(cr, uid, [('name', '=', field_name)], context=context)
                     if not prod_attribute_ids:
                         vals = {
