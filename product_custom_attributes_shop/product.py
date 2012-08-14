@@ -80,7 +80,7 @@ class product_product(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if not context: context={}
         if not context.get('do_not_check_active_field_on_shop'):
-            vals['categ_ids'] = vals.get('categ_ids', [(6,0,[])])[1][2]
+            vals['categ_ids'] = vals.get('categ_ids', [(6,0,[])])[0][2]
             self.check_if_activable(cr, uid, vals, context=context)
         return super(product_product, self).create(cr, uid, vals, context=context)
 
@@ -94,9 +94,10 @@ class product_product(osv.osv):
                     break
         res = super(product_product, self).write(cr, uid, ids, vals, context=context)
         if need_check:
+            if not hasattr(ids, '__iter__'):
+                ids = [ids]
             field_to_read = ['categ_ids', 'categ_id'] + [key for key in self._columns if re.match('x_shop.*?_attr_active', key)]
             for product in self.read(cr, uid, ids, field_to_read, context=context):
-                product['categ_ids'] = [categ_id[0] for categ_id in product.get('categ_ids', [])]
                 product['categ_id'] = product['categ_id'][0]
                 self.check_if_activable(cr, uid, product, context=context)
         return res

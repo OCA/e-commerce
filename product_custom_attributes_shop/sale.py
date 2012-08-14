@@ -30,7 +30,7 @@ class sale_shop(osv.osv):
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
         for shop in self.browse(cr, uid, ids, context=context):
-            res['shop_id'] = self.pool.get('product.product').search(cr, uid, [['x_shop%s_attr_active'%shop.id, '=', True], ['active', '=', True]], context=context)
+            res[shop.id] = self.pool.get('product.product').search(cr, uid, [['x_shop%s_attr_active'%shop.id, '=', True], ['active', '=', True]], context=context)
         return res
 
     _columns = {
