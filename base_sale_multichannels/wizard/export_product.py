@@ -63,10 +63,9 @@ class product_export_wizard(osv.osv_memory):
                 raise osv.except_osv(_("User Error"),
                         _(("The product '%s' can not be exported to the shop '%s'. \n"
                         "Please check : \n"
-                        "    - if their are in the root category \n"
+                        "    - if they are in the root category \n"
                         "    - if the website option is correctly configured. \n"
-                        "    - if the check box Magento exportable is checked"))%(products, shop.name))
-
+                        "    - if the check box to export the product to the shop is checked"))%(products, shop.name))
             for product_id in product_ids:
                 self._export_one_product(cr, uid, external_session, product_id, options, context=context)
         return {'type': 'ir.actions.act_window_close'}
