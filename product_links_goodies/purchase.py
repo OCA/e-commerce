@@ -34,7 +34,7 @@ class purchase_order_line(osv.osv):
         if context is None: context={}
         #TODO I should apply this only for automatic po need a read only mode
         if context.get("updated_from_op"):
-            if context is None.get('goodies_create_update'):
+            if not context.get('goodies_create_update'):
                 ctx = context.copy()
                 ctx['goodies_create_update'] = True
                 for line in self.browse(cr, uid, ids, context=None):
@@ -64,7 +64,7 @@ class purchase_order_line(osv.osv):
     
     def create(self, cr, uid, vals, context=None):
         if context is None: context={}
-        if context is None.get('goodies_create_update'):
+        if not context.get('goodies_create_update'):
             ctx = context.copy()
             ctx['goodies_create_update'] = True
             product_obj = self.pool.get('product.product')

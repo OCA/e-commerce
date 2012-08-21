@@ -41,7 +41,7 @@ class external_report(osv.osv):
         res = super(external_report, self)._prepare_start_report(
             cr, uid, method, object, context=context)
         if context is None: context = {}
-        if context is None.get('shop_id'):
+        if not context.get('shop_id'):
             raise Exception('Missing shop_id while creating a synchronisation report')
         res['shop_id'] = context['shop_id']
         return res
