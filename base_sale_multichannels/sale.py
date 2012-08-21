@@ -304,10 +304,6 @@ class sale_shop(osv.osv):
         self.import_resources(cr, uid, ids, 'sale.order', context=context)
         return True
 
-    def import_orders(self, cr, uid, ids, context=None):
-        self.import_resources(cr, uid, ids, 'sale.order', context=context)
-        return True
-
     def check_need_to_update(self, cr, uid, ids, context=None):
         """ This function will update the order status in OpenERP for
         the order which are in the state 'need to update' """
