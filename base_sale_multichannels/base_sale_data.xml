@@ -21,7 +21,6 @@
 			<field name="standard_price">0.0</field>
 			<field name="type">service</field>
 			<field name="name">Cash on delivery</field>
-			<field name="magento_exportable" eval="False" />
 			<field name="categ_id" ref="product_categ_services"/>
 		</record>
 
@@ -31,7 +30,6 @@
 			<field name="standard_price">0.0</field>
 			<field name="type">service</field>
 			<field name="name">Gift Certificate</field>
-			<field name="magento_exportable" eval="False" />
 			<field name="categ_id" ref="product_categ_services"/>
 		</record>
 
@@ -41,7 +39,6 @@
 			<field name="standard_price">0.0</field>
 			<field name="type">service</field>
 			<field name="name">Discount Coupon</field>
-			<field name="magento_exportable" eval="False" />
 			<field name="categ_id" ref="product_categ_services"/>
 		</record>
 

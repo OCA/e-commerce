@@ -26,10 +26,27 @@ import netsvc
 
 class payment_method(osv.osv):
     _inherit = "payment.method"
-    
+
     _columns = {
-        'automatic_update': fields.boolean('Automatic Update', 
+        'automatic_update': fields.boolean('Automatic Update',
                 help=("If the order is not paid, OpenERP  will call the external system",
                      "before each order import in order to know if this order is paid")),
     }
 
+    def get_or_create_payment_method(self, cr, uid, payment_method, context=None):
+        """
+        try to get id of 'payment_method' or create if not exists
+        :param str payment_method: payment method like PayPal, etc.
+        :rtype: int
+        :return: id of required payment method
+        """
+
+        pay_method_obj = self.pool.get('payment.method')
+        method_ids = pay_method_obj.search(cr, uid, [['name', '=ilike', payment_method]],
+                                                                                context=context)
+        if method_ids:
+            method_id = method_ids[0]
+        else:
+            method_id = pay_method_obj.create(cr, uid, {'name' : payment_method}, context=context)
+
+        return method_id

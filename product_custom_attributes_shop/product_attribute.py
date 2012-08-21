@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
-#   sale_quick_payment for OpenERP                                            #
-#   Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
+#   product_custom_attributes for OpenERP                                      #
+#   Copyright (C) 2011 Akretion Benoît GUILLOT <benoit.guillot@akretion.com>  #
 #                                                                             #
 #   This program is free software: you can redistribute it and/or modify      #
 #   it under the terms of the GNU Affero General Public License as            #
@@ -19,26 +19,21 @@
 #                                                                             #
 ###############################################################################
 
+from osv import osv, fields
+import netsvc
 
-{
-    'name': 'sale_quick_payment',
-    'version': '0.1',
-    'category': 'Generic Modules/Others',
-    'license': 'AGPL-3',
-    'description': """empty""",
-    'author': 'Akretion',
-    'website': 'http://www.akretion.com/',
-    'depends': ['sale', 'account_voucher'], 
-    'init_xml': [],
-    'update_xml': [ 
-            'sale_view.xml',
-            'payment_method_view.xml',
-            'wizard/pay_sale_order.xml',
-            'company_view.xml',
-            'security/ir.model.access.csv',
-    ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
+class attribute_shop_location(osv.osv):
+
+    _name = "attribute.shop.location"
+    _description = "Attribute Shop Location"
+    _order="sequence"
+
+    _inherits = {'product.attribute': 'attribute_id'}
+
+    _columns = {
+        'attribute_id': fields.many2one('product.attribute', 'Product Attribute', required=True, ondelete="cascade"),
+        'shop_id': fields.many2one('sale.shop', 'Shop', required=True),
+        'sequence': fields.integer('Sequence'),
+        'external_name': fields.char('External Name', size=128, required=True),
+    }
 

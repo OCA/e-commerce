@@ -42,7 +42,6 @@ class external_referential(osv.osv):
         'import_links_with_product': fields.boolean('With links', help=("If the option is check the product's links"
                                                                  "(Up-Sell, Cross-Sell, Related) and the product will be imported"
                                                                  "at the same time and so the step '8-import links' is not needed")),
-        'ext_file_referential_id': fields.many2one('external.referential', 'External Referential File'),
         }
 
     def import_customer_groups(self, cr, uid, ids, context=None):

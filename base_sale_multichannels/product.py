@@ -22,6 +22,7 @@
 
 from osv import osv, fields
 from base_external_referentials.decorator import only_for_referential
+from base_external_referentials.decorator import commit_now
 
 class product_product(osv.osv):
     _inherit='product.product'
@@ -32,7 +33,7 @@ class product_product(osv.osv):
         return False
 
     @only_for_referential(ref_categ ='Multichannel Sale')
-    def _get_last_exported_date(self, cr, uid, external_session, context):
+    def _get_last_exported_date(self, cr, uid, external_session, context=None):
         shop = external_session.sync_from_object
         if context.get('export_product') == 'simple':
             return shop.last_products_export_date
@@ -41,7 +42,8 @@ class product_product(osv.osv):
         return False
 
     @only_for_referential(ref_categ ='Multichannel Sale')
-    def _set_last_exported_date(self, cr, uid, external_session, date, context):
+    @commit_now
+    def _set_last_exported_date(self, cr, uid, external_session, date, context=None):
         shop = external_session.sync_from_object
         if context.get('export_product') == 'simple':
             return self.pool.get('sale.shop').write(cr, uid, shop.id, {'last_products_export_date': date}, context=context)
@@ -60,7 +62,7 @@ class product_product(osv.osv):
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
-            res= [False, False]
+            res = (), {} # list of ids, dict of ids to date_changed
         return res
 
 class product_category(osv.osv):
@@ -86,13 +88,14 @@ class product_category(osv.osv):
         'recursive_children_ids': fields.function(_get_recursive_children_ids, method=True, type='one2many', relation="product.category", string='All Child Categories'),
     }
 
-    @only_for_referential(ref_categ ='Multichannel Sale')#, module_name=__name__)
-    def _get_last_exported_date(self, cr, uid, external_session, context):
+    @only_for_referential(ref_categ ='Multichannel Sale')
+    def _get_last_exported_date(self, cr, uid, external_session, context=None):
         shop = self.pool.get('sale.shop').browse(cr, uid, context['sale_shop_id'], context=context)
         return shop.last_category_export_date
 
-    @only_for_referential(ref_categ ='Multichannel Sale')#, module_name=__name__)
-    def _set_last_exported_date(self, cr, uid, external_session, date, context):
+    @only_for_referential(ref_categ ='Multichannel Sale')
+    @commit_now
+    def _set_last_exported_date(self, cr, uid, external_session, date, context=None):
         return self.pool.get('sale.shop').write(cr, uid, context['sale_shop_id'], {'last_category_export_date': date}, context=context)
 
     def get_ids_and_update_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):

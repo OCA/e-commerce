@@ -32,12 +32,15 @@
                                 </group>
                                 <group col="3" colspan="3">
                                     <separator string="Orders" colspan="3"/>
-                                    <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
-                                    <field name="import_orders_from_date" colspan="2"/>
-                                    <button name="update_orders" string="Update Orders Status" colspan="1" type="object"/>
+                                    <group col="4" colspan="3">
+                                        <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
+                                        <button name="check_need_to_update" string="Check Payments from Channel" colspan="1" type="object"/>
+                                        <field name="import_orders_from_date" colspan="2"/>
+                                    </group>
+                                    <button name="update_orders" string="Update Orders State on Channel" colspan="1" type="object"/>
                                     <field name="last_update_order_export_date" colspan="2"/>
-                                    <button name="export_invoices" string="Export Invoices and Refund" colspan="1" type="object"/>
-                                    <button name="export_shipping" string="Export Shipping" colspan="1" type="object"/>
+                                    <button name="export_invoices" string="Export Invoices" colspan="1" type="object"/>
+                                    <button name="export_shipping" string="Export Shippings" colspan="1" type="object"/>
                                     </group>
                                     <separator string="Partners" colspan="3"/>
                                     <newline/>
@@ -49,7 +52,6 @@
                                 <group col="4" colspan="4">
                                     <field name="referential_id" />
                                     <field name="shop_group_id" />
-                                    <field name="exportable_root_category_ids" />
                                 </group>
                             </page>
                             <page string="Extra Information">
@@ -59,18 +61,16 @@
                                     <field name="use_external_tax"/>
                                     <field name="check_total_amount"/>
                                     <field name="order_prefix"/>
-                                    <field name="default_payment_method"/>
+                                    <field name="default_payment_method_id"/>
                                     <field name="default_fiscal_position"/>
                                     <field name="default_customer_account"/>
+                                    <field name="default_customer_lang"/>
                                 <separator string='Stock' colspan="4"/>
                                     <field name="product_stock_field_id"/>
                                 <separator string='Other Information' colspan="4"/>
 						            <field name="address_id" colspan="2" />
 						            <field name="website" colspan="2" />
                                     <field name="image" widget='image' colspan="2" />
-                                <separator string='Report' colspan="4"/>
-                                    <field name="invoice_report" colspan="2" />
-                                    <field name="refund_report" colspan="2" />
                             </page>
                         </notebook>
                     </form>
@@ -95,7 +95,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_automatic_workflow.sale_order_view_form" />
             <field name="type">form</field>
-            <field eval="20" name="priority"/>
+            <field eval="30" name="priority"/>
             <field name="arch" type="xml">
                 <data>
                     <group name="automatic_workflow" position="after">

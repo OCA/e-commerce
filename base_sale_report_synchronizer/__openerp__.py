@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
-#   sale_quick_payment for OpenERP                                            #
-#   Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
+#   base_sale_report_synchronizer for OpenERP                                 #
+#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
 #                                                                             #
 #   This program is free software: you can redistribute it and/or modify      #
 #   it under the terms of the GNU Affero General Public License as            #
@@ -20,22 +20,23 @@
 ###############################################################################
 
 
+
 {
-    'name': 'sale_quick_payment',
+    'name': 'base_sale_report_synchronizer',
     'version': '0.1',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
-    'description': """empty""",
+    'description': """
+        Abstract module to syncronize invoice and refund
+        report with external e-commerce system
+    """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['sale', 'account_voucher'], 
+    'depends': ['report_synchronizer', 'base_sale_multichannels'], 
     'init_xml': [],
     'update_xml': [ 
+            'external_referential_view.xml',
             'sale_view.xml',
-            'payment_method_view.xml',
-            'wizard/pay_sale_order.xml',
-            'company_view.xml',
-            'security/ir.model.access.csv',
     ],
     'demo_xml': [],
     'installable': True,

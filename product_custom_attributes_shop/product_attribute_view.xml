@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  product_custom_attributes_shop for OpenERP
+  Copyright (C) 2011 Akretion Benoît GUILLOT <benoit.guillot@akretion.com>
+  The licence is in the file __openerp__.py
+-->
+
+<openerp>
+    <data>
+
+        <!-- CREATED VIEW FOR THE OBJECT : attribute_shop_location -->
+
+
+        <record id="attribute_shop_location_form_view" model="ir.ui.view">
+            <field name="name">attribute.shop.location.form</field>
+            <field name="model">attribute.shop.location</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Attribute Shop Location">
+                    <field name="attribute_id" />
+                    <field name="sequence" />
+                    <field name="external_name" />
+                    <field name="shop_id" />
+                </form>
+            </field>
+        </record>
+
+        <record id="attribute_shop_location_tree_view" model="ir.ui.view">
+            <field name="name">attribute.shop.location.tree</field>
+            <field name="model">attribute.shop.location</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Attribute Shop Location">
+                    <field name="attribute_id" />
+                    <field name="external_name" />
+                    <field name="sequence" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>

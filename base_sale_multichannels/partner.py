@@ -27,5 +27,23 @@ class res_partner(osv.osv):
     _columns = {
         'defaults_shop_id': fields.many2one('sale.shop', 'Sale Shop', help="This is the default shop of the customer"),
     }
+    
+    def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
+        shop_id = context.get('sale_shop_id')
+        if shop_id:
+            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
+            if not defaults: defaults = {}
+            defaults.update({
+                    'lang': shop.default_customer_lang.id
+            })
+        return defaults
 
 res_partner()
+
+class res_partner_address(osv.osv):
+    _inherit='res.partner.address'
+    
+    def _transform_one_resource(self, *args, **kwargs):
+        if kwargs.get('parent_data') and kwargs['parent_data'].get('partner_id'):
+            kwargs['defaults']['partner_id'] = kwargs['parent_data']['parent_id']
+        return super(res_partner_address, self)._transform_one_resource(*args, **kwargs)
