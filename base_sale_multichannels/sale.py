@@ -191,6 +191,7 @@ class sale_shop(osv.osv):
         'default_language': fields.many2one('res.lang', 'Default Language'),
         'default_fiscal_position': fields.many2one('account.fiscal.position', 'Default Fiscal Position'),
         'default_customer_account': fields.many2one('account.account', 'Default Customer Account'),
+        'default_customer_lang': fields.many2one('res.lang', 'Default Customer Language'),
         'auto_import': fields.boolean('Automatic Import'),
         'address_id':fields.many2one('res.partner.address', 'Address'),
         'website': fields.char('Website', size=64),
@@ -224,7 +225,6 @@ class sale_shop(osv.osv):
         context = super(sale_shop, self).init_context_before_exporting_resource(cr, uid, external_session, object_id, resource_name, context=context)
         context['pricelist'] = external_session.sync_from_object.get_pricelist(context=context)
         return context
-
 
     def get_pricelist(self, cr, uid, id, context=None):
         if isinstance(id, list):

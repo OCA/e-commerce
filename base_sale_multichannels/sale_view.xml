@@ -64,6 +64,7 @@
                                     <field name="default_payment_method_id"/>
                                     <field name="default_fiscal_position"/>
                                     <field name="default_customer_account"/>
+                                    <field name="default_customer_lang"/>
                                 <separator string='Stock' colspan="4"/>
                                     <field name="product_stock_field_id"/>
                                 <separator string='Other Information' colspan="4"/>
