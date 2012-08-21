@@ -146,9 +146,10 @@ class sale_shop(Model):
         return shop_ids
 
     def _get_stock_field_id(self, cr, uid, context=None):
-        # TODO : Hidden dependency, put in a glue module ?
-        if self.pool.get('ir.module.module').is_installed(
-            cr, uid, 'stock_available_immediately', context=None):
+        if self.pool.get('ir.module.module').search(cr, uid, [
+                    ['name', '=', 'stock_available_immediately'],
+                    ['state', 'in', ['installed', 'to upgrade']],
+                                            ], context=context):
             stock_field = 'immediately_usable_qty'
         else:
             stock_field = 'virtual_available'
