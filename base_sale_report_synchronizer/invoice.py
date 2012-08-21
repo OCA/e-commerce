@@ -18,12 +18,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.     #
 #                                                                             #
 ###############################################################################
-from osv import osv, fields
-from tools.translate import _
+from openerp.osv.orm import Model
+from openerp.osv.osv import except_osv
+from openerp.tools.translate import _
 from base_external_referentials.external_osv import ExternalSession
 import os
 
-class account_invoice(osv.osv):
+class account_invoice(Model):
     _inherit='account.invoice'
     
     def _export_one_resource(self, cr, uid, external_session, invoice_id, context=None):
@@ -38,7 +39,7 @@ class account_invoice(osv.osv):
         invoice_number = invoice.number.replace('/', '-')
         invoice_path = self._get_invoice_path(cr, uid, external_session, invoice, context=context)
         if not external_session.sync_from_object.invoice_report:
-            raise osv.except_osv(_("User Error"), _("You must define a report for the invoice for your sale shop"))
+            raise except_osv(_("User Error"), _("You must define a report for the invoice for your sale shop"))
         report_name = "report.%s"%external_session.sync_from_object.invoice_report.report_name
         if not hasattr(external_session, 'file_session'):
             external_session.file_session = ExternalSession(

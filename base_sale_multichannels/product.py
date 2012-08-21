@@ -20,11 +20,12 @@
 ###############################################################################
 
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 from base_external_referentials.decorator import only_for_referential
 from base_external_referentials.decorator import commit_now
 
-class product_product(osv.osv):
+class product_product(Model):
     _inherit='product.product'
 
     def _check_if_export(self, cr, uid, external_session, product, context=None):
@@ -65,7 +66,7 @@ class product_product(osv.osv):
             res = (), {} # list of ids, dict of ids to date_changed
         return res
 
-class product_category(osv.osv):
+class product_category(Model):
     _inherit = "product.category"
     
     def collect_children(self, category, children=None):

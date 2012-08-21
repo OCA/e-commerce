@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
-#   product_links_sync for OpenERP                                  #
-#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
+#   product_links_sync for OpenERP                                            #
+#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
 #                                                                             #
 #   This program is free software: you can redistribute it and/or modify      #
 #   it under the terms of the GNU Affero General Public License as            #
@@ -19,14 +19,15 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 import netsvc
 from tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 
 
 
-class sale_shop(osv.osv):
+class sale_shop(Model):
     _inherit = "sale.shop"
 
     _columns = {

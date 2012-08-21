@@ -20,11 +20,13 @@
 ##############################################################################
 
 
-from osv import fields,osv
-from tools.translate import _
+from openerp.osv.orm import TransientModel
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
+from openerp.tools.translate import _
 from base_external_referentials.external_osv import ExternalSession
 
-class product_export_wizard(osv.osv_memory):
+class product_export_wizard(TransientModel):
     _name = 'product.export.wizard'
     _description = 'product export wizard'
 
@@ -52,7 +54,7 @@ class product_export_wizard(osv.osv_memory):
 
         for shop in sale_shop_obj.browse(cr, uid, shop_ids, context=context):
             if not shop.referential_id:
-                raise osv.except_osv(_("User Error"), _(("The shop '%s' doesn't have any external "
+                raise except_osv(_("User Error"), _(("The shop '%s' doesn't have any external "
                                             "referential are you sure that it's an externe sale shop?"
                                             "If yes syncronize it before exporting product"))%(shop.name,))
             external_session = ExternalSession(shop.referential_id, shop)
@@ -60,7 +62,7 @@ class product_export_wizard(osv.osv_memory):
             none_exportable_product = set(product_ids) - set([product.id for product in shop.exportable_product_ids])
             if none_exportable_product:
                 products = ', '.join([x['name'] for x in product_obj.read(cr, uid, list(none_exportable_product), fields = ['name'], context=context)])
-                raise osv.except_osv(_("User Error"),
+                raise except_osv(_("User Error"),
                         _(("The product '%s' can not be exported to the shop '%s'. \n"
                         "Please check : \n"
                         "    - if they are in the root category \n"
@@ -86,7 +88,3 @@ class product_export_wizard(osv.osv_memory):
 
     def export_all(self, cr, uid, id, context=None):
         return self.export(cr, uid, id, self._get_all_options(cr, uid, context=context), context)
-
-
-
-product_export_wizard()

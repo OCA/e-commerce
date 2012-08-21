@@ -19,12 +19,11 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
-#from base_external_referentials.external_osv import ExternalSesssion
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
 
-
-class external_referential(osv.osv):
+class external_referential(Model):
     _inherit = "external.referential"
 
     _columns = {

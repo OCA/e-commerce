@@ -19,9 +19,10 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-class sale_shop(osv.osv):
+class sale_shop(Model):
     _inherit = "sale.shop"
 
     _columns = {

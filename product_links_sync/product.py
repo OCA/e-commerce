@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
-#   product_links_sync for OpenERP                                  #
-#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
+#   product_links_sync for OpenERP                                            #
+#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
 #                                                                             #
 #   This program is free software: you can redistribute it and/or modify      #
 #   it under the terms of the GNU Affero General Public License as            #
@@ -19,14 +19,16 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv.orm import TransientModel
+from openerp.osv import fields
 import netsvc
 from tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 from base_external_referentials.decorator import only_for_referential
 from base_external_referentials.decorator import commit_now
 
-class product_product(osv.osv):
+class product_product(Model):
     _inherit = "product.product"
 
     _columns = {
@@ -85,10 +87,6 @@ class product_product(osv.osv):
             if 'product_link_ids' in fields_to_read: fields_to_read.remove('product_link_ids')
         return fields_to_read
 
-#    def export_links_for_product(self, cr, uid, ids, context=None):
-#        """ Not implemented in this abstract module"""
-#        return False
-
     @only_for_referential(ref_categ ='Multichannel Sale')
     def _get_last_exported_date(self, cr, uid, external_session, context):
         shop = external_session.sync_from_object
@@ -107,7 +105,7 @@ class product_product(osv.osv):
             return super(product_product, self)._set_last_exported_date(cr, uid, external_session, date, context)
 
 
-class product_link(osv.osv):
+class product_link(Model):
     _inherit = "product.link"
     
     def write(self, cr, uid, ids, vals, context=None):

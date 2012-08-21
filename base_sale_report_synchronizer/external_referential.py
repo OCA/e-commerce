@@ -19,10 +19,11 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 import netsvc
 
-class external_referential(osv.osv):
+class external_referential(Model):
     _inherit = "external.referential"
 
     _columns = {
