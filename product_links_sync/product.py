@@ -22,7 +22,6 @@
 from openerp.osv.orm import Model
 from openerp.osv.orm import TransientModel
 from openerp.osv import fields
-import netsvc
 from tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 from base_external_referentials.decorator import only_for_referential
@@ -52,7 +51,7 @@ class product_product(Model):
 
     def _get_query_and_params_for_ids_and_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
         if context.get('export_product') != 'link':
-            return super(product_product, self)._get_query_and_params_for_ids_and_date(cr, uid, 
+            return super(product_product, self)._get_query_and_params_for_ids_and_date(cr, uid,
                         external_session, ids=ids, last_exported_date=last_exported_date, context=context)
         else:
             # We have to export all product link that believe to a product which have the link modify
@@ -107,7 +106,7 @@ class product_product(Model):
 
 class product_link(Model):
     _inherit = "product.link"
-    
+
     def write(self, cr, uid, ids, vals, context=None):
         if context is None: context={}
         if 'is_active' in vals and not context.get('product_link_date_updated'):
@@ -118,7 +117,7 @@ class product_link(Model):
         return super(product_link, self).write(cr, uid, ids, vals, context=context)
 
 
-class product_export_wizard(osv.osv_memory):
+class product_export_wizard(TransientModel):
     _inherit = 'product.export.wizard'
 
     def _export_one_product(self, cr, uid, external_session, product_id, options, context=None):
