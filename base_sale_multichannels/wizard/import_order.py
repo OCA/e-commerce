@@ -33,7 +33,7 @@ class sale_order_import_wizard(osv.osv_memory):
         }
 
     def import_order(self, cr, uid, ids, context=None):
-        if not context:
+        if context is None:
             context={}
         shop = self.pool.get('sale.shop').browse(cr, uid, context['active_id'], context=context)
         external_session = ExternalSession(shop.referential_id, shop)

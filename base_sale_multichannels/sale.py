@@ -236,7 +236,7 @@ class sale_shop(osv.osv):
             return self.pool.get('product.pricelist').search(cr, uid, [('type', '=', 'sale'), ('active', '=', True)], context=context)[0]
 
     def export_catalog(self, cr, uid, ids, context=None):
-        if not context: context={}
+        if context is None: context={}
         self.export_resources(cr, uid, ids, 'product.category', context=context)
         # In various e-commerce system product can depend of other products
         # So the simple product (with no dependency) are exported in priority
@@ -352,7 +352,7 @@ class sale_shop(osv.osv):
         return False
 
     def export_shop_partners(self, cr, uid, ids, context=None):
-        if not context: context={}
+        if context is None: context={}
         self.export_resources(cr, uid, ids, 'res.partner', context=context)
         return True
 
@@ -525,7 +525,7 @@ class sale_order(osv.osv):
 
     @open_report
     def _import_resources(self, cr, uid, external_session, defaults=None, method="search_then_read", context=None):
-        if not context: context={}
+        if context is None: context={}
         shop = external_session.sync_from_object
         if shop:
             context.update({
@@ -611,7 +611,7 @@ class sale_order(osv.osv):
             shop = external_session.sync_from_object
             if shop.order_prefix:
                 vals['name'] = '%s%s' %(shop.order_prefix, vals['name'])
-        if not context: context ={}
+        if context is None: context ={}
         if vals.get('payment_method_id'):
             payment_method = self.pool.get('payment.method').browse(cr, uid, vals['payment_method_id'], context=context)
             workflow_process = payment_method.workflow_process_id
@@ -793,7 +793,7 @@ class sale_order(osv.osv):
         :param dict vals: values of the sale order to create
         :param option: dictionnary of option for the special field to process
         """
-        if not context: context={}
+        if context is None: context={}
         sign = option.get('sign', 1)
         if context.get('is_tax_included') and vals.get(option['price_unit_tax_included']):
             price_unit = vals.pop(option['price_unit_tax_included']) * sign
@@ -874,7 +874,7 @@ class sale_order_line(osv.osv):
 
     def _transform_one_resource(self, cr, uid, external_session, convertion_type, resource, mapping, mapping_id,
                      mapping_line_filter_ids=None, parent_data=None, previous_result=None, defaults=None, context=None):
-        if not context: context={}
+        if context is None: context={}
         line = super(sale_order_line, self)._transform_one_resource(cr, uid, external_session, convertion_type, resource,
                             mapping, mapping_id, mapping_line_filter_ids=mapping_line_filter_ids, parent_data=parent_data,
                             previous_result=previous_result, defaults=defaults, context=context)

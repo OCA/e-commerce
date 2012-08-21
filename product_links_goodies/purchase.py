@@ -31,7 +31,7 @@ class purchase_order_line(osv.osv):
     }
     
     def write(self, cr, uid, ids, vals, context=None):
-        if not context: context={}
+        if context is None: context={}
         #TODO I should apply this only for automatic po need a read only mode
         if context.get("updated_from_op"):
             if not context.get('goodies_create_update'):
@@ -63,7 +63,7 @@ class purchase_order_line(osv.osv):
         return super(purchase_order_line, self).write(cr, uid, ids, vals, context=context)
     
     def create(self, cr, uid, vals, context=None):
-        if not context: context={}
+        if context is None: context={}
         if not context.get('goodies_create_update'):
             ctx = context.copy()
             ctx['goodies_create_update'] = True

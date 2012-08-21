@@ -77,7 +77,7 @@ class product_product(osv.osv):
     _inherit = 'product.product'
     
     def _get_supplier_goodies_ids(self, cr, uid, ids, name, arg, context=None):
-        if not context: context={}
+        if context is None: context={}
         if context.get('date'):
             date = context['date']
         else:
