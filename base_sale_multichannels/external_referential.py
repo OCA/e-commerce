@@ -18,7 +18,6 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.     #
 #                                                                             #
 ###############################################################################
-
 from openerp.osv.orm import Model
 from openerp.osv import fields
 
@@ -27,20 +26,25 @@ class external_referential(Model):
     _inherit = "external.referential"
 
     _columns = {
-        'last_imported_product_id': fields.integer('Last Imported Product Id', help=("Product are imported one by one."
-                                                                "This is the magento id of the last product imported."
-                                                                "If you clear it all product will be imported")),
-        'last_imported_partner_id': fields.integer('Last Imported Partner Id', help=("Partners are imported one by one."
-                                                                "This is the magento id of the last partner imported."
-                                                                "If you clear it all partners will be imported")),
-        'import_all_attributs': fields.boolean('Import all attributs', help=("If the option is uncheck only the attributs"
-                                                                        "that doesn't exist in OpenERP will be imported")),
-        'import_image_with_product': fields.boolean('With image', help=("If the option is check the product's image and"
-                                                                    "the product will be imported at the same time and"
-                                                                    "so the step '7-import images' is not needed")),
-        'import_links_with_product': fields.boolean('With links', help=("If the option is check the product's links"
-                                                                 "(Up-Sell, Cross-Sell, Related) and the product will be imported"
-                                                                 "at the same time and so the step '8-import links' is not needed")),
+        'last_imported_product_id': fields.integer('Last Imported Product Id',
+                                                   help=("Product are imported one by one."
+                                                         "This is the magento id of the last product imported."
+                                                         "If you clear it all product will be imported")),
+        'last_imported_partner_id': fields.integer('Last Imported Partner Id',
+                                                   help=("Partners are imported one by one."
+                                                         "This is the magento id of the last partner imported."
+                                                         "If you clear it all partners will be imported")),
+        'import_all_attributs': fields.boolean('Import all attributs',
+                                               help=("If the option is uncheck only the attributs"
+                                                     "that doesn't exist in OpenERP will be imported")),
+        'import_image_with_product': fields.boolean('With image',
+                                                    help=("If the option is check the product's image and"
+                                                          "the product will be imported at the same time and"
+                                                          "so the step '7-import images' is not needed")),
+        'import_links_with_product': fields.boolean('With links',
+                                                    help=("If the option is check the product's links"
+                                                          "(Up-Sell, Cross-Sell, Related) and the product will be imported"
+                                                          "at the same time and so the step '8-import links' is not needed")),
         }
 
     def import_customer_groups(self, cr, uid, ids, context=None):
