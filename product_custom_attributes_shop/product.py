@@ -78,16 +78,16 @@ class product_product(osv.osv):
                         %('", "'.join([categ.name for categ in shop.exportable_root_category_ids]), shop.name))
 
     def create(self, cr, uid, vals, context=None):
-        if not context: context={}
-        if not context.get('do_not_check_active_field_on_shop'):
+        if context is None: context={}
+        if context is None.get('do_not_check_active_field_on_shop'):
             vals['categ_ids'] = vals.get('categ_ids', [(6,0,[])])[0][2]
             self.check_if_activable(cr, uid, vals, context=context)
         return super(product_product, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
-        if not context: context={}
+        if context is None: context={}
         need_check = False
-        if not context.get('do_not_check_active_field_on_shop'):
+        if context is None.get('do_not_check_active_field_on_shop'):
             for key in vals.keys():
                 if re.match('x_shop.*?_attr_active', key) and vals[key] or key in ('categ_id', 'categ_ids'):
                     need_check = True

@@ -111,7 +111,7 @@ class product_link(osv.osv):
     _inherit = "product.link"
     
     def write(self, cr, uid, ids, vals, context=None):
-        if not context: context={}
+        if context is None: context={}
         if 'is_active' in vals and not context.get('product_link_date_updated'):
             for link in self.browse(cr, uid, ids, context=context):
                 link.product_id.write(

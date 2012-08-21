@@ -43,7 +43,7 @@ class product_export_wizard(osv.osv_memory):
         return True
 
     def export(self, cr, uid, id, options, context=None):
-        if not context:
+        if context is None:
             context={}
         shop_ids = self.read(cr, uid, id, context=context)[0]['shop']
         sale_shop_obj = self.pool.get('sale.shop')
