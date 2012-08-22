@@ -25,11 +25,12 @@ from openerp.osv import fields
 
 class res_partner(Model):
     _inherit='res.partner'
-    
+
     _columns = {
         'defaults_shop_id': fields.many2one('sale.shop', 'Sale Shop', help="This is the default shop of the customer"),
     }
-    
+
+    # xxx move to BaseConnector _get_import_defaults_res_partner
     def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
         shop_id = context.get('sale_shop_id')
         if shop_id:
@@ -42,7 +43,7 @@ class res_partner(Model):
 
 class res_partner_address(Model):
     _inherit='res.partner.address'
-    
+
     def _transform_one_resource(self, *args, **kwargs):
         if kwargs.get('parent_data') and kwargs['parent_data'].get('partner_id'):
             kwargs['defaults']['partner_id'] = kwargs['parent_data']['parent_id']
