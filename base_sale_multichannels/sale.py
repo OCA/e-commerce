@@ -51,7 +51,6 @@ class StockPicking(Model):
             readonly=True),
     }
 
-StockPicking()
 
 class external_shop_group(Model):
     _name = 'external.shop.group'
@@ -67,8 +66,6 @@ class external_shop_group(Model):
     def _get_default_import_values(self, cr, uid, external_session, **kwargs):
         return {'referential_id' : external_session.referential_id.id}
 
-external_shop_group()
-
 
 class external_referential(Model):
     _inherit = 'external.referential'
@@ -77,7 +74,6 @@ class external_referential(Model):
         'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
     }
 
-external_referential()
 
 
 class ExternalShippingCreateError(Exception):
@@ -835,8 +831,6 @@ class sale_order(Model):
         vals['order_line'].append((0, 0, extra_line))
         return vals
 
-sale_order()
-
 
 class sale_order_line(Model):
     _inherit='sale.order.line'
@@ -897,5 +891,4 @@ class sale_order_line(Model):
 
         return line
 
-sale_order_line()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
