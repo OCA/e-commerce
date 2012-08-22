@@ -19,13 +19,15 @@
 #                                                                             #
 ###############################################################################
 
+from datetime import datetime
+
 from openerp.osv.orm import Model
 from openerp.osv.orm import TransientModel
 from openerp.osv import fields
-from tools import DEFAULT_SERVER_DATETIME_FORMAT
-from datetime import datetime
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from base_external_referentials.decorator import only_for_referential
 from base_external_referentials.decorator import commit_now
+
 
 class product_product(Model):
     _inherit = "product.product"
