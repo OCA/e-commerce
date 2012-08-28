@@ -19,11 +19,12 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 import netsvc
 from datetime import datetime
 
-class product_link(osv.osv):
+class product_link(Model):
     _inherit = "product.link"
     
     _columns = {
@@ -73,7 +74,7 @@ class product_link(osv.osv):
                         ], context=context)
         self.write(cr, uid, to_active_ids, {'is_active': True}, context=context)
 
-class product_product(osv.osv):
+class product_product(Model):
     _inherit = 'product.product'
     
     def _get_supplier_goodies_ids(self, cr, uid, ids, name, arg, context=None):

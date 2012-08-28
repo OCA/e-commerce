@@ -21,7 +21,9 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.  #
 #########################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
 import pooler
 from sets import Set as set
 import netsvc
@@ -40,7 +42,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class StockPicking(osv.osv):
+class StockPicking(Model):
     '''Add a flag for marking picking as exported'''
     _inherit = 'stock.picking'
 
@@ -49,9 +51,8 @@ class StockPicking(osv.osv):
             readonly=True),
     }
 
-StockPicking()
 
-class external_shop_group(osv.osv):
+class external_shop_group(Model):
     _name = 'external.shop.group'
     _description = 'External Referential Shop Group'
 
@@ -65,17 +66,14 @@ class external_shop_group(osv.osv):
     def _get_default_import_values(self, cr, uid, external_session, **kwargs):
         return {'referential_id' : external_session.referential_id.id}
 
-external_shop_group()
 
-
-class external_referential(osv.osv):
+class external_referential(Model):
     _inherit = 'external.referential'
 
     _columns = {
         'shop_group_ids': fields.one2many('external.shop.group', 'referential_id', 'Sub Entities'),
     }
 
-external_referential()
 
 
 class ExternalShippingCreateError(Exception):
@@ -88,7 +86,7 @@ class ExternalShippingCreateError(Exception):
      pass
 
 
-class sale_shop(osv.osv):
+class sale_shop(Model):
     _inherit = "sale.shop"
 
     def _get_exportable_category_ids(self, cr, uid, ids, name, args, context=None):
@@ -129,7 +127,7 @@ class sale_shop(osv.osv):
     def _set_referential_id(self, cr, uid, id, name, value, arg, context=None):
         shop = self.browse(cr, uid, id, context=context)
         if shop.shop_group_id:
-            raise osv.except_osv(_("User Error"), _("You can not change the referential of this shop, please change the referential of the shop group!"))
+            raise except_osv(_("User Error"), _("You can not change the referential of this shop, please change the referential of the shop group!"))
         else:
             if value == False:
                 cr.execute('update sale_shop set referential_integer_id = NULL where id=%s', (id,))
@@ -144,9 +142,10 @@ class sale_shop(osv.osv):
         return shop_ids
 
     def _get_stock_field_id(self, cr, uid, context=None):
-        # TODO : Hidden dependency, put in a glue module ?
-        if self.pool.get('ir.module.module').is_installed(
-            cr, uid, 'stock_available_immediately', context=None):
+        if self.pool.get('ir.module.module').search(cr, uid, [
+                    ['name', '=', 'stock_available_immediately'],
+                    ['state', 'in', ['installed', 'to upgrade']],
+                                            ], context=context):
             stock_field = 'immediately_usable_qty'
         else:
             stock_field = 'virtual_available'
@@ -298,7 +297,7 @@ class sale_shop(osv.osv):
 
     def import_catalog(self, cr, uid, ids, context):
         #TODO import categories, then products
-        raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        raise except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def import_orders(self, cr, uid, ids, context=None):
         self.import_resources(cr, uid, ids, 'sale.order', context=context)
@@ -357,7 +356,7 @@ class sale_shop(osv.osv):
         return True
 
     def update_shop_orders(self, cr, uid, external_session, order, ext_id, context):
-        raise osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        raise except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def _export_shipping_query(self, cr, uid, shop, context=None):
         query = """
@@ -479,7 +478,7 @@ class sale_shop(osv.osv):
 sale_shop()
 
 
-class sale_order(osv.osv):
+class sale_order(Model):
     _inherit = "sale.order"
 
     _order = 'date_order desc, name desc'
@@ -719,8 +718,8 @@ class sale_order(osv.osv):
         # It's better to don't allow this feature to avoid hidding a problem.
         # It's better to have the order not imported and to know it than having order with duplicated line.
         if not (context and context.get('oe_update_supported', False)):
-            #TODO found a clean solution to raise the osv.except_osv error in the try except of the function import_with_try
-            raise osv.except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system."
+            #TODO found a clean solution to raise the except_osv error in the try except of the function import_with_try
+            raise except_osv(_("Not Implemented"), _(("The order with the id %s try to be updated from the external system."
                                 " This feature is not supported. Maybe the import try to reimport an existing sale order"%(existing_rec_id,))))
         return super(sale_order, self).oe_update(cr, uid, external_session, existing_rec_id, vals, resource, defaults, context=context)
 
@@ -823,7 +822,7 @@ class sale_order(osv.osv):
             if tax_rate:
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
                 if not line_tax_id:
-                    raise osv.except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(tax_rate, context.get('is_tax_included')))
+                    raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(tax_rate, context.get('is_tax_included')))
                 extra_line['tax_id'] = [(6, 0, [line_tax_id])]
 
         ext_code_field = option.get('code_field')
@@ -832,10 +831,8 @@ class sale_order(osv.osv):
         vals['order_line'].append((0, 0, extra_line))
         return vals
 
-sale_order()
 
-
-class sale_order_line(osv.osv):
+class sale_order_line(Model):
     _inherit='sale.order.line'
 
     _columns = {
@@ -889,10 +886,9 @@ class sale_order_line(osv.osv):
             if line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
                 if not line_tax_id:
-                    raise osv.except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(line['tax_rate'], context.get('is_tax_included')))
+                    raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(line['tax_rate'], context.get('is_tax_included')))
                 line['tax_id'] = [(6, 0, [line_tax_id])]
 
         return line
 
-sale_order_line()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

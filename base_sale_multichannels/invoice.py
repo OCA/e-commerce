@@ -18,10 +18,10 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.     #
 #                                                                             #
 ###############################################################################
-from osv import osv, fields
-import os
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-class account_invoice(osv.osv):
+class account_invoice(Model):
     _inherit='account.invoice'
     
     _columns={

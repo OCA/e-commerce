@@ -18,9 +18,10 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-class product_link(osv.osv):
+class product_link(Model):
     _name = 'product.link'
     _rec_name = 'linked_product_id'
 
@@ -43,9 +44,7 @@ class product_link(osv.osv):
         'is_active': True,
     }
 
-product_link()
-
-class product(osv.osv):
+class product(Model):
     """Inherit product in order to manage product links"""
     _inherit = 'product.product'
 
@@ -55,8 +54,5 @@ class product(osv.osv):
             'product_id',
             'Product links',
             required=False,
-            
             ),
         }
-
-product()

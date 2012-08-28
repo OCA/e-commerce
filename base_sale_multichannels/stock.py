@@ -19,10 +19,12 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.  #
 #########################################################################
 
-from osv import fields,osv
+from openerp.osv.orm import Model
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
 from tools.translate import _
 
-class stock_picking(osv.osv):
+class stock_picking(Model):
     _inherit = "stock.picking"
 
     _columns = {
@@ -35,12 +37,10 @@ class stock_picking(osv.osv):
     }
 
     def create_ext_shipping(self, cr, uid, id, picking_type, external_referential_id, context):
-        osv.except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
+        raise except_osv(_("Not Implemented"), _("Not Implemented in abstract base module!"))
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id, context=None):
         vals = super(stock_picking, self)._prepare_invoice(cr, uid, picking, partner, \
                                                             inv_type, journal_id, context=context)
         vals['shop_id'] = picking.shop_id.id
         return vals
-
-stock_picking()

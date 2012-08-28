@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #################################################################################
 #                                                                               #
-#    amazonerpconnect for OpenERP                                               #
+#    base_sale_multichannels for OpenERP                                        #
 #    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
@@ -19,10 +19,10 @@
 #                                                                               #
 #################################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-
-class account_tax_code(osv.osv):
+class account_tax_code(Model):
     _inherit='account.tax'
     
     def get_tax_from_rate(self, cr, uid, rate, is_tax_included=False, context=None):
@@ -38,5 +38,3 @@ class account_tax_code(osv.osv):
             if tax_ids and len(tax_ids) > 0:
                 return tax_ids[0]
         return False
-
-account_tax_code()

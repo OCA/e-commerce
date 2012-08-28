@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #################################################################################
 #                                                                               #
-#    amazonerpconnect for OpenERP                                               #
+#    base_sale_multichannels for OpenERP                                        #
 #    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
@@ -19,9 +19,11 @@
 #                                                                               #
 #################################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-class res_partner(osv.osv):
+
+class res_partner(Model):
     _inherit='res.partner'
     
     _columns = {
@@ -38,9 +40,7 @@ class res_partner(osv.osv):
             })
         return defaults
 
-res_partner()
-
-class res_partner_address(osv.osv):
+class res_partner_address(Model):
     _inherit='res.partner.address'
     
     def _transform_one_resource(self, *args, **kwargs):

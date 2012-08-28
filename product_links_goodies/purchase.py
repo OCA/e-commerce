@@ -20,9 +20,10 @@
 ###############################################################################
 
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-class purchase_order_line(osv.osv):
+class purchase_order_line(Model):
     _inherit = "purchase.order.line"
 
     _columns = {
@@ -161,5 +162,3 @@ class purchase_order_line(osv.osv):
             'order_id': order.id,
             'goodie_for_line_id': line_id
         }
-
-

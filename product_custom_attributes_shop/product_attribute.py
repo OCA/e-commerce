@@ -19,10 +19,11 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
 import netsvc
 
-class attribute_shop_location(osv.osv):
+class attribute_shop_location(Model):
 
     _name = "attribute.shop.location"
     _description = "Attribute Shop Location"

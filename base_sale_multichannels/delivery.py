@@ -18,14 +18,12 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
-
-class delivery_carrier(osv.osv):
+class delivery_carrier(Model):
     _inherit = "delivery.carrier"
 
     _columns = {
         'export_needs_tracking': fields.boolean('Export only shippings with a tracking number'),
     }
-
-delivery_carrier()
