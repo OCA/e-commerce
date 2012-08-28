@@ -601,7 +601,10 @@ class sale_order(Model):
     def play_sale_order_onchange(self, cr, uid, vals, defaults=None, context=None):
         ir_module_obj= self.pool.get('ir.module.module')
         vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
-        if ir_module_obj.is_installed(cr, uid, 'account_fiscal_position_rule_sale', context=context):
+        if ir_module_obj.search(cr, uid, [
+                            ['name', '=', 'account_fiscal_position_rule_sale'],
+                            ['state', 'in', ['installed', 'to upgrade']],
+                                                            ], context=context):
             vals = self.call_onchange(cr, uid, 'onchange_partner_invoice_id', vals, defaults, context=context)
         return vals
 
