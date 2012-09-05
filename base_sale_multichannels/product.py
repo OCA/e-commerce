@@ -21,8 +21,7 @@
 
 
 from osv import osv, fields
-from base_external_referentials.decorator import only_for_referential
-from base_external_referentials.decorator import commit_now
+from base_external_referentials.decorator import only_for_referential, commit_now
 
 class product_product(osv.osv):
     _inherit='product.product'
