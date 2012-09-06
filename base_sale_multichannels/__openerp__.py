@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2009 Akretion (<http://www.akretion.com>). All Rights Reserved
 #    authors: Raphaël Valyi, Sharoon Thomas
 #    Copyright (C) 2010-2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
@@ -67,7 +67,6 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'base_sale_data.xml',
         'settings/sale.exception.csv',
         'settings/external.referential.category.csv',
-        'external_referential_view.xml',
         'stock_view.xml',
         'payment_method_view.xml',
     ],
