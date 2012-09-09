@@ -15,39 +15,6 @@
                     <form position="inside">
                         <separator string="Sale Multi Channels" colspan="4" />
                         <notebook colspan="4">
-                            <page string="Actions">
-                                <group col="6" colspan="4">
-                                    <group col="3" colspan="3">
-                                    <separator string="Catalog" colspan="3"/>
-                                    <group col="1" colspan="1">
-                                        <button name="export_catalog" string="Export Catalog" colspan="1" type="object"/>
-                                        <button name="export_inventory" string="Export Stock Levels Only" colspan="1" type="object"/>
-                                    </group>
-                                    <group col="2" colspan="2">
-                                        <field name="last_products_export_date" colspan="2"/>
-                                        <field name="last_special_products_export_date" colspan="2"/>
-                                        <field name="last_category_export_date" colspan="2"/>
-                                        <field name="last_inventory_export_date" colspan="2"/>
-                                    </group>
-                                </group>
-                                <group col="3" colspan="3">
-                                    <separator string="Orders" colspan="3"/>
-                                    <group col="4" colspan="3">
-                                        <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
-                                        <button name="check_need_to_update" string="Check Payments from Channel" colspan="1" type="object"/>
-                                        <field name="import_orders_from_date" colspan="2"/>
-                                    </group>
-                                    <button name="update_orders" string="Update Orders State on Channel" colspan="1" type="object"/>
-                                    <field name="last_update_order_export_date" colspan="2"/>
-                                    <button name="export_invoices" string="Export Invoices" colspan="1" type="object"/>
-                                    <button name="export_shipping" string="Export Shippings" colspan="1" type="object"/>
-                                    </group>
-                                    <separator string="Partners" colspan="3"/>
-                                    <newline/>
-                                    <button name="export_shop_partners" string="Export Partners" colspan="1" type="object"/>
-                                    <newline/>
-                                </group>
-                            </page>
                             <page string="External Shop Settings">
                                 <group col="4" colspan="4">
                                     <field name="referential_id" />
