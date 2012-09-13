@@ -38,3 +38,22 @@ class account_tax_code(Model):
             if tax_ids and len(tax_ids) > 0:
                 return tax_ids[0]
         return False
+
+class account_tax_group(Model):
+    _name = 'account.tax.group'
+    _description = 'account tax group'
+
+    _columns = {
+        'name': fields.char('Name', size=64),
+        'tax_ids': fields.one2many('account.tax', 'group_id', 'Group'),
+    }
+
+class account_tax(Model):
+    _inherit = 'account.tax'
+
+    _columns = {
+        'group_id': fields.many2one('account.tax.group', 'Group', help=("Choose the tax group"
+                                   "this is needed for example with magento or prestashop")),
+    }
+
+

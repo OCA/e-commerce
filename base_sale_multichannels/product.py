@@ -66,9 +66,31 @@ class product_product(Model):
             res = (), {} # list of ids, dict of ids to date_changed
         return res
 
+
+class product_template(Model):
+    _inherit = 'product.template'
+
+    #TODO implement set function and also support multi tax
+    def _get_tax_group_id(self, cr, uid, ids, field_name, args, context=None):
+        result = {}
+        for product in self.browse(cr, uid, ids, context=context):
+            result[product.id] = product.taxes_id and product.taxes_id[0].group_id.id
+        return result
+
+    _columns = {
+        'tax_group_id': fields.function(_get_tax_group_id,
+                            string='Tax Group',
+                            type='many2one',
+                            relation='account.tax.group',
+                            store=False,
+                            help=('Tax group are use with some external',
+                                  'system like magento or prestashop')),
+    }
+
+
 class product_category(Model):
     _inherit = "product.category"
-    
+
     def collect_children(self, category, children=None):
         if children is None:
             children = []
@@ -78,7 +100,7 @@ class product_category(Model):
             self.collect_children(child, children)
 
         return children
-    
+
     def _get_recursive_children_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
         for category in self.browse(cr, uid, ids):
