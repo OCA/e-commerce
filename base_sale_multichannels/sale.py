@@ -124,6 +124,9 @@ class sale_shop(Model):
                 res[shop.id] = shop.referential_integer_id
         return res
 
+    def _get_shop_from_shop_group(self, cr, uid, ids, context=None):
+        return self.pool.get('sale.shop').search(cr, uid, [('shop_group_id', 'in', ids)], context=context)
+
     def _set_referential_id(self, cr, uid, id, name, value, arg, context=None):
         shop = self.browse(cr, uid, id, context=context)
         if shop.shop_group_id:
@@ -180,8 +183,12 @@ class sale_shop(Model):
         'last_products_export_date' : fields.datetime('Last Product Export Time'),
         'last_special_products_export_date' : fields.datetime('Last Special Product Export Time'),
         'last_category_export_date' : fields.datetime('Last Category Export Time'),
-        'referential_id': fields.function(_get_referential_id, fnct_inv = _set_referential_id, type='many2one',
-                relation='external.referential', string='External Referential'),
+        'referential_id': fields.function(_get_referential_id,
+            fnct_inv=_set_referential_id, type='many2one',
+            relation='external.referential', string='External Referential', store={
+                'sale.shop': (lambda self, cr, uid, ids, c={}: ids, ['referential_integer_id'], 10),
+                'sale.shop.group': (_get_shop_from_shop_group, ['referential_id'], 20),
+                }),
         'referential_integer_id': fields.integer('Referential Integer ID'),
         'is_tax_included': fields.boolean('Prices Include Tax', help="Does the external system work with Taxes Inclusive Prices ?"),
         'sale_journal': fields.many2one('account.journal', 'Sale Journal'),

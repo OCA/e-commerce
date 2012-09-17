@@ -72,11 +72,6 @@ class external_referential(Model):
         self.import_resources(cr, uid, ids, 'product.product', context=context)
         return True
 
-#If we want to support that feature we need to add a dependancy on product_images_olbs
-    def import_product_images(self, cr, uid, ids, context=None):
-        self.import_resources(cr, uid, ids, 'product.image', context=context)
-        return True
-
     def import_product_links(self, cr, uid, ids, context=None):
         self.import_resources(cr, uid, ids, 'product.link', context=context)
         return True
