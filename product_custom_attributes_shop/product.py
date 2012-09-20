@@ -61,6 +61,7 @@ class product_product(Model):
                     main_page.append(attributes_notebook)
                     info_page.addnext(main_page)
                     result['arch'] = etree.tostring(eview, pretty_print=True)
+                    result = self._fix_size_bug(cr, uid, result, context=context)
         return result
 
     def check_if_activable(self, cr, uid, vals, context=None):
