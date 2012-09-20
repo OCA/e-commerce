@@ -187,7 +187,7 @@ class sale_shop(Model):
             fnct_inv=_set_referential_id, type='many2one',
             relation='external.referential', string='External Referential', store={
                 'sale.shop': (lambda self, cr, uid, ids, c={}: ids, ['referential_integer_id'], 10),
-                'sale.shop.group': (_get_shop_from_shop_group, ['referential_id'], 20),
+                'external.shop.group': (_get_shop_from_shop_group, ['referential_id'], 20),
                 }),
         'referential_integer_id': fields.integer('Referential Integer ID'),
         'is_tax_included': fields.boolean('Prices Include Tax', help="Does the external system work with Taxes Inclusive Prices ?"),
