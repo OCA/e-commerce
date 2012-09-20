@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Base_sale_multichannels module for OpenERP
-#    Copyright (C) 2010 Sébastien BEAU <sebastien.beau@akretion.com>
+#    Base sale export partner module for OpenERP
+#    Copyright (C) 2012 Akretion (http://www.akretion.com). All Rights Reserved
+#    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,5 +20,22 @@
 #
 ##############################################################################
 
-import import_order
 
+{
+    'name': 'Base sale multichannels - Export partners',
+    'version': '1.0',
+    'category': 'Sales Management',
+    'license': 'AGPL-3',
+    'description': """This module contains a wizard to export one or several partners "manually" to an external shop such as a Magento shop, a PrestaShop boutique, Amazon or eBay.
+    """,
+    'author': 'Akretion',
+    'website': 'http://www.akretion.com',
+    'depends': ['base_sale_multichannels'],
+    'init_xml': [],
+    'update_xml': [
+        'wizard/export_partner.xml',
+    ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}

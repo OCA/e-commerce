@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+
+<record id="partner_export_wizard_form" model="ir.ui.view">
+    <field name="name">partner.export.wizard.form</field>
+    <field name="model">partner.export.wizard</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form>
+            <label string="Select the shops to export to:" colspan="4"/>
+            <field name="shop" nolabel="1" colspan="4"/>
+            <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="2"/>
+            <button icon="gtk-ok" name="export_partner" string="Export Partner" type="object" colspan="2"/>
+        </form>
+    </field>
+</record>
+
+<record id="action_partner_export_wizard" model="ir.actions.act_window">
+    <field name="name">Export Partner</field>
+    <field name="res_model">partner.export.wizard</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+<record id="ir_values_partner_export_wizard" model="ir.values">
+    <field name="key2">client_action_multi</field>
+    <field name="model">res.partner</field>
+    <field name="name">Export Partner</field>
+    <field name="value" eval="'ir.actions.act_window,%d'%action_partner_export_wizard"/>
+    <field name="object" eval="True"/>
+</record>
+
+
+</data>
+</openerp>

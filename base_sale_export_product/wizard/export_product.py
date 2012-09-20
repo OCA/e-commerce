@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Base_sale_multichannels module for OpenERP
-#    Copyright (C) 2010 Sébastien BEAU <sebastien.beau@akretion.com>
+#    Base sale export product module for OpenERP
+#    Copyright (C) 2010-2012 Sébastien BEAU <sebastien.beau@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
