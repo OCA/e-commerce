@@ -57,7 +57,10 @@ class partner_export_wizard(TransientModel):
             for partner in partner_obj.read(cr, uid, partner_ids, ['address'], context=context):
                 #print "partner_id=", partner_id
                 partner_obj._export_one_resource(cr, uid, external_session, partner['id'], context=context)
-                print "addr=", partner['address']
+                partner_obj.write(cr, uid, partner['id'], {
+                    'shop_ids': [(4, shop.id)],
+                    }, context=context)
+                #print "addr=", partner['address']
                 for address_id in partner['address']:
                     addr_obj._export_one_resource(cr, uid, external_session, address_id, context=context)
         return {'type': 'ir.actions.act_window_close'}

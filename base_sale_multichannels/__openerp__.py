@@ -60,6 +60,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
     'update_xml': [
         'security/ir.model.access.csv',
         'sale_view.xml',
+        'partner_view.xml',
         'invoice_view.xml',
         'wizard/import_order.xml',
         'delivery_view.xml',
