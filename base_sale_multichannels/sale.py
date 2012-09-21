@@ -58,7 +58,8 @@ class external_shop_group(Model):
 
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'referential_id': fields.many2one('external.referential', 'Referential', select=True, ondelete='cascade'),
+        'referential_id': fields.many2one('external.referential', 'Referential', select=True,
+                                                                             ondelete='cascade'),
         'shop_ids': fields.one2many('sale.shop', 'shop_group_id', 'Sale Shops'),
     }
 
@@ -106,12 +107,16 @@ class sale_shop(Model):
             for category in root_categories:
                 all_categories += [category.id for category in category.recursive_children_ids]
 
-            # If product_m2mcategories module is installed search in main category and extra categories. If not, only in main category
-            cr.execute('select * from ir_module_module where name=%s and state=%s', ('product_m2mcategories','installed'))
+            # If product_m2mcategories module is installed search in main category
+            # and extra categories. If not, only in main category
+            cr.execute('select * from ir_module_module where name=%s and state=%s',
+                                                            ('product_m2mcategories','installed'))
             if cr.fetchone():
-                product_ids = self.pool.get("product.product").search(cr, uid, ['|',('categ_id', 'in', all_categories),('categ_ids', 'in', all_categories)])
+                product_ids = self.pool.get("product.product").search(cr, uid, ['|',
+                        ('categ_id', 'in', all_categories),('categ_ids', 'in', all_categories)])
             else:
-                product_ids = self.pool.get("product.product").search(cr, uid, [('categ_id', 'in', all_categories)])
+                product_ids = self.pool.get("product.product").search(cr, uid,
+                                                            [('categ_id', 'in', all_categories)])
             res[shop.id] = product_ids
         return res
 
@@ -846,10 +851,13 @@ class sale_order_line(Model):
     _inherit='sale.order.line'
 
     _columns = {
-        'ext_product_ref': fields.char('Product Ext Ref', help="This is the original external product reference", size=256),
+        'ext_product_ref': fields.char('Product Ext Ref',
+                            help="This is the original external product reference", size=256),
         'shipping_tax_amount': fields.dummy(string = 'Shipping Taxe Amount'),
         'shipping_amount_tax_excluded': fields.dummy(string = 'Shipping Price Tax Exclude'),
         'shipping_amount_tax_included': fields.dummy(string = 'Shipping Price Tax Include'),
+        'ext_ref_line': fields.char('Ext. Ref Line', size=64,
+                help='Unique order line id delivered by external application'),
     }
 
     def _get_kwargs_product_id_change(self, cr, uid, line, parent_data, previous_lines, context=None):
@@ -891,7 +899,8 @@ class sale_order_line(Model):
         elif 'price_unit_tax_excluded' in line:
             line['price_unit']  = line['price_unit_tax_excluded']
 
-        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result, defaults, context=context)
+        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result,
+                                                                        defaults, context=context)
         if context.get('use_external_tax'):
             if line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
