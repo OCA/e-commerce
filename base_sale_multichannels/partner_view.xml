@@ -15,9 +15,9 @@
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="base.view_partner_form" />
     <field name="arch" type="xml">
-        <page string="History" position="inside">
+        <page string="History" position="after">
             <page string="Shops">
-                <field name="shop_ids" colspan="4" />
+                <field name="shop_ids" nolabel="1" colspan="4" />
             </page>
         </page>
     </field>
