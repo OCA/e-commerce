@@ -270,13 +270,22 @@ class sale_shop(Model):
     def export_inventory(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+        for shop in self.browse(cr, uid, ids):
+            external_session = ExternalSession(shop.referential_id, shop)
+            self._export_inventory(cr, uid, external_session, ids, context=context)
+        return True
 
+    def _get_product_ids_for_stock_to_export(self, cr, uid, shop, context=None):
+        return [product.id for product in shop.exportable_product_ids]
+
+    def _export_inventory(self, cr, uid, external_session, ids, context=None):
+        shop = external_session.sync_from_object
         stock_move_obj = self.pool.get('stock.move')
         for shop in self.browse(cr, uid, ids):
             external_session = ExternalSession(shop.referential_id, shop)
 
-            product_ids = [product.id for product
-                           in shop.exportable_product_ids]
+            product_ids = self._get_product_ids_for_stock_to_export(cr, uid, shop, context=context)
+            
             if shop.last_inventory_export_date:
                 # we do not exclude canceled moves because it means
                 # some stock levels could have increased since last export
@@ -284,6 +293,7 @@ class sale_shop(Model):
                     cr, uid,
                     [('write_date', '>', shop.last_inventory_export_date),
                      ('product_id', 'in', product_ids),
+                     ('type', '!=', 'service'),
                      ('state', '!=', 'draft')],
                     context=context)
             else:
