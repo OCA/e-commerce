@@ -293,7 +293,7 @@ class sale_shop(Model):
                     cr, uid,
                     [('write_date', '>', shop.last_inventory_export_date),
                      ('product_id', 'in', product_ids),
-                     ('type', '!=', 'service'),
+                     ('product_id.type', '!=', 'service'),
                      ('state', '!=', 'draft')],
                     context=context)
             else:
