@@ -32,10 +32,12 @@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['report_synchronizer', 'base_sale_multichannels'], 
+    'depends': [
+        'base_sale_multichannels',
+        'report_synchronizer',
+        ], 
     'init_xml': [],
     'update_xml': [ 
-            'external_referential_view.xml',
             'sale_view.xml',
     ],
     'demo_xml': [],
