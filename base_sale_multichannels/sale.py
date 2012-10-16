@@ -137,10 +137,7 @@ class sale_shop(Model):
         if shop.shop_group_id:
             raise except_osv(_("User Error"), _("You can not change the referential of this shop, please change the referential of the shop group!"))
         else:
-            if value == False:
-                cr.execute('update sale_shop set referential_integer_id = NULL where id=%s', (id,))
-            else:
-                cr.execute('update sale_shop set referential_integer_id = %s where id=%s', (value, id))
+            self.write(cr, uid, id, {'referential_integer_id': value}, context=context)
         return True
 
     def _get_shop_ids(self, cr, uid, ids, context=None):
@@ -176,6 +173,15 @@ class sale_shop(Model):
     def _set_rootcategory(self, cr, uid, id, name, value, fnct_inv_arg, context=None):
         return self.write(cr, uid, id, {'exportable_root_category_ids': [(6,0,[value])]}, context=context)
 
+    def _get_referential_type_name(self, cr, uid, ids, field_name, arg, context=None):
+        result = {}
+        for shop in self.browse(cr, uid, ids):
+            if shop.referential_id:
+                result[shop.id] = shop.referential_id.type_id.name
+            else:
+                result[shop.id] = False
+        return result
+
     _columns = {
         'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
@@ -191,7 +197,7 @@ class sale_shop(Model):
         'referential_id': fields.function(_get_referential_id,
             fnct_inv=_set_referential_id, type='many2one',
             relation='external.referential', string='External Referential', store={
-                'sale.shop': (lambda self, cr, uid, ids, c={}: ids, ['referential_integer_id'], 10),
+                'sale.shop': (lambda self, cr, uid, ids, c={}: ids, ['referential_integer_id', 'shop_group_id'], 10),
                 'external.shop.group': (_get_shop_from_shop_group, ['referential_id'], 20),
                 }),
         'referential_integer_id': fields.integer('Referential Integer ID'),
@@ -214,7 +220,9 @@ class sale_shop(Model):
                  "according to default values and fiscal positions."),
         'import_orders_from_date': fields.datetime('Only created after'),
         'check_total_amount': fields.boolean('Check Total Amount', help="The total amount computed by OpenERP should match with the external amount, if not the sale order can not be confirmed."),
-        'type_id': fields.related('referential_id', 'type_id', type='many2one', relation='external.referential.type', string='External Type'),
+        'type_name': fields.function(_get_referential_type_name, type='char', string='Referential type',
+                store={
+                'sale.shop': (lambda self, cr, uid, ids, c={}: ids, ['referential_id', 'shop_group_id'],10)}),
         'product_stock_field_id': fields.many2one(
             'ir.model.fields',
             string='Stock Field',
