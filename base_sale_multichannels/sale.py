@@ -503,8 +503,6 @@ sale_shop()
 class sale_order(Model):
     _inherit = "sale.order"
 
-    _order = 'date_order desc, name desc'
-
     _columns = {
         'need_to_update': fields.boolean('Need To Update'),
         'ext_total_amount': fields.float(
@@ -531,10 +529,13 @@ class sale_order(Model):
         return super(sale_order, self).write(cr, uid, ids, vals, context=context)
 
     def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
-        shop_id = context.get('sale_shop_id')
-        if shop_id:
-            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
-            if not defaults: defaults = {}
+        shop = False
+        if external_session.sync_from_object._name == 'sale.shop':
+            shop = external_session.sync_from_object
+        elif context.get('sale_shop_id'):
+            shop = self.pool.get('sale.shop').browse(cr, uid,  context['sale_shop_id'], context=context)
+        if shop:
+            if defaults is None: defaults = {}
             defaults.update({
                     'pricelist_id': shop.get_pricelist(context=context),
                     'shop_id': shop.id,
@@ -542,6 +543,13 @@ class sale_order(Model):
                     'payment_method_id': shop.default_payment_method_id.id,
                     'company_id': shop.company_id.id,
             })
+            #TODO we should avoid passing this parameter in the context
+            #for now we new it for importing order from wizard correctly
+            #refactor for V7
+            context.update({
+                    'use_external_tax': shop.use_external_tax,
+                    'is_tax_included': shop.is_tax_included,
+                })
         return defaults
 
     @open_report
@@ -856,6 +864,15 @@ class sale_order(Model):
         vals['order_line'].append((0, 0, extra_line))
         return vals
 
+    def reimport_order_from_external_referential(self, cr, uid, ids, context=None):
+        if context is None: context = {}
+        for sale_order in self.browse(cr, uid, ids, context=context):
+            shop = sale_order.shop_id
+            sale_ext_id = sale_order.get_extid(shop.referential_id.id, context=context)
+            sale_order.unlink()
+            external_session = ExternalSession(shop.referential_id, shop)
+            self.pool.get('sale.order')._import_one_resource(cr, uid, external_session, sale_ext_id, context=context)
+        return True
 
 class sale_order_line(Model):
     _inherit='sale.order.line'
