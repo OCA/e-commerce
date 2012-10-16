@@ -54,6 +54,23 @@
                 <field name="state" position="after">
                     <field name="need_to_update" select="1" />
                 </field>
+                <field name="amount_total" position="after">
+                    <field name="ext_total_amount" string="Ext. Total" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_sales_order_filter" model="ir.ui.view">
+            <field name="name">base_sale_multichannel.view_sales_order_filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="type">search</field>
+            <field eval="32" name="priority"/>
+            <field name="arch" type="xml">
+                <filter icon="terp-check" string="Sales" position="after">
+                    <separator orientation="vertical"/>
+                    <filter icon="gtk-refresh" name="to-update" string="TO UPDATE" domain="[('need_to_update','!=',False)]"/>
+                </filter>
             </field>
         </record>
 
