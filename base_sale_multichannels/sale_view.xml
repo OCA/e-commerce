@@ -52,7 +52,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <field name="state" position="after">
-                    <field name="need_to_update" select="1" />
+                    <field name="need_to_update" />
                 </field>
                 <field name="amount_total" position="after">
                     <field name="ext_total_amount" string="Ext. Total" />
@@ -87,13 +87,13 @@
                         <group name="external_payment" attrs="{'invisible': [('referential_id', '=', False)]}">
                             <separator string="External Payment" colspan="4"/>
                             <field name="ext_total_amount" />
-                            <field name="need_to_update" select="1"/>
+                            <field name="need_to_update" />
                         </group>
                     </group>
                     <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after">
                         <group name='External Information' colspan="4">
                             <separator string="External Information" colspan="4" />
-                            <field name="ext_product_ref" select="1" />
+                            <field name="ext_product_ref" />
                         </group>
                     </xpath>
                 </data>
@@ -108,7 +108,7 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="product_id" position="after">
-                        <field name="ext_product_ref" select="1" />
+                        <field name="ext_product_ref" />
                     </field>
                 </data>
             </field>

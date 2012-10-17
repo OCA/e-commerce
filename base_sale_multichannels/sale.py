@@ -234,9 +234,9 @@ class sale_shop(Model):
     }
 
     _defaults = {
-        'payment_default_id': lambda * a: 1, #required field that would cause trouble if not set when importing
-        'auto_import': lambda * a: True,
-        'use_external_tax':  lambda * a: True,
+        'payment_default_id': 1, #required field that would cause trouble if not set when importing
+        'auto_import': True,
+        'use_external_tax': True,
         'product_stock_field_id': _get_stock_field_id,
     }
 
@@ -528,7 +528,7 @@ class sale_order(Model):
     }
 
     _defaults = {
-        'need_to_update': lambda *a: False,
+        'need_to_update': False,
     }
 
     def write(self, cr, uid, ids, vals, context=None):
