@@ -29,11 +29,12 @@
     'description': """empty""",
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['base_sale_multichannels', 'product_custom_attributes'], 
+    'depends': ['base_sale_multichannels', 'product_custom_attributes'],
     'init_xml': [],
-    'update_xml': [ 
+    'update_xml': [
            'sale_view.xml',
            'product_attribute_view.xml',
+           'security/ir.model.access.csv',
     ],
     'demo_xml': [],
     'installable': True,
