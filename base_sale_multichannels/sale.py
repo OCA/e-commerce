@@ -668,6 +668,7 @@ class sale_order(Model):
         vals = self._convert_special_fields(cr, uid, vals, external_session.referential_id.id, context=context)
         if not vals.get('partner_order_id'):
             vals['partner_order_id'] = vals['partner_invoice_id']
+            vals['partner_shipping_id'] = vals['partner_invoice_id']
         order_id = super(sale_order, self).oe_create(cr, uid, external_session, vals, resource, defaults, context)
         self.paid_and_update(cr, uid, external_session, order_id, resource, context=context)
         return order_id
