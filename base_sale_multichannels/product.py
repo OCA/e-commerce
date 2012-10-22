@@ -67,6 +67,32 @@ class product_product(Model):
         return res
 
 
+    def _get_categories_ids_for_shop(self, cr, uid, product_id, shop_id, context=None):
+        shop_categ_ids = self.pool.get('sale_shop').read(cr, uid, shop_id,
+                                ['exportable_category_ids'],
+                                context=context)['exportable_category_ids']
+        product = self.browse(cr, uid, product_id, context=context)
+        product_categ_ids = []
+        res = []
+        for categ in product.categ_ids:
+            product_categ_ids.append(categ.id)
+        if product.categ_id.id:
+            product_categ_ids.append(product.categ_id.id)
+        for categ in product_categ_ids:
+            if categ in shop_categ_ids:
+                res.append(categ)
+        return res
+
+
+    def _get_or_create_ext_category_ids_for_shop(self, cr, uid, external_session, product_id, context=None):
+        res = []
+        categ_obj = self.pool.get('product.category')
+        for oe_categ_id in self._get_categories_ids_for_shop(cr, uid, product_id, external_session.sync_from_object.id, context=context):
+            res.append(categ_obj.get_or_create_extid(cr, uid, external_session, oe_categ_id, context=context))
+        return res
+
+
+
 class product_template(Model):
     _inherit = 'product.template'
 
