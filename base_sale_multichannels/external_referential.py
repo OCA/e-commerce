@@ -48,7 +48,7 @@ class external_referential(Model):
         }
 
     def import_customer_groups(self, cr, uid, ids, context=None):
-        self.import_resources(cr, uid, ids, 'res.partner', context=context)
+        self.import_resources(cr, uid, ids, 'res.partner.category', context=context)
         return True
 
     def import_product_categories(self, cr, uid, ids, context=None):
