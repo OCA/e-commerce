@@ -33,12 +33,13 @@ class res_partner(Model):
     }
 
     def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
-        shop_id = context.get('sale_shop_id')
-        if shop_id:
-            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
+        if external_session.sync_from_object._name == 'sale.shop':
+            shop = external_session.sync_from_object
             if not defaults: defaults = {}
             defaults.update({
-                'lang': shop.default_customer_lang.id,
+                'lang': shop.default_customer_lang.code,
+                'property_account_position': shop.default_fiscal_position.id,
+                'property_account_receivable': shop.default_customer_account,
                 'shop_ids': [(4, shop.id)],
             })
         return defaults
