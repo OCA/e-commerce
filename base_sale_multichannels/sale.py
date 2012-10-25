@@ -101,23 +101,19 @@ class sale_shop(Model):
 
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for shop in self.browse(cr, uid, ids, context=context):
-            root_categories = [category for category in shop.exportable_root_category_ids]
-            all_categories = []
-            for category in root_categories:
-                all_categories += [category.id for category in category.recursive_children_ids]
+        for shop in self.read(cr, uid, ids, ['exportable_category_ids'], context=context):
+            all_categories = shop['exportable_category_ids']
 
             # If product_m2mcategories module is installed search in main category
             # and extra categories. If not, only in main category
             cr.execute('select * from ir_module_module where name=%s and state=%s',
                                                             ('product_m2mcategories','installed'))
             if cr.fetchone():
-                product_ids = self.pool.get("product.product").search(cr, uid, ['|',
+                res[shop['id']] = self.pool.get("product.product").search(cr, uid, ['|',
                         ('categ_id', 'in', all_categories),('categ_ids', 'in', all_categories)])
             else:
-                product_ids = self.pool.get("product.product").search(cr, uid,
+                res[shop['id']] = self.pool.get("product.product").search(cr, uid,
                                                             [('categ_id', 'in', all_categories)])
-            res[shop.id] = product_ids
         return res
 
     def _get_referential_id(self, cr, uid, ids, name, args, context=None):
@@ -183,10 +179,10 @@ class sale_shop(Model):
         return result
 
     _columns = {
-        'exportable_category_ids': fields.function(_get_exportable_category_ids, method=True, type='one2many', relation="product.category", string='Exportable Categories'),
+        'exportable_category_ids': fields.function(_get_exportable_category_ids, type='many2many', relation="product.category", string='Exportable Categories'),
         'exportable_root_category_ids': fields.many2many('product.category', 'shop_category_rel', 'categ_id', 'shop_id', 'Exportable Root Categories'),
         'exportable_root_category_id':fields.function(_get_rootcategory, fnct_inv = _set_rootcategory, type="many2one", relation="product.category", string="Root Category"),
-        'exportable_product_ids': fields.function(_get_exportable_product_ids, method=True, type='one2many', relation="product.product", string='Exportable Products'),
+        'exportable_product_ids': fields.function(_get_exportable_product_ids, type='many2many', relation="product.product", string='Exportable Products'),
         'shop_group_id': fields.many2one('external.shop.group', 'Shop Group', ondelete='cascade'),
         'last_inventory_export_date': fields.datetime('Last Inventory Export Time'),
         'last_images_export_date': fields.datetime('Last Images Export Time'),

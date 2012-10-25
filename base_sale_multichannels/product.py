@@ -68,16 +68,14 @@ class product_product(Model):
 
 
     def _get_categories_ids_for_shop(self, cr, uid, product_id, shop_id, context=None):
-        shop_categ_ids = self.pool.get('sale_shop').read(cr, uid, shop_id,
+        shop_categ_ids = self.pool.get('sale.shop').read(cr, uid, shop_id,
                                 ['exportable_category_ids'],
                                 context=context)['exportable_category_ids']
-        product = self.browse(cr, uid, product_id, context=context)
-        product_categ_ids = []
+        product = self.read(cr, uid, product_id, ['categ_ids', 'categ_id'], context=context)
+        product_categ_ids = product['categ_ids']
+        if product['prestashop_main_categ_id'][0] not in product_categ_ids:
+            product_categ_ids.append(product['categ_id'][0])
         res = []
-        for categ in product.categ_ids:
-            product_categ_ids.append(categ.id)
-        if product.categ_id.id:
-            product_categ_ids.append(product.categ_id.id)
         for categ in product_categ_ids:
             if categ in shop_categ_ids:
                 res.append(categ)
@@ -151,7 +149,7 @@ class product_category(Model):
         shop = self.pool.get('sale.shop').browse(cr, uid, context['sale_shop_id'],context=context)
         if shop.exportable_category_ids:
             res = super(product_category, self).get_ids_and_update_date(cr, uid, external_session,
-                                                            ids=[product.id for product in shop.exportable_category_ids],
+                                                            ids=[categ.id for categ in shop.exportable_category_ids],
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
