@@ -616,30 +616,38 @@ class sale_order(Model):
         """Not implemented in this abstract module"""
         return True
 
-    def _get_kwargs_onchange_partner_id(self, cr, uid, vals, context=None):
-        return {
-            'ids': None,
-            'part': vals.get('partner_id'),
-        }
-
+    def _get_params_onchange_partner_id(self, cr, uid, vals, context=None):
+        args = [
+            'None',
+            vals.get('partner_id'),
+        ]
+        return args, {}
 
     #I will probably extract this code in order to put it in a "glue" module
-    def _get_kwargs_onchange_partner_invoice_id(self, cr, uid, vals, context=None):
-        return {
-            'ids': None,
-            'partner_invoice_id': vals.get('partner_invoice_id'),
-            'partner_id': vals.get('partner_id'),
+    def _get_params_onchange_address_id(self, cr, uid, vals, context=None):
+        args = [
+            None,
+            vals.get('partner_invoice_id'),
+            vals.get('partner_shipping_id'),
+            vals.get('partner_id'),
+        ]
+        kwargs = {
             'shop_id': vals.get('shop_id'),
         }
+        return args, kwargs
 
     def play_sale_order_onchange(self, cr, uid, vals, defaults=None, context=None):
         ir_module_obj= self.pool.get('ir.module.module')
-        vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
         if ir_module_obj.search(cr, uid, [
                             ['name', '=', 'account_fiscal_position_rule_sale'],
                             ['state', 'in', ['installed', 'to upgrade']],
                                                             ], context=context):
-            vals = self.call_onchange(cr, uid, 'onchange_partner_invoice_id', vals, defaults, context=context)
+            vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
+            vals = self.call_onchange(cr, uid, 'onchange_address_id', vals, defaults, context=context)
+        else:
+            vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
+
+            
         return vals
 
     def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
@@ -893,11 +901,13 @@ class sale_order_line(Model):
                 help='Unique order line id delivered by external application'),
     }
 
-    def _get_kwargs_product_id_change(self, cr, uid, line, parent_data, previous_lines, context=None):
-        return {
-            'ids': None,
-            'pricelist': parent_data.get('pricelist_id'),
-            'product': line.get('product_id'),
+    def _get_params_product_id_change(self, cr, uid, line, parent_data, previous_lines, context=None):
+        args = [
+            None,
+            parent_data.get('pricelist_id'),
+            line.get('product_id')
+        ]
+        kwargs ={
             'qty': float(line.get('product_uom_qty')),
             'uom': line.get('product_uom'),
             'qty_uos': float(line.get('product_uos_qty') or line.get('product_uom_qty')),
@@ -912,6 +922,7 @@ class sale_order_line(Model):
             'flag': False,
             'context': context,
         }
+        return args, kwargs
 
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
         line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
