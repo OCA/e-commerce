@@ -94,6 +94,7 @@
                         <group name='External Information' colspan="4">
                             <separator string="External Information" colspan="4" />
                             <field name="ext_product_ref" />
+                            <field name="ext_ref_line" select="1" />
                         </group>
                     </xpath>
                 </data>
@@ -125,6 +126,7 @@
                         <group name='External Syncronization' colspan="4">
                             <separator string="External syncronization" colspan="4" />
                             <field name="ext_product_ref" select="1" />
+                            <field name="ext_ref_line" select="1" />
                         </group>
                     </field>
                 </data>
