@@ -535,7 +535,7 @@ class sale_order(osv.osv):
         return super(sale_order, self)._import_resources(cr, uid, external_session, defaults=defaults, method=method, context=context)
 
 
-    def check_if_order_exist(self, cr, uid, external_session, resource, order_mapping=None, context=None):
+    def check_if_order_exist(self, cr, uid, external_session, resource, order_mapping=None, defaults=None, context=None):
         mapping_name = False
         for line in order_mapping['mapping_lines']:
             if line['internal_field'] == 'name':
@@ -546,6 +546,7 @@ class sale_order(osv.osv):
                                         'from_external_to_openerp', resource,
                                         mapping=local_mapping,
                                         mapping_id=1,
+                                        defaults=defaults,
                                         context=context)
             if vals.get('name'):
                 exist_id = self.search(cr, uid, [['name', '=', vals['name']]], context=context)
@@ -562,7 +563,7 @@ class sale_order(osv.osv):
         mapping, mapping_id = self._init_mapping(cr, uid, external_session.referential_id.id,
                                             mapping=mapping, mapping_id=mapping_id, context=context)
         exist_id = self.check_if_order_exist(cr, uid, external_session, resource,
-                                            order_mapping=mapping[mapping_id], context=context)
+                                            order_mapping=mapping[mapping_id], defaults=defaults, context=context)
         if exist_id:
             return {}
         else:
