@@ -73,7 +73,7 @@ class product_product(Model):
                                 context=context)['exportable_category_ids']
         product = self.read(cr, uid, product_id, ['categ_ids', 'categ_id'], context=context)
         product_categ_ids = product['categ_ids']
-        if product['prestashop_main_categ_id'][0] not in product_categ_ids:
+        if product['categ_id'][0] not in product_categ_ids:
             product_categ_ids.append(product['categ_id'][0])
         res = []
         for categ in product_categ_ids:
