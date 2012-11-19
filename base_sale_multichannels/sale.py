@@ -368,7 +368,7 @@ class sale_shop(osv.osv):
         LEFT JOIN sale_order
                   ON sale_order.id = stock_picking.sale_id
         LEFT JOIN stock_picking as pickings
-                  ON sale_order.id = pickings.sale_id
+                  ON (sale_order.id = pickings.sale_id AND pickings.type='out')
         LEFT JOIN ir_model_data
                   ON stock_picking.id = ir_model_data.res_id
                   AND ir_model_data.model = 'stock.picking'
@@ -377,6 +377,7 @@ class sale_shop(osv.osv):
         WHERE sale_order.shop_id = %(shop_id)s
               AND ir_model_data.res_id ISNULL
               AND stock_picking.state = 'done'
+              AND stock_picking.type = 'out'
               AND NOT stock_picking.do_not_export
               AND (NOT delivery_carrier.export_needs_tracking
                    OR stock_picking.carrier_tracking_ref IS NOT NULL)
