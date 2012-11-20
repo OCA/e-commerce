@@ -878,16 +878,6 @@ class sale_order(Model):
         vals['order_line'].append((0, 0, extra_line))
         return vals
 
-    def reimport_order_from_external_referential(self, cr, uid, ids, context=None):
-        if context is None: context = {}
-        for sale_order in self.browse(cr, uid, ids, context=context):
-            shop = sale_order.shop_id
-            sale_ext_id = sale_order.get_extid(shop.referential_id.id, context=context)
-            sale_order.unlink()
-            external_session = ExternalSession(shop.referential_id, shop)
-            self.pool.get('sale.order')._import_one_resource(cr, uid, external_session, sale_ext_id, context=context)
-        return True
-
 class sale_order_line(Model):
     _inherit='sale.order.line'
 
