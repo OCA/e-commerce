@@ -289,7 +289,7 @@ class sale_shop(Model):
             external_session = ExternalSession(shop.referential_id, shop)
 
             product_ids = self._get_product_ids_for_stock_to_export(cr, uid, shop, context=context)
-            
+
             if shop.last_inventory_export_date:
                 # we do not exclude canceled moves because it means
                 # some stock levels could have increased since last export
@@ -647,7 +647,7 @@ class sale_order(Model):
         else:
             vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
 
-            
+
         return vals
 
     def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
@@ -864,14 +864,15 @@ class sale_order(Model):
                     }
 
         extra_line = self.pool.get('sale.order.line').play_sale_order_line_onchange(cr, uid, extra_line, vals, vals['order_line'], context=context)
-        if context.get('use_external_tax'):
+        if context.get('use_external_tax') and option.get('tax_rate_field'):
             tax_rate = vals.pop(option['tax_rate_field'])
             if tax_rate:
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, tax_rate, context.get('is_tax_included'), context=context)
                 if not line_tax_id:
                     raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(tax_rate, context.get('is_tax_included')))
                 extra_line['tax_id'] = [(6, 0, [line_tax_id])]
-
+        if not option.get('tax_rate_field'):
+            del extra_line['tax_id']
         ext_code_field = option.get('code_field')
         if ext_code_field and vals.get(ext_code_field):
             extra_line['name'] = "%s [%s]" % (extra_line['name'], vals[ext_code_field])
