@@ -23,7 +23,7 @@
 
 {
     'name': 'Product images synchronization',
-    'version': '1.0',
+    'version': '6.1.0',
     'category': 'Sales Management',
     'license': 'AGPL-3',
     'description': """This module is a generic module that handles the synchro of product images between OpenERP and externals referentials such as a Magento e-commerce, a PrestaShop e-commerce, etc...

@@ -23,7 +23,7 @@
 
 {
     'name': 'base_sale_report_synchronizer',
-    'version': '0.1',
+    'version': '6.1.1',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
     'description': """

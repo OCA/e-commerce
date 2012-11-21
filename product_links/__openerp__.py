@@ -20,7 +20,7 @@
 
 {
     'name': 'Product links',
-    'version': '1.0',
+    'version': '6.1.0',
     'category': 'Generic Modules/Products',
     'description': """
 This module adds links between products :

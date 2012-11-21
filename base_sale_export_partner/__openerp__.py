@@ -23,7 +23,7 @@
 
 {
     'name': 'Base sale multichannels - Export partners',
-    'version': '1.0',
+    'version': '6.1.0',
     'category': 'Sales Management',
     'license': 'AGPL-3',
     'description': """This module contains a wizard to export one or several partners "manually" to an external shop such as a Magento shop, a PrestaShop boutique, Amazon or eBay.
