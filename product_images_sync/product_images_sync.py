@@ -36,15 +36,27 @@ sale_shop()
 class product_images(osv.osv):
     _inherit = 'product.images'
 
-    @only_for_referential('prestashop')
+    @only_for_referential(ref_categ = 'Multichannel Sale')
     def _get_last_exported_date(self, cr, uid, external_session, context=None):
         return self.pool.get('sale.shop').browse(cr, uid, external_session.sync_from_object.id, context=context).last_images_export_date
 
-    @only_for_referential('prestashop')
+    @only_for_referential(ref_categ = 'Multichannel Sale')
     @commit_now
     def _set_last_exported_date(self, cr, uid, external_session, date, context=None):
         return self.pool.get('sale.shop').write(cr, uid,
             external_session.sync_from_object.id,
             {'last_images_export_date': date}, context=context)
+
+    def get_ids_and_update_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
+        shop = external_session.sync_from_object
+        if shop.exportable_product_ids:
+            product_ids = self.pool.get('sale.shop').read(cr, uid, shop.id, ['exportable_product_ids'], context=context)['exportable_product_ids']
+            print "product_ids =", product_ids
+            image_ids = self.search(cr, uid, [('product_id', 'in', product_ids)], context=context)
+            res = super(product_images, self).get_ids_and_update_date(cr, uid, external_session, ids=image_ids, last_exported_date=last_exported_date, context=context)
+        else:
+            res = (), {}
+        return res
+
 
 product_images()
