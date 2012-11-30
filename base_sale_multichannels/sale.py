@@ -918,9 +918,11 @@ class sale_order_line(Model):
         return args, kwargs
 
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
+        if not context.get('use_external_tax') and line.has_key('tax_id'):
+            del line['tax_id']
         line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
         #TODO all m2m should be mapped correctly
-        if line.get('tax_id'):
+        if not context.get('use_external_tax') and line.get('tax_id'):
             line['tax_id'] = [(6, 0, line['tax_id'])]
         return line
 
@@ -939,7 +941,7 @@ class sale_order_line(Model):
         line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result,
                                                                         defaults, context=context)
         if context.get('use_external_tax'):
-            if line.get('tax_rate'):
+            if not line.has_key('tax_id') and line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
                 if not line_tax_id:
                     raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(line['tax_rate'], context.get('is_tax_included')))
