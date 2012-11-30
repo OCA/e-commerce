@@ -23,7 +23,7 @@
 
 {
     'name': 'Base Sale MultiChannels',
-    'version': '6.1.1',
+    'version': '6.1.2',
     'category': 'Generic Modules/Sale',
     'description': """
 This module provide an abstract common minimal base to multi-channels sales.
