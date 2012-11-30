@@ -871,6 +871,8 @@ class sale_order(Model):
                 if not line_tax_id:
                     raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(tax_rate, context.get('is_tax_included')))
                 extra_line['tax_id'] = [(6, 0, [line_tax_id])]
+            else:
+                extra_line['tax_id'] = False
         if not option.get('tax_rate_field'):
             del extra_line['tax_id']
         ext_code_field = option.get('code_field')
@@ -942,7 +944,8 @@ class sale_order_line(Model):
                 if not line_tax_id:
                     raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(line['tax_rate'], context.get('is_tax_included')))
                 line['tax_id'] = [(6, 0, [line_tax_id])]
-
+            else:
+                line['tax_id'] = False
         return line
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
