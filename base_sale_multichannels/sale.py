@@ -401,7 +401,7 @@ class sale_shop(osv.osv):
             results = cr.dictfetchall()
             if not results:
                 _logger.info("There is no shipping to export for the shop '%s' to the external referential", shop.name)
-                return True
+                continue
             context['conn_obj'] = shop.referential_id.external_connection()
 
 
