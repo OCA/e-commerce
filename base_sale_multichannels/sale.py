@@ -941,7 +941,7 @@ class sale_order_line(Model):
         line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result,
                                                                         defaults, context=context)
         if context.get('use_external_tax'):
-            if not line.has_key('tax_id') and line.get('tax_rate'):
+            if not 'tax_id' in line and line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
                 if not line_tax_id:
                     raise except_osv(_('Error'), _('No tax id found for the rate %s with the tax include = %s')%(line['tax_rate'], context.get('is_tax_included')))

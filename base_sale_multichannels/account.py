@@ -52,8 +52,8 @@ class account_tax(Model):
     _inherit = 'account.tax'
 
     _columns = {
-        'group_id': fields.many2one('account.tax.group', 'Tax Group', help=("Choose the tax group"
-                                   "this is needed for example with magento or prestashop")),
+        'group_id': fields.many2one('account.tax.group', 'Tax Group', help=("Choose the tax group."
+                                   " This is needed for example with magento or prestashop")),
     }
 
 
