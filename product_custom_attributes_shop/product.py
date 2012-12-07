@@ -71,9 +71,10 @@ class product_product(Model):
                 shop_id = int(key.replace('x_shop', '').replace('_attr_active', ''))
                 if not self.pool.get('product.category').check_if_in_shop_category(cr, uid, categ_ids, shop_id, context=context):
                     shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
-                    raise except_osv(_("User Error"), 
-                        _(("The product must be in an children of one of this categories \"%s\" "
-                             "in order to be activable on the shop \"%s\""))
+                    raise except_osv(
+                        _("User Error"), 
+                        _("The product must be in an children of one of this categories \"%s\" "
+                             "in order to be activable on the shop \"%s\"")
                         %('", "'.join([categ.name for categ in shop.exportable_root_category_ids]), shop.name))
 
     def create(self, cr, uid, vals, context=None):

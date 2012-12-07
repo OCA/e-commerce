@@ -26,15 +26,24 @@
     'version': '6.1.1',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
-    'description': """empty""",
+    'description': """
+    This module give the posibility to manage different value for special field
+    (like name, description, metadata....) per shop.
+    Indeed when you sale on an e-shop you must have for exemple a different
+    description per product (ranking problem). This that module you will be able
+    to add in the shop tab of the product a description per shop.
+    """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['base_sale_multichannels', 'product_custom_attributes'],
+    'depends': [
+        'base_sale_multichannels',
+        'product_custom_attributes',
+        ],
     'init_xml': [],
     'update_xml': [
-           'sale_view.xml',
-           'product_attribute_view.xml',
-           'security/ir.model.access.csv',
+        'sale_view.xml',
+        'product_attribute_view.xml',
+        'security/ir.model.access.csv',
     ],
     'demo_xml': [],
     'installable': True,

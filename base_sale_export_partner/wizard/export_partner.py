@@ -47,7 +47,7 @@ class partner_export_wizard(TransientModel):
         partner_ids = context.get('active_ids')
         if not partner_ids:
             # This should never happen
-            raise osv.except_osv(_('User Error'), 'No partner selected !')
+            raise osv.except_osv(_('User Error'), 'No partner selected!')
 
         for shop in sale_shop_obj.browse(cr, uid, shop_ids, context=context):
             if not shop.referential_id:
@@ -55,12 +55,10 @@ class partner_export_wizard(TransientModel):
             external_session = ExternalSession(shop.referential_id, shop)
             context = self.pool.get('sale.shop').init_context_before_exporting_resource(cr, uid, external_session, shop.id, 'res.partner', context=context)
             for partner in partner_obj.read(cr, uid, partner_ids, ['address'], context=context):
-                #print "partner_id=", partner_id
                 partner_obj._export_one_resource(cr, uid, external_session, partner['id'], context=context)
                 partner_obj.write(cr, uid, partner['id'], {
                     'shop_ids': [(4, shop.id)],
                     }, context=context)
-                #print "addr=", partner['address']
                 for address_id in partner['address']:
                     addr_obj._export_one_resource(cr, uid, external_session, address_id, context=context)
         return {'type': 'ir.actions.act_window_close'}
