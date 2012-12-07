@@ -19,12 +19,14 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
 import netsvc
 from collections import Iterable
-from tools.translate import _
+from openerp.tools.translate import _
 
-class sale_order(osv.osv):
+class sale_order(Model):
     _inherit = "sale.order"
 
     _columns = {
@@ -39,7 +41,6 @@ class sale_order(osv.osv):
             'payment_id': False,
         })
         return super(sale_order, self).copy(cr, uid, id, default, context=context)
-
 
     def pay_sale_order(self, cr, uid, sale_id, journal_id, amount, date, context=None):
         """
@@ -67,6 +68,8 @@ class sale_order(osv.osv):
 
         voucher_vals = {'reference': sale.name,
                         'journal_id': journal_id,
+                        'period_id': self.pool.get('account.period').find(cr, uid, dt=date,
+                                                                          context=context)[0],
                         'amount': amount,
                         'date': date,
                         'partner_id': sale.partner_id.id,
@@ -74,6 +77,22 @@ class sale_order(osv.osv):
                         'currency_id': journal.company_id.currency_id.id,
                         'company_id': journal.company_id.id,
                         'type': 'receipt', }
+
+        # Set the payment rate if currency are different
+        if journal.currency.id and journal.company_id.currency_id.id != journal.currency.id:
+            currency_id = journal.company_id.currency_id.id
+            payment_rate_currency_id = journal.currency.id
+
+            currency_obj = self.pool.get('res.currency')
+            ctx= context.copy()
+            ctx.update({'date': date})
+            tmp = currency_obj.browse(cr, uid, payment_rate_currency_id, context=ctx).rate
+            payment_rate = tmp / currency_obj.browse(cr, uid, currency_id, context=ctx).rate
+            voucher_vals.update({
+                'payment_rate_currency_id': payment_rate_currency_id,
+                'payment_rate': payment_rate,
+            })
+
         voucher_id = voucher_obj.create(cr, uid, voucher_vals, context=context)
 
         # call on change to search the invoice lines
@@ -119,7 +138,7 @@ class sale_order(osv.osv):
     def button_order_confirm(self, cr, uid, ids, context=None):
         for order in self.browse(cr, uid, ids, context=context):
             if order.company_id.sale_order_must_be_paid and not order.payment_id:
-                raise osv.except_osv(_('User Error !'),
+                raise except_osv(_('User Error!'),
                     _('The sale Order %s Must be paid before validation') % (order.name))
         return super(sale_order, self).button_order_confirm(cr, uid, ids, context=context)
 

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    product_images_sync module for OpenERP
+#    Base sale export partner module for OpenERP
 #    Copyright (C) 2012 Akretion (http://www.akretion.com). All Rights Reserved
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
@@ -22,24 +22,18 @@
 
 
 {
-    'name': 'Product images synchronization',
+    'name': 'Base sale multichannels - Export partners',
     'version': '6.1.0',
     'category': 'Sales Management',
     'license': 'AGPL-3',
-    'description': """
-        This module is a generic module that handles the synchro of product images
-        between OpenERP and externals referentials such as a Magento e-commerce,
-        a PrestaShop e-commerce, etc...
+    'description': """This module contains a wizard to export one or several partners "manually" to an external shop such as a Magento shop, a PrestaShop boutique, Amazon or eBay.
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com',
-    'depends': [
-        'product_images_olbs',
-        'base_external_referentials',
-        'base_sale_multichannels',
-        ],
+    'depends': ['base_sale_multichannels'],
     'init_xml': [],
     'update_xml': [
+        'wizard/export_partner.xml',
     ],
     'demo_xml': [],
     'installable': True,

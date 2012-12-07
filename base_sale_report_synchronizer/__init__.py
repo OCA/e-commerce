@@ -19,11 +19,4 @@
 #                                                                             #
 ###############################################################################
 
-
-
-import invoice
 import sale
-import external_referential
-
-
-

@@ -15,43 +15,11 @@
                     <form position="inside">
                         <separator string="Sale Multi Channels" colspan="4" />
                         <notebook colspan="4">
-                            <page string="Actions">
-                                <group col="6" colspan="4">
-                                    <group col="3" colspan="3">
-                                    <separator string="Catalog" colspan="3"/>
-                                    <group col="1" colspan="1">
-                                        <button name="export_catalog" string="Export Catalog" colspan="1" type="object"/>
-                                        <button name="export_inventory" string="Export Stock Levels Only" colspan="1" type="object"/>
-                                    </group>
-                                    <group col="2" colspan="2">
-                                        <field name="last_products_export_date" colspan="2"/>
-                                        <field name="last_special_products_export_date" colspan="2"/>
-                                        <field name="last_category_export_date" colspan="2"/>
-                                        <field name="last_inventory_export_date" colspan="2"/>
-                                    </group>
-                                </group>
-                                <group col="3" colspan="3">
-                                    <separator string="Orders" colspan="3"/>
-                                    <group col="4" colspan="3">
-                                        <button name="import_orders" string="Import Orders" colspan="1" type="object"/>
-                                        <button name="check_need_to_update" string="Check Payments from Channel" colspan="1" type="object"/>
-                                        <field name="import_orders_from_date" colspan="2"/>
-                                    </group>
-                                    <button name="update_orders" string="Update Orders State on Channel" colspan="1" type="object"/>
-                                    <field name="last_update_order_export_date" colspan="2"/>
-                                    <button name="export_invoices" string="Export Invoices" colspan="1" type="object"/>
-                                    <button name="export_shipping" string="Export Shippings" colspan="1" type="object"/>
-                                    </group>
-                                    <separator string="Partners" colspan="3"/>
-                                    <newline/>
-                                    <button name="export_shop_partners" string="Export Partners" colspan="1" type="object"/>
-                                    <newline/>
-                                </group>
-                            </page>
                             <page string="External Shop Settings">
                                 <group col="4" colspan="4">
                                     <field name="referential_id" />
                                     <field name="shop_group_id" />
+                                    <field name="type_name" invisible="True"/>
                                 </group>
                             </page>
                             <page string="Extra Information">
@@ -68,8 +36,8 @@
                                 <separator string='Stock' colspan="4"/>
                                     <field name="product_stock_field_id"/>
                                 <separator string='Other Information' colspan="4"/>
-						            <field name="address_id" colspan="2" />
-						            <field name="website" colspan="2" />
+                                    <field name="address_id" colspan="2" />
+                                    <field name="website" colspan="2" />
                                     <field name="image" widget='image' colspan="2" />
                             </page>
                         </notebook>
@@ -85,8 +53,25 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <field name="state" position="after">
-                    <field name="need_to_update" select="1" />
+                    <field name="need_to_update" />
                 </field>
+                <field name="amount_total" position="after">
+                    <field name="ext_total_amount" string="Ext. Total" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_sales_order_filter" model="ir.ui.view">
+            <field name="name">base_sale_multichannel.view_sales_order_filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="type">search</field>
+            <field eval="32" name="priority"/>
+            <field name="arch" type="xml">
+                <filter icon="terp-check" string="Sales" position="after">
+                    <separator orientation="vertical"/>
+                    <filter icon="gtk-refresh" name="to-update" string="TO UPDATE" domain="[('need_to_update','!=',False)]"/>
+                </filter>
             </field>
         </record>
 
@@ -103,13 +88,14 @@
                         <group name="external_payment" attrs="{'invisible': [('referential_id', '=', False)]}">
                             <separator string="External Payment" colspan="4"/>
                             <field name="ext_total_amount" />
-                            <field name="need_to_update" select="1"/>
+                            <field name="need_to_update" />
                         </group>
                     </group>
                     <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after">
                         <group name='External Information' colspan="4">
                             <separator string="External Information" colspan="4" />
-                            <field name="ext_product_ref" select="1" />
+                            <field name="ext_product_ref" />
+                            <field name="ext_ref_line" select="1" />
                         </group>
                     </xpath>
                 </data>
@@ -124,7 +110,7 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="product_id" position="after">
-                        <field name="ext_product_ref" select="1" />
+                        <field name="ext_product_ref" />
                     </field>
                 </data>
             </field>
@@ -141,6 +127,7 @@
                         <group name='External Syncronization' colspan="4">
                             <separator string="External syncronization" colspan="4" />
                             <field name="ext_product_ref" select="1" />
+                            <field name="ext_ref_line" select="1" />
                         </group>
                     </field>
                 </data>
@@ -182,49 +169,49 @@
         </record>
 
         <act_window
-		    id="base_external_referentials.ext_product_product"
+            id="base_external_referentials.ext_product_product"
             name="External Product"
-		    res_model="ir.model.data"
+            res_model="ir.model.data"
             src_model="product.product"
             domain="[('res_id', '=', active_id), ('model', '=', 'product.product')]"
         />
-		
+        
         <act_window
-		    id="base_external_referentials.ext_product_category"
+            id="base_external_referentials.ext_product_category"
             name="External Category"
-		    res_model="ir.model.data"
+            res_model="ir.model.data"
             src_model="product.category"
             domain="[('res_id', '=', active_id), ('model', '=', 'product.category')]"
         />
 
         <act_window
-		    id="base_external_referentials.ext_sale_order"
+            id="base_external_referentials.ext_sale_order"
             name="External Order"
-		    res_model="ir.model.data"
+            res_model="ir.model.data"
             src_model="sale.order"
             domain="[('res_id', '=', active_id), ('model', '=', 'sale.order')]"
         />
-		
+        
         <act_window
-		    id="base_external_referentials.ext_sale_shop"
+            id="base_external_referentials.ext_sale_shop"
             name="External Shop"
-		    res_model="ir.model.data"
+            res_model="ir.model.data"
             src_model="sale.shop"
             domain="[('res_id', '=', active_id), ('model', '=', 'sale.shop')]"
         />
-		
+        
         <act_window
-		    id="base_external_referentials.ext_res_partner"
+            id="base_external_referentials.ext_res_partner"
             name="External Partner"
-		    res_model="ir.model.data"
+            res_model="ir.model.data"
             src_model="res.partner"
             domain="[('res_id', '=', active_id), ('model', '=', 'res.partner')]"
         />
-		
+        
         <act_window
-		    id="base_external_referentials.ext_res_partner_address"
+            id="base_external_referentials.ext_res_partner_address"
             name="External Address"
-		    res_model="ir.model.data"
+            res_model="ir.model.data"
             src_model="res.partner.address"
             domain="[('res_id', '=', active_id), ('model', '=', 'res.partner.address')]"
         />

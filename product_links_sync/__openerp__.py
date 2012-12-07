@@ -22,7 +22,7 @@
 
 {
     'name': 'product_links_sync',
-    'version': '0.1',
+    'version': '6.1.0',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
     'description': """
@@ -32,7 +32,7 @@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['base_sale_multichannels', 'product_links'], 
+    'depends': ['base_sale_export_product', 'product_links'], 
     'init_xml': [],
     'update_xml': [ 
            'sale_view.xml',

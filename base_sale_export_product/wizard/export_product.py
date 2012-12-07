@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Base_sale_multichannels module for OpenERP
-#    Copyright (C) 2010 Sébastien BEAU <sebastien.beau@akretion.com>
+#    Base sale export product module for OpenERP
+#    Copyright (C) 2010-2012 Sébastien BEAU <sebastien.beau@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,11 +20,13 @@
 ##############################################################################
 
 
-from osv import fields,osv
-from tools.translate import _
+from openerp.osv.orm import TransientModel
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
+from openerp.tools.translate import _
 from base_external_referentials.external_osv import ExternalSession
 
-class product_export_wizard(osv.osv_memory):
+class product_export_wizard(TransientModel):
     _name = 'product.export.wizard'
     _description = 'product export wizard'
 
@@ -52,20 +54,21 @@ class product_export_wizard(osv.osv_memory):
 
         for shop in sale_shop_obj.browse(cr, uid, shop_ids, context=context):
             if not shop.referential_id:
-                raise osv.except_osv(_("User Error"), _(("The shop '%s' doesn't have any external "
-                                            "referential are you sure that it's an externe sale shop?"
-                                            "If yes syncronize it before exporting product"))%(shop.name,))
+                raise except_osv(_("User Error"),
+				_("The shop '%s' doesn't have any external "
+                              	"referential are you sure that it's an external sale shop? "
+                              	"If yes syncronize it before exporting product")%(shop.name,))
             external_session = ExternalSession(shop.referential_id, shop)
-            context = self.pool.get('sale.shop').init_context_before_exporting_resource(cr, uid, external_session, shop.id, 'product.product', context=context)
+            context = sale_shop_obj.init_context_before_exporting_resource(cr, uid, external_session, shop.id, 'product.product', context=context)
             none_exportable_product = set(product_ids) - set([product.id for product in shop.exportable_product_ids])
             if none_exportable_product:
                 products = ', '.join([x['name'] for x in product_obj.read(cr, uid, list(none_exportable_product), fields = ['name'], context=context)])
-                raise osv.except_osv(_("User Error"),
-                        _(("The product '%s' can not be exported to the shop '%s'. \n"
+                raise except_osv(_("User Error"),
+                        _("The product '%s' can not be exported to the shop '%s'. \n"
                         "Please check : \n"
                         "    - if they are in the root category \n"
                         "    - if the website option is correctly configured. \n"
-                        "    - if the check box to export the product to the shop is checked"))%(products, shop.name))
+                        "    - if the check box to export the product to the shop is checked")%(products, shop.name))
             for product_id in product_ids:
                 self._export_one_product(cr, uid, external_session, product_id, options, context=context)
         return {'type': 'ir.actions.act_window_close'}
@@ -86,7 +89,3 @@ class product_export_wizard(osv.osv_memory):
 
     def export_all(self, cr, uid, id, context=None):
         return self.export(cr, uid, id, self._get_all_options(cr, uid, context=context), context)
-
-
-
-product_export_wizard()

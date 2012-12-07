@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #################################################################################
 #                                                                               #
-#    sale_automatic_workflow for OpenERP                                        #
+#    base_sale_multichannels for OpenERP                                        #
 #    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
@@ -20,11 +20,12 @@
 #################################################################################
 
 
-from osv import osv, fields
-import netsvc
+from openerp.osv.orm import Model
+from openerp.osv import fields
 
 
-class payment_method(osv.osv):
+
+class payment_method(Model):
     _inherit = "payment.method"
 
     _columns = {

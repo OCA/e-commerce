@@ -19,19 +19,17 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
+from openerp.osv.orm import Model
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
 import netsvc
 from lxml import etree
-from tools.translate import _
+from openerp.tools.translate import _
 import re
 
 
-class product_product(osv.osv):
-
+class product_product(Model):
     _inherit = "product.product"
-
-    _columns = {
-    }
 
     def _build_shop_attributes_notebook(self, cr, uid, shops, context=None):
         notebook = etree.Element('notebook', name="shop_attributes_notebook", colspan="4")
@@ -63,6 +61,7 @@ class product_product(osv.osv):
                     main_page.append(attributes_notebook)
                     info_page.addnext(main_page)
                     result['arch'] = etree.tostring(eview, pretty_print=True)
+                    result = self._fix_size_bug(cr, uid, result, context=context)
         return result
 
     def check_if_activable(self, cr, uid, vals, context=None):
@@ -72,9 +71,10 @@ class product_product(osv.osv):
                 shop_id = int(key.replace('x_shop', '').replace('_attr_active', ''))
                 if not self.pool.get('product.category').check_if_in_shop_category(cr, uid, categ_ids, shop_id, context=context):
                     shop = self.pool.get('sale.shop').browse(cr, uid, shop_id, context=context)
-                    raise osv.except_osv(_("User Error"), 
-                        _(("The product must be in an children of one of this categories \"%s\" "
-                             "in order to be activable on the shop \"%s\""))
+                    raise except_osv(
+                        _("User Error"), 
+                        _("The product must be in an children of one of this categories \"%s\" "
+                             "in order to be activable on the shop \"%s\"")
                         %('", "'.join([categ.name for categ in shop.exportable_root_category_ids]), shop.name))
 
     def create(self, cr, uid, vals, context=None):
@@ -102,7 +102,7 @@ class product_product(osv.osv):
                 self.check_if_activable(cr, uid, product, context=context)
         return res
         
-class product_category(osv.osv):
+class product_category(Model):
     _inherit = 'product.category'
     
     def check_if_in_shop_category(self, cr, uid, categ_ids, shop_id, context=None):

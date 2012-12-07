@@ -20,10 +20,8 @@
 #
 ##############################################################################
 
-import ir_module  # FIXME: TO REMOVE ONCE (IF) MERGED IN SERVER
 import sale
 import stock
-#import report
 import wizard
 import delivery
 import partner

@@ -24,11 +24,13 @@
 import time
 import netsvc
 
-from osv import fields, osv
+from openerp.osv.orm import Model
+from openerp.osv import fields
+from openerp.osv.osv import except_osv
 from tools.safe_eval import safe_eval as eval
 from tools.translate import _
 
-class sale_exception(osv.osv):
+class sale_exception(Model):
     _name = "sale.exception"
     _description = "Sale Exceptions"
     _columns = {
@@ -61,10 +63,10 @@ class sale_exception(osv.osv):
 """
     }
 
-sale_exception()
-
-class sale_order(osv.osv):
+class sale_order(Model):
     _inherit = "sale.order"
+
+    _order = 'main_exception_id asc, date_order desc, name desc'
 
     def _get_main_error(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -73,9 +75,13 @@ class sale_order(osv.osv):
         return res
 
     _columns = {
-        'main_exception_id': fields.function(_get_main_error, type='many2one',
-                                             relation="sale.exception",
-                                             string='Main Exception'),
+        'main_exception_id': fields.function(_get_main_error,
+                        type='many2one',
+                        relation="sale.exception",
+                        string='Main Exception',
+                        store={
+                            'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['exceptions_ids'], 10),
+                        }),
         'exceptions_ids': fields.many2many('sale.exception', 'sale_order_exception_rel',
                                            'sale_order_id', 'exception_id',
                                            string='Exceptions'),
@@ -170,7 +176,7 @@ class sale_order(osv.osv):
             eval(expr, space,
                  mode='exec', nocopy=True) # nocopy allows to return 'result'
         except Exception, e:
-            raise osv.except_osv(_('Error'), _('Error when evaluating the sale exception rule :\n %s \n(%s)') %
+            raise except_osv(_('Error'), _('Error when evaluating the sale exception rule :\n %s \n(%s)') %
                                  (rule.name, e))
         return space.get('failed', False)
 
@@ -197,5 +203,3 @@ class sale_order(osv.osv):
             'ignore_exceptions': False,
         })
         return super(sale_order, self).copy(cr, uid, id, default=default, context=context)
-
-sale_order()

@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
-#   product_links_sync for OpenERP                                  #
-#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
+#   product_links_sync for OpenERP                                            #
+#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
 #                                                                             #
 #   This program is free software: you can redistribute it and/or modify      #
 #   it under the terms of the GNU Affero General Public License as            #
@@ -19,14 +19,17 @@
 #                                                                             #
 ###############################################################################
 
-from osv import osv, fields
-import netsvc
-from tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
+
+from openerp.osv.orm import Model
+from openerp.osv.orm import TransientModel
+from openerp.osv import fields
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from base_external_referentials.decorator import only_for_referential
 from base_external_referentials.decorator import commit_now
 
-class product_product(osv.osv):
+
+class product_product(Model):
     _inherit = "product.product"
 
     _columns = {
@@ -43,6 +46,8 @@ class product_product(osv.osv):
         return super(product_product, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context={}
         vals = self._update_product_link_last_date(cr, uid, vals, context=context)
         ctx = context.copy()
         ctx['product_link_date_updated'] = True
@@ -50,7 +55,7 @@ class product_product(osv.osv):
 
     def _get_query_and_params_for_ids_and_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
         if context.get('export_product') != 'link':
-            return super(product_product, self)._get_query_and_params_for_ids_and_date(cr, uid, 
+            return super(product_product, self)._get_query_and_params_for_ids_and_date(cr, uid,
                         external_session, ids=ids, last_exported_date=last_exported_date, context=context)
         else:
             # We have to export all product link that believe to a product which have the link modify
@@ -85,10 +90,6 @@ class product_product(osv.osv):
             if 'product_link_ids' in fields_to_read: fields_to_read.remove('product_link_ids')
         return fields_to_read
 
-#    def export_links_for_product(self, cr, uid, ids, context=None):
-#        """ Not implemented in this abstract module"""
-#        return False
-
     @only_for_referential(ref_categ ='Multichannel Sale')
     def _get_last_exported_date(self, cr, uid, external_session, context):
         shop = external_session.sync_from_object
@@ -107,9 +108,9 @@ class product_product(osv.osv):
             return super(product_product, self)._set_last_exported_date(cr, uid, external_session, date, context)
 
 
-class product_link(osv.osv):
+class product_link(Model):
     _inherit = "product.link"
-    
+
     def write(self, cr, uid, ids, vals, context=None):
         if context is None: context={}
         if 'is_active' in vals and not context.get('product_link_date_updated'):
@@ -120,7 +121,7 @@ class product_link(osv.osv):
         return super(product_link, self).write(cr, uid, ids, vals, context=context)
 
 
-class product_export_wizard(osv.osv_memory):
+class product_export_wizard(TransientModel):
     _inherit = 'product.export.wizard'
 
     def _export_one_product(self, cr, uid, external_session, product_id, options, context=None):
