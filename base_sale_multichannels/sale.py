@@ -919,11 +919,19 @@ class sale_order_line(Model):
         return args, kwargs
 
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
-        if not context.get('use_external_tax') and line.has_key('tax_id'):
+        original_line = line.copy()
+        if not context.get('use_external_tax') and 'tax_id' in line:
             del line['tax_id']
         line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
         #TODO all m2m should be mapped correctly
-        if not context.get('use_external_tax') and line.get('tax_id'):
+        if context.get('use_external_tax'):
+            #if we use the external tax and the onchange have added a taxe, 
+            #them we remove it.
+            #Indeed we have to make the difference between a real tax_id
+            #imported and a default value set by the onchange
+            if not 'tax_id' in original_line and 'tax_id' in line:
+                del line['tax_id']
+        elif line.get('tax_id'):
             line['tax_id'] = [(6, 0, line['tax_id'])]
         return line
 
