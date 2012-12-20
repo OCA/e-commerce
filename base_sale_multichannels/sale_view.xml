@@ -88,6 +88,7 @@
                         <group name="external_payment" attrs="{'invisible': [('referential_id', '=', False)]}">
                             <separator string="External Payment" colspan="4"/>
                             <field name="ext_total_amount" />
+                            <field name="ext_total_amount_tax"/>
                             <field name="need_to_update" />
                         </group>
                     </group>

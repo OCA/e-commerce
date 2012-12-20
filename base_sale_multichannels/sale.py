@@ -514,6 +514,10 @@ class sale_order(Model):
             'Origin External Amount',
             digits_compute=dp.get_precision('Sale Price'),
             readonly=True),
+        'ext_total_amount_tax': fields.float(
+            'Origin External Tax Amount',
+            digits_compute=dp.get_precision('Sale Price'),
+            readonly=True),
         'referential_id': fields.related(
                     'shop_id', 'referential_id',
                     type='many2one', relation='external.referential',
