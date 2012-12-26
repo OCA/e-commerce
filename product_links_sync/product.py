@@ -46,6 +46,8 @@ class product_product(Model):
         return super(product_product, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context={}
         vals = self._update_product_link_last_date(cr, uid, vals, context=context)
         ctx = context.copy()
         ctx['product_link_date_updated'] = True

@@ -23,7 +23,7 @@
 
 {
     'name': 'base_sale_report_synchronizer',
-    'version': '0.1',
+    'version': '6.1.1',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
     'description': """
@@ -32,14 +32,16 @@
     """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['report_synchronizer', 'base_sale_multichannels'], 
+    'depends': [
+        'base_sale_multichannels',
+        'report_synchronizer',
+        ], 
     'init_xml': [],
     'update_xml': [ 
-            'external_referential_view.xml',
             'sale_view.xml',
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 

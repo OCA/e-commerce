@@ -20,7 +20,7 @@
 
 {
     'name': 'Product links',
-    'version': '1.0',
+    'version': '6.1.0',
     'category': 'Generic Modules/Products',
     'description': """
 This module adds links between products :
@@ -33,13 +33,13 @@ It can be used as a base to implement synchronisations with e-commerce (used in 
     """,
     'author': 'Camptocamp',
     'website': 'http://www.camptocamp.com',
-    'depends': ['base','product'],
+    'depends': ['stock'],
     'init_xml': [],
     'update_xml': [
                    'security/ir.model.access.csv',
                    'product_links_view.xml',
                    ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }

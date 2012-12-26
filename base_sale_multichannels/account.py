@@ -45,15 +45,15 @@ class account_tax_group(Model):
 
     _columns = {
         'name': fields.char('Name', size=64),
-        'tax_ids': fields.one2many('account.tax', 'group_id', 'Group'),
+        'tax_ids': fields.one2many('account.tax', 'group_id', 'Taxes'),
     }
 
 class account_tax(Model):
     _inherit = 'account.tax'
 
     _columns = {
-        'group_id': fields.many2one('account.tax.group', 'Group', help=("Choose the tax group"
-                                   "this is needed for example with magento or prestashop")),
+        'group_id': fields.many2one('account.tax.group', 'Tax Group', help=("Choose the tax group."
+                                   " This is needed for example with magento or prestashop")),
     }
 
 

@@ -48,7 +48,7 @@ class external_referential(Model):
         }
 
     def import_customer_groups(self, cr, uid, ids, context=None):
-        self.import_resources(cr, uid, ids, 'res.partner', context=context)
+        self.import_resources(cr, uid, ids, 'res.partner.category', context=context)
         return True
 
     def import_product_categories(self, cr, uid, ids, context=None):
@@ -70,11 +70,6 @@ class external_referential(Model):
 
     def import_products(self, cr, uid, ids, context=None):
         self.import_resources(cr, uid, ids, 'product.product', context=context)
-        return True
-
-#If we want to support that feature we need to add a dependancy on product_images_olbs
-    def import_product_images(self, cr, uid, ids, context=None):
-        self.import_resources(cr, uid, ids, 'product.image', context=context)
         return True
 
     def import_product_links(self, cr, uid, ids, context=None):

@@ -22,7 +22,7 @@
 
 {
     'name': 'product_links_goodies',
-    'version': '0.1',
+    'version': '6.1.0',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
     'description': """
@@ -38,7 +38,7 @@
             'product_goodies_data.xml',
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 

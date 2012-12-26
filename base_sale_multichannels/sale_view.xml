@@ -19,6 +19,7 @@
                                 <group col="4" colspan="4">
                                     <field name="referential_id" />
                                     <field name="shop_group_id" />
+                                    <field name="type_name" invisible="True"/>
                                 </group>
                             </page>
                             <page string="Extra Information">
@@ -52,8 +53,25 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <field name="state" position="after">
-                    <field name="need_to_update" select="1" />
+                    <field name="need_to_update" />
                 </field>
+                <field name="amount_total" position="after">
+                    <field name="ext_total_amount" string="Ext. Total" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_sales_order_filter" model="ir.ui.view">
+            <field name="name">base_sale_multichannel.view_sales_order_filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="type">search</field>
+            <field eval="32" name="priority"/>
+            <field name="arch" type="xml">
+                <filter icon="terp-check" string="Sales" position="after">
+                    <separator orientation="vertical"/>
+                    <filter icon="gtk-refresh" name="to-update" string="TO UPDATE" domain="[('need_to_update','!=',False)]"/>
+                </filter>
             </field>
         </record>
 
@@ -70,13 +88,15 @@
                         <group name="external_payment" attrs="{'invisible': [('referential_id', '=', False)]}">
                             <separator string="External Payment" colspan="4"/>
                             <field name="ext_total_amount" />
-                            <field name="need_to_update" select="1"/>
+                            <field name="ext_total_amount_tax"/>
+                            <field name="need_to_update" />
                         </group>
                     </group>
                     <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after">
                         <group name='External Information' colspan="4">
                             <separator string="External Information" colspan="4" />
-                            <field name="ext_product_ref" select="1" />
+                            <field name="ext_product_ref" />
+                            <field name="ext_ref_line" select="1" />
                         </group>
                     </xpath>
                 </data>
@@ -91,7 +111,7 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="product_id" position="after">
-                        <field name="ext_product_ref" select="1" />
+                        <field name="ext_product_ref" />
                     </field>
                 </data>
             </field>
@@ -108,6 +128,7 @@
                         <group name='External Syncronization' colspan="4">
                             <separator string="External syncronization" colspan="4" />
                             <field name="ext_product_ref" select="1" />
+                            <field name="ext_ref_line" select="1" />
                         </group>
                     </field>
                 </data>

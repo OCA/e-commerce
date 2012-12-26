@@ -23,7 +23,7 @@
 
 {
     'name': 'Base Sale MultiChannels',
-    'version': '1.0',
+    'version': '6.1.2',
     'category': 'Generic Modules/Sale',
     'description': """
 This module provide an abstract common minimal base to multi-channels sales.
@@ -60,8 +60,8 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
     'update_xml': [
         'security/ir.model.access.csv',
         'sale_view.xml',
+        'partner_view.xml',
         'invoice_view.xml',
-        'wizard/export_product.xml',
         'wizard/import_order.xml',
         'delivery_view.xml',
         'base_sale_data.xml',
@@ -72,7 +72,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
         'account_view.xml',
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'certificate': '',
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
