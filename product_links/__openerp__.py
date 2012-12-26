@@ -40,6 +40,6 @@ It can be used as a base to implement synchronisations with e-commerce (used in 
                    'product_links_view.xml',
                    ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }

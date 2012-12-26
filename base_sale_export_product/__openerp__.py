@@ -36,6 +36,6 @@
         'wizard/export_product.xml',
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }

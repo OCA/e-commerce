@@ -42,6 +42,6 @@
     'update_xml': [
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
