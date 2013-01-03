@@ -53,17 +53,17 @@ class product_product(Model):
 
     @only_for_referential(ref_categ ='Multichannel Sale')
     def get_ids_and_update_date(self, cr, uid, external_session, ids=None, last_exported_date=None, context=None):
+        res = (), {} # list of ids, dict of ids to date_changed
         shop = external_session.sync_from_object
         if shop.exportable_product_ids:
             product_ids = [product.id for product in shop.exportable_product_ids if self._check_if_export(cr, uid, external_session, product, context=context)]
             if ids:
                 product_ids = set(ids).intersection(set(product_ids))
-            res = super(product_product, self).get_ids_and_update_date(cr, uid, external_session,
+            if product_ids:
+                res = super(product_product, self).get_ids_and_update_date(cr, uid, external_session,
                                                             ids=product_ids,
                                                             last_exported_date=last_exported_date,
                                                             context=context)
-        else:
-            res = (), {} # list of ids, dict of ids to date_changed
         return res
 
 
@@ -164,6 +164,6 @@ class product_category(Model):
                                                             last_exported_date=last_exported_date,
                                                             context=context)
         else:
-            res= [False, False]
+            res = (), {} # list of ids, dict of ids to date_changed
         return res
 
