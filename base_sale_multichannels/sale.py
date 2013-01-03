@@ -393,7 +393,9 @@ class sale_shop(Model):
         LEFT JOIN sale_order
                   ON sale_order.id = stock_picking.sale_id
         LEFT JOIN stock_picking as pickings
-                  ON (sale_order.id = pickings.sale_id AND pickings.type='out')
+                  ON (sale_order.id = pickings.sale_id
+                      AND pickings.type='out'
+                      AND pickings.state!='cancel')
         LEFT JOIN ir_model_data
                   ON stock_picking.id = ir_model_data.res_id
                   AND ir_model_data.model = 'stock.picking'
@@ -424,7 +426,7 @@ class sale_shop(Model):
             results = cr.dictfetchall()
             if not results:
                 _logger.info("There is no shipping to export for the shop '%s' to the external referential", shop.name)
-                return True
+                continue
             context['conn_obj'] = shop.referential_id.external_connection()
 
 
