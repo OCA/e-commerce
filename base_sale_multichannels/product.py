@@ -75,7 +75,7 @@ class product_product(Model):
         product = self.read(cr, uid, product_id, ['categ_ids', 'categ_id'], context=context)
         product_categ_ids = set(product['categ_ids'])
         product_categ_ids.add(product['categ_id'][0])
-        return list(prod_categ_ids & shop_categ_ids)
+        return list(product_categ_ids & shop_categ_ids)
 
     def _get_or_create_ext_category_ids_for_shop(self, cr, uid, external_session, product_id, context=None):
         res = []
