@@ -63,7 +63,7 @@ class external_shop_group(Model):
         'shop_ids': fields.one2many('sale.shop', 'shop_group_id', 'Sale Shops'),
     }
 
-
+    # xxx move to BaseConnector _get_import_defaults_external_shop_group
     def _get_default_import_values(self, cr, uid, external_session, **kwargs):
         return {'referential_id' : external_session.referential_id.id}
 
@@ -539,6 +539,7 @@ class sale_order(Model):
             vals['update_state_date'] = datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         return super(sale_order, self).write(cr, uid, ids, vals, context=context)
 
+    # xxx move to BaseConnector _get_import_defaults_sale_order
     def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
         shop = False
         if external_session.sync_from_object._name == 'sale.shop':
@@ -597,6 +598,7 @@ class sale_order(Model):
 
         return False
 
+    # xxx a deplacer dans BaseConnector  sale_order
     @catch_error_in_report
     def _record_one_external_resource(self, cr, uid, external_session, resource, defaults=None,
                                                         mapping=None, mapping_id=None, context=None):

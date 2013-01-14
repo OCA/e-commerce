@@ -38,7 +38,7 @@
            'sale_view.xml',
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 

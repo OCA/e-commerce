@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
-#   base_sale_report_synchronizer for OpenERP                                 #
-#   Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>  #
+#   product_custom_attributes for OpenERP                                     #
+#   Copyright (C) 2012 Camptocamp Alexandre Fayolle  <alexandre.fayolle@camptocamp.com>  #
+#   Copyright (C) 2012 Akretion Sebastien Beau <sebastien.beau@akretion.com>  #
 #                                                                             #
 #   This program is free software: you can redistribute it and/or modify      #
 #   it under the terms of the GNU Affero General Public License as            #
@@ -19,29 +20,18 @@
 #                                                                             #
 ###############################################################################
 
+from base_external_referentials.connector import AbstractConnector
 
+class BaseConnector(AbstractConnector):
+    def _get_import_defaults_res_partner(self, cr, uid, context=None):
+        pass
+    def _get_import_defaults_res_partner(self, cr, uid, context=None):
+        pass
+    def _get_import_defaults_external_shop_group(self, cr, uid, context=None):
+        pass
 
-{
-    'name': 'base_sale_report_synchronizer',
-    'version': '6.1.1',
-    'category': 'Generic Modules/Others',
-    'license': 'AGPL-3',
-    'description': """
-        Abstract module to syncronize invoice and refund
-        report with external e-commerce system
-    """,
-    'author': 'Akretion',
-    'website': 'http://www.akretion.com/',
-    'depends': [
-        'base_sale_multichannels',
-        'report_synchronizer',
-        ], 
-    'init_xml': [],
-    'update_xml': [ 
-            'sale_view.xml',
-    ],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
-}
+    def _get_import_defaults_sale_order(self, cr, uid, context=None):
+        pass
 
+    def _record_one_sale_order(self, cr, uid, res_obj, resource, defaults, context):
+        pass

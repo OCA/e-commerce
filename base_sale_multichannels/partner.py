@@ -32,6 +32,7 @@ class res_partner(Model):
         'shop_ids': fields.many2many('sale.shop', 'sale_shop_res_partner_rel', 'shop_id', 'partner_id', 'Present in Shops', readonly=True, help="List of shops in which this customer exists."),
     }
 
+    # xxx move to BaseConnector _get_import_defaults_res_partner
     def _get_default_import_values(self, cr, uid, external_session, mapping_id=None, defaults=None, context=None):
         if external_session.sync_from_object._name == 'sale.shop':
             shop = external_session.sync_from_object
