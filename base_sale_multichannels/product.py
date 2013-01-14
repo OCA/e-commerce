@@ -66,21 +66,6 @@ class product_product(Model):
                                                             context=context)
         return res
 
-
-    def _get_categories_ids_for_shop(self, cr, uid, product_id, shop_id, context=None):
-        shop_categ_ids = self.pool.get('sale.shop').read(cr, uid, shop_id,
-                                ['exportable_category_ids'],
-                                context=context)['exportable_category_ids']
-        product = self.read(cr, uid, product_id, ['categ_ids', 'categ_id'], context=context)
-        product_categ_ids = product['categ_ids']
-        if product['categ_id'][0] not in product_categ_ids:
-            product_categ_ids.append(product['categ_id'][0])
-        res = []
-        for categ in product_categ_ids:
-            if categ in shop_categ_ids:
-                res.append(categ)
-        return res
-
     def _get_categories_ids_for_shop(self, cr, uid, product_id, shop_id, context=None):
         shop_obj = self.pool.get('sale.shop')
         shop_values = shop_obj.read(cr, uid, shop_id,
@@ -90,7 +75,7 @@ class product_product(Model):
         product = self.read(cr, uid, product_id, ['categ_ids', 'categ_id'], context=context)
         product_categ_ids = set(product['categ_ids'])
         product_categ_ids.add(product['categ_id'][0])
-        return list(prod_categ_ids & shop_categ_ids)
+        return list(product_categ_ids & shop_categ_ids)
 
     def _get_or_create_ext_category_ids_for_shop(self, cr, uid, external_session, product_id, context=None):
         res = []
@@ -98,8 +83,6 @@ class product_product(Model):
         for oe_categ_id in self._get_categories_ids_for_shop(cr, uid, product_id, external_session.sync_from_object.id, context=context):
             res.append(categ_obj.get_or_create_extid(cr, uid, external_session, oe_categ_id, context=context))
         return res
-
-
 
 class product_template(Model):
     _inherit = 'product.template'
