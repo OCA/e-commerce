@@ -10,4 +10,3 @@ Please fix it manually and check your taxes rules.
 NB : This check have being applied because you have checked the option \check total amount\"" on the shop of this sale order""",30,sale.order,"#By default we allow a cent of difference for the taxe, feel free to customise it in your own module
 if order.shop_id.check_total_amount and abs(order.amount_tax - order.ext_total_amount_tax) > 0.01:
     failed = True"
-,,7,,,
