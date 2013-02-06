@@ -3,14 +3,13 @@
     <data>
 
         <record model="ir.ui.view" id="product_link_form">
-            <!-- must be unique in this module. -->
             <field name="name">product.link.form</field>
             <field name="model">product.link</field>
-            <!--parent python entity -->
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Product Links">
-                    <field name="product_id" invisible="not context.get('product_link_main_view')" select="1"/>
+                    <field name="product_id"
+                        invisible="not context.get('product_link_main_view')"
+                        select="1"/>
                     <field name="is_active" select="1" />
                     <field name="linked_product_id" select="1" />
                     <field name="type" select="1" />
@@ -19,14 +18,12 @@
         </record>
 
         <record model="ir.ui.view" id="product_link_tree">
-            <!-- must be unique in this module. -->
             <field name="name">product.link.tree</field>
             <field name="model">product.link</field>
-            <!--parent python entity -->
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Product Links">
-                    <field name="product_id" invisible="not context.get('product_link_main_view')" />
+                    <field name="product_id"
+                        invisible="not context.get('product_link_main_view')" />
                     <field name="is_active" />
                     <field name="linked_product_id" />
                     <field name="type" />
@@ -38,11 +35,11 @@
             <field name="name">product.normal.form.custom.link</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Product Links">
-                        <field name="product_link_ids" colspan="4" nolabel="1" context="{'product_id': active_id}"/>
+                        <field name="product_link_ids" colspan="4"
+                            nolabel="1" context="{'product_id': active_id}"/>
                     </page>
                 </notebook>
             </field>
@@ -56,8 +53,10 @@
             <field name="context">{'product_link_main_view': True}</field>
         </record>
 
-        <menuitem id="product_link_menu" parent="stock.menu_product_in_config_stock"
-             action="product_link_action" sequence="100"/>
+        <menuitem id="product_link_menu"
+            parent="base.menu_product"
+            action="product_link_action"
+            sequence="100"/>
 
     </data>
 </openerp>
