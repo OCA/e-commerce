@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Akretion LTDA.
 #    authors: Raphaël Valyi, Renato Lima
@@ -18,7 +18,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -41,7 +41,9 @@ This is especially useful in an order importation scenario such as with the base
                    'sale_view.xml',
                    'sale_exceptions_data.xml',
                    'wizard/sale_exception_confirm_view.xml',
-                   'security/ir.model.access.csv'],
+                   'security/ir.model.access.csv',
+                   'sale_exceptions_mail_template.xml',
+                   ],
     'demo_xml': [],
     'installable': True,
 }

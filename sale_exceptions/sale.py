@@ -5,6 +5,7 @@
 #    Copyright (C) 2011 Akretion LTDA.
 #    Copyright (C) 2010-2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
 #    Copyright (C) 2012 Camptocamp SA (Guewen Baconnier)
+#    Copyright (C) 2013 Akretion Chafique DELLI <chafique.delli@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -47,6 +48,7 @@ class sale_exception(Model):
         'sale_order_ids': fields.many2many('sale.order', 'sale_order_exception_rel',
                                            'exception_id', 'sale_order_id',
                                            string='Sale Orders', readonly=True),
+        'email_tmpl_id': fields.many2one('email.template', 'Email Template', help="Email template used to send an email every time a exception is detected"),
     }
 
     _defaults = {
@@ -136,6 +138,7 @@ class sale_order(Model):
         return True
 
     def detect_exceptions(self, cr, uid, ids, context=None):
+        email_obj = self.pool.get('email.template')
         exception_obj = self.pool.get('sale.exception')
         order_exception_ids = exception_obj.search(cr, uid,
             [('model', '=', 'sale.order')], context=context)
@@ -151,7 +154,12 @@ class sale_order(Model):
                 continue
             exception_ids = self._detect_exceptions(cr, uid, order,
                 order_exceptions, line_exceptions, context=context)
-
+            if exception_ids:
+                for exception in exception_obj.browse(cr, uid, exception_ids):
+                    if exception.email_tmpl_id:
+                        email_obj.send_mail(cr, uid, exception.email_tmpl_id.id,\
+                                    order.id, force_send=True, context=context)
+                        break
             self.write(cr, uid, [order.id], {'exceptions_ids': [(6, 0, exception_ids)]})
         return exception_ids
 
