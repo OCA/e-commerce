@@ -49,7 +49,7 @@
                         <group colspan="4" col="2" groups="base.group_system">
                             <field name="model"/>
                             <field name="code"/>
-                            <field name="email_tmpl_id"/>
+                            <field name="notif_exception"/>
                         </group>
                     </group>
                     <group colspan="4" col="2">

@@ -30,6 +30,8 @@ from openerp.osv import fields
 from openerp.osv.osv import except_osv
 from tools.safe_eval import safe_eval as eval
 from tools.translate import _
+import logging
+from framework_helpers.context_managers import new_cursor
 
 class sale_exception(Model):
     _name = "sale.exception"
@@ -48,7 +50,8 @@ class sale_exception(Model):
         'sale_order_ids': fields.many2many('sale.order', 'sale_order_exception_rel',
                                            'exception_id', 'sale_order_id',
                                            string='Sale Orders', readonly=True),
-        'email_tmpl_id': fields.many2one('email.template', 'Email Template', help="Email template used to send an email every time a exception is detected"),
+        'notif_exception': fields.boolean('Notify exception',
+                    help="If true, a notification will be send by email at the creation of the exception"),
     }
 
     _defaults = {
@@ -140,6 +143,7 @@ class sale_order(Model):
     def detect_exceptions(self, cr, uid, ids, context=None):
         email_obj = self.pool.get('email.template')
         exception_obj = self.pool.get('sale.exception')
+        model_data_obj = self.pool.get('ir.model.data')
         order_exception_ids = exception_obj.search(cr, uid,
             [('model', '=', 'sale.order')], context=context)
         line_exception_ids = exception_obj.search(cr, uid,
@@ -155,11 +159,18 @@ class sale_order(Model):
             exception_ids = self._detect_exceptions(cr, uid, order,
                 order_exceptions, line_exceptions, context=context)
             if exception_ids:
-                for exception in exception_obj.browse(cr, uid, exception_ids):
-                    if exception.email_tmpl_id:
-                        email_obj.send_mail(cr, uid, exception.email_tmpl_id.id,\
-                                    order.id, force_send=True, context=context)
-                        break
+                notify = False
+                for exception in exception_obj.browse(cr, uid, exception_ids, context=context):
+                    if exception.notif_exception:
+                        notify = True
+                if notify:
+                    logger = logging.getLogger(__name__)
+                    model, email_tmpl_id = model_data_obj.get_object_reference(
+                                                    cr, uid, 'sale_exceptions',
+                                                    'email_template_sale_exceptions')
+                    with new_cursor(cr, logger) as new_cr:
+                        email_obj.send_mail(new_cr, uid, email_tmpl_id,
+                                             order.id, force_send=True, context=context)
             self.write(cr, uid, [order.id], {'exceptions_ids': [(6, 0, exception_ids)]})
         return exception_ids
 

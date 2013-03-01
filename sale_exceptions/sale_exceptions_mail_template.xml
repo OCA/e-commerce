@@ -21,7 +21,7 @@
 An error occurred during the validation of the order ${object.name}.
 The exceptions are the followings :
     %for exception in object.exceptions_ids:
-        %if exception.email_tmpl_id:
+        %if exception.notif_exception:
             ${exception.name}
         %endif
     %endfor]]></field>
