@@ -33,7 +33,7 @@ This is especially useful in an order importation scenario such as with the base
 """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com',
-    'depends': ['sale', 'framework_helpers'],
+    'depends': ['sale'],
     'init_xml': [
                    'settings/sale.exception.csv',
                 ],

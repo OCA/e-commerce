@@ -31,7 +31,6 @@ from openerp.osv.osv import except_osv
 from tools.safe_eval import safe_eval as eval
 from tools.translate import _
 import logging
-from framework_helpers.context_managers import new_cursor
 
 class sale_exception(Model):
     _name = "sale.exception"
@@ -168,9 +167,15 @@ class sale_order(Model):
                     model, email_tmpl_id = model_data_obj.get_object_reference(
                                                     cr, uid, 'sale_exceptions',
                                                     'email_template_sale_exceptions')
-                    with new_cursor(cr, logger) as new_cr:
-                        email_obj.send_mail(new_cr, uid, email_tmpl_id,
-                                             order.id, force_send=True, context=context)
+                    cr.execute('SAVEPOINT send_email')
+                    try:
+                        email_obj.send_mail(cr, uid, email_tmpl_id,
+                            order.id, force_send=True, context=context)
+                    except Exception, e:
+                        logger.exception(e)
+                        cr.execute('ROLLBACK TO SAVEPOINT send_email')
+                    else:
+                        cr.execute('RELEASE SAVEPOINT send_email')
             self.write(cr, uid, [order.id], {'exceptions_ids': [(6, 0, exception_ids)]})
         return exception_ids
 
