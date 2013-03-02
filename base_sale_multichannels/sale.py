@@ -429,7 +429,6 @@ class sale_shop(Model):
                 continue
             context['conn_obj'] = shop.referential_id.external_connection()
 
-
             picking_cr = pooler.get_db(cr.dbname).cursor()
             try:
                 for result in results:
@@ -620,6 +619,19 @@ class sale_order(Model):
             self._check_need_to_update_single(cr, uid, external_session, order, context=context)
         return True
 
+    def play_all_onchange(self, cr, uid, vals, defaults=None, context=None):
+        line_obj = self.pool.get('sale.order.line')
+        vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
+        order_lines = []
+        for line in vals['order_line']:
+              order_lines.append(line_obj.play_sale_order_line_onchange(cr, uid,
+                  line[2], vals, order_lines,
+                  defaults=defaults.get('order_line'), context=context))
+        vals['order_line'] = [(0, 0, line) for line in order_lines]
+        return vals
+
+
+
     def _check_need_to_update_single(self, cr, uid, external_session, order, context=None):
         """Not implemented in this abstract module"""
         return True
@@ -644,7 +656,20 @@ class sale_order(Model):
         }
         return args, kwargs
 
+    #I will probably extract this code in order to put it in a "glue" module
+    def _get_params_fiscal_position_id_change(self, cr, uid, vals, context=None):
+        args = [
+            None,
+            vals.get('fiscal_position_id'),
+            vals.get('tax_inc'),
+            None,
+        ]
+        kwargs = {}
+        return args, kwargs
+
     def play_sale_order_onchange(self, cr, uid, vals, defaults=None, context=None):
+        if context is None:
+            context={}
         ir_module_obj= self.pool.get('ir.module.module')
         if ir_module_obj.search(cr, uid, [
                             ['name', '=', 'account_fiscal_position_rule_sale'],
@@ -655,10 +680,23 @@ class sale_order(Model):
         else:
             vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
 
-
+        if ir_module_obj.search(cr, uid, [
+                            ['name', '=', 'sale_tax_inc_exc'], 
+                            ['state', 'in', ['installed', 'to upgrade']],
+                            ], context=context):
+            vals['tax_inc'] = context.get('is_tax_included')
+            vals = self.call_onchange(cr, uid, 'fiscal_position_id_change', vals, defaults, context=context)
+            context['tax_inc'] = vals.get('tax_inc', False)
         return vals
 
-    def _merge_with_default_values(self, cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=None, context=None):
+    def _merge_with_default_values(self, cr, uid, external_session, resource,
+            vals, sub_mapping_list, defaults=None, context=None):
+        print 'default value will be merge later', defaults
+        return vals
+
+    def oe_create(self, cr, uid, external_session, vals, resource, defaults, context):
+        
+        #TODO for V7 move this code in mapping
         if vals.get('name'):
             shop = external_session.sync_from_object
             if shop.order_prefix:
@@ -671,19 +709,24 @@ class sale_order(Model):
                 vals['order_policy'] = workflow_process.order_policy
                 vals['picking_policy'] = workflow_process.picking_policy
                 vals['invoice_quantity'] = workflow_process.invoice_quantity
-        # update vals with order onchange in order to compute taxes
-        vals = self.play_sale_order_onchange(cr, uid, vals, defaults=defaults, context=context)
-        return super(sale_order, self)._merge_with_default_values(cr, uid, external_session, ressource, vals, sub_mapping_list, defaults=defaults, context=context)
+        #TODO END
 
-    def oe_create(self, cr, uid, external_session, vals, resource, defaults, context):
-        #depending of the external system the contact address can be optionnal
+        #TODO for V7 did we keep this 'magic' method or we move it in some generic mapping?
         vals = self._convert_special_fields(cr, uid, vals, external_session.referential_id.id, context=context)
+         
+        #depending of the external system the contact address can be optionnal
+        #TODO move in mapping too?
         if not vals.get('partner_order_id'):
             vals['partner_order_id'] = vals['partner_invoice_id']
         if not vals.get('partner_shipping_id'):
             vals['partner_shipping_id'] = vals['partner_invoice_id']
+        
+        vals = self.play_all_onchange(cr, uid, vals, defaults=defaults, context=context)
+
         order_id = super(sale_order, self).oe_create(cr, uid, external_session, vals, resource, defaults, context)
+        
         self.paid_and_update(cr, uid, external_session, order_id, resource, context=context)
+
         return order_id
 
     def paid_and_update(self, cr, uid, external_session, order_id, resource, context=None):
@@ -902,6 +945,12 @@ class sale_order_line(Model):
                 help='Unique order line id delivered by external application'),
     }
 
+    def _merge_with_default_values(self, cr, uid, external_session, resource,
+            vals, sub_mapping_list, defaults=None, context=None):
+        print 'default value will be merge later', defaults
+        return vals
+
+
     def _get_params_product_id_change(self, cr, uid, line, parent_data, previous_lines, context=None):
         args = [
             None,
@@ -926,6 +975,8 @@ class sale_order_line(Model):
         return args, kwargs
 
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
+        if context is None:
+            context={}
         original_line = line.copy()
         if not context.get('use_external_tax') and 'tax_id' in line:
             del line['tax_id']
