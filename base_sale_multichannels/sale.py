@@ -669,7 +669,7 @@ class sale_order(Model):
 
     def play_sale_order_onchange(self, cr, uid, vals, defaults=None, context=None):
         if context is None:
-            context={}
+            context = {}
         ir_module_obj= self.pool.get('ir.module.module')
         if ir_module_obj.search(cr, uid, [
                             ['name', '=', 'account_fiscal_position_rule_sale'],
@@ -691,7 +691,6 @@ class sale_order(Model):
 
     def _merge_with_default_values(self, cr, uid, external_session, resource,
             vals, sub_mapping_list, defaults=None, context=None):
-        print 'default value will be merge later', defaults
         return vals
 
     def oe_create(self, cr, uid, external_session, vals, resource, defaults, context):
@@ -952,7 +951,6 @@ class sale_order_line(Model):
 
     def _merge_with_default_values(self, cr, uid, external_session, resource,
             vals, sub_mapping_list, defaults=None, context=None):
-        print 'default value will be merge later', defaults
         return vals
 
 
@@ -981,7 +979,7 @@ class sale_order_line(Model):
 
     def play_sale_order_line_onchange(self, cr, uid, line, parent_data, previous_lines, defaults=None, context=None):
         if context is None:
-            context={}
+            context = {}
         original_line = line.copy()
         if not context.get('use_external_tax') and 'tax_id' in line:
             del line['tax_id']
