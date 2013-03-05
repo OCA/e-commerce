@@ -723,6 +723,11 @@ class sale_order(Model):
         
         vals = self.play_all_onchange(cr, uid, vals, defaults=defaults, context=context)
 
+        if defaults:
+            for key in defaults:
+                if not key in vals:
+                    vals[key] = defaults[key]
+
         order_id = super(sale_order, self).oe_create(cr, uid, external_session, vals, resource, defaults, context)
         
         self.paid_and_update(cr, uid, external_session, order_id, resource, context=context)
