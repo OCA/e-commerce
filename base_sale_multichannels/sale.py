@@ -588,12 +588,13 @@ class sale_order(Model):
                                         defaults=defaults,
                                         context=context)
             if vals.get('name'):
+                if shop.order_prefix:
+                    vals['name'] = '%s%s' %(shop.order_prefix, vals['name'])
                 exist_id = self.search(cr, uid, [['name', '=', vals['name']]], context=context)
                 if exist_id:
                     external_session.logger.info("Sale Order %s already exist in OpenERP,"
                                                     "no need to import it again"%vals['name'])
                     return True
-
         return False
 
     @catch_error_in_report
