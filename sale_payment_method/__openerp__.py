@@ -19,34 +19,31 @@
 #                                                                             #
 ###############################################################################
 
-
 {
-    'name': 'Sale Quick Payment',
+    'name': 'Sale Payment Method',
     'version': '0.2',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
     'description': """
-Sale Quick Payment
-==================
+Sale Payment Method
+===================
 
-Sale Quick Payment gives the possibility to pay a sale order from the
-sale order itself.
+This module adds low-levels features used for instance by modules:
 
-The payment will be linked to the sale order.
+- Sale Automatic Workflow
+- Sale Quick Payment
 
-If you install the module Sale Automatic Workflow, you can forbid the
-validation of an unpaid order and the invoice will be automatically
-reconciled with the payment.
-
-This module was originally designed for the e-commerce sector, but it
-does not preclude to use it in other sectors.
-    """,
+It adds a payment method on the sales orders and allow to register
+payments entries on sales orders.
+""",
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
-    'depends': ['sale_payment_method',
+    'depends': ['sale_exceptions',
                 ],
-    'data': ['wizard/pay_sale_order.xml',
-             'sale_view.xml',
+    'data': ['sale_view.xml',
+             'payment_method_view.xml',
+             'security/ir.model.access.csv',
+             'settings/sale.exception.csv',
              ],
     'demo': [],
     'installable': True,

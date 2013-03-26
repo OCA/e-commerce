@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #################################################################################
 #                                                                               #
-#    sale_quick_payment for OpenERP                                             #
+#    sale_payment_method for OpenERP                                            #
 #    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
@@ -19,4 +19,6 @@
 #                                                                               #
 #################################################################################
 
-import wizard
+import sale
+import payment_method
+import account_move
