@@ -402,7 +402,10 @@ class sale_shop(Model):
         LEFT JOIN delivery_carrier
                   ON delivery_carrier.id = stock_picking.carrier_id
         WHERE sale_order.shop_id = %(shop_id)s
-              AND ir_model_data.res_id ISNULL
+              AND (
+                  ir_model_data.referential_id is Null
+                  OR ir_model_data.referential_id != %(referential_id)s
+              )
               AND stock_picking.state = 'done'
               AND stock_picking.type = 'out'
               AND NOT stock_picking.do_not_export
@@ -415,7 +418,7 @@ class sale_shop(Model):
                  stock_picking.backorder_id
         ORDER BY sale_order.id ASC,
                  COALESCE(stock_picking.backorder_id, NULL, 0) ASC"""
-        params = {'shop_id': shop.id}
+        params = {'shop_id': shop.id, 'referential_id': shop.referential_id.id}
         return query, params
 
     def export_shipping(self, cr, uid, ids, context):
