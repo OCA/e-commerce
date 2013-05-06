@@ -726,7 +726,7 @@ class sale_order(Model):
         vals = self._get_payment_information(cr, uid, external_session, order_id, resource, context=context)
         if vals.get('paid'):
             if not vals.get('journal_id'):
-                external_session.logger.warning(_("Not journal found for payment method %s. Can not create payment")%vals['payment_method'])
+                external_session.logger.warning(_("No journal found for payment method %s. Can not create payment.")%vals['payment_method'])
                 vals['paid'] = False
             else:
                 self.pay_sale_order(cr, uid, order_id, vals['journal_id'], vals['amount'], vals['date'], context=context)
