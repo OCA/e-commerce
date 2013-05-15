@@ -127,13 +127,12 @@ class product_export_wizard(TransientModel):
     def _export_one_product(self, cr, uid, external_session, product_id, options, context=None):
         res = super(product_export_wizard, self)._export_one_product(cr, uid, external_session, product_id, options, context=context)
         if 'export_link' in options:
-            context['export_product'] = 'link'
-            self.pool.get('product.product')._export_one_resource(cr, uid, external_session, product_id, context=context)
+            ctx = context.copy()
+            ctx['export_product'] = 'link'
+            self.pool.get('product.product')._export_one_resource(cr, uid, external_session, product_id, context=ctx)
         return res
 
     def _get_all_options(self, cr, uid, context=None):
         res = super(product_export_wizard, self)._get_all_options(cr, uid, context=context)
         res.append('export_link')
         return res
-
-

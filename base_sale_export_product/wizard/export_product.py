@@ -70,8 +70,7 @@ class product_export_wizard(TransientModel):
                         "    - if the website option is correctly configured. \n"
                         "    - if the check box to export the product to the shop is checked")%(products, shop.name))
             for product_id in product_ids:
-                ctx = context.copy()
-                self._export_one_product(cr, uid, external_session, product_id, options, context=ctx)
+                self._export_one_product(cr, uid, external_session, product_id, options, context=context)
         return {'type': 'ir.actions.act_window_close'}
 
     def export_product(self, cr, uid, id, context=None):
