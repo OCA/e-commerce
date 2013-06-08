@@ -97,6 +97,8 @@ class sale_order(Model):
         return True
 
     def _popup_exceptions(self, cr, uid, order_id, context=None):
+        if context is None:
+            context = {}
         model_data_obj = self.pool.get('ir.model.data')
         list_obj = self.pool.get('sale.exception.confirm')
         ctx = context.copy()
