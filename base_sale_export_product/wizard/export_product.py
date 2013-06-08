@@ -55,9 +55,9 @@ class product_export_wizard(TransientModel):
         for shop in sale_shop_obj.browse(cr, uid, shop_ids, context=context):
             if not shop.referential_id:
                 raise except_osv(_("User Error"),
-				_("The shop '%s' doesn't have any external "
-                              	"referential are you sure that it's an external sale shop? "
-                              	"If yes syncronize it before exporting product")%(shop.name,))
+                                _("The shop '%s' doesn't have any external "
+                                "referential are you sure that it's an external sale shop? "
+                                "If yes syncronize it before exporting product")%(shop.name,))
             external_session = ExternalSession(shop.referential_id, shop)
             context = sale_shop_obj.init_context_before_exporting_resource(cr, uid, external_session, shop.id, 'product.product', context=context)
             none_exportable_product = set(product_ids) - set([product.id for product in shop.exportable_product_ids])
