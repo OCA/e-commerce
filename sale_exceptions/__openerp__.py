@@ -25,7 +25,7 @@
 
 {
     'name': 'Sale Exceptions',
-    'version': '6.1.0',
+    'version': '2.0',
     'category': 'Generic Modules/Sale',
     'description': """
 This module allows you attach several customizable exceptions to your sale order in a way that you can filter orders by exceptions type and fix them.
@@ -33,7 +33,10 @@ This is especially useful in an order importation scenario such as with the base
 """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com',
-    'depends': ['sale'],
+    'depends': [
+        'sale',
+        'email_template'
+    ],
     'init_xml': [
                    'settings/sale.exception.csv',
                 ],
