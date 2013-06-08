@@ -682,7 +682,7 @@ class sale_order(Model):
             vals = self.call_onchange(cr, uid, 'onchange_partner_id', vals, defaults, context=context)
 
         if ir_module_obj.search(cr, uid, [
-                            ['name', '=', 'sale_tax_inc_exc'], 
+                            ['name', '=', 'sale_tax_inc_exc'],
                             ['state', 'in', ['installed', 'to upgrade']],
                             ], context=context):
             vals['tax_inc'] = context.get('is_tax_included')
@@ -695,7 +695,7 @@ class sale_order(Model):
         return vals
 
     def oe_create(self, cr, uid, external_session, vals, resource, defaults, context):
-        
+
         #TODO for V7 move this code in mapping
         if vals.get('name'):
             shop = external_session.sync_from_object
@@ -713,14 +713,14 @@ class sale_order(Model):
 
         #TODO for V7 did we keep this 'magic' method or we move it in some generic mapping?
         vals = self._convert_special_fields(cr, uid, vals, external_session.referential_id.id, context=context)
-         
+
         #depending of the external system the contact address can be optionnal
         #TODO move in mapping too?
         if not vals.get('partner_order_id'):
             vals['partner_order_id'] = vals['partner_invoice_id']
         if not vals.get('partner_shipping_id'):
             vals['partner_shipping_id'] = vals['partner_invoice_id']
-        
+
         vals = self.play_all_onchange(cr, uid, vals, defaults=defaults, context=context)
 
         if defaults:
@@ -729,7 +729,7 @@ class sale_order(Model):
                     vals[key] = defaults[key]
 
         order_id = super(sale_order, self).oe_create(cr, uid, external_session, vals, resource, defaults, context)
-        
+
         self.paid_and_update(cr, uid, external_session, order_id, resource, context=context)
 
         return order_id
@@ -987,7 +987,7 @@ class sale_order_line(Model):
         line = self.call_onchange(cr, uid, 'product_id_change', line, defaults=defaults, parent_data=parent_data, previous_lines=previous_lines, context=context)
         #TODO all m2m should be mapped correctly
         if context.get('use_external_tax'):
-            #if we use the external tax and the onchange have added a taxe, 
+            #if we use the external tax and the onchange have added a taxe,
             #them we remove it.
             #Indeed we have to make the difference between a real tax_id
             #imported and a default value set by the onchange
