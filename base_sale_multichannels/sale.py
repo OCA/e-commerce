@@ -575,26 +575,13 @@ class sale_order(Model):
 
 
     def check_if_order_exist(self, cr, uid, external_session, resource, order_mapping=None, defaults=None, context=None):
-        mapping_name = False
-        for line in order_mapping['mapping_lines']:
-            if line['internal_field'] == 'name':
-                mapping_name = line
-        if mapping_name:
-            local_mapping = {1: {'mapping_lines': [mapping_name]}}
-            vals = self._transform_one_resource(cr, uid, external_session,
-                                        'from_external_to_openerp', resource,
-                                        mapping=local_mapping,
-                                        mapping_id=1,
-                                        defaults=defaults,
-                                        context=context)
-            if vals.get('name'):
-                if shop.order_prefix:
-                    vals['name'] = '%s%s' %(shop.order_prefix, vals['name'])
-                exist_id = self.search(cr, uid, [['name', '=', vals['name']]], context=context)
-                if exist_id:
-                    external_session.logger.info("Sale Order %s already exist in OpenERP,"
-                                                    "no need to import it again"%vals['name'])
-                    return True
+        shop = external_session.sync_from_object
+        order_name = '%s%s' %(shop.order_prefix, resource['increment_id'])
+        exist_id = self.search(cr, uid, [['name', '=', order_name]], context=context)
+        if exist_id:
+            external_session.logger.info("Sale Order %s already exist in OpenERP,"
+                                            "no need to import it again"%order_name)
+            return True
         return False
 
     @catch_error_in_report
