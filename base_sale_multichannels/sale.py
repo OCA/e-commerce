@@ -679,6 +679,8 @@ class sale_order(Model):
 
     def _merge_with_default_values(self, cr, uid, external_session, resource,
             vals, sub_mapping_list, defaults=None, context=None):
+        if 'partner_id' in defaults:
+            vals['partner_id'] = defaults['partner_id'] 
         return vals
 
     def oe_create(self, cr, uid, external_session, vals, resource, defaults, context):
@@ -996,8 +998,6 @@ class sale_order_line(Model):
         elif 'price_unit_tax_excluded' in line:
             line['price_unit']  = line['price_unit_tax_excluded']
 
-        line = self.play_sale_order_line_onchange(cr, uid, line, parent_data, previous_result,
-                                                                        defaults, context=context)
         if context.get('use_external_tax'):
             if not 'tax_id' in line and line.get('tax_rate'):
                 line_tax_id = self.pool.get('account.tax').get_tax_from_rate(cr, uid, line['tax_rate'], context.get('is_tax_included', False), context=context)
