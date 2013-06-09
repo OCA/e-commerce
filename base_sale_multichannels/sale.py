@@ -475,14 +475,21 @@ class sale_shop(Model):
         return True
 
     def export_invoices(self, cr, uid, ids, context=None):
-        invoice_obj = self.pool.get('account.invoice')
         for shop in self.browse(cr, uid, ids, context=None):
             external_session = ExternalSession(shop.referential_id, shop)
-            invoice_ids = self.get_invoice_to_export(cr, uid, shop.id, context=context)
-            if not invoice_ids:
-                external_session.logger.info("There is no invoice to export for the shop '%s' to the external referential" % (shop.name,))
-            for invoice_id in invoice_ids:
-                self.pool.get('account.invoice')._export_one_resource(cr, uid, external_session, invoice_id, context=context)
+            self._export_invoice_for_shop(cr, uid, external_session, shop, context=context)
+        return True
+
+    def _export_invoice_for_shop(self, cr, uid, external_session, shop, context=None):
+        invoice_obj = self.pool.get('account.invoice')
+        invoice_ids = self.get_invoice_to_export(cr, uid, shop.id, context=context)
+        external_session.logger.info("Start to export %s invoice for the shop '%s' to the external referential" % (len(invoice_ids), shop.name,))
+        if not invoice_ids:
+            external_session.logger.info("There is no invoice to export for the shop '%s' to the external referential" % (shop.name,))
+        for invoice_id in invoice_ids:
+            with new_cursor(cr, external_session.logger) as new_cr:
+                with commit_now(new_cr, external_session.logger) as cr:
+                    invoice_obj._export_one_resource(new_cr, uid, external_session, invoice_id, context=context)
         return True
 
     def get_invoice_to_export(self, cr, uid, shop_id, context=None):
