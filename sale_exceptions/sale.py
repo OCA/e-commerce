@@ -54,7 +54,7 @@ class sale_exception(Model):
                                            'exception_id', 'sale_order_id',
                                            string='Sale Orders', readonly=True),
         'send_email': fields.boolean('Notify exception by Email',
-                                     help=("If true, a notification will be send"
+                                     help=("If true, a notification will be send "
                                      "by email at the creation of the exception")),
     }
 
