@@ -3,7 +3,9 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Akretion LTDA.
-#    Copyright (C) 2010-2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+#    Copyright (C) 2010-2013 Akretion
+#    @author Sébastien BEAU <sebastien.beau@akretion.com>
+#            Chafique DELLI <chafique.delli@akretion.com>
 #    Copyright (C) 2012 Camptocamp SA (Guewen Baconnier)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,6 +23,7 @@
 #
 ##############################################################################
 
+
 import time
 import netsvc
 
@@ -29,6 +32,9 @@ from openerp.osv import fields
 from openerp.osv.osv import except_osv
 from tools.safe_eval import safe_eval as eval
 from tools.translate import _
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class sale_exception(Model):
     _name = "sale.exception"
@@ -47,6 +53,9 @@ class sale_exception(Model):
         'sale_order_ids': fields.many2many('sale.order', 'sale_order_exception_rel',
                                            'exception_id', 'sale_order_id',
                                            string='Sale Orders', readonly=True),
+        'send_email': fields.boolean('Notify exception by Email',
+                                     help=("If true, a notification will be send "
+                                     "by email at the creation of the exception")),
     }
 
     _defaults = {
@@ -136,7 +145,9 @@ class sale_order(Model):
         return True
 
     def detect_exceptions(self, cr, uid, ids, context=None):
+        email_obj = self.pool.get('email.template')
         exception_obj = self.pool.get('sale.exception')
+        model_data_obj = self.pool.get('ir.model.data')
         order_exception_ids = exception_obj.search(cr, uid,
             [('model', '=', 'sale.order')], context=context)
         line_exception_ids = exception_obj.search(cr, uid,
@@ -151,7 +162,25 @@ class sale_order(Model):
                 continue
             exception_ids = self._detect_exceptions(cr, uid, order,
                 order_exceptions, line_exceptions, context=context)
+            if exception_ids:
+                notify = any(exception.send_email for exception in
+                             exception_obj.browse(cr, uid, exception_ids,
+                             context=context))
 
+                #We do not notify if the order already have exception
+                if notify and not order.exception_ids:
+                    model, email_tmpl_id = model_data_obj.get_object_reference(
+                                                    cr, uid, 'sale_exceptions',
+                                                    'email_template_sale_exceptions')
+                    cr.execute('SAVEPOINT send_email')
+                    try:
+                        email_obj.send_mail(cr, uid, email_tmpl_id,
+                            order.id, force_send=True, context=context)
+                    except Exception, e:
+                        _logger.exception(e)
+                        cr.execute('ROLLBACK TO SAVEPOINT send_email')
+                    else:
+                        cr.execute('RELEASE SAVEPOINT send_email')
             self.write(cr, uid, [order.id], {'exceptions_ids': [(6, 0, exception_ids)]})
         return exception_ids
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  sale_exceptions for OpenERP
+  Copyright (C) 2013 Akretion Chafique DELLI <chafique.delli@akretion.com>
+  The licence is in the file __openerp__.py
+-->
+<openerp>
+    <data noupdate="1">
+
+        <!--Email template -->
+        <record id="email_template_sale_exceptions" model="email.template">
+            <field name="name">Sale Exception Notification Mail</field>
+            <field name="email_from">${object.user_id.user_email or ''}</field>
+            <field name="subject">Exception on Sale Order (Ref ${object.name or 'n/a' })</field>
+            <field name="email_to">${object.company_id.email}</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">${object.company_id.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[]]></field>
+            <field name="body_text"><![CDATA[
+An error occurred during the validation of the order ${object.name}.
+The exceptions are the following :
+    %for exception in object.exceptions_ids:
+        %if exception.send_email:
+            ${exception.name}
+        %endif
+    %endfor]]></field>
+        </record>
+    </data>
+</openerp>
