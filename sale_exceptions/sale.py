@@ -117,7 +117,7 @@ class sale_order(orm.Model):
         view_id = model_data_obj.get_object_reference(
             cr, uid, 'sale_exceptions', 'view_sale_exception_confirm')[1]
         action = {
-            'name': _("Exceptions On Sale Order"),
+            'name': _("Blocked in draft due to exceptions"),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'form',
