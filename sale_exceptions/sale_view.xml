@@ -64,8 +64,11 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="main_exception_id" nolabel="1"
+                    <group>
+                    <field name="main_exception_id" options='{"no_open": True}'
+                           class="oe_inline" string="Error:"
                            attrs="{'invisible':[('main_exception_id','=', False)]}"/>
+                    </group>
                 </field>
                 <xpath expr="//page[@string='Other Information']/group"
                         position="inside">
