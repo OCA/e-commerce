@@ -24,7 +24,6 @@
 import time
 
 from openerp.osv import orm, fields
-from openerp.osv.osv import except_osv
 from openerp.tools.safe_eval import safe_eval
 from openerp.tools.translate import _
 
@@ -204,7 +203,7 @@ class sale_order(orm.Model):
                       mode='exec',
                       nocopy=True)  # nocopy allows to return 'result'
         except Exception, e:
-            raise except_osv(
+            raise orm.except_orm(
                 _('Error'),
                 _('Error when evaluating the sale exception '
                   'rule:\n %s \n(%s)') % (rule.name, e))
