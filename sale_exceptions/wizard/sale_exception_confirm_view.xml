@@ -5,7 +5,6 @@
         <record id="view_sale_exception_confirm" model="ir.ui.view">
             <field name="name">Sale Exceptions</field>
             <field name="model">sale.exception.confirm</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Sale Exceptions On Sale Order" version="7.0">
                     <group>
