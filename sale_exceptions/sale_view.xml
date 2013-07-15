@@ -5,7 +5,6 @@
         <record id="view_sale_exception_tree" model="ir.ui.view">
             <field name="name">sale.exception.tree</field>
             <field name="model">sale.exception</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Sale Exception">
                     <field name="active"/>
@@ -20,7 +19,6 @@
         <record id="view_sale_exception_form" model="ir.ui.view">
             <field name="name">sale.exception.form</field>
             <field name="model">sale.exception</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Sale Exception Setup">
                     <group colspan="4" col="2">
@@ -59,7 +57,6 @@
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">sale_exceptions.view_order_form</field>
             <field name="model">sale.order</field>
-            <field name="type">form</field>
             <field name="priority">100</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
@@ -83,7 +80,6 @@
         <record id="view_order_tree" model="ir.ui.view">
             <field name="name">sale_exceptions.view_order_tree</field>
             <field name="model">sale.order</field>
-            <field name="type">tree</field>
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">
                 <field name="state" position="after">
