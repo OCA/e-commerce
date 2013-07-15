@@ -22,7 +22,7 @@
                         <field name="ignore" groups='base.group_sale_manager'/>
                     </group>
                     <footer>
-                        <button name="action_confirm" string="_Ok"
+                        <button name="action_confirm" string="_Close"
                             colspan="1" type="object" icon="gtk-ok" />
                     </footer>
                 </form>
