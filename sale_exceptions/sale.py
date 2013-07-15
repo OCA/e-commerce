@@ -22,15 +22,14 @@
 ##############################################################################
 
 import time
-import netsvc
 
-from openerp.osv.orm import Model
-from openerp.osv import fields
+from openerp.osv import orm, fields
 from openerp.osv.osv import except_osv
-from tools.safe_eval import safe_eval as eval
-from tools.translate import _
+from openerp.tools.safe_eval import safe_eval as eval
+from openerp.tools.translate import _
 
-class sale_exception(Model):
+
+class sale_exception(orm.Model):
     _name = "sale.exception"
     _description = "Sale Exceptions"
     _order="active desc, sequence asc"
@@ -64,7 +63,8 @@ class sale_exception(Model):
 """
     }
 
-class sale_order(Model):
+
+class sale_order(orm.Model):
     _inherit = "sale.order"
 
     _order = 'main_exception_id asc, date_order desc, name desc'
