@@ -41,7 +41,7 @@ class SaleExceptionConfirm(orm.TransientModel):
             cr, uid, fields, context=context)
         order_obj = self.pool.get('sale.order')
         sale_id = context.get('active_ids')
-        assert len(sale_id) == 1, "Only 1 ID accepted, received %r" % ids
+        assert len(sale_id) == 1, "Only 1 ID accepted, got %r" % sale_id
         sale_id = sale_id[0]
         sale = order_obj.browse(cr, uid, sale_id, context=context)
         exception_ids = [e.id for e in sale.exceptions_ids]
@@ -51,7 +51,7 @@ class SaleExceptionConfirm(orm.TransientModel):
 
     def action_confirm(self, cr, uid, ids, context=None):
         if hasattr(ids, '__iter__'):
-            assert len(ids) == 1, "Only 1 ID accepted, received %r" % ids
+            assert len(ids) == 1, "Only 1 ID accepted, got %r" % ids
             ids = ids[0]
         form = self.browse(cr, uid, ids, context=context)
         if form.ignore:
