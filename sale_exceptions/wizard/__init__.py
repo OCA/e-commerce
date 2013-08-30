@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import sale_exception_confirm
+from . import sale_exception_confirm
