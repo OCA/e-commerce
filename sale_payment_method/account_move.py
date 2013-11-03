@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    sale_quick_payment for OpenERP
-#    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+#    Author: Guewen Baconnier
+#    Copyright 2013 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,4 +19,12 @@
 #
 ##############################################################################
 
-from . import wizard
+from openerp.osv import orm, fields
+
+
+class account_move_line(orm.Model):
+    _inherit = 'account.move.line'
+
+    _columns = {
+        'sale_ids': fields.many2many('sale.order', string='Sales Orders'),
+    }
