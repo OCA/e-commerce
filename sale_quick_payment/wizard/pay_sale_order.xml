@@ -4,10 +4,10 @@
         <record model="ir.ui.view" id="pay_sale_order_view">
             <field name="name">pay.sale.order.view</field>
             <field name="model">pay.sale.order</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Pay Sale Order" version="7.0">
                     <group>
+                        <field name="description" string="Description"/>
                         <field name="journal_id" string="Journal"/>
                         <field name="amount" string="Paid Amount"/>
                         <field name="date" string="Date"/>
