@@ -19,22 +19,29 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from openerp.osv.orm import Model
-from openerp.osv import fields
+from openerp.osv import orm, fields
 
-class stock_picking_out(Model):
-    _inherit = "stock.picking.out"
+
+class stock_picking(orm.Model):
+    _inherit = "stock.picking"
+
     _columns = {
-        'workflow_process_id':fields.many2one('sale.workflow.process', 'Sale Workflow Process'),
+        # if we add the column in stock.picking.out, we can't write it
+        'workflow_process_id': fields.many2one('sale.workflow.process',
+                                               'Sale Workflow Process'),
     }
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id, context=None):
-        invoice_vals = super(stock_picking_out, self)._prepare_invoice(cr, uid, picking, partner, \
-                                                            inv_type, journal_id, context=context)
+        invoice_vals = super(stock_picking, self)._prepare_invoice(
+            cr, uid, picking, partner, inv_type, journal_id, context=context)
         invoice_vals['workflow_process_id'] = picking.workflow_process_id.id
         if picking.workflow_process_id.invoice_date_is_order_date:
             invoice_vals['date_invoice'] = picking.sale_id.date_order
         return invoice_vals
+
+
+class stock_picking_out(orm.Model):
+    _inherit = "stock.picking.out"
 
     def validate_picking(self, cr, uid, ids, context=None):
         for picking in self.browse(cr, uid, ids, context=context):
@@ -62,4 +69,3 @@ class stock_picking_out(Model):
 #            mrp_product_produce_obj.do_produce(cr, uid, [produce], context)
 #            self.validate_manufactoring_order(cr, uid, production.name, context)
 #        return True
-#        

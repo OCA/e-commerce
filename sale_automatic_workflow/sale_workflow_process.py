@@ -19,40 +19,53 @@
 #                                                                               #
 #################################################################################
 
-from openerp.osv.orm import Model
-from openerp.osv import fields
-import netsvc
+from openerp.osv import orm, fields
 
 
-class sale_workflow_process(Model):
+class sale_workflow_process(orm.Model):
+    """
+    A workflow process is the setup of the automation of a sales order.
+
+    Each sales order can be linked to a workflow process.
+    Then, the options of the workflow will change how the sales order
+    behave, and how it is automatized.
+
+    A workflow process may be linked with a Sales payment method, so
+    each time a payment method is used, the workflow will be applied.
+    """
     _name = "sale.workflow.process"
-    _description = "sale workflow process"
+    _description = "Sale Workflow Process"
 
     _columns = {
         'name': fields.char('Name', size=64),
-        'picking_policy': fields.selection([('direct', 'Partial Delivery'), ('one', 'Complete Delivery')], 'Packing Policy'),
+        'picking_policy': fields.selection([('direct', 'Deliver each product when available'),
+                                            ('one', 'Deliver all products at once')],
+                                           string='Shipping Policy'),
         'order_policy': fields.selection([
-            ('prepaid', 'Payment Before Delivery'),
-            ('manual', 'Shipping & Manual Invoice'),
-            ('postpaid', 'Invoice on Order After Delivery'),
-            ('picking', 'Invoice from the Packing'),
-        ], 'Shipping Policy'),
-        'invoice_quantity': fields.selection([('order', 'Ordered Quantities'), ('procurement', 'Shipped Quantities')], 'Invoice on'),
-        'validate_order': fields.selection([('always', 'Always'), ('if_paid', 'Only If Paid'), ('never', 'Never')], 'Validate Order'),
+            ('prepaid', 'Before Delivery'),
+            ('manual', 'On Demand'),
+            # https://bugs.launchpad.net/openobject-addons/+bug/1160835
+            # ('postpaid', 'Invoice on Order After Delivery'),
+            ('picking', 'On Delivery Order'),
+        ], 'Invoice Policy'),
+        'invoice_quantity': fields.selection([('order', 'Ordered Quantities'),
+                                              ('procurement', 'Shipped Quantities')],
+                                             string='Invoice on'),
+        'validate_order': fields.boolean('Validate Order'),
         'create_invoice': fields.boolean('Create Invoice'),
         'validate_invoice': fields.boolean('Validate Invoice'),
-        'validate_picking': fields.boolean('Validate Picking'),
-        'validate_manufactoring_order': fields.boolean('Validate Manufactoring Order'),
-        'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
-        'invoice_date_is_order_date' : fields.boolean('Force Invoice Date', help="If it's check the invoice date will be the same as the order date"),
+        'validate_picking': fields.boolean('Confirm and Close Picking'),
+        # TODO not implemented actually
+        # 'validate_manufactoring_order': fields.boolean('Validate Manufactoring Order'),
+        'invoice_date_is_order_date': fields.boolean(
+            'Force Invoice Date',
+            help="When checked, the invoice date will be "
+                 "the same than the order's date"),
     }
 
     _defaults = {
-        'picking_policy': lambda *a: 'direct',
-        'order_policy': lambda *a: 'manual',
-        'invoice_quantity': lambda *a: 'order',
-        'validate_invoice': lambda *a: False,
-        'days_before_order_cancel': lambda *a: 30,
+        'picking_policy': 'direct',
+        'order_policy': 'manual',
+        'invoice_quantity': 'order',
+        'validate_invoice': False,
     }
-
-

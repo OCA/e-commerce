@@ -1,8 +1,9 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #################################################################################
 #                                                                               #
 #    sale_automatic_workflow for OpenERP                                        #
 #    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
+#    Copyright 2013 Camptocamp SA (Guewen Baconnier)                            #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
 #    it under the terms of the GNU Affero General Public License as             #
@@ -20,62 +21,128 @@
 #################################################################################
 
 
-from openerp.osv.orm import Model
-import netsvc
 import logging
-from tools.translate import _
-from framework_helpers.context_managers import new_cursor, commit_now
+from contextlib import contextmanager
+from openerp.osv import orm
+from openerp import netsvc
 
-#Some comment about the implementation
-#In order to validate the invoice the picking we have to use schedule action
-#Indeed, if we directly jump the various step in the workflow of the invoice and the picking
-#the sale order workflow will be broken
-#The explication is "simple"
-#Example with the invoice workflow
-#When we are in the sale order at the step router
-#a transiotion like a signal or condition will change the step of the workflow to the step 'invoice'
-#the fact to enter in this step will launch the creation of the invoice
-#if the invoice in directly validated and reconcilled with the payment
-#the subworkflow will end and send a signal to the sale order workflow
-#the problem is that the sale order workflow have not finish to apply the step invoice
-#and so the signal of the subworkflow will be lost
-#because the step invoice is still not finish
-#The step invoice should be finish before receiving the signal
-#this is meant that we can not directly validated every step of the workflow invoice_amount
-#it the same with the picking workflow_method
+"""
+Some comments about the implementation
 
-#If my explication is not clear contact me by email and I will imporve it: sebastien.beau@akretion.com
+In order to validate the invoice and the picking, we have to use
+scheduled actions, because if we directly jump the various steps in the
+workflow of the invoice and the picking, the sale order workflow will be
+broken.
 
-class automatic_workflow_job(Model):
+The explanation is 'simple'. Example with the invoice workflow: When we
+are in the sale order at the workflow router, a transition like a signal
+or condition will change the step of the workflow to the step 'invoice';
+this step will launch the creation of the invoice.  If the invoice is
+directly validated and reconciled with the payment, the subworkflow will
+end and send a signal to the sale order workflow.  The problem is that
+the sale order workflow has not yet finished to apply the step 'invoice',
+so the signal of the subworkflow will be lost because the step 'invoice'
+is still not finished. The step invoice should be finished before
+receiving the signal. This means that we can not directly validate every
+steps of the workflow in the same transaction.
+
+If my explanation is not clear, contact me by email and I will improve
+it: sebastien.beau@akretion.com
+"""
+
+_logger = logging.getLogger(__name__)
+
+
+@contextmanager
+def commit(cr):
     """
-    Scheduler that will play automatically the validation on invoice, picking...
+    Commit the cursor after the ``yield``, or rollback it if an
+    exception occurs.
+
+    Warning: using this method, the exceptions are logged then discarded.
     """
+    try:
+        yield
+    except Exception:
+        cr.rollback()
+        _logger.exception('Error during an automatic workflow action.')
+    else:
+        cr.commit()
+
+
+class automatic_workflow_job(orm.Model):
+    """ Scheduler that will play automatically the validation of
+    invoices, pickings...  """
     _name = 'automatic.workflow.job'
 
-    def run(self, cr, uid, ids=None, context=None):
-        logger = logging.getLogger(__name__)
+    def _get_domain_for_sale_validation(self, cr, uid, context=None):
+        return [('state', '=', 'draft'),
+                ('workflow_process_id.validate_order', '=', True)]
+ 
+    def _validate_sale_orders(self, cr, uid, context=None):
+        wf_service = netsvc.LocalService("workflow")
+        sale_obj = self.pool.get('sale.order')
+        domain = self._get_domain_for_sale_validation(cr, uid, context=context)
+        sale_ids = sale_obj.search(cr, uid, domain, context=context)
+        _logger.debug('Sale Orders to validate: %s', sale_ids)
+        for sale_id in sale_ids:
+            with commit(cr):
+                wf_service.trg_validate(uid, 'sale.order',
+                                        sale_id, 'order_confirm', cr)
+
+    def _reconcile_invoices(self, cr, uid, ids=None, context=None):
+        invoice_obj = self.pool.get('account.invoice')
+        if ids is None:
+            ids = invoice_obj.search(cr, uid,
+                                     [('state', 'in', ['open'])],
+                                     context=context)
+        for invoice_id in ids:
+            with commit(cr):
+                invoice_obj.reconcile_invoice(cr, uid,
+                                              [invoice_id],
+                                              context=context)
+
+    def _validate_invoices(self, cr, uid, context=None):
         wf_service = netsvc.LocalService("workflow")
         invoice_obj = self.pool.get('account.invoice')
+        invoice_ids = invoice_obj.search(
+            cr, uid,
+            [('state', 'in', ['draft']),
+             ('workflow_process_id.validate_invoice', '=', True)],
+            context=context)
+        _logger.debug('Invoices to validate: %s', invoice_ids)
+        for invoice_id in invoice_ids:
+            with commit(cr):
+                wf_service.trg_validate(uid, 'account.invoice',
+                                        invoice_id, 'invoice_open', cr)
 
-        with new_cursor(cr, logger) as cr:
-            open_invoice_ids = invoice_obj.search(cr, uid, [('state', 'in', ['open'])], context=context)
-            for open_invoice_id in open_invoice_ids:
-                with commit_now(cr, logger) as cr:
-                    invoice_obj.reconcile_invoice(cr, uid, [open_invoice_id], context=context)
+    def _validate_pickings(self, cr, uid, context=None):
+        picking_obj = self.pool.get('stock.picking')
+        picking_out_obj = self.pool.get('stock.picking.out')
+        # We search on stock.picking (using the type) rather than
+        # stock.picking.out because the ORM seems bugged and can't
+        # search on stock_picking_out.workflow_process_id.
+        # Later, we'll call `validate_picking` on stock.picking.out
+        # because anyway they have the same ID and the call will be at
+        # the correct object level.
+        picking_ids = picking_obj.search(
+            cr, uid,
+            [('state', 'in', ['draft', 'confirmed', 'assigned']),
+             ('workflow_process_id.validate_picking', '=', True),
+             ('type', '=', 'out')],
+            context=context)
+        _logger.debug('Pickings to validate: %s', picking_ids)
+        if picking_ids:
+            with commit(cr):
+                picking_out_obj.validate_picking(cr, uid,
+                                                 picking_ids,
+                                                 context=context)
 
-            invoice_ids = invoice_obj.search(cr, uid, [('state', 'in', ['draft']), ('workflow_process_id.validate_invoice', '=',True)], context=context)
-            if invoice_ids:
-                logger.debug(_('start to validate invoice : %s') %invoice_ids)
-            for invoice_id in invoice_ids:
-                with commit_now(cr, logger) as cr:
-                    wf_service.trg_validate(uid, 'account.invoice', invoice_id, 'invoice_open', cr)
-                with commit_now(cr, logger) as cr:
-                    invoice_obj.reconcile_invoice(cr, uid, [invoice_id], context=context)
+    def run(self, cr, uid, ids=None, context=None):
+        """ Must be called from ir.cron """
 
-            picking_obj = self.pool.get('stock.picking.out')
-            picking_ids = picking_obj.search(cr, uid, [('state', 'in', ['draft', 'confirmed', 'assigned']), ('workflow_process_id.validate_picking', '=',True)], context=context)
-            if picking_ids:
-                logger.debug(_('start to validate pickings : %s') %picking_ids)
-                with commit_now(cr, logger) as cr:
-                    picking_obj.validate_picking(cr, uid, picking_ids, context=context)
+        self._validate_sale_orders(cr, uid, context=context)
+        self._validate_invoices(cr, uid, context=context)
+        self._reconcile_invoices(cr, uid, context=context)
+        self._validate_pickings(cr, uid, context=context)
         return True
