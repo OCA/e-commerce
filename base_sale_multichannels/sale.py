@@ -106,7 +106,7 @@ class sale_shop(Model):
 
             # If product_m2mcategories module is installed search in main category
             # and extra categories. If not, only in main category
-            cr.execute('select * from ir_module_module where name='product_m2mcategories' and state='installed')
+            cr.execute("select * from ir_module_module where name='product_m2mcategories' and state='installed'")
             if cr.fetchone():
                 res[shop['id']] = self.pool.get("product.product").search(cr, uid, ['|',
                         ('categ_id', 'in', all_categories),('categ_ids', 'in', all_categories)])
