@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Form view -->
+        <record id="view_customer_invoice_payment_method" model="ir.ui.view">
+            <field name="name">account.invoice.add.payment_method</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="replace" version="7.0">
+                    <field string="Customer" name="partner_id"
+                        on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term, partner_bank_id,company_id,payment_method_id)"
+                        groups="base.group_user" context="{'search_default_customer':1, 'show_address': 1}"
+                        options='{"always_reload": True}'
+                        domain="[('customer', '=', True)]"/>
+                </field>
+                <field name="payment_term" position="before" version="7.0">
+                    <field name="payment_method_id" on_change="onchange_payment_method_id(payment_method_id, type, partner_id, context)"
+                           attrs="{'invisible': [('type', '!=', 'out_invoice')]}" class="oe_inline"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+ 

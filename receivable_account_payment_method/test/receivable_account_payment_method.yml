@@ -1,0 +1,34 @@
+-
+  I create a new receivable account
+-
+  !record {model: account.account, id: paypal_account}:
+    code: 110201
+    name: Debtors Paypal
+    type: receivable
+    user_type: account.data_account_type_receivable
+-
+  I create a payment method
+-
+  !record {model: payment.method, id: paypal_method}:
+    name: Paypal
+    receivable_account_id: paypal_account
+-
+  I create a sale order with paypal payment method
+-
+  !record {model: sale.order, id: sale_order_paypal}:
+    name: My paypal order
+    partner_id: base.res_partner_12
+    order_line:
+      - product_id: product.product_product_6
+        product_uom_qty: 2
+-
+  I confirm the sale order
+-
+  !workflow {model: sale.order, action: order_confirm, ref: sale_order_paypal}
+-
+  I check account on the generated invoice.
+-
+  !python {model: sale.order}: |
+    invoice_ids = self.browse(cr, uid, ref("sale_order_paypal")).invoice_ids
+    for invoice in invoice_ids:
+        assert invoice.account_id.id == ref("paypal_account")
