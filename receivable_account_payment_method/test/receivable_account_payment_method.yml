@@ -18,6 +18,7 @@
   !record {model: sale.order, id: sale_order_paypal}:
     name: My paypal order
     partner_id: base.res_partner_12
+    payment_method_id: paypal_method
     order_line:
       - product_id: product.product_product_6
         product_uom_qty: 2
@@ -26,7 +27,15 @@
 -
   !workflow {model: sale.order, action: order_confirm, ref: sale_order_paypal}
 -
-  I check account on the generated invoice.
+  I create advance invoice where type is 'Invoice all the Sale Order'.
+-
+  !python {model: sale.advance.payment.inv}: |
+    ctx = context.copy()
+    ctx.update({"active_model": 'sale.order', "active_ids": [ref("sale_order_paypal")], "active_id":ref("sale_order_paypal")})
+    pay_id = self.create(cr, uid, {'advance_payment_method': 'all'})
+    self.create_invoices(cr, uid, [pay_id], context=ctx)
+-
+  I check Invoice which made advance where type is 'Invoice all the Sale Order'.
 -
   !python {model: sale.order}: |
     invoice_ids = self.browse(cr, uid, ref("sale_order_paypal")).invoice_ids
