@@ -27,7 +27,7 @@
 -
   !workflow {model: sale.order, action: order_confirm, ref: sale_order_paypal}
 -
-  I create advance invoice where type is 'Invoice all the Sale Order'.
+  I create a manual invoice from the confirmed sale order.
 -
   !python {model: sale.advance.payment.inv}: |
     ctx = context.copy()
@@ -35,7 +35,7 @@
     pay_id = self.create(cr, uid, {'advance_payment_method': 'all'})
     self.create_invoices(cr, uid, [pay_id], context=ctx)
 -
-  I check Invoice which made advance where type is 'Invoice all the Sale Order'.
+  I check the receivable account on the generated invoice.
 -
   !python {model: sale.order}: |
     invoice_ids = self.browse(cr, uid, ref("sale_order_paypal")).invoice_ids
