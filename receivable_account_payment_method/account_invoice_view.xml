@@ -22,6 +22,18 @@
             </field>
         </record>
 
+        <!-- Search view -->
+        <record id="view_account_invoice_payment_method_filter" model="ir.ui.view">
+            <field name="name">account.invoice.add.payment_method.filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Due Date" position="after">
+                    <filter string="Payment Method" icon="terp-go-month" domain="[]" context="{'group_by':'payment_method_id'}"/>
+                </filter>
+            </field>
+        </record>
+
     </data>
 </openerp>
  
