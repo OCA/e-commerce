@@ -48,7 +48,8 @@ class account_invoice(orm.Model):
                         }
                     }
             if not result:
-                p = self.pool['res.partner'].browse(cr, uid, partner_id)
+                p = self.pool['res.partner'].browse(cr, uid, partner_id,
+                                                    context=context)
                 result = {'value': {
                     'account_id': p.property_account_receivable.id
                     }
