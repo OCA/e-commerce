@@ -26,7 +26,7 @@
     'license': 'AGPL-3',
     'description': """
 Receivable Account Payment Method
-===================
+==================================
 
 This module adds possibility to configure
 a default receivable account on a payment method:
