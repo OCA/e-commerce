@@ -17,7 +17,7 @@
                 </field>
                 <field name="payment_term" position="before" version="7.0">
                     <field name="payment_method_id" on_change="onchange_payment_method_id(payment_method_id, type, partner_id, context)"
-                           attrs="{'invisible': [('type', '!=', 'out_invoice')]}" class="oe_inline"/>
+                           attrs="{'invisible': [('type', 'not in', ('out_invoice','out_refund'))]}" class="oe_inline"/>
                 </field>
             </field>
         </record>
