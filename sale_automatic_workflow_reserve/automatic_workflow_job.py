@@ -21,6 +21,8 @@
 ###############################################################################
 
 from openerp.osv import orm
+from openerp.addons.sale_automatic_workflow.automatic_workflow_job import (
+    commit)
 
 
 class AutomaticWorkflowJob(orm.Model):
@@ -47,8 +49,10 @@ class AutomaticWorkflowJob(orm.Model):
         vals = self._prepare_reserve_wizard(cr, uid, context=context)
         reserve_id = reserve_obj.create(cr, uid, vals, context=context)
         line_ids = self._get_reservable_line(cr, uid, context=context)
-        reserve_obj.stock_reserve(
-            cr, uid, [reserve_id], line_ids, context=context)
+        for line_id in line_ids:
+            with commit(cr):
+                reserve_obj.stock_reserve(
+                    cr, uid, [reserve_id], [line_id], context=context)
 
     def run(self, cr, uid, ids=None, context=None):
         """ Must be called from ir.cron """
