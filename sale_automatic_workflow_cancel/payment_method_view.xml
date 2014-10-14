@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- VIEW FOR THE OBJECT : payment_method -->
+        <record id="payment_method_view_form" model="ir.ui.view">
+            <field name="model">payment.method</field>
+            <field name="inherit_id" ref="sale_automatic_workflow.payment_method_view_form" />
+            <field name="arch" type="xml">
+                <group name="general" position="after">
+                    <group name="auto_cancel" string="Auto Cancelation">
+                        <group name="auto_cancel_field">
+                            <field name="days_before_cancel" />
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>
