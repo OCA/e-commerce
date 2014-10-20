@@ -41,7 +41,7 @@ e-commerce (for instance, it is used in magentoerpconnect).
     'data': [
         'security/ir.model.access.csv',
         'product_links_view.xml'
-        ],
+    ],
     'installable': True,
     'active': False,
 }

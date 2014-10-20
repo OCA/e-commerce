@@ -75,4 +75,4 @@ class product(orm.Model):
             'product.link',
             'product_id',
             string='Product links'),
-        }
+    }
