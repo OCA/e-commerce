@@ -59,10 +59,18 @@ class stock_picking(orm.Model):
         if picking.sale_id:
             invoice_vals['currency_id'] =\
                 picking.sale_id.pricelist_id.currency_id.id
+            if base_picking.workflow_process_id.invoice_date_is_order_date:
+                invoice_vals['date_invoice'] = picking.sale_id.date_order
+            # Force period to avoid multi-company issues
+            if not invoice_vals.get('period_id'):
+                period_ids = self.pool.get('account.period').find(
+                    cr, uid, invoice_vals.get('date_invoice', False),
+                    context=context)
+                invoice_vals['period_id'] =\
+                    period_ids and period_ids[0] or False
         invoice_vals['workflow_process_id'] =\
             base_picking.workflow_process_id.id
-        if base_picking.workflow_process_id.invoice_date_is_order_date:
-            invoice_vals['date_invoice'] = picking.sale_id.date_order
+
         return invoice_vals
 
     def _prepare_invoice_line(self, cr, uid, group, picking, move_line,
