@@ -73,6 +73,16 @@ class stock_picking(orm.Model):
 
         return invoice_vals
 
+    def _prepare_shipping_invoice_line(self, cr, uid, picking, invoice, context=None):
+        if context is None:
+            context = {}
+        if picking.sale_id:
+            context = dict(context,
+                           force_company=picking.sale_id.company_id.id,
+                           company_id=picking.sale_id.company_id.id)
+            picking = self.browse(cr, uid, picking.id, context=context)
+        return super(stock_picking, self)._prepare_shipping_invoice_line(cr, uid, picking, invoice, context=context)
+
     def _prepare_invoice_line(self, cr, uid, group, picking, move_line,
                               invoice_id, invoice_vals, context=None):
         if picking.sale_id:
