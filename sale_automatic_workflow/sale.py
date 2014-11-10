@@ -100,15 +100,18 @@ class account_invoice(Model):
             payment_amount = 0
             invoice_amount = 0
             account_id = invoice.account_id.id
+            partner_id = invoice.partner_id.id
             if invoice.sale_ids and invoice.sale_ids[0].payment_id and invoice.move_id:
                 for move in invoice.sale_ids[0].payment_id.move_ids:
                     if move.credit > 0 and not move.reconcile_id \
-                            and move.account_id.id == account_id:
+                            and move.account_id.id == account_id \
+                            and move.partner_id.id == partner_id:
                         line_ids.append(move.id)
                         payment_amount += move.credit
                 for move in invoice.move_id.line_id:
                     if move.debit > 0 and not move.reconcile_id \
-                            and move.account_id.id == account_id:
+                            and move.account_id.id == account_id \
+                            and move.partner_id.id == partner_id:
                         line_ids.append(move.id)
                         invoice_amount += move.debit
             balance = abs(payment_amount-invoice_amount)
