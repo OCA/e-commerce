@@ -146,6 +146,8 @@ class automatic_workflow_job(orm.Model):
         # Later, we'll call `validate_picking` on stock.picking.out
         # because anyway they have the same ID and the call will be at
         # the correct object level.
+        if context is None:
+            context = {}
         picking_ids = picking_obj.search(
             cr, uid,
             [('state', 'in', ['done']),
@@ -156,8 +158,13 @@ class automatic_workflow_job(orm.Model):
         _logger.debug('Pickings to invoice: %s', picking_ids)
         if picking_ids:
             with commit(cr):
-                picking_obj.action_invoice_create(cr, uid,
-                                                  picking_ids,
+                for picking in picking_obj.browse(cr, uid, picking_ids, context=context):
+                    if picking.sale_id:
+                        context = dict(context,
+                                force_company=picking.sale_id.company_id.id,
+                                company_id=picking.sale_id.company_id.id)
+                    picking_obj.action_invoice_create(cr, uid,
+                                                  [picking.id,],
                                                   context=context)
 
     def run(self, cr, uid, ids=None, context=None):
