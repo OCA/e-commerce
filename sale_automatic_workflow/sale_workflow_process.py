@@ -23,6 +23,7 @@ from openerp.osv import orm, fields
 
 
 class sale_workflow_process(orm.Model):
+
     """
     A workflow process is the setup of the automation of a sales order.
 

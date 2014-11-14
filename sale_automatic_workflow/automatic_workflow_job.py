@@ -71,6 +71,7 @@ def commit(cr):
 
 
 class automatic_workflow_job(orm.Model):
+
     """ Scheduler that will play automatically the validation of
     invoices, pickings...  """
     _name = 'automatic.workflow.job'

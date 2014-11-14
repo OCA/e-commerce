@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-#################################################################################
+##########################################################################
 #                                                                               #
 #    product_links_sync for OpenERP                                          #
 #    Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
@@ -17,12 +17,8 @@
 #    You should have received a copy of the GNU Affero General Public License   #
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.      #
 #                                                                               #
-#################################################################################
+##########################################################################
 
 
-import product
-import sale
-
-
-
-
+from . import product
+from . import sale
