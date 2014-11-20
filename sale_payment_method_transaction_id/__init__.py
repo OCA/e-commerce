@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
-###############################################################################
+# -*- coding: utf-8 -*-
+##############################################################################
 #
-#    sale_automatic_workflow for OpenERP
-#    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+#    Author: Guewen Baconnier
+#    Copyright 2014 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,16 +17,6 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-###############################################################################
+##############################################################################
 
-
-from openerp.osv import orm, fields
-
-
-class payment_method(orm.Model):
-    _inherit = "payment.method"
-
-    _columns = {
-        'workflow_process_id': fields.many2one('sale.workflow.process',
-                                               'Workflow Process'),
-    }
+from . import sale

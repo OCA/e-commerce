@@ -1,30 +1,24 @@
 # -*- coding: utf-8 -*-
-#################################################################################
-#                                                                               #
-#    sale_automatic_workflow for OpenERP                                        #
-#    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
-#    Copyright 2013 Camptocamp SA (Guewen Baconnier)                            #
-#                                                                               #
-#    This program is free software: you can redistribute it and/or modify       #
-#    it under the terms of the GNU Affero General Public License as             #
-#    published by the Free Software Foundation, either version 3 of the         #
-#    License, or (at your option) any later version.                            #
-#                                                                               #
-#    This program is distributed in the hope that it will be useful,            #
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of             #
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
-#    GNU Affero General Public License for more details.                        #
-#                                                                               #
-#    You should have received a copy of the GNU Affero General Public License   #
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.      #
-#                                                                               #
-#################################################################################
-
-
-import logging
-from contextlib import contextmanager
-from openerp.osv import orm
-from openerp import netsvc
+###############################################################################
+#
+#    sale_automatic_workflow for OpenERP
+#    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+#    Copyright 2013 Camptocamp SA (Guewen Baconnier)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+###############################################################################
 
 """
 Some comments about the implementation
@@ -49,6 +43,11 @@ steps of the workflow in the same transaction.
 If my explanation is not clear, contact me by email and I will improve
 it: sebastien.beau@akretion.com
 """
+
+import logging
+from contextlib import contextmanager
+from openerp.osv import orm
+from openerp import netsvc
 
 _logger = logging.getLogger(__name__)
 

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Guewen Baconnier
-#    Copyright 2011-2013 Camptocamp SA
+#    Copyright 2014 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,29 +19,18 @@
 #
 ##############################################################################
 
-{
-    'name': 'Product Links',
-    'version': '7.0.0',
-    'category': 'Generic Modules',
-    'description': """
-This module adds links between products:
+from openerp.osv import orm
 
-- cross-selling
-- up-selling
-- related
 
-These types of links are common in e-commerce shops.
+class sale_order(orm.Model):
+    _inherit = 'sale.order'
 
-It can be used as a base to implement synchronisations with
-e-commerce (for instance, it is used in magentoerpconnect).
-    """,
-    'author': 'Camptocamp',
-    'website': 'http://www.camptocamp.com',
-    'depends': ['product'],
-    'data': [
-        'security/ir.model.access.csv',
-        'product_links_view.xml'
-    ],
-    'installable': False,
-    'active': False,
-}
+    def _prepare_payment_move_line(self, cr, uid, move_name, sale, journal,
+                                   period, amount, date, context=None):
+        debit_line, credit_line = super(sale_order, self).\
+            _prepare_payment_move_line(cr, uid, move_name, sale, journal,
+                                       period, amount, date, context=context)
+        if sale.transaction_id:
+            debit_line['transaction_ref'] = sale.transaction_id
+            credit_line['transaction_ref'] = sale.transaction_id
+        return debit_line, credit_line
