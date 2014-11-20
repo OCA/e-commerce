@@ -45,6 +45,6 @@ move lines are created with the transaction id.
  'website': 'http://www.camptocamp.com',
  'data': [],
  'tests': [],
- 'installable': True,
+ 'installable': False,
  'auto_install': True,
  }
