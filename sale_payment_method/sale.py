@@ -97,6 +97,9 @@ class sale_order(orm.Model):
         the payment terms.
         If no amount is defined, it will pay the residual amount of the sale
         order. """
+        if context is None:
+            context = {}
+
         if isinstance(ids, Iterable):
             assert len(ids) == 1, "one sale order at a time can be paid"
             ids = ids[0]
@@ -127,6 +130,10 @@ class sale_order(orm.Model):
         else:
             amounts = [(date, amount)]
 
+        context = context.copy()
+        context['company_id'] = journal.company_id.id
+        context['force_company'] = journal.company_id.id
+        sale = self.browse(cr, uid, sale.id, context=context)
         # reversed is cosmetic, compute returns terms in the 'wrong' order
         for date, amount in reversed(amounts):
             self._add_payment(cr, uid, sale, journal,
