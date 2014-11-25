@@ -1,1 +1,1 @@
-import product_links
+from . import product_links
