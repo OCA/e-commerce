@@ -26,7 +26,6 @@ class stock_picking(orm.Model):
     _inherit = "stock.picking"
 
     _columns = {
-        # if we add the column in stock.picking.out, we can't write it
         'workflow_process_id': fields.many2one('sale.workflow.process',
                                                'Sale Workflow Process'),
     }
@@ -39,19 +38,3 @@ class stock_picking(orm.Model):
         if picking.workflow_process_id.invoice_date_is_order_date:
             invoice_vals['date_invoice'] = picking.sale_id.date_order
         return invoice_vals
-
-
-class stock_picking_out(orm.Model):
-    _inherit = "stock.picking.out"
-
-    def validate_picking(self, cr, uid, ids, context=None):
-        for picking in self.browse(cr, uid, ids, context=context):
-            self.force_assign(cr, uid, [picking.id])
-            partial_data = {}
-            for move in picking.move_lines:
-                partial_data["move" + str(move.id)] = {
-                    'product_qty': move.product_qty,
-                    'product_uom': move.product_uom.id,
-                }
-            self.do_partial(cr, uid, [picking.id], partial_data)
-        return True

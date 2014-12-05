@@ -2,7 +2,8 @@
 ###############################################################################
 #
 #    sale_automatic_workflow for OpenERP
-#    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+#    Copyright (C) 2011-14 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+#                                   Chafique DELLI<chafique.delli@akretion.com>
 #    Copyright 2013 Camptocamp SA (Guewen Baconnier)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -117,25 +118,19 @@ class automatic_workflow_job(orm.Model):
 
     def _validate_pickings(self, cr, uid, context=None):
         picking_obj = self.pool.get('stock.picking')
-        picking_out_obj = self.pool.get('stock.picking.out')
-        # We search on stock.picking (using the type) rather than
-        # stock.picking.out because the ORM seems bugged and can't
-        # search on stock_picking_out.workflow_process_id.
-        # Later, we'll call `validate_picking` on stock.picking.out
-        # because anyway they have the same ID and the call will be at
-        # the correct object level.
+        # We search on stock.picking (using code='outgoing' of picking_type_id).
+        # Later, we'll call `action_done` on stock.picking.
         picking_ids = picking_obj.search(
             cr, uid,
             [('state', 'in', ['draft', 'confirmed', 'assigned']),
              ('workflow_process_id.validate_picking', '=', True),
-             ('type', '=', 'out')],
+             ('picking_type_id.code', '=', 'outgoing')],
             context=context)
         _logger.debug('Pickings to validate: %s', picking_ids)
         if picking_ids:
             with commit(cr):
-                picking_out_obj.validate_picking(cr, uid,
-                                                 picking_ids,
-                                                 context=context)
+                picking_obj.action_done(cr, uid,
+                                        picking_ids, context=context)
 
     def run(self, cr, uid, ids=None, context=None):
         """ Must be called from ir.cron """
