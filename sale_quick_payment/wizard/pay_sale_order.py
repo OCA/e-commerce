@@ -28,7 +28,10 @@ class pay_sale_order(orm.TransientModel):
     _description = 'Wizard to generate a payment from the sale order'
 
     _columns = {
-        'journal_id': fields.many2one('account.journal', 'Journal'),
+        'journal_id': fields.many2one(
+            'account.journal',
+            'Journal',
+            required=True),
         'amount': fields.float('Amount',
                                digits_compute=dp.get_precision('Sale Price')),
         'date': fields.datetime('Payment Date'),
