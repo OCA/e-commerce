@@ -41,7 +41,7 @@ msgstr "Description"
 #. module: sale_quick_payment
 #: view:sale.order:0
 msgid "Generated Payments"
-msgstr "Paiement Enregistrés"
+msgstr "Paiements enregistrés"
 
 #. module: sale_quick_payment
 #: model:ir.model.fields,field_description:sale_quick_payment.field_pay_sale_order_journal_id
@@ -53,7 +53,7 @@ msgstr "Journal"
 #. module: sale_quick_payment
 #: view:pay.sale.order:0
 msgid "Paid Amount"
-msgstr "Montant Payé"
+msgstr "Montant payé"
 
 #. module: sale_quick_payment
 #: view:pay.sale.order:0
@@ -90,12 +90,12 @@ msgstr "Enregistrer un règlement"
 #. module: sale_quick_payment
 #: model:sale.exception,name:sale_quick_payment.must_be_paid
 msgid "Sale order must be paid before validation"
-msgstr "La commande doit être payé avant la confirmation"
+msgstr "La commande doit être payée avant la confirmation"
 
 #. module: sale_quick_payment
 #: model:sale.exception,description:sale_quick_payment.must_be_paid
 msgid "The sale order must be paid before the validation. Please fix it"
-msgstr "La commande doit être payé avant la confirmation. Veuillez enregistrer un règlement avant de la confirmer"
+msgstr "La commande doit être payée avant la confirmation. Veuillez enregistrer un règlement avant de la confirmer"
 
 #. module: sale_quick_payment
 #: code:_description:0
