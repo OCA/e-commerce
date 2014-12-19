@@ -26,10 +26,10 @@
  'website': 'www.akretion.com',
  'license': 'AGPL-3',
  'category': 'Generic Modules',
- 'description': """Depending of the configuration of the payment
+ 'description': """Depending on the configuration of the payment
  method sale order will be automatically cancelled after some delay.
- For example you can configure that every sale order paid buy check will
- be cancelled after 90 days.
+ For example you can configure that every sale order paid by check will
+ be cancelled after 90 days if no payment is have been registry.
  """,
  'depends': [
      'sale_automatic_workflow',
