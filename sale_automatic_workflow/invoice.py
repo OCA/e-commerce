@@ -78,13 +78,18 @@ class account_invoice(orm.Model):
             'total_amount': 0,
             'total_amount_currency': 0,
         }
+        if line_type == 'debit':
+            sign = 1
+        else:
+            sign = -1
+
         for move_line in move_lines:
             if move_line[line_type] > 0:
                 if move_line.date > res['max_date']:
                     res['max_date'] = move_line.date
                 res['line_ids'].append(move_line.id)
                 res['total_amount'] += move_line[line_type]
-                res['total_amount_currency'] += move_line.amount_currency
+                res['total_amount_currency'] += sign * move_line.amount_currency
         return res
 
     def _prepare_write_off(self, cr, uid, invoice, res_invoice, res_payment,
