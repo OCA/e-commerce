@@ -23,7 +23,7 @@
 
 from . import sale
 from . import sale_workflow_process
-from . import payment_method
 from . import automatic_workflow_job
 from . import invoice
-from . import stock
+from . import stock_picking
+from . import stock_move

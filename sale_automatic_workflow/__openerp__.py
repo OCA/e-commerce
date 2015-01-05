@@ -25,41 +25,15 @@
     'version': '0.2',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
-    'description': """
-Sale Automatic Workflow
-=======================
-
-Create workflows with more or less automatization and apply it on sales
-orders.
-
-A workflow can:
-
-- Apply default values:
-  * Packing Policy (partial, complete)
-  * Shipping Policy (prepaid, manual, postpaid, picking)
-  * Invoice On (ordered quantities, shipped quantities)
-  * Set the invoice's date to the sale order's date
-
-- Apply automatic actions:
-  * Validate the order (only if paid, always, never)
-  * Create an invoice
-  * Validate the invoice
-  * Confirm the picking
-
-This module is used by Magentoerpconnect and Prestashoperpconnect.
-It is well suited for other E-Commerce connectors as well.
-""",
     'author': 'Akretion,Camptocamp',
     'website': 'http://www.akretion.com/',
-    'depends': ['sale_payment_method',
-                'stock',
+    'depends': ['sale_stock',
                 ],
     'data': ['sale_view.xml',
              'sale_workflow.xml',
              'sale_workflow_process_view.xml',
-             'payment_method_view.xml',
              'automatic_workflow_data.xml',
              'security/ir.model.access.csv',
              ],
-    'installable': False,
+    'installable': True,
 }
