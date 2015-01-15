@@ -98,8 +98,7 @@ msgstr "Verkaufsauftrag muss vor Prüfung beglichen sein"
 #. module: sale_quick_payment
 #: model:sale.exception,description:sale_quick_payment.must_be_paid
 msgid "The sale order must be paid before the validation. Please fix it"
-msgstr ""
-"Verkaufsauftrag muss vor Prüfung beglichen sein. Beheben Sie dies bitte"
+msgstr "Verkaufsauftrag muss vor Prüfung beglichen sein. Beheben Sie dies bitte"
 
 #. module: sale_quick_payment
 #: code:_description:0
