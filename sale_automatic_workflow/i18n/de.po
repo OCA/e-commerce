@@ -72,8 +72,7 @@ msgstr "Zahlweise"
 #. module: sale_automatic_workflow
 #: help:sale.workflow.process,invoice_date_is_order_date:0
 msgid "When checked, the invoice date will be the same than the order's date"
-msgstr ""
-"Wenn aktiviert, wird das Rechnungsdatum mit dem Auftragsdatum übereinstimmen"
+msgstr "Wenn aktiviert, wird das Rechnungsdatum mit dem Auftragsdatum übereinstimmen"
 
 #. module: sale_automatic_workflow
 #: selection:sale.workflow.process,invoice_quantity:0
@@ -123,7 +122,7 @@ msgstr "Vor Auslieferung"
 #. module: sale_automatic_workflow
 #: model:ir.model,name:sale_automatic_workflow.model_automatic_workflow_job
 msgid "automatic.workflow.job"
-msgstr ""
+msgstr "automatic.workflow.job"
 
 #. module: sale_automatic_workflow
 #: selection:sale.workflow.process,create_invoice_on:0
@@ -138,7 +137,7 @@ msgstr "Liefervereinbarung"
 #. module: sale_automatic_workflow
 #: model:ir.model,name:sale_automatic_workflow.model_sale_workflow_process
 msgid "sale workflow process"
-msgstr ""
+msgstr "sale workflow process"
 
 #. module: sale_automatic_workflow
 #: model:ir.actions.act_window,name:sale_automatic_workflow.act_sale_workflow_process_form
@@ -146,7 +145,7 @@ msgstr ""
 #: view:sale.order:0
 #: view:sale.workflow.process:0
 msgid "Automatic Workflow"
-msgstr "Automatischer Workflow"
+msgstr "Automatische Prozesskette"
 
 #. module: sale_automatic_workflow
 #: model:ir.model,name:sale_automatic_workflow.model_sale_order
@@ -171,7 +170,7 @@ msgstr "Rechnung"
 #. module: sale_automatic_workflow
 #: selection:sale.workflow.process,picking_policy:0
 msgid "Deliver each product when available"
-msgstr "Verfügbare Produkte ausliefern"
+msgstr "Produkte sobald verfügbar ausliefern"
 
 #. module: sale_automatic_workflow
 #: field:account.invoice,sale_ids:0
@@ -187,6 +186,6 @@ msgstr "Lieferaufträge"
 #: field:account.invoice,workflow_process_id:0
 #: field:stock.picking,workflow_process_id:0
 msgid "Sale Workflow Process"
-msgstr "Verkaufs-Prozess"
+msgstr "Verkaufs-Prozesskette"
 
 
