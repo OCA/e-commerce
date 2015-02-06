@@ -79,7 +79,7 @@ class account_invoice(orm.Model):
             'total_amount_currency': 0,
         }
         for move_line in move_lines:
-            if move_line[line_type] > 0:
+            if move_line[line_type] > 0 and not move_line.reconcile_id:
                 if move_line.date > res['max_date']:
                     res['max_date'] = move_line.date
                 res['line_ids'].append(move_line.id)
@@ -111,6 +111,22 @@ class account_invoice(orm.Model):
             'context': ctx,
         }
 
+    def _lines_can_be_reconciled(self, cr, uid, line_ids, context=None):
+        if not line_ids:
+            return False
+        move_line_obj = self.pool['account.move.line']
+        lines = move_line_obj.browse(cr, uid, line_ids, context=context)
+        # Check that all partners and accounts are the same
+        first_partner_id = lines[0].partner_id.id
+        first_account_id = lines[0].account_id.id
+        for line in lines:
+            if (line.account_id.type in ('receivable', 'payable') and
+                    line.partner_id.id != first_partner_id):
+                return False
+            if line.account_id.id != first_account_id:
+                return False
+        return True
+
     def _reconcile_invoice(self, cr, uid, invoice, context=None):
         move_line_obj = self.pool.get('account.move.line')
         currency_obj = self.pool.get('res.currency')
@@ -128,6 +144,9 @@ class account_invoice(orm.Model):
                 cr, uid, invoice.move_id.line_id,
                 invoice.type, context=context)
             line_ids = res_invoice['line_ids'] + res_payment['line_ids']
+            if not self._lines_can_be_reconciled(cr, uid, line_ids,
+                                                 context=context):
+                return
             if not use_currency:
                 balance = abs(res_invoice['total_amount'] -
                               res_payment['total_amount'])
