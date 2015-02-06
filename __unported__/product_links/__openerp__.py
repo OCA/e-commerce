@@ -37,6 +37,7 @@ e-commerce (for instance, it is used in magentoerpconnect).
     """,
     'author': 'Camptocamp',
     'website': 'http://www.camptocamp.com',
+    'license': 'AGPL-3',
     'depends': ['product'],
     'data': [
         'security/ir.model.access.csv',
