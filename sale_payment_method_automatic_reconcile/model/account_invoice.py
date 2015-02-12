@@ -25,45 +25,49 @@ from openerp import models, api
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    def _get_payment(self, cr, uid, invoice, context=None):
-        if invoice.type == "out_invoice" and invoice.sale_ids:
-            return invoice.sale_ids[0].payment_ids
-        return []
+    @api.multi
+    @api.returns('account.move.line')
+    def _get_payment(self):
+        self.ensure_one()
+        if self.type == "out_invoice" and self.sale_ids:
+            return self.sale_ids[0].payment_ids
+        return self.env['account.move.line'].browse()
 
-    def _can_be_reconciled(self, cr, uid, invoice, context=None):
-        payments = self._get_payment(cr, uid, invoice, context=context)
-        if not (payments and invoice.move_id):
+    @api.multi
+    def _can_be_reconciled(self):
+        self.ensure_one()
+        payments = self._get_payment()
+        if not (payments and self.move_id):
             return False
         # Check currency
-        company_currency_id = invoice.company_id.currency_id.id
+        company_currency = self.company_id.currency_id
         for payment in payments:
-            currency_id = payment.currency_id.id or company_currency_id
-            if currency_id != invoice.currency_id.id:
+            currency = payment.currency_id or company_currency
+            if currency != self.currency_id:
                 return False
         return True
 
-    def _get_sum_invoice_move_line(self, cr, uid, move_lines,
-                                   invoice_type, context=None):
+    @api.model
+    def _get_sum_invoice_move_line(self, move_lines, invoice_type):
         if invoice_type in ['in_refund', 'out_invoice']:
             line_type = 'debit'
         else:
             line_type = 'credit'
-        return self._get_sum_move_line(cr, uid, move_lines,
-                                       line_type, context=None)
+        return self._get_sum_move_line(move_lines, line_type)
 
-    def _get_sum_payment_move_line(self, cr, uid, move_lines,
-                                   invoice_type, context=None):
+    @api.model
+    def _get_sum_payment_move_line(self, move_lines, invoice_type):
         if invoice_type in ['in_refund', 'out_invoice']:
             line_type = 'credit'
         else:
             line_type = 'debit'
-        return self._get_sum_move_line(cr, uid, move_lines,
-                                       line_type, context=None)
+        return self._get_sum_move_line(move_lines, line_type)
 
-    def _get_sum_move_line(self, cr, uid, move_lines, line_type, context=None):
+    @api.model
+    def _get_sum_move_line(self, move_lines, line_type):
         res = {
             'max_date': False,
-            'line_ids': [],
+            'lines': self.env['account.move.line'].browse(),
             'total_amount': 0,
             'total_amount_currency': 0,
         }
@@ -71,92 +75,80 @@ class AccountInvoice(models.Model):
             if move_line[line_type] > 0 and not move_line.reconcile_id:
                 if move_line.date > res['max_date']:
                     res['max_date'] = move_line.date
-                res['line_ids'].append(move_line.id)
+                res['lines'] += move_line
                 res['total_amount'] += move_line[line_type]
                 res['total_amount_currency'] += move_line.amount_currency
         return res
 
-    def _prepare_write_off(self, cr, uid, invoice, res_invoice, res_payment,
-                           context=None):
-        if context is None:
-            context = {}
-        ctx = context.copy()
+    @api.multi
+    def _prepare_write_off(self, res_invoice, res_payment):
+        self.ensure_one()
         if res_invoice['total_amount'] - res_payment['total_amount'] > 0:
             writeoff_type = 'expense'
         else:
             writeoff_type = 'income'
-        account_id, journal_id = invoice.company_id.\
-            get_write_off_information('exchange', writeoff_type,
-                                      context=context)
+        writeoff_info = self.company_id.get_write_off_information
+        account_id, journal_id = writeoff_info('exchange', writeoff_type)
         max_date = max(res_invoice['max_date'], res_payment['max_date'])
-        ctx['p_date'] = max_date
-        period_obj = self.pool.get('account.period')
-        period_id = period_obj.find(cr, uid, max_date, context=context)[0]
+        ctx_vals = {'p_date': max_date}
+        period_model = self.env['account.period'].with_context(**ctx_vals)
+        period = period_model.find(max_date)[0]
         return {
             'type': 'auto',
             'writeoff_acc_id': account_id,
-            'writeoff_period_id': period_id,
+            'writeoff_period_id': period.id,
             'writeoff_journal_id': journal_id,
-            'context': ctx,
+            'context_vals': ctx_vals,
         }
 
-    def _lines_can_be_reconciled(self, cr, uid, line_ids, context=None):
-        if not line_ids:
+    @api.multi
+    def _lines_can_be_reconciled(self, lines):
+        self.ensure_one()
+        if not lines:
             return False
-        move_line_obj = self.pool['account.move.line']
-        lines = move_line_obj.browse(cr, uid, line_ids, context=context)
         # Check that all partners and accounts are the same
-        first_partner_id = lines[0].partner_id.id
-        first_account_id = lines[0].account_id.id
+        first_partner = lines[0].partner_id
+        first_account = lines[0].account_id
         for line in lines:
             if (line.account_id.type in ('receivable', 'payable') and
-                    line.partner_id.id != first_partner_id):
+                    line.partner_id != first_partner):
                 return False
-            if line.account_id.id != first_account_id:
+            if line.account_id != first_account:
                 return False
         return True
 
-    def _reconcile_invoice(self, cr, uid, invoice, context=None):
-        move_line_obj = self.pool.get('account.move.line')
-        currency_obj = self.pool.get('res.currency')
-        is_zero = currency_obj.is_zero
-        company_currency_id = invoice.company_id.currency_id.id
-        currency = invoice.currency_id
-        use_currency = currency.id != company_currency_id
-        if self._can_be_reconciled(cr, uid, invoice, context=context):
-            payment_move_lines = []
-            payment_move_lines = self._get_payment(cr, uid, invoice,
-                                                   context=context)
-            res_payment = self._get_sum_payment_move_line(
-                cr, uid, payment_move_lines, invoice.type, context=context)
-            res_invoice = self._get_sum_invoice_move_line(
-                cr, uid, invoice.move_id.line_id,
-                invoice.type, context=context)
-            line_ids = res_invoice['line_ids'] + res_payment['line_ids']
-            if not self._lines_can_be_reconciled(cr, uid, line_ids,
-                                                 context=context):
+    @api.multi
+    def _reconcile_invoice(self):
+        self.ensure_one()
+        company_currency = self.company_id.currency_id
+        currency = self.currency_id
+        use_currency = currency != company_currency
+        if self._can_be_reconciled():
+            payment_move_lines = self._get_payment()
+            res_payment = self._get_sum_payment_move_line(payment_move_lines,
+                                                          self.type)
+            res_invoice = self._get_sum_invoice_move_line(self.move_id.line_id,
+                                                          self.type)
+            lines = res_invoice['line_ids'] + res_payment['line_ids']
+            if not self._lines_can_be_reconciled(lines):
                 return
             if not use_currency:
                 balance = abs(res_invoice['total_amount'] -
                               res_payment['total_amount'])
-                if line_ids and is_zero(cr, uid, currency, balance):
-                    move_line_obj.reconcile(cr, uid, line_ids, context=context)
+                if lines and currency.is_zero(balance):
+                    lines.reconcile()
             else:
                 balance = abs(res_invoice['total_amount_currency'] -
                               res_payment['total_amount_currency'])
-                if line_ids and is_zero(cr, uid, currency, balance):
-                    kwargs = self._prepare_write_off(cr, uid,
-                                                     invoice,
-                                                     res_invoice,
-                                                     res_payment,
-                                                     context=context)
-                    move_line_obj.reconcile(cr, uid, line_ids, **kwargs)
+                if lines and currency.is_zero(balance):
+                    kwargs = self._prepare_write_off(res_invoice, res_payment)
+                    ctx_vals = kwargs.pop('context_vals')
+                    lines.with_context(**ctx_vals).reconcile(**kwargs)
 
-    def reconcile_invoice(self, cr, uid, ids, context=None):
+    @api.multi
+    def reconcile_invoice(self):
         """ Simple method to reconcile the invoice with the payment
         generated on the sale order """
-        if not isinstance(ids, (list, tuple)):
-            ids = [ids]
-        for invoice in self.browse(cr, uid, ids, context=context):
-            self._reconcile_invoice(cr, uid, invoice, context=context)
+        for invoice in self:
+            invoice._reconcile_invoice()
         return True

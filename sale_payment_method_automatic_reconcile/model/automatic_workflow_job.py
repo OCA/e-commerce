@@ -23,23 +23,18 @@ from openerp import models, api
 from openerp.addons.sale_automatic_workflow import commit
 
 
-class automatic_workflow_job(models.Model):
+class AutomaticWorkflowJob(models.Model):
     _inherit = 'automatic.workflow.job'
 
-    def _reconcile_invoices(self, cr, uid, ids=None, context=None):
-        invoice_obj = self.pool.get('account.invoice')
-        if ids is None:
-            ids = invoice_obj.search(cr, uid,
-                                     [('state', 'in', ['open'])],
-                                     context=context)
-        for invoice_id in ids:
-            with commit(cr):
-                invoice_obj.reconcile_invoice(cr, uid,
-                                              [invoice_id],
-                                              context=context)
+    @api.model
+    def _reconcile_invoices(self):
+        invoice_model = self.env['account.invoice']
+        for invoice in invoice_model.search([('state', 'in', ['open'])]):
+            with commit(self.env.cr):
+                invoice_model.reconcile_invoice(invoice)
 
-    def run(self, cr, uid, ids=None, context=None):
-        res = super(automatic_workflow_job, self).run(cr, uid, ids,
-                                                      context=context)
-        self._reconcile_invoices(cr, uid, context=context)
+    @api.model
+    def run(self):
+        res = super(AutomaticWorkflowJob, self).run()
+        self._reconcile_invoices()
         return res
