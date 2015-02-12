@@ -18,13 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import models, fields
 
-from openerp.osv import orm, fields
 
-
-class account_move_line(orm.Model):
+class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    _columns = {
-        'sale_ids': fields.many2many('sale.order', string='Sales Orders'),
-    }
+    sale_ids = fields.Many2many('sale.order', string='Sales Orders')

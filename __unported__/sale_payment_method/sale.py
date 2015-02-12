@@ -20,13 +20,13 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields, osv
+from openerp import osv, api, models, fields
 from openerp.tools.translate import _
 from collections import Iterable
 import openerp.addons.decimal_precision as dp
 
 
-class sale_order(orm.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def _get_order_from_move(self, cr, uid, ids, context=None):
@@ -41,56 +41,52 @@ class sale_order(orm.Model):
         so_obj = self.pool.get('sale.order')
         return so_obj._get_order(cr, uid, ids, context=context)
 
-    def _get_amount(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for order in self.browse(cr, uid, ids, context=context):
-            # TODO add support when payment is linked to many order
-            paid_amount = 0
-            for line in order.payment_ids:
-                paid_amount += line.credit - line.debit
-            res[order.id] = {
-                'amount_paid': paid_amount,
-                'residual': order.amount_total - paid_amount,
-            }
-        return res
+    @api.one
+    @api.depends('amount_total', 'payment_ids.credit', 'payment_ids.debit')
+    def _get_amount(self):
+        paid_amount = 0
+        for line in self.payment_ids:
+            paid_amount += line.credit - line.debit
+        self.amount_paid = paid_amount
+        self.residual = self.amount_total - paid_amount
 
-    def _payment_exists(self, cursor, user, ids, name, arg, context=None):
-        res = {}
-        for sale in self.browse(cursor, user, ids, context=context):
-            res[sale.id] = bool(sale.payment_ids)
-        return res
+    @api.one
+    @api.depends('payment_ids')
+    def _payment_exists(self):
+        self.payment_exists = bool(self.payment_ids)
 
-    _columns = {
-        'payment_ids': fields.many2many('account.move.line',
-                                        string='Payments Entries'),
-        'payment_method_id': fields.many2one('payment.method',
-                                             'Payment Method',
-                                             ondelete='restrict'),
-        'residual': fields.function(
-            _get_amount,
-            digits_compute=dp.get_precision('Account'),
-            string='Balance',
-            store=False,
-            multi='payment'),
-        'amount_paid': fields.function(
-            _get_amount,
-            digits_compute=dp.get_precision('Account'),
-            string='Amount Paid',
-            store=False,
-            multi='payment'),
-        'payment_exists': fields.function(
-            _payment_exists,
-            string='Has automatic payment',
-            type='boolean',
-            help="It indicates that sales order has at least one payment."),
-    }
+    payment_ids = fields.Many2many(
+        'account.move.line',
+        string='Payments Entries')
 
-    def copy(self, cr, uid, id, default=None, context=None):
+    payment_method_id = fields.Many2one(
+        'payment.method',
+        'Payment Method',
+        ondelete='restrict')
+
+    residual = fields.Float(
+        compute=_get_amount,
+        digits_compute=dp.get_precision('Account'),
+        string='Balance',
+        store=False)
+
+    amount_paid = fields.Float(
+        compute=_get_amount,
+        digits_compute=dp.get_precision('Account'),
+        string='Amount Paid',
+        store=False)
+
+    payment_exists = fields.Boolean(
+        compute=_payment_exists,
+        string='Has automatic payment',
+        help="It indicates that sales order has at least one payment.")
+
+    @api.one
+    def copy(self, default=None):
         if default is None:
             default = {}
         default['payment_ids'] = False
-        return super(sale_order, self).copy(cr, uid, id,
-                                            default, context=context)
+        return super(SaleOrder, self).copy(default=default)
 
     def automatic_payment(self, cr, uid, ids, amount=None, context=None):
         """ Create the payment entries to pay a sale order, respecting
@@ -300,5 +296,5 @@ class sale_order(orm.Model):
                     _('Cannot cancel this sales order!'),
                     _('Automatic payment entries are linked '
                       'with the sale order.'))
-        return super(sale_order, self).action_cancel(cr, uid, ids,
-                                                     context=context)
+        return super(SaleOrder, self).action_cancel(
+            cr, uid, ids, context=context)

@@ -19,39 +19,32 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import models, api, fields
 
-from openerp.osv import fields, orm
 
-
-class payment_method(orm.Model):
+class PaymentMethod(models.Model):
     _name = "payment.method"
     _description = "Payment Method"
 
-    _columns = {
-        'name': fields.char('Name',
-                            help="The name of the method on the backend",
-                            required=True),
-        'journal_id': fields.many2one(
-            'account.journal',
-            'Journal',
-            help="If a journal a selected, when a payment is recorded "
-                 "on a backend, payment entries will be created in this "
-                 "journal. "),
-        'payment_term_id': fields.many2one(
-            'account.payment.term',
-            'Payment Term',
-            help="Default payment term of a sale order using this method."),
-        'company_id': fields.many2one(
-            'res.company',
-            'Company',
-        ),
-    }
+    @api.model
+    def _default_company_id(self):
+        company_model = self.env['res.company']
+        return company_model._company_default_get('payment.method')
 
-    def _default_company_id(self, cr, uid, context):
-        company_model = self.pool.get('res.company')
-        return company_model._company_default_get(cr, uid, 'payment.method',
-                                                  context=context)
+    name = fields.Char('Name', help="The name of the method on the backend")
+    journal_id = fields.Many2one(
+        'account.journal',
+        'Journal',
+        help="If a journal a selected, when a payment is recorded "
+        "on a backend, payment entries will be created in this "
+        "journal.")
+    payment_term_id = fields.Many2one(
+        'account.payment.term',
+        'Payment Term',
+        help="Default payment term of a sale order using this method.")
 
-    _defaults = {
-        'company_id': _default_company_id,
-    }
+    company_id = fields.Many2one(
+        'res.company',
+        'Company',
+        default=_default_company_id
+    )
