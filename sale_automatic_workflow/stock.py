@@ -35,9 +35,12 @@ class stock_picking(orm.Model):
                          context=None):
         # Read the correct journal for the shop company
         if not journal_id:
+            journal_type = 'sale'
+            if inv_type == 'out_refund':
+                journal_type = 'sale_refund'
             journal_ids = self.pool.get('account.journal').search(
                 cr, uid,
-                [('type', '=', 'sale'),
+                [('type', '=', journal_type),
                  ('company_id', '=', picking.sale_id.company_id.id)],
                 limit=1)
             journal_id = journal_ids and journal_ids[0] or journal_id
