@@ -151,8 +151,7 @@ class automatic_workflow_job(orm.Model):
             cr, uid,
             [('state', 'in', ['done']),
              ('workflow_process_id.create_invoice_on', '=', 'on_picking_done'),
-             ('invoice_state', '=', '2binvoiced'),
-             ('type', '=', 'out')],
+             ('invoice_state', '=', '2binvoiced')],
             context=context)
         _logger.debug('Pickings to invoice: %s', picking_ids)
         if picking_ids:
@@ -162,9 +161,18 @@ class automatic_workflow_job(orm.Model):
                         context = dict(context,
                                 force_company=picking.sale_id.company_id.id,
                                 company_id=picking.sale_id.company_id.id)
-                    picking_obj.action_invoice_create(cr, uid,
+                    if picking.type=='out':
+                        picking_obj.action_invoice_create(cr, uid,
                                                   [picking.id,],
+                                                  type='out_invoice',
                                                   context=context)
+                    elif picking.type=='in':
+                        # Will be refund as this workflow does not apply to the supplier side
+                        picking_obj.action_invoice_create(cr, uid,
+                                                  [picking.id,],
+                                                  type='out_refund',
+                                                  context=context)
+                        
 
     def run(self, cr, uid, ids=None, context=None):
         """ Must be called from ir.cron """
