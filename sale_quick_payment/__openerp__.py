@@ -41,7 +41,7 @@ reconciled with the payment.
 This module was originally designed for the e-commerce sector, but it
 does not preclude to use it in other sectors.
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': ['sale_payment_method',
                 'sale_exceptions',

@@ -49,7 +49,7 @@ A workflow can:
 This module is used by Magentoerpconnect and Prestashoperpconnect.
 It is well suited for other E-Commerce connectors as well.
 """,
-    'author': 'Akretion,Camptocamp',
+    'author': "Akretion,Camptocamp,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': ['sale_payment_method',
                 'stock',
