@@ -21,7 +21,7 @@
 
 {'name': 'Sale Payment Method - Transaction ID Compatibility',
  'version': '1.0',
- 'author': 'Camptocamp',
+ 'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
  'license': 'AGPL-3',
  'category': 'Hidden',

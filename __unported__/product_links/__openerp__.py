@@ -35,7 +35,7 @@ These types of links are common in e-commerce shops.
 It can be used as a base to implement synchronisations with
 e-commerce (for instance, it is used in magentoerpconnect).
     """,
-    'author': 'Camptocamp',
+    'author': "Camptocamp,Odoo Community Association (OCA)",
     'website': 'http://www.camptocamp.com',
     'license': 'AGPL-3',
     'depends': ['product'],

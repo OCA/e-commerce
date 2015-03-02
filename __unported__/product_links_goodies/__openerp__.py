@@ -28,7 +28,7 @@
     'description': """
         Module that add the type of link goodies (free product)
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': ['product_links', 'purchase'], 
     'init_xml': [],
