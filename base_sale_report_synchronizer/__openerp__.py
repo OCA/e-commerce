@@ -30,7 +30,7 @@
         Abstract module to syncronize invoice and refund
         report with external e-commerce system
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': [
         'base_sale_multichannels',

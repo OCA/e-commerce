@@ -28,7 +28,7 @@
     'license': 'AGPL-3',
     'description': """This module contains a wizard to export one or several products "manually" to an external shop such as a Magento shop, a PrestaShop boutique, Amazon or eBay.
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com',
     'depends': ['base_sale_multichannels'],
     'init_xml': [],

@@ -30,7 +30,7 @@
         This module is used in magentoerpconnect and will be use soon in other e-commmerce
         connector.
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': ['base_sale_export_product', 'product_links'], 
     'init_xml': [],

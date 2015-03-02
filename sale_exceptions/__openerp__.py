@@ -31,7 +31,7 @@
 This module allows you attach several customizable exceptions to your sale order in a way that you can filter orders by exceptions type and fix them.
 This is especially useful in an order importation scenario such as with the base_sale_multi_channels module, because it's likely a few orders have errors when you import them (like product not found in OpenERP, wrong line format etc...)
 """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com',
     'depends': [
         'sale',

@@ -33,7 +33,7 @@
     the payment.
     This module was design for e-commerce sector.
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': [
         'sale',

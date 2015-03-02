@@ -47,7 +47,7 @@ For each sale shop (matching OpenERP sale.shop object), this module abstract the
 * import orders
 * export orders/picking status
     """,
-    'author': 'Akretion, Sharoon Thomas (Openlabs.co.in)',
+    'author': "Akretion, Sharoon Thomas (Openlabs.co.in),Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com',
     'depends': [
         'sale_automatic_workflow',

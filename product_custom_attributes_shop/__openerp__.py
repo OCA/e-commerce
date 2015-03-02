@@ -33,7 +33,7 @@
     description per product (ranking problem). This that module you will be able
     to add in the shop tab of the product a description per shop.
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': [
         'base_sale_multichannels',

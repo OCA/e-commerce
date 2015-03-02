@@ -31,7 +31,7 @@
         between OpenERP and externals referentials such as a Magento e-commerce,
         a PrestaShop e-commerce, etc...
     """,
-    'author': 'Akretion',
+    'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com',
     'depends': [
         'product_images_olbs',
