@@ -54,24 +54,29 @@ class account_invoice(orm.Model):
         return True
 
     def _get_sum_invoice_move_line(self, cr, uid, move_lines,
-                                   invoice_type, context=None):
+                                   invoice_account_id, invoice_type,
+                                   context=None):
         if invoice_type in ['in_refund', 'out_invoice']:
             line_type = 'debit'
         else:
             line_type = 'credit'
         return self._get_sum_move_line(cr, uid, move_lines,
-                                       line_type, context=None)
+                                       invoice_account_id, line_type,
+                                       context=None)
 
     def _get_sum_payment_move_line(self, cr, uid, move_lines,
-                                   invoice_type, context=None):
+                                   invoice_account_id, invoice_type,
+                                   context=None):
         if invoice_type in ['in_refund', 'out_invoice']:
             line_type = 'credit'
         else:
             line_type = 'debit'
         return self._get_sum_move_line(cr, uid, move_lines,
-                                       line_type, context=None)
+                                       invoice_account_id, line_type,
+                                       context=None)
 
-    def _get_sum_move_line(self, cr, uid, move_lines, line_type, context=None):
+    def _get_sum_move_line(self, cr, uid, move_lines, invoice_account_id,
+                           line_type, context=None):
         res = {
             'max_date': False,
             'line_ids': [],
@@ -79,7 +84,8 @@ class account_invoice(orm.Model):
             'total_amount_currency': 0,
         }
         for move_line in move_lines:
-            if move_line[line_type] > 0 and not move_line.reconcile_id:
+            if (move_line[line_type] > 0 and not move_line.reconcile_id
+                    and move_line.account_id.id == invoice_account_id):
                 if move_line.date > res['max_date']:
                     res['max_date'] = move_line.date
                 res['line_ids'].append(move_line.id)
@@ -134,15 +140,17 @@ class account_invoice(orm.Model):
         company_currency_id = invoice.company_id.currency_id.id
         currency = invoice.currency_id
         use_currency = currency.id != company_currency_id
+        invoice_account_id = invoice.account_id.id
         if self._can_be_reconciled(cr, uid, invoice, context=context):
             payment_move_lines = []
             payment_move_lines = self._get_payment(cr, uid, invoice,
                                                    context=context)
             res_payment = self._get_sum_payment_move_line(
-                cr, uid, payment_move_lines, invoice.type, context=context)
+                cr, uid, payment_move_lines,
+                invoice_account_id, invoice.type, context=context)
             res_invoice = self._get_sum_invoice_move_line(
                 cr, uid, invoice.move_id.line_id,
-                invoice.type, context=context)
+                invoice_account_id, invoice.type, context=context)
             line_ids = res_invoice['line_ids'] + res_payment['line_ids']
             if not self._lines_can_be_reconciled(cr, uid, line_ids,
                                                  context=context):
