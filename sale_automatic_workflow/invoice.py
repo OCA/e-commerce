@@ -84,8 +84,8 @@ class account_invoice(orm.Model):
             'total_amount_currency': 0,
         }
         for move_line in move_lines:
-            if (move_line[line_type] > 0 and not move_line.reconcile_id
-                    and move_line.account_id.id == invoice_account_id):
+            if (move_line[line_type] > 0 and not move_line.reconcile_id and
+                    move_line.account_id.id == invoice_account_id):
                 if move_line.date > res['max_date']:
                     res['max_date'] = move_line.date
                 res['line_ids'].append(move_line.id)
