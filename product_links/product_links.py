@@ -26,13 +26,13 @@ class ProductLink(models.Model):
     _rec_name = 'linked_product_id'
 
     product_id = fields.Many2one(
-        comodel_name='product.template',
-        string='Soruce Product',
+        comodel_name='product.product',
+        string='Source Product',
         required=True,
         ondelete='cascade',
         default=lambda self: self.env.context.get('product_id', False))
     linked_product_id = fields.Many2one(
-        comodel_name='product.template',
+        comodel_name='product.product',
         string='Linked product',
         required=True,
         ondelete='cascade')
@@ -43,11 +43,11 @@ class ProductLink(models.Model):
             ('related', 'Related')],
         string='Link type',
         required=True)
-    is_active = fields.Boolean('Active', defalut=True)
+    is_active = fields.Boolean('Active', default=True)
 
 
 class Product(models.Model):
-    _inherit = 'product.template'
+    _inherit = 'product.product'
 
     product_link_ids = fields.One2many(
         comodel_name='product.link',
