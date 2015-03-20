@@ -20,6 +20,7 @@ Contributors
 ------------
 
 * Qing Wang <wang.qing@elico-corp.com>
+* Guewen Baconnier <guewen.baconnier@camptocamp.com>
 
 Maintainer
 ----------
