@@ -1,0 +1,6 @@
+===================================================================
+Maintaining the changelog of the module for each commit.
+===================================================================
+
+1.0 : Vimesh Chaudhari - Serpent Consulting Services Pvt Ltd.
+	* Added the module.
