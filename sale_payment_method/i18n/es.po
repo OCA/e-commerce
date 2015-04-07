@@ -22,7 +22,7 @@ msgstr "Información Automática"
 
 #. module: sale_payment_method
 #: help:payment.method,journal_id:0
-msgid "If a journal a selected, when a payment is recorded on a backend, payment entries will be created in this journal. "
+msgid "If a journal is selected, when a payment is recorded on a backend, payment entries will be created in this journal. "
 msgstr "Si un diario es sleccionado, cuando un pago es registrado en el backend, las entradas de los pagos serán creadas en ese diario"
 
 #. module: sale_payment_method
@@ -47,11 +47,6 @@ msgstr "Método de pago"
 #: view:sale.order:0
 msgid "View Automatic Payment"
 msgstr "Ver Pago Automático"
-
-#. module: sale_payment_method
-#: help:sale.order,payment_exists:0
-msgid "It indicates that sales order has at least one payment."
-msgstr "Esto indica que el pedido de venta tiene al menos un pago."
 
 #. module: sale_payment_method
 #: field:payment.method,journal_id:0
