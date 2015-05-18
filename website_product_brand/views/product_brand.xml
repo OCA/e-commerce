@@ -47,13 +47,23 @@
         </t>
     </template>
 
+    <template id="website_sale.categories_recursive" name="Category list">
+        <li t-att-class="'active' if c.id == int(category or 0) else ''">
+            <a t-att-href="keep('/shop/category/' + slug(c), category=0, brand=brand)" t-field="c.name"/>
+            <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
+                <t t-foreach="c.child_id" t-as="c">
+                    <t t-call="website_sale.categories_recursive"/></t>
+            </ul>
+        </li>
+    </template>
+
     <!-- Menu in website for Brand -->
     <record id="menu_website_sale_shop" model="website.menu">
         <field name="name">Shop All</field>
         <field name="url">/shop</field>
         <field name="parent_id" ref="website_sale.menu_shop" />
     </record>
-    
+
     <record id="menu_website_sale_brand" model="website.menu">
         <field name="name">Shop by Brand</field>
         <field name="url">/page/product_brands</field>

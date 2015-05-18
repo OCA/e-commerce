@@ -2,7 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2012-Today Serpent Consulting Services Pvt. Ltd. (<http://www.serpentcs.com>)
+#    Copyright (C) 2012-Today Serpent Consulting Services Pvt. Ltd.
+#                                     (<http://www.serpentcs.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -27,10 +28,15 @@
     'summary': '',
     'version': '1.0',
     'description': """
-Allows to use product brands as filtering for products in website.\n
-This Module depends on product_brand module -https://github.com/OCA/product-attribute/tree/8.0/product_brand\n
-The blog here explains the HOWTO : http://www.serpentcs.com/serpentcs-odoo-ecommerce-shop-brands-contribution
-The Youtube Video is here : https://www.youtube.com/watch?feature=player_embedded&v=LkV5umivylw
+Product Brand Filtering in Website
+==================================
+Allows to use product brands as filtering for products in website.
+This Module depends on product_brand module :
+->https://github.com/OCA/product-attribute/tree/8.0/product_brand
+The blog here explains the HOWTO :
+http://www.serpentcs.com/serpentcs-odoo-ecommerce-shop-brands-contribution
+The Youtube Video is here :
+https://www.youtube.com/watch?feature=player_embedded&v=LkV5umivylw
 
         """,
     'depends': ['product_brand','website_sale'],
@@ -41,5 +47,3 @@ The Youtube Video is here : https://www.youtube.com/watch?feature=player_embedde
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:tabstop=4:softtabstop=4:shiftwidth=4:
