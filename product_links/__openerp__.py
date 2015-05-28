@@ -21,7 +21,7 @@
 
 {
     'name': 'Product Links',
-    'version': '7.0.0',
+    'version': '1.0',
     'category': 'Generic Modules',
     'description': """
 This module adds links between products:
@@ -43,6 +43,6 @@ e-commerce (for instance, it is used in magentoerpconnect).
         'security/ir.model.access.csv',
         'product_links_view.xml'
     ],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
