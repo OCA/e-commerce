@@ -32,10 +32,6 @@ class ProductLink(models.Model):
                 ('up_sell', 'Up-Sell'),
                 ('related', 'Related')]
 
-    @api.model
-    def _get_link_type_selection(self):
-        return self.get_link_type_selection()
-
     product_id = fields.Many2one(
         comodel_name='product.product',
         string='Source Product',
@@ -48,7 +44,7 @@ class ProductLink(models.Model):
         required=True,
         ondelete='cascade')
     type = fields.Selection(
-        selection='_get_link_type_selection',
+        selection='get_link_type_selection',
         string='Link type',
         required=True)
     is_active = fields.Boolean('Active', default=True)
