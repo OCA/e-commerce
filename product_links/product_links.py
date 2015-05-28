@@ -18,12 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class ProductLink(models.Model):
     _name = 'product.link'
     _rec_name = 'linked_product_id'
+
+    @api.model
+    def get_link_type_selection(self):
+        # selection can be inherited and extended
+        return [('cross_sell', 'Cross-Sell'),
+                ('up_sell', 'Up-Sell'),
+                ('related', 'Related')]
+
+    @api.model
+    def _get_link_type_selection(self):
+        return self.get_link_type_selection()
 
     product_id = fields.Many2one(
         comodel_name='product.product',
@@ -37,10 +48,7 @@ class ProductLink(models.Model):
         required=True,
         ondelete='cascade')
     type = fields.Selection(
-        selection=[
-            ('cross_sell', 'Cross-Sell'),
-            ('up_sell', 'Up-Sell'),
-            ('related', 'Related')],
+        selection='_get_link_type_selection',
         string='Link type',
         required=True)
     is_active = fields.Boolean('Active', default=True)

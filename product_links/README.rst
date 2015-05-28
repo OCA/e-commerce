@@ -1,5 +1,5 @@
-a module adds links between products
-===========================================
+Product Links
+=============
 
 This module adds links between products:
 
