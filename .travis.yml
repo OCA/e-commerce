@@ -24,6 +24,7 @@ install:
   - travis_install_nightly
   - git clone https://github.com/OCA/sale-workflow $HOME/sale-workflow -b 7.0
   - git clone https://github.com/OCA/bank-statement-reconcile $HOME/bank-statement-reconcile -b 7.0
+  - git clone https://github.com/OCA/stock-logistics-warehouse $HOME/stock-logistics-warehouse -b 7.0
 
 script:
   - travis_run_flake8
