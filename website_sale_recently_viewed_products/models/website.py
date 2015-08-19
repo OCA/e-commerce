@@ -1,5 +1,6 @@
-from openerp import api, fields, models
+from openerp import api, models
 from openerp.http import request
+
 
 class Website(models.Model):
     _inherit = 'website'

@@ -3,7 +3,8 @@ Recently Viewed Products
 ========================
 
 Let the users keep track of the products they saw on the ecommerce.
-Works for both authenticated and anonymous users, it works using sessions.
+Uses the session id as a key to store the product history, so it works
+for both authenticated and anonymous users
 
 Usage
 =====
@@ -21,7 +22,7 @@ TODO / Roadmap
 * Configurable options like number of shown results
 * Counter near the 'My Products' link, like the cart counter
 * Save product views for user if logged in so that they remain saved
-cross-session.
+  cross-session.
 * Backend view of the records and analytics (probably better to split this
   in another module)
 

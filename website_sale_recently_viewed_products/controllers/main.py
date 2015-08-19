@@ -24,7 +24,7 @@ class WebsiteSale(website_sale):
                                                 search, **kwargs)
 
     @http.route(['/shop/recent'], type='http', auth='public', website=True)
-    def history(self, **kwargs):
+    def recent(self, **kwargs):
         records = request.env['website.sale.product.view'].search(
             [('sessionid', '=', request.session.sid)], limit=10)
         values = {'history': records}
