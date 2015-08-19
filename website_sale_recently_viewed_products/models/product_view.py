@@ -32,10 +32,16 @@ class ProductHistory(models.Model):
         days = timedifference.days
         # string concatenation and explicit singular/plural
         # to make life easier for translators
-        if days > 1: return str(days) + ' ' + _('days ago')
-        elif days == 1: return str(days) + ' ' + _('Yesterday')
-        elif hours > 1: return str(hours) + ' ' + _('hours ago')
-        elif hours == 1: return str(hours) + ' ' + _('hour ago')
-        elif minutes > 1: return str(minutes) + ' ' + _('minutes ago')
-        elif minutes == 1: return str(minutes) + ' ' + _('minute ago')
+        if days > 1:
+            return str(days) + ' ' + _('days ago')
+        elif days == 1:
+            return str(days) + ' ' + _('Yesterday')
+        elif hours > 1:
+            return str(hours) + ' ' + _('hours ago')
+        elif hours == 1:
+            return str(hours) + ' ' + _('hour ago')
+        elif minutes > 1:
+            return str(minutes) + ' ' + _('minutes ago')
+        elif minutes == 1:
+            return str(minutes) + ' ' + _('minute ago')
         return _('Less than a minute ago')
