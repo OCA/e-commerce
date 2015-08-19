@@ -1,0 +1,49 @@
+========================
+Recently Viewed Products
+========================
+
+Let the users keep track of the products they saw on the ecommerce.
+Works for both authenticated and anonymous users, it works using sessions.
+
+Usage
+=====
+
+Open some products pages on the e-commerce, then hover or click on
+'My Products' in the top menu. You should see a page or a popover (click
+vs hover) with your last product views.
+
+TODO / Roadmap
+==============
+
+* 'Add to cart' button near viewed products not already in the cart
+* Translations
+* Tests
+* Configurable options like number of shown results
+* Counter near the 'My Products' link, like the cart counter
+* Save product views for user if logged in so that they remain saved
+cross-session.
+* Backend view of the records and analytics (probably better to split this
+  in another module)
+
+Credits
+=======
+
+Contributors
+------------
+
+* Leonardo Donelli <donelli@webmonks.it>
+
+Maintainer
+----------
+
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
+
+This module is maintained by the OCA.
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
+
+To contribute to this module, please visit http://odoo-community.org.
