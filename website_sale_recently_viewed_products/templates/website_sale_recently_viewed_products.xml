@@ -6,7 +6,11 @@
     <t t-call="website.layout">
       <div class="container oe_website_sale">
         <h1>Recently viewed products</h1>
-        <t t-call="website_sale_recently_viewed_products.table"/>
+        <t t-if="history" t-call="website_sale_recently_viewed_products.table"/>
+        <t t-if="not history">
+          <strong>Seems like you haven't viewed any of our products yet!</strong>
+          <br/>Go to our <a href="/shop">shop</a> to see our catalogue.
+        </t>
       </div>
     </t>
   </template>
