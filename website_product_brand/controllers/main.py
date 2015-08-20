@@ -26,18 +26,19 @@ from openerp.http import request
 import openerp.addons.website_sale.controllers.main
 from openerp import SUPERUSER_ID
 from openerp.addons.website.models.website import slug
-from openerp.addons.website_sale.controllers.main import table_compute,QueryURL
-
+from openerp.addons.website_sale.controllers.main import table_compute
+from openerp.addons.website_sale.controllers.main import QueryURL
 PPG = 20
 PPR = 4
 
 
-class website_sale(openerp.addons.website_sale.controllers.main.website_sale):
+class WebsiteSale(openerp.addons.website_sale.controllers.main.website_sale):
 
     @http.route(['/shop',
                  '/shop/page/<int:page>',
                  '/shop/category/<model("product.public.category"):category>',
-                 '/shop/category/<model("product.public.category"):category>/page/<int:page>',
+                 """/shop/category/<model("product.public.category"):category>
+                 /page/<int:page>""",
                  '/shop/brands'],
                 type='http',
                 auth='public',
@@ -171,6 +172,10 @@ class website_sale(openerp.addons.website_sale.controllers.main.website_sale):
             to_currency,
             price,
             context=context)
+        style_in_product = lambda style, product: style.id in [
+            s.id for s in product.website_style_ids]
+        attrib_encode = lambda attribs: werkzeug.url_encode(
+            [('attrib', i) for i in attribs])
         values.update({'search': search,
                        'category': category,
                        'attrib_values': attrib_values,
@@ -185,10 +190,8 @@ class website_sale(openerp.addons.website_sale.controllers.main.website_sale):
                        'attributes': attributes,
                        'compute_currency': compute_currency,
                        'keep': keep,
-                       'style_in_product': lambda style,
-                       product: style.id in [s.id for s in product.website_style_ids],
-                       'attrib_encode': lambda attribs: werkzeug.url_encode([('attrib',
-                                                                              i) for i in attribs])})
+                       'style_in_product': style_in_product,
+                       'attrib_encode': attrib_encode})
         return request.website.render('website_sale.products', values)
 
     # Method to get the brands.
@@ -202,13 +205,13 @@ class website_sale(openerp.addons.website_sale.controllers.main.website_sale):
                              request.context,
                              request.registry)
         brand_values = []
-        brand_obj = pool['product.brand']
+        b_obj = pool['product.brand']
         domain = []
         if post.get('search'):
             domain += [('name', 'ilike', post.get('search'))]
-        brand_ids = brand_obj.search(cr, SUPERUSER_ID, domain)
-        for brand_rec in brand_obj.browse(cr, SUPERUSER_ID, brand_ids, context=context):
-            brand_values.append(brand_rec)
+        brand_ids = b_obj.search(cr, SUPERUSER_ID, domain)
+        for rec in b_obj.browse(cr, SUPERUSER_ID, brand_ids, context=context):
+            brand_values.append(rec)
 
         keep = QueryURL('/page/product_brands', brand_id=[])
         values = {'brand_rec': brand_values,

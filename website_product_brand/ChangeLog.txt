@@ -1,6 +1,0 @@
-===================================================================
-Maintaining the changelog of the module for each commit.
-===================================================================
-
-1.0 : Serpent Consulting Services Pvt Ltd.
-	* Added the module.
