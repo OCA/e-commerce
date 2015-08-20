@@ -42,7 +42,7 @@ class WebsiteSale(website_sale):
         if brand:
             request.context.setdefault('brand_id', int(brand))
         result = super(WebsiteSale, self).shop(page=page, category=category,
-                                               brand=brand,search=search,
+                                               brand=brand, search=search,
                                                **post)
         result.qcontext['brand'] = brand
         return result
