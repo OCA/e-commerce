@@ -20,5 +20,17 @@
 #
 ##############################################################################
 
-from . import controllers
-from . import models
+from openerp import api
+from openerp.osv import orm
+from openerp.addons.web.http import request
+
+class website(orm.Model):
+    _inherit = 'website'
+
+    @api.multi
+    def sale_product_domain(self):
+        domain = super(website, self).sale_product_domain()
+        if 'brand_id' in request.env.context:
+            domain.append(
+                ('product_brand_id', '=', request.env.context['brand_id']))
+        return domain
