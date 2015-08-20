@@ -28,18 +28,6 @@
     'website': 'http://www.serpentcs.com',
     'summary': '',
     'version': '1.0',
-    'description': """
-Product Brand Filtering in Website
-==================================
-Allows to use product brands as filtering for products in website.
-This Module depends on product_brand module :
-->https://github.com/OCA/product-attribute/tree/8.0/product_brand
-The blog here explains the HOWTO :
-http://www.serpentcs.com/serpentcs-odoo-ecommerce-shop-brands-contribution
-The Youtube Video is here :
-https://www.youtube.com/watch?feature=player_embedded&v=LkV5umivylw
-
-        """,
     'depends': [
         'product_brand',
         'website_sale'

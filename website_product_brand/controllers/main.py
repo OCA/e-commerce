@@ -23,16 +23,15 @@
 import werkzeug
 from openerp import http
 from openerp.http import request
-import openerp.addons.website_sale.controllers.main
 from openerp import SUPERUSER_ID
 from openerp.addons.website.models.website import slug
 from openerp.addons.website_sale.controllers.main import table_compute
-from openerp.addons.website_sale.controllers.main import QueryURL
+from openerp.addons.website_sale.controllers.main import QueryURL,website_sale
 PPG = 20
 PPR = 4
 
 
-class WebsiteSale(openerp.addons.website_sale.controllers.main.website_sale):
+class WebsiteSale(website_sale):
 
     @http.route(['/shop',
                  '/shop/page/<int:page>',
