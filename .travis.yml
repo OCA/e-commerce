@@ -8,6 +8,14 @@ addons:
       - python-lxml # because pip installation is slow
 
 language: python
+
+addons:
+  apt:
+    sources:
+       - pov-wkhtmltopdf
+    packages:
+       - wkhtmltopdf
+
 python:
   - "2.7"
 
@@ -18,6 +26,10 @@ env:
 
 virtualenv:
   system_site_packages: true
+
+before_install:
+ - "export DISPLAY=:99.0"
+ - "sh -e /etc/init.d/xvfb start"
 
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
