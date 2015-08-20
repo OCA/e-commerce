@@ -8,7 +8,7 @@ $(document).ready(function() {
         animation: true,
         html: true,
         title: function () {
-            return _t("My Products");
+            return _t("Recent Products");
         },
         container: 'body',
         placement: 'auto',

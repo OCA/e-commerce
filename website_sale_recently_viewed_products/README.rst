@@ -10,11 +10,15 @@ Usage
 =====
 
 Open some products pages on the e-commerce, then hover or click on
-'My Products' in the top menu. You should see a page or a popover (click
-vs hover) with your last product views.
+'Recent Products' in the top menu. You should see a page or a popover (click
+vs hover) with your last viewed products.
 
-TODO / Roadmap
-==============
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot//{branch}
+
+Known Issues / Roadmap
+======================
 
 * 'Add to cart' button near viewed products not already in the cart
 * Translations

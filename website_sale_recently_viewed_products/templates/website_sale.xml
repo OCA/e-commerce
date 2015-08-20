@@ -8,7 +8,7 @@
       <li t-if="website.recently_viewed_products()">
         <a href="/shop/recent">
           <i class="fa fa-history"></i>
-          My Products
+          Recent Products
         </a>
       </li>
     </xpath>
