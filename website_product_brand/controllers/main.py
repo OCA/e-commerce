@@ -23,7 +23,8 @@
 from openerp import http
 from openerp.http import request
 from openerp import SUPERUSER_ID
-from openerp.addons.website_sale.controllers.main import QueryURL,website_sale
+from openerp.addons.website_sale.controllers.main import QueryURL
+from openerp.addons.website_sale.controllers.main import website_sale
 
 
 class WebsiteSale(website_sale):
@@ -40,9 +41,9 @@ class WebsiteSale(website_sale):
     def shop(self, page=0, category=None, brand=None, search='', **post):
         if brand:
             request.context.setdefault('brand_id', int(brand))
-        result = super(WebsiteSale, self).shop(
-                       page=page, category=category,
-                       brand=brand,search=search, **post)
+        result = super(WebsiteSale, self).shop(page=page, category=category,
+                                               brand=brand,search=search,
+                                               **post)
         result.qcontext['brand'] = brand
         return result
 
