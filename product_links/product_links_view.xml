@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="product_link_form">
             <field name="name">product.link.form</field>
             <field name="model">product.link</field>
             <field name="arch" type="xml">
                 <form string="Product Links">
-                    <field name="product_id"
-                        invisible="not context.get('product_link_main_view')"
-                        select="1"/>
-                    <field name="is_active" select="1" />
-                    <field name="linked_product_id" select="1" />
-                    <field name="type" select="1" />
+                    <group>
+                        <field name="product_id"
+                            invisible="not context.get('product_link_main_view')"
+                            select="1"/>
+                        <field name="is_active" select="1" />
+                        <field name="linked_product_id" select="1" />
+                        <field name="type" select="1" />
+                    </group>
                 </form>
             </field>
         </record>
@@ -57,6 +58,5 @@
             parent="base.menu_product"
             action="product_link_action"
             sequence="100"/>
-
     </data>
 </openerp>

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Guewen Baconnier
-#    Copyright 2013 Camptocamp SA
+#    Copyright 2015 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,12 +19,18 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
-
-
-class account_move_line(orm.Model):
-    _inherit = 'account.move.line'
-
-    _columns = {
-        'sale_ids': fields.many2many('sale.order', string='Sales Orders'),
-    }
+{'name': 'Sale Payment Method - Automatic Worflow (link module)',
+ 'version': '1.0',
+ 'author': 'Camptocamp,Akretion,Odoo Community Association (OCA)',
+ 'license': 'AGPL-3',
+ 'category': 'Generic Modules/Others',
+ 'depends': ['sale_payment_method',
+             'sale_automatic_workflow'],
+ 'website': 'http://www.camptocamp.com',
+ 'data': ['view/sale_order_view.xml',
+          'view/payment_method_view.xml',
+          ],
+ 'test': [],
+ 'installable': True,
+ 'auto_install': True,
+ }
