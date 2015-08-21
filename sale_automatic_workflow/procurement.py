@@ -25,7 +25,7 @@ from openerp import models, fields
 
 
 class ProcurementGroup(models.Model):
-    _inherit="procurement.group"
+    _inherit = "procurement.group"
 
     workflow_process_id = fields.Many2one(
         'sale.workflow.process',

@@ -27,6 +27,7 @@ class StockPicking(models.Model):
 
     workflow_process_id = fields.Many2one(comodel_name='sale.workflow.process',
                                           string='Sale Workflow Process')
+
     @api.model
     def _prepare_picking_assign(self, move):
         res = super(StockPicking, self)._prepare_picking_assign(move)
