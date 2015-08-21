@@ -39,6 +39,7 @@ You can find the original implementation by @JKE-be here__.
 Contributors
 ------------
 
+* Odoo SA <https://www.odoo.com>
 * Leonardo Donelli <donelli@webmonks.it>
 
 Maintainer
