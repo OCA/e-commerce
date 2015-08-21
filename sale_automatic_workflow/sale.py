@@ -40,12 +40,12 @@ class sale_order(models.Model):
             invoice_vals['date_invoice'] = order.date_order
         return invoice_vals
 
-    def _prepare_order_picking(self, cr, uid, order, context=None):
-        picking_vals = super(sale_order, self)._prepare_order_picking(
-            cr, uid, order, context=context)
+    @api.model
+    def _prepare_procurement_group(self, order):
+        res = super(sale_order, self)._prepare_procurement_group(order)
         if order.workflow_process_id:
-            picking_vals['workflow_process_id'] = order.workflow_process_id.id
-        return picking_vals
+            res['workflow_process_id'] = order.workflow_process_id.id
+        return res
 
     @api.onchange('workflow_process_id')
     def onchange_workflow_process_id(self):

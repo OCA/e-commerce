@@ -104,7 +104,7 @@ class AutomaticWorkflowJob(models.Model):
     def _validate_pickings(self):
         picking_obj = self.env['stock.picking']
         pickings = picking_obj.search(
-            [('state', 'in', ['draft', 'confirmed', 'assigned']),
+            [('state', 'in', ['draft', 'waiting', 'confirmed', 'assigned']),
              ('workflow_process_id.validate_picking', '=', True)],
         )
         _logger.debug('Pickings to validate: %s', pickings)

@@ -27,3 +27,4 @@ from . import automatic_workflow_job
 from . import invoice
 from . import stock_picking
 from . import stock_move
+from . import procurement
