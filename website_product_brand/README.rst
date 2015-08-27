@@ -1,11 +1,12 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
+=====================
 Website Product Brand
-==================================
+=====================
 
 Description
------------
+===========
 
 This module was written to extend the functionality of product filtering on website.
 It will allow you to filter product based on its brand.
@@ -19,7 +20,7 @@ extent and by providing basic search by brands, thus reducing end-user’s effor
 searching the products he/she wants to purchase.
 
 Usage
-------------
+=====
 
 To use this module, you need to:
 

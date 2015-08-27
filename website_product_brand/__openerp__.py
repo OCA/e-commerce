@@ -23,11 +23,10 @@
 {
     'name': 'Product Brand Filtering in Website',
     'category': 'e-commerce',
-    'author': """Serpent Consulting Services Pvt. Ltd.,
-                 Odoo Community Association (OCA)""",
+    'author': "Serpent Consulting Services Pvt. Ltd,"
+              "Odoo Community Association (OCA)",
     'website': 'http://www.serpentcs.com',
-    'summary': '',
-    'version': '1.0',
+    'version': '8.0.1.0.0',
     'depends': [
         'product_brand',
         'website_sale'
