@@ -27,8 +27,8 @@ class ProductHistory(models.Model):
             now = fields.Datetime.from_string(fields.Datetime.now())
         timedifference = now - fields.Datetime.from_string(
             self.last_view_datetime)
-        minutes = timedifference.seconds / 60
-        hours = timedifference.seconds / 3600
+        minutes = timedifference.seconds // 60
+        hours = timedifference.seconds // 3600
         days = timedifference.days
         # string concatenation and explicit singular/plural
         # to make life easier for translators
