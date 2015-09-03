@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+  <template id="recently_viewed_products_header" inherit_id="website_sale.header"
+            name="Recently Viewed Products Header">
+    <xpath expr="//header//ul[@id='top_menu']/li[a[@href='/shop/cart']]" position="after">
+      <li t-if="website.recently_viewed_products()">
+        <a href="/shop/recent">
+          <i class="fa fa-history"></i>
+          Recent Products
+        </a>
+      </li>
+    </xpath>
+  </template>
+
+</data>
+</openerp>

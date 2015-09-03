@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_website_sale_product_view_public,website_sale_product_view_public,model_website_sale_product_view,base.group_public,1,1,1,0
+access_website_sale_product_view_user,website_sale_product_view_user,model_website_sale_product_view,base.group_user,1,1,1,0

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+  <template id="page" name="User product history">
+    <t t-call="website.layout">
+      <div class="container oe_website_sale">
+        <h1>Recently viewed products</h1>
+        <t t-if="history" t-call="website_sale_recently_viewed_products.table"/>
+        <t t-if="not history">
+          <strong>Seems like you haven't viewed any of our products yet!</strong>
+          <br/>Go to our <a href="/shop">shop</a> to see our catalogue.
+        </t>
+      </div>
+    </t>
+  </template>
+
+  <template id="table" name="Viewed products table">
+    <table class="table" t-if="history">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Last View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <t t-foreach="history" t-as="r">
+          <tr>
+            <td>
+              <span t-field="r.product_id.image_medium"
+                    t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+            </td>
+            <td>
+              <a t-attf-href="/shop/product/#{ slug(r.product_id) }">
+                <strong t-esc="r.product_id.with_context(display_default_code=False).display_name"/>
+              </a>
+            </td>
+            <td>
+              <span t-esc="r.human_readable_datetime_difference()"/>
+            </td>
+          </tr>
+        </t>
+      </tbody>
+    </table>
+  </template>
+
+  <template id="popover" name="Viewed products popover">
+    <t t-if="not history">
+        <strong>You haven't viewed any products yet!</strong>
+    </t>
+    <t t-if="history" t-foreach="history" t-as="r">
+      <div class="row history-line">
+        <div class="col-xs-3">
+          <span t-field="r.product_id.image_small"
+                t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+        </div>
+        <div class="col-xs-9">
+          <a t-attf-href="/shop/product/#{ slug(r.product_id) }">
+            <span t-esc="r.product_id.with_context(display_default_code=False).display_name"/>
+          </a><br/>
+          <small>
+            Last viewed:
+            <span t-esc="r.human_readable_datetime_difference()"/>
+          </small>
+        </div>
+      </div>
+    </t>
+  </template>
+
+</data>
+</openerp>
