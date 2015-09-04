@@ -22,25 +22,9 @@
 
 {
     'name': 'Sale Quick Payment',
-    'version': '0.2',
+    'version': '0.3',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
-    'description': """
-Sale Quick Payment
-==================
-
-Sale Quick Payment gives the possibility to pay a sale order from the
-sale order itself.
-
-The payment will be linked to the sale order.
-
-If you install the module Sale Automatic Workflow, you can forbid the
-validation of an unpaid order and the invoice will be automatically
-reconciled with the payment.
-
-This module was originally designed for the e-commerce sector, but it
-does not preclude to use it in other sectors.
-    """,
     'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
     'depends': ['sale_payment_method',
@@ -50,6 +34,5 @@ does not preclude to use it in other sectors.
              'sale_view.xml',
              'settings/sale.exception.csv',
              ],
-    'demo': [],
-    'installable': False,
+    'installable': True,
 }
