@@ -36,8 +36,7 @@ class ProductLink(models.Model):
         comodel_name='product.product',
         string='Source Product',
         required=True,
-        ondelete='cascade',
-        default=lambda self: self.env.context.get('product_id', False))
+        ondelete='cascade')
     linked_product_id = fields.Many2one(
         comodel_name='product.product',
         string='Linked product',
