@@ -20,6 +20,7 @@
 #
 ##############################################################################
 
+import openerp
 from openerp import http
 from openerp.http import request
 from openerp import SUPERUSER_ID
@@ -72,3 +73,5 @@ class WebsiteSale(website_sale):
         return request.website.render(
             'website_product_brand.product_brands',
             values)
+
+openerp.addons.website_sale.controllers.main.website_sale = WebsiteSale

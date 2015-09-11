@@ -1,0 +1,9 @@
+div.history-popover {
+    max-width: 350px;
+    min-width: 250px;
+}
+
+.row.history-line {
+    border-bottom: 1px #EEE solid;
+    padding: 5px;
+}
