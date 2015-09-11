@@ -71,7 +71,7 @@ class WebsiteSale(website_sale):
         if post.get('search'):
             values.update({'search': post.get('search')})
         return request.website.render(
-            'website_product_brand.product_brands',
+            'website_sale_product_brand.product_brands',
             values)
 
 openerp.addons.website_sale.controllers.main.website_sale = WebsiteSale

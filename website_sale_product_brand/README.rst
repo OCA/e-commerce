@@ -1,9 +1,9 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-=====================
-Website Product Brand
-=====================
+==========================
+Website Sale Product Brand
+==========================
 
 Description
 ===========
@@ -15,7 +15,7 @@ This Module depends on product_brand module :
 ->https://github.com/OCA/product-attribute/tree/8.0/product_brand
 
 While shopping online, we have seen various eShops having a feature to shop by brands
-which ODOO does not yet provide officially.Website Product Brand fills the gap at certain
+which ODOO does not yet provide officially.Website Sale Product Brand fills the gap at certain
 extent and by providing basic search by brands, thus reducing end-user’s efforts in 
 searching the products he/she wants to purchase.
 
