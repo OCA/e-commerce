@@ -6,3 +6,26 @@ Odoo E-Commerce Modules
 =======================
 
 Modules aiming to support e-commerce specific needs. This includes all the new website_sale related modules included in version 8.0.
+
+[//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[product_links](product_links/) | 1.0 | Product Links
+[sale_automatic_workflow](sale_automatic_workflow/) | 0.2 | Sale Automatic Workflow
+[sale_payment_method](sale_payment_method/) | 0.2.1 | Sale Payment Method
+[sale_payment_method_automatic_workflow](sale_payment_method_automatic_workflow/) | 1.0 | Sale Payment Method - Automatic Worflow (link module)
+[website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 | Product Brand Filtering in Website
+[website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 | Let the users keep track of the products they saw on the ecommerce
+
+Unported addons
+---------------
+addon | version | summary
+--- | --- | ---
+[product_links_goodies](__unported__/product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
+[sale_automatic_workflow_exception](__unported__/sale_automatic_workflow_exception/) | 0.0.1 (unported) | Sale Automatic Workflow Exception
+[sale_payment_method_transaction_id](__unported__/sale_payment_method_transaction_id/) | 1.0 (unported) | Sale Payment Method - Transaction ID Compatibility
+[sale_quick_payment](__unported__/sale_quick_payment/) | 0.2 (unported) | Sale Quick Payment
+
+[//]: # (end addons)
