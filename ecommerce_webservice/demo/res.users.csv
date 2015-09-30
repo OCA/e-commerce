@@ -1,0 +1,3 @@
+id,login,password,partner_id/id,company_id/id,groups_id/id
+ecommerce_webservice.demo_external_user,ecommerce_demo_external_user,dragon,ecommerce_webservice.demo_external_partner,base.main_company,ecommerce_webservice.group_ecommerce_api
+

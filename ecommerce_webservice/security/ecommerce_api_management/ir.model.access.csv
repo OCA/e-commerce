@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_manage_ecommerce_api_v1,Manage Ecommerce API V1,model_ecommerce_api_v1,group_ecommerce_api_management,1,1,1,1
+access_manage_ecommerce_api_shop,Manage Ecommerce API Shop,model_ecommerce_api_shop,group_ecommerce_api_management,1,1,1,1
+access_manage_ecommerce_api_log,Manage Ecommerce API Log,model_ecommerce_api_log,group_ecommerce_api_management,1,1,1,1
+

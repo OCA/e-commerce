@@ -1,0 +1,3 @@
+id,name,company_id/id,customer
+ecommerce_webservice.demo_external_partner,Ecommerce Demo External User,base.main_company,False
+
