@@ -36,10 +36,14 @@ is related to this brand.
 For further information, please visit:
 
 https://www.odoo.com/forum/help-1
+
 The blog here explains the HOWTO :
-    http://www.serpentcs.com/serpentcs-odoo-ecommerce-shop-brands-contribution
+
+http://www.serpentcs.com/serpentcs-odoo-ecommerce-shop-brands-contribution
+
 The Youtube Video is here :
-    https://www.youtube.com/watch?feature=player_embedded&v=LkV5umivylw
+
+https://www.youtube.com/watch?feature=player_embedded&v=LkV5umivylw
 
 Credits
 =======
