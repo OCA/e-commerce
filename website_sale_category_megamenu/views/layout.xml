@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <t t-foreach="c.child_id" t-as="c">
-                    <t t-call="website_sale_categories_megamenu.categories_recursive_extra"/>
+                    <t t-call="website_sale_category_megamenu.categories_recursive_extra"/>
                 </t>
             </ul>
         </li>
@@ -91,7 +91,7 @@
 
                                 <div class="container">
                                     <t t-foreach="c.child_id" t-as="c">
-                                        <t t-call="website_sale_categories_megamenu.categories_recursive_extra"/>
+                                        <t t-call="website_sale_category_megamenu.categories_recursive_extra"/>
                                         <t t-if="c_odd">
                                             <div t-att-class="' '.join(
                                                 ('clearfix',

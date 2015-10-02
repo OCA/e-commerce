@@ -7,7 +7,7 @@
 
 // Check jQuery available
 if (typeof jQuery === 'undefined') {
-    throw new Error('website_sale_categories_megamenu requires jQuery')
+    throw new Error('website_sale_category_megamenu requires jQuery')
 }
 
 +function ($) {

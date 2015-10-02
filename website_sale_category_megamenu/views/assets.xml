@@ -7,9 +7,9 @@
           name="Addon Assets">
     <xpath expr=".">
         <link rel="stylesheet"
-              href="/website_sale_categories_megamenu/static/src/css/megamenu.css"/>
+              href="/website_sale_category_megamenu/static/src/css/megamenu.css"/>
         <script type="text/javascript"
-                src="/website_sale_categories_megamenu/static/src/js/frontend.js"/>
+                src="/website_sale_category_megamenu/static/src/js/frontend.js"/>
     </xpath>
 </template>
 
