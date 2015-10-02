@@ -1,0 +1,2 @@
+id,shop_identifier,enable_logs,external_user_id/id,internal_user_id/id,default_shop_id/id
+ecommerce_webservice.demo_shop,cafebabe,False,ecommerce_webservice.demo_external_user,ecommerce_webservice.ecommerce_api_internal_user,sale.sale_shop_1

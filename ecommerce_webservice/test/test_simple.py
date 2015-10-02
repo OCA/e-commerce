@@ -7,6 +7,7 @@ import erppeek
 
 ERPPEEK_TEST_ENV = "test"
 MODULE_NAME = "ecommerce_webservice"
+SHOP_ID = "cafebabe"
 
 class BaseTest(unittest2.TestCase):
 
@@ -17,14 +18,17 @@ class BaseTest(unittest2.TestCase):
         return fieldnames, rows
 
 
-class SmokeTest(BaseTest):
+class SomeTest(BaseTest):
 
     def setUp(self):
         # init erppeek client
         #now = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
         #template_db = 'test_%s' % MODULE_NAME
+        #if not client.db.db_exist(template_db):
+        #    print "create db with all dependencies of current module"
         #test_db = '%s_%s' % (template_db, now)
-        #self._o = erppeek.Client.duplicate_database(template_db, test_db)
+        #if erppeek.Client.db.duplicate_database('admin', template_db, test_db):
+        #    self._o = connect to test_db
         #self._o.install('ecommerce_webservice')
 
         # init erppeek client
@@ -41,20 +45,29 @@ class SmokeTest(BaseTest):
         f, r = self.parse_csv('demo/res.partner.csv')
         self._o.model('res.partner').load(f, r)
         f, r = self.parse_csv('demo/res.users.csv')
-        self._o.model('res.users').load(f, r)
 
     def test1_create_shop(self):
-        
-        values = {
-            'name': 'Unittest Generated Shop',
-        }
-        self.shop.create()
+        f, r = self.parse_csv('demo/ecommerce.api.shop.csv')
+        self.shop.load(f, r)
 
-    #def test2_create_logs(self):
-    #    values = {
-    #        'shop_id'
-    #    }
-    #    self._o.model('ecommerce.api.log').create(values)
+    def test2_create_customer(self):
+        values = {
+                'name': 'Test created customer',
+                'parent_id': False,
+                'active': True,
+                'street': 'of Philadelphia',
+                'street2': 'empty',
+                'city': 'Sin',
+                'zip': '1040',
+                'country': 'CH',
+                'type': 'default',
+                'phone': '555-123456',
+                'mobile': '555-987654',
+                'fax': 'no fax',
+                'email': 'john.smith@example.com',
+                }
+        customer_id = self.api.create_customer(SHOP_ID, values)
+        self.assertGreater(customer_id, 1)
 
 if __name__ == '__main__':
     unittest2.main()

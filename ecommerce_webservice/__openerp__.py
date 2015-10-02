@@ -28,6 +28,7 @@ This web-service will act as a high-level proxy towards the more low-level API m
     'demo': [
         'demo/res.partner.csv',
         'demo/res.users.csv',
+        'demo/ecommerce.api.shop.csv',
         ],
     'installable': True,
 }
