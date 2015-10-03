@@ -24,6 +24,7 @@ This web-service will act as a high-level proxy towards the more low-level API m
         'data/res_users.xml',
 
         'view/ecommerce_api_shop.xml',
+        'view/ecommerce_api_log.xml',
              ],
     'demo': [
         'demo/res.partner.csv',
