@@ -1,7 +1,5 @@
 import uuid
-from contextlib import contextmanager
 
-import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -10,30 +8,8 @@ class ecommerce_api_shop(orm.Model):
     _rec_name = 'shop_identifier'
     _description = 'Ecommerce API Shop'
 
-    @contextmanager
-    def _shop_logging(self, cr, uid, ids, context=None):
-        if not shop.enable_logs:
-            yield
-        else:
-            try:
-                yield
-            except:
-                print "***   Error   ***"
-                #get the caller's name and arguments
-                #open a new cr and add a line with the error in 'ecommerce.api.log'
-            else:
-                print "***   Success   ***"
-                #get the caller's name and arguments
-                #open a new cr and add a line with the success in 'ecommerce.api.log'
-    
-    def _find_shop(self, cr, uid, shop_identifier, context=None):
-        shops = self.pool['ecommerce.api.shop'].search(cr, uid, [('shop_identifier', '=', shop_identifier)], context=context)
-        if not shops:
-            raise openerp.exceptions.AccessError(_('No shop found with identifier %s') % shop_identifier)
-        shop = self.pool['ecommerce.api.shop'].browse(cr, uid, shops[0], context=context)
-        return shop
-
     _columns = {
+        # TODO: rename 'shop_identifier' to something less ambiguous like 'name'
         'shop_identifier': fields.char('Shop Identifier', size=8, required=True),
         'external_user_id': fields.many2one('res.users', 'Service Public User', required=True),
         'internal_user_id': fields.many2one('res.users', 'Service Internal User', required=True),

@@ -1,9 +1,59 @@
+import sys
+import traceback
+from functools import wraps
+
+import sql_db
+import openerp
+from openerp import SUPERUSER_ID
 from openerp.osv import orm
 from openerp.tools.translate import _
 
 class ecommerce_api_v1(orm.AbstractModel):
     _name = 'ecommerce.api.v1'
 
+    def _shop_logging(method):
+        @wraps(method)
+        def wrapped(self, cr, uid, shop_identifier, *args, **kwargs):
+            context = None
+            if context in kwargs:
+                context = kwargs['context']
+            shop = self._find_shop(cr, uid, shop_identifier, context)
+            try:
+                values = {
+                    'shop_id': shop.id,
+                    'method': method.func_name,
+                }
+                result = method(self, cr, uid, shop_identifier, *args, **kwargs)
+            except:
+                exc_info = sys.exc_info()
+                values.update({
+                    'args': str(args), # TODO test unicode (maybe just pass args)
+                    'state': 'failure',
+                    'exc_info': traceback.format_exc(exc_info),
+                    })
+                new_cr = sql_db.db_connect(cr.dbname).cursor()
+                self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
+                new_cr.commit()
+                raise exc_info[0], exc_info[1], exc_info[2]
+            else:
+                values.update({
+                    'state': 'success',
+                    })
+                new_cr = sql_db.db_connect(cr.dbname).cursor()
+                self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
+                new_cr.commit()
+                return result
+        return wrapped
+
+    def _find_shop(self, cr, uid, shop_identifier, context=None):
+        shops = self.pool['ecommerce.api.shop'].search(cr, uid, [('shop_identifier', '=', shop_identifier)], context=context)
+        if not shops:
+            raise openerp.exceptions.AccessError(_('No shop found with identifier %s') % shop_identifier)
+        shop = self.pool['ecommerce.api.shop'].browse(cr, uid, shops[0], context=context)
+        return shop
+
+
+    @_shop_logging
     def create_customer(self, cr, uid, shop_identifier, vals, context=None):
         """
         vals:
@@ -22,7 +72,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         email     string       email
         """
 
-        shop = self.pool['ecommerce.api.shop']._find_shop(cr, uid, shop_identifier, context)
+        shop = self._find_shop(cr, uid, shop_identifier, context)
 
         if 'country' in vals:
             country_ids = self.pool['res.country'].name_search(cr, uid, vals['country'], context=context)
