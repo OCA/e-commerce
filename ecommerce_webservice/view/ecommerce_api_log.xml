@@ -6,15 +6,48 @@
             <field name="name">Ecommerce API Log</field>
             <field name="model">ecommerce.api.log</field>
             <field name="arch" type="xml">
-                <form string="Logs">
-                    <field name="shop_id" />
-                    <field name="state" />
-                    <field name="method" />
-                    <field name="args" />
-                    <field name="exc_info" />
+                <form string="Logs" create="false" edit="false">
+                    <group col="2">
+                        <field name="shop_id" />
+                        <field name="state" />
+                        <field name="create_date" />
+                        <field name="create_uid" />
+                        <field name="method" />
+                        <field name="args" />
+                        <field name="exc_info" />
+                    </group>
                 </form>
             </field>
         </record> 
+
+        <record model="ir.ui.view" id="view_ecommerce_api_log_search">
+            <field name="name">Ecommerce API Log</field>
+            <field name="model">ecommerce.api.log</field>
+            <field name="arch" type="xml">
+                <search string="Logs">
+                    <field name="create_uid" />
+                    <field name="method" />
+                    <field name="shop_id" />
+                    <filter name="type_failure" string="Failures" domain="[('state', '=', 'failure')]" />
+                    <filter name="type_success" string="Successes" domain="[('state', '=', 'success')]" />
+                    <separator />
+                    <!--filter name="past24h" string="Past 24h"
+                        domain="[('create_date', '!=', False), ('create_date', '>=', (context_timestamp() - relativedelta(hours=24)).strftime('%%Y-%%m-%%d %%H:%%M:%%S'))]" /-->
+                    <filter name="past2days" string="Past 2 days"
+                        domain="[('create_date', '!=', False), ('create_date', '>=', (context_today() - relativedelta(days=1)).strftime('%%Y-%%m-%%d'))]" />
+                    <filter name="current_month" string="This Month"
+                        domain="[('create_date', '!=', False), ('create_date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%%Y-%%m-%%d')), ('create_date', '>=', (context_today() - relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]" />
+                    <group expand="0" string="Group By...">
+                        <filter string="Shop" context="{'group_by': 'shop_id'}" />
+                        <filter string="State" context="{'group_by': 'state'}" />
+                        <filter string="Method" context="{'group_by': 'method'}" />
+                        <filter string="User" context="{'group_by': 'create_uid'}" />
+                        <filter icon="terp-go-month" string="Month"
+                            context="{'group_by': 'create_date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="view_ecommerce_api_log_tree">
             <field name="name">Ecommerce API Log</field>
@@ -36,6 +69,7 @@
             <field name="res_model">ecommerce.api.log</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="searchview_id" ref="view_ecommerce_api_log_search" />
         </record>
 
         <menuitem

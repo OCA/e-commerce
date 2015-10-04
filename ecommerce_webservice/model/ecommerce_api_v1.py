@@ -27,22 +27,21 @@ class ecommerce_api_v1(orm.AbstractModel):
             except:
                 exc_info = sys.exc_info()
                 values.update({
-                    'args': str(args), # TODO test unicode (maybe just pass args)
+                    'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
                     'state': 'failure',
                     'exc_info': traceback.format_exc(exc_info),
                     })
-                new_cr = sql_db.db_connect(cr.dbname).cursor()
-                self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
-                new_cr.commit()
                 raise exc_info[0], exc_info[1], exc_info[2]
             else:
                 values.update({
                     'state': 'success',
                     })
+                return result
+            finally:
                 new_cr = sql_db.db_connect(cr.dbname).cursor()
                 self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
                 new_cr.commit()
-                return result
+                new_cr.close()
         return wrapped
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):

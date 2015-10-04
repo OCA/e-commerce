@@ -13,7 +13,9 @@
                     <field name="default_shop_id" />
                     <field name="internal_user_id" />
                     <newline />
-                    <field name="partner_ids" />
+                    <group colspan="4">
+                        <field name="partner_ids" />
+                    </group>
                 </form>
             </field>
         </record> 
