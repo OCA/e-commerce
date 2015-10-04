@@ -57,7 +57,6 @@ class ecommerce_api_v1(orm.AbstractModel):
     def create_customer(self, cr, uid, shop_identifier, vals, context=None):
         """
         vals:
-        parent_id integer (id) ID of the partner
         name      string       Name
         active    boolean      Active?
         street    string       Street
@@ -65,7 +64,6 @@ class ecommerce_api_v1(orm.AbstractModel):
         city      string       City
         zip       string       ZIP
         country   string       Country Code
-        type      selection    'default', 'invoice', 'delivery', 'contact' or 'other'
         phone     string       Phone
         mobile    string       Mobile
         fax       string       Fax
@@ -80,6 +78,7 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         vals.update({
             'customer': True,
+            'type': 'default',
             'country_id': country_id,
             'eshop_id': shop.id, # link to shop.partner_ids
             })

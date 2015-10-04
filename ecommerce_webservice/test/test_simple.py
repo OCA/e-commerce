@@ -3,6 +3,7 @@ import csv
 import sys
 import datetime
 import unittest2
+from operator import attrgetter
 
 import erppeek
 
@@ -54,21 +55,25 @@ class SomeTest(BaseTest):
     def test2_create_customer(self):
         values = {
                 'name': 'Test created customer',
-                'parent_id': False,
                 'active': True,
                 'street': 'of Philadelphia',
                 'street2': 'empty',
                 'city': 'Sin',
                 'zip': '1040',
                 'country': 'CH',
-                'type': 'default',
                 'phone': '555-123456',
                 'mobile': '555-987654',
                 'fax': 'no fax',
                 'email': 'john.smith@example.com',
                 }
         customer_id = self.api.create_customer(SHOP_ID, values)
-        self.assertGreater(customer_id, 1)
+        customer = self._o.model('res.partner').browse(customer_id)
+        self.assertEqual(customer.country_id.code.upper(), 'CH')
+        values.pop('country')
+        fields = values.keys()
+        expected_values = attrgetter(*fields)(customer)
+        self.assertSequenceEqual(expected_values, values.values())
+
 
 if __name__ == '__main__':
     unittest2.main()
