@@ -110,6 +110,34 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
 
     @_shop_logging
+    def create_customer_address(self, cr, uid, shop_identifier, vals, context=None):
+        """
+        vals:
+        parent_id integer (id) ID of the partner
+        name      string       Name
+        active    boolean      Active?
+        street    string       Street
+        street2   string       Street2
+        city      string       City
+        zip       string       ZIP
+        country   string       Country Code
+        type      selection    'default', 'invoice', 'delivery', 'contact' or 'other'
+        phone     string       Phone
+        mobile    string       Mobile
+        fax       string       Fax
+        email     string       email
+        """
+        shop = self._find_shop(cr, uid, shop_identifier, context)
+
+        self._update_vals_for_country_id(cr, uid, vals, context)
+        vals.update({
+            'customer': True,
+            'eshop_id': shop.id, # link to shop.partner_ids
+            })
+        customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
+        return customer_id
+
+
 
     def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
         """

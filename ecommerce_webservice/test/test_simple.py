@@ -88,7 +88,33 @@ class SomeTest(BaseTest):
         customer = self._o.model('res.partner').browse(customer_id)
         self.assertEqual(customer.country_id.code.upper(), 'FR')
 
-#    def test4_create_customer_address(self):
+    def test4_create_customer_address(self):
+        pids = self._o.model('res.partner').search([('type', '=', 'default')])
+        partner_id = max(pids)
+        values = {
+                'name': 'Test created customer address',
+                'parent_id': partner_id,
+                'active': True,
+                'street': 'spirit',
+                'street2': 'empty',
+                'city': 'Sim',
+                'zip': '1020',
+                'country': 'BE',
+                'type': 'invoice',
+                'phone': '555-111111',
+                'mobile': '555-111112',
+                'fax': 'who uses fax?',
+                'email': 'scott.tiger@example.com',
+                }
+        address_id = self.api.create_customer_address(SHOP_ID, values)
+        address = self._o.model('res.partner').browse(address_id)
+        self.assertEqual(address.country_id.code.upper(), 'BE')
+        values.pop('country')
+        self.assertEqual(address.parent_id.id, partner_id)
+        values.pop('parent_id')
+        fields = values.keys()
+        expected_values = attrgetter(*fields)(address)
+        self.assertSequenceEqual(expected_values, values.values())
 
 if __name__ == '__main__':
     unittest2.main()
