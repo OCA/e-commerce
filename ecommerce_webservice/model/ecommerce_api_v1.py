@@ -86,6 +86,32 @@ class ecommerce_api_v1(orm.AbstractModel):
         customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return customer_id
 
+    @_shop_logging
+    def update_customer(self, cr, uid, shop_identifier, partner_id, vals, context=None):
+        """
+        vals:
+        name      string       Name
+        active    boolean      Active?
+        street    string       Street
+        street2   string       Street2
+        city      string       City
+        zip       string       ZIP
+        country   string       Country Code
+        phone     string       Phone
+        mobile    string       Mobile
+        fax       string       Fax
+        email     string       email
+        """
+
+        if 'country' in vals:
+            country_ids = self.pool['res.country'].name_search(cr, uid, vals['country'], context=context)
+            country_id = country_ids[0][0] if country_ids else False
+            vals.pop('country')
+            vals['country_id'] = country_id
+
+        self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
+        return True
+
     def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
         """
         Create a 'sale.order' and returns its ID.
