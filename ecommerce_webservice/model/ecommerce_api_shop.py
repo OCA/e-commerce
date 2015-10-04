@@ -15,6 +15,8 @@ class ecommerce_api_shop(orm.Model):
         'internal_user_id': fields.many2one('res.users', 'Service Internal User', required=True),
         'enable_logs': fields.boolean('Enable Logs',
             help="Activate the detailed logging in database of all the incoming calls."),
+        'logs_all_on_success': fields.boolean('Log all on success',
+            help="Logs method arguments on success as well."),
         'default_shop_id': fields.many2one('sale.shop', 'Default Sale Shop', required=True,
             help="Shop which will be set on the sales orders."),
         #'default_warehouse_id': fields.many2one('stock.warehouse', 'Default Warehouse', required=True,

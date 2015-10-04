@@ -8,7 +8,10 @@
             <field name="arch" type="xml">
                 <form string="Shop">
                     <field name="shop_identifier" />
+                    <newline />
                     <field name="enable_logs" />
+                    <field name="logs_all_on_success" attrs="{'invisible': [('enable_logs', '=', False)]}" />
+                    <newline />
                     <field name="external_user_id" />
                     <field name="default_shop_id" />
                     <field name="internal_user_id" />

@@ -33,15 +33,16 @@ class ecommerce_api_v1(orm.AbstractModel):
                     })
                 raise exc_info[0], exc_info[1], exc_info[2]
             else:
-                values.update({
-                    'state': 'success',
-                    })
+                values['state'] = 'success'
+                if shop.logs_all_on_success:
+                    values['args'] = "args:\n%s\n\nkwargs:\n%s" % (args, kwargs)
                 return result
             finally:
-                new_cr = sql_db.db_connect(cr.dbname).cursor()
-                self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
-                new_cr.commit()
-                new_cr.close()
+                if shop.enable_logs:
+                    new_cr = sql_db.db_connect(cr.dbname).cursor()
+                    self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
+                    new_cr.commit()
+                    new_cr.close()
         return wrapped
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):
@@ -76,6 +77,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         if 'country' in vals:
             country_ids = self.pool['res.country'].name_search(cr, uid, vals['country'], context=context)
             country_id = country_ids[0][0] if country_ids else False
+
         vals.update({
             'customer': True,
             'country_id': country_id,
