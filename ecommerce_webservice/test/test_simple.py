@@ -116,6 +116,20 @@ class SomeTest(BaseTest):
         expected_values = attrgetter(*fields)(address)
         self.assertSequenceEqual(expected_values, values.values())
 
+    def test5_update_customer(self):
+        values = {
+                'name': 'Test another created customer address',
+                'country': 'CH',
+                }
+        address_id = self.api.create_customer_address(SHOP_ID, values)
+        values = {
+                'name': 'Test created then updated customer address',
+                'country': 'BE',
+                }
+        self.api.update_customer_address(SHOP_ID, address_id, values)
+        customer = self._o.model('res.partner').browse(address_id)
+        self.assertEqual(customer.country_id.code.upper(), 'BE')
+
 if __name__ == '__main__':
     unittest2.main()
 
