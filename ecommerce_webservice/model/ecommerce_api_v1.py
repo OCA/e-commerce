@@ -4,7 +4,6 @@ from functools import wraps
 
 import sql_db
 import openerp
-from openerp import SUPERUSER_ID
 from openerp.osv import orm
 from openerp.tools.translate import _
 
@@ -41,7 +40,7 @@ class ecommerce_api_v1(orm.AbstractModel):
             finally:
                 if shop.enable_logs:
                     new_cr = sql_db.db_connect(cr.dbname).cursor()
-                    self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
+                    self.pool['ecommerce.api.log'].create(new_cr, uid, values, context)
                     new_cr.commit()
                     new_cr.close()
         return wrapped
@@ -52,6 +51,14 @@ class ecommerce_api_v1(orm.AbstractModel):
             raise openerp.exceptions.AccessError(_('No shop found with identifier %s') % shop_identifier)
         shop = self.pool['ecommerce.api.shop'].browse(cr, uid, shops[0], context=context)
         return shop
+
+    def _update_vals_for_country_id(self, cr, uid, vals, context=None):
+        if 'country' in vals:
+            country_ids = self.pool['res.country'].name_search(cr, uid,
+                    vals['country'], context=context)
+            country_id = country_ids[0][0] if country_ids else False
+            vals.pop('country')
+            vals['country_id'] = country_id
 
 
     @_shop_logging
@@ -73,14 +80,10 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         shop = self._find_shop(cr, uid, shop_identifier, context)
 
-        if 'country' in vals:
-            country_ids = self.pool['res.country'].name_search(cr, uid, vals['country'], context=context)
-            country_id = country_ids[0][0] if country_ids else False
-
+        self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
             'customer': True,
             'type': 'default',
-            'country_id': country_id,
             'eshop_id': shop.id, # link to shop.partner_ids
             })
         customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
@@ -103,14 +106,10 @@ class ecommerce_api_v1(orm.AbstractModel):
         email     string       email
         """
 
-        if 'country' in vals:
-            country_ids = self.pool['res.country'].name_search(cr, uid, vals['country'], context=context)
-            country_id = country_ids[0][0] if country_ids else False
-            vals.pop('country')
-            vals['country_id'] = country_id
+        self._update_vals_for_country_id(cr, uid, vals, context)
+        return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
 
-        self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
-        return True
+    @_shop_logging
 
     def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
         """
