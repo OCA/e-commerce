@@ -16,7 +16,7 @@ This Module depends on product_brand module :
 
 While shopping online, we have seen various eShops having a feature to shop by brands
 which ODOO does not yet provide officially.Website Sale Product Brand fills the gap at certain
-extent and by providing basic search by brands, thus reducing end-user’s efforts in 
+extent and by providing basic search by brands, thus reducing end-user’s efforts in
 searching the products he/she wants to purchase.
 
 Usage
@@ -33,9 +33,9 @@ Based on this configuration, you will see the menuitem shop by brand under shop 
 It will show all the brands and once you select that brand it will show product's which
 is related to this brand.
 
-For further information, please visit:
-
-https://www.odoo.com/forum/help-1
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/113/50
 
 The blog here explains the HOWTO :
 
