@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- rules are first evaluated by permission, then by domain -->
+
+        <record id="rule_own_ecommerce_api_shop_internal" model="ir.rule">
+            <field name="name">Own Ecommerce API Shop internal</field>
+            <field name="model_id" ref="model_ecommerce_api_shop" />
+
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_create" eval="False" />
+            <field name="perm_unlink" eval="False" />
+
+            <!-- Ecommerce Internal user can only access the shop is defined on -->
+            <field name="domain_force">
+                [
+                ('internal_user_id', '=', user.id),
+                ]
+            </field>
+
+            <field name="groups" eval="[(4, ref('group_ecommerce_api_internal'))]" />
+        </record>
+
+    </data>
+</openerp>

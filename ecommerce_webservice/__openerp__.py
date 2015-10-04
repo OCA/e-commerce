@@ -18,7 +18,9 @@ This web-service will act as a high-level proxy towards the more low-level API m
     'data': [
         'security/res.groups.csv',
         'security/ecommerce_api/ir.model.access.csv',
+        'security/ecommerce_api/ecommerce_api_shop.xml',
         'security/ecommerce_api_internal/ir.model.access.csv',
+        'security/ecommerce_api_internal/ecommerce_api_shop.xml',
         'security/ecommerce_api_management/ir.model.access.csv',
 
         'data/res_users.xml',
