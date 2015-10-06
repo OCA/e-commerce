@@ -199,36 +199,57 @@ class ecommerce_api_v1(orm.AbstractModel):
         SO = self.pool['sale.order']
         SOL = self.pool['sale.order.line']
 
-        order_lines = vals.pop('order_line') if 'order_line' in vals else {}
+        raw_order_line = vals.pop('order_line') if 'order_line' in vals else {}
+
+        vals.update({
+            'state': 'manual',
+            'shop_id': shop.default_shop_id.id,
+            'eshop_id': shop.id,
+            })
 
         if 'date_order' in vals:
             date_str = time.strftime(DEFAULT_SERVER_DATE_FORMAT, vals['date_order'].timetuple())
             vals['date_order'] = date_str
 
-        #vals['warehouse_id'] = shop.default_warehouse_id.id
-
-        #self.pool['sale.order'].onchange_(... vals )
-        # v = client.model('sale.order').fields_view_get(None, 'form', {})
-        # v['arch']
-        # v['fields']['order_line']['views']['form']['arch']
-        # v['fields']['order_line']['views']['tree']['arch']
-
-        # we have to merge onchange vals after all onchanges have been processed
         onchange_vals = {}
         if 'partner_id' in vals:
             ocv = SO.onchange_partner_id(cr, iuid, None, vals['partner_id'], context=context)
-            onchange_vals.update(ocv)
+            onchange_vals.update(ocv['value'])
+        if 'shop_id' in vals:
+            ocv = SO.onchange_shop_id(cr, iuid, None, vals['shop_id'], context=context)
+            onchange_vals.update(ocv['value'])
 
-        # TODO: what prevails?  original vals fields or the one returned from onchange?
-        #vals.update(onchange_vals['value'])
-        vals.update(onchange_vals['value'])
-        vals.update({
-            'state': 'manual',
-            'eshop_id': shop.id,
-            })
+        # fields in vals prevail on fields returned by onchange
+        for key in onchange_vals.keys():
+            if key in vals:
+                onchange_vals.pop(key)
+        vals.update(onchange_vals)
+
+        order_line = []
+        for line in raw_order_line:
+            onchange_vals = {}
+            if 'product_id' in line:
+                ocv = SOL.product_id_change(cr, iuid, None,
+                                           vals.get('pricelist_id'),
+                                           line['product_id'],
+                                           line.get('product_uom_qty'),
+                                           line.get('product_uom'),
+                                           line.get('product_uos_qty'),
+                                           line.get('product_uos'),
+                                           line.get('name'),
+                                           vals['partner_id'],
+                                           False,
+                                           False,
+                                           vals.get('date_order'),
+                                           context=context)
+                onchange_vals.update(ocv['value'])
+            for key in onchange_vals.keys():
+                if key in line:
+                    onchange_vals.pop(key)
+            line.update(onchange_vals)
+            order_line.append([0, False, line])
+        
+        vals['order_line'] = order_line
         so_id = SO.create(cr, iuid, vals, context=context)
-
-        #SOL.create(cr, iuid, order_lines, context=context)
-
         return so_id
 
