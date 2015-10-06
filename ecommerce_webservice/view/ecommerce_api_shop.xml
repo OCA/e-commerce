@@ -18,6 +18,8 @@
                     <newline />
                     <group colspan="4">
                         <field name="partner_ids" />
+                        <field name="partner_address_ids" />
+                        <field name="sale_order_ids" />
                     </group>
                 </form>
             </field>

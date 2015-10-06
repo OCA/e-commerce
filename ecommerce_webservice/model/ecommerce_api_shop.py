@@ -22,9 +22,9 @@ class ecommerce_api_shop(orm.Model):
         #'default_warehouse_id': fields.many2one('stock.warehouse', 'Default Warehouse', required=True,
         #    help="The warehouse on which the sales orders will be created and the stock of the products be computed. Default to company's warehouse."),
 
-        'partner_ids': fields.one2many('res.partner', 'eshop_id', 'Customers'),
-        #'partner_address_ids': fields.one2many('res.partner', 'eshop_id', 'Addresses'),
-        #'sale_order_ids': fields.one2many('sale.order', 'eshop_id', 'Sales Orders'),
+        'partner_ids': fields.one2many('res.partner', 'customer_eshop_id', 'Customers'),
+        'partner_address_ids': fields.one2many('res.partner', 'address_eshop_id', 'Addresses'),
+        'sale_order_ids': fields.one2many('sale.order', 'eshop_id', 'Sales Orders'),
     }
 
     _sql_constraints = [

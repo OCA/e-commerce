@@ -86,7 +86,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         vals.update({
             'customer': True,
             'type': 'default',
-            'eshop_id': shop.id, # link to shop.partner_ids
+            'customer_eshop_id': shop.id, # link to shop.partner_ids
             })
         customer_id = self.pool['res.partner'].create(cr, iuid, vals, context)
         return customer_id
@@ -139,7 +139,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         self._update_vals_for_country_id(cr, iuid, vals, context)
         vals.update({
             'customer': True,
-            'eshop_id': shop.id, # link to shop.partner_ids
+            'address_eshop_id': shop.id, # link to shop.partner_ids
             })
         customer_id = self.pool['res.partner'].create(cr, iuid, vals, context)
         return customer_id
