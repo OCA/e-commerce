@@ -30,7 +30,7 @@ class SomeTest(BaseTest):
         #    print "create db with all dependencies of current module"
         #test_db = '%s_%s' % (template_db, now)
         #if erppeek.Client.db.duplicate_database('admin', template_db, test_db):
-        #    self._o = connect to test_db
+        #    self._o = connect to test_db with external uid
         #self._o.install('ecommerce_webservice')
 
         # init erppeek client

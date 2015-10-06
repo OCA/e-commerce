@@ -1,5 +1,5 @@
 id,name,category_id:id,implied_ids:id
 group_ecommerce_api_management,Ecommerce API Management,base.module_category_administration,
 group_ecommerce_api,Ecommerce API,base.module_category_sales_management,
-group_ecommerce_api_internal,Ecommerce APImplementation,base.module_category_sales_management,base.group_sale_salesman
+group_ecommerce_api_internal,Ecommerce APImplementation,base.module_category_sales_management,base.group_sale_manager
 
