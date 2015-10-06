@@ -69,7 +69,7 @@
             <field name="res_model">ecommerce.api.log</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="searchview_id" ref="view_ecommerce_api_log_search" />
+            <field name="search_view_id" ref="view_ecommerce_api_log_search" />
         </record>
 
         <menuitem
