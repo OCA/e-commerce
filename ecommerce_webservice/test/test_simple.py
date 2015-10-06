@@ -130,6 +130,39 @@ class SomeTest(BaseTest):
         customer = self._o.model('res.partner').browse(address_id)
         self.assertEqual(customer.country_id.code.upper(), 'BE')
 
+    def test6_create_sale_order(self):
+        pids = self._o.model('res.partner').search([('type', '=', 'default')])
+        partner_id = max(pids)
+        order_line = [{
+            'product_id': 1,
+            'name': 'some description',
+            'price_unit': 3.14,
+            'discount': 5.0,
+            'product_uom_qty': 10.0,
+            'sequence': 0,
+            }]
+        now =  datetime.datetime.now()
+        values = {
+                'name': 'Test created sale order %s' % now,
+                'client_order_ref': 'COR-622',
+                'date_order': now,
+                'note': 'some note',
+                'origin': 'some origin',
+                'partner_id': partner_id,
+                'partner_invoice_id': partner_id,
+                'partner_shipping_id': partner_id,
+                #'order_line': order_line,
+                }
+        so_id = self.api.create_sale_order(SHOP_ID, values)
+        #address = self._o.model('res.partner').browse(address_id)
+        #self.assertEqual(address.country_id.code.upper(), 'BE')
+        #values.pop('country')
+        #self.assertEqual(address.parent_id.id, partner_id)
+        #values.pop('parent_id')
+        #fields = values.keys()
+        #expected_values = attrgetter(*fields)(address)
+        #self.assertSequenceEqual(expected_values, values.values())
+
 if __name__ == '__main__':
     unittest2.main()
 
