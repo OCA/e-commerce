@@ -78,14 +78,15 @@ class ecommerce_api_v1(orm.AbstractModel):
         """
 
         shop = self._find_shop(cr, uid, shop_identifier, context)
+        iuid = shop.internal_user_id.id
 
-        self._update_vals_for_country_id(cr, uid, vals, context)
+        self._update_vals_for_country_id(cr, iuid, vals, context)
         vals.update({
             'customer': True,
             'type': 'default',
             'eshop_id': shop.id, # link to shop.partner_ids
             })
-        customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
+        customer_id = self.pool['res.partner'].create(cr, iuid, vals, context)
         return customer_id
 
     @_shop_logging
@@ -105,8 +106,11 @@ class ecommerce_api_v1(orm.AbstractModel):
         email     string       email
         """
 
+        shop = self._find_shop(cr, uid, shop_identifier, context)
+        iuid = shop.internal_user_id.id
+
         self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
+        return self.pool['res.partner'].write(cr, iuid, partner_id, vals, context=context)
 
     @_shop_logging
     def create_customer_address(self, cr, uid, shop_identifier, vals, context=None):
@@ -126,16 +130,17 @@ class ecommerce_api_v1(orm.AbstractModel):
         fax       string       Fax
         email     string       email
         """
-        shop = self._find_shop(cr, uid, shop_identifier, context)
 
-        self._update_vals_for_country_id(cr, uid, vals, context)
+        shop = self._find_shop(cr, uid, shop_identifier, context)
+        iuid = shop.internal_user_id.id
+
+        self._update_vals_for_country_id(cr, iuid, vals, context)
         vals.update({
             'customer': True,
             'eshop_id': shop.id, # link to shop.partner_ids
             })
-        customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
+        customer_id = self.pool['res.partner'].create(cr, iuid, vals, context)
         return customer_id
-
 
     @_shop_logging
     def update_customer_address(self, cr, uid, shop_identifier, partner_id, vals, context=None):
@@ -156,9 +161,13 @@ class ecommerce_api_v1(orm.AbstractModel):
         email     string       email
         """
 
-        self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
+        shop = self._find_shop(cr, uid, shop_identifier, context)
+        iuid = shop.internal_user_id.id
 
+        self._update_vals_for_country_id(cr, uid, vals, context)
+        return self.pool['res.partner'].write(cr, iuid, partner_id, vals, context=context)
+
+    @_shop_logging
     def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
         """
         Create a 'sale.order' and returns its ID.
