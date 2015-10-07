@@ -23,10 +23,9 @@ class ecommerce_api_v1(orm.AbstractModel):
                 values = {
                     'shop_id': shop.id,
                     'method': method.func_name,
-                    }
-                if shop.logs_all_on_success:
                     # serialize args before calling as they might get modified
-                    values['args'] = "args:\n%s\n\nkwargs:\n%s" % (args, kwargs)
+                    'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
+                    }
                 result = method(self, cr, uid, shop_identifier, *args, **kwargs)
             except:
                 exc_info = sys.exc_info()
@@ -37,6 +36,8 @@ class ecommerce_api_v1(orm.AbstractModel):
                 raise exc_info[0], exc_info[1], exc_info[2]
             else:
                 values['state'] = 'success'
+                if not shop.logs_all_on_success:
+                    values.pop('args')
                 return result
             finally:
                 if shop.enable_logs:
