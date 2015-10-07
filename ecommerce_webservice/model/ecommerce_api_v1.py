@@ -47,10 +47,11 @@ class ecommerce_api_v1(orm.AbstractModel):
         return wrapped
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):
-        shops = self.pool['ecommerce.api.shop'].search(cr, uid, [('shop_identifier', '=', shop_identifier)], context=context)
+        Shop = self.pool['ecommerce.api.shop']
+        shops = Shop.search(cr, uid, [('shop_identifier', '=', shop_identifier)], context=context)
         if not shops:
             raise openerp.exceptions.AccessError(_('No shop found with identifier %s') % shop_identifier)
-        shop = self.pool['ecommerce.api.shop'].browse(cr, uid, shops[0], context=context)
+        shop = Shop.browse(cr, uid, shops[0], context=context)
         return shop
 
     def _update_vals_for_country_id(self, cr, uid, vals, context=None):
@@ -238,9 +239,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                                            line.get('product_uos'),
                                            line.get('name'),
                                            vals['partner_id'],
-                                           False,
-                                           False,
-                                           vals.get('date_order'),
+                                           date_order=vals.get('date_order'),
                                            context=context)
                 onchange_vals.update(ocv['value'])
             for key in onchange_vals.keys():
