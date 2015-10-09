@@ -12,10 +12,10 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[product_links](product_links/) | 1.0 | Product Links
-[sale_automatic_workflow](sale_automatic_workflow/) | 0.2 | Sale Automatic Workflow
-[sale_payment_method](sale_payment_method/) | 0.2.1 | Sale Payment Method
-[sale_payment_method_automatic_workflow](sale_payment_method_automatic_workflow/) | 1.0 | Sale Payment Method - Automatic Worflow (link module)
+[product_links](product_links/) | 8.0.1.0.0 | Product Links
+[sale_automatic_workflow](sale_automatic_workflow/) | 8.0.0.2.0 | Sale Automatic Workflow
+[sale_payment_method](sale_payment_method/) | 8.0.0.2.1 | Sale Payment Method
+[sale_payment_method_automatic_workflow](sale_payment_method_automatic_workflow/) | 8.0.1.0.0 | Sale Payment Method - Automatic Worflow (link module)
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 | A megamenu to display product categories in the online shop
 [website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 | Product Brand Filtering in Website
 [website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 | Let the users keep track of the products they saw on the ecommerce
