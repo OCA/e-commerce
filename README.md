@@ -12,7 +12,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[product_links](product_links/) | 8.0.1.0.0 | Product Links
+[product_links](product_links/) | 8.0.1.0.1 | Product Links
 [sale_automatic_workflow](sale_automatic_workflow/) | 8.0.0.2.0 | Sale Automatic Workflow
 [sale_payment_method](sale_payment_method/) | 8.0.0.2.1 | Sale Payment Method
 [sale_payment_method_automatic_workflow](sale_payment_method_automatic_workflow/) | 8.0.1.0.0 | Sale Payment Method - Automatic Worflow (link module)
