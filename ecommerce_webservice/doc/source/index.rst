@@ -12,6 +12,12 @@ Contents:
    :maxdepth: 2
    
    create_sale_order
+   customer
+   create_customer
+   update_customer
+   create_customer_address
+   update_customer_address
+   search_read_customer_address
    product
    product_template
    product_product

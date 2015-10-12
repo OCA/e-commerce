@@ -27,7 +27,9 @@ It takes the following arguments in the order of the rows:
 +--------------+-----------------+--------------------------------------------------------------------+
 | method_name  | string          | ``create_sale_order``                                              |
 +--------------+-----------------+--------------------------------------------------------------------+
-| values       | dictionnary     | See below for details             .                                |
+| shop_ident   | string          | Shop identifier                                                    |
++--------------+-----------------+--------------------------------------------------------------------+
+| values       | dictionnary     | See below for details.                                             |
 |              | of values       |                                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
 
@@ -98,6 +100,7 @@ Python call example
         dbname, uid, pwd,
         'ecommerce.api.v1',
         'create_sale_order',
+        'shop_identifier',
         {'name': '10000532', 'partner_id', 154,
          'order_line': [{'product_id': 1, 'price_unit': 10.5, 'product_uom_qty': 2}]
          }
@@ -111,6 +114,41 @@ PHP call example
  ..  code-block:: php
     :linenos:
  
-    //TODO
+    <?php 
     
+    require_once('ripcord/ripcord.php');
+    
+    
+    $url = 'http://localhost:8069';
+    $db = 'database';
+    $username = "admin";
+    $password = "admin";
+    $shop_identifier = "cafebabe";
+    
+    
+    $common = ripcord::client($url."/xmlrpc/common");
+    
+    $uid = $common->authenticate($db, $username, $password, array());
+    
+    $models = ripcord::client("$url/xmlrpc/object");
+    
+    $vals = array(
+        'name'=>'TEST',
+        'partner_id'=>6,
+        'partner_invoice_id'=>6,
+        'partner_shipping_id'=>6,
+        'order_line'=>array(array(
+            'name'=>'test name line',
+            'price_unit'=>54.6,
+            'product_uom_qty'=>2,
+            'product_id'=>49
+            ))
+        );
+    
+    $records = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'create_sale_order', array($shop_identifier, $vals));
+    
+    var_dump($records);
+    
+    ?>
 
