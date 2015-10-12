@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
 import csv
-import sys
 import datetime
 import unittest2
 from operator import attrgetter
@@ -11,46 +11,44 @@ ERPPEEK_TEST_ENV = "test"
 MODULE_NAME = "ecommerce_webservice"
 SHOP_ID = "cafebabe"
 
-class BaseTest(unittest2.TestCase):
+def get_expected_values(record, fields):
+    expected_values = []
+    for rv in attrgetter(*fields)(record):
+        if isinstance(rv, erppeek.Record):
+            expected_values.append(rv.id)
+        elif isinstance(rv, erppeek.RecordList):
+            expected_values.append([el.id for el in rv])
+        else:
+            expected_values.append(rv)
+    return expected_values
 
-    def parse_csv(self, filename):
-        records = csv.reader(open(filename, 'rb'))
-        fieldnames = records.next()
-        rows = [values for values in list(records) if values]
-        return fieldnames, rows
 
-
-class SomeTest(BaseTest):
+class SomeTest(unittest2.TestCase):
 
     def setUp(self):
         # init erppeek client
-        #now = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
-        #template_db = 'test_%s' % MODULE_NAME
-        #if not client.db.db_exist(template_db):
-        #    print "create db with all dependencies of current module"
-        #test_db = '%s_%s' % (template_db, now)
-        #if erppeek.Client.db.duplicate_database('admin', template_db, test_db):
-        #    self._o = connect to test_db with external uid
-        #self._o.install('ecommerce_webservice')
-
-        # init erppeek client
-        env = ERPPEEK_TEST_ENV
-        self._o = erppeek.Client.from_config(env)
-        sys.ps1 = "%s@%s-%s >>> " % (self._o.user, self._o._db, env)
+        self._o = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
 
         # cache some models
         self.shop = self._o.model('ecommerce.api.shop')
         self.api = self._o.model('ecommerce.api.v1')
         self.log = self._o.model('ecommerce.api.log')
 
-    def test0_create_external_user(self):
-        f, r = self.parse_csv('demo/res.partner.csv')
-        self._o.model('res.partner').load(f, r)
-        f, r = self.parse_csv('demo/res.users.csv')
+    def load_csv(self, filename):
+        modelname = os.path.splitext(os.path.basename(filename))[0]
+        records = csv.reader(open(filename, 'rb'))
+        fieldnames = records.next()
+        rows = [values for values in list(records) if values]
+        return self._o.model(modelname).load(fieldnames, rows)
 
-    def test1_create_shop(self):
-        f, r = self.parse_csv('demo/ecommerce.api.shop.csv')
-        self.shop.load(f, r)
+    def test0_create_external_user_and_shop(self):
+        self.load_csv('demo/res.partner.csv')
+        self.load_csv('demo/res.users.csv')
+        self.load_csv('demo/ecommerce.api.shop.csv')
+
+    def test1_login_as_external_user(self):
+        self._o.login('ecommerce_demo_external_user', 'dragon')
+        self.assertEqual(self._o.user, 'ecommerce_demo_external_user')
 
     def test2_create_customer(self):
         values = {
@@ -149,17 +147,18 @@ class SomeTest(BaseTest):
                 'partner_id': partner_id,
                 'partner_invoice_id': partner_id,
                 'partner_shipping_id': partner_id,
-                #'order_line': order_line,
+                'order_line': order_line,
                 }
         so_id = self.api.create_sale_order(SHOP_ID, values)
-        #address = self._o.model('res.partner').browse(address_id)
-        #self.assertEqual(address.country_id.code.upper(), 'BE')
-        #values.pop('country')
-        #self.assertEqual(address.parent_id.id, partner_id)
-        #values.pop('parent_id')
-        #fields = values.keys()
-        #expected_values = attrgetter(*fields)(address)
-        #self.assertSequenceEqual(expected_values, values.values())
+        so = self._o.model('sale.order').browse(so_id)
+        sol_fields = order_line[0].keys()
+        for i, sol in enumerate(so.order_line):
+            expected_values = get_expected_values(sol, sol_fields)
+            self.assertSequenceEqual(expected_values, order_line[i].values())
+        values.pop('order_line')
+        fields = values.keys()
+        expected_values = get_expected_values(so, fields)
+        self.assertSequenceEqual(expected_values, values.values())
 
 if __name__ == '__main__':
     unittest2.main()
