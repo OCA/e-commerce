@@ -147,10 +147,9 @@ class ecommerce_api_v1(orm.AbstractModel):
         return address_id
 
     @_shop_logging
-    def update_customer_address(self, cr, uid, shop_identifier, partner_id, vals, context=None):
+    def update_customer_address(self, cr, uid, shop_identifier, address_ids, vals, context=None):
         """
         vals:
-        parent_id integer (id) ID of the partner
         name      string       Name
         active    boolean      Active?
         street    string       Street
@@ -169,7 +168,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         iuid = shop.internal_user_id.id
 
         self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, iuid, partner_id, vals, context=context)
+        return self.pool['res.partner'].write(cr, iuid, address_ids, vals, context=context)
 
     @_shop_logging
     def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
