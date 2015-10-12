@@ -7,7 +7,6 @@ import sql_db
 import openerp
 from openerp.osv import orm
 from openerp.tools.translate import _
-from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 class ecommerce_api_v1(orm.AbstractModel):
     _name = 'ecommerce.api.v1'
@@ -178,7 +177,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         vals:
         name                string            Order Reference
         client_order_ref    string            Customer Reference
-        date_order          date (YYYY-mm-dd) Date of the order
+        date_order          string YYYY-mm-dd Date of the order
         note                text              Terms and conditions
         origin              string            Source document
         partner_id          integer (id)      Odoo ID of the customer
@@ -207,10 +206,6 @@ class ecommerce_api_v1(orm.AbstractModel):
             'shop_id': shop.default_shop_id.id,
             'eshop_id': shop.id,
             })
-
-        if 'date_order' in vals:
-            date_str = time.strftime(DEFAULT_SERVER_DATE_FORMAT, vals['date_order'].timetuple())
-            vals['date_order'] = date_str
 
         onchange_vals = {}
         if 'partner_id' in vals:
