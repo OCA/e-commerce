@@ -93,7 +93,6 @@ class SomeTest(BaseTest):
         partner_id = max(pids)
         values = {
                 'name': 'Test created customer address',
-                'parent_id': partner_id,
                 'active': True,
                 'street': 'spirit',
                 'street2': 'empty',
@@ -106,12 +105,11 @@ class SomeTest(BaseTest):
                 'fax': 'who uses fax?',
                 'email': 'scott.tiger@example.com',
                 }
-        address_id = self.api.create_customer_address(SHOP_ID, values)
+        address_id = self.api.create_customer_address(SHOP_ID, partner_id, values)
         address = self._o.model('res.partner').browse(address_id)
         self.assertEqual(address.country_id.code.upper(), 'BE')
         values.pop('country')
         self.assertEqual(address.parent_id.id, partner_id)
-        values.pop('parent_id')
         fields = values.keys()
         expected_values = attrgetter(*fields)(address)
         self.assertSequenceEqual(expected_values, values.values())
@@ -121,7 +119,7 @@ class SomeTest(BaseTest):
                 'name': 'Test another created customer address',
                 'country': 'CH',
                 }
-        address_id = self.api.create_customer_address(SHOP_ID, values)
+        address_id = self.api.create_customer_address(SHOP_ID, None, values)
         values = {
                 'name': 'Test created then updated customer address',
                 'country': 'BE',
@@ -145,7 +143,7 @@ class SomeTest(BaseTest):
         values = {
                 'name': 'Test created sale order %s' % now,
                 'client_order_ref': 'COR-622',
-                'date_order': now,
+                'date_order': now.strftime('%Y-%m-%d'),
                 'note': 'some note',
                 'origin': 'some origin',
                 'partner_id': partner_id,
