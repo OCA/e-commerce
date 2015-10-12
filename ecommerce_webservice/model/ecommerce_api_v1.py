@@ -117,10 +117,9 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self.pool['res.partner'].write(cr, iuid, partner_id, vals, context=context)
 
     @_shop_logging
-    def create_customer_address(self, cr, uid, shop_identifier, vals, context=None):
+    def create_customer_address(self, cr, uid, shop_identifier, customer_id, vals, context=None):
         """
         vals:
-        parent_id integer (id) ID of the partner
         name      string       Name
         active    boolean      Active?
         street    string       Street
@@ -141,10 +140,11 @@ class ecommerce_api_v1(orm.AbstractModel):
         self._update_vals_for_country_id(cr, iuid, vals, context)
         vals.update({
             'customer': True,
+            'parent_id': customer_id,
             'address_eshop_id': shop.id, # link to shop.partner_ids
             })
-        customer_id = self.pool['res.partner'].create(cr, iuid, vals, context)
-        return customer_id
+        address_id = self.pool['res.partner'].create(cr, iuid, vals, context)
+        return address_id
 
     @_shop_logging
     def update_customer_address(self, cr, uid, shop_identifier, partner_id, vals, context=None):
