@@ -65,21 +65,6 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @_shop_logging
     def create_customer(self, cr, uid, shop_identifier, vals, context=None):
-        """
-        vals:
-        name      string       Name
-        active    boolean      Active?
-        street    string       Street
-        street2   string       Street2
-        city      string       City
-        zip       string       ZIP
-        country   string       Country Code
-        phone     string       Phone
-        mobile    string       Mobile
-        fax       string       Fax
-        email     string       email
-        """
-
         shop = self._find_shop(cr, uid, shop_identifier, context)
         iuid = shop.internal_user_id.id
 
@@ -94,21 +79,6 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @_shop_logging
     def update_customer(self, cr, uid, shop_identifier, partner_id, vals, context=None):
-        """
-        vals:
-        name      string       Name
-        active    boolean      Active?
-        street    string       Street
-        street2   string       Street2
-        city      string       City
-        zip       string       ZIP
-        country   string       Country Code
-        phone     string       Phone
-        mobile    string       Mobile
-        fax       string       Fax
-        email     string       email
-        """
-
         shop = self._find_shop(cr, uid, shop_identifier, context)
         iuid = shop.internal_user_id.id
 
@@ -117,22 +87,6 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @_shop_logging
     def create_customer_address(self, cr, uid, shop_identifier, customer_id, vals, context=None):
-        """
-        vals:
-        name      string       Name
-        active    boolean      Active?
-        street    string       Street
-        street2   string       Street2
-        city      string       City
-        zip       string       ZIP
-        country   string       Country Code
-        type      selection    'default', 'invoice', 'delivery', 'contact' or 'other'
-        phone     string       Phone
-        mobile    string       Mobile
-        fax       string       Fax
-        email     string       email
-        """
-
         shop = self._find_shop(cr, uid, shop_identifier, context)
         iuid = shop.internal_user_id.id
 
@@ -147,22 +101,6 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @_shop_logging
     def update_customer_address(self, cr, uid, shop_identifier, address_ids, vals, context=None):
-        """
-        vals:
-        name      string       Name
-        active    boolean      Active?
-        street    string       Street
-        street2   string       Street2
-        city      string       City
-        zip       string       ZIP
-        country   string       Country Code
-        type      selection    'default', 'invoice', 'delivery', 'contact' or 'other'
-        phone     string       Phone
-        mobile    string       Mobile
-        fax       string       Fax
-        email     string       email
-        """
-
         shop = self._find_shop(cr, uid, shop_identifier, context)
         iuid = shop.internal_user_id.id
 
@@ -171,29 +109,6 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @_shop_logging
     def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
-        """
-        Create a 'sale.order' and returns its ID.
-
-        vals:
-        name                string            Order Reference
-        client_order_ref    string            Customer Reference
-        date_order          string YYYY-mm-dd Date of the order
-        note                text              Terms and conditions
-        origin              string            Source document
-        partner_id          integer (id)      Odoo ID of the customer
-        partner_invoice_id  integer (id)      Odoo ID of the invoice address
-        partner_shipping_id integer (id)      Odoo ID of the shipping address
-        order_line          list              List of lines (see line details below)
-
-        order_line:
-        product_id      integer (id) ID of the product
-        name            string       Description of the product, if empty, use the Odoo one
-        price_unit      float        Unit price
-        discount        float        Discount (%)
-        product_uom_qty float        Quantity
-        sequence        integer      Sequence of the line (asc order, 0 is the first)
-        """
-
         shop = self._find_shop(cr, uid, shop_identifier, context)
         iuid = shop.internal_user_id.id
         SO = self.pool['sale.order']
@@ -242,7 +157,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                     onchange_vals.pop(key)
             line.update(onchange_vals)
             order_line.append([0, False, line])
-        
+
         vals['order_line'] = order_line
         so_id = SO.create(cr, iuid, vals, context=context)
         return so_id
