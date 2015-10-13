@@ -24,9 +24,9 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[product_links_goodies](__unported__/product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
-[sale_automatic_workflow_exception](__unported__/sale_automatic_workflow_exception/) | 0.0.1 (unported) | Sale Automatic Workflow Exception
-[sale_payment_method_transaction_id](__unported__/sale_payment_method_transaction_id/) | 1.0 (unported) | Sale Payment Method - Transaction ID Compatibility
-[sale_quick_payment](__unported__/sale_quick_payment/) | 0.2 (unported) | Sale Quick Payment
+[product_links_goodies](product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
+[sale_automatic_workflow_exception](sale_automatic_workflow_exception/) | 0.0.1 (unported) | Sale Automatic Workflow Exception
+[sale_payment_method_transaction_id](sale_payment_method_transaction_id/) | 1.0 (unported) | Sale Payment Method - Transaction ID Compatibility
+[sale_quick_payment](sale_quick_payment/) | 0.2 (unported) | Sale Quick Payment
 
 [//]: # (end addons)
