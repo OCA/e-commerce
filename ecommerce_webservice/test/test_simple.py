@@ -208,6 +208,12 @@ class SomeTest(unittest2.TestCase):
         result = self.api.get_docs(SHOP_ID, 1, 'account.invoice')
         self.assertEqual(result.decode('base64')[0:4], pdfmagic)
 
+    def test13_flat_domains(self):
+        customers = self.api.search_read_customer(SHOP_ID, ['customer=True'],
+                ['name', 'customer'])
+        if customers:
+            self.assertEqual(customers[0]['customer'], True)
+
 if __name__ == '__main__':
     unittest2.main()
 

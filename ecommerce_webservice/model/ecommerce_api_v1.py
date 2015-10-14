@@ -11,6 +11,8 @@ from openerp.osv import orm
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
+from domain_helper import issearchdomain, searchargs
+
 class ecommerce_api_v1(orm.AbstractModel):
     _name = 'ecommerce.api.v1'
 
@@ -73,6 +75,8 @@ class ecommerce_api_v1(orm.AbstractModel):
     def _search_read_anything(self, cr, uid, model, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         Model = self.pool[model]
+        if issearchdomain(domain):
+            searchargs((domain,))
         oids = Model.search(cr, uid, domain, offset=offset,
                 limit=limit, order=order, context=context)
         records = Model.read(cr, uid, oids, fields, context=context)
