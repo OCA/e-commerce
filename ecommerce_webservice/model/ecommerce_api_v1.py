@@ -67,6 +67,20 @@ class ecommerce_api_v1(orm.AbstractModel):
             vals.pop('country')
             vals['country_id'] = country_id
 
+    def _get_report(self, cr, uid, model, oid):
+        ReportSpool = netsvc.ExportService._services['report']
+        rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
+                {'model': model, 'id': oid, 'report_type':'pdf'})
+        retry = 0
+        while retry < 10:
+            report = ReportSpool.exp_report_get(cr.dbname, uid, rid)
+            if report['state']:
+                break
+            # there must be a better way
+            time.sleep(min(.1 * 2 ** retry, 3))
+            retry += 1
+        return report['result']
+
 
     @_shop_logging
     def create_customer(self, cr, uid, shop, vals, context=None):
@@ -245,20 +259,6 @@ class ecommerce_api_v1(orm.AbstractModel):
         records = Partner.read(cr, uid, oids, fields, context=context)
         result = {str(record['id']): record['credit'] for record in records}
         return result
-
-    def _get_report(self, cr, uid, model, oid):
-        ReportSpool = netsvc.ExportService._services['report']
-        rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
-                {'model': model, 'id': oid, 'report_type':'pdf'})
-        retry = 0
-        while retry < 10:
-            report = ReportSpool.exp_report_get(cr.dbname, uid, rid)
-            if report['state']:
-                break
-            # there must be a better way
-            time.sleep(min(.1 * 2 ** retry, 3))
-            retry += 1
-        return report['result']
 
     @_shop_logging
     def get_docs(self, cr, uid, shop, sale_id, document_type,
