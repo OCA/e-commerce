@@ -33,5 +33,5 @@
           'security/rules.xml',
           ],
  'demo': [],
- 'installable': True,
+ 'installable': False,
  }

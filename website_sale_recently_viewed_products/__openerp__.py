@@ -35,4 +35,5 @@
         'templates/website_sale.xml',
         'templates/website_sale_recently_viewed_products.xml',
     ],
+    'installable': False,
 }
