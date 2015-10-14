@@ -194,13 +194,13 @@ class ecommerce_api_v1(orm.AbstractModel):
             context=None):
         Product = self.pool['product.product']
 
-        fields = ['qty_available', 'virtual_available']
+        fields = ['id', 'qty_available', 'virtual_available']
         records = Product.read(cr, uid, product_ids, fields, context=context)
-        result = {}
         for record in records:
-            product_id = record.pop('id')
-            result[str(product_id)] = {k: v for k, v in record.items() if k in fields}
-        return result
+            for key in record.keys():
+                if key not in fields:
+                    record.pop(key)
+        return records
 
     @_shop_logging
     def get_transfer_status(self, cr, uid, shop, domain,
@@ -255,10 +255,13 @@ class ecommerce_api_v1(orm.AbstractModel):
         domain = [('id', 'in', customer_ids),
                   ('customer_eshop_id', '=', shop.id)]
         oids = Partner.search(cr, uid, domain, context=context)
-        fields = ['credit']
+        fields = ['id', 'credit']
         records = Partner.read(cr, uid, oids, fields, context=context)
-        result = {str(record['id']): record['credit'] for record in records}
-        return result
+        for record in records:
+            for key in record.keys():
+                if key not in fields:
+                    record.pop(key)
+        return records
 
     @_shop_logging
     def get_docs(self, cr, uid, shop, sale_id, document_type,
