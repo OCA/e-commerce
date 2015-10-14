@@ -17,6 +17,6 @@ class ecommerce_api_log(orm.Model):
         'args': fields.text('Method Arguments', help="Kept only on failure.", readonly=True),
         'exc_info': fields.text('Exception', readonly=True),
         'create_date': fields.datetime('Create Date', readonly=True, select=1),
-        'create_uid': fields.many2one('res.users', 'User', readonly=True, select=1),
+        'external_uid': fields.many2one('res.users', 'User', readonly=True, select=1),
     }
 

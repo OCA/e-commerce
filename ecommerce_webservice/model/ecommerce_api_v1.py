@@ -8,6 +8,7 @@ import sql_db
 import netsvc
 import openerp
 from openerp.osv import orm
+from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
 class ecommerce_api_v1(orm.AbstractModel):
@@ -19,11 +20,12 @@ class ecommerce_api_v1(orm.AbstractModel):
             context = None
             if context in kwargs:
                 context = kwargs['context']
-            shop = self._find_shop(cr, uid, shop_identifier, context)
+            shop = self._find_shop(cr, SUPERUSER_ID, shop_identifier, context)
             internal_uid = shop.internal_user_id.id
             try:
                 values = {
                     'shop_id': shop.id,
+                    'external_uid': uid,
                     'method': method.func_name,
                     # serialize args before calling as they might get modified
                     'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
@@ -44,7 +46,7 @@ class ecommerce_api_v1(orm.AbstractModel):
             finally:
                 if shop.enable_logs:
                     new_cr = sql_db.db_connect(cr.dbname).cursor()
-                    self.pool['ecommerce.api.log'].create(new_cr, uid, values, context)
+                    self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
                     new_cr.commit()
                     new_cr.close()
         return wrapped
