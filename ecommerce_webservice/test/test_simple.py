@@ -27,6 +27,13 @@ class SomeTest(unittest2.TestCase):
 
     def setUp(self):
         self.admin = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
+        self.product = self.admin.model('product.product').create({
+            'name': "BlueBeery",
+            'sale_ok' : True,
+            'type': 'product',
+            'list_price': 3.0,
+            'procure_method': 'make_to_stock',
+            })
 
         # def test00_create_external_user_and_shop(self):
         self.load_csv('demo/res.partner.csv')
@@ -36,7 +43,6 @@ class SomeTest(unittest2.TestCase):
         # def test01_login_as_external_user(self):
         self.public = erppeek.Client(self.admin._server, self.admin._db,
                 'ecommerce_demo_external_user', 'dragon')
-        self.assertEqual(self.public.user, 'ecommerce_demo_external_user')
         self.api = self.public.model('ecommerce.api.v1')
 
     def load_csv(self, filename):
@@ -126,10 +132,10 @@ class SomeTest(unittest2.TestCase):
         pids = self.admin.model('res.partner').search([('type', '=', 'default')])
         partner_id = max(pids)
         order_line = [{
-            'product_id': 1,
+            'product_id': self.product.id,
             'name': 'some description',
             'price_unit': 3.14,
-            'discount': 5.0,
+            'discount': .5,
             'product_uom_qty': 10.0,
             'sequence': 0,
             }]
@@ -157,31 +163,40 @@ class SomeTest(unittest2.TestCase):
         self.assertSequenceEqual(expected_values, values.values())
 
     def test07_search_read_product_template(self):
-        # TODO: enhance poor test
-        products = self.api.search_read_product_template(SHOP_ID, [('name', '=', 'Service')])
-        self.assertEqual(products[0]['id'], 1)
+        # TODO: enhance test
+        products = self.api.search_read_product_template(SHOP_ID,
+                [('name', '=', 'BlueBeery')])
+        self.assertIn(self.product.id, [p['id'] for p in products])
 
     def test08_get_inventory(self):
-        # TODO: enhance poor test
-        inventory = self.api.get_inventory(SHOP_ID, [1])
-        print inventory
+        # TODO: enhance test
+        inventory = self.api.get_inventory(SHOP_ID, [self.product.id])
+        for row in inventory:
+            self.assertEqual(row['id'], self.product.id)
+            self.assertIsInstance(row['qty_available'], float)
+            self.assertIsInstance(row['virtual_available'], float)
 
     def test09_get_transfer_status(self):
-        # TODO: enhance poor test
+        # TODO: enhance test
         status = self.api.get_transfer_status(SHOP_ID, [])
-        print status
+        for s in status:
+            self.assertRegexpMatches(s['name'], "OUT/\d{5}")
 
     def test10_get_payment_status(self):
-        # TODO: enhance poor test
-        status = self.api.get_payment_status(SHOP_ID, [])
-        print status
+        # TODO: enhance test
+        fields = ['id', 'state', 'sale_order_ids']
+        result = self.api.get_payment_status(SHOP_ID, [], fields)
+        for row in result:
+            self.assertItemsEqual(fields, row.keys())
 
     def test11_check_customer_credit(self):
-        # TODO: enhance poor test
-        result = self.api.check_customer_credit(SHOP_ID, [ 5, 3, 6, 17, 11, 13,
-            16, 18, 7, 8, 67, 4, 72, 73, 10, 9, 25, 15, 12, 19, 21, 23, 20, 66,
-            14, 22, 27, 26, 1, 70, 68])
-        print result
+        # TODO: enhance test
+        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
+        partner_id = max(pids)
+        result = self.api.check_customer_credit(SHOP_ID, [partner_id])
+        for row in result:
+            self.assertEqual(row['id'], partner_id)
+            self.assertIsInstance(row['credit'], (int, float))
 
     def test12_get_docs(self):
         # TODO: enhance poor test
