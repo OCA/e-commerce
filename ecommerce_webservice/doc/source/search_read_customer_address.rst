@@ -185,7 +185,45 @@ PHP call example
  
     <?php 
     
-    // TODO
+    require_once('ripcord/ripcord.php');
+    
+    // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
+    // FOR THIS NEWLY CREATED CUSTOMER
+    
+    $url = 'http://localhost:8069';
+    $db = 'database';
+    $username = "admin";
+    $password = "admin";
+    $shop_identifier = "cafebabe";
+    
+    
+    $common = ripcord::client($url."/xmlrpc/common");
+    
+    $uid = $common->authenticate($db, $username, $password, array());
+    
+    $models = ripcord::client("$url/xmlrpc/object");
+    
+    $domain = array(
+        array('name','=', 'Agrolait'),
+        );
+    
+    $fields = array('name', 'ref');
+    
+    $records = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'search_read_customer', array($shop_identifier, $domain, $fields));
+    
+    var_dump($records);
+    
+    $domain_address = array(
+        array('name','ilike', 'luc'),
+        );
+    
+    $fields_address = array('name', 'ref', 'parent_id');
+    
+    $records_address = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'search_read_address', array($shop_identifier, $domain_address, $fields_address));
+    
+    var_dump($records_address);
     
     ?>
 

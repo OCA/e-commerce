@@ -32,6 +32,8 @@ It takes the following arguments in the order of the rows:
 +-------------+------------------------+--------------------------------------------------------------------+
 | method_name | string                 | ``get_transfer_status``                                            |
 +-------------+------------------------+--------------------------------------------------------------------+
+| shop_ident  | string                 | Shop identifier                                                    |
++-------------+------------------------+--------------------------------------------------------------------+
 | domain      | list of tuples/strings | Search domain. See :doc:`_about_search_domains` chapter.           |
 |             |                        |                                                                    |
 |             |                        | Example: ``['sale_id = 10']`` or ``[('sale_id', '=', 10)]``        |
@@ -70,6 +72,7 @@ Python call example
         dbname, uid, pwd,
         'ecommerce.api.v1',
         'get_transfer_status',
+        'shop_identifier',
         ['sale_id = 10', 'create_date > 2015-09-24 00:00:00'],
         ['id', 'state', 'carrier_tracking_ref', 'move_line'],
         )

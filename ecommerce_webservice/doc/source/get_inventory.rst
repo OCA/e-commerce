@@ -31,6 +31,8 @@ It takes the following arguments in the order of the rows:
 +-------------+-----------------+--------------------------------------------------------------------+
 | method_name | string          | ``get_inventory``                                                  |
 +-------------+-----------------+--------------------------------------------------------------------+
+| shop_ident  | string          | Shop identifier                                                    |
++-------------+-----------------+--------------------------------------------------------------------+
 | product_ids | list of integer | Filter on a selection of products. If empty, returns all products. |
 +-------------+-----------------+--------------------------------------------------------------------+
 
@@ -56,6 +58,7 @@ Python call example
         dbname, uid, pwd,
         'ecommerce.api.v1',
         'get_inventory',
+        'shop_identifier',
         [1, 2]
         )
     print quantities
@@ -69,6 +72,30 @@ PHP call example
  ..  code-block:: php
     :linenos:
  
-    //TODO
+    <?php 
     
+    require_once('ripcord/ripcord.php');
+    
+    $url = 'http://localhost:8069';
+    $db = 'database';
+    $username = "admin";
+    $password = "admin";
+    $shop_identifier = "cafebabe";
+    
+    
+    $common = ripcord::client($url."/xmlrpc/common");
+    
+    $uid = $common->authenticate($db, $username, $password, array());
+    
+    $models = ripcord::client("$url/xmlrpc/object");
+    
+    $product_ids = array(17, 25);
+    
+    $records = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'get_inventory', array($shop_identifier, $product_ids));
+    
+    var_dump($records);
+    
+    ?>
+
 
