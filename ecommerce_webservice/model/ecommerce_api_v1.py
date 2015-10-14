@@ -46,16 +46,19 @@ class ecommerce_api_v1(orm.AbstractModel):
             finally:
                 if shop.enable_logs:
                     new_cr = sql_db.db_connect(cr.dbname).cursor()
-                    self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID, values, context)
+                    self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID,
+                            values, context)
                     new_cr.commit()
                     new_cr.close()
         return wrapped
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):
         Shop = self.pool['ecommerce.api.shop']
-        shops = Shop.search(cr, uid, [('shop_identifier', '=', shop_identifier)], context=context)
+        shops = Shop.search(cr, uid,
+                [('shop_identifier', '=', shop_identifier)], context=context)
         if not shops:
-            raise openerp.exceptions.AccessError(_('No shop found with identifier %s') % shop_identifier)
+            raise openerp.exceptions.AccessError(
+                    _('No shop found with identifier %s') % shop_identifier)
         shop = Shop.browse(cr, uid, shops[0], context=context)
         return shop
 
