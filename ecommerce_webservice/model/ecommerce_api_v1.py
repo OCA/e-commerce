@@ -273,6 +273,7 @@ class ecommerce_api_v1(orm.AbstractModel):
             oid = picking_ids and picking_ids[0] or False
             model = 'stock.picking.list.out'
         else:
-            raise KeyError(document_type)
+            message = 'Printing %s is not supported. Is the spelling correct?'
+            raise openerp.exceptions.AccessError(_(message) % document_type)
         return self._get_report(cr, uid, model, oid)
 
