@@ -67,6 +67,14 @@ class ecommerce_api_v1(orm.AbstractModel):
             vals.pop('country')
             vals['country_id'] = country_id
 
+    def _search_read_anything(self, cr, uid, model, domain,
+            fields=None, offset=0, limit=None, order=None, context=None):
+        Model = self.pool[model]
+        oids = Model.search(cr, uid, domain, offset=offset,
+                limit=limit, order=order, context=context)
+        records = Model.read(cr, uid, oids, fields, context=context)
+        return records
+
     def _get_report(self, cr, uid, model, oid):
         ReportSpool = netsvc.ExportService._services['report']
         rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
@@ -170,24 +178,17 @@ class ecommerce_api_v1(orm.AbstractModel):
     @_shop_logging
     def search_read_product_template(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        Product = self.pool['product.product']
-
-        # TODO filter on template only (howto in 7?)
-        product_ids = Product.search(cr, uid, domain, offset=offset,
-                limit=limit, order=order, context=context)
-        records = Product.read(cr, uid, product_ids, fields, context=context)
-        return records
+        model = 'product.product'
+        domain.append(('variants', '=', False))
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
     def search_read_product_variant(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        Product = self.pool['product.product']
-
-        # TODO test returned data includes the data of the template of the variant
-        product_ids = Product.search(cr, uid, domain, offset=offset,
-                limit=limit, order=order, context=context)
-        records = Product.read(cr, uid, product_ids, fields, context=context)
-        return records
+        model = 'product.product'
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
     def get_inventory(self, cr, uid, shop, product_ids,
@@ -205,47 +206,34 @@ class ecommerce_api_v1(orm.AbstractModel):
     @_shop_logging
     def get_transfer_status(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        Picking = self.pool['stock.picking.out']
-
-        # TODO test with move_line
+        model = 'stock.picking.out'
         domain.append(('sale_id', 'in', [so.id for so in shop.sale_order_ids]))
-        picking_ids = Picking.search(cr, uid, domain, offset=offset,
-                limit=limit, order=order, context=context)
-        records = Picking.read(cr, uid, picking_ids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
     def get_payment_status(self, cr, uid, shop, domain, fields=None,
             offset=0, limit=None, order=None, context=None):
-        Invoice = self.pool['account.invoice']
-
+        model = 'account.invoice'
         #domain.append(('sale_order_id', 'in', [so.id for so in shop.sale_order_ids]))
-        oids = Invoice.search(cr, uid, domain, offset=offset, limit=limit,
-                order=order, context=context)
-        records = Invoice.read(cr, uid, oids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
     def search_read_customer(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        Partner = self.pool['res.partner']
-
+        model = 'res.partner'
         domain.append(('parent_id', '=', False))
-        oids = Partner.search(cr, uid, domain, offset=offset, limit=limit,
-                order=order, context=context)
-        records = Partner.read(cr, uid, oids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
     def search_read_address(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        Partner = self.pool['res.partner']
-
+        model = 'res.partner'
         domain.append(('parent_id', '!=', False))
-        oids = Partner.search(cr, uid, domain, offset=offset, limit=limit,
-                order=order, context=context)
-        records = Partner.read(cr, uid, oids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
     def check_customer_credit(self, cr, uid, shop, customer_ids,
