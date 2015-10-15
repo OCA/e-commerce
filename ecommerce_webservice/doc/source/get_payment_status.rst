@@ -34,6 +34,8 @@ It takes the following arguments in the order of the rows:
 +-------------+------------------------+--------------------------------------------------------------------+
 | method_name | string                 | ``get_payment_status``                                             |
 +-------------+------------------------+--------------------------------------------------------------------+
+| shop_ident  | string                 | Shop identifier                                                    |
++-------------+------------------------+--------------------------------------------------------------------+
 | domain      | list of tuples/strings | Search domain. See :doc:`_about_search_domains` chapter.           |
 |             |                        |                                                                    |
 |             |                        | Example: ``['sale_id = 10']`` or ``[('sale_id', '=', 10)]``        |
@@ -72,6 +74,7 @@ Python call example
         dbname, uid, pwd,
         'ecommerce.api.v1',
         'get_payment_status',
+        'shop_identifier',
         ['sale_id = 10', 'create_date > 2015-09-24 00:00:00'],
         ['id', 'state'],
         )
@@ -86,6 +89,38 @@ PHP call example
  ..  code-block:: php
     :linenos:
  
-    //TODO
+    <?php 
+
+    require_once('ripcord/ripcord.php');
+    
+    $url = 'http://localhost:8069';
+    $db = 'database';
+    $username = "admin";
+    $password = "admin";
+    $shop_identifier = "cafebabe";
+    
+    
+    $common = ripcord::client($url."/xmlrpc/common");
+    
+    $uid = $common->authenticate($db, $username, $password, array());
+    
+    $models = ripcord::client("$url/xmlrpc/object");
+    
+    
+    // here, put the ID of a sale_order
+    $sale_id = 17;
+    
+    $domain = array(
+        array('sale_order_ids', 'in', $sale_id)
+    );
+    
+    $fields = array();
+    
+    $records = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'get_payment_status', array($shop_identifier, $domain, $fields));
+    
+    var_dump($records);
+    
+    ?>
     
 
