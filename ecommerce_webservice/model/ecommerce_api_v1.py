@@ -48,8 +48,8 @@ class ecommerce_api_v1(orm.AbstractModel):
             finally:
                 if shop.enable_logs:
                     new_cr = sql_db.db_connect(cr.dbname).cursor()
-                    self.pool['ecommerce.api.log'].create(new_cr, SUPERUSER_ID,
-                            values, context)
+                    Log = self.pool['ecommerce.api.log']
+                    Log.create(new_cr, internal_uid, values, context)
                     new_cr.commit()
                     new_cr.close()
         return wrapped
