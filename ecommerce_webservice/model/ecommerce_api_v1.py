@@ -134,7 +134,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         SO = self.pool['sale.order']
         SOL = self.pool['sale.order.line']
 
-        raw_order_line = vals.pop('order_line') if 'order_line' in vals else {}
+        raw_order_line = vals.pop('order_line') if 'order_line' in vals else []
 
         vals.update({
             'state': 'draft',
@@ -150,7 +150,7 @@ class ecommerce_api_v1(orm.AbstractModel):
             ocv = SO.onchange_shop_id(cr, uid, None, vals['shop_id'], context=context)
             onchange_vals.update(ocv['value'])
 
-        # fields in vals prevail on fields returned by onchange
+        # fields in vals prevail over fields returned by onchange
         for key in onchange_vals.keys():
             if key in vals:
                 onchange_vals.pop(key)
@@ -178,7 +178,8 @@ class ecommerce_api_v1(orm.AbstractModel):
             line.update(onchange_vals)
             order_line.append([0, False, line])
 
-        vals['order_line'] = order_line
+        if order_line:
+            vals['order_line'] = order_line
         so_id = SO.create(cr, uid, vals, context=context)
         return so_id
 
