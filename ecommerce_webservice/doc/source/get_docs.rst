@@ -6,8 +6,6 @@ Goal
 
 Render a PDF and return it. It can print the sales order's report, invoice's report or delivery order's report.
 
-If a sales order has several invoices or delivery orders, it returns *all* the pdf documents.
-
 Specification
 -------------
 
@@ -29,6 +27,8 @@ It takes the following arguments in the order of the rows:
 +---------------+-----------------+--------------------------------------------------------------------+
 | method_name   | string          | ``get_docs``                                                       |
 +---------------+-----------------+--------------------------------------------------------------------+
+| shop_ident    | string          | Shop identifier                                                    |
++---------------+-----------------+--------------------------------------------------------------------+
 | sale_id       | integer         | ID of the sales order                                              |
 +---------------+-----------------+--------------------------------------------------------------------+
 | document_type | string          | ``sale.order`` or ``account.invoice`` or ``stock.picking``.        |
@@ -37,29 +37,27 @@ It takes the following arguments in the order of the rows:
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a dictionnary indexed by document name for document attached to ``sale_id`` and ``document_type`` given in parameters.
+Method returns a base64 string for ``sale_id`` and ``document_type`` given in parameters.
 
 ..  code-block:: python
 
-    [{doc_name1: content1},
-     {doc_name2: content2},
-     ...
-     ]
+    JVBERi0xLjQNCiWTjIueIFJlcG9ydExhYiBH...
 
 Python call example
 -------------------
 ..  code-block:: python
    :linenos:
 
-    sale_docs = client.execute(
+    sale_doc = client.execute(
         dbname, uid, pwd,
         'ecommerce.api.v1',
         'get_docs',
+        'shop_identifier',
         10,
         'sale.order'
         )
-    print sale_docs
-    [{doc_name: content}, ...]
+    print sale_doc
+    JVBERi0xLjQNCiWTjIueIFJlcG9ydExhYiBH...
 
 PHP call example
 ----------------
@@ -67,6 +65,38 @@ PHP call example
  ..  code-block:: php
     :linenos:
  
-    //TODO
+    <?php 
+    
+    require_once('ripcord/ripcord.php');
+    
+    $url = 'http://localhost:8069';
+    $db = 'database';
+    $username = "admin";
+    $password = "admin";
+    $shop_identifier = "cafebabe";
+    
+    
+    $common = ripcord::client($url."/xmlrpc/common");
+    
+    $uid = $common->authenticate($db, $username, $password, array());
+    
+    $models = ripcord::client("$url/xmlrpc/object");
+    
+    $sale_id = 17;
+    
+    $document_type = "sale.order";
+    //$document_type = "account.invoice";
+    //$document_type = "stock.picking";
+    
+    $records = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'get_docs', array($shop_identifier, $sale_id, $document_type));
+    
+    //var_dump($records);
+    
+    // data is encoded in base64
+    // to be able to read the PDF, we must decode it
+    echo base64_decode($records);
+    
+    ?>
     
 

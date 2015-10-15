@@ -86,6 +86,37 @@ PHP call example
  ..  code-block:: php
     :linenos:
  
-    //TODO
+    <?php 
     
+    require_once('ripcord/ripcord.php');
+    
+    $url = 'http://localhost:8069';
+    $db = 'database';
+    $username = "admin";
+    $password = "admin";
+    $shop_identifier = "cafebabe";
+    
+    
+    $common = ripcord::client($url."/xmlrpc/common");
+    
+    $uid = $common->authenticate($db, $username, $password, array());
+    
+    $models = ripcord::client("$url/xmlrpc/object");
+    
+    
+    // here, put the ID of a sale_order
+    $sale_id = 17;
+    
+    $domain = array(
+        array('sale_id', '=', $sale_id)
+    );
+    
+    $fields = array();
+    
+    $records = $models->execute_kw($db, $uid, $password,
+        'ecommerce.api.v1', 'get_transfer_status', array($shop_identifier, $domain, $fields));
+    
+    var_dump($records);
+    
+    ?>    
 

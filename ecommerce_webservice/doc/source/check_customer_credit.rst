@@ -75,7 +75,7 @@ PHP call example
     // FOR THIS NEWLY CREATED CUSTOMER
     
     $url = 'http://localhost:8069';
-    $db = 'swisspost_1';
+    $db = 'database';
     $username = "admin";
     $password = "admin";
     $shop_identifier = "cafebabe";
