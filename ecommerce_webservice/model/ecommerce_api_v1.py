@@ -8,7 +8,10 @@ import sql_db
 import netsvc
 import openerp
 from openerp.osv import orm
+from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
+
+from domain_helper import issearchdomain, searchargs
 
 class ecommerce_api_v1(orm.AbstractModel):
     _name = 'ecommerce.api.v1'
@@ -19,15 +22,17 @@ class ecommerce_api_v1(orm.AbstractModel):
             context = None
             if context in kwargs:
                 context = kwargs['context']
-            shop = self._find_shop(cr, uid, shop_identifier, context)
+            shop = self._find_shop(cr, SUPERUSER_ID, shop_identifier, context)
+            internal_uid = shop.internal_user_id.id
             try:
                 values = {
                     'shop_id': shop.id,
+                    'external_uid': uid,
                     'method': method.func_name,
                     # serialize args before calling as they might get modified
                     'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
                     }
-                result = method(self, cr, uid, shop_identifier, *args, **kwargs)
+                result = method(self, cr, internal_uid, shop, *args, **kwargs)
             except:
                 exc_info = sys.exc_info()
                 values.update({
@@ -43,16 +48,19 @@ class ecommerce_api_v1(orm.AbstractModel):
             finally:
                 if shop.enable_logs:
                     new_cr = sql_db.db_connect(cr.dbname).cursor()
-                    self.pool['ecommerce.api.log'].create(new_cr, uid, values, context)
+                    Log = self.pool['ecommerce.api.log']
+                    Log.create(new_cr, internal_uid, values, context)
                     new_cr.commit()
                     new_cr.close()
         return wrapped
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):
         Shop = self.pool['ecommerce.api.shop']
-        shops = Shop.search(cr, uid, [('shop_identifier', '=', shop_identifier)], context=context)
+        shops = Shop.search(cr, uid,
+                [('shop_identifier', '=', shop_identifier)], context=context)
         if not shops:
-            raise openerp.exceptions.AccessError(_('No shop found with identifier %s') % shop_identifier)
+            raise openerp.exceptions.AccessError(
+                    _('No shop found with identifier %s') % shop_identifier)
         shop = Shop.browse(cr, uid, shops[0], context=context)
         return shop
 
@@ -64,75 +72,85 @@ class ecommerce_api_v1(orm.AbstractModel):
             vals.pop('country')
             vals['country_id'] = country_id
 
+    def _search_read_anything(self, cr, uid, model, domain,
+            fields=None, offset=0, limit=None, order=None, context=None):
+        Model = self.pool[model]
+        if issearchdomain(domain):
+            searchargs((domain,))
+        oids = Model.search(cr, uid, domain, offset=offset,
+                limit=limit, order=order, context=context)
+        records = Model.read(cr, uid, oids, fields, context=context)
+        return records
+
+    def _get_report(self, cr, uid, model, oid):
+        ReportSpool = netsvc.ExportService._services['report']
+        rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
+                {'model': model, 'id': oid, 'report_type':'pdf'})
+        retry = 0
+        while retry < 10:
+            report = ReportSpool.exp_report_get(cr.dbname, uid, rid)
+            if report['state']:
+                break
+            # there must be a better way
+            time.sleep(min(.1 * 2 ** retry, 3))
+            retry += 1
+        return report['result']
+
 
     @_shop_logging
-    def create_customer(self, cr, uid, shop_identifier, vals, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-
-        self._update_vals_for_country_id(cr, iuid, vals, context)
+    def create_customer(self, cr, uid, shop, vals, context=None):
+        self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
             'customer': True,
             'type': 'default',
             'customer_eshop_id': shop.id, # link to shop.partner_ids
             })
-        customer_id = self.pool['res.partner'].create(cr, iuid, vals, context)
+        customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return customer_id
 
     @_shop_logging
-    def update_customer(self, cr, uid, shop_identifier, partner_id, vals, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-
+    def update_customer(self, cr, uid, shop, partner_id, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, iuid, partner_id, vals, context=context)
+        return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
 
     @_shop_logging
-    def create_customer_address(self, cr, uid, shop_identifier, customer_id, vals, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-
-        self._update_vals_for_country_id(cr, iuid, vals, context)
+    def create_customer_address(self, cr, uid, shop, customer_id, vals, context=None):
+        self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
             'customer': True,
             'parent_id': customer_id,
             'address_eshop_id': shop.id, # link to shop.partner_ids
             })
-        address_id = self.pool['res.partner'].create(cr, iuid, vals, context)
+        address_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return address_id
 
     @_shop_logging
-    def update_customer_address(self, cr, uid, shop_identifier, address_ids, vals, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-
+    def update_customer_address(self, cr, uid, shop, address_ids, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, iuid, address_ids, vals, context=context)
+        return self.pool['res.partner'].write(cr, uid, address_ids, vals, context=context)
 
     @_shop_logging
-    def create_sale_order(self, cr, uid, shop_identifier, vals, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
+    def create_sale_order(self, cr, uid, shop, vals, context=None):
         SO = self.pool['sale.order']
         SOL = self.pool['sale.order.line']
 
-        raw_order_line = vals.pop('order_line') if 'order_line' in vals else {}
+        raw_order_line = vals.pop('order_line') if 'order_line' in vals else []
 
         vals.update({
-            'state': 'manual',
+            'state': 'draft',
             'shop_id': shop.default_shop_id.id,
             'eshop_id': shop.id,
             })
 
         onchange_vals = {}
         if 'partner_id' in vals:
-            ocv = SO.onchange_partner_id(cr, iuid, None, vals['partner_id'], context=context)
+            ocv = SO.onchange_partner_id(cr, uid, None, vals['partner_id'], context=context)
             onchange_vals.update(ocv['value'])
         if 'shop_id' in vals:
-            ocv = SO.onchange_shop_id(cr, iuid, None, vals['shop_id'], context=context)
+            ocv = SO.onchange_shop_id(cr, uid, None, vals['shop_id'], context=context)
             onchange_vals.update(ocv['value'])
 
-        # fields in vals prevail on fields returned by onchange
+        # fields in vals prevail over fields returned by onchange
         for key in onchange_vals.keys():
             if key in vals:
                 onchange_vals.pop(key)
@@ -142,7 +160,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         for line in raw_order_line:
             onchange_vals = {}
             if 'product_id' in line:
-                ocv = SOL.product_id_change(cr, iuid, None,
+                ocv = SOL.product_id_change(cr, uid, None,
                                            vals.get('pricelist_id'),
                                            line['product_id'],
                                            line.get('product_uom_qty'),
@@ -160,153 +178,107 @@ class ecommerce_api_v1(orm.AbstractModel):
             line.update(onchange_vals)
             order_line.append([0, False, line])
 
-        vals['order_line'] = order_line
-        so_id = SO.create(cr, iuid, vals, context=context)
+        if order_line:
+            vals['order_line'] = order_line
+        so_id = SO.create(cr, uid, vals, context=context)
         return so_id
 
     @_shop_logging
-    def search_read_product_template(self, cr, uid, shop_identifier, domain,
+    def search_read_product_template(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-        Product = self.pool['product.product']
-
-        # TODO filter on template only (howto in 7?)
-        product_ids = Product.search(cr, iuid, domain, offset=offset,
-                limit=limit, order=order, context=context)
-        records = Product.read(cr, iuid, product_ids, fields, context=context)
-        return records
+        model = 'product.product'
+        domain.append(('variants', '=', False))
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
-    def search_read_product_variant(self, cr, uid, shop_identifier, domain,
+    def search_read_product_variant(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-        Product = self.pool['product.product']
-
-        # TODO test returned data includes the data of the template of the variant
-        product_ids = Product.search(cr, iuid, domain, offset=offset,
-                limit=limit, order=order, context=context)
-        records = Product.read(cr, iuid, product_ids, fields, context=context)
-        return records
+        model = 'product.product'
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
-    def get_inventory(self, cr, uid, shop_identifier, product_ids,
+    def get_inventory(self, cr, uid, shop, product_ids,
             context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
         Product = self.pool['product.product']
 
-        fields = ['qty_available', 'virtual_available']
-        records = Product.read(cr, iuid, product_ids, fields, context=context)
-        result = {}
+        fields = ['id', 'qty_available', 'virtual_available']
+        records = Product.read(cr, uid, product_ids, fields, context=context)
         for record in records:
-            product_id = record.pop('id')
-            result[str(product_id)] = {k: v for k, v in record.items() if k in fields}
-        return result
+            for key in record.keys():
+                if key not in fields:
+                    record.pop(key)
+        return records
 
     @_shop_logging
-    def get_transfer_status(self, cr, uid, shop_identifier, domain,
+    def get_transfer_status(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-        Picking = self.pool['stock.picking.out']
-
-        # TODO test with move_line
+        model = 'stock.picking.out'
         domain.append(('sale_id', 'in', [so.id for so in shop.sale_order_ids]))
-        picking_ids = Picking.search(cr, iuid, domain, offset=offset,
-                limit=limit, order=order, context=context)
-        records = Picking.read(cr, iuid, picking_ids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
-    def get_payment_status(self, cr, uid, shop_identifier, domain, fields=None,
+    def get_payment_status(self, cr, uid, shop, domain, fields=None,
             offset=0, limit=None, order=None, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-        Invoice = self.pool['account.invoice']
-
-        #domain.append(('sale_order_id', 'in', [so.id for so in shop.sale_order_ids]))
-        oids = Invoice.search(cr, iuid, domain, offset=offset, limit=limit,
-                order=order, context=context)
-        records = Invoice.read(cr, iuid, oids, fields, context=context)
-        return records
+        model = 'account.invoice'
+        # take ony invoice generated by SO of shop
+        domain.append(('sale_order_ids', 'in', [so.id for so in shop.sale_order_ids]))
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
-    def search_read_customer(self, cr, uid, shop_identifier, domain,
+    def search_read_customer(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-        Partner = self.pool['res.partner']
-
+        model = 'res.partner'
         domain.append(('parent_id', '=', False))
-        oids = Partner.search(cr, iuid, domain, offset=offset, limit=limit,
-                order=order, context=context)
-        records = Partner.read(cr, iuid, oids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
-    def search_read_address(self, cr, uid, shop_identifier, domain,
+    def search_read_address(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
-        Partner = self.pool['res.partner']
-
+        model = 'res.partner'
         domain.append(('parent_id', '!=', False))
-        oids = Partner.search(cr, iuid, domain, offset=offset, limit=limit,
-                order=order, context=context)
-        records = Partner.read(cr, iuid, oids, fields, context=context)
-        return records
+        return self._search_read_anything(cr, uid, model, domain,
+                fields, offset, limit, order, context)
 
     @_shop_logging
-    def check_customer_credit(self, cr, uid, shop_identifier, customer_ids,
+    def check_customer_credit(self, cr, uid, shop, customer_ids,
             context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
         Partner = self.pool['res.partner']
 
         domain = [('id', 'in', customer_ids),
                   ('customer_eshop_id', '=', shop.id)]
-        oids = Partner.search(cr, iuid, domain, context=context)
-        fields = ['credit']
-        records = Partner.read(cr, iuid, oids, fields, context=context)
-        result = {str(record['id']): record['credit'] for record in records}
-        return result
-
-    def _get_report(self, cr, uid, model, oid):
-        ReportSpool = netsvc.ExportService._services['report']
-        rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
-                {'model': model, 'id': oid, 'report_type':'pdf'})
-        retry = 0
-        while retry < 10:
-            report = ReportSpool.exp_report_get(cr.dbname, uid, rid)
-            if report['state']:
-                break
-            # there must be a better way
-            time.sleep(min(.1 * 2 ** retry, 3))
-            retry += 1
-        return report['result']
+        oids = Partner.search(cr, uid, domain, context=context)
+        fields = ['id', 'credit']
+        records = Partner.read(cr, uid, oids, fields, context=context)
+        for record in records:
+            for key in record.keys():
+                if key not in fields:
+                    record.pop(key)
+        return records
 
     @_shop_logging
-    def get_docs(self, cr, uid, shop_identifier, sale_id, document_type,
+    def get_docs(self, cr, uid, shop, sale_id, document_type,
             context=None):
-        shop = self._find_shop(cr, uid, shop_identifier, context)
-        iuid = shop.internal_user_id.id
         SaleOrder = self.pool['sale.order']
 
         model = document_type
         if document_type == 'sale.order':
             oid = sale_id
         elif document_type == 'account.invoice':
-            invoice_ids = SaleOrder.read(cr, iuid, sale_id, ['invoice_ids'],
+            invoice_ids = SaleOrder.read(cr, uid, sale_id, ['invoice_ids'],
                     context=context)['invoice_ids']
             oid = invoice_ids and invoice_ids[0] or False
         elif document_type == 'stock.picking':
-            picking_ids = SaleOrder.read(cr, iuid, sale_id, ['picking_ids'],
+            picking_ids = SaleOrder.read(cr, uid, sale_id, ['picking_ids'],
                     context=context)['picking_ids']
             oid = picking_ids and picking_ids[0] or False
             model = 'stock.picking.list.out'
         else:
-            raise KeyError(document_type)
-        return self._get_report(cr, iuid, model, oid)
+            message = 'Printing %s is not supported. Is the spelling correct?'
+            raise openerp.exceptions.AccessError(_(message) % document_type)
+        return self._get_report(cr, uid, model, oid)
 

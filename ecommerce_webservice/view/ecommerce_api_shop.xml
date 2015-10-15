@@ -17,9 +17,17 @@
                     <field name="internal_user_id" />
                     <newline />
                     <group colspan="4">
-                        <field name="partner_ids" />
-                        <field name="partner_address_ids" />
-                        <field name="sale_order_ids" />
+                    <notebook>
+                        <page string="Customers">
+                            <field name="partner_ids" nolabel="1" />
+                        </page>
+                        <page string="Addresses">
+                            <field name="partner_address_ids" nolabel="1" />
+                        </page>
+                        <page string="Sales Orders">
+                            <field name="sale_order_ids" nolabel="1" />
+                        </page>
+                    </notebook>
                     </group>
                 </form>
             </field>

@@ -11,7 +11,7 @@
                         <field name="shop_id" />
                         <field name="state" />
                         <field name="create_date" />
-                        <field name="create_uid" />
+                        <field name="external_uid" />
                         <field name="method" />
                         <field name="args" />
                         <field name="exc_info" />
@@ -25,7 +25,7 @@
             <field name="model">ecommerce.api.log</field>
             <field name="arch" type="xml">
                 <search string="Logs">
-                    <field name="create_uid" />
+                    <field name="external_uid" />
                     <field name="method" />
                     <field name="shop_id" />
                     <filter name="type_failure" string="Failures" domain="[('state', '=', 'failure')]" />
@@ -41,7 +41,7 @@
                         <filter string="Shop" context="{'group_by': 'shop_id'}" />
                         <filter string="State" context="{'group_by': 'state'}" />
                         <filter string="Method" context="{'group_by': 'method'}" />
-                        <filter string="User" context="{'group_by': 'create_uid'}" />
+                        <filter string="User" context="{'group_by': 'external_uid'}" />
                         <filter icon="terp-go-month" string="Month"
                             context="{'group_by': 'create_date'}" />
                     </group>
@@ -57,7 +57,7 @@
                     <field name="shop_id" />
                     <field name="state" />
                     <field name="create_date" />
-                    <field name="create_uid" />
+                    <field name="external_uid" />
                     <field name="method" />
                     <field name="args" />
                 </tree>

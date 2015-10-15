@@ -7,7 +7,7 @@ from operator import attrgetter
 
 import erppeek
 
-ERPPEEK_TEST_ENV = "test"
+ERPPEEK_TEST_ENV = "demo"
 MODULE_NAME = "ecommerce_webservice"
 SHOP_ID = "cafebabe"
 
@@ -26,31 +26,33 @@ def get_expected_values(record, fields):
 class SomeTest(unittest2.TestCase):
 
     def setUp(self):
-        # init erppeek client
-        self._o = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
+        self.admin = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
+        self.product = self.admin.model('product.product').create({
+            'name': "BlueBeery",
+            'sale_ok' : True,
+            'type': 'product',
+            'list_price': 3.0,
+            'procure_method': 'make_to_stock',
+            })
 
-        # cache some models
-        self.shop = self._o.model('ecommerce.api.shop')
-        self.api = self._o.model('ecommerce.api.v1')
-        self.log = self._o.model('ecommerce.api.log')
+        # def test00_create_external_user_and_shop(self):
+        self.load_csv('demo/res.partner.csv')
+        self.load_csv('demo/res.users.csv')
+        self.load_csv('demo/ecommerce.api.shop.csv')
+
+        # def test01_login_as_external_user(self):
+        self.public = erppeek.Client(self.admin._server, self.admin._db,
+                'ecommerce_demo_external_user', 'dragon')
+        self.api = self.public.model('ecommerce.api.v1')
 
     def load_csv(self, filename):
         modelname = os.path.splitext(os.path.basename(filename))[0]
         records = csv.reader(open(filename, 'rb'))
         fieldnames = records.next()
         rows = [values for values in list(records) if values]
-        return self._o.model(modelname).load(fieldnames, rows)
+        return self.admin.model(modelname).load(fieldnames, rows)
 
-    def test0_create_external_user_and_shop(self):
-        self.load_csv('demo/res.partner.csv')
-        self.load_csv('demo/res.users.csv')
-        self.load_csv('demo/ecommerce.api.shop.csv')
-
-    def test1_login_as_external_user(self):
-        self._o.login('ecommerce_demo_external_user', 'dragon')
-        self.assertEqual(self._o.user, 'ecommerce_demo_external_user')
-
-    def test2_create_customer(self):
+    def test02_create_customer(self):
         values = {
                 'name': 'Test created customer',
                 'active': True,
@@ -65,14 +67,14 @@ class SomeTest(unittest2.TestCase):
                 'email': 'john.smith@example.com',
                 }
         customer_id = self.api.create_customer(SHOP_ID, values)
-        customer = self._o.model('res.partner').browse(customer_id)
+        customer = self.admin.model('res.partner').browse(customer_id)
         self.assertEqual(customer.country_id.code.upper(), 'CH')
         values.pop('country')
         fields = values.keys()
         expected_values = attrgetter(*fields)(customer)
         self.assertSequenceEqual(expected_values, values.values())
 
-    def test3_update_customer(self):
+    def test03_update_customer(self):
         values = {
                 'name': 'Test another created customer',
                 'country': 'CH',
@@ -83,11 +85,11 @@ class SomeTest(unittest2.TestCase):
                 'country': 'FR',
                 }
         self.api.update_customer(SHOP_ID, customer_id, values)
-        customer = self._o.model('res.partner').browse(customer_id)
+        customer = self.admin.model('res.partner').browse(customer_id)
         self.assertEqual(customer.country_id.code.upper(), 'FR')
 
-    def test4_create_customer_address(self):
-        pids = self._o.model('res.partner').search([('type', '=', 'default')])
+    def test04_create_customer_address(self):
+        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
         partner_id = max(pids)
         values = {
                 'name': 'Test created customer address',
@@ -104,7 +106,7 @@ class SomeTest(unittest2.TestCase):
                 'email': 'scott.tiger@example.com',
                 }
         address_id = self.api.create_customer_address(SHOP_ID, partner_id, values)
-        address = self._o.model('res.partner').browse(address_id)
+        address = self.admin.model('res.partner').browse(address_id)
         self.assertEqual(address.country_id.code.upper(), 'BE')
         values.pop('country')
         self.assertEqual(address.parent_id.id, partner_id)
@@ -112,7 +114,7 @@ class SomeTest(unittest2.TestCase):
         expected_values = attrgetter(*fields)(address)
         self.assertSequenceEqual(expected_values, values.values())
 
-    def test5_update_customer(self):
+    def test05_update_customer(self):
         values = {
                 'name': 'Test another created customer address',
                 'country': 'CH',
@@ -123,17 +125,17 @@ class SomeTest(unittest2.TestCase):
                 'country': 'BE',
                 }
         self.api.update_customer_address(SHOP_ID, address_id, values)
-        customer = self._o.model('res.partner').browse(address_id)
+        customer = self.admin.model('res.partner').browse(address_id)
         self.assertEqual(customer.country_id.code.upper(), 'BE')
 
-    def test6_create_sale_order(self):
-        pids = self._o.model('res.partner').search([('type', '=', 'default')])
+    def test06_create_sale_order(self):
+        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
         partner_id = max(pids)
         order_line = [{
-            'product_id': 1,
+            'product_id': self.product.id,
             'name': 'some description',
             'price_unit': 3.14,
-            'discount': 5.0,
+            'discount': .5,
             'product_uom_qty': 10.0,
             'sequence': 0,
             }]
@@ -150,7 +152,7 @@ class SomeTest(unittest2.TestCase):
                 'order_line': order_line,
                 }
         so_id = self.api.create_sale_order(SHOP_ID, values)
-        so = self._o.model('sale.order').browse(so_id)
+        so = self.admin.model('sale.order').browse(so_id)
         sol_fields = order_line[0].keys()
         for i, sol in enumerate(so.order_line):
             expected_values = get_expected_values(sol, sol_fields)
@@ -159,6 +161,58 @@ class SomeTest(unittest2.TestCase):
         fields = values.keys()
         expected_values = get_expected_values(so, fields)
         self.assertSequenceEqual(expected_values, values.values())
+
+    def test07_search_read_product_template(self):
+        # TODO: enhance test
+        products = self.api.search_read_product_template(SHOP_ID,
+                [('name', '=', 'BlueBeery')])
+        self.assertIn(self.product.id, [p['id'] for p in products])
+
+    def test08_get_inventory(self):
+        # TODO: enhance test
+        inventory = self.api.get_inventory(SHOP_ID, [self.product.id])
+        for row in inventory:
+            self.assertEqual(row['id'], self.product.id)
+            self.assertIsInstance(row['qty_available'], float)
+            self.assertIsInstance(row['virtual_available'], float)
+
+    def test09_get_transfer_status(self):
+        # TODO: enhance test
+        status = self.api.get_transfer_status(SHOP_ID, [])
+        for s in status:
+            self.assertRegexpMatches(s['name'], "OUT/\d{5}")
+
+    def test10_get_payment_status(self):
+        # TODO: enhance test
+        fields = ['id', 'state', 'sale_order_ids']
+        result = self.api.get_payment_status(SHOP_ID, [], fields)
+        for row in result:
+            self.assertItemsEqual(fields, row.keys())
+
+    def test11_check_customer_credit(self):
+        # TODO: enhance test
+        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
+        partner_id = max(pids)
+        result = self.api.check_customer_credit(SHOP_ID, [partner_id])
+        for row in result:
+            self.assertEqual(row['id'], partner_id)
+            self.assertIsInstance(row['credit'], (int, float))
+
+    def test12_get_docs(self):
+        # TODO: enhance poor test
+        pdfmagic = "%PDF"
+        result = self.api.get_docs(SHOP_ID, 5, 'sale.order')
+        self.assertEqual(result.decode('base64')[0:4], pdfmagic)
+        result = self.api.get_docs(SHOP_ID, 5, 'stock.picking')
+        self.assertEqual(result.decode('base64')[0:4], pdfmagic)
+        result = self.api.get_docs(SHOP_ID, 1, 'account.invoice')
+        self.assertEqual(result.decode('base64')[0:4], pdfmagic)
+
+    def test13_flat_domains(self):
+        customers = self.api.search_read_customer(SHOP_ID, ['customer=True'],
+                ['name', 'customer'])
+        if customers:
+            self.assertEqual(customers[0]['customer'], True)
 
 if __name__ == '__main__':
     unittest2.main()
