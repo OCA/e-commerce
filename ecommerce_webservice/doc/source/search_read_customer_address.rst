@@ -137,11 +137,14 @@ Available Fields
 Return values
 ^^^^^^^^^^^^^
 
-Method returns an integer corresponding to the OpenERP ID of the sale order created.
+Method returns a list of dictionnary. Each dictionnary corresponds to a customer or an address (according to method called) matching domain criterion.
 
 ..  code-block:: python
 
-    10
+    [
+     {'id': 15, 'name': 'Jane Doe', 'street': 'Maple Road', ...},
+     ...
+     ]
 
 Python call example
 -------------------

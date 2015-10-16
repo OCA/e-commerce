@@ -71,9 +71,6 @@ PHP call example
     
     require_once('ripcord/ripcord.php');
     
-    // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
-    // FOR THIS NEWLY CREATED CUSTOMER
-    
     $url = 'http://localhost:8069';
     $db = 'database';
     $username = "admin";
