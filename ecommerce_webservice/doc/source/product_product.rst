@@ -4,9 +4,9 @@ Products Product API Details
 Goal
 ----
 
-Return information about product products.
+Return information about all product variants. The search can be filtered by search criteria and the returned information can be limited to a selection of fields.
 
-The search can be filtered by search criteria and the returned information can be limited to a selection of fields.
+If the eshop does not care about product templates, this is the only method that it will use for the products, because the returned data includes the data of the template of the variant as well.
 
 Specification
 -------------
@@ -27,7 +27,7 @@ It takes the following arguments in the order of the rows:
 +-------------+------------------------+---------------------------------------------------------------------+
 | model       | string                 | Always ``ecommerce.api.v1``                                         |
 +-------------+------------------------+---------------------------------------------------------------------+
-| method_name | string                 | ``search_read_product_product``                                     |
+| method_name | string                 | ``search_read_product_variant``                                     |
 +-------------+------------------------+---------------------------------------------------------------------+
 | shop_ident  | string                 | Shop identifier                                                     |
 +-------------+------------------------+---------------------------------------------------------------------+

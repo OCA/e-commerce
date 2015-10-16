@@ -4,9 +4,7 @@ Products Template API Details
 Goal
 ----
 
-Return information about all product variants. The search can be filtered by search criteria and the returned information can be limited to a selection of fields.
-
-If the eshop does not care about product templates, this is the only method that it will use for the products, because the returned data includes the data of the template of the variant as well.
+Return information about all product templates. The search can be filtered by search criteria and the returned information can be limited to a selection of fields.
 
 Specification
 -------------
