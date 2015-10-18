@@ -24,6 +24,7 @@ from openerp import models, api, fields
 
 class PaymentMethod(models.Model):
     _name = "payment.method"
+    _inherit = "payment.method"
     _description = "Payment Method"
 
     @api.model
