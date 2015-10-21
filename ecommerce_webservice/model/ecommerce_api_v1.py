@@ -156,12 +156,8 @@ class ecommerce_api_v1(orm.AbstractModel):
         self._update_vals_for_country_id(cr, uid, vals, context)
         return self.pool['res.partner'].write(cr, uid, address_ids, vals, context=context)
 
-    @_shop_logging
-    def create_sale_order(self, cr, uid, shop, vals, context=None):
+    def _prepare_sale_order(self, cr, uid, shop, vals, context=None):
         SO = self.pool['sale.order']
-        SOL = self.pool['sale.order.line']
-
-        raw_order_line = vals.pop('order_line') if 'order_line' in vals else []
 
         vals.update({
             'state': 'draft',
@@ -171,10 +167,12 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         onchange_vals = {}
         if 'partner_id' in vals:
-            ocv = SO.onchange_partner_id(cr, uid, None, vals['partner_id'], context=context)
+            ocv = SO.onchange_partner_id(cr, uid, None, vals['partner_id'],
+                    context=context)
             onchange_vals.update(ocv['value'])
         if 'shop_id' in vals:
-            ocv = SO.onchange_shop_id(cr, uid, None, vals['shop_id'], context=context)
+            ocv = SO.onchange_shop_id(cr, uid, None, vals['shop_id'],
+                    context=context)
             onchange_vals.update(ocv['value'])
 
         # fields in vals prevail over fields returned by onchange
@@ -183,21 +181,20 @@ class ecommerce_api_v1(orm.AbstractModel):
                 onchange_vals.pop(key)
         vals.update(onchange_vals)
 
+    def _prepare_sale_order_lines(self, cr, uid, shop, vals, context=None):
+        SOL = self.pool['sale.order.line']
+
+        raw_order_line = vals.pop('order_line', [])
         order_line = []
         for line in raw_order_line:
             onchange_vals = {}
             if 'product_id' in line:
                 ocv = SOL.product_id_change(cr, uid, None,
-                                           vals.get('pricelist_id'),
-                                           line['product_id'],
-                                           line.get('product_uom_qty'),
-                                           line.get('product_uom'),
-                                           line.get('product_uos_qty'),
-                                           line.get('product_uos'),
-                                           line.get('name'),
-                                           vals['partner_id'],
-                                           date_order=vals.get('date_order'),
-                                           context=context)
+                       vals.get('pricelist_id'), line['product_id'],
+                       line.get('product_uom_qty'), line.get('product_uom'),
+                       line.get('product_uos_qty'), line.get('product_uos'),
+                       line.get('name'), vals['partner_id'],
+                       date_order=vals.get('date_order'), context=context)
                 onchange_vals.update(ocv['value'])
             for key in onchange_vals.keys():
                 if key in line:
@@ -207,7 +204,12 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         if order_line:
             vals['order_line'] = order_line
-        so_id = SO.create(cr, uid, vals, context=context)
+
+    @_shop_logging
+    def create_sale_order(self, cr, uid, shop, vals, context=None):
+        self._prepare_sale_order(cr, uid, shop, vals, context)
+        self._prepare_sale_order_lines(cr, uid, shop, vals, context)
+        so_id = self.pool['sale.order'].create(cr, uid, vals, context=context)
         return so_id
 
     @_shop_logging
