@@ -102,6 +102,11 @@ class ecommerce_api_v1(orm.AbstractModel):
                                 # (1, 'foo') -> {'id': 1, 'name': 'foo'}
                                 record[field_name] = dict(
                                         zip(('id', 'name'), record[field_name]))
+        if fields:
+            for record in records:
+                for key in record.keys():
+                    if key not in fields:
+                        del record[key]
         return records
 
     def _get_report(self, cr, uid, model, oid):
@@ -226,10 +231,6 @@ class ecommerce_api_v1(orm.AbstractModel):
         fields = ['id', 'qty_available', 'virtual_available']
         records = self._read_with_cast(cr, uid, 'product.product',
                 product_ids, fields, context=context)
-        for record in records:
-            for key in record.keys():
-                if key not in fields:
-                    record.pop(key)
         return records
 
     @_shop_logging
@@ -274,10 +275,6 @@ class ecommerce_api_v1(orm.AbstractModel):
         fields = ['id', 'credit']
         records = self._read_with_cast(cr, uid, 'res.partner', oids, fields,
                 context=context)
-        for record in records:
-            for key in record.keys():
-                if key not in fields:
-                    record.pop(key)
         return records
 
     @_shop_logging
