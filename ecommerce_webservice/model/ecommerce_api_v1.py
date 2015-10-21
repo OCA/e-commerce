@@ -72,14 +72,36 @@ class ecommerce_api_v1(orm.AbstractModel):
             vals.pop('country')
             vals['country_id'] = country_id
 
-    def _search_read_anything(self, cr, uid, model, domain,
-            fields=None, offset=0, limit=None, order=None, context=None):
-        Model = self.pool[model]
+    def _search_read_anything(self, cr, uid, model, domain, fields=None,
+            offset=0, limit=None, order=None, context=None):
         if issearchdomain(domain):
             searchargs((domain,))
-        oids = Model.search(cr, uid, domain, offset=offset,
+        oids = self.pool[model].search(cr, uid, domain, offset=offset,
                 limit=limit, order=order, context=context)
+        records = self._read_with_cast(cr, uid, model, oids, fields, context=context)
+        return records
+
+    def _read_with_cast(self, cr, uid, model, oids, fields=None, context=None):
+        Model = self.pool[model]
         records = Model.read(cr, uid, oids, fields, context=context)
+
+        if records:
+            fields_to_cast = []
+            all_fields = fields or Model._all_columns.keys()
+            for field_name in all_fields:
+                field = Model._all_columns.get(field_name)
+                if field and field.column._type == 'many2one':
+                    fields_to_cast.append(field_name)
+
+            if fields_to_cast:
+                for i, record in enumerate(records):
+                    for field_name in fields_to_cast:
+                        column = Model._all_columns[field_name].column
+                        if column._type == 'many2one':
+                            if record[field_name]:
+                                # (1, 'foo') -> {'id': 1, 'name': 'foo'}
+                                record[field_name] = dict(
+                                        zip(('id', 'name'), record[field_name]))
         return records
 
     def _get_report(self, cr, uid, model, oid):
@@ -201,10 +223,9 @@ class ecommerce_api_v1(orm.AbstractModel):
     @_shop_logging
     def get_inventory(self, cr, uid, shop, product_ids,
             context=None):
-        Product = self.pool['product.product']
-
         fields = ['id', 'qty_available', 'virtual_available']
-        records = Product.read(cr, uid, product_ids, fields, context=context)
+        records = self._read_with_cast(cr, uid, 'product.product',
+                product_ids, fields, context=context)
         for record in records:
             for key in record.keys():
                 if key not in fields:
@@ -247,13 +268,12 @@ class ecommerce_api_v1(orm.AbstractModel):
     @_shop_logging
     def check_customer_credit(self, cr, uid, shop, customer_ids,
             context=None):
-        Partner = self.pool['res.partner']
-
         domain = [('id', 'in', customer_ids),
                   ('customer_eshop_id', '=', shop.id)]
-        oids = Partner.search(cr, uid, domain, context=context)
+        oids = self.pool['res.partner'].search(cr, uid, domain, context=context)
         fields = ['id', 'credit']
-        records = Partner.read(cr, uid, oids, fields, context=context)
+        records = self._read_with_cast(cr, uid, 'res.partner', oids, fields,
+                context=context)
         for record in records:
             for key in record.keys():
                 if key not in fields:

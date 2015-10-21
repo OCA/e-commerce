@@ -165,7 +165,7 @@ class SomeTest(unittest2.TestCase):
     def test07_search_read_product_template(self):
         # TODO: enhance test
         products = self.api.search_read_product_template(SHOP_ID,
-                [('name', '=', 'BlueBeery')])
+                [('name', '=', 'BlueBeery'), ('id', '=', self.product.id)])
         self.assertIn(self.product.id, [p['id'] for p in products])
 
     def test08_get_inventory(self):
