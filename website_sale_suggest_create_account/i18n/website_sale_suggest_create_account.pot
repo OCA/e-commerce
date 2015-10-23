@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_suggest_create_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-19 16:58+0000\n"
+"PO-Revision-Date: 2015-10-19 16:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_suggest_create_account
+#: view:website:website_sale.cart
+msgid "(\n"
+"            user_id != website.user_id or\n"
+"            env['ir.config_parameter'].get_param(\n"
+"                'auth_signup.allow_uninvited') != 'True' and\n"
+"            not optional_products and website_sale_order and\n"
+"            website_sale_order.website_order_line\n"
+"        )"
+msgstr ""
+
+#. module: website_sale_suggest_create_account
+#: view:website:website_sale.cart
+msgid "Checkout without sign up"
+msgstr ""
+
+#. module: website_sale_suggest_create_account
+#: view:website:website_sale.cart
+msgid "Sign up and checkout"
+msgstr ""
+
