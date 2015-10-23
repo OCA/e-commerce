@@ -286,6 +286,10 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         model = document_type
         if document_type == 'sale.order':
+            if not SaleOrder.search(cr, uid, [('id', '=', sale_id)],
+                    context=context):
+                message = 'Sale order #%s not found.'
+                raise openerp.exceptions.AccessError(_(message) % sale_id)
             oid = sale_id
         elif document_type == 'account.invoice':
             invoice_ids = SaleOrder.read(cr, uid, sale_id, ['invoice_ids'],
@@ -299,5 +303,9 @@ class ecommerce_api_v1(orm.AbstractModel):
         else:
             message = 'Printing %s is not supported. Is the spelling correct?'
             raise openerp.exceptions.AccessError(_(message) % document_type)
+        if not oid:
+            message = 'Document %s for sale order #%s not found.'
+            raise openerp.exceptions.AccessError(_(message) % (document_type,
+                sale_id))
         return self._get_report(cr, uid, model, oid)
 
