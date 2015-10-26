@@ -19,6 +19,7 @@ addon | version | summary
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 | A megamenu to display product categories in the online shop
 [website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 | Product Brand Filtering in Website
 [website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 | Let the users keep track of the products they saw on the ecommerce
+[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 8.0.1.0.0 | Suggest users to create an account when buying in the website
 
 Unported addons
 ---------------
