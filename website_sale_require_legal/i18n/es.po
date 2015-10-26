@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_signup_legal_page_required
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-04 15:37+0100\n"
+"PO-Revision-Date: 2015-11-04 15:38+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.5\n"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid ", the"
+msgstr ", the"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "I accept the"
+msgstr "Acepto el"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "and the"
+msgstr "y los"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "legal advice"
+msgstr "aviso legal"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "of this website."
+msgstr "de este sitio web."
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "privacy policy"
+msgstr "política de privacidad"
+
+#. module: website_sale_require_legal
+#: view:website:website_sale.checkout
+msgid "terms of use"
+msgstr "términos de uso"
