@@ -214,6 +214,12 @@ class SomeTest(unittest2.TestCase):
         if customers:
             self.assertEqual(customers[0]['customer'], True)
 
+    def test14_eager_loading(self):
+        products = self.api.search_read_product_variant(SHOP_ID,
+                [('name', '=', 'BlueBeery'), ('id', '=', self.product.id)])
+        self.assertIsInstance(products[0]['categ_id'], dict)
+        self.assertItemsEqual(products[0]['categ_id'].keys(), ['id', 'name', 'type'])
+
 if __name__ == '__main__':
     unittest2.main()
 

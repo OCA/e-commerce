@@ -78,10 +78,23 @@ class ecommerce_api_v1(orm.AbstractModel):
             searchargs((domain,))
         oids = self.pool[model].search(cr, uid, domain, offset=offset,
                 limit=limit, order=order, context=context)
-        records = self._read_with_cast(cr, uid, model, oids, fields, context=context)
+        records = self._read_with_follow(cr, uid, model, oids, fields, context=context)
         return records
 
-    def _read_with_cast(self, cr, uid, model, oids, fields=None, context=None):
+    EAGER_LOADING = {
+        'product.product': {
+            'categ_id': ['id', 'name', 'type'],
+        }
+    }
+
+    def _is_field_to_follow(self, model, field_name, depth=0):
+        return depth > 0 and field_name in self.EAGER_LOADING.get(model, {})
+
+    def _get_target_fields_to_follow(self, model, field_name):
+        return self.EAGER_LOADING.get(model, {}).get(field_name)
+
+    def _read_with_follow(self, cr, uid, model, oids, fields=None, depth=2,
+            context=None):
         Model = self.pool[model]
         records = Model.read(cr, uid, oids, fields, context=context)
 
@@ -99,9 +112,19 @@ class ecommerce_api_v1(orm.AbstractModel):
                         column = Model._all_columns[field_name].column
                         if column._type == 'many2one':
                             if record[field_name]:
-                                # (1, 'foo') -> {'id': 1, 'name': 'foo'}
-                                record[field_name] = dict(
-                                        zip(('id', 'name'), record[field_name]))
+                                # "depth" controls recursive call depth
+                                if self._is_field_to_follow(model, field_name, depth):
+                                    # eager loading target model
+                                    tid = record[field_name][0]
+                                    tfields = self._get_target_fields_to_follow(model, field_name)
+                                    tmodel = column._obj
+                                    val = self._read_with_follow(cr, uid, tmodel, [tid],
+                                            tfields, depth - 1, context=context)[0]
+                                else:
+                                    # (1, 'foo') -> {'id': 1, 'name': 'foo'}
+                                    val = dict(zip(('id', 'name'),
+                                        record[field_name]))
+                                record[field_name] = val
         if fields:
             for record in records:
                 for key in record.keys():
@@ -231,7 +254,7 @@ class ecommerce_api_v1(orm.AbstractModel):
     def get_inventory(self, cr, uid, shop, product_ids,
             context=None):
         fields = ['id', 'qty_available', 'virtual_available']
-        records = self._read_with_cast(cr, uid, 'product.product',
+        records = self._read_with_follow(cr, uid, 'product.product',
                 product_ids, fields, context=context)
         return records
 
@@ -275,7 +298,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                   ('customer_eshop_id', '=', shop.id)]
         oids = self.pool['res.partner'].search(cr, uid, domain, context=context)
         fields = ['id', 'credit']
-        records = self._read_with_cast(cr, uid, 'res.partner', oids, fields,
+        records = self._read_with_follow(cr, uid, 'res.partner', oids, fields,
                 context=context)
         return records
 
