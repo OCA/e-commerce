@@ -90,10 +90,10 @@ class ecommerce_api_v1(orm.AbstractModel):
         }
     }
 
-    def _is_field_to_follow(self, model, field_name, depth=0):
+    def is_field_to_follow(self, model, field_name, depth=0):
         return depth > 0 and field_name in self.EAGER_LOADING.get(model, {})
 
-    def _get_target_fields_to_follow(self, model, field_name):
+    def get_target_fields(self, model, field_name):
         return self.EAGER_LOADING.get(model, {}).get(field_name)
 
     def _read_with_follow(self, cr, uid, model, oids, fields=None, depth=2,
@@ -116,10 +116,10 @@ class ecommerce_api_v1(orm.AbstractModel):
                         if column._type == 'many2one':
                             if record[field_name]:
                                 # "depth" controls recursive call depth
-                                if self._is_field_to_follow(model, field_name, depth):
+                                if self.is_field_to_follow(model, field_name, depth):
                                     # eager loading target model
                                     tid = record[field_name][0]
-                                    tfields = self._get_target_fields_to_follow(model, field_name)
+                                    tfields = self.get_target_fields(model, field_name)
                                     tmodel = column._obj
                                     val = self._read_with_follow(cr, uid, tmodel, [tid],
                                             tfields, depth - 1, context=context)[0]
