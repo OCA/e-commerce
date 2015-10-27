@@ -13,46 +13,49 @@ from openerp.tools.translate import _
 
 from domain_helper import issearchdomain, searchargs
 
+
+def shop_logging(method):
+    @wraps(method)
+    def wrapped(self, cr, uid, shop_identifier, *args, **kwargs):
+        context = None
+        if context in kwargs:
+            context = kwargs['context']
+        shop = self._find_shop(cr, SUPERUSER_ID, shop_identifier, context)
+        internal_uid = shop.internal_user_id.id
+        try:
+            values = {
+                'shop_id': shop.id,
+                'external_uid': uid,
+                'method': method.func_name,
+                # serialize args before calling as they might get modified
+                'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
+                }
+            result = method(self, cr, internal_uid, shop, *args, **kwargs)
+        except:
+            exc_info = sys.exc_info()
+            values.update({
+                'state': 'failure',
+                'exc_info': traceback.format_exc(exc_info),
+                })
+            raise exc_info[0], exc_info[1], exc_info[2]
+        else:
+            values['state'] = 'success'
+            if not shop.logs_all_on_success:
+                values.pop('args')
+            return result
+        finally:
+            if shop.enable_logs:
+                new_cr = sql_db.db_connect(cr.dbname).cursor()
+                Log = self.pool['ecommerce.api.log']
+                Log.create(new_cr, internal_uid, values, context)
+                new_cr.commit()
+                new_cr.close()
+    return wrapped
+
+
 class ecommerce_api_v1(orm.AbstractModel):
     _name = 'ecommerce.api.v1'
 
-    def _shop_logging(method):
-        @wraps(method)
-        def wrapped(self, cr, uid, shop_identifier, *args, **kwargs):
-            context = None
-            if context in kwargs:
-                context = kwargs['context']
-            shop = self._find_shop(cr, SUPERUSER_ID, shop_identifier, context)
-            internal_uid = shop.internal_user_id.id
-            try:
-                values = {
-                    'shop_id': shop.id,
-                    'external_uid': uid,
-                    'method': method.func_name,
-                    # serialize args before calling as they might get modified
-                    'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
-                    }
-                result = method(self, cr, internal_uid, shop, *args, **kwargs)
-            except:
-                exc_info = sys.exc_info()
-                values.update({
-                    'state': 'failure',
-                    'exc_info': traceback.format_exc(exc_info),
-                    })
-                raise exc_info[0], exc_info[1], exc_info[2]
-            else:
-                values['state'] = 'success'
-                if not shop.logs_all_on_success:
-                    values.pop('args')
-                return result
-            finally:
-                if shop.enable_logs:
-                    new_cr = sql_db.db_connect(cr.dbname).cursor()
-                    Log = self.pool['ecommerce.api.log']
-                    Log.create(new_cr, internal_uid, values, context)
-                    new_cr.commit()
-                    new_cr.close()
-        return wrapped
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):
         Shop = self.pool['ecommerce.api.shop']
@@ -147,7 +150,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         return report['result']
 
 
-    @_shop_logging
+    @shop_logging
     def create_customer(self, cr, uid, shop, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
@@ -158,12 +161,12 @@ class ecommerce_api_v1(orm.AbstractModel):
         customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return customer_id
 
-    @_shop_logging
+    @shop_logging
     def update_customer(self, cr, uid, shop, partner_id, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
         return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
 
-    @_shop_logging
+    @shop_logging
     def create_customer_address(self, cr, uid, shop, customer_id, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
@@ -174,7 +177,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         address_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return address_id
 
-    @_shop_logging
+    @shop_logging
     def update_customer_address(self, cr, uid, shop, address_ids, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
         return self.pool['res.partner'].write(cr, uid, address_ids, vals, context=context)
@@ -228,14 +231,14 @@ class ecommerce_api_v1(orm.AbstractModel):
         if order_line:
             vals['order_line'] = order_line
 
-    @_shop_logging
+    @shop_logging
     def create_sale_order(self, cr, uid, shop, vals, context=None):
         self._prepare_sale_order(cr, uid, shop, vals, context)
         self._prepare_sale_order_lines(cr, uid, shop, vals, context)
         so_id = self.pool['sale.order'].create(cr, uid, vals, context=context)
         return so_id
 
-    @_shop_logging
+    @shop_logging
     def search_read_product_template(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         model = 'product.template'
@@ -243,14 +246,14 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
-    @_shop_logging
+    @shop_logging
     def search_read_product_variant(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         model = 'product.product'
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
-    @_shop_logging
+    @shop_logging
     def get_inventory(self, cr, uid, shop, product_ids,
             context=None):
         fields = ['id', 'qty_available', 'virtual_available']
@@ -258,7 +261,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                 product_ids, fields, context=context)
         return records
 
-    @_shop_logging
+    @shop_logging
     def get_transfer_status(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         model = 'stock.picking.out'
@@ -266,7 +269,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
-    @_shop_logging
+    @shop_logging
     def get_payment_status(self, cr, uid, shop, domain, fields=None,
             offset=0, limit=None, order=None, context=None):
         model = 'account.invoice'
@@ -275,7 +278,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
-    @_shop_logging
+    @shop_logging
     def search_read_customer(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         model = 'res.partner'
@@ -283,7 +286,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
-    @_shop_logging
+    @shop_logging
     def search_read_address(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         model = 'res.partner'
@@ -291,7 +294,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
-    @_shop_logging
+    @shop_logging
     def check_customer_credit(self, cr, uid, shop, customer_ids,
             context=None):
         domain = [('id', 'in', customer_ids),
@@ -302,7 +305,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                 context=context)
         return records
 
-    @_shop_logging
+    @shop_logging
     def get_docs(self, cr, uid, shop, sale_id, document_type,
             context=None):
         SaleOrder = self.pool['sale.order']
