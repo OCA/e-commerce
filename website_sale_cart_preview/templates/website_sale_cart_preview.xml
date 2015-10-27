@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <template id="cart_popover" name="Cart Popover">
+      <div t-if="not order or not order.website_order_line" class="well well-lg">
+        Your cart is empty!
+      </div>
+      <t t-if="order and order.website_order_line">
+        <t t-foreach="order.website_order_line" t-as="line">
+          <div class='row mb8 cart_line' >
+            <div class='col-xs-3'><span t-field="line.product_id.image_small"
+            t-field-options='{"widget": "image", "class": "img-rounded"}'/></div>
+            <div class='col-xs-9'>
+              <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                <span t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+              </a>
+              <br/><small>Qty: <t t-esc="int(line.product_uom_qty)"/></small>
+            </div>
+          </div>
+        </t>
+
+        <div class="text-center">
+          <span class="h5">
+            <t t-call="website_sale_cart_preview.total"/>
+          </span>
+          <a class="btn btn-primary" href="/shop/cart">
+            View Cart (<t t-esc="order.cart_quantity"/> items)
+          </a>
+        </div>
+      </t>
+    </template>
+
+  </data>
+</openerp>
