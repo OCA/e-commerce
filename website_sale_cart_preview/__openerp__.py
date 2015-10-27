@@ -26,7 +26,7 @@
     'website': "http://www.wearemonk.com",
     'category': 'Website',
     'version': '8.0.1.0.0',
-    'license': 'AGPL-3',
+    'license': 'GPL-3',
     'depends': ['website_sale'],
     'data': [
         'templates/website_sale_cart_preview.xml',
