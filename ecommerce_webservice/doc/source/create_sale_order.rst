@@ -1,10 +1,10 @@
-Details of create_sale_order() method
-=====================================
+Details of create_sale_order method
+===================================
 
 Goal
 ----
 
-Create a sale order in OpenERP giving necessary fields values
+Create a sale order in Odoo giving necessary fields values
 
 Specification
 -------------
@@ -29,7 +29,7 @@ It takes the following arguments in the order of the rows:
 +--------------+-----------------+--------------------------------------------------------------------+
 | shop_ident   | string          | Shop identifier                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
-| values       | dictionnary     | See below for details.                                             |
+| values       | dictionary      | See below for details.                                             |
 |              | of values       |                                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
 
@@ -85,7 +85,7 @@ Sale order line fields
 Return values
 ^^^^^^^^^^^^^
 
-Method returns an integer corresponding to the OpenERP ID of the sale order created.
+Method returns an integer corresponding to the Odoo ID of the sale order created.
 
 ..  code-block:: python
 
@@ -111,44 +111,45 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $vals = array(
-        'name'=>'TEST',
-        'partner_id'=>6,
-        'partner_invoice_id'=>6,
-        'partner_shipping_id'=>6,
-        'order_line'=>array(array(
-            'name'=>'test name line',
-            'price_unit'=>54.6,
-            'product_uom_qty'=>2,
-            'product_id'=>49
-            ))
-        );
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_sale_order', array($shop_identifier, $vals));
-    
-    var_dump($records);
-    
-    ?>
+..  code-block:: php
+   :linenos:
+
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+   $vals = array(
+       'name'=>'TEST',
+       'partner_id'=>6,
+       'partner_invoice_id'=>6,
+       'partner_shipping_id'=>6,
+       'payment_method_id'=>1,
+       'order_line'=>array(array(
+           'name'=>'test name line',
+           'price_unit'=>54.6,
+           'product_uom_qty'=>2,
+           'product_id'=>49
+           ))
+       );
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_sale_order', array($shop_identifier, $vals));
+
+   var_dump($records);
+
+   ?>
 

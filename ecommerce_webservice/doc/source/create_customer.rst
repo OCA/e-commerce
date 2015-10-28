@@ -1,10 +1,10 @@
-Details of create_customer() method
-===================================
+Details of create_customer method
+=================================
 
 Goal
 ----
 
-Create a customer in OpenERP giving necessary fields values
+Create a customer in Odoo giving necessary fields values
 
 Specification
 -------------
@@ -29,7 +29,7 @@ It takes the following arguments in the order of the rows:
 +--------------+-----------------+--------------------------------------------------------------------+
 | shop_ident   | string          | Shop identifier                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
-| values       | dictionnary     | See below for details.                                             |
+| values       | dictionary      | See below for details.                                             |
 |              | of values       |                                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
 
@@ -38,7 +38,7 @@ Values parameters
 
 .. csv-table::
    :header: Name,Type,Comment,Required,Extra Infos
-   
+
     name,string,Name,TRUE,size=128
     active,boolean,Active?,FALSE,default=True
     street,string,Street,FALSE,size=128
@@ -58,7 +58,7 @@ Values parameters
 Return values
 ^^^^^^^^^^^^^
 
-Method returns an integer corresponding to the OpenERP ID of the customer created.
+Method returns an integer corresponding to the Odoo ID of the customer created.
 
 ..  code-block:: python
 
@@ -82,36 +82,36 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    // CREATE A CUSTOMER
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $vals = array(
-        'name'=>'Customer1',
-        );
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals));
-    
-    var_dump($records);
-    
-    ?>
+..  code-block:: php
+   :linenos:
+
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   // CREATE A CUSTOMER
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client($url."/openerp/xmlrpc/1/object");
+
+   $vals = array(
+       'name'=>'Customer1',
+       );
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals));
+
+   var_dump($records);
+
+   ?>
 

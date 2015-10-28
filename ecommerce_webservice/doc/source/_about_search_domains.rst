@@ -33,5 +33,3 @@ which uses string instead of tuples, so the domain above becomes:
      '|', 'country_id.code = be',
          'country_id.code = de'
      ]
-
-See in erppeek for an existing implementation which can be reused: https://github.com/tinyerp/erppeek/blob/master/erppeek.py#L286-L328

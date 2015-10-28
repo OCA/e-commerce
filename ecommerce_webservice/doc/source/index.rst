@@ -27,6 +27,7 @@ Contents:
    check_customer_credit
    get_docs
    _about_search_domains
+   errors
 
 
 Indices and tables

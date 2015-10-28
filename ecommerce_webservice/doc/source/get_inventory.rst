@@ -1,5 +1,5 @@
-Details of get_inventory() method
-=================================
+Details of get_inventory method
+===============================
 
 Goal
 ----
@@ -39,15 +39,12 @@ It takes the following arguments in the order of the rows:
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a dictionnary indexed by product_ids given in parameters.
+Method returns a list of dictionaries with the values
 
 ..  code-block:: python
 
-    {'product_id1': {'quantity_available': qty_available,
-                     'virtual_available': virtual_available
-                     },
-     ...
-     }
+    [{'id': 1, 'quantity_available': 10, 'virtual_available': 8},
+     {'id': 2, 'quantity_available': 0, 'virtual_available': 0}]
 
 Python call example
 -------------------
@@ -62,40 +59,37 @@ Python call example
         [1, 2]
         )
     print quantities
-    {1: {'quantity_available': 10, 'virtual_available': 8},
-     2: {'quantity_available': 0, 'virtual_available': 0}
-    }
+    [{'id': 1, 'quantity_available': 10, 'virtual_available': 8},
+     {'id': 2, 'quantity_available': 0, 'virtual_available': 0}]
 
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $product_ids = array(17, 25);
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'get_inventory', array($shop_identifier, $product_ids));
-    
-    var_dump($records);
-    
-    ?>
+..  code-block:: php
+   :linenos:
+
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
 
 
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+   $product_ids = array(17, 25);
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'get_inventory', array($shop_identifier, $product_ids));
+
+   var_dump($records);
+
+   ?>
