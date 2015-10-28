@@ -84,17 +84,19 @@ class ecommerce_api_v1(orm.AbstractModel):
         records = self._read_with_follow(cr, uid, model, oids, fields, context=context)
         return records
 
-    EAGER_LOADING = {
-        'product.product': {
-            'categ_id': ['id', 'name', 'type'],
+    def _eager_loading(self):
+        loading = {
+            'product.product': {
+                'categ_id': ['id', 'name', 'type'],
+            }
         }
-    }
+        return loading
 
     def is_field_to_follow(self, model, field_name, depth=0):
-        return depth > 0 and field_name in self.EAGER_LOADING.get(model, {})
+        return depth > 0 and field_name in self._eager_loading().get(model, {})
 
     def get_target_fields(self, model, field_name):
-        return self.EAGER_LOADING.get(model, {}).get(field_name)
+        return self._eager_loading().get(model, {}).get(field_name)
 
     def _read_with_follow(self, cr, uid, model, oids, fields=None, depth=2,
             context=None):
