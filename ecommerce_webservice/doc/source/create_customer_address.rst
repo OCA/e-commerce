@@ -1,10 +1,10 @@
-Details of create_customer_address() method
-===========================================
+Details of create_customer_address method
+=========================================
 
 Goal
 ----
 
-Create an address linked to a customer in OpenERP giving necessary fields values
+Create an address linked to a customer in Odoo giving necessary fields values
 
 Specification
 -------------
@@ -31,7 +31,7 @@ It takes the following arguments in the order of the rows:
 +--------------+-----------------+--------------------------------------------------------------------+
 | customer_id  | integer         | Id of the customer on which this address will be linked            |
 +--------------+-----------------+--------------------------------------------------------------------+
-| values       | dictionnary     | See below for details.                                             |
+| values       | dictionary      | See below for details.                                             |
 |              | of values       |                                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
 
@@ -40,7 +40,7 @@ Values parameters
 
 .. csv-table::
    :header: Name,Type,Comment,Required,Extra Infos
-   
+
     name,string,Name,TRUE,size=128
     active,boolean,Active?,FALSE,default=True
     street,string,Street,FALSE,size=128
@@ -60,7 +60,7 @@ Values parameters
 Return values
 ^^^^^^^^^^^^^
 
-Method returns an integer corresponding to the OpenERP ID of the customer created.
+Method returns an integer corresponding to the Odoo ID of the customer created.
 
 ..  code-block:: python
 
@@ -85,51 +85,49 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    // CREATE A CUSTOMER AND THEN CREATE AN ADDRESS
-    // LINKED TO THIS NEWLY CREATED CUSTOMER
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $vals_create = array(
-        'name'=>'Customer3',
-        );
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals_create));
-    
-    
-    
-    $vals = array(
-        'name'=>'address Customer3',
-        'street'=>'street',
-        'street2'=>'street2',
-        'type'=>'default'
-        );
-    
-    $customer_ids = $records;
-    
-    $records2 = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_customer_address', array($shop_identifier, $customer_ids, $vals));
-    
-    var_dump($records2);
-    
-    ?>
+..  code-block:: php
+   :linenos:
 
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   // CREATE A CUSTOMER AND THEN CREATE AN ADDRESS
+   // LINKED TO THIS NEWLY CREATED CUSTOMER
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+   $vals_create = array(
+       'lastname'=>'Bernasconi',
+       'firstname'=>'Maria',
+       );
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals_create));
+
+   $vals = array(
+       'lastname'=>'Bernasconi',
+       'firstname'=>'Maria',
+       'street'=>'street',
+       'street2'=>'street2',
+       'type'=>'default'
+       );
+
+   $customer_ids = $records;
+
+   $records2 = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_customer_address', array($shop_identifier, $customer_ids, $vals));
+
+   var_dump($records2);
+
+   ?>

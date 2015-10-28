@@ -1,5 +1,5 @@
-Details of get_payment_status() method
-========================================
+Details of get_payment_status method
+====================================
 
 Goal
 ----
@@ -56,13 +56,23 @@ It takes the following arguments in the order of the rows:
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a list of dictionnary representing ``account.invoice`` objects which correspond to search criterions given in ``domain`` param.
+Method returns a list of dictionary representing ``account.invoice``
+objects which correspond to the search criteria given in ``domain``
+param.
 
 ..  code-block:: python
 
     [
-     {'id': 31, 'state': 'paid', 'sale_order_id': 10},
-     {'id': 12, 'state': 'open', 'sale_order_id': 10},
+     {'id': 31,
+      'state': 'paid',
+      'sale_order_ids': [10]},
+      'partner_id': {'id': 6, 'name': 'Agrolait'},
+      }
+     {'id': 12,
+      'state': 'open',
+      'sale_order_ids': [10],
+      'partner_id': {'id': 6, 'name': 'Agrolait'},
+      },
      ]
 
 Python call example
@@ -75,52 +85,53 @@ Python call example
         'ecommerce.api.v1',
         'get_payment_status',
         'shop_identifier',
-        ['sale_id = 10', 'create_date > 2015-09-24 00:00:00'],
-        ['id', 'state'],
+        ['sale_order_ids = 10', 'create_date > 2015-09-24 00:00:00'],
+        ['id', 'state', 'partner_id'],
         )
     print payment_status
-    [{'id': 31, 'state': 'paid', 'sale_order_id': 10}]
+    [{'id': 31,
+      'state': 'paid',
+      'partner_id': {'id': 6, 'name': 'Agrolait'}
+      }]
 
 
 
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
+..  code-block:: php
+   :linenos:
 
-    require_once('ripcord/ripcord.php');
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    
-    // here, put the ID of a sale_order
-    $sale_id = 17;
-    
-    $domain = array(
-        array('sale_order_ids', 'in', $sale_id)
-    );
-    
-    $fields = array();
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'get_payment_status', array($shop_identifier, $domain, $fields));
-    
-    var_dump($records);
-    
-    ?>
-    
+   <?php
 
+   require_once('ripcord/ripcord.php');
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+
+   // here, put the ID of a sale_order
+   $sale_id = 17;
+
+   $domain = array(
+       array('sale_order_ids', 'in', $sale_id)
+   );
+
+   $fields = array();
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'get_payment_status', array($shop_identifier, $domain, $fields));
+
+   var_dump($records);
+
+   ?>

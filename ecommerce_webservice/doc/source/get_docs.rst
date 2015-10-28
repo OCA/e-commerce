@@ -1,10 +1,11 @@
-Details of get_docs() method
-=======================================
+Details of get_docs method
+==========================
 
 Goal
 ----
 
-Render a PDF and return it. It can print the sales order's report, invoice's report or delivery order's report.
+Render a PDF and returns it. It can print the sales order's report,
+invoice's report or delivery order's report.
 
 Specification
 -------------
@@ -37,7 +38,8 @@ It takes the following arguments in the order of the rows:
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a base64 string for ``sale_id`` and ``document_type`` given in parameters.
+Method returns a base64 string for ``sale_id`` and ``document_type``
+given in parameters.
 
 ..  code-block:: python
 
@@ -62,41 +64,39 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $sale_id = 17;
-    
-    $document_type = "sale.order";
-    //$document_type = "account.invoice";
-    //$document_type = "stock.picking";
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'get_docs', array($shop_identifier, $sale_id, $document_type));
-    
-    //var_dump($records);
-    
-    // data is encoded in base64
-    // to be able to read the PDF, we must decode it
-    echo base64_decode($records);
-    
-    ?>
-    
+..  code-block:: php
+   :linenos:
 
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+   $sale_id = 17;
+
+   $document_type = "sale.order";
+   //$document_type = "account.invoice";
+   //$document_type = "stock.picking";
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'get_docs', array($shop_identifier, $sale_id, $document_type));
+
+   //var_dump($records);
+
+   // data is encoded in base64
+   // to be able to read the PDF, we must decode it
+   echo base64_decode($records);
+
+   ?>

@@ -1,7 +1,8 @@
 Customers and Addresses management
 ==================================
 
-You can create, search, read and update customers and addresses informations from OpenERP.
+You can create, search, read and update customers and addresses
+informations from Odoo.
 
 See below links to detailed API for these objects :
 

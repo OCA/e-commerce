@@ -1,7 +1,8 @@
 Products management
 ===================
 
-You can search and read product informations from OpenERP whether on product template object whether on product product object.
+You can search and read product informations from Odoo whether on
+product template object whether on product product object.
 
 See below links to detailed API for these objects :
 

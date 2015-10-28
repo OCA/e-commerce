@@ -1,5 +1,5 @@
-Details of check_customer_credit() method
-=========================================
+Details of check_customer_credit method
+=======================================
 
 Goal
 ----
@@ -37,14 +37,13 @@ It takes the following arguments in the order of the rows:
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a dictionnary indexed by customer_ids given in parameters.
+Method returns a list of dictionaries of customer ids with their credits.
 
 ..  code-block:: python
 
-    {'customer_id1': credit1,
-     'customer_id2': credit2,
-     ...
-     }
+    [{'id': 1, 'credit': 100},
+     {'id': 2, 'credit': 0},
+    ]
 
 Python call example
 -------------------
@@ -59,55 +58,61 @@ Python call example
         [1, 5, 7]
         )
     print credits
-    {1: 230, 5: 550, 7: 0}
+    [{'id': 1, 'credit': 230},
+     {'id': 5, 'credit': 550},
+     {'id': 7, 'credit': 0},
+    ]
 
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    
-    //create some customers
-    
-    $vals = array(
-        'name'=>'Customer1',
-        );
-    
-    $c1 = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals));
-    
-    $vals = array(
-        'name'=>'Customer2',
-        );
-    
-    $c2 = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals));
-    
-    // retrieve credit for those customers
-    $customer_ids = array($c1, $c2);
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'check_customer_credit', array($shop_identifier, $customer_ids));
-    
-    var_dump($records);
-    
-    ?>
+..  code-block:: php
+   :linenos:
+
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
+   // FOR THIS NEWLY CREATED CUSTOMER
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+
+   //create some customers
+
+   $vals = array(
+       'name'=>'Customer1',
+       );
+
+   $c1 = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals));
+
+   $vals = array(
+       'name'=>'Customer2',
+       );
+
+   $c2 = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals));
+
+   // retrieve credit for those customers
+   $customer_ids = array($c1, $c2);
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'check_customer_credit', array($shop_identifier, $customer_ids));
+
+   var_dump($records);
+
+   ?>
 

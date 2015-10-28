@@ -1,10 +1,10 @@
-Details of update_customer() method
-===========================================
+Details of update_customer method
+=================================
 
 Goal
 ----
 
-Update all customer given in parameter (list of ID) in OpenERP giving necessary fields values
+Update all customer given in parameter (list of ID) in Odoo giving necessary fields values
 
 Specification
 -------------
@@ -31,7 +31,7 @@ It takes the following arguments in the order of the rows:
 +--------------+-----------------+--------------------------------------------------------------------+
 | customer_ids | list of integer | List of customer's ID we want to update                            |
 +--------------+-----------------+--------------------------------------------------------------------+
-| values       | dictionnary     | See below for details.                                             |
+| values       | dictionary      | See below for details.                                             |
 |              | of values       |                                                                    |
 +--------------+-----------------+--------------------------------------------------------------------+
 
@@ -59,7 +59,7 @@ Values parameters
 Return values
 ^^^^^^^^^^^^^
 
-Method returns True if all customers have been modified. Else it returns an error.
+Method returns always True or an error.
 
 ..  code-block:: python
 
@@ -82,49 +82,49 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
-    // FOR THIS NEWLY CREATED CUSTOMER
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $vals_create = array(
-        'name'=>'Customer2',
-        );
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals_create));
-    
-    
-    
-    $vals = array(
-        'street'=>'street',
-        'street2'=>'street2',
-        );
-    
-    $customer_ids = array($records);
-    
-    $records2 = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'update_customer', array($shop_identifier, $customer_ids, $vals));
-    
-    var_dump($records);
-    
-    ?>
+..  code-block:: php
+   :linenos:
+
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
+   // FOR THIS NEWLY CREATED CUSTOMER
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+   $vals_create = array(
+       'lastname'=>'Bernasconi',
+       'firstname'=>'Maria',
+       );
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'create_customer', array($shop_identifier, $vals_create));
+
+
+
+   $vals = array(
+       'firstname'=>'Marina',
+       );
+
+   $customer_ids = array($records);
+
+   $records2 = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'update_customer', array($shop_identifier, $customer_ids, $vals));
+
+   var_dump($records);
+
+   ?>
 

@@ -1,5 +1,5 @@
-Details of search_read_customer() and search_read_address() methods
-===================================================================
+Details of search_read_customer and search_read_address methods
+===============================================================
 
 Goal
 ----
@@ -137,7 +137,9 @@ Available Fields
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a list of dictionnary. Each dictionnary corresponds to a customer or an address (according to method called) matching domain criterion.
+Method returns a list of dictionaries. Each dictionary corresponds to a
+customer or an address (according to method called) matching domain
+criteria.
 
 ..  code-block:: python
 
@@ -163,8 +165,8 @@ Python call example
      {'id': 15, 'name': 'Jane Doe', 'street': 'Maple Road', ...},
      ...
      ]
-     
-     
+
+
     addresses = client.execute(
         dbname, uid, pwd,
         'ecommerce.api.v1',
@@ -183,50 +185,49 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
-    // FOR THIS NEWLY CREATED CUSTOMER
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    $domain = array(
-        array('name','=', 'Agrolait'),
-        );
-    
-    $fields = array('name', 'ref');
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'search_read_customer', array($shop_identifier, $domain, $fields));
-    
-    var_dump($records);
-    
-    $domain_address = array(
-        array('name','ilike', 'luc'),
-        );
-    
-    $fields_address = array('name', 'ref', 'parent_id');
-    
-    $records_address = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'search_read_address', array($shop_identifier, $domain_address, $fields_address));
-    
-    var_dump($records_address);
-    
-    ?>
+..  code-block:: php
+   :linenos:
 
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   // CREATE A CUSTOMER AND THEN UPDATE SOME FIELDS
+   // FOR THIS NEWLY CREATED CUSTOMER
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+   $domain = array(
+       array('name','=', 'Agrolait'),
+       );
+
+   $fields = array('name', 'ref');
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'search_read_customer', array($shop_identifier, $domain, $fields));
+
+   var_dump($records);
+
+   $domain_address = array(
+       array('name','ilike', 'luc'),
+       );
+
+   $fields_address = array('name', 'ref', 'parent_id');
+
+   $records_address = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'search_read_address', array($shop_identifier, $domain_address, $fields_address));
+
+   var_dump($records_address);
+
+   ?>

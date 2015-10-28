@@ -1,5 +1,5 @@
-Details of get_transfer_status() method
-========================================
+Details of get_transfer_status method
+=====================================
 
 Goal
 ----
@@ -54,7 +54,7 @@ It takes the following arguments in the order of the rows:
 Return values
 ^^^^^^^^^^^^^
 
-Method returns a list of dictionnary representing ``stock.picking`` objects which correspond to search criterions given in ``domain`` param.
+Method returns a list of dictionaries representing ``stock.picking`` objects which correspond to search criterions given in ``domain`` param.
 
 ..  code-block:: python
 
@@ -83,40 +83,39 @@ Python call example
 PHP call example
 ----------------
 
- ..  code-block:: php
-    :linenos:
- 
-    <?php 
-    
-    require_once('ripcord/ripcord.php');
-    
-    $url = 'http://localhost:8069';
-    $db = 'database';
-    $username = "admin";
-    $password = "admin";
-    $shop_identifier = "cafebabe";
-    
-    
-    $common = ripcord::client($url."/xmlrpc/common");
-    
-    $uid = $common->authenticate($db, $username, $password, array());
-    
-    $models = ripcord::client("$url/xmlrpc/object");
-    
-    
-    // here, put the ID of a sale_order
-    $sale_id = 17;
-    
-    $domain = array(
-        array('sale_id', '=', $sale_id)
-    );
-    
-    $fields = array();
-    
-    $records = $models->execute_kw($db, $uid, $password,
-        'ecommerce.api.v1', 'get_transfer_status', array($shop_identifier, $domain, $fields));
-    
-    var_dump($records);
-    
-    ?>    
+..  code-block:: php
+   :linenos:
 
+   <?php
+
+   require_once('ripcord/ripcord.php');
+
+   $url = 'http://localhost:8069';
+   $db = 'database';
+   $username = "ecommerce_demo_external_user";
+   $password = "dragon";
+   $shop_identifier = "cafebabe";
+
+
+   $common = ripcord::client($url."/openerp/xmlrpc/1/common");
+
+   $uid = $common->authenticate($db, $username, $password, array());
+
+   $models = ripcord::client("$url/openerp/xmlrpc/1/object");
+
+
+   // here, put the ID of a sale_order
+   $sale_id = 17;
+
+   $domain = array(
+       array('sale_id', '=', $sale_id)
+   );
+
+   $fields = array();
+
+   $records = $models->execute_kw($db, $uid, $password,
+       'ecommerce.api.v1', 'get_transfer_status', array($shop_identifier, $domain, $fields));
+
+   var_dump($records);
+
+   ?>
