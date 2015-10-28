@@ -4,9 +4,9 @@ import time
 import traceback
 from functools import wraps
 
-import sql_db
-import netsvc
 import openerp
+from openerp import sql_db
+from openerp import netsvc
 from openerp.osv import orm
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _

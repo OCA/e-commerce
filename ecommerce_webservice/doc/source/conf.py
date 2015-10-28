@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 #
 # Odoo E-commmerce API documentation build configuration file, created by
 # sphinx-quickstart on Fri Oct  9 15:52:34 2015.
