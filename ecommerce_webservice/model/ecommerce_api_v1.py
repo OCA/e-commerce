@@ -143,11 +143,11 @@ class ecommerce_api_v1(orm.AbstractModel):
                                 val = self._read_with_follow(cr, uid, tmodel, tids,
                                         tfields, depth - 1, context=context)
                                 record[field_name] = val
-        if fields:
-            for record in records:
-                for key in record.keys():
-                    if key not in fields:
-                        del record[key]
+            if fields:
+                for record in records:
+                    for key in record.keys():
+                        if key not in fields:
+                            del record[key]
         return records
 
     def _get_report(self, cr, uid, model, oid):
