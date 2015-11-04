@@ -14,6 +14,7 @@ This web-service will act as a high-level proxy towards the more low-level API m
     'depends': [
         'sale',
         'stock',
+        'account',
                 ],
     'data': [
         'security/res.groups.csv',
@@ -27,6 +28,7 @@ This web-service will act as a high-level proxy towards the more low-level API m
 
         'view/ecommerce_api_shop.xml',
         'view/ecommerce_api_log.xml',
+        'view/account_tax.xml',
              ],
     'demo': [
         'demo/res.partner.csv',

@@ -4,4 +4,5 @@ import ecommerce_api_v1
 import res_partner
 import sale_order
 import account_invoice
+import account_tax
 

@@ -20,19 +20,23 @@ def get_expected_values(record, fields):
             expected_values.append([el.id for el in rv])
         else:
             expected_values.append(rv)
-    return expected_values
+    return dict(zip(fields, expected_values))
 
 
 class SomeTest(unittest2.TestCase):
 
     def setUp(self):
         self.admin = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
+        tax_ids = self.admin.model('account.tax').search([])
+        my_tax = tax_ids[0]
+        self.admin.model('account.tax').browse(my_tax).api_code = 'my_tax'
         self.product = self.admin.model('product.product').create({
             'name': "BlueBeery",
             'sale_ok' : True,
             'type': 'product',
             'list_price': 3.0,
             'procure_method': 'make_to_stock',
+            'taxes_id': [my_tax],
             })
 
         # def test00_create_external_user_and_shop(self):
@@ -44,6 +48,12 @@ class SomeTest(unittest2.TestCase):
         self.public = erppeek.Client(self.admin._server, self.admin._db,
                 'ecommerce_demo_external_user', 'dragon')
         self.api = self.public.model('ecommerce.api.v1')
+
+    def tearDown(self):
+        tax_ids = self.admin.model('account.tax').search([('api_code', '=', 'my_tax')])
+        if tax_ids:
+            my_tax = tax_ids[0]
+            self.admin.model('account.tax').browse(my_tax).api_code = False
 
     def load_csv(self, filename):
         modelname = os.path.splitext(os.path.basename(filename))[0]
@@ -138,6 +148,7 @@ class SomeTest(unittest2.TestCase):
             'discount': .5,
             'product_uom_qty': 10.0,
             'sequence': 0,
+            'tax_id': ['my_tax'],
             }]
         now =  datetime.datetime.now()
         values = {
@@ -156,11 +167,14 @@ class SomeTest(unittest2.TestCase):
         sol_fields = order_line[0].keys()
         for i, sol in enumerate(so.order_line):
             expected_values = get_expected_values(sol, sol_fields)
-            self.assertSequenceEqual(expected_values, order_line[i].values())
+            if 'tax_id' in order_line[i]:
+                tax_codes = self.admin.model('account.tax').browse(sol.tax_id.id).api_code
+                expected_values['tax_id'] = tax_codes
+            self.assertEqual(expected_values, order_line[i])
         values.pop('order_line')
         fields = values.keys()
         expected_values = get_expected_values(so, fields)
-        self.assertSequenceEqual(expected_values, values.values())
+        self.assertEqual(expected_values, values)
 
     def test07_search_read_product_template(self):
         # TODO: enhance test

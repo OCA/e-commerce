@@ -215,6 +215,12 @@ class ecommerce_api_v1(orm.AbstractModel):
         raw_order_line = vals.pop('order_line', [])
         order_line = []
         for line in raw_order_line:
+            if 'tax_id' in line:
+                raw_tax_id = line.pop('tax_id', [])
+                tax_ids = self.pool['account.tax'].search(cr, uid,
+                        [('api_code', 'in', raw_tax_id)], context=context)
+                line['tax_id'] = [(6, False, tax_ids)]
+
             onchange_vals = {}
             if 'product_id' in line:
                 ocv = SOL.product_id_change(cr, uid, None,
