@@ -58,8 +58,9 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     def _find_shop(self, cr, uid, shop_identifier, context=None):
         Shop = self.pool['ecommerce.api.shop']
-        shops = Shop.search(cr, uid,
-                [('shop_identifier', '=', shop_identifier)], context=context)
+        shops = Shop.search(
+                cr, uid, [('shop_identifier', '=', shop_identifier)],
+                context=context)
         if not shops:
             raise openerp.exceptions.AccessError(
                 _('No shop found with identifier %s') % shop_identifier)
@@ -68,19 +69,21 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     def _update_vals_for_country_id(self, cr, uid, vals, context=None):
         if 'country' in vals:
-            country_ids = self.pool['res.country'].name_search(cr, uid,
-                    vals['country'], context=context)
+            country_ids = self.pool['res.country'].name_search(
+                    cr, uid, vals['country'], context=context)
             country_id = country_ids[0][0] if country_ids else False
             vals.pop('country')
             vals['country_id'] = country_id
 
     def _search_read_anything(self, cr, uid, model, domain, fields=None,
-            offset=0, limit=None, order=None, context=None):
+                              offset=0, limit=None, order=None, context=None):
         if issearchdomain(domain):
             searchargs((domain,))
-        oids = self.pool[model].search(cr, uid, domain, offset=offset,
+        oids = self.pool[model].search(
+                cr, uid, domain, offset=offset,
                 limit=limit, order=order, context=context)
-        records = self._read_with_follow(cr, uid, model, oids, fields, context=context)
+        records = self._read_with_follow(
+                cr, uid, model, oids, fields, context=context)
         return records
 
     def _eager_loading(self):
@@ -100,7 +103,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         return self._eager_loading().get(model, {}).get(field_name)
 
     def _read_with_follow(self, cr, uid, model, oids, fields=None, depth=2,
-            context=None):
+                          context=None):
         Model = self.pool[model]
         records = Model.read(cr, uid, oids, fields, context=context)
 
@@ -110,7 +113,7 @@ class ecommerce_api_v1(orm.AbstractModel):
             for field_name in all_fields:
                 field = Model._all_columns.get(field_name)
                 if field and field.column._type in ('many2one', 'one2many',
-                        'many2many'):
+                                                    'many2many'):
                     fields_to_cast.append(field_name)
 
             if fields_to_cast:
@@ -151,7 +154,8 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     def _get_report(self, cr, uid, model, oid):
         ReportSpool = netsvc.ExportService._services['report']
-        rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
+        rid = ReportSpool.exp_report(
+                cr.dbname, uid, model, [oid],
                 {'model': model, 'id': oid, 'report_type': 'pdf'})
         retry = 0
         while retry < 10:
@@ -177,10 +181,12 @@ class ecommerce_api_v1(orm.AbstractModel):
     @shop_logging
     def update_customer(self, cr, uid, shop, partner_id, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, uid, partner_id, vals, context=context)
+        return self.pool['res.partner'].write(
+                cr, uid, partner_id, vals, context=context)
 
     @shop_logging
-    def create_customer_address(self, cr, uid, shop, customer_id, vals, context=None):
+    def create_customer_address(self, cr, uid, shop, customer_id, vals,
+                                context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
             'customer': True,
@@ -191,9 +197,11 @@ class ecommerce_api_v1(orm.AbstractModel):
         return address_id
 
     @shop_logging
-    def update_customer_address(self, cr, uid, shop, address_ids, vals, context=None):
+    def update_customer_address(self, cr, uid, shop, address_ids, vals,
+                                context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
-        return self.pool['res.partner'].write(cr, uid, address_ids, vals, context=context)
+        return self.pool['res.partner'].write(
+                cr, uid, address_ids, vals, context=context)
 
     def _prepare_sale_order(self, cr, uid, shop, vals, context=None):
         SO = self.pool['sale.order']
@@ -206,12 +214,12 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         onchange_vals = {}
         if 'partner_id' in vals:
-            ocv = SO.onchange_partner_id(cr, uid, None, vals['partner_id'],
-                    context=context)
+            ocv = SO.onchange_partner_id(
+                    cr, uid, None, vals['partner_id'], context=context)
             onchange_vals.update(ocv['value'])
         if 'shop_id' in vals:
-            ocv = SO.onchange_shop_id(cr, uid, None, vals['shop_id'],
-                    context=context)
+            ocv = SO.onchange_shop_id(
+                    cr, uid, None, vals['shop_id'], context=context)
             onchange_vals.update(ocv['value'])
 
         # fields in vals prevail over fields returned by onchange
@@ -230,13 +238,15 @@ class ecommerce_api_v1(orm.AbstractModel):
         for line in raw_order_line:
             if 'tax_id' in line:
                 raw_tax_id = line.pop('tax_id', [])
-                tax_ids = self.pool['account.tax'].search(cr, uid,
-                        [('api_code', 'in', raw_tax_id)], context=context)
+                tax_ids = self.pool['account.tax'].search(
+                        cr, uid, [('api_code', 'in', raw_tax_id)],
+                        context=context)
                 line['tax_id'] = [(6, False, tax_ids)]
 
             onchange_vals = {}
             if 'product_id' in line:
-                ocv = SOL.product_id_change(cr, uid, None,
+                ocv = SOL.product_id_change(
+                        cr, uid, None,
                         vals.get('pricelist_id'), line['product_id'],
                         line.get('product_uom_qty'), line.get('product_uom'),
                         line.get('product_uos_qty'), line.get('product_uos'),
@@ -262,91 +272,100 @@ class ecommerce_api_v1(orm.AbstractModel):
         return so_id
 
     @shop_logging
-    def search_read_product_template(self, cr, uid, shop, domain,
-            fields=None, offset=0, limit=None, order=None, context=None):
+    def search_read_product_template(self, cr, uid, shop, domain, fields=None,
+                                     offset=0, limit=None, order=None,
+                                     context=None):
         model = 'product.template'
         # domain.append(('variants', '=', False))
-        return self._search_read_anything(cr, uid, model, domain,
-                fields, offset, limit, order, context)
+        return self._search_read_anything(
+                cr, uid, model, domain, fields, offset, limit, order, context)
 
     @shop_logging
-    def search_read_product_variant(self, cr, uid, shop, domain,
-            fields=None, offset=0, limit=None, order=None, context=None):
+    def search_read_product_variant(self, cr, uid, shop, domain, fields=None,
+                                    offset=0, limit=None, order=None,
+                                    context=None):
         model = 'product.product'
-        return self._search_read_anything(cr, uid, model, domain,
-                fields, offset, limit, order, context)
+        return self._search_read_anything(
+                cr, uid, model, domain, fields, offset, limit, order, context)
 
     @shop_logging
     def get_inventory(self, cr, uid, shop, product_ids,
-            context=None):
+                      context=None):
         fields = ['id', 'qty_available', 'virtual_available']
-        records = self._read_with_follow(cr, uid, 'product.product',
+        records = self._read_with_follow(
+                cr, uid, 'product.product',
                 product_ids, fields, context=context)
         return records
 
     @shop_logging
-    def get_transfer_status(self, cr, uid, shop, domain,
-            fields=None, offset=0, limit=None, order=None, context=None):
+    def get_transfer_status(self, cr, uid, shop, domain, fields=None,
+                            offset=0, limit=None, order=None,
+                            context=None):
         model = 'stock.picking.out'
         domain.append(('sale_id', 'in', [so.id for so in shop.sale_order_ids]))
-        return self._search_read_anything(cr, uid, model, domain,
-                fields, offset, limit, order, context)
+        return self._search_read_anything(
+                cr, uid, model, domain, fields, offset, limit, order, context)
 
     @shop_logging
     def get_payment_status(self, cr, uid, shop, domain, fields=None,
-            offset=0, limit=None, order=None, context=None):
+                           offset=0, limit=None, order=None,
+                           context=None):
         model = 'account.invoice'
         # take ony invoice generated by SO of shop
-        domain.append(('sale_order_ids', 'in', [so.id for so in shop.sale_order_ids]))
-        return self._search_read_anything(cr, uid, model, domain,
-                fields, offset, limit, order, context)
+        domain.append(
+            ('sale_order_ids', 'in', [so.id for so in shop.sale_order_ids]))
+        return self._search_read_anything(
+                cr, uid, model, domain, fields, offset, limit, order, context)
 
     @shop_logging
-    def search_read_customer(self, cr, uid, shop, domain,
-            fields=None, offset=0, limit=None, order=None, context=None):
+    def search_read_customer(self, cr, uid, shop, domain, fields=None,
+                             offset=0, limit=None, order=None,
+                             context=None):
         model = 'res.partner'
         domain.append(('parent_id', '=', False))
-        return self._search_read_anything(cr, uid, model, domain,
-                fields, offset, limit, order, context)
+        return self._search_read_anything(
+                cr, uid, model, domain, fields, offset, limit, order, context)
 
     @shop_logging
-    def search_read_address(self, cr, uid, shop, domain,
-            fields=None, offset=0, limit=None, order=None, context=None):
+    def search_read_address(self, cr, uid, shop, domain, fields=None,
+                            offset=0, limit=None, order=None,
+                            context=None):
         model = 'res.partner'
         domain.append(('parent_id', '!=', False))
-        return self._search_read_anything(cr, uid, model, domain,
-                fields, offset, limit, order, context)
+        return self._search_read_anything(
+                cr, uid, model, domain, fields, offset, limit, order, context)
 
     @shop_logging
     def check_customer_credit(self, cr, uid, shop, customer_ids,
-            context=None):
+                              context=None):
         domain = [('id', 'in', customer_ids),
                   ('customer_eshop_id', '=', shop.id)]
-        oids = self.pool['res.partner'].search(cr, uid, domain, context=context)
+        oids = self.pool['res.partner'].search(
+                cr, uid, domain, context=context)
         fields = ['id', 'credit']
         records = self._read_with_follow(cr, uid, 'res.partner', oids, fields,
-                context=context)
+                                         context=context)
         return records
 
     @shop_logging
     def get_docs(self, cr, uid, shop, sale_id, document_type,
-            context=None):
+                 context=None):
         SaleOrder = self.pool['sale.order']
 
         model = document_type
         if document_type == 'sale.order':
             if not SaleOrder.search(cr, uid, [('id', '=', sale_id)],
-                    context=context):
+                                    context=context):
                 message = 'Sale order #%s not found.'
                 raise openerp.exceptions.AccessError(_(message) % sale_id)
             oid = sale_id
         elif document_type == 'account.invoice':
             invoice_ids = SaleOrder.read(cr, uid, sale_id, ['invoice_ids'],
-                    context=context)['invoice_ids']
+                                         context=context)['invoice_ids']
             oid = invoice_ids and invoice_ids[0] or False
         elif document_type == 'stock.picking':
             picking_ids = SaleOrder.read(cr, uid, sale_id, ['picking_ids'],
-                    context=context)['picking_ids']
+                                         context=context)['picking_ids']
             oid = picking_ids and picking_ids[0] or False
             model = 'stock.picking.list.out'
         else:
@@ -354,6 +373,6 @@ class ecommerce_api_v1(orm.AbstractModel):
             raise openerp.exceptions.AccessError(_(message) % document_type)
         if not oid:
             message = 'Document %s for sale order #%s not found.'
-            raise openerp.exceptions.AccessError(_(message) % (document_type,
-                sale_id))
+            raise openerp.exceptions.AccessError(
+                    _(message) % (document_type, sale_id))
         return self._get_report(cr, uid, model, oid)

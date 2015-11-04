@@ -46,12 +46,14 @@ class SomeTest(unittest2.TestCase):
         self.load_csv('demo/ecommerce.api.shop.csv')
 
         # def test01_login_as_external_user(self):
-        self.public = erppeek.Client(self.admin._server, self.admin._db,
+        self.public = erppeek.Client(
+                self.admin._server, self.admin._db,
                 'ecommerce_demo_external_user', 'dragon')
         self.api = self.public.model('ecommerce.api.v1')
 
     def tearDown(self):
-        tax_ids = self.admin.model('account.tax').search([('api_code', '=', 'my_tax')])
+        tax_ids = self.admin.model('account.tax').search(
+                [('api_code', '=', 'my_tax')])
         if tax_ids:
             my_tax = tax_ids[0]
             self.admin.model('account.tax').browse(my_tax).api_code = False
@@ -100,7 +102,8 @@ class SomeTest(unittest2.TestCase):
         self.assertEqual(customer.country_id.code.upper(), 'FR')
 
     def test04_create_customer_address(self):
-        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
+        pids = self.admin.model('res.partner').search(
+                [('type', '=', 'default')])
         partner_id = max(pids)
         values = {
             'name': 'Test created customer address',
@@ -116,7 +119,8 @@ class SomeTest(unittest2.TestCase):
             'fax': 'who uses fax?',
             'email': 'scott.tiger@example.com',
         }
-        address_id = self.api.create_customer_address(SHOP_ID, partner_id, values)
+        address_id = self.api.create_customer_address(
+                SHOP_ID, partner_id, values)
         address = self.admin.model('res.partner').browse(address_id)
         self.assertEqual(address.country_id.code.upper(), 'BE')
         values.pop('country')
@@ -140,7 +144,8 @@ class SomeTest(unittest2.TestCase):
         self.assertEqual(customer.country_id.code.upper(), 'BE')
 
     def test06_create_sale_order(self):
-        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
+        pids = self.admin.model('res.partner').search(
+                [('type', '=', 'default')])
         partner_id = max(pids)
         order_line = [{
             'product_id': self.product.id,
@@ -177,7 +182,8 @@ class SomeTest(unittest2.TestCase):
             sol_fields = order_line[i].keys()
             expected_values = get_expected_values(sol, sol_fields)
             if 'tax_id' in order_line[i]:
-                tax_codes = self.admin.model('account.tax').browse(sol.tax_id.id).api_code
+                AccountTax = self.admin.model('account.tax')
+                tax_codes = AccountTax.browse(sol.tax_id.id).api_code
                 expected_values['tax_id'] = tax_codes
             self.assertEqual(expected_values, order_line[i])
         values.pop('order_line')
@@ -187,7 +193,8 @@ class SomeTest(unittest2.TestCase):
 
     def test07_search_read_product_template(self):
         # TODO: enhance test
-        products = self.api.search_read_product_template(SHOP_ID,
+        products = self.api.search_read_product_template(
+                SHOP_ID,
                 [('name', '=', 'BlueBeery'), ('id', '=', self.product.id)])
         self.assertIn(self.product.id, [p['id'] for p in products])
 
@@ -214,7 +221,8 @@ class SomeTest(unittest2.TestCase):
 
     def test11_check_customer_credit(self):
         # TODO: enhance test
-        pids = self.admin.model('res.partner').search([('type', '=', 'default')])
+        pids = self.admin.model('res.partner').search(
+                [('type', '=', 'default')])
         partner_id = max(pids)
         result = self.api.check_customer_credit(SHOP_ID, [partner_id])
         for row in result:
@@ -232,19 +240,22 @@ class SomeTest(unittest2.TestCase):
         self.assertEqual(result.decode('base64')[0:4], pdfmagic)
 
     def test13_flat_domains(self):
-        customers = self.api.search_read_customer(SHOP_ID, ['customer=True'],
-                ['name', 'customer'])
+        customers = self.api.search_read_customer(
+                SHOP_ID, ['customer=True'], ['name', 'customer'])
         if customers:
             self.assertEqual(customers[0]['customer'], True)
 
     def test14_eager_loading(self):
-        products = self.api.search_read_product_variant(SHOP_ID,
+        products = self.api.search_read_product_variant(
+                SHOP_ID,
                 [('name', '=', 'BlueBeery'), ('id', '=', self.product.id)])
         self.assertIsInstance(products[0]['categ_id'], dict)
-        self.assertItemsEqual(products[0]['categ_id'].keys(), ['id', 'name', 'type'])
+        self.assertItemsEqual(
+                products[0]['categ_id'].keys(), ['id', 'name', 'type'])
         self.assertIsInstance(products[0]['taxes_id'], list)
         self.assertIsInstance(products[0]['taxes_id'][0], dict)
-        self.assertItemsEqual(products[0]['taxes_id'][0].keys(), ['id', 'name', 'api_code'])
+        self.assertItemsEqual(
+                products[0]['taxes_id'][0].keys(), ['id', 'name', 'api_code'])
 
 if __name__ == '__main__':
     unittest2.main()

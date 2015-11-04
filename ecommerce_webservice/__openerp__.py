@@ -8,7 +8,8 @@
     'category': 'Generic Modules',
     'license': 'AGPL-3',
     'description': """
-This web-service will act as a high-level proxy towards the more low-level API methods of Odoo.
+This web-service will act as a high-level proxy towards the more low-level API
+methods of Odoo.
 """,
     'author': "Camptocamp, Odoo Community Association (OCA)",
     'depends': [
