@@ -88,6 +88,8 @@ class ecommerce_api_v1(orm.AbstractModel):
         loading = {
             'product.product': {
                 'categ_id': ['id', 'name', 'type'],
+                'taxes_id': ['id', 'name', 'api_code'],
+                'supplier_taxes_id': ['id', 'name', 'api_code'],
             }
         }
         return loading
@@ -108,7 +110,8 @@ class ecommerce_api_v1(orm.AbstractModel):
             all_fields = fields or Model._all_columns.keys()
             for field_name in all_fields:
                 field = Model._all_columns.get(field_name)
-                if field and field.column._type == 'many2one':
+                if field and field.column._type in ('many2one', 'one2many',
+                        'many2many'):
                     fields_to_cast.append(field_name)
 
             if fields_to_cast:
@@ -129,6 +132,16 @@ class ecommerce_api_v1(orm.AbstractModel):
                                     # (1, 'foo') -> {'id': 1, 'name': 'foo'}
                                     val = dict(zip(('id', 'name'),
                                         record[field_name]))
+                                record[field_name] = val
+                        elif column._type.endswith('2many'):
+                            # "depth" controls recursive call depth
+                            if self.is_field_to_follow(model, field_name, depth):
+                                # eager loading target model
+                                tids = record[field_name]
+                                tfields = self.get_target_fields(model, field_name)
+                                tmodel = column._obj
+                                val = self._read_with_follow(cr, uid, tmodel, tids,
+                                        tfields, depth - 1, context=context)
                                 record[field_name] = val
         if fields:
             for record in records:

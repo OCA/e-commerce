@@ -241,6 +241,9 @@ class SomeTest(unittest2.TestCase):
                 [('name', '=', 'BlueBeery'), ('id', '=', self.product.id)])
         self.assertIsInstance(products[0]['categ_id'], dict)
         self.assertItemsEqual(products[0]['categ_id'].keys(), ['id', 'name', 'type'])
+        self.assertIsInstance(products[0]['taxes_id'], list)
+        self.assertIsInstance(products[0]['taxes_id'][0], dict)
+        self.assertItemsEqual(products[0]['taxes_id'][0].keys(), ['id', 'name', 'api_code'])
 
 if __name__ == '__main__':
     unittest2.main()
