@@ -207,6 +207,8 @@ class ecommerce_api_v1(orm.AbstractModel):
         for key in onchange_vals.keys():
             if key in vals:
                 onchange_vals.pop(key)
+            elif SO._columns[key]._type == 'many2many':
+                onchange_vals[key] = [(6, False, onchange_vals[key])]
         vals.update(onchange_vals)
 
     def _prepare_sale_order_lines(self, cr, uid, shop, vals, context=None):
@@ -233,6 +235,8 @@ class ecommerce_api_v1(orm.AbstractModel):
             for key in onchange_vals.keys():
                 if key in line:
                     onchange_vals.pop(key)
+                elif SOL._columns[key]._type == 'many2many':
+                    onchange_vals[key] = [(6, False, onchange_vals[key])]
             line.update(onchange_vals)
             order_line.append([0, False, line])
 

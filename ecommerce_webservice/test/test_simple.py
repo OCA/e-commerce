@@ -149,6 +149,14 @@ class SomeTest(unittest2.TestCase):
             'product_uom_qty': 10.0,
             'sequence': 0,
             'tax_id': ['my_tax'],
+            }, {
+            'product_id': self.product.id,
+            'name': 'some description',
+            'price_unit': 3.14,
+            'discount': .5,
+            'product_uom_qty': 10.0,
+            'sequence': 1,
+            # no tax defined but must take the same as it's defined on product
             }]
         now =  datetime.datetime.now()
         values = {
@@ -164,8 +172,8 @@ class SomeTest(unittest2.TestCase):
                 }
         so_id = self.api.create_sale_order(SHOP_ID, values)
         so = self.admin.model('sale.order').browse(so_id)
-        sol_fields = order_line[0].keys()
         for i, sol in enumerate(so.order_line):
+            sol_fields = order_line[i].keys()
             expected_values = get_expected_values(sol, sol_fields)
             if 'tax_id' in order_line[i]:
                 tax_codes = self.admin.model('account.tax').browse(sol.tax_id.id).api_code
