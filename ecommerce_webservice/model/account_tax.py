@@ -1,6 +1,7 @@
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
+
 class Tax(orm.Model):
     _inherit = 'account.tax'
 
@@ -12,4 +13,3 @@ class Tax(orm.Model):
         ('api_code_uniq', 'unique(api_code, company_id)',
             _('This API Code already exists in this company.')),
     ]
-

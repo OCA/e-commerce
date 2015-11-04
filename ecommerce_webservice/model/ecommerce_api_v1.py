@@ -29,14 +29,14 @@ def shop_logging(method):
                 'method': method.func_name,
                 # serialize args before calling as they might get modified
                 'args': "args:\n%s\n\nkwargs:\n%s" % (args, kwargs),
-                }
+            }
             result = method(self, cr, internal_uid, shop, *args, **kwargs)
         except:
             exc_info = sys.exc_info()
             values.update({
                 'state': 'failure',
                 'exc_info': traceback.format_exc(exc_info),
-                })
+            })
             raise exc_info[0], exc_info[1], exc_info[2]
         else:
             values['state'] = 'success'
@@ -56,14 +56,13 @@ def shop_logging(method):
 class ecommerce_api_v1(orm.AbstractModel):
     _name = 'ecommerce.api.v1'
 
-
     def _find_shop(self, cr, uid, shop_identifier, context=None):
         Shop = self.pool['ecommerce.api.shop']
         shops = Shop.search(cr, uid,
                 [('shop_identifier', '=', shop_identifier)], context=context)
         if not shops:
             raise openerp.exceptions.AccessError(
-                    _('No shop found with identifier %s') % shop_identifier)
+                _('No shop found with identifier %s') % shop_identifier)
         shop = Shop.browse(cr, uid, shops[0], context=context)
         return shop
 
@@ -153,7 +152,7 @@ class ecommerce_api_v1(orm.AbstractModel):
     def _get_report(self, cr, uid, model, oid):
         ReportSpool = netsvc.ExportService._services['report']
         rid = ReportSpool.exp_report(cr.dbname, uid, model, [oid],
-                {'model': model, 'id': oid, 'report_type':'pdf'})
+                {'model': model, 'id': oid, 'report_type': 'pdf'})
         retry = 0
         while retry < 10:
             report = ReportSpool.exp_report_get(cr.dbname, uid, rid)
@@ -164,15 +163,14 @@ class ecommerce_api_v1(orm.AbstractModel):
             retry += 1
         return report['result']
 
-
     @shop_logging
     def create_customer(self, cr, uid, shop, vals, context=None):
         self._update_vals_for_country_id(cr, uid, vals, context)
         vals.update({
             'customer': True,
             'type': 'default',
-            'customer_eshop_id': shop.id, # link to shop.partner_ids
-            })
+            'customer_eshop_id': shop.id,  # link to shop.partner_ids
+        })
         customer_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return customer_id
 
@@ -187,8 +185,8 @@ class ecommerce_api_v1(orm.AbstractModel):
         vals.update({
             'customer': True,
             'parent_id': customer_id,
-            'address_eshop_id': shop.id, # link to shop.partner_ids
-            })
+            'address_eshop_id': shop.id,  # link to shop.partner_ids
+        })
         address_id = self.pool['res.partner'].create(cr, uid, vals, context)
         return address_id
 
@@ -204,7 +202,7 @@ class ecommerce_api_v1(orm.AbstractModel):
             'state': 'draft',
             'shop_id': shop.default_shop_id.id,
             'eshop_id': shop.id,
-            })
+        })
 
         onchange_vals = {}
         if 'partner_id' in vals:
@@ -239,11 +237,11 @@ class ecommerce_api_v1(orm.AbstractModel):
             onchange_vals = {}
             if 'product_id' in line:
                 ocv = SOL.product_id_change(cr, uid, None,
-                       vals.get('pricelist_id'), line['product_id'],
-                       line.get('product_uom_qty'), line.get('product_uom'),
-                       line.get('product_uos_qty'), line.get('product_uos'),
-                       line.get('name'), vals['partner_id'],
-                       date_order=vals.get('date_order'), context=context)
+                        vals.get('pricelist_id'), line['product_id'],
+                        line.get('product_uom_qty'), line.get('product_uom'),
+                        line.get('product_uos_qty'), line.get('product_uos'),
+                        line.get('name'), vals['partner_id'],
+                        date_order=vals.get('date_order'), context=context)
                 onchange_vals.update(ocv['value'])
             for key in onchange_vals.keys():
                 if key in line:
@@ -267,7 +265,7 @@ class ecommerce_api_v1(orm.AbstractModel):
     def search_read_product_template(self, cr, uid, shop, domain,
             fields=None, offset=0, limit=None, order=None, context=None):
         model = 'product.template'
-        #domain.append(('variants', '=', False))
+        # domain.append(('variants', '=', False))
         return self._search_read_anything(cr, uid, model, domain,
                 fields, offset, limit, order, context)
 
@@ -359,4 +357,3 @@ class ecommerce_api_v1(orm.AbstractModel):
             raise openerp.exceptions.AccessError(_(message) % (document_type,
                 sale_id))
         return self._get_report(cr, uid, model, oid)
-

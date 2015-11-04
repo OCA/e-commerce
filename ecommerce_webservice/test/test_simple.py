@@ -11,6 +11,7 @@ ERPPEEK_TEST_ENV = "demo"
 MODULE_NAME = "ecommerce_webservice"
 SHOP_ID = "cafebabe"
 
+
 def get_expected_values(record, fields):
     expected_values = []
     for rv in attrgetter(*fields)(record):
@@ -32,12 +33,12 @@ class SomeTest(unittest2.TestCase):
         self.admin.model('account.tax').browse(my_tax).api_code = 'my_tax'
         self.product = self.admin.model('product.product').create({
             'name': "BlueBeery",
-            'sale_ok' : True,
+            'sale_ok': True,
             'type': 'product',
             'list_price': 3.0,
             'procure_method': 'make_to_stock',
             'taxes_id': [my_tax],
-            })
+        })
 
         # def test00_create_external_user_and_shop(self):
         self.load_csv('demo/res.partner.csv')
@@ -64,18 +65,18 @@ class SomeTest(unittest2.TestCase):
 
     def test02_create_customer(self):
         values = {
-                'name': 'Test created customer',
-                'active': True,
-                'street': 'of Philadelphia',
-                'street2': 'empty',
-                'city': 'Sin',
-                'zip': '1040',
-                'country': 'CH',
-                'phone': '555-123456',
-                'mobile': '555-987654',
-                'fax': 'no fax',
-                'email': 'john.smith@example.com',
-                }
+            'name': 'Test created customer',
+            'active': True,
+            'street': 'of Philadelphia',
+            'street2': 'empty',
+            'city': 'Sin',
+            'zip': '1040',
+            'country': 'CH',
+            'phone': '555-123456',
+            'mobile': '555-987654',
+            'fax': 'no fax',
+            'email': 'john.smith@example.com',
+        }
         customer_id = self.api.create_customer(SHOP_ID, values)
         customer = self.admin.model('res.partner').browse(customer_id)
         self.assertEqual(customer.country_id.code.upper(), 'CH')
@@ -86,14 +87,14 @@ class SomeTest(unittest2.TestCase):
 
     def test03_update_customer(self):
         values = {
-                'name': 'Test another created customer',
-                'country': 'CH',
-                }
+            'name': 'Test another created customer',
+            'country': 'CH',
+        }
         customer_id = self.api.create_customer(SHOP_ID, values)
         values = {
-                'name': 'Test created then updated customer',
-                'country': 'FR',
-                }
+            'name': 'Test created then updated customer',
+            'country': 'FR',
+        }
         self.api.update_customer(SHOP_ID, customer_id, values)
         customer = self.admin.model('res.partner').browse(customer_id)
         self.assertEqual(customer.country_id.code.upper(), 'FR')
@@ -102,19 +103,19 @@ class SomeTest(unittest2.TestCase):
         pids = self.admin.model('res.partner').search([('type', '=', 'default')])
         partner_id = max(pids)
         values = {
-                'name': 'Test created customer address',
-                'active': True,
-                'street': 'spirit',
-                'street2': 'empty',
-                'city': 'Sim',
-                'zip': '1020',
-                'country': 'BE',
-                'type': 'invoice',
-                'phone': '555-111111',
-                'mobile': '555-111112',
-                'fax': 'who uses fax?',
-                'email': 'scott.tiger@example.com',
-                }
+            'name': 'Test created customer address',
+            'active': True,
+            'street': 'spirit',
+            'street2': 'empty',
+            'city': 'Sim',
+            'zip': '1020',
+            'country': 'BE',
+            'type': 'invoice',
+            'phone': '555-111111',
+            'mobile': '555-111112',
+            'fax': 'who uses fax?',
+            'email': 'scott.tiger@example.com',
+        }
         address_id = self.api.create_customer_address(SHOP_ID, partner_id, values)
         address = self.admin.model('res.partner').browse(address_id)
         self.assertEqual(address.country_id.code.upper(), 'BE')
@@ -126,14 +127,14 @@ class SomeTest(unittest2.TestCase):
 
     def test05_update_customer(self):
         values = {
-                'name': 'Test another created customer address',
-                'country': 'CH',
-                }
+            'name': 'Test another created customer address',
+            'country': 'CH',
+        }
         address_id = self.api.create_customer_address(SHOP_ID, None, values)
         values = {
-                'name': 'Test created then updated customer address',
-                'country': 'BE',
-                }
+            'name': 'Test created then updated customer address',
+            'country': 'BE',
+        }
         self.api.update_customer_address(SHOP_ID, address_id, values)
         customer = self.admin.model('res.partner').browse(address_id)
         self.assertEqual(customer.country_id.code.upper(), 'BE')
@@ -149,7 +150,7 @@ class SomeTest(unittest2.TestCase):
             'product_uom_qty': 10.0,
             'sequence': 0,
             'tax_id': ['my_tax'],
-            }, {
+        }, {
             'product_id': self.product.id,
             'name': 'some description',
             'price_unit': 3.14,
@@ -157,19 +158,19 @@ class SomeTest(unittest2.TestCase):
             'product_uom_qty': 10.0,
             'sequence': 1,
             # no tax defined but must take the same as it's defined on product
-            }]
-        now =  datetime.datetime.now()
+        }]
+        now = datetime.datetime.now()
         values = {
-                'name': 'Test created sale order %s' % now,
-                'client_order_ref': 'COR-622',
-                'date_order': now.strftime('%Y-%m-%d'),
-                'note': 'some note',
-                'origin': 'some origin',
-                'partner_id': partner_id,
-                'partner_invoice_id': partner_id,
-                'partner_shipping_id': partner_id,
-                'order_line': order_line,
-                }
+            'name': 'Test created sale order %s' % now,
+            'client_order_ref': 'COR-622',
+            'date_order': now.strftime('%Y-%m-%d'),
+            'note': 'some note',
+            'origin': 'some origin',
+            'partner_id': partner_id,
+            'partner_invoice_id': partner_id,
+            'partner_shipping_id': partner_id,
+            'order_line': order_line,
+        }
         so_id = self.api.create_sale_order(SHOP_ID, values)
         so = self.admin.model('sale.order').browse(so_id)
         for i, sol in enumerate(so.order_line):
@@ -247,4 +248,3 @@ class SomeTest(unittest2.TestCase):
 
 if __name__ == '__main__':
     unittest2.main()
-

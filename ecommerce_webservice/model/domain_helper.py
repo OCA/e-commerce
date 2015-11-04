@@ -12,6 +12,7 @@ _term_re = re.compile(
     '([\w._]+)\s*'  '(=(?:like|ilike|\?)|[<>]=?|!?=(?!=)'
     '|(?<= )(?:like|ilike|in|not like|not ilike|not in|child_of))'  '\s*(.*)')
 
+
 # Simplified ast.literal_eval which does not parse operators
 def _convert(node, _consts={'None': None, 'True': True, 'False': False}):
     if isinstance(node, _ast.Str):
@@ -25,17 +26,19 @@ def _convert(node, _consts={'None': None, 'True': True, 'False': False}):
     if isinstance(node, _ast.Dict):
         return dict([(_convert(k), _convert(v))
                      for (k, v) in zip(node.keys, node.values)])
-    #if hasattr(node, 'value') and str(node.value) in _consts:
-    #    return node.value         # Python 3.4+
-    #if isinstance(node, _ast.Name) and node.id in _consts:
-    #    return _consts[node.id]   # Python <= 3.3
+    # if hasattr(node, 'value') and str(node.value) in _consts:
+    #     return node.value         # Python 3.4+
+    # if isinstance(node, _ast.Name) and node.id in _consts:
+    #     return _consts[node.id]   # Python <= 3.3
     raise ValueError('malformed or disallowed expression')
+
 
 def literal_eval(expression, _octal_digits=frozenset('01234567')):
     node = compile(expression, '<unknown>', 'eval', _ast.PyCF_ONLY_AST)
     if expression[:1] == '0' and expression[1:2] in _octal_digits:
         raise SyntaxError('unsupported octal notation')
     return _convert(node.body)
+
 
 def issearchdomain(arg):
     """Check if the argument is a search domain.
@@ -49,6 +52,7 @@ def issearchdomain(arg):
         isinstance(arg[0], int_types) or
         # Not a list of ids as str: ['1', '2', '3']
         (isinstance(arg[0], basestring) and arg[0].isdigit())))
+
 
 def searchargs(params, kwargs=None, context=None):
     """Compute the 'search' parameters."""
@@ -91,4 +95,3 @@ if __name__ == "__main__":
     test(['name = Agrolait'], {'limit': 10}, {'lang': 'js'})
     test(['name = Agrolait', 'type = big'], {'offset': 42}, {'lang': 'js'})
     test(['name = Agrolait', ('type', '=', 'mixed')])
-
