@@ -31,12 +31,9 @@ install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
   - export PATH=$HOME/maintainer-quality-tools/travis:$PATH
   - travis_install_nightly
-  - git clone https://github.com/OCA/sale-workflow $HOME/sale-workflow -b ${VERSION}
-  - git clone https://github.com/OCA/bank-statement-reconcile $HOME/bank-statement-reconcile -b ${VERSION}
-  - git clone https://github.com/OCA/product-attribute $HOME/product-attribute -b ${VERSION}
 
 script:
   - travis_run_tests
 
 after_success:
-  coveralls
+  travis_after_test_success
