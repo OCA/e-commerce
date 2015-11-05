@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2015 Antiun Ingeniería, S.L. - Jairo Llopis
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<openerp>
+<data>
+
+<record id="legal_term_tree" model="ir.ui.view">
+    <field name="name">Legal term tree</field>
+    <field name="model">website_sale_product_legal.legal_term</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+        </tree>
+    </field>
+</record>
+
+<record id="legal_term_form" model="ir.ui.view">
+    <field name="name">Legal term form</field>
+    <field name="model">website_sale_product_legal.legal_term</field>
+    <field name="arch" type="xml">
+        <form>
+            <group>
+                <field name="name"/>
+                <field name="contents"/>
+                <field name="product_template_ids"/>
+            </group>
+        </form>
+    </field>
+</record>
+
+<record id="legal_term_search" model="ir.ui.view">
+    <field name="name">Legal term search</field>
+    <field name="model">website_sale_product_legal.legal_term</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+        </search>
+    </field>
+</record>
+
+<record id="legal_term_action" model="ir.actions.act_window">
+    <field name="name">Legal terms for products</field>
+    <field name="res_model">website_sale_product_legal.legal_term</field>
+    <field name="view_type">form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Create new product legal terms here.
+        </p>
+        <p>
+            Product legal terms force the website user to accept them before
+            buying products, when a product has any legal term attached.
+            They have just a name and a description.
+        </p>
+    </field>
+</record>
+
+<menuitem
+    id="legal_term_menu"
+    groups="base.group_sale_manager"
+    parent="product.prod_config_main"
+    action="legal_term_action"/>
+
+</data>
+</openerp>

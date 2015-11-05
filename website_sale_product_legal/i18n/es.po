@@ -1,0 +1,137 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_legal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-04 17:53+0100\n"
+"PO-Revision-Date: 2015-11-04 17:53+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.5\n"
+
+#. module: website_sale_product_legal
+#: model:ir.actions.act_window,help:website_sale_product_legal.legal_term_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"            Create new product legal terms here.\n"
+"        </p>\n"
+"        <p>\n"
+"            Product legal terms force the website user to accept them "
+"before\n"
+"            buying products, when a product has any legal term attached.\n"
+"            They have just a name and a description.\n"
+"        </p>\n"
+"    "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Crea nuevas condiciones legales para "
+"productos aquí.</p>\n"
+"<p>\n"
+"\tLas condiciones legales para productos fuerzan a los clientes del sitio "
+"web a aceptarlas antes de comprar los productos, siempre que el producto "
+"tenga alguna condición legal adjunta. Tan solo tienen un nombre y una "
+"descripción.\n"
+"</p>"
+
+#. module: website_sale_product_legal
+#: view:website:website_sale.product
+msgid "Accept Legal Terms and Add to Cart"
+msgstr "Aceptar condiciones legales y añadir al carrito"
+
+#. module: website_sale_product_legal
+#: view:website:website_sale.product
+msgid "Add to Cart"
+msgstr "Añadir al carrito"
+
+#. module: website_sale_product_legal
+#: view:website:website_sale.product
+msgid "By buying this product, you are accepting its"
+msgstr "Al comprar este producto, está aceptando sus"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,contents:0
+msgid "Contents"
+msgstr "Contenidos"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,id:0
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: website_sale_product_legal
+#: field:product.template,legal_term_ids:0
+msgid "Legal terms"
+msgstr "Condiciones legales"
+
+#. module: website_sale_product_legal
+#: model:ir.actions.act_window,name:website_sale_product_legal.legal_term_action
+#: model:ir.ui.menu,name:website_sale_product_legal.legal_term_menu
+msgid "Legal terms for products"
+msgstr "Condiciones legales para productos"
+
+#. module: website_sale_product_legal
+#: code:addons/website_sale_product_legal/controllers/main.py:25
+#, python-format
+msgid "Legal terms to buy %s"
+msgstr "Avisos legales para comprar %s"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: website_sale_product_legal
+#: help:product.template,legal_term_ids:0
+msgid ""
+"Online customers will be informed of these legal terms before buying this "
+"product."
+msgstr ""
+"Los clientes en línea serán informados de estas condiciones legales antes de "
+"comprar este producto."
+
+#. module: website_sale_product_legal
+#: model:ir.model,name:website_sale_product_legal.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: website_sale_product_legal
+#: field:website_sale_product_legal.legal_term,product_template_ids:0
+msgid "Products"
+msgstr "Productos"
+
+#. module: website_sale_product_legal
+#: help:website_sale_product_legal.legal_term,product_template_ids:0
+msgid "Products that require accepting this legal term."
+msgstr "Productos que requieren aceptar esta condición legal."
+
+#. module: website_sale_product_legal
+#: view:website:website_sale.product
+msgid "custom legal terms"
+msgstr "condiciones legales específicas"
