@@ -32,6 +32,7 @@
             <small class="text-muted">
                 By buying this product, you are accepting its
                 <a t-attf-href="/website_sale_product_legal/#{slug(product)}"
+                   class="product-legal-terms"
                    target="_blank">custom legal terms</a>.
             </small>
         </t>
