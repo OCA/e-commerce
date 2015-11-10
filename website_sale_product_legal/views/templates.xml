@@ -7,11 +7,13 @@
 
 <template id="legal_terms">
     <t t-call="website.layout">
-        <h1 t-esc="additional_title"/>
-        <t t-foreach="legal_terms" t-as="term">
-            <t t-raw="term.contents"/>
-            <hr t-if="not term_last"/>
-        </t>
+        <div id="wrap">
+            <h1 t-esc="additional_title"/>
+            <t t-foreach="legal_terms" t-as="term">
+                <t t-raw="term.contents"/>
+                <hr t-if="not term_last"/>
+            </t>
+        </div>
     </t>
 </template>
 
