@@ -9,10 +9,12 @@
     <t t-call="website.layout">
         <div id="wrap">
             <h1 t-esc="additional_title"/>
-            <t t-foreach="legal_terms" t-as="term">
-                <t t-raw="term.contents"/>
-                <hr t-if="not term_last"/>
-            </t>
+            <section id="contents">
+                <t t-foreach="legal_terms" t-as="term">
+                    <t t-raw="term.contents"/>
+                    <hr t-if="not term_last"/>
+                </t>
+            </section>
         </div>
     </t>
 </template>
