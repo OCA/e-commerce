@@ -6,7 +6,7 @@
 (function ($) {
     $(".product-legal-terms").click(function(event){
         event.preventDefault();
-        dialog = $("<div title='Legal terms'>Loading...</div>")
+        var dialog = $("<div title='Legal terms'>Loading...</div>")
             .dialog({modal: true});
         $.ajax({
             url: $(event.target).attr("href"),
