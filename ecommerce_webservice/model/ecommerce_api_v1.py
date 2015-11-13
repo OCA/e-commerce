@@ -281,6 +281,15 @@ class ecommerce_api_v1(orm.AbstractModel):
         return so_id
 
     @shop_logging
+    def search_read_product_category(self, cr, uid, shop, domain, fields=None,
+                                     offset=0, limit=None, order=None,
+                                     context=None):
+        model = 'product.category'
+        # domain.append(('variants', '=', False))
+        return self._search_read_anything(
+            cr, uid, model, domain, fields, offset, limit, order, context)
+
+    @shop_logging
     def search_read_product_template(self, cr, uid, shop, domain, fields=None,
                                      offset=0, limit=None, order=None,
                                      context=None):

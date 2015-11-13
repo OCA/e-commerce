@@ -21,6 +21,7 @@ Contents:
    product
    product_template
    product_product
+   search_read_product_category
    get_inventory
    get_transfer_status
    get_payment_status

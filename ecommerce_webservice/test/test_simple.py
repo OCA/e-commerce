@@ -38,6 +38,10 @@ class SomeTest(unittest2.TestCase):
                 'amount': '0.1',
                 'api_code': 'my_tax',
             })
+        self.product_category = self.admin.model('product.category').create({
+            'name': "Comics",
+            'type': 'normal',
+        })
         self.product = self.admin.model('product.product').create({
             'name': "BlueBeery",
             'sale_ok': True,
@@ -256,6 +260,14 @@ class SomeTest(unittest2.TestCase):
         self.assertIsInstance(products[0]['taxes_id'][0], dict)
         self.assertItemsEqual(
                 products[0]['taxes_id'][0].keys(), ['id', 'name', 'api_code'])
+
+    def test15_search_read_product_category(self):
+        # TODO: enhance test
+        categs = self.api.search_read_product_category(
+            SHOP_ID,
+            [('name', '=', 'Comics'),
+             ('id', '=', self.product_category.id)])
+        self.assertIn(self.product_category.id, [p['id'] for p in categs])
 
 if __name__ == '__main__':
     unittest2.main()
