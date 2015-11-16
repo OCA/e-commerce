@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2015 Antiun Ingeniería, S.L. - Jairo Llopis
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<openerp>
+<data>
+
+<template id="legal_terms">
+    <t t-call="website.layout">
+        <div id="wrap">
+            <h1 t-esc="additional_title"/>
+            <section id="contents">
+                <t t-foreach="legal_terms" t-as="term">
+                    <t t-raw="term.contents"/>
+                    <hr t-if="not term_last"/>
+                </t>
+            </section>
+        </div>
+    </t>
+</template>
+
+<template id="website_product" inherit_id="website_sale.product">
+    <xpath expr="//a[@id='add_to_cart']" position="replace">
+        <t t-set="legal_terms" t-value="product.legal_term_ids"/>
+        <t t-if="legal_terms">
+            <a id="add_to_cart"
+               class="btn btn-primary btn-lg mt8 js_check_product a-submit"
+               href="#">Accept Legal Terms and Add to Cart</a>
+
+            <hr/>
+
+            <small class="text-muted">
+                By buying this product, you are accepting its
+                <a t-attf-href="/website_sale_product_legal/#{slug(product)}"
+                   class="product-legal-terms"
+                   target="_blank">custom legal terms</a>.
+            </small>
+        </t>
+
+        <a t-if="not legal_terms"
+           id="add_to_cart"
+           class="btn btn-primary btn-lg mt8 js_check_product a-submit"
+           href="#">Add to Cart</a>
+    </xpath>
+</template>
+
+</data>
+</openerp>
