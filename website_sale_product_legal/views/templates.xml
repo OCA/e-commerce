@@ -29,19 +29,21 @@
 
             <hr/>
 
-            <small class="text-muted">
+            <t>
                 <t t-set="legal_terms_id"
                    t-value="'product-legal-terms'"/>
                 <t t-set="href"
                    t-value="'/website_sale_product_legal/' + slug(product)"/>
-                <t t-set="print_modal"
-                   t-value="True"/>
 
-                By buying this product, you are accepting its
-                <t t-call="website_sale_product_legal.legal_terms_launcher">
-                    custom legal terms.
-                </t>
-            </small>
+                <small class="text-muted">
+                    By buying this product, you are accepting its
+                    <t t-call="website_sale_product_legal.legal_terms_launcher">
+                        custom legal terms.
+                    </t>
+                </small>
+
+                <t t-call="website_sale_product_legal.legal_terms_modal"/>
+            </t>
         </t>
 
         <a t-if="not legal_terms"
