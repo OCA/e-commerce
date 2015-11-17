@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- VIEW FOR THE OBJECT : payment_method -->
+        <record id="payment_method_view_form" model="ir.ui.view">
+            <field name="name">receivable_account_payment_method.payment_method.view_form</field>
+            <field name="model">payment.method</field>
+            <field name="inherit_id" ref="sale_payment_method.payment_method_view_form" />
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                 <group>
+                    <field name="receivable_account_id" />
+                    </group>
+                    <group name="payment_help" class="oe_grey" col="1">
+                            <p attrs="{'invisible': [('receivable_account_id', '=', False)]}">
+                                Invoice using this payment method
+                                will use this account as receivable account.
+                            </p>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
