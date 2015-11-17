@@ -32,8 +32,6 @@
             <small class="text-muted">
                 <t t-set="legal_terms_id"
                    t-value="'product-legal-terms'"/>
-                <t t-set="legal_terms_label"
-                   t-value="'product-legal-terms-label'"/>
                 <t t-set="href"
                    t-value="'/website_sale_product_legal/' + slug(product)"/>
                 <t t-set="print_modal"
@@ -58,22 +56,9 @@
 <template id="legal_terms_modal" name="Modal dialog for legal terms">
     <div t-att-id="legal_terms_id or 'custom-legal-terms'"
          class="modal fade js_legal_terms"
-         role="dialog"
-         t-att-aria-labelledby="legal_terms_label or 'legal-terms-label'">
+         role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true" class="fa fa-times"/>
-                    </button>
-                    <h4 class="modal-title"
-                        t-att-id="legal_terms_label or 'legal-terms-label'">
-                        Custom legal terms
-                    </h4>
-                </div>
                 <div class="modal-body">
                     Loading legal terms...
                 </div>
