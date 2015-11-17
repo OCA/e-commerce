@@ -30,32 +30,20 @@
             <hr/>
 
             <small class="text-muted">
-                By buying this product, you are accepting its
-                <a t-attf-href="/website_sale_product_legal/#{slug(product)}"
-                   class="product-legal-terms"
-                   data-toggle="modal"
-                   data-target="#custom-legal-terms"
-                   data-remote="false"
-                   target="_blank">custom legal terms</a>.
-            </small>
+                <t t-set="legal_terms_id"
+                   t-value="'product-legal-terms'"/>
+                <t t-set="legal_terms_label"
+                   t-value="'product-legal-terms-label'"/>
+                <t t-set="href"
+                   t-value="'/website_sale_product_legal/' + slug(product)"/>
+                <t t-set="print_modal"
+                   t-value="True"/>
 
-            <div id="custom-legal-terms"
-                 class="modal fade bs-example-modal-lg js_legal_terms"
-                 role="dialog"
-                 aria-labelledby="legal-terms-label">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <header class="modal-header">
-                            <h4 class="modal-title" id="legal-terms-label">
-                                Custom legal terms
-                            </h4>
-                        </header>
-                        <section class="modal-body">
-                            Loading legal terms...
-                        </section>
-                    </div>
-                </div>
-            </div>
+                By buying this product, you are accepting its
+                <t t-call="website_sale_product_legal.legal_terms_launcher">
+                    custom legal terms.
+                </t>
+            </small>
         </t>
 
         <a t-if="not legal_terms"
@@ -63,6 +51,49 @@
            class="btn btn-primary btn-lg mt8 js_check_product a-submit"
            href="#">Add to Cart</a>
     </xpath>
+</template>
+
+<!-- You should call to this template from an a element with an href
+     pointing to the legal terms -->
+<template id="legal_terms_modal" name="Modal dialog for legal terms">
+    <div t-att-id="legal_terms_id or 'custom-legal-terms'"
+         class="modal fade js_legal_terms"
+         role="dialog"
+         t-att-aria-labelledby="legal_terms_label or 'legal-terms-label'">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true" class="fa fa-times"/>
+                    </button>
+                    <h4 class="modal-title"
+                        t-att-id="legal_terms_label or 'legal-terms-label'">
+                        Custom legal terms
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    Loading legal terms...
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="legal_terms_launcher" name="Legal terms dialog launcher">
+    <a t-att-href="href"
+       class="product-legal-terms"
+       data-toggle="modal"
+       t-attf-data-target="##{legal_terms_id}"
+       data-remote="false"
+       target="_blank">
+        <t t-raw="0"/>
+    </a>
+    <t t-if="print_modal">
+        <t t-call="website_sale_product_legal.legal_terms_modal"/>
+    </t>
 </template>
 
 </data>
