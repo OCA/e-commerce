@@ -33,8 +33,29 @@
                 By buying this product, you are accepting its
                 <a t-attf-href="/website_sale_product_legal/#{slug(product)}"
                    class="product-legal-terms"
+                   data-toggle="modal"
+                   data-target="#custom-legal-terms"
+                   data-remote="false"
                    target="_blank">custom legal terms</a>.
             </small>
+
+            <div id="custom-legal-terms"
+                 class="modal fade bs-example-modal-lg js_legal_terms"
+                 role="dialog"
+                 aria-labelledby="legal-terms-label">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <header class="modal-header">
+                            <h4 class="modal-title" id="legal-terms-label">
+                                Custom legal terms
+                            </h4>
+                        </header>
+                        <section class="modal-body">
+                            Loading legal terms...
+                        </section>
+                    </div>
+                </div>
+            </div>
         </t>
 
         <a t-if="not legal_terms"

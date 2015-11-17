@@ -2,17 +2,26 @@
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
  */
 
-"use strict";
-(function ($) {
-    $(".product-legal-terms").click(function(event){
-        event.preventDefault();
-        var dialog = $("<div title='Legal terms'>Loading...</div>")
-            .dialog({modal: true});
-        $.ajax({
-            url: $(event.target).attr("href"),
-            success: function(data){
-                dialog.html($(data).find("#contents"));
-            }
-        });
-    })
-})(jQuery);
+
+(function () {
+    'use strict';
+
+    var snippet = openerp.website.snippet;
+
+    snippet.animationRegistry.legal_terms_modal = snippet.Animation.extend({
+        selector: ".js_legal_terms",
+        start: function(editable_mode) {
+            this.$target.on("show.bs.modal", this.on_modal_show);
+        },
+        on_modal_show: function (event) {
+            $.ajax({
+	            url: $(event.relatedTarget).attr("href"),
+	            success: function(data){
+	                $(event.currentTarget)
+                    .find(".modal-body")
+                    .html($(data).find("#contents"));
+	            }
+	        });
+        },
+    });
+})();
