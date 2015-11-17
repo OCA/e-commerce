@@ -4,7 +4,7 @@
 {
     "name": "Legal terms per product",
     "summary": "Make buyers to accept legal terms per product",
-    "version": "8.0.1.0.0",
+    "version": "8.0.2.0.0",
     "category": "e-commerce",
     "website": "https://odoo-community.org/",
     "author": "Antiun Ingeniería, S.L., Odoo Community Association (OCA)",
