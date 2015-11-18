@@ -28,6 +28,12 @@ class StockPicking(models.Model):
     workflow_process_id = fields.Many2one(comodel_name='sale.workflow.process',
                                           string='Sale Workflow Process')
 
+    @api.model
+    def _prepare_picking_assign(self, move):
+        res = super(StockPicking, self)._prepare_picking_assign(move)
+        res['move_type'] = move.group_id.workflow_process_id.id
+        return res
+
     def _create_invoice_from_picking(self, cr, uid, picking, vals,
                                      context=None):
         vals['workflow_process_id'] = picking.workflow_process_id.id
