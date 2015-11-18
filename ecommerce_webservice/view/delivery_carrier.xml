@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_form_delivery_carrier" model="ir.ui.view">
+            <field name="name">Delivery Carrier</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="product_id" position="after">
+                        <field name="api_code" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_tree_delivery_carrier" model="ir.ui.view">
+            <field name="name">Delivery Carrier</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_tree" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position="after">
+                        <field name="api_code" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

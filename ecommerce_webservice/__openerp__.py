@@ -16,6 +16,7 @@ methods of Odoo.
         'sale',
         'stock',
         'account',
+        'delivery',
     ],
     'data': [
         'security/res.groups.csv',
@@ -30,6 +31,7 @@ methods of Odoo.
         'view/ecommerce_api_shop.xml',
         'view/ecommerce_api_log.xml',
         'view/account_tax.xml',
+        'view/delivery_carrier.xml',
     ],
     'demo': [
         'demo/res.partner.csv',

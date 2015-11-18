@@ -5,4 +5,5 @@ import res_partner
 import sale_order
 import account_invoice
 import account_tax
+import delivery_carrier
 
