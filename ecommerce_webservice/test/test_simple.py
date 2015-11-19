@@ -28,16 +28,23 @@ class SomeTest(unittest2.TestCase):
 
     def setUp(self):
         self.admin = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
-        tax_ids = self.admin.model('account.tax').search([])
-        my_tax = tax_ids[0]
-        self.admin.model('account.tax').browse(my_tax).api_code = 'my_tax'
+        my_tax = self.admin.model('account.tax').browse(['name = Test tax'])
+        if my_tax:
+            my_tax = my_tax[0]
+        else:
+            my_tax = self.admin.model('account.tax').create({
+                'name': 'Test tax',
+                'type': 'percent',
+                'amount': '0.1',
+                'api_code': 'my_tax',
+            })
         self.product = self.admin.model('product.product').create({
             'name': "BlueBeery",
             'sale_ok': True,
             'type': 'product',
             'list_price': 3.0,
             'procure_method': 'make_to_stock',
-            'taxes_id': [my_tax],
+            'taxes_id': [my_tax.id],
         })
 
         # def test00_create_external_user_and_shop(self):
@@ -47,16 +54,9 @@ class SomeTest(unittest2.TestCase):
 
         # def test01_login_as_external_user(self):
         self.public = erppeek.Client(
-                self.admin._server, self.admin._db,
-                'ecommerce_demo_external_user', 'dragon')
+            self.admin._server, self.admin._db,
+            'ecommerce_demo_external_user', 'dragon')
         self.api = self.public.model('ecommerce.api.v1')
-
-    def tearDown(self):
-        tax_ids = self.admin.model('account.tax').search(
-                [('api_code', '=', 'my_tax')])
-        if tax_ids:
-            my_tax = tax_ids[0]
-            self.admin.model('account.tax').browse(my_tax).api_code = False
 
     def load_csv(self, filename):
         modelname = os.path.splitext(os.path.basename(filename))[0]
