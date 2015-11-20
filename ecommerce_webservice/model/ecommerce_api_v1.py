@@ -74,12 +74,13 @@ class ecommerce_api_v1(orm.AbstractModel):
             country_id = country_ids[0][0] if country_ids else False
             vals.pop('country')
             vals['country_id'] = country_id
-        if 'carrier_id' in vals:
-            carrier_api_code = vals.pop('carrier_id', [])
-            carrier_id = self.pool['delivery.carrier'].search(
+        if 'property_delivery_carrier' in vals:
+            carrier_api_code = vals.pop('property_delivery_carrier', [])
+            carrier_ids = self.pool['delivery.carrier'].search(
                     cr, uid, [('api_code', '=', carrier_api_code)],
                     context=context)
-            vals['carrier_id'] = carrier_id
+            carrier_id = carrier_ids[0] if carrier_ids else False
+            vals['property_delivery_carrier'] = carrier_id
 
     def _search_read_anything(self, cr, uid, model, domain, fields=None,
                               offset=0, limit=None, order=None, context=None):

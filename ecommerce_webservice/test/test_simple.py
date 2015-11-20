@@ -69,11 +69,16 @@ class SomeTest(unittest2.TestCase):
             'mobile': '555-987654',
             'fax': 'no fax',
             'email': 'john.smith@example.com',
+            'property_delivery_carrier': 'demo_delivery',
         }
         customer_id = self.api.create_customer(SHOP_ID, values)
         customer = self.admin.model('res.partner').browse(customer_id)
         self.assertEqual(customer.country_id.code.upper(), 'CH')
         values.pop('country')
+        self.assertEqual(
+            customer.property_delivery_carrier.api_code,
+            'demo_delivery')
+        values.pop('property_delivery_carrier')
         fields = values.keys()
         expected_values = attrgetter(*fields)(customer)
         self.assertSequenceEqual(expected_values, values.values())
