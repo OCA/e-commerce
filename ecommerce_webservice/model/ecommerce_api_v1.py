@@ -67,7 +67,7 @@ class ecommerce_api_v1(orm.AbstractModel):
         shop = Shop.browse(cr, uid, shops[0], context=context)
         return shop
 
-    def _update_vals_for_country_id(self, cr, uid, vals, context=None):
+    def _update_vals_for_name_search(self, cr, uid, vals, context=None):
         if 'country' in vals:
             country_ids = self.pool['res.country'].name_search(
                     cr, uid, vals['country'], context=context)
@@ -179,7 +179,7 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @shop_logging
     def create_customer(self, cr, uid, shop, vals, context=None):
-        self._update_vals_for_country_id(cr, uid, vals, context)
+        self._update_vals_for_name_search(cr, uid, vals, context)
         vals.update({
             'customer': True,
             'type': 'default',
@@ -190,14 +190,14 @@ class ecommerce_api_v1(orm.AbstractModel):
 
     @shop_logging
     def update_customer(self, cr, uid, shop, partner_id, vals, context=None):
-        self._update_vals_for_country_id(cr, uid, vals, context)
+        self._update_vals_for_name_search(cr, uid, vals, context)
         return self.pool['res.partner'].write(
                 cr, uid, partner_id, vals, context=context)
 
     @shop_logging
     def create_customer_address(self, cr, uid, shop, customer_id, vals,
                                 context=None):
-        self._update_vals_for_country_id(cr, uid, vals, context)
+        self._update_vals_for_name_search(cr, uid, vals, context)
         vals.update({
             'customer': True,
             'parent_id': customer_id,
@@ -209,7 +209,7 @@ class ecommerce_api_v1(orm.AbstractModel):
     @shop_logging
     def update_customer_address(self, cr, uid, shop, address_ids, vals,
                                 context=None):
-        self._update_vals_for_country_id(cr, uid, vals, context)
+        self._update_vals_for_name_search(cr, uid, vals, context)
         return self.pool['res.partner'].write(
                 cr, uid, address_ids, vals, context=context)
 
