@@ -1,0 +1,3 @@
+id,name,sale_ok,type,list_price,procure_method,taxes_id/id
+ecommerce_webservice.demo_product01,BlueBeery,True,product,3.0,make_to_stock,ecommerce_webservice.demo_tax01
+ecommerce_webservice.demo_delivery_product01,DirectFlight,True,service,10.0,make_to_order,

@@ -1,0 +1,2 @@
+id,name,type,amount,api_code
+ecommerce_webservice.demo_tax01,Demo tax,percent,0.1,demo_tax

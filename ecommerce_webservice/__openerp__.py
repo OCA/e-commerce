@@ -37,6 +37,10 @@ methods of Odoo.
         'demo/res.partner.csv',
         'demo/res.users.csv',
         'demo/ecommerce.api.shop.csv',
+        'demo/account.tax.csv',
+        'demo/product.category.csv',
+        'demo/product.product.csv',
+        'demo/delivery.carrier.csv',
     ],
     'installable': True,
 }

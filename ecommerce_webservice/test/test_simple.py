@@ -28,33 +28,20 @@ class SomeTest(unittest2.TestCase):
 
     def setUp(self):
         self.admin = erppeek.Client.from_config(ERPPEEK_TEST_ENV)
-        my_tax = self.admin.model('account.tax').browse(['name = Test tax'])
-        if my_tax:
-            my_tax = my_tax[0]
-        else:
-            my_tax = self.admin.model('account.tax').create({
-                'name': 'Test tax',
-                'type': 'percent',
-                'amount': '0.1',
-                'api_code': 'my_tax',
-            })
-        self.product_category = self.admin.model('product.category').create({
-            'name': "Comics",
-            'type': 'normal',
-        })
-        self.product = self.admin.model('product.product').create({
-            'name': "BlueBeery",
-            'sale_ok': True,
-            'type': 'product',
-            'list_price': 3.0,
-            'procure_method': 'make_to_stock',
-            'taxes_id': [my_tax.id],
-        })
 
         # def test00_create_external_user_and_shop(self):
         self.load_csv('demo/res.partner.csv')
         self.load_csv('demo/res.users.csv')
         self.load_csv('demo/ecommerce.api.shop.csv')
+        self.load_csv('demo/account.tax.csv')
+        self.load_csv('demo/product.category.csv')
+        self.load_csv('demo/product.product.csv')
+        self.load_csv('demo/delivery.carrier.csv')
+
+        self.product_category = self.admin.model('product.category').get(
+            'ecommerce_webservice.demo_product_category01')
+        self.product = self.admin.model('product.product').get(
+            'ecommerce_webservice.demo_product01')
 
         # def test01_login_as_external_user(self):
         self.public = erppeek.Client(
