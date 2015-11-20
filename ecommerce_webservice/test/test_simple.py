@@ -143,6 +143,8 @@ class SomeTest(unittest2.TestCase):
         pids = self.admin.model('res.partner').search(
                 [('type', '=', 'default')])
         partner_id = max(pids)
+        self.api.update_customer(SHOP_ID, partner_id, {
+            'property_delivery_carrier': 'demo_delivery'})
         order_line = [{
             'product_id': self.product.id,
             'name': 'some description',
@@ -186,6 +188,8 @@ class SomeTest(unittest2.TestCase):
         fields = values.keys()
         expected_values = get_expected_values(so, fields)
         self.assertEqual(expected_values, values)
+        # delivery carrier updated by onchange_partner_id
+        so.carrier_id.api_code = 'demo_delivery'
 
     def test07_search_read_product_template(self):
         # TODO: enhance test
