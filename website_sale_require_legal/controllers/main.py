@@ -19,7 +19,7 @@ class RequireLegalTermsToCheckout(website_sale):
         if (not isinstance(request.env.cr, TestCursor) and
                 address_type == "billing"):
             result["accepted_legal_terms"] = (
-                bool(data.get("accepted_legal_terms")))
+                bool(request.params.get("accepted_legal_terms")))
 
         return result
 
@@ -30,3 +30,14 @@ class RequireLegalTermsToCheckout(website_sale):
 
         return super(RequireLegalTermsToCheckout, self).checkout_form_save(
             checkout, *args, **kwargs)
+
+    def checkout_form_validate(self, data, *args, **kwargs):
+        """Require accepting legal terms to buy."""
+        errors = (super(RequireLegalTermsToCheckout, self)
+                  .checkout_form_validate(data, *args, **kwargs))
+
+        # If it is ``None``, then there is no need to check it
+        if data.get("accepted_legal_terms") is False:
+            errors["accepted_legal_terms"] = "missing"
+
+        return errors
