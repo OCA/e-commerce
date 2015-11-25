@@ -17,6 +17,12 @@
 
     <!-- Show choice in other cases -->
     <xpath expr="//a[@href='/shop/checkout']" position="after">
+        <a t-if="user_id == website.user_id"
+           class="btn btn-primary pull-right mb32"
+           href="/web/login?redirect=/shop/checkout">
+            <span>Log in and checkout</span>
+            <span class="fa fa-long-arrow-right"/>
+        </a>
         <t t-if="(user_id == website.user_id and
                   env['ir.config_parameter'].get_param(
                       'auth_signup.allow_uninvited') == 'True' and

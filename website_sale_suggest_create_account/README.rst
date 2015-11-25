@@ -7,7 +7,7 @@ Suggest to create user account when buying
 ==========================================
 
 This module was written to extend the functionality of e-Commerce to suggest
-the buyer to create an account, but without forcing him to do it.
+the buyer to log in or create an account, but without forcing him to do it.
 
 This way you can avoid duplication of partners in your database and offer your
 users a better experience without blocking 1-time buyers.
