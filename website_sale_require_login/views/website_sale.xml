@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="cart" inherit_id="website_sale_suggest_create_account.cart">
+    <!-- Hide checkout without signup -->
+    <xpath expr="//t/a[@href='/shop/checkout']" position="replace"/>
+</template>
+
+</data>
+</openerp>

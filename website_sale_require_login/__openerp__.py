@@ -12,6 +12,9 @@
     "application": False,
     "installable": True,
     "depends": [
-        "website_sale",
+        "website_sale_suggest_create_account",
+    ],
+    "data": [
+        "views/website_sale.xml",
     ],
 }
