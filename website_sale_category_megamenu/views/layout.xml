@@ -30,6 +30,29 @@
         </li>
     </template>
 
+    <template id="breadcrumbs" name="Recursive breadcrumbs">
+        <t t-if="current_category.parent_id">
+            <t t-set="old_category" t-value="current_category"/>
+            <t t-set="current_category"
+               t-value="current_category.parent_id"/>
+            <t t-call="website_sale_category_megamenu.breadcrumbs"/>
+            <t t-set="current_category" t-value="old_category"/>
+        </t>
+
+        <li t-if="not current_category.parent_id">
+            <a t-att-href="keep(category=0)">
+                Shop
+            </a>
+        </li>
+
+        <li>
+            <a t-att-href="keep(
+                    '/shop/category/%s' % slug(current_category),
+                    category=0)"
+               t-field="current_category.name"/>
+        </li>
+    </template>
+
     <template id="category_grid"
               inherit_id="website_sale.products"
               name="Product Categories Grid">
@@ -38,18 +61,8 @@
                 <div class="text-center mt92 mb92">
                     <h2 t-field="category.name"/>
                     <ol class="breadcrumb">
-                        <li>
-                            <a t-att-href="keep(category=0)"
-                               onclick="history.go(-1); return false;">
-                                Products
-                            </a>
-                        </li>
-                        <li t-if="category">
-                            <a t-att-href="keep(
-                                    '/shop/category/%s' % slug(category),
-                                    category=0)"
-                               t-field="category.name"/>
-                        </li>
+                        <t t-set="current_category" t-value="category"/>
+                        <t t-call="website_sale_category_megamenu.breadcrumbs"/>
                     </ol>
                 </div>
             </t>
