@@ -39,8 +39,7 @@
                     <h2 t-field="category.name"/>
                     <ol class="breadcrumb">
                         <li>
-                            <a t-att-href="keep(category=0)"
-                               onclick="history.go(-1); return false;">
+                            <a t-att-href="keep(category=0)">
                                 Products
                             </a>
                         </li>
