@@ -6,7 +6,7 @@
 Require login to checkout
 =========================
 
-This module was written to extend the functionality of eCommerce to force users
+This module extends the functionality of eCommerce to force users
 to login before buying anything in the website  and allow you to get rid of
 those duplicated entries of returning unauthenticated users.
 
@@ -75,4 +75,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.

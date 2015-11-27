@@ -6,7 +6,7 @@
 Suggest to create user account when buying
 ==========================================
 
-This module was written to extend the functionality of e-Commerce to suggest
+This module extends the functionality of e-Commerce to suggest
 the buyer to log in or create an account, but without forcing him to do it.
 
 This way you can avoid duplication of partners in your database and offer your
@@ -74,4 +74,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.
