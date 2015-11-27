@@ -15,6 +15,7 @@
         "website_sale_suggest_create_account",
     ],
     "data": [
+        "views/assets.xml",
         "views/website_sale.xml",
     ],
 }
