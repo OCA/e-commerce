@@ -5,7 +5,7 @@
 from openerp import fields, models
 
 
-class Producttemplate(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     legal_term_ids = fields.Many2many(
