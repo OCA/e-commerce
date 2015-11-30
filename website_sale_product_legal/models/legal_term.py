@@ -5,7 +5,7 @@
 from openerp import fields, models
 
 
-class Producttemplate(models.Model):
+class LegalTerm(models.Model):
     _name = "website_sale_product_legal.legal_term"
 
     name = fields.Char(required=True, translate=True, index=True)
