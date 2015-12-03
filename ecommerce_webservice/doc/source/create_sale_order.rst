@@ -55,6 +55,8 @@ Sale order fields
 +---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
 | partner_shipping_id | integer (id)    | Odoo ID of the shipping address                                    | FALSE    | FK on res.partner object (address)   |
 +---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
+| carrier_id          | string          | Carrier code                                                       | FALSE    |                                      |
++---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
 | payment_term*       | integer (id)    | Odoo ID of the payment term                                        | FALSE    | FK on account.payment.term object    |
 +---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
 | fiscal_position*    | integer (id)    | Odoo ID of the fiscal position                                     | FALSE    | FK on account.fiscal.position object |
@@ -77,6 +79,8 @@ Sale order line fields
 | discount            | float           | Discount (%)                                                       | FALSE    | default = 0                          |
 +---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
 | product_uom_qty     | float           | Quantity                                                           | TRUE     |                                      |
++---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
+| tax_id              | list of string  | List of tax codes                                                  | FALSE    |                                      |
 +---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
 | sequence            | integer         | Sequence of the line (asc order, 0 is the first)                   | FALSE    | default = 10                         |
 +---------------------+-----------------+--------------------------------------------------------------------+----------+--------------------------------------+
@@ -101,8 +105,8 @@ Python call example
         'ecommerce.api.v1',
         'create_sale_order',
         'shop_identifier',
-        {'name': '10000532', 'partner_id', 154,
-         'order_line': [{'product_id': 1, 'price_unit': 10.5, 'product_uom_qty': 2}]
+        {'name': '10000532', 'partner_id': 154, 'carrier_id': 'demo_delivery',
+         'order_line': [{'product_id': 1, 'price_unit': 10.5, 'product_uom_qty': 2, 'tax_id': ['my_tax']}]
          }
         )
     print sale_order_id
@@ -138,11 +142,13 @@ PHP call example
        'partner_invoice_id'=>6,
        'partner_shipping_id'=>6,
        'payment_method_id'=>1,
+       'carrier_id'=>'demo_delivery',
        'order_line'=>array(array(
            'name'=>'test name line',
            'price_unit'=>54.6,
            'product_uom_qty'=>2,
-           'product_id'=>49
+           'product_id'=>49,
+           'tax_id'=>array('my_tax')
            ))
        );
 

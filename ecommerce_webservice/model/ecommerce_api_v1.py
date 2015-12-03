@@ -70,17 +70,30 @@ class ecommerce_api_v1(orm.AbstractModel):
     def _update_vals_for_name_search(self, cr, uid, vals, context=None):
         if 'country' in vals:
             country_ids = self.pool['res.country'].name_search(
-                    cr, uid, vals['country'], context=context)
+                cr, uid, vals['country'], context=context
+            )
             country_id = country_ids[0][0] if country_ids else False
             vals.pop('country')
             vals['country_id'] = country_id
-        if 'property_delivery_carrier' in vals:
-            carrier_api_code = vals.pop('property_delivery_carrier', [])
-            carrier_ids = self.pool['delivery.carrier'].search(
-                    cr, uid, [('api_code', '=', carrier_api_code)],
-                    context=context)
-            carrier_id = carrier_ids[0] if carrier_ids else False
-            vals['property_delivery_carrier'] = carrier_id
+        for carrier_field in ('property_delivery_carrier', 'carrier_id'):
+            if carrier_field in vals:
+                carrier_api_code = vals.pop(carrier_field)
+                if (carrier_api_code and
+                        isinstance(carrier_api_code, basestring)):
+                    carrier_ids = self.pool['delivery.carrier'].search(
+                        cr, uid,
+                        [('api_code', '=', carrier_api_code)],
+                        limit=1,
+                        context=context
+                    )
+                    if not carrier_ids:
+                        raise orm.except_orm(
+                            _('Error'),
+                            _("carrier_id '%s' not found") %
+                            (carrier_api_code,)
+                        )
+                    carrier_id = carrier_ids[0]
+                    vals[carrier_field] = carrier_id
 
     def _search_read_anything(self, cr, uid, model, domain, fields=None,
                               offset=0, limit=None, order=None, context=None):
@@ -214,6 +227,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                 cr, uid, address_ids, vals, context=context)
 
     def _prepare_sale_order(self, cr, uid, shop, vals, context=None):
+        self._update_vals_for_name_search(cr, uid, vals, context=context)
         SO = self.pool['sale.order']
 
         vals.update({
@@ -248,10 +262,23 @@ class ecommerce_api_v1(orm.AbstractModel):
         for line in raw_order_line:
             if 'tax_id' in line:
                 raw_tax_id = line.pop('tax_id', [])
-                tax_ids = self.pool['account.tax'].search(
-                        cr, uid, [('api_code', 'in', raw_tax_id)],
-                        context=context)
-                line['tax_id'] = [(6, False, tax_ids)]
+                tax_ids = set()
+                for tax_code in raw_tax_id:
+                    if isinstance(tax_code, basestring):
+                        tax_id = self.pool['account.tax'].search(
+                            cr, uid,
+                            [('api_code', '=', tax_code)],
+                            limit=1,
+                            context=context
+                        )
+                        if not tax_id:
+                            raise orm.except_orm(
+                                _('Error'),
+                                _("tax_id '%s' not found") % (tax_code,)
+                            )
+                    else:
+                        tax_ids.add(tax_code)
+                line['tax_id'] = [(6, False, list(tax_ids))]
 
             onchange_vals = {}
             if 'product_id' in line:
