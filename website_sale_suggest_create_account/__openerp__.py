@@ -4,7 +4,7 @@
 {
     "name": "Suggest to create user account when buying",
     "summary": "Suggest users to create an account when buying in the website",
-    "version": "8.0.1.0.0",
+    "version": "9.0.1.0.0",
     "category": "Website",
     "website": "https://odoo-community.org/",
     "author": "Antiun Ingeniería, S.L., Odoo Community Association (OCA)",
