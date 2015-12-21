@@ -276,6 +276,7 @@ class ecommerce_api_v1(orm.AbstractModel):
                                 _('Error'),
                                 _("tax_id '%s' not found") % (tax_code,)
                             )
+                        tax_ids.add(tax_id[0])
                     else:
                         tax_ids.add(tax_code)
                 line['tax_id'] = [(6, False, list(tax_ids))]
