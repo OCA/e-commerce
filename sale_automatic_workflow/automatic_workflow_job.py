@@ -137,10 +137,40 @@ class automatic_workflow_job(orm.Model):
                                                  picking_ids,
                                                  context=context)
 
+    def _invoice_pickings(self, cr, uid, context=None):
+        picking_obj = self.pool.get('stock.picking')
+        # We search on stock.picking (using the type) rather than
+        # stock.picking.out because the ORM seems bugged and can't
+        # search on stock_picking_out.workflow_process_id.
+        # Later, we'll call `validate_picking` on stock.picking.out
+        # because anyway they have the same ID and the call will be at
+        # the correct object level.
+        if context is None:
+            context = {}
+        picking_ids = picking_obj.search(
+            cr, uid,
+            [('state', 'in', ['done']),
+             ('workflow_process_id.create_invoice_on', '=', 'on_picking_done'),
+             ('invoice_state', '=', '2binvoiced'),
+             ('type', '=', 'out')],
+            context=context)
+        _logger.debug('Pickings to invoice: %s', picking_ids)
+        if picking_ids:
+            with commit(cr):
+                for picking in picking_obj.browse(cr, uid, picking_ids, context=context):
+                    if picking.sale_id:
+                        context = dict(context,
+                                force_company=picking.sale_id.company_id.id,
+                                company_id=picking.sale_id.company_id.id)
+                    picking_obj.action_invoice_create(cr, uid,
+                                                  [picking.id,],
+                                                  context=context)
+
     def run(self, cr, uid, ids=None, context=None):
         """ Must be called from ir.cron """
 
         self._validate_sale_orders(cr, uid, context=context)
+        self._invoice_pickings(cr, uid, context=context)
         self._validate_invoices(cr, uid, context=context)
         self._reconcile_invoices(cr, uid, context=context)
         self._validate_pickings(cr, uid, context=context)

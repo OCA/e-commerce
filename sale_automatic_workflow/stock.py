@@ -33,12 +33,70 @@ class stock_picking(orm.Model):
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id,
                          context=None):
+        # Read the correct journal for the shop company
+        if not journal_id:
+            journal_ids = self.pool.get('account.journal').search(
+                cr, uid,
+                [('type', '=', 'sale'),
+                 ('company_id', '=', picking.sale_id.company_id.id)],
+                limit=1)
+            journal_id = journal_ids and journal_ids[0] or journal_id
+        # Re-read partner with correct context to get the
+        # correct accounts from properties
+        if picking.sale_id:
+            context = dict(context,
+                           force_company=picking.sale_id.company_id.id,
+                           company_id=picking.sale_id.company_id.id)
+            picking = self.browse(cr, uid, picking.id, context=context)
+            partner = self.pool.get('res.partner').browse(cr, uid,
+                                                          partner.id,
+                                                          context=context)
         invoice_vals = super(stock_picking, self)._prepare_invoice(
             cr, uid, picking, partner, inv_type, journal_id, context=context)
-        invoice_vals['workflow_process_id'] = picking.workflow_process_id.id
-        if picking.workflow_process_id.invoice_date_is_order_date:
-            invoice_vals['date_invoice'] = picking.sale_id.date_order
+        base_picking = self.pool.get('stock.picking').browse(cr, uid,
+                                                             picking.id,
+                                                             context=context)
+        if picking.sale_id:
+            invoice_vals['currency_id'] =\
+                picking.sale_id.pricelist_id.currency_id.id
+            if base_picking.workflow_process_id.invoice_date_is_order_date:
+                invoice_vals['date_invoice'] = picking.sale_id.date_order
+            # Force period to avoid multi-company issues
+            if not invoice_vals.get('period_id'):
+                period_ids = self.pool.get('account.period').find(
+                    cr, uid, invoice_vals.get('date_invoice', False),
+                    context=context)
+                invoice_vals['period_id'] =\
+                    period_ids and period_ids[0] or False
+        invoice_vals['workflow_process_id'] =\
+            base_picking.workflow_process_id.id
+
         return invoice_vals
+
+    def _prepare_shipping_invoice_line(self, cr, uid, picking, invoice, context=None):
+        if context is None:
+            context = {}
+        if picking.sale_id:
+            context = dict(context,
+                           force_company=picking.sale_id.company_id.id,
+                           company_id=picking.sale_id.company_id.id)
+            picking = self.browse(cr, uid, picking.id, context=context)
+        return super(stock_picking, self)._prepare_shipping_invoice_line(cr, uid, picking, invoice, context=context)
+
+    def _prepare_invoice_line(self, cr, uid, group, picking, move_line,
+                              invoice_id, invoice_vals, context=None):
+        if picking.sale_id:
+            context = dict(
+                context,
+                force_company=picking.sale_id.company_id.id,
+                company_id=picking.sale_id.company_id.id)
+            picking = self.browse(cr, uid, picking.id, context=context)
+            move_line = self.pool.get('stock.move').browse(cr, uid,
+                                                           move_line.id,
+                                                           context=context)
+        return super(stock_picking, self)._prepare_invoice_line(
+            cr, uid, group, picking, move_line, invoice_id,
+            invoice_vals, context=context)
 
 
 class stock_picking_out(orm.Model):
