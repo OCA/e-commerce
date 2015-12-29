@@ -6,9 +6,9 @@
 eCommerce Default Country
 =========================
 
-This module extends the functionality of eCommerce to provide a sane default
-for your customers' checkout process country and allow them to avoid digging in
-the endless countries list.
+This module extends the functionality of eCommerce to default the country value
+during your customers' checkout process country and allow them to avoid digging
+in the endless countries list.
 
 Configuration
 =============
