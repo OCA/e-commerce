@@ -210,6 +210,7 @@ class sale_order(orm.Model):
                 'date': date,
                 'ref': sale.name,
                 'period_id': period.id,
+                'company_id': sale.company_id.id,
                 }
 
     def _prepare_payment_move_line(self, cr, uid, move_name, sale, journal,
@@ -244,6 +245,7 @@ class sale_order(orm.Model):
             'date': date,
             'amount_currency': amount_currency,
             'currency_id': currency_id,
+            'company_id': sale.company_id.id,
         }
 
         # payment line (receivable)
@@ -259,6 +261,7 @@ class sale_order(orm.Model):
             'amount_currency': -amount_currency,
             'currency_id': currency_id,
             'sale_ids': [(4, sale.id)],
+            'company_id': sale.company_id.id,
         }
         return debit_line, credit_line
 
