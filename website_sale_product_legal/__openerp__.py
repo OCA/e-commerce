@@ -7,7 +7,7 @@
     "version": "8.0.2.0.0",
     "category": "e-commerce",
     "website": "http://www.antiun.com",
-    "author": "Antiun Ingeniería, S.L., Odoo Community Association (OCA)",
+    "author": "Antiun Ingeniería S.L., Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
