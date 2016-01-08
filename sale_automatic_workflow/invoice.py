@@ -158,8 +158,13 @@ class account_invoice(orm.Model):
             if not use_currency:
                 balance = abs(res_invoice['total_amount'] -
                               res_payment['total_amount'])
-                if line_ids and is_zero(cr, uid, currency, balance):
-                    move_line_obj.reconcile(cr, uid, line_ids, context=context)
+                if line_ids:
+                    if is_zero(cr, uid, currency, balance):
+                        move_line_obj.reconcile(
+                            cr, uid, line_ids, context=context)
+                    else:
+                        move_line_obj.reconcile_partial(
+                            cr, uid, line_ids, 'manual', context=context)
             else:
                 balance = abs(res_invoice['total_amount_currency'] -
                               res_payment['total_amount_currency'])
