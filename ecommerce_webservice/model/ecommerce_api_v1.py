@@ -427,3 +427,12 @@ class ecommerce_api_v1(orm.AbstractModel):
             raise openerp.exceptions.AccessError(
                     _(message) % (document_type, sale_id))
         return self._get_report(cr, uid, model, oid)
+
+    @shop_logging
+    def search_read_payment_method(self, cr, uid, shop, domain,
+                                   fields=None, offset=0, limit=None,
+                                   order=None, context=None):
+        model = 'payment.method'
+        return self._search_read_anything(cr, uid, model, domain,
+                                          fields, offset, limit, order,
+                                          context)

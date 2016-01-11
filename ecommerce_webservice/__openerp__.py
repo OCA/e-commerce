@@ -17,6 +17,7 @@ methods of Odoo.
         'stock',
         'account',
         'delivery',
+        'sale_payment_method',
     ],
     'data': [
         'security/res.groups.csv',
