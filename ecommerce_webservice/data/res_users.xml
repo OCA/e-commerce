@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record model="res.partner" id="ecommerce_api_internal_partner">
+            <field name="name">Ecommerce Default Internal User</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <!-- email MUST be empty -->
+            <field name="email" eval="False" />
+        </record>
+
+        <!-- A ‘system’ user that will be used internally for all the operations made by the web-service calls. -->
+        <record model="res.users" id="ecommerce_api_internal_user">
+            <field name="partner_id" ref="ecommerce_api_internal_partner" />
+            <field name="login">ecommerce_api</field>
+            <!-- password and email MUST be empty -->
+            <field name="password" eval="False" />
+            <field name="email" eval="False" />
+            <field name="company_id" ref="base.main_company" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('group_ecommerce_api_internal'), 
+                ])]" />
+        </record>
+
+    </data>
+</openerp>

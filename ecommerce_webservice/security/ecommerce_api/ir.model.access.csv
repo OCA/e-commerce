@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_public_ecommerce_api_v1,Ecommerce API V1,model_ecommerce_api_v1,group_ecommerce_api,1,0,0,0
+

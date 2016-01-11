@@ -1,0 +1,2 @@
+id,name,partner_id/id,product_id/id,api_code
+ecommerce_webservice.demo_delivery_carrier01,HexaDrone,ecommerce_webservice.demo_delivery_partner,ecommerce_webservice.demo_delivery_product01,demo_delivery
