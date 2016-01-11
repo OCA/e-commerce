@@ -238,6 +238,10 @@ class ecommerce_api_v1(orm.AbstractModel):
 
         onchange_vals = {}
         if 'partner_id' in vals:
+            if 'partner_shipping_id' not in vals:
+                vals['partner_shipping_id'] = vals['partner_id']
+            if 'partner_invoice_id' not in vals:
+                vals['partner_invoice_id'] = vals['partner_id']
             ocv = SO.onchange_partner_id(
                     cr, uid, None, vals['partner_id'], context=context)
             onchange_vals.update(ocv['value'])
