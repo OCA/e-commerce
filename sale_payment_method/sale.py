@@ -305,6 +305,11 @@ class sale_order(orm.Model):
         return action
 
     def action_cancel(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        if context.get('force_cancel', False):
+            return super(sale_order, self).action_cancel(cr, uid, ids,
+                                                         context=context)
         for sale in self.browse(cr, uid, ids, context=context):
             if sale.payment_ids:
                 raise osv.except_osv(
