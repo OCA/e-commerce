@@ -8,11 +8,5 @@
     </xpath>
   </template>
 
-  <template id="my_account_wishlist" name="Link to wishlist" inherit_id="website.layout">
-    <xpath expr="//ul[@class='dropdown-menu js_usermenu']/li[@class='divider']" position="before">
-      <li><a href="/shop/wishlist" role="menuitem">My Wishlist</a></li>
-    </xpath>
-  </template>
-
 </data>
 </openerp>
