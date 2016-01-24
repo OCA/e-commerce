@@ -2,19 +2,14 @@
     :alt: License
 
 Product Share
-=============================
-
-Allow user to enable/disable share button on each product page
-
-Configuration
-=============
-
-
+============
+Allow users to enable/disable share button on each product page
 
 Usage
 =====
 
-* Go to website menu
+* Go to website
+* Open one of the product
 * Click on customize button
 * Toggle share product option to enable/disable share button
 

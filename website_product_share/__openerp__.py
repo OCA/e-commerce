@@ -31,7 +31,6 @@
     "data": [
         "views/website_product.xml",
     ],
-    "demo": [],
     "active": False,
     'installable': True
 }
