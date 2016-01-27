@@ -3,7 +3,7 @@
 
 Product Share
 ============
-This modules brings the users the possibility to globally enable/disable a share button 
+This module brings the users the possibility to globally enable/disable a share button 
 that will be displayed in each product page.
 
 Usage
@@ -18,6 +18,7 @@ NB: even if you have to go to one specific product, the set up is valid for all 
 
 Know issues / Roadmap
 =====================
+* Share product configuration valid for all products. No individual configuration for each product.
 
 
 
