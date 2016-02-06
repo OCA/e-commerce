@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <template id="product_show_uom" name="Show UoM" inherit_id="website_sale.product_price" active="False" customize_show="True">
+        <xpath expr="//b[@t-field='product.price']" position="after">
+                <span>/</span> <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+        </xpath>
+    </template>
+    
+    <template id="product_show_uom_list" name="Show UoM" inherit_id="website_sale.products_item" active="False" customize_show="True">
+        <xpath expr="//span[@t-field='product.price']" position="after">
+                <span>/</span> <span t-field="product.uom_id.name" style="white-space: nowrap;"/>
+        </xpath>
+    </template>
+    
+    <template id="product_show_uom_checkout" name="Show UoM" inherit_id="website_sale.cart" active="False" customize_show="True">
+        <xpath expr="//table[@id='cart_products']/thead/tr[1]" position="inside">
+                <th width="100">UoM</th>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']/tbody/t[@t-as='line']/tr" position="inside">
+                <td>
+                    <span t-field="line.product_id.uom_id.name"/>
+                </td>
+        </xpath>
+    </template>    
+    
+    <template id="product_show_uom_payment" name="Show UoM" inherit_id="website_sale.payment" active="False" customize_show="True">
+        <xpath expr="//table[@id='cart_products']/thead/tr[1]" position="inside">
+                <th width="100">UoM</th>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']/tbody/tr[@t-as='line']" position="inside">
+                <td>
+                    <span t-field="line.product_id.uom_id.name"/>
+                </td>
+        </xpath>
+    </template>   
+</data>
+</openerp>

@@ -1,0 +1,20 @@
+-
+    Show the UoM auto enabled on website
+-
+  !python {model: ir.ui.view}: |
+    self.write(cr, uid, [ref('product_show_uom')], {'active': True}, context={'active_test': True})
+-
+    Show the UoM on product list auto enabled on website
+-
+  !python {model: ir.ui.view}: |
+    self.write(cr, uid, [ref('product_show_uom_list')], {'active': True}, context={'active_test': True})
+-
+    Show the UoM on shoping cart
+-
+  !python {model: ir.ui.view}: |
+    self.write(cr, uid, [ref('product_show_uom_checkout')], {'active': True}, context={'active_test': True})
+-
+    Show the UoM on payment page
+-
+  !python {model: ir.ui.view}: |
+    self.write(cr, uid, [ref('product_show_uom_payment')], {'active': True}, context={'active_test': True})
