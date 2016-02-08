@@ -217,7 +217,7 @@ class sale_order(orm.Model):
         """ """
         partner_obj = self.pool.get('res.partner')
         currency_obj = self.pool.get('res.currency')
-        partner = partner_obj._find_accounting_partner(sale.partner_id)
+        partner = partner_obj._find_accounting_partner(sale.partner_invoice_id)
 
         company = journal.company_id
 
