@@ -29,6 +29,5 @@ Unported addons
 addon | version | summary
 --- | --- | ---
 [product_links_goodies](product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
-[sale_quick_payment](sale_quick_payment/) | 0.2 (unported) | Sale Quick Payment
 
 [//]: # (end addons)
