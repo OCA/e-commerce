@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# © 2016 Leonardo Donelli
+# License AGPL-3 or later (http://www.gnu.org/licenses/agpl)
 
 from openerp import http
 from openerp.http import request

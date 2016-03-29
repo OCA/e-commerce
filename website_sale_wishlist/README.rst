@@ -5,8 +5,9 @@
 Ecommerce Wishlist
 ========================
 
-Let the users save the products they are interested in and may want to buy
-at a later time.
+This module extends the functionality of the ecommerce module and introduces a wishlist feature.
+The users are able to save the products they are interested in in a wishlist so that they can
+confirm the purchase later on.
 
 Usage
 =====
@@ -24,6 +25,17 @@ Known Issues / Roadmap
 
 * Multiple wishlist per user support
 * Tests
+
+Bug Tracker
+===========
+
+Bugs are tracked on `GitHub Issues
+<https://github.com/OCA/e-commerce/issues`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smashing it by providing a detailed and welcomed `feedback
+<https://github.com/OCA/e-commerce/issues/new?body=module:%20
+e-commerce%0Aversion:%20
+8.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Credits
 =======
@@ -46,4 +58,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.
