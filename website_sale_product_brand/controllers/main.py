@@ -25,8 +25,8 @@ class WebsiteSale(website_sale):
         if brand:
             request.context.setdefault('brand_id', int(brand))
         return super(WebsiteSale, self).shop(page=page, category=category,
-                                               brand=brand, search=search,
-                                               **post)
+                                             brand=brand, search=search,
+                                             **post)
 
     # Method to get the brands.
     @http.route(
