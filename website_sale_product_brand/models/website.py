@@ -1,36 +1,17 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2012-Today Serpent Consulting Services Pvt. Ltd.
-#                                     (<http://www.serpentcs.com>)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#
-##############################################################################
+# © 2016 Serpent Consulting Services Pvt. Ltd. (http://www.serpentcs.com)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm
-from openerp.http import request
+from openerp import models, api
 
 
-class WebSite(orm.Model):
+class WebSite(models.Model):
     _inherit = 'website'
 
-    def sale_product_domain(self, cr, uid, ids, context=None):
-        domain = super(WebSite, self).sale_product_domain(cr, uid, ids=ids,
-                                                          context=context)
-        if 'brand_id' in request.env.context:
+    @api.multi
+    def sale_product_domain(self):
+        domain = super(WebSite, self).sale_product_domain()
+        if 'brand_id' in self.env.context:
             domain.append(
-                ('product_brand_id', '=', request.env.context['brand_id']))
+                ('product_brand_id', '=', self.env.context['brand_id']))
         return domain
