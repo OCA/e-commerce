@@ -1,26 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2012-Today Serpent Consulting Services Pvt. Ltd.
-#                                     (<http://www.serpentcs.com>)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#
-##############################################################################
+# © 2016 Serpent Consulting Services Pvt. Ltd. (http://www.serpentcs.com)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import openerp
 from openerp import http
 from openerp.http import request
 from openerp import SUPERUSER_ID
@@ -41,12 +22,12 @@ class WebsiteSale(website_sale):
                 website=True)
     def shop(self, page=0, category=None, brand=None, search='', **post):
         if brand:
-            request.context.setdefault('brand_id', int(brand))
-        result = super(WebsiteSale, self).shop(page=page, category=category,
-                                               brand=brand, search=search,
-                                               **post)
-        result.qcontext['brand'] = brand
-        return result
+            context = dict(request.env.context)
+            context.setdefault('brand_id', int(brand))
+            request.env.context = context
+        return super(WebsiteSale, self).shop(page=page, category=category,
+                                             brand=brand, search=search,
+                                             **post)
 
     # Method to get the brands.
     @http.route(
@@ -73,5 +54,3 @@ class WebsiteSale(website_sale):
         return request.website.render(
             'website_sale_product_brand.product_brands',
             values)
-
-openerp.addons.website_sale.controllers.main.website_sale = WebsiteSale
