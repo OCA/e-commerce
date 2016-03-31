@@ -30,7 +30,7 @@ class WebSite(orm.Model):
     def sale_product_domain(self, cr, uid, ids, context=None):
         domain = super(WebSite, self).sale_product_domain(cr, uid, ids=ids,
                                                           context=context)
-        if 'brand_id' in request.env.context:
+        if 'brand_id' in request.context:
             domain.append(
-                ('product_brand_id', '=', request.env.context['brand_id']))
+                ('product_brand_id', '=', request.context['brand_id']))
         return domain

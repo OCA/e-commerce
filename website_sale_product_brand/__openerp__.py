@@ -26,7 +26,7 @@
     'author': "Serpent Consulting Services Pvt. Ltd,"
               "Odoo Community Association (OCA)",
     'website': 'http://www.serpentcs.com',
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'depends': [
         'product_brand',
         'website_sale'
@@ -35,6 +35,6 @@
         "security/ir.model.access.csv",
         "views/product_brand.xml",
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }

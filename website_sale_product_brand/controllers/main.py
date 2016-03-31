@@ -42,11 +42,9 @@ class WebsiteSale(website_sale):
     def shop(self, page=0, category=None, brand=None, search='', **post):
         if brand:
             request.context.setdefault('brand_id', int(brand))
-        result = super(WebsiteSale, self).shop(page=page, category=category,
+        return super(WebsiteSale, self).shop(page=page, category=category,
                                                brand=brand, search=search,
                                                **post)
-        result.qcontext['brand'] = brand
-        return result
 
     # Method to get the brands.
     @http.route(
