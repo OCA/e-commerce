@@ -2,11 +2,11 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (http://www.serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm
+from openerp import models, fields, api, exceptions, _
 from openerp.http import request
 
 
-class WebSite(orm.Model):
+class WebSite(models.Model):
     _inherit = 'website'
 
     def sale_product_domain(self, cr, uid, ids, context=None):
