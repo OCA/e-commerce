@@ -8,11 +8,16 @@ Odoo E-Commerce Modules
 Modules aiming to support e-commerce specific needs. This includes all the new website_sale related modules included in version 9.0.
 
 [//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[product_multi_link](product_multi_link/) | 9.0.1.0.0 | Product Links
+
 Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[product_links](product_links/) | 8.0.1.0.1 (unported) | Product Links
 [product_links_goodies](product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
 [sale_automatic_workflow](sale_automatic_workflow/) | 8.0.0.2.0 (unported) | Sale Automatic Workflow
 [sale_automatic_workflow_exception](sale_automatic_workflow_exception/) | 0.0.1 (unported) | Sale Automatic Workflow Exception
