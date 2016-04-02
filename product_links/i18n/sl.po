@@ -1,0 +1,83 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * product_links
+# 
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: e-commerce (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-29 10:28+0000\n"
+"PO-Revision-Date: 2016-04-01 04:51+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#. module: product_links
+#: field:product.link,is_active:0
+msgid "Active"
+msgstr "Aktivno"
+
+#. module: product_links
+#: field:product.link,create_uid:0
+msgid "Created by"
+msgstr "Ustvaril"
+
+#. module: product_links
+#: field:product.link,create_date:0
+msgid "Created on"
+msgstr "Ustvarjeno"
+
+#. module: product_links
+#: field:product.link,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_links
+#: field:product.link,write_uid:0
+msgid "Last Updated by"
+msgstr "Zadnji posodobil"
+
+#. module: product_links
+#: field:product.link,write_date:0
+msgid "Last Updated on"
+msgstr "Zadnjič posodobljeno"
+
+#. module: product_links
+#: field:product.link,type:0
+msgid "Link type"
+msgstr "Tip povezave"
+
+#. module: product_links
+#: field:product.link,linked_product_id:0
+msgid "Linked product"
+msgstr "Povezani proizvod"
+
+#. module: product_links
+#: model:ir.model,name:product_links.model_product_product
+msgid "Product"
+msgstr "Proizvod"
+
+#. module: product_links
+#: model:ir.actions.act_window,name:product_links.product_link_action
+#: model:ir.ui.menu,name:product_links.product_link_menu
+#: view:product.link:product_links.product_link_form
+#: view:product.link:product_links.product_link_tree
+#: view:product.product:product_links.product_product_link_form
+msgid "Product Links"
+msgstr "Povezave proizvodov"
+
+#. module: product_links
+#: field:product.product,product_link_ids:0
+msgid "Product links"
+msgstr "Povezave proizvodov"
+
+#. module: product_links
+#: field:product.link,product_id:0
+msgid "Source Product"
+msgstr "Izvorni proizvod"
