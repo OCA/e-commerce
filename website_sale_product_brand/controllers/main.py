@@ -23,7 +23,9 @@ class WebsiteSale(website_sale):
                 website=True)
     def shop(self, page=0, category=None, brand=None, search='', **post):
         if brand:
-            request.context.setdefault('brand_id', int(brand))
+            context = dict(request.env.context)
+            context.setdefault('brand_id', int(brand))
+            request.env.context = context
         return super(WebsiteSale, self).shop(page=page, category=category,
                                              brand=brand, search=search,
                                              **post)

@@ -12,7 +12,7 @@ class WebSite(models.Model):
     @api.multi
     def sale_product_domain(self):
         domain = super(WebSite, self).sale_product_domain()
-        if 'brand_id' in request.context:
+        if 'brand_id' in self.env.context:
             domain.append(
-                ('product_brand_id', '=', request.context['brand_id']))
+                ('product_brand_id', '=', self.env.context['brand_id']))
         return domain
