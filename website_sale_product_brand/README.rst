@@ -30,8 +30,6 @@ Shop by brand feature enables you to display product relevant to that particular
 
 To use this module, you need to:
 
-- Install the module website_sale_product_brand.
-
 Once you install this module, user will be able to create a new brand and define the brand to a product.
 
 - To create product brand
