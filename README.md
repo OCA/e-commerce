@@ -13,6 +13,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [product_multi_link](product_multi_link/) | 9.0.1.0.0 | Product Links
+[website_sale_product_brand](website_sale_product_brand/) | 9.0.1.0.0 | Product Brand Filtering in Website
 
 Unported addons
 ---------------
@@ -26,7 +27,6 @@ addon | version | summary
 [sale_payment_method_transaction_id](sale_payment_method_transaction_id/) | 1.0 (unported) | Sale Payment Method - Transaction ID Compatibility
 [sale_quick_payment](sale_quick_payment/) | 0.2 (unported) | Sale Quick Payment
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 (unported) | A megamenu to display product categories in the online shop
-[website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 (unported) | Product Brand Filtering in Website
 [website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 (unported) | Let the users keep track of the products they saw on the ecommerce
 
 [//]: # (end addons)
