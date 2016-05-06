@@ -18,40 +18,40 @@ msgstr ""
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid ", the"
-msgstr ", la"
+msgstr ", "
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "Confirm"
-msgstr "Confirmar"
+msgstr "Bestätigen"
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "I accept the"
-msgstr "Acepto el"
+msgstr "Ich akzeptiere die"
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "and the"
-msgstr "y los"
+msgstr "und"
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "legal advice"
-msgstr "aviso legal"
+msgstr "allgemeine"
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "of this website."
-msgstr "de este sitio web."
+msgstr "dieser Website."
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "privacy policy"
-msgstr "política de privacidad"
+msgstr "Geschäftsbedingungen"
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "terms of use"
-msgstr "términos de uso"
+msgstr "Datenschutzerklärung"
 
