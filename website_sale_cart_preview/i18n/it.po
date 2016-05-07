@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Paolo Valier, 2016
+# Paolo Valier, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-29 10:28+0000\n"
-"PO-Revision-Date: 2016-03-29 13:45+0000\n"
+"POT-Creation-Date: 2016-05-06 13:06+0000\n"
+"PO-Revision-Date: 2016-05-01 08:27+0000\n"
 "Last-Translator: Paolo Valier\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +39,7 @@ msgstr "Subtotale:"
 #. module: website_sale_cart_preview
 #: view:website:website_sale_cart_preview.total
 msgid "Taxes may be updated after providing shipping address"
-msgstr ""
+msgstr "Le imposte potrebbero venire aggiornate dopo aver fornito l'indirizzo di spedizione "
 
 #. module: website_sale_cart_preview
 #: view:website:website_sale_cart_preview.total
@@ -68,4 +69,4 @@ msgstr "prodotti)"
 #. module: website_sale_cart_preview
 #: view:website:website_sale_cart_preview.total
 msgid "website_sale_cart_preview.total"
-msgstr ""
+msgstr "website_sale_cart_preview.total"

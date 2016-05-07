@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Paolo Valier, 2016
+# Paolo Valier, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-29 10:28+0000\n"
-"PO-Revision-Date: 2016-03-29 13:58+0000\n"
+"POT-Creation-Date: 2016-05-06 13:06+0000\n"
+"PO-Revision-Date: 2016-05-01 08:25+0000\n"
 "Last-Translator: Paolo Valier\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +32,9 @@ msgstr "Acquista"
 #. module: website_sale_category_megamenu
 #: view:website:website_sale.product
 msgid "col-sm-7 col-md-7 col-lg-7"
-msgstr ""
+msgstr "col-sm-7 col-md-7 col-lg-7"
 
 #. module: website_sale_category_megamenu
 #: view:website:website_sale.product
 msgid "col-xs-3 pull-right"
-msgstr ""
+msgstr "col-xs-3 pull-right"

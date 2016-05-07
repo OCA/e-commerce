@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Paolo Valier, 2016
+# Paolo Valier, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-29 10:28+0000\n"
-"PO-Revision-Date: 2016-03-29 13:43+0000\n"
+"POT-Creation-Date: 2016-05-06 13:06+0000\n"
+"PO-Revision-Date: 2016-05-01 08:38+0000\n"
 "Last-Translator: Paolo Valier\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,11 @@ msgid "Active"
 msgstr "Attivo"
 
 #. module: product_links
+#: field:product.product,product_brand_id:0
+msgid "Brand"
+msgstr "Marca"
+
+#. module: product_links
 #: field:product.link,create_uid:0
 msgid "Created by"
 msgstr "Creato da"
@@ -34,9 +40,19 @@ msgid "Created on"
 msgstr "Creato il"
 
 #. module: product_links
+#: field:product.link,display_name:0
+msgid "Display Name"
+msgstr "Nome da visualizzare"
+
+#. module: product_links
 #: field:product.link,id:0
 msgid "ID"
 msgstr "ID"
+
+#. module: product_links
+#: field:product.link,__last_update:0
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
 
 #. module: product_links
 #: field:product.link,write_uid:0
@@ -70,14 +86,19 @@ msgstr "Prodotto"
 #: view:product.link:product_links.product_link_tree
 #: view:product.product:product_links.product_product_link_form
 msgid "Product Links"
-msgstr ""
+msgstr "Link Prodotto"
 
 #. module: product_links
 #: field:product.product,product_link_ids:0
 msgid "Product links"
-msgstr ""
+msgstr "Link Prodotto"
+
+#. module: product_links
+#: help:product.product,product_brand_id:0
+msgid "Select a brand for this product"
+msgstr "Seleziona una marca per questo prodotto"
 
 #. module: product_links
 #: field:product.link,product_id:0
 msgid "Source Product"
-msgstr ""
+msgstr "Prodotto di origine"
