@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2016 Nicola Malcontenti - Agile Business Group
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/gpl). -->
+
+<openerp>
+<data>
+
+<template id="website_sale_partner_type" inherit_id="website_sale.checkout">
+  <xpath expr="//div[@class='col-md-8 oe_cart']/div[@class='row']/div[1]" position="before">
+    <div t-attf-class="form-group #{error.get('partner_type') and 'has-error' or ''} col-lg-6">
+      <label class="control-label" for="partner_type">Partner Type</label>
+      <select id="partner_type" name="partner_type" class="form-control" t-att-value="checkout.get('partner_type')">
+        <option value="select">Select Element</option>
+        <option value="individual" t-att-selected="checkout.get('partner_type') == 'individual'">Individual</option>
+        <option value="company" t-att-selected="checkout.get('partner_type') == 'company'">Company</option>
+      </select>
+    </div>
+  </xpath>
+  <xpath expr="//div[@class='col-md-8 oe_cart']/div[@class='row']/div[9]" position="before">
+      <div class="clearfix"/>
+      <div t-attf-class="form-group #{error.get('street2') and 'has-error' or ''} col-lg-6">
+          <label class="control-label" for="street">Street</label>
+          <input type="text" name="street" class="form-control" t-att-value="checkout.get('street')"/>
+      </div>
+  </xpath>
+  <xpath expr="//label[@for='street2']" position="replace"> 
+      <label class="control-label" for="street2" id="label_street2">Street2</label>
+  </xpath>
+
+ <xpath expr="//div[@class='row']/div[4]" position="replace">
+    <div t-attf-class="form-group #{error.get('checkout_company_name') and 'has-error' or ''} col-lg-6" id="checkout_company_name">
+      <label class="control-label" for="checkout_company_name" style="font-weight: normal">Company Name</label>
+      <input type="text" name="checkout_company_name" class="form-control" t-att-value="checkout.get('checkout_company_name')"/>
+    </div>
+  </xpath>
+  <xpath expr="//label[@for='contact_name']" position="replace"> 
+      <label class="control-label" for="contact_name" id="label_your_name">Your Name</label>
+  </xpath>
+</template>
+
+</data>
+</openerp>
