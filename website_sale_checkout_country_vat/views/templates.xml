@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+<openerp>
+<data>
+
+<template id="country_dropdown"
+          inherit_id="website_snippet_country_dropdown.country_dropdown"
+          primary="True">
+
+    <xpath expr="//t[@t-set='default_country']" position="attributes">
+        <attribute name="t-value">website.vat_code_id</attribute>
+    </xpath>
+
+    <xpath expr="//input[@id='no_country_field']" position="attributes">
+        <attribute name="t-att-value">checkout.get('vat')</attribute>
+        <attribute name="name">vat</attribute>
+    </xpath>
+
+    <xpath expr="//input[@id='country_code_field']" position="attributes">
+        <attribute name="t-att-value">
+            checkout.get('country_code_field') or \
+            website.vat_code_id.code or \
+            website.company_id.country_id.code or \
+            countries[:1].code</attribute>
+        <attribute name="type">hidden</attribute>
+    </xpath>
+
+    <xpath expr="//button[@id='btn_vat_code']" position="attributes">
+        <attribute name="t-att-data-country_code">
+            checkout.get('country_code_field') or \
+            website.vat_code_id.code or \
+            website.company_id.country_id.code</attribute>
+    </xpath>
+
+    <xpath expr="//li[@t-att-id='country.code']" position="attributes">
+        <attribute name="t-attf-class">
+            js_select_vat_code #{(country.code==checkout.get('vat_code')) and \
+            'active' or ''}</attribute>
+    </xpath>
+
+</template>
+
+<template id="checkout" inherit_id="website_sale.checkout">
+    <xpath expr="//input[@name='vat']" position="replace">
+        <div class="js_country_checkout_vat">
+            <t t-call="website_sale_checkout_country_vat.country_dropdown"/>
+        </div>
+    </xpath>
+</template>
+
+</data>
+</openerp>
