@@ -1,0 +1,8 @@
+/* © 2016 Sergio Teruel<sergio.teruel@recnativa.com>
+ * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}

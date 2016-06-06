@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+<openerp>
+<data>
+
+<template id="checkout" inherit_id="website_sale.checkout">
+
+    <xpath expr="//input[@name='vat']" position="replace">
+        <t t-call="website_sale_checkout_country_vat.checkout_country_vat_code"/>
+    </xpath>
+
+</template>
+
+<template id="checkout_country_vat_code" name="Checkout Country Vat Code">
+
+    <div class="input-group js_vat_dropdown">
+        <div class="input-group-btn">
+            <button type="button" id="btn_vat_code" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <img id="img_code_vat"
+                     t-att-src="'/website/image/res.country/%s/image/32x32' % country_vat_code_id"
+                     />
+                <span class="caret"/>
+            </button>
+            <ul class="dropdown-menu scrollable-menu">
+                <t t-foreach="countries or []" t-as="country">
+                    <li t-attf-id="#{country.code}" t-att-data-country_id="country.id"
+                        t-attf-class="select_vat_code #{(country.code==checkout.get('vat_code')) and 'active' or ''}">
+                        <a>
+                            <img t-attf-src="/website/image/res.country/#{country.id}/image/32x32" height="20" width="30" />
+                            <span t-esc="country.name"></span>
+                        </a>
+                    </li>
+                </t>
+            </ul>
+        </div>
+        <input type="text" name="vat" class="form-control" t-att-value="checkout.get('vat')"/>
+        <input id="country_vat_code" type="hidden" name="country_vat_code"
+               t-att-value="checkout.get('country_vat_code') or website.vat_code_id.code or website.company_id.country_id.code"/>
+    </div>
+
+</template>
+
+</data>
+</openerp>
