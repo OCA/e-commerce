@@ -8,6 +8,11 @@
           <div class="container oe_website_sale">
             <h1>Wish List</h1>
             <t t-set="wishlist" t-value="website.get_wishlist_items()"/>
+            <t t-if="not wishlist">
+              <p>
+                You have no items in your wishlist
+              </p>
+            </t>
             <table class="table" t-if="wishlist">
               <thead>
                 <tr>
