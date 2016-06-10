@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wishlist_user,wishlist.user,website_sale_wishlist.model_wishlist,base.group_user,1,1,1,1
-access_wishlist_item_user,wishlist.item.user,website_sale_wishlist.model_wishlist_item,base.group_user,1,1,1,1
+access_wishlist_public,wishlist.public,website_sale_wishlist.model_wishlist,,1,1,1,1
+access_wishlist_item_public,wishlist.item.public,website_sale_wishlist.model_wishlist_item,,1,1,1,1
