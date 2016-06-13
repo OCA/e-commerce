@@ -32,7 +32,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/8.0
+   :target: https://runbot.odoo-community.org/runbot/113/9.0
 
 Bug Tracker
 ===========
@@ -44,7 +44,7 @@ help us smashing it by providing a detailed and welcomed `feedback
 <https://github.com/OCA/
 e-commerce/issues/new?body=module:%20
 website_sale_default_country%0Aversion:%20
-8.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+9.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Credits
 =======
