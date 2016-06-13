@@ -4,7 +4,7 @@
 {
     "name": "eCommerce Default Country",
     "summary": "Give a default value for country at checkout",
-    "version": "8.0.1.0.0",
+    "version": "9.0.1.0.0",
     "category": "Website",
     "website": "http://www.antiun.com",
     "author": "Antiun Ingeniería S.L., Odoo Community Association (OCA)",
