@@ -2,7 +2,6 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (http://www.serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import openerp
 from openerp import http
 from openerp.http import request
 from openerp import SUPERUSER_ID
@@ -55,5 +54,3 @@ class WebsiteSale(website_sale):
         return request.website.render(
             'website_sale_product_brand.product_brands',
             values)
-
-openerp.addons.website_sale.controllers.main.website_sale = WebsiteSale
