@@ -12,22 +12,32 @@ VAT country code in checkout process.
 Configuration
 =============
 
-To configure this module, you need to:
+The default country that will appear is the one of the current user, or the one
+of the Public User assigned to the website, or the one of the company that owns
+the website. Change it in the corresponding place to get a sane default.
 
-#. Go to website settings: You can select a default VAT country code in
-   Default VAT code field.
+If you want to have a sane default also in the country address, check the
+`website_sale_default_country
+<https://github.com/OCA/e-commerce/tree/8.0/website_sale_default_country>`_
+module.
 
 Usage
 =====
 
 when a customer makes a purchase and do the checkout process the VAT country
-code can be selected and by default show the code configured
-in website settings.
+code can be selected separated from the code itself.
+
+If you change the country for the address and the VAT is empty, the VAT country
+changes automatically too.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/113/8.0
 
+Known issues / Roadmap
+======================
+
+* Add tests
 
 Bug Tracker
 ===========
