@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+     © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
 <openerp>
 <data>
 
@@ -11,10 +12,10 @@
     <field name="arch" type="xml">
         <xpath expr="//div[@name='language_ids']/.." position="after">
             <group string="Sale Checkout VAT">
-                <label for="vat_code_id"/>
-                <div name="vat_code_id">
+                <label for="default_checkout_country_id"/>
+                <div name="default_checkout_country_id">
                     <div class="oe_inline">
-                        <field name="vat_code_id" class="oe_inline"/>
+                        <field name="default_checkout_country_id" class="oe_inline"/>
                     </div>
                 </div>
             </group>
