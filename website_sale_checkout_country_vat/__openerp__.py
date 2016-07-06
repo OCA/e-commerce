@@ -20,7 +20,7 @@
         "website_snippet_country_dropdown",
     ],
     "data": [
-        "views/res_config.xml",
+        "views/assets.xml",
         "views/templates.xml",
     ],
 }
