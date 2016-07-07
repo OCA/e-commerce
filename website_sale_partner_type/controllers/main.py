@@ -42,10 +42,19 @@ class WebsiteSalePartnerType(website_sale):
             data=data)
         cr, context, registry = request.cr, request.context, request.registry
         orm_user = registry.get('res.users')
-        partner = orm_user.browse(
-            cr, SUPERUSER_ID, request.uid, context).partner_id
-        if partner.is_company:
-            res['checkout']['partner_type'] = "company"
+        if data:
+            if data['partner_type'] == 'individual':
+                res['checkout']['partner_type'] = "individual"
+            else:
+                res['checkout']['partner_type'] = "company"
         else:
-            res['checkout']['partner_type'] = "individual"
+            partner = orm_user.browse(
+                cr, SUPERUSER_ID, request.uid, context).partner_id
+            if request.uid == request.website.user_id.id:
+                res['checkout']['partner_type'] = 'select'
+            else:
+                if partner.is_company:
+                    res['checkout']['partner_type'] = "company"
+                else:
+                    res['checkout']['partner_type'] = "individual"
         return res
