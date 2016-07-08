@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+     © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
+<openerp>
+<data>
+
+<template id="checkout" inherit_id="website_sale.checkout">
+    <xpath expr="//input[@name='vat']" position="replace">
+        <t t-call="website_snippet_country_dropdown.country_dropdown">
+            <t t-set="complete_field" t-value="'vat'"/>
+            <t t-set="default_value" t-value="checkout.get('vat', '')"/>
+            <t t-set="default_country"
+               t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', checkout.get('country_id'))])"/>
+        </t>
+    </xpath>
+</template>
+
+</data>
+</openerp>
