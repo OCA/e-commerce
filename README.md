@@ -13,6 +13,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [product_multi_link](product_multi_link/) | 9.0.1.0.0 | Product Links
+[website_sale_default_country](website_sale_default_country/) | 9.0.1.0.0 | Give a default value for country at checkout
 [website_sale_product_brand](website_sale_product_brand/) | 9.0.1.0.0 | Product Brand Filtering in Website
 
 Unported addons
