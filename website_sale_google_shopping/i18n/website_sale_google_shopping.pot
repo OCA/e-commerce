@@ -1,0 +1,375 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_google_shopping
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-24 11:21+0000\n"
+"PO-Revision-Date: 2016-06-24 11:21+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_google_shopping
+#: view:website:website_sale_google_shopping.rss
+msgid "<![CDATA["
+msgstr "<![CDATA["
+
+#. module: website_sale_google_shopping
+#: view:website:website_sale_google_shopping.rss
+msgid "</rss>"
+msgstr "</rss>"
+
+#. module: website_sale_google_shopping
+#: model:ir.actions.act_window,help:website_sale_google_shopping.google_product_category_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Click to define a new category.\n"
+"                </p>\n"
+"                <p>\n"
+"                    These categories are used by Google to index your products\n"
+"                    well categorized.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Click to define a new category.\n"
+"                </p>\n"
+"                <p>\n"
+"                    These categories are used by Google to index your products\n"
+"                    well categorized.\n"
+"                </p>\n"
+"            "
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_age_group:0
+msgid "Adult"
+msgstr "Adult"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_age_group:0
+msgid "Age group"
+msgstr "Age group"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_product_category_ids:0
+msgid "Categories"
+msgstr "Categories"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_color_id:0
+msgid "Color attribute"
+msgstr "Color attribute"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_condition:0
+msgid "Condition"
+msgstr "Condition"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: website_sale_google_shopping
+#: view:website:website_sale_google_shopping.view_website_form
+#: view:website.config.settings:website_sale_google_shopping.view_website_config_settings
+msgid "E.g.: 14.95"
+msgstr "E.g.: 14.95"
+
+#. module: website_sale_google_shopping
+#: view:website:website_sale_google_shopping.view_website_form
+#: view:website.config.settings:website_sale_google_shopping.view_website_config_settings
+msgid "E.g.: Standard or Express"
+msgstr "E.g.: Standard or Express"
+
+#. module: website_sale_google_shopping
+#: view:website:website_sale_google_shopping.view_website_form
+#: view:website.config.settings:website_sale_google_shopping.view_website_config_settings
+msgid "E.g.: US"
+msgstr "E.g.: US"
+
+#. module: website_sale_google_shopping
+#: field:website,google_feed_expiry_time:0
+#: field:website.config.settings,google_feed_expiry_time:0
+msgid "Feed expiry time"
+msgstr "Feed expiry time"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_gender:0
+msgid "Female"
+msgstr "Female"
+
+#. module: website_sale_google_shopping
+#: help:product.template,google_color_id:0
+msgid "Fill this field only for apparel items with color attribute."
+msgstr "Fill this field only for apparel items with color attribute."
+
+#. module: website_sale_google_shopping
+#: help:product.template,google_material_id:0
+msgid "Fill this field only for apparel items with material attribute."
+msgstr "Fill this field only for apparel items with material attribute."
+
+#. module: website_sale_google_shopping
+#: help:product.template,google_pattern_id:0
+msgid "Fill this field only for apparel items with pattern attribute."
+msgstr "Fill this field only for apparel items with pattern attribute."
+
+#. module: website_sale_google_shopping
+#: help:product.template,google_size_id:0
+msgid "Fill this field only for apparel items with size attribute."
+msgstr "Fill this field only for apparel items with size attribute."
+
+#. module: website_sale_google_shopping
+#: help:website,google_shipping_price:0
+#: help:website.config.settings,google_shipping_price:0
+msgid "Fixed shipping price taxes included."
+msgstr "Fixed shipping price taxes included."
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_gender:0
+msgid "Gender"
+msgstr "Gender"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,google_id:0
+msgid "Google Id"
+msgstr "Google Id"
+
+#. module: website_sale_google_shopping
+#: view:google_product_category:website_sale_google_shopping.google_product_category_form_view
+msgid "Google Product Category"
+msgstr "Google Product Category"
+
+#. module: website_sale_google_shopping
+#: view:product.template:website_sale_google_shopping.product_template_form_view
+#: view:website:website_sale_google_shopping.view_website_form
+#: view:website.config.settings:website_sale_google_shopping.view_website_config_settings
+msgid "Google Shopping"
+msgstr "Google Shopping"
+
+#. module: website_sale_google_shopping
+#: view:google_product_category:website_sale_google_shopping.google_product_category_tree_view
+msgid "Google Shopping categories"
+msgstr "Google Shopping categories"
+
+#. module: website_sale_google_shopping
+#: field:product.pricelist.version,effective_date_end:0
+msgid "Google Shopping date end"
+msgstr "Google Shopping date end"
+
+#. module: website_sale_google_shopping
+#: field:product.pricelist.version,effective_date_start:0
+msgid "Google Shopping date start"
+msgstr "Google Shopping date start"
+
+#. module: website_sale_google_shopping
+#: model:ir.actions.act_window,name:website_sale_google_shopping.google_product_category_action
+#: model:ir.ui.menu,name:website_sale_google_shopping.menu_google_product_category
+msgid "Google product categories"
+msgstr "Google product categories"
+
+#. module: website_sale_google_shopping
+#: model:ir.model,name:website_sale_google_shopping.model_google_product_category
+msgid "Google product category"
+msgstr "Google product category"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_google_shopping
+#: field:website,google_image_size:0
+#: field:website.config.settings,google_image_size:0
+msgid "Image size"
+msgstr "Image size"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_age_group:0
+msgid "Infant"
+msgstr "Infant"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_age_group:0
+msgid "Kids"
+msgstr "Kids"
+
+#. module: website_sale_google_shopping
+#: view:website.config.settings:website_sale_google_shopping.view_website_config_settings
+msgid "Language"
+msgstr "Language"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_gender:0
+msgid "Male"
+msgstr "Male"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_mpn:0
+msgid "Manufacturer part number"
+msgstr "Manufacturer part number"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_material_id:0
+msgid "Material attribute"
+msgstr "Material attribute"
+
+#. module: website_sale_google_shopping
+#: field:google_product_category,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_condition:0
+msgid "New"
+msgstr "New"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_age_group:0
+msgid "Newborn"
+msgstr "Newborn"
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_pattern_id:0
+msgid "Pattern attribute"
+msgstr "Pattern attribute"
+
+#. module: website_sale_google_shopping
+#: model:ir.model,name:website_sale_google_shopping.model_product_pricelist_version
+msgid "Pricelist Version"
+msgstr "Pricelist Version"
+
+#. module: website_sale_google_shopping
+#: model:ir.model,name:website_sale_google_shopping.model_product_template
+msgid "Product Template"
+msgstr "Product Template"
+
+#. module: website_sale_google_shopping
+#: help:website,google_shipping_country:0
+#: help:website.config.settings,google_shipping_country:0
+msgid "Product destination country code (such as ISO 3166 country code)."
+msgstr "Product destination country code (such as ISO 3166 country code)."
+
+#. module: website_sale_google_shopping
+#: help:website,google_image_size:0
+#: help:website.config.settings,google_image_size:0
+msgid "Recomended square images of 800x800 pixels size. The minimum will be 100x100 and 250x250 for apparels."
+msgstr "Recomended square images of 800x800 pixels size. The minimum will be 100x100 and 250x250 for apparels."
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_condition:0
+msgid "Refurbished"
+msgstr "Refurbished"
+
+#. module: website_sale_google_shopping
+#: field:website,google_shipping_country:0
+#: field:website.config.settings,google_shipping_country:0
+msgid "Shipping country"
+msgstr "Shipping country"
+
+#. module: website_sale_google_shopping
+#: field:website,google_shipping_price:0
+#: field:website.config.settings,google_shipping_price:0
+msgid "Shipping price"
+msgstr "Shipping price"
+
+#. module: website_sale_google_shopping
+#: field:website,google_shipping_service:0
+#: field:website.config.settings,google_shipping_service:0
+msgid "Shipping service"
+msgstr "Shipping service"
+
+#. module: website_sale_google_shopping
+#: help:website,google_shipping_service:0
+#: help:website.config.settings,google_shipping_service:0
+msgid "Shipping service description."
+msgstr "Shipping service description."
+
+#. module: website_sale_google_shopping
+#: field:product.template,google_size_id:0
+msgid "Size attribute"
+msgstr "Size attribute"
+
+#. module: website_sale_google_shopping
+#: sql_constraint:google_product_category:0
+msgid "The Google Id must be unique!"
+msgstr "The Google Id must be unique!"
+
+#. module: website_sale_google_shopping
+#: sql_constraint:google_product_category:0
+msgid "The Name must be unique!"
+msgstr "The Name must be unique!"
+
+#. module: website_sale_google_shopping
+#: help:website,google_feed_expiry_time:0
+#: help:website.config.settings,google_feed_expiry_time:0
+msgid "Time to keep cached the feed. Set 0 hours to disable cache."
+msgstr "Time to keep cached the feed. Set 0 hours to disable cache."
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_age_group:0
+msgid "Toddler"
+msgstr "Toddler"
+
+#. module: website_sale_google_shopping
+#: help:website,google_use_shipping_settings:0
+#: help:website.config.settings,google_use_shipping_settings:0
+msgid "Uncheck this box if you prefer to use the Google Merchant Center shipping settings."
+msgstr "Uncheck this box if you prefer to use the Google Merchant Center shipping settings."
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_gender:0
+msgid "Unisex"
+msgstr "Unisex"
+
+#. module: website_sale_google_shopping
+#: field:website,google_use_shipping_settings:0
+#: field:website.config.settings,google_use_shipping_settings:0
+msgid "Use shipping settings"
+msgstr "Use shipping settings"
+
+#. module: website_sale_google_shopping
+#: selection:product.template,google_condition:0
+msgid "Used"
+msgstr "Used"
+
+#. module: website_sale_google_shopping
+#: model:ir.model,name:website_sale_google_shopping.model_website
+msgid "Website"
+msgstr "Website"
+
+#. module: website_sale_google_shopping
+#: view:website:website_sale_google_shopping.view_website_form
+#: view:website.config.settings:website_sale_google_shopping.view_website_config_settings
+msgid "hours"
+msgstr "hours"
+

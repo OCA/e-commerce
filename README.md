@@ -18,6 +18,7 @@ addon | version | summary
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 | A megamenu to display product categories in the online shop
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 8.0.1.0.0 | Autocomplete VAT in checkout process
 [website_sale_default_country](website_sale_default_country/) | 8.0.1.0.0 | Give a default value for country at checkout
+[website_sale_google_shopping](website_sale_google_shopping/) | 8.0.1.0.0 | Generate the products feed for Google Merchant Center
 [website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 | Product Brand Filtering in Website
 [website_sale_product_legal](website_sale_product_legal/) | 8.0.2.0.0 | Make buyers to accept legal terms per product
 [website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 | Let the users keep track of the products they saw on the ecommerce

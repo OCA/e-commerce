@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.product.category.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <group name="website_and_pos" position="after">
+                    <group name="google_shopping" string="Google Shopping">
+                        <field name="google_color_id"/>
+                        <field name="google_size_id"/>
+                        <field name="google_material_id"/>
+                        <field name="google_pattern_id"/>
+                        <field name="google_product_category_ids" widget="many2many_tags"/>
+                        <field name="google_condition"/>
+                        <field name="google_gender"/>
+                        <field name="google_age_group"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

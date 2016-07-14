@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="rss">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+            &lt;rss xmlns:g="http://base.google.com/ns/1.0" version="2.0"&gt;
+            <channel>
+                <title><t t-esc="res_company.name"/></title>
+                <link><t t-esc="url_root"/></link>
+                <description><t t-esc="res_company.rml_header1"/></description>
+                <t t-foreach="products" t-as="product">
+                    <t t-set="has_variants" t-value="product.product_variant_count > 1"/>
+                    <t t-foreach="product.product_variant_ids" t-as="variant">
+                        <item>
+                            <!-- The following attributes are always required -->
+                            <g__colon__id><t t-esc="'%s%s' % (product.id, '-%s' % variant.id if has_variants else '')"/></g__colon__id>
+                            <g__colon__title>
+                                &lt;![CDATA[
+                                    <t t-esc="'%s' % product.name"/>
+                                    <t t-if="has_variants">
+                                        -
+                                        <t t-foreach="variant.attribute_value_ids" t-as="attribute">
+                                            <t t-esc="'%s %s' % (attribute.attribute_id.name, attribute.name)"/>
+                                        </t>
+                                    </t>
+                                ]]&gt;
+                            </g__colon__title>
+                            <t t-if="product.description_sale">
+                                <g__colon__description>
+                                    &lt;![CDATA[<t t-esc="'%s' % product.description_sale"/>]]&gt;
+                                </g__colon__description>
+                            </t>
+                            <g__colon__link>
+                                &lt;![CDATA[<t t-esc="'%s/shop/product/%s' % (url_root, slug(product))"/>]]&gt;
+                            </g__colon__link>
+                            <g__colon__image_link>
+                                &lt;![CDATA[<t t-esc="'%s%s' % (url_root, website.image_url(variant, 'image', None if product_image_big else '%sx%s' % (website.google_image_size, website.google_image_size)))"/>]]&gt;
+                            </g__colon__image_link>
+                            <t t-if="product.google_condition">
+                                <g__colon__condition>
+                                    <t t-esc="product.google_condition"/>
+                                </g__colon__condition>
+                            </t>
+                            <g__colon__availability><t t-esc="'%s' % ('in stock' if variant.qty_available > 0 else ('preorder' if variant.virtual_available > 0 else 'out of stock'))"/></g__colon__availability>
+                            <g__colon__price><t t-esc="'%s %s' % (product.lst_price, product.company_id.currency_id.name)"/></g__colon__price>
+                            <t t-if="website.google_use_shipping_settings">
+                                <g__colon__shipping>
+                                    <t t-if="website.google_shipping_country"><g__colon__country><t t-esc="website.google_shipping_country"/></g__colon__country></t>
+                                    <t t-if="website.google_shipping_service"><g__colon__service>&lt;![CDATA[<t t-esc="website.google_shipping_service"/>]]&gt;</g__colon__service></t>
+                                    <g__colon__price><t t-esc="'%s %s' % (website.google_shipping_price, product.company_id.currency_id.name)"/></g__colon__price>
+                                </g__colon__shipping>
+                            </t>
+                            <t t-if="variant.weight > 0"><g__colon__shipping_weight><t t-esc="'%s kg' % variant.weight"/></g__colon__shipping_weight></t>
+                            <t t-if="variant.weight &lt;= 0 and variant.weight_net > 0"><g__colon__shipping_weight><t t-esc="'%s kg' % variant.weight_net"/></g__colon__shipping_weight></t>
+
+                            <!-- The following attributes are required for some products -->
+                            <t t-if="product.google_product_category_ids">
+                                <t t-foreach="product.google_product_category_ids" t-as="google_product_category_id">
+                                    <g__colon__google_product_category>&lt;![CDATA[<t t-esc="google_product_category_id.name"/>]]&gt;</g__colon__google_product_category>
+                                </t>
+                            </t>
+                            <t t-if="product.public_categ_ids">
+                                <t t-foreach="product.public_categ_ids" t-as="public_categ_id">
+                                    <g__colon__product_type>&lt;![CDATA[<t t-esc="public_categ_id.name"/>]]&gt;</g__colon__product_type>
+                                </t>
+                            </t>
+                            <t t-if="product.product_brand_id"><g__colon__brand>&lt;![CDATA[<t t-esc="'%s' % product.product_brand_id.name"/>]]&gt;</g__colon__brand></t>
+                            <t t-if="product.google_gender"><g__colon__gender><t t-esc="dict(product.fields_get(allfields=['google_gender'])['google_gender']['selection'])[product.google_gender]"/></g__colon__gender></t>
+                            <t t-if="product.google_age_group"><g__colon__age_group><t t-esc="dict(product.fields_get(allfields=['google_age_group'])['google_age_group']['selection'])[product.google_age_group]"/></g__colon__age_group></t>
+                            <t t-if="has_variants">
+                                <t t-if="product.google_color_id">
+                                    <g__colon__color>
+                                        <t t-foreach="variant.attribute_value_ids" t-as="attribute">
+                                            <t t-if="attribute.attribute_id.id == product.google_color_id.id"><t t-esc="attribute.name"/></t>
+                                        </t>
+                                    </g__colon__color>
+                                </t>
+                                <t t-if="product.google_size_id">
+                                    <g__colon__size>
+                                        <t t-foreach="variant.attribute_value_ids" t-as="attribute">
+                                            <t t-if="attribute.attribute_id.id == product.google_size_id.id"><t t-esc="attribute.name"/></t>
+                                        </t>
+                                    </g__colon__size>
+                                </t>
+                                <t t-if="product.google_material_id">
+                                    <g__colon__material>
+                                        <t t-foreach="variant.attribute_value_ids" t-as="attribute">
+                                            <t t-if="attribute.attribute_id.id == product.google_material_id.id"><t t-esc="attribute.name"/></t>
+                                        </t>
+                                    </g__colon__material>
+                                </t>
+                                <t t-if="product.google_pattern_id">
+                                    <g__colon__pattern>
+                                        <t t-foreach="variant.attribute_value_ids" t-as="attribute">
+                                            <t t-if="attribute.attribute_id.id == product.google_pattern_id.id"><t t-esc="attribute.name"/></t>
+                                        </t>
+                                    </g__colon__pattern>
+                                </t>
+                            </t>
+                            <t t-if="product.lst_price != product.price">
+                                <g__colon__sale_price><t t-esc="'%s %s' % (product.price, product.company_id.currency_id.name)"/></g__colon__sale_price>
+                                <t t-if="website.pricelist_id.version_id.effective_date_start and website.pricelist_id.version_id.effective_date_end">
+                                    <g__colon__sale_price_effective_date>
+                                        <t t-esc="get_effective_date(website.pricelist_id.version_id.effective_date_start, website.pricelist_id.version_id.effective_date_end)"/>
+                                    </g__colon__sale_price_effective_date>
+                                </t>
+                            </t>
+
+                            <!-- The following attribute is required for product with variants -->
+                            <t t-if="has_variants"><g__colon__item_group_id><t t-esc="product.id"/></g__colon__item_group_id></t>
+
+                            <!-- 2 of the following 3 attributes are required for some products -->
+                            <t t-if="variant.ean13"><g__colon__gtin><t t-esc="variant.ean13"/></g__colon__gtin></t>
+                            <t t-if="product.google_mpn"><g__colon__mpn><t t-esc="product.google_mpn"/></g__colon__mpn></t>
+                            <t t-if="not variant.ean13 and not product.google_mpn"><g__colon__identifier_exists><t t-esc="'false'"/></g__colon__identifier_exists></t>
+                        </item>
+                    </t>
+                </t>
+            </channel>
+            &lt;/rss&gt;
+        </template>
+    </data>
+</openerp>

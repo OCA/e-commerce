@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="google_product_category_form_view" model="ir.ui.view">
+            <field name="name">google.product.category.form</field>
+            <field name="model">google_product_category</field>
+            <field name="arch" type="xml">
+                <form string="Google Product Category">
+                    <group>
+                        <field name="google_id"/>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="google_product_category_tree_view" model="ir.ui.view">
+            <field name="name">google.product.category.tree</field>
+            <field name="model">google_product_category</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Google Shopping categories">
+                    <field name="google_id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="google_product_category_action" model="ir.actions.act_window">
+            <field name="name">Google product categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">google_product_category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new category.
+                </p>
+                <p>
+                    These categories are used by Google to index your products
+                    well categorized.
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="google_product_category_action" id="menu_google_product_category" parent="product.prod_config_main" sequence="10" />
+    </data>
+</openerp>

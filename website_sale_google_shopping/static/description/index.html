@@ -1,0 +1,210 @@
+<p><img src="https://img.shields.io/badge/licence-AGPL--3-blue.svg"></p>
+<h1>Website Sale Google Shopping</h1>
+<h1>Description</h1>
+<p>This module provides a feed of products from your e-commerce to allow Google Shopping index them and show as search results.</p>
+<h1>Installation</h1>
+<p>To install this module, you need to:</p>
+<ul>
+    <li>git clone <a href="https://github.com/OCA/e-commerce.git">https://github.com/OCA/e-commerce.git</a> --branch 8.0</li>
+    <li>git clone <a href="https://github.com/OCA/product-attribute.git">https://github.com/OCA/product-attribute.git</a> --branch 8.0</li>
+    <li>make them available to odoo by adding their locations to the addons_path in
+        /etc/odoo-server.conf
+    </li>
+</ul>
+<h1>Configuration</h1>
+<p>To configure this module, you need to:</p>
+<ul>
+    <li>no configuration required</li>
+</ul>
+<h1>Usage</h1>
+<p>Visit the feed page at http://yourdomain/google-shopping.xml</p>
+<p>To use this module succefully, you need to known some aspects:</p>
+<ul>
+    <li>Each kind of product has different requirements attributes. The requirements depend of specific google category and your target country.</li>
+    <li>Usual product with detailed product attributes are: clothes(color, material, and size), furniture(material, pattern, and color), electronic devices(color) and toy(group of ages).</li>
+</ul>
+<p>How to complete product attributes?</p>
+<ul>
+    <li>Sales, product sheet, sales tab, website field: Here, you will find all field related to google shopping feed.</li>
+</ul>
+<p>A very common mistake is not immediately view the content introduced into the feed xml resultant. Please , check in Settings / web paragraph settings / feed expiry time.
+    Change the value of Feed expiry time to 0 to see the changes.
+</p>
+<h2>Products feed attributes and your localization</h2>
+<p>Each table header shows where are the attributes to fill them and which attributes are required.</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attribute</th>
+            <th>Field/description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="3"><em>Sales &gt; Products &gt; Products &gt; Product Template</em></td>
+        </tr>
+        <tr>
+            <td>title</td>
+            <td>Product template name with variant attribute names and values if exists</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>brand</td>
+            <td>Product brand</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td>Sale price</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>gtin</td>
+            <td>EAN13 Barcode</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>link</td>
+            <td>Default URL directly linking to your item's page on your website</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>image_link</td>
+            <td>Default image link to template image (size can be changed in Settings &gt; configuration &gt; website settings)</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td colspan="3"><em>Sales &gt; Products &gt; Products &gt; Product Template &gt; Inventory tab</em></td>
+        </tr>
+        <tr>
+            <td>availability</td>
+            <td>Takes a value from virtual stock and automaticly shows: preorder, In stock, out of stock </td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>shipping_weight</td>
+            <td>Gross weight</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3"><em>Sales &gt; Pricelists &gt; Pricelist Versions</em></td>
+        </tr>
+        <tr>
+            <td>sale_price_effective_date</td>
+            <td>Google Shopping date start and Google Shopping date end. Set the date to display the price of products</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3"><em>Sales &gt; Products &gt; Products &gt; Product Template &gt; Sales tab</em></td>
+        </tr>
+        <tr>
+            <td>product_type</td>
+            <td>Public Category: Own category</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>color</td>
+            <td>Assign an attribute to color attribute that exists in product variants</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>size</td>
+            <td>Assign an attribute to size attribute that exists in product variants</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>google_product_category</td>
+            <td>Google's category of the item</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>condition</td>
+            <td>Condition or state of the item: new,refurbished, used</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>gender</td>
+            <td>Male, Female, Unisex</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Age group</td>
+            <td>Newborn, infant, toddler, kids, adult</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>Description for quotations</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td colspan="3"><em>Settings &gt; Configuration &gt; Website Settings</em></td>
+        </tr>
+        <tr>
+            <td>Feed expiry time</td>
+            <td>Time to keep caching the feed</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>image size</td>
+            <td>Different sizes</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>Use shipping</td>
+            <td>Specifying default shipping values in your Google Merchant Center account settings, or by providing this attribute</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>Shipping country</td>
+            <td>Shipping country</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>Shipping service</td>
+            <td>Shipping service</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+        <tr>
+            <td>Shipping price</td>
+            <td>Shipping price</td>
+            <td style="text-align: center;">x</td>
+        </tr>
+    </tbody>
+</table>
+<p>All info--&gt;:https://support.google.com/merchants/answer/1344057</p>
+<p><strong>Pay Attention</strong></p>
+<blockquote>
+    <p><strong>All product without the attributes required by Google Merchant will not be able to be indexed in google shopping.</strong></p>
+</blockquote>
+<p><strong>And now:</strong></p>
+<p><img src="https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas"></p>
+<h1>Known issues / Roadmap</h1>
+<ul>
+    <li>Add 'google_mpn' field to Product Template and Product Variant views</li>
+    <li>Allow to set additional images from product gallery for 'additional_image_link' tag</li>
+    <li>Include specific product atributtes in erp and xml(patterns)</li>
+    <li>Unit pricing (unit pricing measure, unit pricing base measure)</li>
+    <li>Energetic calification labels (only UE and Switzerland)</li>
+</ul>
+<h1>Google Merchant Center Help</h1>
+<p><strong>Products Feed Specification</strong></p>
+<p>https://support.google.com/merchants/answer/188494</p>
+<p><strong>Troubleshooting:</strong></p>
+<p>https://support.google.com/merchants/answer/160161</p>
+<p><strong>Categorize your products:</strong></p>
+<p>https://support.google.com/merchants/answer/1705911</p>
+<h2>Contributors</h2>
+<ul>
+    <li>Jorge Camacho <a href="mailto:jcamacho@trey.es">jcamacho@trey.es</a></li>
+    <li>Abraham Gonz&aacute;lez <a href="mailto:abraham@trey.es">abraham@trey.es</a></li>
+</ul>
+<h2>Maintainer</h2>
+<p><img src="https://odoo-community.org/logo.png"></p>
+<p>This module is maintained by the OCA.</p>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+    mission is to support the collaborative development of Odoo features and
+    promote its widespread use.
+</p>
+<p>To contribute to this module, please visit <a href="http://odoo-community.org/">http://odoo-community.org</a>.</p>

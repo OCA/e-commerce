@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_website_form" model="ir.ui.view">
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form" />
+            <field name="arch" type="xml">
+                <div name="other" position="after">
+                    <group string="Google Shopping">
+                        <field name="google_feed_expiry_time" placeholder="24"><span>hours</span></field>
+                        <field name="google_image_size" placeholder="800"><span>px</span></field>
+                        <field name="google_use_shipping_settings"></field>
+                        <field name="google_shipping_country" placeholder="E.g.: US"></field>
+                        <field name="google_shipping_service" placeholder="E.g.: Standard or Express"></field>
+                        <field name="google_shipping_price" placeholder="E.g.: 14.95"></field>
+                    </group>
+                </div>
+            </field>
+        </record>
+    </data>
+</openerp>

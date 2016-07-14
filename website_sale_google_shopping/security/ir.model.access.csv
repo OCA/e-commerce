@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_google_product_category,access_google_product_category,model_google_product_category,,1,0,0,0
