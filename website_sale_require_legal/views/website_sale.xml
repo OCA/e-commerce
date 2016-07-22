@@ -15,10 +15,7 @@
                            name="accepted_legal_terms"
                            id="accepted_legal_terms"
                            required="required"/>
-                    I accept the <a href="/page/legal">legal advice</a>, the
-                    <a href="/page/privacy">privacy policy</a>
-                    and the <a href="/page/terms">terms of use</a>
-                    of this website.
+                    <t t-call="website_legal_page.acceptance_full"/>
                 </label>
             </div>
         </div>
