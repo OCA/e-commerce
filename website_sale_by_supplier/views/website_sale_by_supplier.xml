@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <template id="supplier_product_list" inherit_id="website_supplier_list.details" name="Supplier Product List">
+		<xpath expr="//div[@id='left_column']" position="replace">
+			<div id="left_column">
+				<t t-call="website_sale_by_supplier.template_product_list"/>
+				<t t-call="website_supplier_list.implemented_by_block"/>
+			</div>
+		</xpath>
+    </template>
+
+	<template id="template_product_list" name="Product List">
+	    <div class="panel panel-default">
+	        <div class="panel-heading">
+	            <h4>Products</h4>
+	        </div>
+	        <t t-if='products'>
+		        <div class="panel-body text-center">
+		            <h4>
+	                    <a t-att-href="keep('/shop/suppliers',product_supplier = partner.id)">
+	                        <span t-field="partner.name"/>
+		                    <span class="small"> 
+		                        (Total Product : <t t-esc="len(products)"/> product(s))
+		                    </span>
+		                </a>
+		            </h4>
+		        </div>
+	        </t>
+
+	        <t t-if='not products'>
+		        <div class="panel-body text-center">
+		            <h4>
+	                    <a>
+	                        <span t-field="partner.name"/>
+		                    <span class="small"> 
+		                        (Total Product : 0 product(s))
+		                    </span>
+		                </a>
+		            </h4>
+		        </div>
+	        </t>
+
+	    </div>
+	</template>
+
+</data>
+</openerp>
