@@ -1,57 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_require_legal
-#
+# * website_sale_require_legal
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-06 12:54+0000\n"
-"PO-Revision-Date: 2016-05-06 12:54+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2016-07-28 00:48+0000\n"
+"PO-Revision-Date: 2016-07-27 02:52+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: German (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid ", the"
-msgstr ", "
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_require_legal
 #: view:website:website_sale.checkout
 msgid "Confirm"
 msgstr "Bestätigen"
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid "I accept the"
-msgstr "Ich akzeptiere die"
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid "and the"
-msgstr "und"
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid "legal advice"
-msgstr "allgemeine"
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid "of this website."
-msgstr "dieser Website."
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid "privacy policy"
-msgstr "Geschäftsbedingungen"
-
-#. module: website_sale_require_legal
-#: view:website:website_sale.checkout
-msgid "terms of use"
-msgstr "Datenschutzerklärung"
-
