@@ -14,6 +14,7 @@ addon | version | summary
 --- | --- | ---
 [product_links](product_links/) | 8.0.1.0.1 | Product Links
 [website_product_share](website_product_share/) | 8.0.1.0.0 | Product Share
+[website_product_show_uom](website_product_show_uom/) | 8.0.1.0.0 | Display Product UoM in e-commerce website
 [website_sale_cart_preview](website_sale_cart_preview/) | 8.0.1.0.0 | Preview your cart on mouseover
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 | A megamenu to display product categories in the online shop
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 8.0.1.0.0 | Autocomplete VAT in checkout process
