@@ -5,8 +5,6 @@
 from openerp.addons.website_supplier_list.controllers.main \
     import WebsiteSupplier
 from openerp.addons.website_sale.controllers.main import website_sale
-from openerp.addons.website_sale.controllers.main import table_compute
-from openerp.addons.website_sale.controllers.main import QueryURL
 from openerp.addons.web import http
 from openerp.addons.web.http import request
 
@@ -18,8 +16,8 @@ class WebsiteSaleBySupplier(WebsiteSupplier):
             partner_id)
         product_ids = []
         partner = []
-        obj_product_supplierinfo = request.env['product.supplierinfo'].sudo()
-        obj_partner = request.env['res.partner'].sudo()
+        obj_product_supplierinfo = request.env['product.supplierinfo']
+        obj_partner = request.env['res.partner']
         if partner_id:
             partner = obj_partner.browse(partner_id)
             if partner.exists() and partner.website_supplier_published:
@@ -32,12 +30,8 @@ class WebsiteSaleBySupplier(WebsiteSupplier):
                     if supplierinfo.product_tmpl_id.website_published:
                         product_ids.append(supplierinfo.product_tmpl_id)
 
-        keep = QueryURL('/supplier', suppier_id=[])
-
         if product_ids:
             response.qcontext['products'] = product_ids
-            response.qcontext['keep'] = keep
-            response.qcontext['bins'] = table_compute().process(product_ids)
 
         return response
 
@@ -48,7 +42,7 @@ class WebsiteSale(website_sale):
                  '/shop/category/<model("product.public.category"):category>',
                  """/shop/category/<model("product.public.category"):category>
                  /page/<int:page>""",
-                 '/shop/suppliers'],
+                 '/shop/suppliers/<model("res.partner"):product_supplier>'],
                 type='http',
                 auth='public',
                 website=True)

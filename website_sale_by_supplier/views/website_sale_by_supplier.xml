@@ -19,7 +19,7 @@
 	        <t t-if='products'>
 		        <div class="panel-body text-center">
 		            <h4>
-	                    <a t-att-href="keep('/shop/suppliers',product_supplier = partner.id)">
+	                    <a t-attf-href="/shop/suppliers/{{partner.id}}">
 	                        <span t-field="partner.name"/>
 		                    <span class="small"> 
 		                        (Total Product : <t t-esc="len(products)"/> product(s))
