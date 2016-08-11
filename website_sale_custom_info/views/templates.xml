@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<odoo>
+
+<template id="product"
+          inherit_id="website_sale.product">
+    <xpath expr="//*[@id='product_full_description']" position="replace">
+        <t t-call="website_sale_custom_info.tabs_nav"/>
+        <div class="tab-content">
+            <div itemprop="description"
+                 t-field="product.website_description"
+                 class="oe_structure mt16 tab-pane active"
+                 role="tabpanel"
+                 id="product_full_description"/>
+            <t t-if="product.custom_info_ids">
+                <t t-call="website_sale_custom_info.custom_info_tab"/>
+            </t>
+        </div>
+    </xpath>
+</template>
+
+<template id="tabs_nav" name="Tabs in product website page">
+    <ul t-ignore="True" class="nav nav-tabs container" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#product_full_description"
+               aria-controls="product_full_description"
+               role="tab"
+               data-toggle="tab">
+                <t>Full description</t>
+            </a>
+        </li>
+        <t t-if="product.custom_info_ids">
+            <li role="presentation">
+                <a href="#custom_info"
+                   aria-controls="custom_info"
+                   role="tab"
+                   data-toggle="tab">
+                    <t>Technical datasheet</t>
+                </a>
+            </li>
+        </t>
+    </ul>
+</template>
+
+<template id="custom_info_tab" name="Custom information tab">
+    <div role="tabpanel" class="tab-pane" id="custom_info">
+        <section class="container mb64">
+            <t name="placeholder10"/>
+            <t t-foreach="product.mapped('custom_info_ids.property_id.category_id')"
+               t-as="custom_category">
+                <t t-call="website_sale_custom_info.category"/>
+            </t>
+            <t name="placeholder20"/>
+        </section>
+    </div>
+</template>
+
+<template id="category"
+          name="Header for a custom information category">
+    <t t-if="custom_category.name">
+        <h4 class="mt32">
+            <t t-esc="custom_category.name"/>
+        </h4>
+    </t>
+    <t t-call="website_sale_custom_info.values_container">
+        <t t-foreach="product.custom_info_ids" t-as="custom_value">
+            <t t-if="custom_value.property_id.category_id == custom_category">
+                <t t-call="website_sale_custom_info.value"/>
+            </t>
+        </t>
+    </t>
+</template>
+
+<template id="values_container"
+          name="Wrapper around all custom values in the same category">
+    <div class="container">
+        <t t-raw="0"/>
+    </div>
+</template>
+
+<template id="value" name="Single custom value field printed">
+    <div class="row">
+        <div class="col-sm-5 text-right">
+            <strong>
+                <t t-esc="custom_value.property_id.name"/>
+            </strong>
+        </div>
+        <div class="col-sm-7">
+            <t t-if="custom_value.field_type == 'bool'">
+                <t t-if="custom_value.value_bool">
+                    Yes
+                </t>
+                <t t-if="not (custom_value.value_bool)">
+                    No
+                </t>
+            </t>
+            <t t-if="not (custom_value.field_type == 'bool')">
+                <t t-esc="custom_value.value"/>
+            </t>
+        </div>
+    </div>
+</template>
+
+<!-- Customizable placeholders are in separate templates for safety -->
+<template id="custom_info_tab_placeholder10"
+          inherit_id="custom_info_tab">
+    <xpath expr="//t[@name='placeholder10']">
+        <div class="oe_structure oe_empty"/>
+    </xpath>
+</template>
+
+<template id="custom_info_tab_placeholder20"
+          inherit_id="custom_info_tab">
+    <xpath expr="//t[@name='placeholder20']">
+        <div class="oe_structure oe_empty"/>
+    </xpath>
+</template>
+
+</odoo>
