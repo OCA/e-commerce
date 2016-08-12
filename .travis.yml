@@ -1,5 +1,12 @@
+language: python
 sudo: false
-cache: pip
+cache:
+  apt: true
+  directories:
+    - $HOME/.cache/pip
+
+python:
+  - "2.7"
 
 addons:
   apt:
@@ -7,19 +14,22 @@ addons:
       - pov-wkhtmltopdf
     packages:
       - expect-dev  # provides unbuffer utility
-      - python-lxml # because pip installation is slow
-      - wkhtmltopdf
+      - python-lxml  # because pip installation is slow
+      - python-simplejson
+      - python-serial
+      - python-yaml
+      - wkhtmltopdf  # only add if needed and check the before_install section below
 
-language: python
-
-python:
-  - "2.7"
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
 env:
   global:
   - VERSION="9.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
   - TRANSIFEX_USER='transbot@odoo-community.org'
   - secure: hK2mRXUaQYPkWzXlmU2ClrqkgiaLkLdfymJdOt5b0nLtiNirK6gT+jqt5z8mpAXYHn9RFu6PiDnb7D+pYFtBvj9965aPGx7iuw2Y+8LrwVv1EZbM3zy+A8tHoCfo6axaCKG28E++hr2V53lw2qZMNojKr9vbdnlcfyaNQaXP4hs=
+
   matrix:
   - LINT_CHECK="1"
   - TRANSIFEX="1"
@@ -29,17 +39,13 @@ env:
 virtualenv:
   system_site_packages: true
 
-before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-
 install:
-  - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
-  - export PATH=$HOME/maintainer-quality-tools/travis:$PATH
+  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
 script:
   - travis_run_tests
 
 after_success:
-  coveralls
+  - travis_after_tests_success
