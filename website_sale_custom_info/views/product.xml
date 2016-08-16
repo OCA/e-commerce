@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
-
 <odoo>
 
 <template id="product"
-          inherit_id="website_sale.product">
+          inherit_id="website_sale.product"
+          name="Display Custom Information"
+          customize_show="True"
+          active="True">
     <xpath expr="//*[@id='product_full_description']" position="replace">
         <t t-call="website_sale_custom_info.tabs_nav"/>
         <div class="tab-content">
@@ -21,7 +23,7 @@
     </xpath>
 </template>
 
-<template id="tabs_nav" name="Tabs in product website page">
+<template id="tabs_nav" name="Tabs In Product Website Page">
     <ul t-ignore="True" class="nav nav-tabs container" role="tablist">
         <li role="presentation" class="active">
             <a href="#product_full_description"
@@ -44,7 +46,7 @@
     </ul>
 </template>
 
-<template id="custom_info_tab" name="Custom information tab">
+<template id="custom_info_tab" name="Custom Information Tab">
     <div role="tabpanel" class="tab-pane" id="custom_info">
         <section class="container mb64">
             <t name="placeholder10"/>
@@ -58,7 +60,7 @@
 </template>
 
 <template id="category"
-          name="Header for a custom information category">
+          name="Header For A Custom Information Category">
     <t t-if="custom_category.name">
         <h4 class="mt32">
             <t t-esc="custom_category.name"/>
@@ -74,13 +76,13 @@
 </template>
 
 <template id="values_container"
-          name="Wrapper around all custom values in the same category">
+          name="Wrapper Around All Custom Values In The Same Category">
     <div class="container">
         <t t-raw="0"/>
     </div>
 </template>
 
-<template id="value" name="Single custom value field printed">
+<template id="value" name="Single Custom Value Field Printed">
     <div class="row">
         <div class="col-sm-5 text-right">
             <strong>

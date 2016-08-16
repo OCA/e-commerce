@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<template id="advanced_filter"
+          inherit_id="website_sale.search"
+          customize_show="True"
+          active="True"
+          name="Custom Info Advanced Filters">
+    <xpath expr="//t[@t-call='website.website_search_box']" position="after">
+        <t t-if="custom_info">
+            <button type="button"
+                    class="btn btn-default"
+                    data-toggle="modal"
+                    data-target="#custom_info_advanced">
+                <t>
+                    Advanced filters
+                </t>
+            </button>
+            <div id="custom_info_advanced"
+                 class="modal fade"
+                 tabindex="-1"
+                 role="dialog"
+                 aria-labelledby="Advanced filters">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <div class="fa fa-times" aria-hidden="true"/>
+                            </button>
+                            <h4 class="modal-title">
+                                <t>Advanced filters</t>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="section">
+                                <div class="row">
+                                    <t t-foreach="custom_info" t-as="ci">
+                                        <div class="col-md-4 col-sm-6">
+                                            <ul class="nav nav-pills nav-stacked mt16 o_website_sale_custom_info_search">
+                                                <t t-call="website_sale_custom_info.property_filter"/>
+                                            </ul>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/shop" class="btn btn-default">
+                                <t>Clear filters</t>
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <t>Apply filters</t>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </t>
+    </xpath>
+</template>
+
+<template id="quick_filter"
+          inherit_id="website_sale.products"
+          customize_show="True"
+          active="True"
+          name="Custom Info Quick Filters">
+    <!-- Quick filters -->
+    <xpath expr="//div[@id='products_grid_before']" position="inside">
+        <form method="get">
+            <input type="hidden" name="search" t-att-value="search"/>
+            <ul class="nav nav-pills nav-stacked mt16 o_website_sale_custom_info_search">
+                <t t-foreach="custom_info" t-as="ci">
+                    <t t-if="ci['property'].product_public_filter == 'quick'">
+                        <t t-call="website_sale_custom_info.property_filter">
+                            <t t-set="submit_onchange_checkbox"
+                               t-value="True"/>
+                        </t>
+                    </t>
+                </t>
+            </ul>
+        </form>
+    </xpath>
+
+    <xpath expr="//div[@id='products_grid_before']" position="attributes">
+        <attribute name="class">col-md-3</attribute>
+    </xpath>
+    <xpath expr="//div[@id='products_grid']" position="attributes">
+        <attribute name="class">col-md-9</attribute>
+    </xpath>
+</template>
+
+<template id="property_filter"
+          name="Custom info property filter">
+    <li class="oe_custom_info_property">
+        <strong t-field="ci['property'].name"/>
+        <ul class="nav nav-pills nav-stacked">
+            <t t-if="ci['property'].field_type in ('int', 'float')">
+                <t t-set="val" t-value="ci['range']"/>
+                <t t-set="on" t-value="val['from'] or val['to']"/>
+                <li t-attf-class="oe_custom_info_value #{on and 'active'}">
+                    <div class="input-group">
+                        <input
+                            type="number"
+                            class="form-control"
+                            t-att-min="val['min']"
+                            t-att-max="val['max']"
+                            t-attf-name="custom_info,&gt;=,#{ci['property'].id}"
+                            t-att-value="val['from']"/>
+                        <div class="input-group-addon">to</div>
+                        <input
+                            type="number"
+                            class="form-control"
+                            t-att-min="val['min']"
+                            t-att-max="val['max']"
+                            t-attf-name="custom_info,&lt;=,#{ci['property'].id}"
+                            t-att-value="val['to']"/>
+                    </div>
+                </li>
+            </t>
+            <t t-if="ci['property'].field_type == 'str'">
+                <t t-set="val" t-value="ci['value']"/>
+                <li t-attf-class="oe_custom_info_value #{val and 'active'}">
+                    <input
+                        type="text"
+                        t-attf-name="custom_info,ilike,#{ci['property'].id}"
+                        t-att-value="val"/>
+                </li>
+            </t>
+            <t t-if="ci['property'].field_type not in ('int', 'float', 'str')">
+                <t t-foreach="ci['options']" t-as="val">
+                    <t t-set="on"
+                       t-value="(ci['property'].id, '=', val) in custom_info_posted"/>
+                    <li t-attf-class="oe_custom_info_value #{on and 'active'}">
+                        <div t-attf-class="checkbox #{submit_onchange_checkbox and 'js_attributes'}">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    t-attf-name="custom_info,=,#{ci['property'].id}"
+                                    t-att-value="val"
+                                    t-att-checked="on and 'checked'"/>
+                                    <span t-esc="val"/>
+                            </label>
+                        </div>
+                    </li>
+                </t>
+            </t>
+        </ul>
+    </li>
+</template>
+
+</odoo>

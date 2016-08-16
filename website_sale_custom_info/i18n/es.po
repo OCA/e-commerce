@@ -6,16 +6,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-11 18:24+0200\n"
-"PO-Revision-Date: 2016-08-11 18:24+0200\n"
+"POT-Creation-Date: 2016-08-16 17:40+0200\n"
+"PO-Revision-Date: 2016-08-16 17:41+0200\n"
+"Last-Translator: Jairo Llopis <jairo.llopis@tecnativa.com>\n"
 "Language-Team: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.8\n"
-"Last-Translator: Jairo Llopis <jairo.llopis@tecnativa.com>\n"
-"Language: es_ES\n"
+
+#. module: website_sale_custom_info
+#: selection:custom.info.property,product_public_filter:0
+msgid "Advanced"
+msgstr "Avanzado"
+
+#. module: website_sale_custom_info
+#: model:ir.ui.view,arch_db:website_sale_custom_info.advanced_filter
+msgid "Advanced filters"
+msgstr "Filtros avanzados"
+
+#. module: website_sale_custom_info
+#: model:ir.ui.view,arch_db:website_sale_custom_info.advanced_filter
+msgid "Apply filters"
+msgstr "Aplicar filtros"
+
+#. module: website_sale_custom_info
+#: model:ir.ui.view,arch_db:website_sale_custom_info.advanced_filter
+msgid "Clear filters"
+msgstr "Limpiar filtros"
+
+#. module: website_sale_custom_info
+#: model:ir.model,name:website_sale_custom_info.model_custom_info_property
+msgid "Custom information property"
+msgstr "Propiedad de inf. personalizada"
+
+#. module: website_sale_custom_info
+#: model:ir.model.fields,help:website_sale_custom_info.field_custom_info_property_product_public_filter
+msgid ""
+"Enables this property as a search filter in the website shop. 'Quick' "
+"displays it in the left panel if available, and 'Advanced' displays it in an "
+"advanced filters modal. This only works when the model is 'product.template'."
+msgstr ""
+"Activa esta propiedad como un filtro de búsqueda en la tienda online. "
+"'Rápido' lo muestra en el panel de la izquierda si está disponible, y "
+"'Avanzado' lo muestra en el modal de filtros avanzados. Esto solo tiene "
+"efecto cuando el modelo es 'product.template'."
 
 #. module: website_sale_custom_info
 #: model:ir.ui.view,arch_db:website_sale_custom_info.tabs_nav
@@ -28,6 +65,16 @@ msgid "No"
 msgstr "No"
 
 #. module: website_sale_custom_info
+#: model:ir.model.fields,field_description:website_sale_custom_info.field_custom_info_property_product_public_filter
+msgid "Product public filter"
+msgstr "Filtro público de producto"
+
+#. module: website_sale_custom_info
+#: selection:custom.info.property,product_public_filter:0
+msgid "Quick"
+msgstr "Rápido"
+
+#. module: website_sale_custom_info
 #: model:ir.ui.view,arch_db:website_sale_custom_info.tabs_nav
 msgid "Technical datasheet"
 msgstr "Ficha técnica"
@@ -36,3 +83,8 @@ msgstr "Ficha técnica"
 #: model:ir.ui.view,arch_db:website_sale_custom_info.value
 msgid "Yes"
 msgstr "Sí"
+
+#. module: website_sale_custom_info
+#: model:ir.ui.view,arch_db:website_sale_custom_info.property_filter
+msgid "to"
+msgstr "a"

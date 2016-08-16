@@ -16,6 +16,10 @@
         "website_sale",
     ],
     "data": [
-        "views/templates.xml",
+        "views/assets.xml",
+        "views/custom_info_property_view.xml",
+        "views/custom_info_template_view.xml",
+        "views/product.xml",
+        "views/search.xml",
     ],
 }
