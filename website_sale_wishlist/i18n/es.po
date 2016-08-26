@@ -1,0 +1,342 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_wishlist
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-25 13:22+0000\n"
+"PO-Revision-Date: 2016-08-25 15:25+0200\n"
+"Last-Translator: Jairo Llopis <jairo.llopis@tecnativa.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_supplier_invoice_count
+msgid "# Vendor Bills"
+msgstr "# Facturas de proveedores"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_purchase_order_count
+msgid "# of Purchase Order"
+msgstr "Nº de pedido de compra"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_sale_order_count
+msgid "# of Sales Order"
+msgstr "Nº de pedido de venta"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_account_payable_id
+msgid "Account Payable"
+msgstr "Cuenta a pagar"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_account_receivable_id
+msgid "Account Receivable"
+msgstr "Cuenta a cobrar"
+
+#. module: website_sale_wishlist
+#: model:ir.ui.view,arch_db:website_sale_wishlist.product_toggle
+msgid "Add to Wishlist"
+msgstr "Añadir a la lista de deseados"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_bank_account_count
+msgid "Bank"
+msgstr "Banco"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_ref_company_ids
+msgid "Companies that refers to partner"
+msgstr "Compañías que se refieren a la empresa"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_contract_ids
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_contracts_count
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_payment_method_count
+msgid "Count Payment Method"
+msgstr "Cuenta Metodo de Pago"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_custom_info_template_id
+msgid "Custom Information Template"
+msgstr "Plantilla de inf. personalizada"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_custom_info_ids
+msgid "Custom Properties"
+msgstr "Propiedades personalizadas"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_stock_customer
+msgid "Customer Location"
+msgstr "Ubicación del cliente"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_payment_term_id
+msgid "Customer Payment Term"
+msgstr "Plazo de pago de cliente"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_account_position_id
+msgid "Fiscal Position"
+msgstr "Posición fiscal"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_has_unreconciled_entries
+msgid "Has unreconciled entries"
+msgstr "Contiene entradas irreconciliadas"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_invoice_ids
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_issued_total
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_journal_item_count
+msgid "Journal Items"
+msgstr "Apuntes contables"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product___last_update
+msgid "Last Modified on"
+msgstr "Última Modifiación en"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_last_website_so_id
+msgid "Last Online Sale Order"
+msgstr "Última Orden de Venta en Línea"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_last_time_entries_checked
+msgid "Last time the invoices & payments matching was performed for this partner. It is set either if there's not at least an unreconciled debit and an unreconciled credit or if you click the \"Done\" button."
+msgstr "Última vez que se conciliaros facturas y pagos de este asociado. Se configura incluso si no hay ningún débito o crédito por conciliar, o si pulsa el botón \"Hecho\"."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_last_time_entries_checked
+msgid "Latest Invoices & Payments Matching Date"
+msgstr "Fecha de la última conciliación de facturas y pagos"
+
+#. module: website_sale_wishlist
+#: model:ir.ui.view,arch_db:website_sale_wishlist.menu
+msgid "My Wishlist"
+msgstr "Mi lista de deseados"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_debit_limit
+msgid "Payable Limit"
+msgstr "Límite a pagar"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_payment_method_ids
+msgid "Payment Methods"
+msgstr "Formas de pago"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_product_tmpl_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: website_sale_wishlist
+#: model:ir.model,name:website_sale_wishlist.model_product_template
+msgid "Product Template"
+msgstr "Plantilla producto"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_sale_order_ids
+msgid "Sales Order"
+msgstr "Aviso para pedido de venta"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_session
+msgid "Session"
+msgstr "Session"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_purchase_currency_id
+msgid "Supplier Currency"
+msgstr "Moneda de Proveedor"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_account_position_id
+msgid "The fiscal position will determine taxes and accounts used for the partner."
+msgstr "La posición fiscal determinará los impuestos y cuentas utilizados por el asociado."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_has_unreconciled_entries
+msgid "The partner has at least one unreconciled debit and credit since last time the invoices & payments matching was performed."
+msgstr "El asociado tiene al menos un débito o crédito no conciliado desde la última vez que se realizó la conciliación de facturas y pagos."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_account_payable_id
+msgid "This account will be used instead of the default one as the payable account for the current partner"
+msgstr "Esta cuenta se utilizará en lugar de la cuenta por defecto como la cuenta pendiente de pago del asociado actual."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_account_receivable_id
+msgid "This account will be used instead of the default one as the receivable account for the current partner"
+msgstr "Esta cuenta se utilizará en lugar de la cuenta por defecto como la cuenta pendiente de cobro del asociado actual."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_purchase_currency_id
+msgid "This currency will be used, instead of the default one, for purchases from the current partner"
+msgstr "Se utilizará esta moneda, en lugar de la predeterminada, para las compras de la pareja actual"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_supplier_payment_term_id
+msgid "This payment term will be used instead of the default one for purchase orders and vendor bills"
+msgstr "Se utilizará esta condición de pago, en lugar de la predeterminada, para los pedidos de compra y las facturas de proveedor."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_payment_term_id
+msgid "This payment term will be used instead of the default one for sale orders and customer invoices"
+msgstr "Se utilizará esta condición de pago, en lugar de la predeterminada, para los pedidos de venta y facturas de clientes"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_stock_customer
+msgid "This stock location will be used, instead of the default one, as the destination location for goods you send to this partner"
+msgstr "Se utilizará esta ubicación de existencias, en lugar de la ubicación por defecto, como la ubicación de destino para enviar mercancías a esta empresa"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_stock_supplier
+msgid "This stock location will be used, instead of the default one, as the source location for goods you receive from the current partner"
+msgstr "Esta ubicación de existencias será utilizada, en lugar de la ubicación por defecto, como la ubicación de origen para recibir mercancías desde esta empresa"
+
+#. module: website_sale_wishlist
+#: code:addons/website_sale_wishlist/models/wishlist_product.py:69
+#, python-format
+msgid "This wishlist product is not yours."
+msgstr "Este producto de la lista de deseados no es suyo."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_total_invoiced
+msgid "Total Invoiced"
+msgstr "Total facturado"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_debit
+msgid "Total Payable"
+msgstr "Total a pagar"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_credit
+msgid "Total Receivable"
+msgstr "Total a cobrar"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_credit
+msgid "Total amount this customer owes you."
+msgstr "Importe total que le debe el cliente."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_debit
+msgid "Total amount you have to pay to this vendor."
+msgstr "Importe total a pagar a este proveedor."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_wishlist_product_user_id
+msgid "User that wishlisted this product."
+msgstr "Usuario que ha añadido este producto a su lista de deseados."
+
+#. module: website_sale_wishlist
+#: model:ir.model,name:website_sale_wishlist.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_res_users_currency_id
+msgid "Utility field to express amount currency"
+msgstr "Campo útil para expresar importe en divisa."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_stock_supplier
+msgid "Vendor Location"
+msgstr "Ubicación del Proveedor"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_supplier_payment_term_id
+msgid "Vendor Payment Term"
+msgstr "Condiciones de pago a proveedor"
+
+#. module: website_sale_wishlist
+#: model:ir.model,name:website_sale_wishlist.model_website
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_wishlist_product_website_id
+msgid "Website"
+msgstr "Sitio web"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_wishlist_product_session
+msgid "Website session identifier where this product was wishlisted."
+msgstr "Identificador de la sesión del sitio web en la que este producto se añadió a la lista de deseados."
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_wishlist_product_website_id
+msgid "Website where the user wishlisted the product."
+msgstr "Sitio web en el que el usuario añadió este producto a la lista de deseados."
+
+#. module: website_sale_wishlist
+#: model:ir.ui.view,arch_db:website_sale_wishlist.products
+msgid "Wishlist"
+msgstr "Lista de deseados"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,help:website_sale_wishlist.field_wishlist_product_product_tmpl_id
+msgid "Wishlisted product."
+msgstr "Producto añadido a la lista de deseados."
+
+#. module: website_sale_wishlist
+#: model:ir.model,name:website_sale_wishlist.model_wishlist_product
+msgid "wishlist.product"
+msgstr "wishlist.product"
