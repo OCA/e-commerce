@@ -15,8 +15,6 @@
     ],
     'data': [
         'views/templates.xml',
-        'views/assets.xml',
-        'views/partner_view.xml'
     ],
     'installable': True,
 }
