@@ -8,8 +8,6 @@ from openerp.addons.website_sale.controllers.main import website_sale
 
 website_sale.mandatory_billing_fields = [
     "name", "phone", "email", "street", "city", "country_id"]
-website_sale.optional_billing_fields = [
-    "street2", "state_id", "vat", "zip", "checkout_company_name"]
 
 
 class WebsiteSalePartnerType(website_sale):
@@ -40,19 +38,17 @@ class WebsiteSalePartnerType(website_sale):
     def checkout_values(self, data=None):
         res = super(WebsiteSalePartnerType, self).checkout_values(
             data=data)
-        cr, context, registry = request.cr, request.context, request.registry
-        orm_user = registry.get('res.users')
+        orm_user = request.env['res.users']
         if data:
             if data['partner_type'] == 'individual':
                 res['checkout']['partner_type'] = "individual"
             else:
                 res['checkout']['partner_type'] = "company"
         else:
-            partner = orm_user.browse(
-                cr, SUPERUSER_ID, request.uid, context).partner_id
             if request.uid == request.website.user_id.id:
                 res['checkout']['partner_type'] = 'select'
             else:
+                partner = orm_user.sudo().browse([request.uid])[0].partner_id
                 if partner.is_company:
                     res['checkout']['partner_type'] = "company"
                 else:
