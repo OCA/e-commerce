@@ -6,8 +6,11 @@
 Website Sale Partner Type
 =========================
 
-This module adds partner type on checkout and set on cutomer and 
-change checkout form value.
+This module adds drop-down selection, partner type on checkout.
+If user is a public user, selection is set to "Select Element",
+if user is authenticated, drop-down selection is set as follow:
+* 'company'  if partner have checked company
+* 'individual'  if partner is not a company
 
 Usage
 =====
