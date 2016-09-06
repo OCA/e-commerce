@@ -8,6 +8,8 @@
     <xpath expr=".">
         <link rel="stylesheet"
               href="/website_sale_custom_info/static/src/css/custom_info.sass"/>
+        <script type="text/javascript"
+                src="/website_sale_custom_info/static/src/js/quick_filter.js"/>
     </xpath>
 </template>
 

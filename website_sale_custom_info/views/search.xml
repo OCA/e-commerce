@@ -71,15 +71,12 @@
           name="Custom Info Quick Filters">
     <!-- Quick filters -->
     <xpath expr="//div[@id='products_grid_before']" position="inside">
-        <form method="get">
+        <form method="get" class="js_website_sale_custom_info_quick_filter">
             <input type="hidden" name="search" t-att-value="search"/>
             <ul class="nav nav-pills nav-stacked mt16 o_website_sale_custom_info_search">
                 <t t-foreach="custom_info" t-as="ci">
                     <t t-if="ci['property'].product_public_filter == 'quick'">
-                        <t t-call="website_sale_custom_info.property_filter">
-                            <t t-set="submit_onchange_checkbox"
-                               t-value="True"/>
-                        </t>
+                        <t t-call="website_sale_custom_info.property_filter"/>
                     </t>
                 </t>
             </ul>
@@ -96,13 +93,13 @@
 
 <template id="property_filter"
           name="Custom info property filter">
-    <li class="oe_custom_info_property">
+    <li class="o_custom_info_property">
         <strong t-field="ci['property'].name"/>
         <ul class="nav nav-pills nav-stacked">
             <t t-if="ci['property'].field_type in ('int', 'float')">
                 <t t-set="val" t-value="ci['range']"/>
                 <t t-set="on" t-value="val['from'] or val['to']"/>
-                <li t-attf-class="oe_custom_info_value #{on and 'active'}">
+                <li t-attf-class="o_custom_info_value #{on and 'active'}">
                     <div class="input-group">
                         <input
                             type="number"
@@ -124,7 +121,7 @@
             </t>
             <t t-if="ci['property'].field_type == 'str'">
                 <t t-set="val" t-value="ci['value']"/>
-                <li t-attf-class="oe_custom_info_value #{val and 'active'}">
+                <li t-attf-class="o_custom_info_value #{val and 'active'}">
                     <input
                         type="text"
                         t-attf-name="custom_info,ilike,#{ci['property'].id}"
@@ -135,8 +132,8 @@
                 <t t-foreach="ci['options']" t-as="val">
                     <t t-set="on"
                        t-value="(ci['property'].id, '=', val) in custom_info_posted"/>
-                    <li t-attf-class="oe_custom_info_value #{on and 'active'}">
-                        <div t-attf-class="checkbox #{submit_onchange_checkbox and 'js_attributes'}">
+                    <li t-attf-class="o_custom_info_value #{on and 'active'}">
+                        <div class="checkbox">
                             <label>
                                 <input
                                     type="checkbox"
