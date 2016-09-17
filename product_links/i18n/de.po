@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-06 14:51+0000\n"
-"PO-Revision-Date: 2016-09-16 21:45+0000\n"
+"PO-Revision-Date: 2016-09-09 11:32+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/es/)\n"
+"Language-Team: German (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: product_links
@@ -30,17 +30,17 @@ msgstr ""
 #. module: product_links
 #: field:product.link,create_uid:0
 msgid "Created by"
-msgstr "Creado por"
+msgstr "Erstellt von"
 
 #. module: product_links
 #: field:product.link,create_date:0
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Erstellt am:"
 
 #. module: product_links
 #: field:product.link,display_name:0
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr ""
 
 #. module: product_links
 #: field:product.link,id:0
@@ -50,17 +50,17 @@ msgstr "ID"
 #. module: product_links
 #: field:product.link,__last_update:0
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr ""
 
 #. module: product_links
 #: field:product.link,write_uid:0
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Zuletzt aktualisiert von"
 
 #. module: product_links
 #: field:product.link,write_date:0
 msgid "Last Updated on"
-msgstr "Última actualización el"
+msgstr "Zuletzt aktualisiert am"
 
 #. module: product_links
 #: field:product.link,type:0
@@ -75,7 +75,7 @@ msgstr ""
 #. module: product_links
 #: model:ir.model,name:product_links.model_product_product
 msgid "Product"
-msgstr "Producto"
+msgstr "Produkt"
 
 #. module: product_links
 #: model:ir.actions.act_window,name:product_links.product_link_action
