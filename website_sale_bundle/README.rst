@@ -21,6 +21,10 @@ In the product form, you have 2 new optional templates:
 - *Display Bundles Including This Product*, to show in which bundles you can
   buy this product.
 
+In the cart view, you have also:
+
+- *Itemize Bundles In Cart*.
+
 Usage
 =====
 

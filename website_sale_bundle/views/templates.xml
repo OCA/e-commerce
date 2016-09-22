@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<template id="direct_list"
+          name="Direct bundle">
+    <t t-foreach="product.bundle_line_ids" t-as="bundle_line">
+        <li>
+            <t t-if="bundle_line.sudo().product_id.website_published">
+                <a t-attf-href="/shop/product/#{slug(bundle_line.product_id.product_tmpl_id)}"
+                   t-esc="bundle_line.product_id.display_name"/>
+            </t>
+            <t t-if="not (bundle_line.sudo().product_id.website_published)">
+                <span t-esc="bundle_line.sudo().product_id.display_name"/>
+            </t>
+            <span class="o_product_bundle_qty text-muted">
+                -
+                <span t-esc="bundle_line.qty * (multiplier or 1)"/>
+                <span t-esc="bundle_line.sudo().product_id.uom_id.display_name"/>
+            </span>
+        </li>
+    </t>
+</template>
+
+<template id="inverse_list"
+          name="Inverse bundle">
+    <t t-foreach="product.inverse_bundle_line_ids" t-as="bundle_line">
+        <li>
+            <a t-attf-href="/shop/product/#{slug(bundle_line.bundle_id.product_tmpl_id)}"
+               t-esc="bundle_line.bundle_id.display_name"/>
+        </li>
+    </t>
+</template>
+
+</odoo>

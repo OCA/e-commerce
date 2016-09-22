@@ -21,6 +21,8 @@
     "data": [
         "security/ir.model.access.csv",
         "security/ir.rule.csv",
+        "views/templates.xml",
+        "views/cart.xml",
         "views/shop_product.xml",
     ],
 }
