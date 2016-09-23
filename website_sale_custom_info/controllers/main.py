@@ -63,6 +63,8 @@ class WebsiteSale(website_sale):
                 values = request.env["custom.info.value"].search([
                     ("property_id", "=", prop.id),
                     ("res_id", "in", all_products.ids),
+                    ("value", "!=", False),
+                    ("value", "!=", ""),
                 ])
                 if prop.field_type in {"int", "float"}:
                     # Load from SQL to boost performance
@@ -82,6 +84,9 @@ class WebsiteSale(website_sale):
                     })
                 else:
                     ci["options"] = sorted(set(values.mapped("value")))
+                    # Skip selectables without options
+                    if not ci["options"]:
+                        continue
             custom_info.append(ci)
 
         result.qcontext.update({
