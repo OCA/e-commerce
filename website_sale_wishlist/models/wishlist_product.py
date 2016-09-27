@@ -93,7 +93,7 @@ class WishlistProduct(models.Model):
     def _clear_methods_cache(self):
         """Clear cache for wishlist-related methods."""
         Website = self.env["website"]
-        Product = request.env["product.template"]
+        Product = self.env["product.template"]
         Website.wishlist_product_ids.clear_cache(Website)
         Website.wishlisted_product_template_ids.clear_cache(Website)
         Product.wishlisted.clear_cache(Product)

@@ -12,7 +12,6 @@ class ProductTemplate(models.Model):
                     "self.env.user.current_session")
     def wishlisted(self):
         """Check if all products are wishlisted in current session."""
-        return (
-            self.id in
-            self.env["website"].get_current_website()
-                .wishlisted_product_template_ids())
+        wishes = set(self.env["website"].get_current_website()
+                     .wishlisted_product_template_ids())
+        return set(self.ids) <= wishes

@@ -29,6 +29,8 @@ To use this module, you need to:
 #. Go to `your shop </shop>`_.
 #. Press on the heart icon for any product.
 #. You have now the top *My Wishlist* menu.
+#. Clicking on it, you go to a filtered view of your shop with only the
+   wishlisted elements on it.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -39,6 +41,9 @@ Known issues / Roadmap
 
 * Top *Shop* menu is highlighted also when *My Wishlist* is highlighted. You
   are in both, after all.
+* If you buy a product, it does not get removed from your wishlist. This is on
+  purpose, to let users use their wishlists as some kind of *bookmarks* if they
+  want. After all, removing a product is just one click away.
 
 Bug Tracker
 ===========
