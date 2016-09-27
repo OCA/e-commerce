@@ -8,10 +8,11 @@ from openerp.http import request, route
 class WebsiteSale(website_sale):
     def _get_custom_info(self):
         """Get custom info parameters in a list."""
-        for key, value in request.httprequest.args.iteritems():
-            if key.startswith("custom_info,") and value:
-                operator, prop = key.split(",")[1:]
-                yield int(prop), operator, value
+        for key, values in request.httprequest.args.iterlists():
+            for value in values:
+                if key.startswith("custom_info,") and value:
+                    operator, prop = key.split(",")[1:]
+                    yield int(prop), operator, value
 
     def _get_search_domain(self, search, category, attrib_values,
                            apply_custom_info=True):
