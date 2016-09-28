@@ -16,32 +16,16 @@
 	        <div class="panel-heading">
 	            <h4>Products</h4>
 	        </div>
-	        <t t-if='products'>
-		        <div class="panel-body text-center">
-		            <h4>
-	                    <a t-attf-href="/shop/suppliers/{{partner.id}}">
-	                        <span t-field="partner.name"/>
-		                    <span class="small"> 
-		                        (Total Product : <t t-esc="len(products)"/> product(s))
-		                    </span>
-		                </a>
-		            </h4>
-		        </div>
-	        </t>
-
-	        <t t-if='not products'>
-		        <div class="panel-body text-center">
-		            <h4>
-	                    <a>
-	                        <span t-field="partner.name"/>
-		                    <span class="small"> 
-		                        (Total Product : 0 product(s))
-		                    </span>
-		                </a>
-		            </h4>
-		        </div>
-	        </t>
-
+	        <div class="panel-body text-center">
+	            <h4>
+                    <a t-attf-href="/shop/suppliers/{{partner.id}}">
+                        <span t-field="partner.name"/>
+	                    <span class="small"> 
+	                        (Total Product : <t t-esc="len(products)"/> product(s))
+	                    </span>
+	                </a>
+	            </h4>
+	        </div>
 	    </div>
 	</template>
 

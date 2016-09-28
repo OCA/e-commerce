@@ -30,8 +30,7 @@ class WebsiteSaleBySupplier(WebsiteSupplier):
                     if supplierinfo.product_tmpl_id.website_published:
                         product_ids.append(supplierinfo.product_tmpl_id)
 
-        if product_ids:
-            response.qcontext['products'] = product_ids
+        response.qcontext['products'] = product_ids
 
         return response
 
@@ -42,10 +41,7 @@ class WebsiteSale(website_sale):
                  '/shop/category/<model("product.public.category"):category>',
                  """/shop/category/<model("product.public.category"):category>
                  /page/<int:page>""",
-                 '/shop/suppliers/<model("res.partner"):product_supplier>'],
-                type='http',
-                auth='public',
-                website=True)
+                 '/shop/suppliers/<model("res.partner"):product_supplier>'])
     def shop(
         self,
         page=0,
@@ -59,7 +55,6 @@ class WebsiteSale(website_sale):
         result = super(WebsiteSale, self).shop(
             page=page,
             category=category,
-            product_supplier=product_supplier,
             search=search,
             **post)
         result.qcontext['product_supplier'] = product_supplier
