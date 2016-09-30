@@ -24,15 +24,19 @@ module.
 Usage
 =====
 
-when a customer makes a purchase and do the checkout process the VAT country
-code can be selected separated from the code itself.
+When a customer makes a purchase and do the checkout process, the VAT country
+code can be selected separated from the code itself. This is useful in 2 ways:
+
+- User is implicitly forced to input (select) a country with its code.
+- Error in the VAT now only can be raised by an incorrect vat, not the absence
+  of the country code, which usually confuses users.
 
 If you change the country for the address and the VAT is empty, the VAT country
 changes automatically too.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/8.0
+   :target: https://runbot.odoo-community.org/runbot/113/9.0
 
 Known issues / Roadmap
 ======================
@@ -61,6 +65,7 @@ Contributors
 * Sergio Teruel <sergio.teruel@tecnativa.com>
 * Carlos Dauden <carlos.dauden@tecnativa.com>
 * Pedro M. Baeza <pedro.baeza@tecnativa.com>
+* Jairo Llopis <jairo.llopis@tecnativa.com>
 
 Maintainer
 ----------
