@@ -6,7 +6,7 @@
 {
     "name": "Website Sale Checkout Country VAT",
     "summary": "Autocomplete VAT in checkout process",
-    "version": "8.0.1.0.0",
+    "version": "9.0.1.0.0",
     "category": "Website",
     'website': 'http://www.tecnativa.com',
     'author': 'Tecnativa, '

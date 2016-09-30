@@ -2,8 +2,7 @@
 <!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
      © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
-<openerp>
-<data>
+<odoo>
 
 <template id="checkout" inherit_id="website_sale.checkout">
     <xpath expr="//input[@name='vat']" position="replace">
@@ -16,5 +15,4 @@
     </xpath>
 </template>
 
-</data>
-</openerp>
+</odoo>
