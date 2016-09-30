@@ -5,7 +5,7 @@
 {
     'name': 'Website Sale - Price Tiers',
     'summary': 'Add price tier radio buttons to product pages in website shop',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'E-commerce',
     'website': 'https://laslabs.com/',
     'author': 'LasLabs, Odoo Community Association (OCA)',
@@ -16,7 +16,7 @@
         'website_sale',
     ],
     'data': [
-        'views/website_sale_qty.xml',
+        'views/website_sale_qty_view.xml',
     ],
     'demo': [
         'demo/product_pricelist_item_demo.xml',
