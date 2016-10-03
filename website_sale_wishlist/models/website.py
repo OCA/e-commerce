@@ -37,7 +37,7 @@ class Website(models.Model):
             errors if you try to browse them when loaded from cache and cached
             ones used a cursor that is now closed.
         """
-        return [record["product_tmpl_id"][0] for record in
-                self.env["wishlist.product"].search_read(
-                    [("id", "in", self.wishlist_product_ids())],
-                    ["product_tmpl_id"])]
+        wishlisted = self.env["wishlist.product"].search_read(
+            [("id", "in", self.wishlist_product_ids())],
+            ["product_tmpl_id"])
+        return [record["product_tmpl_id"][0] for record in wishlisted]
