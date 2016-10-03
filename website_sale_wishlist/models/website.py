@@ -5,7 +5,7 @@ from openerp import api, models, tools
 from openerp.http import request
 
 
-class ResUsers(models.Model):
+class Website(models.Model):
     _inherit = "website"
 
     @api.multi
