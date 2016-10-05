@@ -154,25 +154,25 @@ class automatic_workflow_job(orm.Model):
              ('invoice_state', '=', '2binvoiced')],
             context=context)
         _logger.debug('Pickings to invoice: %s', picking_ids)
-        if picking_ids:
+        for picking_id in picking_ids:
             with commit(cr):
-                for picking in picking_obj.browse(cr, uid, picking_ids, context=context):
-                    if picking.sale_id:
-                        context = dict(context,
-                                force_company=picking.sale_id.company_id.id,
-                                company_id=picking.sale_id.company_id.id)
-                    if picking.type=='out':
-                        picking_obj.action_invoice_create(cr, uid,
-                                                  [picking.id,],
-                                                  type='out_invoice',
-                                                  context=context)
-                    elif picking.type=='in':
-                        # Will be refund as this workflow does not apply to the supplier side
-                        picking_obj.action_invoice_create(cr, uid,
-                                                  [picking.id,],
-                                                  type='out_refund',
-                                                  context=context)
-                        
+                picking = picking_obj.browse(cr, uid, picking_id, context=context)
+                ctx = context
+                if picking.sale_id:
+                    ctx = dict(ctx,
+                               force_company=picking.sale_id.company_id.id,
+                               company_id=picking.sale_id.company_id.id)
+                if picking.type=='out':
+                    picking_obj.action_invoice_create(cr, uid,
+                                                      [picking_id,],
+                                                      type='out_invoice',
+                                                      context=ctx)
+                elif picking.type=='in':
+                    # Will be refunded as this workflow does not apply to the supplier side
+                    picking_obj.action_invoice_create(cr, uid,
+                                                      [picking_id,],
+                                                      type='out_refund',
+                                                      context=ctx)
 
     def run(self, cr, uid, ids=None, context=None):
         """ Must be called from ir.cron """
