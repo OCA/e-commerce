@@ -19,6 +19,6 @@
         "views/product_brand.xml",
     ],
     'application': False,
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
