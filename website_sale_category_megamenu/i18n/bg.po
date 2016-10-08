@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale_category_megamenu
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: e-commerce (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-17 10:15+0000\n"
+"PO-Revision-Date: 2016-03-29 10:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Bulgarian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_sale_category_megamenu
+#: view:website:website_sale.products
+msgid "Products"
+msgstr "Продукти"
+
+#. module: website_sale_category_megamenu
+#: view:website:website_sale_category_megamenu.breadcrumbs
+msgid "Shop"
+msgstr ""
+
+#. module: website_sale_category_megamenu
+#: view:website:website_sale.product
+msgid "col-sm-7 col-md-7 col-lg-7"
+msgstr ""
+
+#. module: website_sale_category_megamenu
+#: view:website:website_sale.product
+msgid "col-xs-3 pull-right"
+msgstr ""

@@ -41,7 +41,7 @@ msgstr "Criado em"
 #. module: product_multi_link
 #: field:product.link,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Nome para Mostrar"
 
 #. module: product_multi_link
 #: field:product.link,id:0
@@ -51,7 +51,7 @@ msgstr "Identificação"
 #. module: product_multi_link
 #: field:product.link,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última atualização em"
 
 #. module: product_multi_link
 #: field:product.link,write_uid:0

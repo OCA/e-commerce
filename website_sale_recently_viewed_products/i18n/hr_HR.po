@@ -10,27 +10,27 @@ msgstr ""
 "POT-Creation-Date: 2016-09-17 10:15+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/pt_BR/)\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,create_uid:0
 msgid "Created by"
-msgstr "Criado por"
+msgstr "Kreirao"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,create_date:0
 msgid "Created on"
-msgstr "Criado em"
+msgstr "Kreirano"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,display_name:0
 msgid "Display Name"
-msgstr "Nome para Mostrar"
+msgstr "Naziv"
 
 #. module: website_sale_recently_viewed_products
 #: model:ir.model,name:website_sale_recently_viewed_products.model_website_sale_product_view
@@ -45,22 +45,22 @@ msgstr ""
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,id:0
 msgid "ID"
-msgstr "Identificação"
+msgstr "ID"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,__last_update:0
 msgid "Last Modified on"
-msgstr "Última atualização em"
+msgstr "Zadnje modificirano"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,write_uid:0
 msgid "Last Updated by"
-msgstr "Última atualização por"
+msgstr "Zadnji ažurirao"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,write_date:0
 msgid "Last Updated on"
-msgstr "Última atualização em"
+msgstr "Zadnje ažurirano"
 
 #. module: website_sale_recently_viewed_products
 #: view:website:website_sale_recently_viewed_products.table
@@ -87,7 +87,7 @@ msgstr ""
 #: view:website:website_sale_recently_viewed_products.table
 #: field:website.sale.product.view,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Proizvod"
 
 #. module: website_sale_recently_viewed_products
 #. openerp-web
@@ -120,7 +120,7 @@ msgstr ""
 #. module: website_sale_recently_viewed_products
 #: model:ir.model,name:website_sale_recently_viewed_products.model_website
 msgid "Website"
-msgstr ""
+msgstr "Webstranice"
 
 #. module: website_sale_recently_viewed_products
 #: code:addons/website_sale_recently_viewed_products/models/product_view.py:38

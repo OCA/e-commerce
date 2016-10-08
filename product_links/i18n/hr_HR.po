@@ -8,39 +8,39 @@ msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-17 10:15+0000\n"
-"PO-Revision-Date: 2016-10-04 09:42+0000\n"
+"PO-Revision-Date: 2016-10-05 06:30+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: German (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/de/)\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: product_links
 #: field:product.link,is_active:0
 msgid "Active"
-msgstr "Aktiv"
+msgstr "Aktivan"
 
 #. module: product_links
 #: field:product.product,product_brand_id:0
 msgid "Brand"
-msgstr ""
+msgstr "Brend"
 
 #. module: product_links
 #: field:product.link,create_uid:0
 msgid "Created by"
-msgstr "Erstellt von"
+msgstr "Kreirao"
 
 #. module: product_links
 #: field:product.link,create_date:0
 msgid "Created on"
-msgstr "Erstellt am:"
+msgstr "Kreirano"
 
 #. module: product_links
 #: field:product.link,display_name:0
 msgid "Display Name"
-msgstr "Anzeigename"
+msgstr "Naziv"
 
 #. module: product_links
 #: field:product.link,id:0
@@ -50,32 +50,32 @@ msgstr "ID"
 #. module: product_links
 #: field:product.link,__last_update:0
 msgid "Last Modified on"
-msgstr "Zuletzt geändert am"
+msgstr "Zadnje modificirano"
 
 #. module: product_links
 #: field:product.link,write_uid:0
 msgid "Last Updated by"
-msgstr "Zuletzt aktualisiert von"
+msgstr "Zadnji ažurirao"
 
 #. module: product_links
 #: field:product.link,write_date:0
 msgid "Last Updated on"
-msgstr "Zuletzt aktualisiert am"
+msgstr "Zadnje ažurirano"
 
 #. module: product_links
 #: field:product.link,type:0
 msgid "Link type"
-msgstr ""
+msgstr "Vrsta linka"
 
 #. module: product_links
 #: field:product.link,linked_product_id:0
 msgid "Linked product"
-msgstr ""
+msgstr "Povezani proizvod"
 
 #. module: product_links
 #: model:ir.model,name:product_links.model_product_product
 msgid "Product"
-msgstr "Produkt"
+msgstr "Proizvod"
 
 #. module: product_links
 #: model:ir.actions.act_window,name:product_links.product_link_action
@@ -84,19 +84,19 @@ msgstr "Produkt"
 #: view:product.link:product_links.product_link_tree
 #: view:product.product:product_links.product_product_link_form
 msgid "Product Links"
-msgstr ""
+msgstr "Poveznice proizvoda"
 
 #. module: product_links
 #: field:product.product,product_link_ids:0
 msgid "Product links"
-msgstr ""
+msgstr "Poveznice proizvoda"
 
 #. module: product_links
 #: help:product.product,product_brand_id:0
 msgid "Select a brand for this product"
-msgstr ""
+msgstr "Odaberi brend za ovaj proizvod"
 
 #. module: product_links
 #: field:product.link,product_id:0
 msgid "Source Product"
-msgstr ""
+msgstr "Izvorni proizvod"
