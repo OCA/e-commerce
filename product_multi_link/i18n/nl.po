@@ -11,17 +11,17 @@ msgstr ""
 "POT-Creation-Date: 2016-09-20 11:12+0000\n"
 "PO-Revision-Date: 2016-09-20 11:12+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/23907/pt_BR/)\n"
+"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_is_active
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
@@ -31,12 +31,12 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
 msgid "Created by"
-msgstr "Criado por"
+msgstr ""
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_date
 msgid "Created on"
-msgstr "Criado em"
+msgstr ""
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_taxes_id
@@ -46,7 +46,7 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_display_name
 msgid "Display Name"
-msgstr "Nome para Mostrar"
+msgstr "Te tonen naam"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_expense_id
@@ -56,7 +56,7 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_id
 msgid "ID"
-msgstr "Identificação"
+msgstr ""
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_income_id
@@ -66,17 +66,17 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link___last_update
 msgid "Last Modified on"
-msgstr "Última atualização em"
+msgstr "Laatst bijgewerkt op"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_uid
 msgid "Last Updated by"
-msgstr "Última atualização por"
+msgstr ""
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_date
 msgid "Last Updated on"
-msgstr "Última atualização em"
+msgstr ""
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_type

@@ -3,95 +3,95 @@
 # * product_multi_link
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
+# Bole <bole@dajmi5.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-20 11:12+0000\n"
 "PO-Revision-Date: 2016-09-20 11:12+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/23907/pt_BR/)\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2016\n"
+"Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_is_active
 msgid "Active"
-msgstr ""
+msgstr "Aktivan"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
 msgid "Brand"
-msgstr ""
+msgstr "Brend"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
 msgid "Created by"
-msgstr "Criado por"
+msgstr "Kreirao"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_date
 msgid "Created on"
-msgstr "Criado em"
+msgstr "Kreirano"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_taxes_id
 msgid "Customer Taxes"
-msgstr ""
+msgstr "Porezi prodaje"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_display_name
 msgid "Display Name"
-msgstr "Nome para Mostrar"
+msgstr "Naziv"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_expense_id
 msgid "Expense Account"
-msgstr ""
+msgstr "Konto troška"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_id
 msgid "ID"
-msgstr "Identificação"
+msgstr "ID"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_income_id
 msgid "Income Account"
-msgstr ""
+msgstr "Konto prihoda"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link___last_update
 msgid "Last Modified on"
-msgstr "Última atualização em"
+msgstr "Zadnje modificirano"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_uid
 msgid "Last Updated by"
-msgstr "Última atualização por"
+msgstr "Zadnji ažurirao"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_date
 msgid "Last Updated on"
-msgstr "Última atualização em"
+msgstr "Zadnje ažurirano"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_type
 msgid "Link type"
-msgstr ""
+msgstr "Vrsta linka"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_linked_product_id
 msgid "Linked product"
-msgstr ""
+msgstr "Povezani proizvod"
 
 #. module: product_multi_link
 #: model:ir.model,name:product_multi_link.model_product_product
 msgid "Product"
-msgstr ""
+msgstr "Proizvod"
 
 #. module: product_multi_link
 #: model:ir.actions.act_window,name:product_multi_link.product_link_action
@@ -100,22 +100,22 @@ msgstr ""
 #: model:ir.ui.view,arch_db:product_multi_link.product_link_tree
 #: model:ir.ui.view,arch_db:product_multi_link.product_product_link_form
 msgid "Product Links"
-msgstr ""
+msgstr "Poveznice proizvoda"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_link_ids
 msgid "Product links"
-msgstr ""
+msgstr "Poveznice proizvoda"
 
 #. module: product_multi_link
 #: model:ir.model.fields,help:product_multi_link.field_product_product_product_brand_id
 msgid "Select a brand for this product"
-msgstr ""
+msgstr "Odaberi brend za ovaj proizvod"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_product_id
 msgid "Source Product"
-msgstr ""
+msgstr "Izvorni proizvod"
 
 #. module: product_multi_link
 #: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_expense_id
@@ -123,6 +123,8 @@ msgid ""
 "This account will be used for invoices instead of the default one to value "
 "expenses for the current product."
 msgstr ""
+"Ovaj porez će se za ovaj proizvod primjeniti na računima umjesto zadanog "
+"poreza."
 
 #. module: product_multi_link
 #: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_income_id
@@ -130,13 +132,15 @@ msgid ""
 "This account will be used for invoices instead of the default one to value "
 "sales for the current product."
 msgstr ""
+"Ovaj porez će se za ovaj proizvod primjeniti na računima umjesto zadanog "
+"poreza."
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr ""
+msgstr "Porezi nabave"
 
 #. module: product_multi_link
 #: model:ir.model,name:product_multi_link.model_product_link
 msgid "product.link"
-msgstr ""
+msgstr "product.link"
