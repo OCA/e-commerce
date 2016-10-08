@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
+# Pedro M. Baeza <pedro.baeza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-12 08:04+0000\n"
-"PO-Revision-Date: 2016-08-12 08:04+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"POT-Creation-Date: 2016-11-29 01:20+0000\n"
+"PO-Revision-Date: 2016-11-29 01:20+0000\n"
+"Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,12 +22,12 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_is_active
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
 msgid "Brand"
-msgstr ""
+msgstr "Marca"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
@@ -41,7 +42,7 @@ msgstr "Creado en"
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_taxes_id
 msgid "Customer Taxes"
-msgstr ""
+msgstr "Impuestos de cliente"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_display_name
@@ -51,7 +52,7 @@ msgstr "Nombre mostrado"
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_expense_id
 msgid "Expense Account"
-msgstr ""
+msgstr "Cuenta de gastos"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_id
@@ -61,7 +62,7 @@ msgstr "ID"
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_income_id
 msgid "Income Account"
-msgstr ""
+msgstr "Cuenta de ingresos"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link___last_update
@@ -81,12 +82,12 @@ msgstr "Última actualización el"
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_type
 msgid "Link type"
-msgstr ""
+msgstr "Tipo de enlace"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_linked_product_id
 msgid "Linked product"
-msgstr ""
+msgstr "Producto enlazado"
 
 #. module: product_multi_link
 #: model:ir.model,name:product_multi_link.model_product_product
@@ -100,22 +101,22 @@ msgstr "Producto"
 #: model:ir.ui.view,arch_db:product_multi_link.product_link_tree
 #: model:ir.ui.view,arch_db:product_multi_link.product_product_link_form
 msgid "Product Links"
-msgstr ""
+msgstr "Enlaces de productos"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_link_ids
 msgid "Product links"
-msgstr ""
+msgstr "Enlaces de productos"
 
 #. module: product_multi_link
 #: model:ir.model.fields,help:product_multi_link.field_product_product_product_brand_id
 msgid "Select a brand for this product"
-msgstr ""
+msgstr "Seleccione una marca para este producto"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_product_id
 msgid "Source Product"
-msgstr ""
+msgstr "Producto origen"
 
 #. module: product_multi_link
 #: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_expense_id
@@ -123,6 +124,8 @@ msgid ""
 "This account will be used for invoices instead of the default one to value "
 "expenses for the current product."
 msgstr ""
+"Se usará esta cuenta en lugar de la de por defecto para valorar los gastos "
+"para el producto actual."
 
 #. module: product_multi_link
 #: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_income_id
@@ -130,13 +133,15 @@ msgid ""
 "This account will be used for invoices instead of the default one to value "
 "sales for the current product."
 msgstr ""
+"Se usará esta cuenta en lugar de la de por defecto para valorar las ventas "
+"para el producto actual."
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr ""
+msgstr "Impuestos de proveedor"
 
 #. module: product_multi_link
 #: model:ir.model,name:product_multi_link.model_product_link
 msgid "product.link"
-msgstr ""
+msgstr "product.link"
