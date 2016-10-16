@@ -55,7 +55,9 @@
 
     <template id="category_grid"
               inherit_id="website_sale.products"
-              name="Product Categories Grid">
+              name="Product Categories Grid"
+              customize_show="True"
+              active="True">
         <xpath expr="//t[@t-call='website_sale.search']" position="after">
             <t t-if="category">
                 <div class="text-center mt92 mb92">
