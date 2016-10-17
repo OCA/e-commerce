@@ -10,13 +10,15 @@ class ResUsers(models.Model):
 
     current_session = fields.Char(compute="_compute_current_session")
 
-    @api.one
+    @api.multi
     def _compute_current_session(self):
         """Know current session for this user."""
         try:
-            self.current_session = request.session.sid
+            sid = request.session.sid
         except AttributeError:
-            self.current_session = False
+            sid = False
+        for one in self:
+            one.current_session = sid
 
     @api.model
     def check_credentials(self, password):
