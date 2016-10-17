@@ -4,6 +4,6 @@
     name: Wishlisted products garbage collector
     interval_type: weeks
     numbercall: -1
-    model: wishlist.product
+    model: product.wishlist
     function: _garbage_collector
     args: "()"

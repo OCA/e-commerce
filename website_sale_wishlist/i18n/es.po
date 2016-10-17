@@ -338,5 +338,5 @@ msgstr "Producto añadido a la lista de deseados."
 
 #. module: website_sale_wishlist
 #: model:ir.model,name:website_sale_wishlist.model_wishlist_product
-msgid "wishlist.product"
-msgstr "wishlist.product"
+msgid "product.wishlist"
+msgstr "product.wishlist"

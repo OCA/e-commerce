@@ -5,8 +5,8 @@ from openerp import api, fields, models
 from openerp.http import request, root
 
 
-class WishlistProduct(models.Model):
-    _name = "wishlist.product"
+class ProductWishlist(models.Model):
+    _name = "product.wishlist"
     _sql_constrains = [
         ("session_or_user_id",
          "CHECK(session IS NULL != user_id IS NULL)",
@@ -23,6 +23,7 @@ class WishlistProduct(models.Model):
         comodel_name="product.template",
         string="Product",
         required=True,
+        ondelete="cascade",
         help="Wishlisted product.",
     )
     session = fields.Char(
@@ -101,14 +102,14 @@ class WishlistProduct(models.Model):
     @api.model
     def create(self, vals):
         self._clear_methods_cache()
-        return super(WishlistProduct, self).create(vals)
+        return super(ProductWishlist, self).create(vals)
 
     @api.multi
     def unlink(self):
         self._clear_methods_cache()
-        return super(WishlistProduct, self).unlink()
+        return super(ProductWishlist, self).unlink()
 
     @api.multi
     def write(self, vals):
         self._clear_methods_cache()
-        return super(WishlistProduct, self).write(vals)
+        return super(ProductWishlist, self).write(vals)

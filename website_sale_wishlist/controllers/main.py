@@ -40,15 +40,15 @@ class Wishlist(website_sale):
         :return bool:
             Indicates if the product has been wishlisted or unwishlisted.
         """
-        WishlistProduct = request.env["wishlist.product"]
+        ProductWishlist = request.env["product.wishlist"]
         if product.wishlisted():
-            WishlistProduct.search([
+            ProductWishlist.search([
                 ("id", "in", request.website.wishlist_product_ids()),
                 ("product_tmpl_id", "in", product.ids),
             ]).unlink()
             return False
         else:
-            WishlistProduct.create({
+            ProductWishlist.create({
                 "product_tmpl_id": product.id,
             })
             return True

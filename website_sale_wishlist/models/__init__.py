@@ -4,4 +4,4 @@
 from . import product_template
 from . import res_users
 from . import website
-from . import wishlist_product
+from . import product_wishlist

@@ -22,5 +22,5 @@ class ResUsers(models.Model):
     def check_credentials(self, password):
         """Make all this session's wishlists belong to its owner user."""
         result = super(ResUsers, self).check_credentials(password)
-        self.env["wishlist.product"]._join_current_user_and_session()
+        self.env["product.wishlist"]._join_current_user_and_session()
         return result
