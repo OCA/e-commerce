@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<!-- Change title if we display only wishlisted items -->
+<template id="products"
+          inherit_id="website_sale.products"
+          name="Enable Wishlist in Shop">
+    <xpath expr="//*[@t-set='additional_title']" position="after">
+        <t t-if="wishlist_only">
+            <t t-set="additional_title">Wishlist</t>
+        </t>
+    </xpath>
+</template>
+
+<!-- Preserve filter in places where /shop sends forms to filter -->
+<template id="hidden_wishlist_only_input"
+          name="Hidden Wishlist Input to Preserve Filters">
+    <t t-if="wishlist_only">
+        <input type="hidden" name="wishlist_only" value="1"/>
+    </t>
+</template>
+
+<template id="search"
+          inherit_id="website_sale.search"
+          name="Preserve Wishlist Filter When Searching">
+    <xpath expr="//form">
+        <t t-call="website_sale_wishlist.hidden_wishlist_only_input"/>
+    </xpath>
+</template>
+
+<template id="products_attributes"
+          inherit_id="website_sale.products_attributes"
+          name="Preserve Wishlist Filter When Choosing Attributes">
+    <xpath expr="//form[contains(@class, 'js_attributes')]">
+        <t t-call="website_sale_wishlist.hidden_wishlist_only_input"/>
+    </xpath>
+</template>
+
+<!-- Buttons to (un)wishlist a product -->
+<template id="product_toggle"
+          name="Add to Wishlist Widget">
+    <button title="Add to Wishlist"
+            t-attf-class="btn btn-default js_wishlist_toggle #{extra_class or ''}"
+            t-att-data-product="product.id"
+            type="button">
+        <t t-call="website_sale_wishlist.heart">
+            <t t-set="active" t-value="product.wishlisted()"/>
+        </t>
+    </button>
+</template>
+
+<template id="products_add_to_wishlist"
+          inherit_id="website_sale.products_item"
+          customize_show="True"
+          name="Add to Wishlist From List">
+    <xpath expr="//*[@class='product_price']">
+        <t t-call="website_sale_wishlist.product_toggle">
+            <t t-set="extra_class" t-value="'btn-xs'"/>
+        </t>
+    </xpath>
+</template>
+
+<template id="product_add_to_wishlist"
+          inherit_id="website_sale.product"
+          customize_show="True"
+          name="Add to Wishlist From Form">
+    <xpath expr="//*[@id='add_to_cart']" position="after">
+        <t t-call="website_sale_wishlist.product_toggle">
+            <t t-set="extra_class" t-value="'btn-lg mt8'"/>
+        </t>
+    </xpath>
+</template>
+
+</odoo>

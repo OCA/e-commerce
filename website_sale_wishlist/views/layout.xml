@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<template id="header"
+          inherit_id="website_sale.header"
+          customize_show="True"
+          name="Wishlist Menu">
+    <xpath expr="//*[@id='top_menu']//*[@t-set='website_sale_order']"
+           position="before">
+        <t t-call="website_sale_wishlist.menu"/>
+    </xpath>
+</template>
+
+<template id="menu"
+          name="Wishlist Menu">
+    <li t-att-class="(wishlist_only and 'active') or (not website.wishlist_product_ids() and 'hidden')">
+        <a href="/shop?wishlist_only=1">
+            <t t-call="website_sale_wishlist.heart">
+                <t t-set="active" t-value="wishlist_only"/>
+            </t>
+            <t>
+                My Wishlist
+            </t>
+            <sup t-attf-class="js_wishlist_quantity label label-primary">
+                <t t-esc="len(website.wishlist_product_ids())"/>
+            </sup>
+        </a>
+    </li>
+</template>
+
+<template id="heart"
+          name="Heart Icon">
+    <div t-attf-class="fa fa-heart#{'' if active else '-o'}"/>
+</template>
+
+</odoo>
