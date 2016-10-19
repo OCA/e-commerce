@@ -15,9 +15,10 @@ addon | version | summary
 [product_multi_link](product_multi_link/) | 9.0.1.0.0 | Product Links
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 9.0.1.0.0 | Autocomplete VAT in checkout process
 [website_sale_default_country](website_sale_default_country/) | 9.0.1.0.0 | Give a default value for country at checkout
-[website_sale_product_brand](website_sale_product_brand/) | 9.0.1.0.0 | Product Brand Filtering in Website
+[website_sale_product_brand](website_sale_product_brand/) | 9.0.1.1.0 | Product Brand Filtering in Website
 [website_sale_require_login](website_sale_require_login/) | 9.0.1.0.0 | Force users to login for buying
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 9.0.1.0.0 | Suggest users to create an account when buying in the website
+[website_sale_wishlist](website_sale_wishlist/) | 9.0.1.0.0 | Wishlist of products in your online shop
 
 Unported addons
 ---------------
