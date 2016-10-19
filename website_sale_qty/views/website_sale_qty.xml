@@ -6,6 +6,12 @@
 -->
 
 <odoo>
+    <template id="product_price" inherit_id="website_sale.product_price" customize_show="True" name="Website Sale - Quantity Tiers (Price Per)">
+        <xpath expr="//b" position="after">
+            <strong>per <t t-esc="product.uom_id.name.lower()"/></strong>
+        </xpath>
+    </template>
+
     <template id="product" inherit_id="website_sale.product" customize_show="True" name="Website Sale - Quantity Tiers">
         <xpath expr="//div[contains(@class, 'css_quantity')]" position="before">
             <t t-set="pricelist" t-value="website.get_current_pricelist()"/>
