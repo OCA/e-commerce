@@ -115,7 +115,7 @@ class TestProductTemplate(TransactionCase):
             )
 
     def test_price_quantity_tiers_valid_matches(self):
-        '''The tiers should reflect all valid matches and be ordered by qty'''
+        '''Tiers should reflect all matches, plus min qty 1, ordered by qty'''
         self.env['product.pricelist.item'].create({
             'pricelist_id': self.test_pricelist_1.id,
             'applied_on': '1_product',
@@ -143,11 +143,11 @@ class TestProductTemplate(TransactionCase):
 
         self.assertEqual(
             self.test_template.price_quantity_tiers[self.test_pricelist_1.id],
-            [(2, 1), (20, 0.8)],
+            [(1, 1), (2, 1), (20, 0.8)],
         )
         self.assertEqual(
             self.test_template.price_quantity_tiers[self.test_pricelist_2.id],
-            [(3, 0.7)],
+            [(1, 1), (3, 0.7)],
         )
 
     def test_price_quantity_tiers_invalid_min_quantities(self):
@@ -156,14 +156,38 @@ class TestProductTemplate(TransactionCase):
             'pricelist_id': self.test_pricelist_1.id,
             'applied_on': '1_product',
             'compute_price': 'fixed',
-            'fixed_price': 1,
+            'fixed_price': 0.8,
             'product_tmpl_id': self.test_template.id,
             'min_quantity': -3,
+        })
+        self.env['product.pricelist.item'].create({
+            'pricelist_id': self.test_pricelist_1.id,
+            'applied_on': '1_product',
+            'compute_price': 'fixed',
+            'fixed_price': 0.7,
+            'product_tmpl_id': self.test_template.id,
+            'min_quantity': 3,
         })
 
         self.assertEqual(
             self.test_template.price_quantity_tiers[self.test_pricelist_1.id],
-            [(1, 1)],
+            [(1, 0.8), (3, 0.7)],
+        )
+
+    def test_price_quantity_tiers_qty_1_alone(self):
+        '''A single price tier with a min quantity of 1 should be rejected'''
+        self.env['product.pricelist.item'].create({
+            'pricelist_id': self.test_pricelist_1.id,
+            'applied_on': '1_product',
+            'compute_price': 'fixed',
+            'fixed_price': 1,
+            'product_tmpl_id': self.test_template.id,
+            'min_quantity': 1,
+        })
+
+        self.assertEqual(
+            self.test_template.price_quantity_tiers[self.test_pricelist_1.id],
+            [],
         )
 
     def test_price_quantity_tiers_first_variant_price_rule(self):
@@ -174,7 +198,7 @@ class TestProductTemplate(TransactionCase):
             'compute_price': 'fixed',
             'fixed_price': 1,
             'product_tmpl_id': self.test_template.id,
-            'min_quantity': 1,
+            'min_quantity': 2,
         })
         self.env['product.pricelist.item'].create({
             'pricelist_id': self.test_pricelist_1.id,
@@ -182,7 +206,7 @@ class TestProductTemplate(TransactionCase):
             'compute_price': 'fixed',
             'fixed_price': 1.5,
             'product_id': self.test_template.product_variant_ids[0].id,
-            'min_quantity': 1,
+            'min_quantity': 2,
         })
 
         self.assertEqual(
