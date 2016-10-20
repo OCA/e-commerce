@@ -2,14 +2,21 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (http://www.serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import http
-from openerp.http import request
-from openerp import SUPERUSER_ID
-from openerp.addons.website_sale.controllers.main import QueryURL
-from openerp.addons.website_sale.controllers.main import website_sale
+from odoo import http
+from odoo.http import request
+from odoo.addons.website_sale.controllers.main import QueryURL
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSale(website_sale):
+class WebsiteSale(WebsiteSale):
+
+    def _get_search_domain(self, search, category, attrib_values):
+        domain = super(WebsiteSale, self)._get_search_domain(
+            search, category, attrib_values)
+        if 'brand_id' in request.context:
+            domain.append(
+                ('product_brand_id', '=', request.context['brand_id']))
+        return domain
 
     @http.route(['/shop',
                  '/shop/page/<int:page>',
@@ -20,14 +27,16 @@ class WebsiteSale(website_sale):
                 type='http',
                 auth='public',
                 website=True)
-    def shop(self, page=0, category=None, brand=None, search='', **post):
+    def shop(
+            self, page=0, category=None, search='',
+            ppg=False, brand=None, **post):
         if brand:
-            context = dict(request.env.context)
+            context = dict(request.context)
             context.setdefault('brand_id', int(brand))
-            request.env.context = context
+            request.context = context
         return super(WebsiteSale, self).shop(page=page, category=category,
-                                             brand=brand, search=search,
-                                             **post)
+                                             ppg=ppg, search=search,
+                                             brand=brand, **post)
 
     # Method to get the brands.
     @http.route(
@@ -36,21 +45,16 @@ class WebsiteSale(website_sale):
         auth='public',
         website=True)
     def product_brands(self, **post):
-        cr, context, pool = (request.cr,
-                             request.context,
-                             request.registry)
-        b_obj = pool['product.brand']
         domain = []
         if post.get('search'):
             domain += [('name', 'ilike', post.get('search'))]
-        brand_ids = b_obj.search(cr, SUPERUSER_ID, domain)
-        brand_rec = b_obj.browse(cr, SUPERUSER_ID, brand_ids, context=context)
+        brand_rec = request.env['product.brand'].search(domain)
 
         keep = QueryURL('/page/product_brands', brand_id=[])
         values = {'brand_rec': brand_rec,
                   'keep': keep}
         if post.get('search'):
             values.update({'search': post.get('search')})
-        return request.website.render(
+        return request.render(
             'website_sale_product_brand.product_brands',
             values)
