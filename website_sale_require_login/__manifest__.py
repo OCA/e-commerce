@@ -4,7 +4,7 @@
 {
     "name": "Require login to checkout",
     "summary": "Force users to login for buying",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "category": "Website",
     "website": "http://www.antiun.com",
     "author": "Tecnativa, "
@@ -14,9 +14,12 @@
     "installable": True,
     "depends": [
         "website_sale_suggest_create_account",
+        "web_tour",
     ],
     "data": [
-        "views/assets.xml",
         "views/website_sale.xml",
+    ],
+    'demo': [
+        "demo/demo_assets.xml",
     ],
 }
