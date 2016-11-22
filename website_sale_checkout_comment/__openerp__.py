@@ -14,7 +14,7 @@
     "depends": [
         "website_sale",
     ],
-    "data":[
+    "data": [
         'views/template.xml',
     ]
 }
