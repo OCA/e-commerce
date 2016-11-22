@@ -6,7 +6,7 @@
 eCommerce Checkout Comments
 ===========================
 
-This module extends the functionality of eCommerce to allow write conmments in
+This module extends the functionality of eCommerce to allow write comments in
 checkout process.
 
 Usage
