@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="checkout" inherit_id="website_sale.checkout">
+
+    <xpath expr="//label[@for='state_id']/.." position="after">
+        <div class="form-group col-lg-12">
+            <label class="control-label" for="note" style="font-weight: normal">Notes</label>
+            <textarea name="note" class="form-control" t-att-value="checkout.get('note', '')"/>
+        </div>
+    </xpath>
+</template>
+
+</data>
+</openerp>
