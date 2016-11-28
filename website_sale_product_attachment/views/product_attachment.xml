@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="product_template_form_view_inherited" model="ir.ui.view">
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='sales']" position="after">
+          <page name="attachments" string="Attachments">
+            <field name="attachments" widget="many2many" label="Attachments" context="{'default_public':True, 'default_res_id':id, 'default_res_model': 'product.template'}"/>
+          </page>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

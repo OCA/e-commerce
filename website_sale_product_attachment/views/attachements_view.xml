@@ -1,0 +1,18 @@
+<openerp>
+  <data>
+    <template id="product_attachments" inherit_id="website_sale.product">
+      <xpath expr="//p[@class='text-muted']" position="after">
+        <t t-if="product.attachments">
+          <hr/>
+          <h4 class="text-muted"> Informational documents </h4>
+          <t t-foreach="product.attachments" t-as="a">
+            <a t-attf-href="/attachments/attachment/#{slug(a)}">
+              <t t-esc="a.name"/>
+            </a>
+            <br/>
+          </t>
+        </t>
+      </xpath>
+    </template>
+  </data>
+</openerp>
