@@ -1,5 +1,5 @@
 language: python
-sudo: true
+sudo: false
 cache:
   apt: true
   directories:
@@ -47,7 +47,6 @@ before_install:
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-  - sudo apt-get install ruby-sass
   - travis_install_nightly
 
 script:
