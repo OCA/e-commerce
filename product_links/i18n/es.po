@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-06 14:51+0000\n"
-"PO-Revision-Date: 2016-09-16 21:45+0000\n"
+"POT-Creation-Date: 2016-11-24 03:40+0000\n"
+"PO-Revision-Date: 2016-11-25 14:55+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,7 @@ msgstr ""
 #. module: product_links
 #: field:product.link,is_active:0
 msgid "Active"
-msgstr ""
-
-#. module: product_links
-#: field:product.product,product_brand_id:0
-msgid "Brand"
-msgstr ""
+msgstr "Activo"
 
 #. module: product_links
 #: field:product.link,create_uid:0
@@ -65,12 +60,12 @@ msgstr "Última actualización el"
 #. module: product_links
 #: field:product.link,type:0
 msgid "Link type"
-msgstr ""
+msgstr "Tipo de enlace"
 
 #. module: product_links
 #: field:product.link,linked_product_id:0
 msgid "Linked product"
-msgstr ""
+msgstr "Producto enlazado"
 
 #. module: product_links
 #: model:ir.model,name:product_links.model_product_product
@@ -84,19 +79,14 @@ msgstr "Producto"
 #: view:product.link:product_links.product_link_tree
 #: view:product.product:product_links.product_product_link_form
 msgid "Product Links"
-msgstr ""
+msgstr "Enlaces de productos"
 
 #. module: product_links
 #: field:product.product,product_link_ids:0
 msgid "Product links"
-msgstr ""
-
-#. module: product_links
-#: help:product.product,product_brand_id:0
-msgid "Select a brand for this product"
-msgstr ""
+msgstr "Enlaces de productos"
 
 #. module: product_links
 #: field:product.link,product_id:0
 msgid "Source Product"
-msgstr ""
+msgstr "Producto origen"

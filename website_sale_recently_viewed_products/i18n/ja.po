@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale_recently_viewed_products
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: e-commerce (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-24 03:40+0000\n"
+"PO-Revision-Date: 2016-03-29 10:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Japanese (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,create_uid:0
+msgid "Created by"
+msgstr "作成者"
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,create_date:0
+msgid "Created on"
+msgstr "作成日"
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,display_name:0
+msgid "Display Name"
+msgstr "表示名"
+
+#. module: website_sale_recently_viewed_products
+#: model:ir.model,name:website_sale_recently_viewed_products.model_website_sale_product_view
+msgid "Ecommerce Product Views"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.page
+msgid "Go to our"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,__last_update:0
+msgid "Last Modified on"
+msgstr "最終更新日"
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,write_uid:0
+msgid "Last Updated by"
+msgstr "最終更新者"
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,write_date:0
+msgid "Last Updated on"
+msgstr "最終更新日"
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.table
+msgid "Last View"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,last_view_datetime:0
+msgid "Last view datetime"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.popover
+msgid "Last viewed:"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:47
+#, python-format
+msgid "Less than a minute ago"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.table
+#: field:website.sale.product.view,product_id:0
+msgid "Product"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#. openerp-web
+#: code:addons/website_sale_recently_viewed_products/static/src/js/website_sale_recently_viewed_products.js:11
+#: view:website:website.layout
+#, python-format
+msgid "Recent Products"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.page
+msgid "Recently viewed products"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.page
+msgid "Seems like you haven't viewed any of our products yet!"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: field:website.sale.product.view,sessionid:0
+msgid "Session ID"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: sql_constraint:website.sale.product.view:0
+msgid "There is already a record for this product and session"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: model:ir.model,name:website_sale_recently_viewed_products.model_website
+msgid "Website"
+msgstr "ウェブサイト"
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:38
+#, python-format
+msgid "Yesterday"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.popover
+msgid "You haven't viewed any products yet!"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:36
+#, python-format
+msgid "days ago"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:42
+#, python-format
+msgid "hour ago"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:40
+#, python-format
+msgid "hours ago"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:46
+#, python-format
+msgid "minute ago"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: code:addons/website_sale_recently_viewed_products/models/product_view.py:44
+#, python-format
+msgid "minutes ago"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.page
+msgid "shop"
+msgstr ""
+
+#. module: website_sale_recently_viewed_products
+#: view:website:website_sale_recently_viewed_products.page
+msgid "to see our catalogue."
+msgstr ""

@@ -1,0 +1,92 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * product_links
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: e-commerce (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-24 03:40+0000\n"
+"PO-Revision-Date: 2016-11-23 06:14+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: product_links
+#: field:product.link,is_active:0
+msgid "Active"
+msgstr ""
+
+#. module: product_links
+#: field:product.link,create_uid:0
+msgid "Created by"
+msgstr "Створив"
+
+#. module: product_links
+#: field:product.link,create_date:0
+msgid "Created on"
+msgstr "Дата створення"
+
+#. module: product_links
+#: field:product.link,display_name:0
+msgid "Display Name"
+msgstr "Назва для відображення"
+
+#. module: product_links
+#: field:product.link,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_links
+#: field:product.link,__last_update:0
+msgid "Last Modified on"
+msgstr "Остання модифікація"
+
+#. module: product_links
+#: field:product.link,write_uid:0
+msgid "Last Updated by"
+msgstr "Востаннє оновив"
+
+#. module: product_links
+#: field:product.link,write_date:0
+msgid "Last Updated on"
+msgstr "Останнє оновлення"
+
+#. module: product_links
+#: field:product.link,type:0
+msgid "Link type"
+msgstr ""
+
+#. module: product_links
+#: field:product.link,linked_product_id:0
+msgid "Linked product"
+msgstr ""
+
+#. module: product_links
+#: model:ir.model,name:product_links.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: product_links
+#: model:ir.actions.act_window,name:product_links.product_link_action
+#: model:ir.ui.menu,name:product_links.product_link_menu
+#: view:product.link:product_links.product_link_form
+#: view:product.link:product_links.product_link_tree
+#: view:product.product:product_links.product_product_link_form
+msgid "Product Links"
+msgstr ""
+
+#. module: product_links
+#: field:product.product,product_link_ids:0
+msgid "Product links"
+msgstr ""
+
+#. module: product_links
+#: field:product.link,product_id:0
+msgid "Source Product"
+msgstr ""

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-06 13:06+0000\n"
-"PO-Revision-Date: 2016-04-30 12:05+0000\n"
+"POT-Creation-Date: 2016-11-24 03:40+0000\n"
+"PO-Revision-Date: 2016-11-25 14:56+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,6 @@ msgstr ""
 #: field:product.link,is_active:0
 msgid "Active"
 msgstr "Aktivno"
-
-#. module: product_links
-#: field:product.product,product_brand_id:0
-msgid "Brand"
-msgstr "Blagovna znamka"
 
 #. module: product_links
 #: field:product.link,create_uid:0
@@ -91,11 +86,6 @@ msgstr "Povezave proizvodov"
 #: field:product.product,product_link_ids:0
 msgid "Product links"
 msgstr "Povezave proizvodov"
-
-#. module: product_links
-#: help:product.product,product_brand_id:0
-msgid "Select a brand for this product"
-msgstr "Izbira blagovne znamke za ta proizvod"
 
 #. module: product_links
 #: field:product.link,product_id:0

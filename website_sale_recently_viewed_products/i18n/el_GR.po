@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-06 14:52+0000\n"
+"POT-Creation-Date: 2016-11-24 03:40+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/el_GR/)\n"
@@ -120,7 +120,7 @@ msgstr ""
 #. module: website_sale_recently_viewed_products
 #: model:ir.model,name:website_sale_recently_viewed_products.model_website
 msgid "Website"
-msgstr ""
+msgstr "Ιστότοπος"
 
 #. module: website_sale_recently_viewed_products
 #: code:addons/website_sale_recently_viewed_products/models/product_view.py:38
