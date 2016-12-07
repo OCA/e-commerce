@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
+from psycopg2 import IntegrityError
+
 from openerp import fields, http
 from openerp.http import request
 from openerp.addons.website_sale.controllers.main import website_sale
+
+
+_logger = logging.getLogger(__name__)
 
 
 class WebsiteSale(website_sale):
@@ -14,10 +21,19 @@ class WebsiteSale(website_sale):
             ('product_id', '=', product.id)
         ])
         if not record:
-            record = request.env['website.sale.product.view'].create({
-                'sessionid': request.session.sid,
-                'product_id': product.id,
-            })
+            try:
+                with request.env.cr.savepoint():
+                    record = request.env['website.sale.product.view'].create({
+                        'sessionid': request.session.sid,
+                        'product_id': product.id,
+                    })
+            except IntegrityError:
+                # Happens rarely, I assume when the record is created
+                # just after checking for it and before inserting it.
+                # (i.e. race condition)
+                _logger.error(
+                    'Couldn\'t save the product view record for session_id %s'
+                    'and product_id %s', request.session.sid, product.id)
         else:
             record.last_view_datetime = fields.Datetime.now()
         return super(WebsiteSale, self).product(product, category,
