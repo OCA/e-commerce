@@ -78,16 +78,15 @@ odoo.define("website_sale_wishlist.tour", function (require) {
                 },
             },
             {
-                title: "My user name is demo",
-                element: "#login",
-                waitFor: "#login",
-                sampleText: "demo",
-            },
-            {
-                title: "My password is demo",
-                element: "#password",
-                waitFor: "#password",
-                sampleText: "demo",
+                title: "Fill user name and password",
+                waitFor: "#login, #password",
+                onload: function () {
+                    // HACK Weird things happen in Travis.
+                    // See https://github.com/OCA/e-commerce/pull/149
+                    $(this.waitFor).val("demo")
+                    .closest("form").submit();
+                    return "Log in";
+                },
             },
             {
                 title: "Log in",
