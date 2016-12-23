@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_sale_line_comment/static/src/js/website_sale_line_comment.js"></script>
+        </xpath>
+    </template>
+
+    <template inherit_id="website_sale.cart_lines" id='cart_lines' name="Shopping Cart">
+        <xpath expr='//table[@id="cart_products"]/thead/tr/th[2]' position='after'>
+            <th width="100" class="text-center">Website Notes</th>
+        </xpath>
+        <xpath expr='//table[@id="cart_products"]/tbody//tr/td[4]' position='before'>
+            <td class="text-center"><textarea class='form-control' t-att-data-line_id='line.id' id='shoping_cart_website_notes' name='website_notes'><t t-esc='line.website_note'/></textarea></td>
+        </xpath>
+    </template>
+
+    <template inherit_id="website_sale.payment" id='payment' name="payment">
+        <xpath expr='//table[@id="cart_products"]/thead/tr/th[2]' position='replace'>
+            <th width="40">Quantity</th>
+            <th width="80">Website Notes</th>
+        </xpath>
+        <xpath expr='//table[@id="cart_products"]/tbody/tr/td[4]' position='after'>
+            <td><div t-esc="line.website_note"/></td>
+        </xpath>
+    </template>
+
+</odoo>

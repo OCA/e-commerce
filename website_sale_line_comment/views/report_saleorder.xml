@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template inherit_id="sale.report_saleorder_document" id='report_saleorder_document'>
+        <xpath expr='//table[@class="table table-condensed"]/thead/tr/th[2]' position='after'>
+            <th class="text-right">Website Notes</th>
+        </xpath>
+        <xpath expr='//table[@class="table table-condensed"]/tbody//tr/td[2]' position='after'>
+            <td class="text-right">
+                <span t-field="l.website_note"/>
+            </td>
+        </xpath>
+    </template>
+
+</odoo>
