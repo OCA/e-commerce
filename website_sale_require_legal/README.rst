@@ -8,7 +8,7 @@ Require accepting legal terms to checkout
 
 This module was written to extend the functionality of your website shop to
 support forcing the user to accept your legal advice, terms of use and privacy
-policy, and allow you to obey some countries' laws.
+policy, and allow you to comply with some countries' laws.
 
 Installation
 ============
@@ -33,7 +33,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/8.0
+   :target: https://runbot.odoo-community.org/runbot/113/9.0
 
 Bug Tracker
 ===========
@@ -41,10 +41,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/
 e-commerce/issues>`_. In case of trouble, please check there if your issue has
 already been reported. If you spotted it first, help us smashing it by
-providing a detailed and welcomed feedback `here <https://github.com/OCA/
-e-commerce/issues/new?body=module:%20 website_sale_require_legal%0Aversion:%20
-8.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
-
+providing a detailed and welcomed feedback.
 
 Credits
 =======
@@ -54,6 +51,7 @@ Contributors
 
 * Rafael Blasco <rafaelbn@antiun.com>
 * Jairo Llopis <yajo.sk8@gmail.com>
+* Vicent Cubells <vicent.cubells@tecnativa.com>
 
 Maintainer
 ----------
