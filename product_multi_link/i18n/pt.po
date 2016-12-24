@@ -92,7 +92,7 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model,name:product_multi_link.model_product_product
 msgid "Product"
-msgstr ""
+msgstr "Produto"
 
 #. module: product_multi_link
 #: model:ir.actions.act_window,name:product_multi_link.product_link_action
