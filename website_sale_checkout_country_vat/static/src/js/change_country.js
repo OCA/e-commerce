@@ -17,4 +17,9 @@
             }
         });
     });
+    $('form[action="/shop/confirm_order"]').on('submit', function(){
+        if(!this.no_country_field.value){
+            this.vat.value = "";
+        }
+    });
 })(jQuery);
