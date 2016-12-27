@@ -1,8 +1,8 @@
 /* © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-"use strict";
 (function ($) {
+    "use strict";
     $('.oe_website_sale').each(function () {
         var $this = $(this),
             $country_selector = $this.find("select[name=country_id]"),
