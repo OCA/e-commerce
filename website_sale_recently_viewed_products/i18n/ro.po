@@ -10,27 +10,27 @@ msgstr ""
 "POT-Creation-Date: 2016-12-24 01:25+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Turkish (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/tr/)\n"
+"Language-Team: Romanian (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,create_uid:0
 msgid "Created by"
-msgstr "Oluşturan"
+msgstr "Creat de"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,create_date:0
 msgid "Created on"
-msgstr "Oluşturuldu"
+msgstr "Creat la"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,display_name:0
 msgid "Display Name"
-msgstr "Görünen İsim"
+msgstr "Nume Afişat"
 
 #. module: website_sale_recently_viewed_products
 #: model:ir.model,name:website_sale_recently_viewed_products.model_website_sale_product_view
@@ -50,17 +50,17 @@ msgstr "ID"
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,__last_update:0
 msgid "Last Modified on"
-msgstr "Son değişiklik"
+msgstr "Ultima actualizare în"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,write_uid:0
 msgid "Last Updated by"
-msgstr "Son güncelleyen"
+msgstr "Ultima actualizare făcută de"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,write_date:0
 msgid "Last Updated on"
-msgstr "Son güncelleme"
+msgstr "Ultima actualizare la"
 
 #. module: website_sale_recently_viewed_products
 #: view:website:website_sale_recently_viewed_products.table
@@ -110,7 +110,7 @@ msgstr ""
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,sessionid:0
 msgid "Session ID"
-msgstr "Oturum ID"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: sql_constraint:website.sale.product.view:0
