@@ -1,8 +1,8 @@
 /* © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-"use strict";
 (function ($) {
+    "use strict";
     $('.oe_website_sale').each(function () {
         var $this = $(this),
             $country_selector = $this.find("select[name=country_id]"),
@@ -16,5 +16,10 @@
                      .click();
             }
         });
+    });
+    $('form[action="/shop/confirm_order"]').on('submit', function(){
+        if(!this.no_country_field.value){
+            this.vat.value = "";
+        }
     });
 })(jQuery);
