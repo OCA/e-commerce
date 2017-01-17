@@ -37,6 +37,12 @@
         </xpath>
     </template>
 
+    <template id="product_lowest_tier" inherit_id="product" customize_show="True" name="Lowest Tier Quantity">
+        <xpath expr="//input[@type='radio'][position()=1]" position="attributes">
+            <attribute name="checked">checked</attribute>
+        </xpath>
+    </template>
+
     <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Sale - Quantity Tiers (JS)">
         <xpath expr=".">
             <script type="text/javascript" src="/website_sale_qty/static/src/js/website_sale_qty.js"/>
