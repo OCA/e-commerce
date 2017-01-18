@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Specialty Medical Drugstore, LLC
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record id="product.product_product_7" model="product.product">
+        <field name="availability">unavailable</field>
+    </record>
+</odoo>
