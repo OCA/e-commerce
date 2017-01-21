@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-07 04:01+0000\n"
-"PO-Revision-Date: 2017-01-07 04:01+0000\n"
+"POT-Creation-Date: 2017-01-14 02:44+0000\n"
+"PO-Revision-Date: 2017-01-14 02:44+0000\n"
 "Last-Translator: Carles Antoli <carlesantoli@hotmail.com>, 2017\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_is_active
 msgid "Active"
-msgstr ""
+msgstr "Actiu"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
@@ -92,7 +92,7 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model,name:product_multi_link.model_product_product
 msgid "Product"
-msgstr ""
+msgstr "Producte"
 
 #. module: product_multi_link
 #: model:ir.actions.act_window,name:product_multi_link.product_link_action
