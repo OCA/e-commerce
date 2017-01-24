@@ -7,12 +7,10 @@ odoo.define('website_sale_qty', function(require) {
     'use strict';
 
     var base = require('web_editor.base');
-    var $ = require('$');
     base.ready().done(function() {
         var radios = $('.js-pqt-input');
 
         if (radios.length > 0) {
-            var _ = require('_');
             var radioMap = {};
             _.each(radios, function(element) {
                 var $element = $(element);
