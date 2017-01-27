@@ -2,7 +2,6 @@
 # © 2016 Nicola Malcontenti - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import SUPERUSER_ID
 from openerp.http import request
 from openerp.addons.website_sale.controllers.main import website_sale
 
