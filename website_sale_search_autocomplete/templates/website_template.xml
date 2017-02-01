@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <template id="website_search_box"
+              inherit_id="website.website_search_box"
+              name="Search Box - Autocomplete"
+              >
+
+        <xpath expr="//input" position="attributes">
+            <attribute name="class">js_website_autocomplete</attribute>
+            <attribute name="data-query-field">name</attribute>
+            <attribute name="data-display-field">display_name</attribute>
+            <attribute name="data-value-field">name</attribute>
+            <attribute name="data-limit">10</attribute>
+            <attribute name="data-domain">[]</attribute>
+            <attribute name="data-model">product.template</attribute>
+        </xpath>
+
+    </template>
+
+</odoo>
