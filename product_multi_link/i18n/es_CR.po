@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 01:20+0000\n"
-"PO-Revision-Date: 2016-11-29 01:20+0000\n"
+"POT-Creation-Date: 2016-12-24 01:27+0000\n"
+"PO-Revision-Date: 2016-12-24 01:27+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/oca/teams/23907/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_date
@@ -71,12 +71,12 @@ msgstr ""
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultima actualización por"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima actualización en"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_type
