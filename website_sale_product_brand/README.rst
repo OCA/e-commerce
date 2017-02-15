@@ -21,7 +21,7 @@ Installation
 ============
 
 To install this module, you need to install following module:
-->https://github.com/OCA/product-attribute/tree/9.0/product_brand
+->https://github.com/OCA/product-attribute/tree/10.0/product_brand
 
 Usage
 =====
@@ -34,11 +34,13 @@ Once you install this module, user will be able to create a new brand and define
 
 - To create product brand
     go to:
-        sales>products>product brands
+        products > create product
+		or
+	products > select any existing product
+	
+Here below the name field of the product in form view, you will find a many2one field which is for assigning or creating a new brand for that particular product. 
 
-User can assign a nice logo with brand description.
-
-- After configuring the brand, user can assign a particular brand to a particular products.
+User can assign a nice logo with brand description as well.
 
 Based on this configuration, you will see the menuitem shop by brand under shop menu.
 It will show all the brands and once you select that brand it will show product's which
