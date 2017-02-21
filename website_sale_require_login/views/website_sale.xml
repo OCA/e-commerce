@@ -12,7 +12,7 @@
 
 <template id="cart" inherit_id="website_sale.cart" priority="20">
     <xpath expr="//a[@href='/shop/checkout']" position="attributes">
-        <attribute name="t-if">(
+        <attribute t-translation="off" name="t-if">(
             user_id != website.user_id and
             not optional_products and
             website_sale_order and
