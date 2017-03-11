@@ -10,22 +10,22 @@ msgstr ""
 "POT-Creation-Date: 2017-03-04 02:17+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Galician (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/gl/)\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: gl\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,create_uid:0
 msgid "Created by"
-msgstr "Creado por"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,create_date:0
 msgid "Created on"
-msgstr "Creado en"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,display_name:0
@@ -45,22 +45,22 @@ msgstr ""
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,__last_update:0
 msgid "Last Modified on"
-msgstr "Última modificación"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,write_uid:0
 msgid "Last Updated by"
-msgstr "ültima actualización por"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,write_date:0
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr ""
 
 #. module: website_sale_recently_viewed_products
 #: view:website:website_sale_recently_viewed_products.table
@@ -87,7 +87,7 @@ msgstr ""
 #: view:website:website_sale_recently_viewed_products.table
 #: field:website.sale.product.view,product_id:0
 msgid "Product"
-msgstr "Produto"
+msgstr "Product"
 
 #. module: website_sale_recently_viewed_products
 #. openerp-web
