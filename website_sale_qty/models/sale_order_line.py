@@ -2,7 +2,7 @@
 # Copyright 2017 Specialty Medical Drugstore
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class SaleOrderLine(models.Model):
@@ -20,7 +20,7 @@ class SaleOrderLine(models.Model):
                         price = price_qty_tier[0] * price_qty_tier[1]
                         exact_match = True
                         break
-                if exact_match == False:
+                if exact_match is False:
                     for i in range(0, len(price_qty_tiers)):
                         if line.product_uom_qty < price_qty_tiers[i][0]:
                             price_per_unit = price_qty_tiers[i-1][1]
@@ -34,7 +34,8 @@ class SaleOrderLine(models.Model):
                     partner=line.order_id.partner_id
                 )
                 line.update({
-                    'price_tax': taxes['total_included'] - taxes['total_excluded'],
+                    'price_tax':
+                        (taxes['total_included'] - taxes['total_excluded']),
                     'price_total': taxes['total_included'],
                     'price_subtotal': taxes['total_excluded'],
                 })
