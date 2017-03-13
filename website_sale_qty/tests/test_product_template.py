@@ -31,7 +31,7 @@ class TestProductTemplate(TransactionCase):
             ('id', '>', 0),
         ])
 
-        self.env['product.pricelist.item'].search([('id', '>', 0)]).unlink()
+        self.env['product.pricelist.item'].search([('id', '>', 0)])
 
     def test_price_quantity_tiers_no_matches(self):
         '''The tiers for each pricelist should be empty if no prices match'''
