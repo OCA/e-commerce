@@ -11,21 +11,6 @@ price tiers (quantity ranges with different unit pricing). It then adds radio
 buttons to product pages in the website shop, which allow users to easily 
 select the minimum quantity corresponding to each tier.
 
-Installation
-============
-
-To install this module, simply follow the standard install process.
-
-Configuration
-=============
-
-No configuration is needed or possible.
-
-Usage
-=====
-
-Install and enjoy.
-
 Known Issues / Roadmap
 ======================
 
