@@ -88,6 +88,7 @@ class automatic_workflow_job(orm.Model):
             with commit(cr):
                 wf_service.trg_validate(uid, 'sale.order',
                                         sale_id, 'order_confirm', cr)
+                sale_obj.browse(cr, uid, sale_id, context=context).action_button_confirm()
 
     def _reconcile_invoices(self, cr, uid, ids=None, context=None):
         invoice_obj = self.pool.get('account.invoice')
