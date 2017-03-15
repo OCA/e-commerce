@@ -53,6 +53,7 @@ It is well suited for other E-Commerce connectors as well.
     'website': 'http://www.akretion.com/',
     'depends': ['sale_payment_method',
                 'stock',
+                'account_gain_loss',
                 ],
     'data': ['sale_view.xml',
              'sale_workflow.xml',

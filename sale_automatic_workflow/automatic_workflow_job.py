@@ -88,6 +88,7 @@ class automatic_workflow_job(orm.Model):
             with commit(cr):
                 wf_service.trg_validate(uid, 'sale.order',
                                         sale_id, 'order_confirm', cr)
+                sale_obj.browse(cr, uid, sale_id, context=context).action_button_confirm()
 
     def _reconcile_invoices(self, cr, uid, ids=None, context=None):
         invoice_obj = self.pool.get('account.invoice')
@@ -137,10 +138,48 @@ class automatic_workflow_job(orm.Model):
                                                  picking_ids,
                                                  context=context)
 
+    def _invoice_pickings(self, cr, uid, context=None):
+        picking_obj = self.pool.get('stock.picking')
+        # We search on stock.picking (using the type) rather than
+        # stock.picking.out because the ORM seems bugged and can't
+        # search on stock_picking_out.workflow_process_id.
+        # Later, we'll call `validate_picking` on stock.picking.out
+        # because anyway they have the same ID and the call will be at
+        # the correct object level.
+        if context is None:
+            context = {}
+        picking_ids = picking_obj.search(
+            cr, uid,
+            [('state', 'in', ['done']),
+             ('workflow_process_id.create_invoice_on', '=', 'on_picking_done'),
+             ('invoice_state', '=', '2binvoiced')],
+            context=context)
+        _logger.debug('Pickings to invoice: %s', picking_ids)
+        for picking_id in picking_ids:
+            with commit(cr):
+                picking = picking_obj.browse(cr, uid, picking_id, context=context)
+                ctx = context
+                if picking.sale_id:
+                    ctx = dict(ctx,
+                               force_company=picking.sale_id.company_id.id,
+                               company_id=picking.sale_id.company_id.id)
+                if picking.type=='out':
+                    picking_obj.action_invoice_create(cr, uid,
+                                                      [picking_id,],
+                                                      type='out_invoice',
+                                                      context=ctx)
+                elif picking.type=='in':
+                    # Will be refunded as this workflow does not apply to the supplier side
+                    picking_obj.action_invoice_create(cr, uid,
+                                                      [picking_id,],
+                                                      type='out_refund',
+                                                      context=ctx)
+
     def run(self, cr, uid, ids=None, context=None):
         """ Must be called from ir.cron """
 
         self._validate_sale_orders(cr, uid, context=context)
+        self._invoice_pickings(cr, uid, context=context)
         self._validate_invoices(cr, uid, context=context)
         self._reconcile_invoices(cr, uid, context=context)
         self._validate_pickings(cr, uid, context=context)
