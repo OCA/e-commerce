@@ -44,6 +44,8 @@ install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+  - npm install phantomjs-prebuilt@2.1.14
+  - export PATH=${TRAVIS_BUILD_DIR}/node_modules/phantomjs-prebuilt/lib/phantom/bin:${PATH}
 
 script:
   - travis_run_tests

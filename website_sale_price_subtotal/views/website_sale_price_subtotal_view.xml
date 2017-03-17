@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Specialty Medical Drugstore LLC
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Sale - Price Subtotal (JS)">
+        <xpath expr=".">
+            <script type="text/javascript" src="/website_sale_price_subtotal/static/tests/js/website_sale_price_subtotal.tour.js"/>
+        </xpath>
+    </template>
+
+</odoo>
