@@ -19,7 +19,11 @@ To install this module, simply follow the standard install process.
 Configuration
 =============
 
-No configuration is needed or possible.
+* A tier with a minimum quantity of one is automatically created. If you would
+  like to turn off this implicit tier of one, you may select "Website Sale -
+  Quantity Tiers (No Implicit)" from the Customize menu on the product page
+  under "Website Sale - Quantity Tiers." Note that "Website Sale - Quantity Tiers"
+  under "Product" must be enabled as well.
 
 Usage
 =====

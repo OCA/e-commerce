@@ -27,6 +27,10 @@ class TestProductTemplate(TransactionCase):
             'currency_id': self.env.ref('base.USD').id,
             'name': 'Test Pricelist 2',
         })
+        self.test_pricelist_3 = self.env['product.pricelist'].create({
+            'currency_id': self.env.ref('base.USD').id,
+            'name': 'Test Pricelist 3',
+        })
         self.pricelists = self.env['product.pricelist'].search([
             ('id', '>', 0),
         ])
@@ -212,4 +216,29 @@ class TestProductTemplate(TransactionCase):
         self.assertEqual(
             self.test_template.price_quantity_tiers[self.test_pricelist_1.id],
             [],
+        )
+
+    def test_tiers_no_implicit(self):
+        '''The tiers_no_implicit field should be a price tier
+        without a min quantity of one'''
+        self.env['product.pricelist.item'].create({
+            'pricelist_id': self.test_pricelist_3.id,
+            'applied_on': '1_product',
+            'compute_price': 'fixed',
+            'fixed_price': 1,
+            'product_tmpl_id': self.test_template.id,
+            'min_quantity': 2,
+        })
+        self.env['product.pricelist.item'].create({
+            'pricelist_id': self.test_pricelist_3.id,
+            'applied_on': '1_product',
+            'compute_price': 'fixed',
+            'fixed_price': 0.8,
+            'product_tmpl_id': self.test_template.id,
+            'min_quantity': 20,
+        })
+
+        self.assertEqual(
+            self.test_template.tiers_no_implicit[self.test_pricelist_3.id],
+            [(2, 1), (20, 0.8)],
         )

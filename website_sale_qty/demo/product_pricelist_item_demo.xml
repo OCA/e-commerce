@@ -6,14 +6,6 @@
 -->
 
 <odoo>
-    <record id="template_level_price_qty_1" model="product.pricelist.item">
-        <field name="pricelist_id" ref="product.list0"/>
-        <field name="applied_on">1_product</field>
-        <field name="compute_price">fixed</field>
-        <field name="fixed_price">320</field>
-        <field name="product_tmpl_id" ref="product.product_product_6_product_template"/>
-        <field name="min_quantity">1</field>
-    </record>
 
     <record id="template_level_price_qty_5" model="product.pricelist.item">
         <field name="pricelist_id" ref="product.list0"/>
@@ -32,4 +24,5 @@
         <field name="product_tmpl_id" ref="product.product_product_6_product_template"/>
         <field name="min_quantity">10</field>
     </record>
+
 </odoo>

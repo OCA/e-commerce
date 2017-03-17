@@ -37,6 +37,30 @@
         </xpath>
     </template>
 
+    <template id="product_no_implicit" inherit_id="website_sale_qty.product" customize_show="True" name="Website Sale - Quantity Tiers (No Implicit)">
+        <xpath expr="//ul" position="replace">
+            <t t-set="pricelist" t-value="website.get_current_pricelist()"/>
+            <t t-set="price_qty_tiers" t-value="product.tiers_no_implicit[pricelist.id]"/>
+            <t t-if="len(price_qty_tiers) &gt; 0">
+                <ul class="list-unstyled" style="margin-bottom: 5px;">
+                    <t t-foreach="price_qty_tiers" t-as="price_qty_tier">
+                        <li class="form-group" style="margin: 0;">
+                            <label class="control-label">
+                                <input class="js-pqt-input" type="radio" name="price_qty_tiers" t-att-value="price_qty_tier[0]" style="vertical-align: top; margin-right: 5px;"/>
+                                <span t-esc="price_qty_tier[0]"/>
+                                <span class="badge"><t t-esc="price_qty_tier[0] * price_qty_tier[1]" t-esc-options="{
+                                    &quot;widget&quot;: &quot;monetary&quot;,
+                                    &quot;from_currency&quot;: &quot;pricelist.currency_id&quot;,
+                                    &quot;display_currency&quot;: &quot;website.currency_id&quot;
+                                }"/></span>
+                            </label>
+                        </li>
+                    </t>
+                </ul>
+            </t>
+        </xpath>
+    </template>
+
     <template id="product_lowest_tier" inherit_id="product" customize_show="True" name="Lowest Tier Quantity">
         <xpath expr="//input[@type='radio'][position()=1]" position="attributes">
             <attribute name="checked">checked</attribute>

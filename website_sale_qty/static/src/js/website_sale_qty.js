@@ -10,6 +10,8 @@ odoo.define('website_sale_qty', function(require) {
     base.ready().done(function() {
         var radios = $('.js-pqt-input');
 
+        radios[0].checked = true;
+
         if (radios.length > 0) {
             var radioMap = {};
             _.each(radios, function(element) {

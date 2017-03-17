@@ -13,8 +13,12 @@ class ProductTemplate(models.Model):
         help='Unit prices by pricelist and minimum quantity',
     )
 
+    tiers_no_implicit = fields.Serialized(
+        compute='_compute_tiers_no_implicit',
+    )
+
     @api.multi
-    def _compute_price_quantity_tiers(self):
+    def _compute_price_quantity_tiers(self, implicit_pricing=True):
         pricelists = self.env['product.pricelist'].search([('id', '>', 0)])
 
         for record in self:
@@ -40,7 +44,8 @@ class ProductTemplate(models.Model):
                     min_quantities.add(
                         1 if price.min_quantity < 1 else price.min_quantity
                     )
-                min_quantities.add(1)
+                if implicit_pricing:
+                    min_quantities.add(1)
 
                 list_results = set([])
                 for min_qty in min_quantities:
@@ -57,4 +62,11 @@ class ProductTemplate(models.Model):
                     list_results = []
                 results[pricelist.id] = list_results
 
-            record.price_quantity_tiers = results
+            if implicit_pricing:
+                record.price_quantity_tiers = results
+            else:
+                record.tiers_no_implicit = results
+
+    @api.multi
+    def _compute_tiers_no_implicit(self):
+        self._compute_price_quantity_tiers(False)
