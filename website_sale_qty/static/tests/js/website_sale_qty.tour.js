@@ -6,100 +6,69 @@
 odoo.define('website_sale.tour', function(require) {
     'use strict';
 
-    var tour = require('web.Tour');
-    var _t = require('web.core')._t;
+    var tour = require('web_tour.tour');
+    var base = require('web_editor.base');
 
-    tour.register({
-        id: 'test_website_sale_qty',
-        name: _t('Test JS for price/quantity radio buttons on product page in website shop'),
-        path: '/shop/product/ipad-mini-9',
-        mode: 'test',
-        steps: [
+    tour.register(
+        'test_website_sale_qty',
+        {
+            url: '/shop/product/e-com07-ipad-mini-13',
+            name: 'Test JS for price/quantity radio buttons on product page in website shop',
+            test: true,
+            wait_for: base.ready(),
+        },
+        [
             {
-                title: 'Check that the radio corresponding to a quantity of 1 is selected on load',
-                onload: function() {
-                    var radio = $('.js-pqt-input[value="1"]');
-                    if (!radio.is(':checked')) {
-                        tour.error(this, 'The radio for a qty of 1 should be selected');
-                    }
-                },
+                content: 'Check that the radio corresponding to a quantity of 1 is selected on load',
+                trigger: '.js-pqt-input[value="1"]:propChecked',
             },
+            {
+                content: 'Select the radio corresponding to a quantity of 5',
+                trigger: '.js-pqt-input[value="5"]',
+            },
+            {
+                content: 'Check that the main quantity input has been updated to 5',
+                trigger: '.css_quantity input:propValue("5")',
+            },
+            {
+                content: 'Change value of main quantity input to 6',
+                trigger: '.css_quantity input[name=add_qty]',
+                run: 'text 6',
+            },
+            {
+                content: 'Check that none of the radios is selected anymore',
+                trigger: '.js-pqt-input:not(:propChecked)',
+            },
+            {
+                content: 'Change value of main quantity input to 5',
+                trigger: '.css_quantity input[name=add_qty]',
+                run: 'text 5',
+            },
+            {
+                content: 'Check that the radio corresponding to a quantity of 5 is now selected',
+                trigger: '.js-pqt-input[value="5"]:propChecked',
+            },
+            {
+                content: 'Click button that decrements main quantity input',
+                trigger: '.css_quantity a:even',
+                run: 'click',
+            },
+            {
+                content: 'Check that none of the radios is selected anymore',
+                trigger: '.js-pqt-input:not(:propChecked)',
+            },
+            {
+                content: 'Click button that increments main quantity input',
+                trigger: '.css_quantity a:odd',
+                run: 'click',
+            },
+            {
+                content: 'Check that the radio corresponding to a quantity of 5 is now selected',
+                trigger: '.js-pqt-input[value="5"]:propChecked',
+            },
+        ]
+    );
 
-            {
-                title: 'Select the radio corresponding to a quantity of 5',
-                element: '.js-pqt-input[value="5"]',
-            },
-            {
-                title: 'Check that the main quantity input has been updated to 5',
-                onload: function() {
-                    var quantityInput = $('.css_quantity input');
-                    if (quantityInput.val() != 5) {
-                        tour.error(this, "The main quantity input should have a value of 5");
-                    }
-                },
-            },
+    return {};
 
-            {
-                title: 'Change value of main quantity input to 6',
-                onload: function() {
-                    // Input event should be fired to properly replicate user action
-                    $('.css_quantity input').val(6).trigger('input');
-                },
-            },
-            {
-                title: 'Check that none of the radios are selected anymore',
-                onload: function() {
-                    var radios = $('.js-pqt-input');
-                    if (radios.is(':checked')) {
-                        tour.error(this, 'No radios should be selected at this point');
-                    }
-                },
-            },
-
-            {
-                title: 'Change value of main quantity input to 5',
-                onload: function() {
-                    // Input event should be fired to properly replicate user action
-                    $('.css_quantity input').val(5).trigger('input');
-                },
-            },
-            {
-                title: 'Check that the radio corresponding to a quantity of 5 is now selected',
-                onload: function() {
-                    var radio = $('.js-pqt-input[value="5"]');
-                    if (!radio.is(':checked')) {
-                        tour.error(this, 'The radio for a qty of 5 should be selected');
-                    }
-                },
-            },
-
-            {
-                title: 'Click button that increments main quantity input',
-                element: '.css_quantity a:nth-of-type(2)',
-            },
-            {
-                title: 'Check that none of the radios are selected anymore',
-                onload: function() {
-                    var radios = $('.js-pqt-input');
-                    if (radios.is(':checked')) {
-                        tour.error(this, 'No radios should be selected at this point');
-                    }
-                },
-            },
-            
-            {
-                title: 'Click button that decrements main quantity input',
-                element: '.css_quantity a:nth-of-type(1)',
-            },
-            {
-                title: 'Check that the radio corresponding to a quantity of 5 is now selected',
-                onload: function() {
-                    var radio = $('.js-pqt-input[value="5"]');
-                    if (!radio.is(':checked')) {
-                        tour.error(this, 'The radio for a qty of 5 should be selected');
-                    }
-                },
-            },
-        ],
-    });
 });

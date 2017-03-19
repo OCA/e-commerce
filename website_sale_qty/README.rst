@@ -57,6 +57,7 @@ Contributors
 ------------
 
 * Oleg Bulkin <obulkin@laslabs.com>
+* Kelly Lougheed <kelly@smdrugstore.com>
 
 Maintainer
 ----------
