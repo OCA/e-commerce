@@ -29,6 +29,7 @@ addon | version | summary
 [website_sale_require_login](website_sale_require_login/) | 8.0.1.0.0 | Force users to login for buying
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 8.0.1.0.0 | Suggest users to create an account when buying in the website
 
+
 Unported addons
 ---------------
 addon | version | summary
