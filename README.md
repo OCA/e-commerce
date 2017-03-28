@@ -8,6 +8,7 @@ Odoo E-Commerce Modules
 Modules aiming to support e-commerce specific needs. This includes all the new website_sale related modules included in version 10.0.
 
 [//]: # (addons)
+
 Unported addons
 ---------------
 addon | version | summary
