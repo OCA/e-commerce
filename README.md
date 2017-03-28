@@ -22,6 +22,7 @@ addon | version | summary
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 9.0.1.0.0 | Suggest users to create an account when buying in the website
 [website_sale_wishlist](website_sale_wishlist/) | 9.0.1.0.0 | Wishlist of products in your online shop
 
+
 Unported addons
 ---------------
 addon | version | summary
