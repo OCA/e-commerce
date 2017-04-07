@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2017 LasLabs Inc.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo noupdate="1">
+    <record id="base" model="product.public.category">
+        <field name="name">Alphabetical</field>
+        <field name="sequence">9999</field>
+    </record>
+</odoo>
