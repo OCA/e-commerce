@@ -1,4 +1,4 @@
-    # -*- encoding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ###############################################################################
 #                                                                             #
 #   purchase_outillage for OpenERP                                            #
@@ -23,6 +23,7 @@
 from openerp.osv.orm import Model
 from openerp.osv import fields
 
+
 class purchase_order_line(Model):
     _inherit = "purchase.order.line"
 
@@ -30,19 +31,22 @@ class purchase_order_line(Model):
         'goodie_for_line_id': fields.many2one('purchase.order.line', 'Goodies for', help='The product linked to this goodie lines'),
         'goodies_line_ids': fields.one2many('purchase.order.line', 'goodie_for_line_id', 'Goodies linked', help=''),
     }
-    
+
     def write(self, cr, uid, ids, vals, context=None):
-        if context is None: context={}
-        #TODO I should apply this only for automatic po need a read only mode
+        if context is None:
+            context = {}
+        # TODO I should apply this only for automatic po need a read only mode
         if context.get("updated_from_op"):
             if not context.get('goodies_create_update'):
                 ctx = context.copy()
                 ctx['goodies_create_update'] = True
                 for line in self.browse(cr, uid, ids, context=None):
                     if line.product_id.is_purchase_goodies(context=ctx):
-                        vals['product_qty'] = self._get_new_qty_for_none_goodies_line(cr, uid, vals['product_qty'], line.product_id.id, line.order_id.id, context=ctx)
-                    super(purchase_order_line, self).write(cr, uid, line.id, vals, context=ctx)
-                    
+                        vals['product_qty'] = self._get_new_qty_for_none_goodies_line(
+                            cr, uid, vals['product_qty'], line.product_id.id, line.order_id.id, context=ctx)
+                    super(purchase_order_line, self).write(
+                        cr, uid, line.id, vals, context=ctx)
+
                     qty_added = vals['product_qty'] - line.product_qty
                     for goodie in line.product_id.supplier_goodies_ids:
                         qty = goodie.get_quantity(qty_added, context=ctx)
@@ -51,38 +55,48 @@ class purchase_order_line(Model):
                             if goodies_line.product_id.id == goodie.linked_product_id.id:
                                 po_line_for_goodie = goodies_line
                                 break
-                        #TODO manage correctly uom
+                        # TODO manage correctly uom
                         print 'po_line_for_goodie', po_line_for_goodie
                         if po_line_for_goodie:
-                            po_line_for_goodie.write({'product_qty': po_line_for_goodie.product_qty + qty}, context=ctx)
+                            po_line_for_goodie.write(
+                                {'product_qty': po_line_for_goodie.product_qty + qty}, context=ctx)
                         else:
-                            self.create(cr, uid, 
-                                    self._prepare_goodies_line(cr, uid, line.id, goodie, qty, line.order_id, line.date_planned, context=ctx),
-                                    context=ctx)
-                        self.update_none_goodies_line(cr, uid, qty, goodie.linked_product_id.id, line.order_id.id, context=ctx)
+                            self.create(cr, uid,
+                                        self._prepare_goodies_line(
+                                            cr, uid, line.id, goodie, qty, line.order_id, line.date_planned, context=ctx),
+                                        context=ctx)
+                        self.update_none_goodies_line(
+                            cr, uid, qty, goodie.linked_product_id.id, line.order_id.id, context=ctx)
                 return True
         return super(purchase_order_line, self).write(cr, uid, ids, vals, context=context)
-    
+
     def create(self, cr, uid, vals, context=None):
-        if context is None: context={}
+        if context is None:
+            context = {}
         if not context.get('goodies_create_update'):
             ctx = context.copy()
             ctx['goodies_create_update'] = True
             product_obj = self.pool.get('product.product')
-            product = product_obj.browse(cr, uid, vals['product_id'], context=ctx)
-            
+            product = product_obj.browse(
+                cr, uid, vals['product_id'], context=ctx)
+
             if product.is_purchase_goodies(context=ctx):
-                vals['product_qty'] = self._get_new_qty_for_none_goodies_line(cr, uid, vals['product_qty'], vals['product_id'], vals['order_id'], context=ctx)
-            
-            line_id = super(purchase_order_line, self).create(cr, uid, vals, context=context)
-            
-            order = self.pool.get('purchase.order').browse(cr, uid, vals['order_id'], context=context)
+                vals['product_qty'] = self._get_new_qty_for_none_goodies_line(
+                    cr, uid, vals['product_qty'], vals['product_id'], vals['order_id'], context=ctx)
+
+            line_id = super(purchase_order_line, self).create(
+                cr, uid, vals, context=context)
+
+            order = self.pool.get('purchase.order').browse(
+                cr, uid, vals['order_id'], context=context)
             for goodie in product.supplier_goodies_ids:
                 qty = goodie.get_quantity(vals['product_qty'], context=ctx)
-                self.create(cr, uid, 
-                        self._prepare_goodies_line(cr, uid, line_id, goodie, qty, order, vals.get('date_planned'), context=ctx),
-                        context=ctx)
-                self.update_none_goodies_line(cr, uid, qty, goodie.linked_product_id.id, order.id, context=ctx)
+                self.create(cr, uid,
+                            self._prepare_goodies_line(
+                                cr, uid, line_id, goodie, qty, order, vals.get('date_planned'), context=ctx),
+                            context=ctx)
+                self.update_none_goodies_line(
+                    cr, uid, qty, goodie.linked_product_id.id, order.id, context=ctx)
             return line_id
         else:
             return super(purchase_order_line, self).create(cr, uid, vals, context=context)
@@ -98,16 +112,15 @@ class purchase_order_line(Model):
         :rtype: float
         """
         goodies_line_ids = self.search(cr, uid, [
-                ['order_id', '=', order_id],
-                ['product_id', '=', product_id],
-                ['goodie_for_line_id', '!=', False]
-            ], context=context)
+            ['order_id', '=', order_id],
+            ['product_id', '=', product_id],
+            ['goodie_for_line_id', '!=', False]
+        ], context=context)
         for goodie_line in self.browse(cr, uid, goodies_line_ids, context=context):
             qty -= goodie_line.product_qty
         if qty < 0:
             qty = 0
         return qty
-
 
     def update_none_goodies_line(self, cr, uid, goodies_qty, product_id, order_id, context=None):
         """Update the none line goodies, by this I mean :
@@ -121,17 +134,18 @@ class purchase_order_line(Model):
         :rtype: Boolean
         """
         product_line_id = self.search(cr, uid, [
-                ['order_id', '=', order_id],
-                ['product_id', '=', product_id],
-                ['goodie_for_line_id', '=', False]
-            ], context=context)
+            ['order_id', '=', order_id],
+            ['product_id', '=', product_id],
+            ['goodie_for_line_id', '=', False]
+        ], context=context)
         if product_line_id:
-            product_line = self.browse(cr, uid, product_line_id[0], context=context)
+            product_line = self.browse(
+                cr, uid, product_line_id[0], context=context)
             new_qty = product_line.product_qty - goodies_qty
-            if new_qty < 0: new_qty = 0
+            if new_qty < 0:
+                new_qty = 0
             product_line.write({'product_qty': new_qty}, context=context)
         return True
-
 
     def _prepare_goodies_line(self, cr, uid, line_id, goodie, qty, order, date_planned, context=None):
         """Prepare the purchase order line for goodies
@@ -142,23 +156,26 @@ class purchase_order_line(Model):
         :return: dictionnary of value for creating the purchase order line
         :rtype: dict
         """
-        #TODO manage correctly uom
+        # TODO manage correctly uom
         acc_pos_obj = self.pool.get('account.fiscal.position')
         taxes_ids = goodie.product_id.supplier_taxes_id
-        taxes = acc_pos_obj.map_tax(cr, uid, order.partner_id.property_account_position, taxes_ids)
+        taxes = acc_pos_obj.map_tax(
+            cr, uid, order.partner_id.property_account_position, taxes_ids)
         ctx = context.copy()
-        #set the partner id in the context in order to have the good name for product
+        # set the partner id in the context in order to have the good name for
+        # product
         ctx['partner_id'] = order.partner_id.id
-        product = self.pool.get('product.product').browse(cr, uid, goodie.linked_product_id.id, context=ctx)
+        product = self.pool.get('product.product').browse(
+            cr, uid, goodie.linked_product_id.id, context=ctx)
         return {
-            'name': ">>>%s"%product.partner_ref,
+            'name': ">>>%s" % product.partner_ref,
             'product_qty': qty,
             'product_id': product.id,
             'product_uom': product.uom_po_id.id,
             'price_unit': goodie.cost_price or 0.0,
             'date_planned': date_planned,
             'notes': product.description_purchase,
-            'taxes_id': [(6,0,taxes)],
+            'taxes_id': [(6, 0, taxes)],
             'order_id': order.id,
             'goodie_for_line_id': line_id
         }

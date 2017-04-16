@@ -30,9 +30,9 @@
     """,
     'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com/',
-    'depends': ['product_links', 'purchase'], 
+    'depends': ['product_links', 'purchase'],
     'init_xml': [],
-    'update_xml': [ 
+    'update_xml': [
             'product_links_view.xml',
             'purchase_view.xml',
             'product_goodies_data.xml',
@@ -41,4 +41,3 @@
     'installable': False,
     'active': False,
 }
-

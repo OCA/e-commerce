@@ -21,24 +21,18 @@
 
 from openerp.osv.orm import Model
 from openerp.osv import fields
-import netsvc
-from tools import DEFAULT_SERVER_DATETIME_FORMAT
-from datetime import datetime
-
 
 
 class sale_shop(Model):
     _inherit = "sale.shop"
 
     _columns = {
-        'last_products_links_export_date' : fields.datetime('Last Product Link Export Time'),
+        'last_products_links_export_date': fields.datetime('Last Product Link Export Time'),
     }
 
     def export_catalog(self, cr, uid, ids, context=None):
-        res=super(sale_shop, self).export_catalog(cr, uid, ids, context=context)
+        res = super(sale_shop, self).export_catalog(
+            cr, uid, ids, context=context)
         context['export_product'] = 'link'
         self.export_resources(cr, uid, ids, 'product.product', context=context)
         return res
-
-
-
