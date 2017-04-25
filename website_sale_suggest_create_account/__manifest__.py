@@ -6,11 +6,11 @@
     "summary": "Suggest users to create an account when buying in the website",
     "version": "10.0.1.0.0",
     "category": "Website",
-    "website": "http://www.antiun.com",
+    "website": "https://www.tecnativa.com",
     "author": "Tecnativa, "
               "LasLabs, "
               "Odoo Community Association (OCA)",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "installable": True,
     "depends": [
         "website_sale",
