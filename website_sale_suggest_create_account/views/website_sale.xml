@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="cart" inherit_id="website_sale.cart">
+        <!-- Show normal "Checkout" button if user is logged in or external login
+             is disabled -->
+        <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+            <attribute name="t-if">(
+                user_id != website.user_id or
+                env['ir.config_parameter'].get_param(
+                    'auth_signup.allow_uninvited') != 'True' and
+                not optional_products and website_sale_order and
+                website_sale_order.website_order_line
+            )</attribute>
+        </xpath>
+    
+        <!-- Show choice in other cases -->
+        <xpath expr="//a[@href='/shop/checkout']" position="after">
+            <a t-if="user_id == website.user_id"
+               class="btn btn-primary pull-right mb32"
+               href="/web/login?redirect=/shop/checkout">
+                <span>Log in and checkout</span>
+                <span class="fa fa-long-arrow-right"/>
+            </a>
+            <t t-if="(user_id == website.user_id and
+                      env['ir.config_parameter'].get_param(
+                          'auth_signup.allow_uninvited') == 'True' and
+                      not optional_products and website_sale_order and
+                      website_sale_order.website_order_line)">
+                <a class="btn btn-primary pull-right mb32"
+                   href="/web/signup?redirect=/shop/checkout">
+                    <span>Sign up and checkout</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+                <a id="anonymous_checkout" class="btn btn-default mb32" href="/shop/checkout">
+                    <span>Checkout without sign up</span>
+                </a>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
