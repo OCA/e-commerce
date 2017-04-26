@@ -9,6 +9,13 @@ Modules aiming to support e-commerce specific needs. This includes all the new w
 
 [//]: # (addons)
 
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 10.0.1.0.0 | Suggest users to create an account when buying in the website
+
+
 Unported addons
 ---------------
 addon | version | summary
