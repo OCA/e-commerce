@@ -11,6 +11,13 @@ price tiers (quantity ranges with different unit pricing). It then adds radio
 buttons to product pages in the website shop, which allow users to easily 
 select the minimum quantity corresponding to each tier.
 
+Usage
+=====
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/113/9.0
+
 Known Issues / Roadmap
 ======================
 
