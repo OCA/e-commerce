@@ -9,7 +9,8 @@ eCommerce Fuzzy Search
 Extension of eCommerce that adds a fuzzy search for product names.
 
 Make sure to follow the installation instructions of base_search_fuzzy before
-installing this module.
+installing this module, which can be found in
+`OCA/server-tools <https://github.com/OCA/server-tools/tree/10.0/base_search_fuzzy>`_.
 
 Usage
 =====
@@ -55,4 +56,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.
