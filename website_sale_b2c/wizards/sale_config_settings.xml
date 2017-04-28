@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<odoo>
+
+    <record id="view_sales_config" model="ir.ui.view">
+        <field name="name">Add options on B2B vs B2C</field>
+        <field name="model">sale.config.settings</field>
+        <field name="inherit_id" ref="sale.view_sales_config"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='sale']">
+                <label for="sale_pricelist_setting" string="Sale Price"/>
+                <div>
+                    <label for="sale_show_tax"/>
+                        <div>
+                            <field
+                                name="sale_show_tax"
+                                class="oe_inline"
+                                widget="radio"/>
+                            <field
+                                name="group_show_price_subtotal"
+                                class="oe_inline"
+                                invisible="1"/>
+                            <field
+                                name="group_show_price_total"
+                                class="oe_inline"
+                                invisible="1"/>
+                        </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

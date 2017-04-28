@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<odoo>
+
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//*[@t-as='line']/*[1]" position="before">
+            <t t-set="line"
+               t-value="line.with_context(b2c_prices=True) if user_id.has_group('website_sale_b2c.group_show_price_total') else line"/>
+        </xpath>
+    </template>
+
+</odoo>
