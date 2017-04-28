@@ -19,9 +19,6 @@ Usage
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/113/10.0
 
-Known Issues / Roadmap
-======================
-
 Bug Tracker
 ===========
 
