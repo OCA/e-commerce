@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-14 02:41+0000\n"
+"POT-Creation-Date: 2017-03-28 02:50+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Catalan (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/ca/)\n"
@@ -110,7 +110,7 @@ msgstr ""
 #. module: website_sale_recently_viewed_products
 #: field:website.sale.product.view,sessionid:0
 msgid "Session ID"
-msgstr ""
+msgstr "ID de sessió "
 
 #. module: website_sale_recently_viewed_products
 #: sql_constraint:website.sale.product.view:0
