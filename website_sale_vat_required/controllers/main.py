@@ -1,32 +1,22 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Copyright (C) 2015 Agile Business Group sagl (<http://www.agilebg.com>)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2015 Agile Business Group sagl (<http://www.agilebg.com>)
+# Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp.addons.website_sale.controllers.main import website_sale
-from openerp.tools import config
 
 
 class WebsiteSale(website_sale):
-    def checkout_form_validate(self, data):
-        res = super(WebsiteSale, self).checkout_form_validate(data)
-        # Phantomjs test steps from website_sale don't enter the VAT field.
-        # To not break these tests, allow for missing VAT in test mode
-        if not data.get('vat') and not config['test_enable']:
-            res['vat'] = 'missing'
-        return res
+    def _get_mandatory_billing_fields(self):
+        result = super(WebsiteSale, self)._get_mandatory_billing_fields()
+        result.append("vat")
+        return result
+
+    def _get_optional_billing_fields(self):
+        result = super(WebsiteSale, self)._get_optional_billing_fields()
+        try:
+            result.remove("vat")
+        except ValueError:  # pragma: no-cover
+            # If any other addon removed it already, do not die
+            pass
+        return result
