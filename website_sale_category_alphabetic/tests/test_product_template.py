@@ -3,9 +3,9 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import mock
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
 
-MODULE_PATH = 'openerp.addons.website_sale_category_alphabetic'
+MODULE_PATH = 'odoo.addons.website_sale_category_alphabetic'
 MODEL_PATH = MODULE_PATH + '.models.product_template.ProductTemplate'
 
 
