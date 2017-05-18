@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2016 LasLabs Inc.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+    <template id="product_price" inherit_id="website_sale.product_price" customize_show="True" name="Website Sale - Quantity Tiers (Price Per)">
+        <xpath expr="//b" position="after">
+            <strong>per <t t-esc="product.uom_id.name.lower()"/></strong>
+        </xpath>
+    </template>
+
+    <template id="product" inherit_id="website_sale.product" customize_show="True" name="Website Sale - Quantity Tiers">
+        <xpath expr="//div[contains(@class, 'css_quantity')]" position="before">
+            <t t-set="pricelist" t-value="website.get_current_pricelist()"/>
+            <t t-set="price_qty_tiers" t-value="product.price_quantity_tiers[pricelist.id]"/>
+            <t t-if="len(price_qty_tiers) &gt; 0">
+                <strong>Quantity</strong>
+                <ul class="list-unstyled" style="margin-bottom: 5px;">
+                    <t t-foreach="price_qty_tiers" t-as="price_qty_tier">
+                        <li class="form-group" style="margin: 0;">
+                            <label class="control-label">
+                                <input class="js-pqt-input" type="radio" name="price_qty_tiers" t-att-value="price_qty_tier[0]" style="vertical-align: top; margin-right: 5px;"/>
+                                <span t-esc="price_qty_tier[0]"/>
+                                <span class="badge"><t t-esc="price_qty_tier[0] * price_qty_tier[1]" t-esc-options="{
+                                    &quot;widget&quot;: &quot;monetary&quot;, 
+                                    &quot;from_currency&quot;: &quot;pricelist.currency_id&quot;, 
+                                    &quot;display_currency&quot;: &quot;website.currency_id&quot;
+                                }"/></span>
+                            </label>
+                        </li>
+                    </t>
+                </ul>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Sale - Quantity Tiers (JS)">
+        <xpath expr=".">
+            <script type="text/javascript" src="/website_sale_qty/static/src/js/website_sale_qty.js"/>
+            <script type="text/javascript" src="/website_sale_qty/static/tests/js/website_sale_qty.tour.js"/>
+        </xpath>
+    </template>
+</odoo>
