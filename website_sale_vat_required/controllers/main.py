@@ -13,7 +13,7 @@ class WebsiteSale(website_sale):
         return result
 
     def _get_optional_billing_fields(self):
-        result = super(WebsiteSale, self)._get_mandatory_billing_fields()
+        result = super(WebsiteSale, self)._get_optional_billing_fields()
         try:
             result.remove("vat")
         except ValueError:  # pragma: no-cover
