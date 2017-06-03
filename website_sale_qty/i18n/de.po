@@ -3,14 +3,15 @@
 # * website_sale_qty
 # 
 # Translators:
-# Niki Waibel <niki.waibel@gmail.com>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# Rudolf Schnapka <rs@techno-flex.de>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-19 02:44+0000\n"
-"PO-Revision-Date: 2017-05-19 02:44+0000\n"
-"Last-Translator: Niki Waibel <niki.waibel@gmail.com>, 2017\n"
+"POT-Creation-Date: 2017-05-20 01:42+0000\n"
+"PO-Revision-Date: 2017-05-20 01:42+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,12 +22,12 @@ msgstr ""
 #. module: website_sale_qty
 #: model:ir.ui.view,arch_db:website_sale_qty.product
 msgid "<strong>Quantity</strong>"
-msgstr ""
+msgstr "<strong>Menge</strong>"
 
 #. module: website_sale_qty
 #: model:ir.model.fields,field_description:website_sale_qty.field_product_template_price_quantity_tiers
 msgid "Price quantity tiers"
-msgstr ""
+msgstr "Staffelpreise"
 
 #. module: website_sale_qty
 #: model:ir.model,name:website_sale_qty.model_product_template
@@ -36,9 +37,9 @@ msgstr "Produktvorlage"
 #. module: website_sale_qty
 #: model:ir.model.fields,help:website_sale_qty.field_product_template_price_quantity_tiers
 msgid "Unit prices by pricelist and minimum quantity"
-msgstr ""
+msgstr "Einzelpreis gem. Preisliste und Mindestabnahme"
 
 #. module: website_sale_qty
 #: model:ir.ui.view,arch_db:website_sale_qty.product_price
 msgid "per"
-msgstr ""
+msgstr "pro"
