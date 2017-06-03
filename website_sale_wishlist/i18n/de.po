@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-28 02:55+0000\n"
-"PO-Revision-Date: 2017-03-28 02:55+0000\n"
+"POT-Creation-Date: 2017-05-20 01:42+0000\n"
+"PO-Revision-Date: 2017-05-20 01:42+0000\n"
 "Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "Debitorenkonto"
 #. module: website_sale_wishlist
 #: model:ir.ui.view,arch_db:website_sale_wishlist.product_toggle
 msgid "Add to Wishlist"
-msgstr ""
+msgstr "Zur Wunschliste hinzufügen"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_bank_account_count
@@ -58,7 +58,7 @@ msgstr "Verträge"
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_payment_method_count
 msgid "Count Payment Method"
-msgstr ""
+msgstr "Zahlweisen zählen"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_product_wishlist_create_uid
@@ -78,7 +78,7 @@ msgstr "Währung"
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_current_session
 msgid "Current session"
-msgstr ""
+msgstr "Diese Sitzung"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_payment_term_id
@@ -98,7 +98,7 @@ msgstr "Steuerzuordnung"
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_has_unreconciled_entries
 msgid "Has unreconciled entries"
-msgstr ""
+msgstr "Hat unausgeglichene Posten"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_product_wishlist_id
@@ -124,7 +124,7 @@ msgstr "Zuletzt geändert am"
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_last_website_so_id
 msgid "Last Online Sale Order"
-msgstr ""
+msgstr "Letzter Online-Verkauf"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_product_wishlist_write_uid
@@ -143,16 +143,19 @@ msgid ""
 "It is set either if there's not at least an unreconciled debit and an "
 "unreconciled credit or if you click the \"Done\" button."
 msgstr ""
+"Letzter Abgleich von Rechnungen und Zahlungen dieses Partners. Dies wird "
+"entweder gesetzt, wenn keine offenen Soll- oder Haben-Posten bestehen oder "
+"aber wenn Sie den \"Erledigt\"-Button drücken."
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_last_time_entries_checked
 msgid "Latest Invoices & Payments Matching Date"
-msgstr ""
+msgstr "Datum des letzten Rechnungs- & Zahlungsabgleichs"
 
 #. module: website_sale_wishlist
 #: model:ir.ui.view,arch_db:website_sale_wishlist.menu
 msgid "My Wishlist"
-msgstr ""
+msgstr "Meine Wunschliste"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_debit_limit
@@ -198,6 +201,8 @@ msgid ""
 "The partner has at least one unreconciled debit and credit since last time "
 "the invoices & payments matching was performed."
 msgstr ""
+"Der Partner hat mindestens einen offenen Soll- oder Habenposten seit dem "
+"letzten Rechnungs- & Zahlungs-Abgleich gehabt."
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_account_payable_id
@@ -222,6 +227,8 @@ msgid ""
 "This payment term will be used instead of the default one for purchase "
 "orders and vendor bills"
 msgstr ""
+"Diese Zahlungsbedingung wird anstelle der Vorgabe bei Bestellungen und "
+"Eingangsrechnungen verwendet"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_payment_term_id
@@ -255,7 +262,7 @@ msgstr "Gesamtbetrag, den dieser Partner Ihnen schuldet."
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_res_users_debit
 msgid "Total amount you have to pay to this vendor."
-msgstr ""
+msgstr "Gesamtbetrag, den Sie diesem Partner zahlen müssen."
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_product_wishlist_user_id
@@ -265,7 +272,7 @@ msgstr "Benutzer"
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_product_wishlist_user_id
 msgid "User that wishlisted this product."
-msgstr ""
+msgstr "Anwender, die dieses Produkt in Wunschliste haben."
 
 #. module: website_sale_wishlist
 #: model:ir.model,name:website_sale_wishlist.model_res_users
@@ -275,12 +282,12 @@ msgstr "Benutzer"
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_res_users_currency_id
 msgid "Utility field to express amount currency"
-msgstr ""
+msgstr "Hilfsfeld zur Aufnahme der Betragswährung"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_property_supplier_payment_term_id
 msgid "Vendor Payment Term"
-msgstr ""
+msgstr "Lieferanten-Zahlungsbedingung"
 
 #. module: website_sale_wishlist
 #: model:ir.model,name:website_sale_wishlist.model_website
@@ -292,23 +299,25 @@ msgstr "Webseite"
 #: model:ir.model.fields,help:website_sale_wishlist.field_product_wishlist_session
 msgid "Website session identifier where this product was wishlisted."
 msgstr ""
+"Webseiten-Sitzungskennung in der das Produkt zur Wunschliste aufgenommen "
+"wurde."
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_product_wishlist_website_id
 msgid "Website where the user wishlisted the product."
-msgstr ""
+msgstr "Webseite, auf der der Anwender das Produkt in Wunschliste aufnahm."
 
 #. module: website_sale_wishlist
 #: model:ir.ui.view,arch_db:website_sale_wishlist.products
 msgid "Wishlist"
-msgstr ""
+msgstr "Wunschliste"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_product_wishlist_product_tmpl_id
 msgid "Wishlisted product."
-msgstr ""
+msgstr "Produkte in Wunschlisten"
 
 #. module: website_sale_wishlist
 #: model:ir.model,name:website_sale_wishlist.model_product_wishlist
 msgid "product.wishlist"
-msgstr ""
+msgstr "product.wishlist"
