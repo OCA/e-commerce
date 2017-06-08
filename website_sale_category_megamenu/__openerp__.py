@@ -7,13 +7,13 @@
 {
     "name": "Website sale categories mega-menu",
     "summary": "A megamenu to display product categories in the online shop",
-    "version": "8.0.1.0.1",
+    "version": "9.0.1.0.0",
     "category": "Themes/Miscellaneous",
     "website": "http://www.antiun.com",
     "author": "Antiun Ingeniería S.L., Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
-    'installable': False,
+    'installable': True,
     "depends": [
         "website_sale",
     ],
