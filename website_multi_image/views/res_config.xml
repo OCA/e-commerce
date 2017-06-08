@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<record id="view_website_config_settings" model="ir.ui.view">
+    <field name="model">website.config.settings</field>
+    <field name="inherit_id" ref="website.view_website_config_settings"/>
+    <field name="arch" type="xml">
+        <xpath expr="//group[@string='Menu']" position="after">
+            <group string="eCommerce images">
+                <label for="action_copy_shop_images"/>
+                <button name="action_copy_shop_images" type="object" string="Copy Image to Images"/>
+            </group>
+        </xpath>
+
+    </field>
+</record>
+
+    </data>
+</openerp>

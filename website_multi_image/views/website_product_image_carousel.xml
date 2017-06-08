@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="website_multi_image_product_carousel" inherit_id="website_sale.product" name="Website Product Multi-Image Carousel" customize_show="True">
+          <xpath expr="//span[@t-field='product.image']" position="replace">
+            <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="slider slider-for">
+                	<t t-foreach="product.images" t-as="i">
+                	<div><span t-field="i.image" class="img-responsive" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-responsive&quot;}"/></div>
+                	</t>
+                </div>
+            </div>
+            <div class="row-fluid" t-if="len(product.images)>1">
+                <div class="slider slider-nav">
+                	<t t-foreach="product.images" t-as="i">
+                	<div><span t-field="i.image" class="img-responsive" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-responsive&quot;}"/></div>
+                	</t>
+                </div>
+            </div>
+            </div>
+          </xpath>
+        </template>
+    </data>
+</openerp>

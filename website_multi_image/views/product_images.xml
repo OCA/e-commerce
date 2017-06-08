@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_product_template_only_form_view" model="ir.ui.view">
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//page[@string='Information']" position="after">
+                   <page string="Product Images">
+		   <field name="images" context="{'default_name': name}">
+		        <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="description"/>
+				<field name="image_alt"/>
+				<field name="image" widget="image" height="64"/>
+		        </tree>
+		   </field>
+                   </page>
+                   </xpath>
+            </field>
+    </record>
+    <record id="product_product_product_only_form_view" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//page[@string='Information']" position="after">
+                   <page string="Product Images">
+		   <field name="images" mode="kanban" context="{'default_name': name}">
+			<kanban>
+			    <field name="name"/>
+			    <field name="description"/>
+			    <field name="image_alt"/>
+			    <field name="image"/>
+			    <templates>
+				<t t-name="kanban-box">
+				    <div style="position: relative">
+					<div class="oe_module_vignette">
+					    <a type="open">
+					        <img t-att-src="kanban_image('res.partner', 'image', record.id.value, {'preview_image': 'image_small'})" class="oe_avatar oe_kanban_avatar_smallbox"/>
+					    </a>
+					    <div class="oe_module_desc">
+						<div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_color_border">
+						    <table class="oe_kanban_table">
+							<tr>
+							    <td class="oe_kanban_title1" align="left" valign="middle">
+								<h4><a type="open"><field name="name"/></a></h4>
+								<i><div t-if="record.description.raw_value">
+								    <field name="description"/></div></i>
+							    </td>
+							</tr>
+						    </table>
+						</div>
+					    </div>
+					</div>
+				    </div>
+				</t>
+			    </templates>
+			</kanban>
+		   </field>
+                   </page>
+                   </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
