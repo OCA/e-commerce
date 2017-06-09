@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2016-2017 LasLabs Inc.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+
+    <template id="products_item" inherit_id="website_sale.products_item" name="Products item no list price">
+        <xpath expr="//del" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </template>
+
+    <template id="product_price" inherit_id="website_sale.product_price" name="Product price no list price">
+        <xpath expr="//span[@t-field='product.lst_price']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_lines" inherit_id="website_sale.cart_lines" name="Cart Lines no list price">
+        <xpath expr="//del[@t-field='line.product_id.lst_price']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </template>
+
+</odoo>
