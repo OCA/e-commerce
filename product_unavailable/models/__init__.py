@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Specialty Medical Drugstore, LLC
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2017 LasLabs Inc.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
 from . import product_template

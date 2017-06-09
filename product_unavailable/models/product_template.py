@@ -2,8 +2,7 @@
 # Copyright 2017 Specialty Medical Drugstore, LLC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields
-from odoo import models
+from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
