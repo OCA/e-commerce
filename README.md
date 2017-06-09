@@ -21,6 +21,7 @@ addon | version | summary
 [website_sale_require_legal](website_sale_require_legal/) | 9.0.1.0.0 | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 9.0.1.0.0 | Force users to login for buying
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 9.0.1.0.0 | Suggest users to create an account when buying in the website
+[website_sale_vat_required](website_sale_vat_required/) | 9.0.1.0.0 | VAT number required in checkout form
 [website_sale_wishlist](website_sale_wishlist/) | 9.0.1.0.0 | Wishlist of products in your online shop
 
 
