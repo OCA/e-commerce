@@ -5,7 +5,7 @@
 {
     'name': 'Website Sale Product Display Name',
     'summary': 'Use product display name instead of name in website sale.',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Website',
     'website': 'https://laslabs.com/',
     'author': 'LasLabs',
