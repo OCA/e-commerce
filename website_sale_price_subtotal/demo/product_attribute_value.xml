@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <record id="product_attribute_value_1_demo" model="product.attribute.value">
+        <field name="attribute_id" ref="product_attribute_1_demo"/>
+        <field name="name">Demo Value 1</field>
+    </record>
+
+    <record id="product_attribute_value_2_demo" model="product.attribute.value">
+        <field name="attribute_id" ref="product_attribute_1_demo"/>
+        <field name="name">Demo Value 2</field>
+    </record>
+</odoo>

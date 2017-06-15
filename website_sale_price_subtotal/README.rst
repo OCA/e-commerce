@@ -6,32 +6,22 @@
 Website Sale - Price Subtotal
 =============================
 
-This module shows the price subtotal instead of the unit price on
-the product page when the user changes the quantity.
-This module is compatible with the price tiers in website_sale_qty.
+This module changes the unit prices shown on website product pages to subtotals
+that reflect the quantity currently selected.
 
 Usage
 =====
 
-To use this module, you need to:
+To see this module in action, you can:
 
-#. Go to Website -> Shop and click on a product
-#. Notice that when you change the quantity, the price also changes to reflect it.
+#. Go to ``Website > Shop``
+#. Search for ``Subtotal``
+#. Click on the demo subtotal product to see its detail page
+#. Try changing the quantity and notice that the subtotals change accordingly
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/113/10.0
-
-.. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-.. branch is "8.0" for example
-
-Known issues / Roadmap
-======================
-
-* If you have website_sale_qty installed, you will need to turn off
-"Website Sale - Quantity Tiers (Price Per)" under product_price in the
-"Customize" menu of the product page to get rid of the "per unit(s)"
-after the price.
 
 Bug Tracker
 ===========
@@ -39,7 +29,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/OCA/e-commerce/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smash it by providing detailed and welcomed feedback.
+help us smash it by providing detailed and welcome feedback.
 
 Credits
 =======
@@ -52,6 +42,7 @@ Images
 Contributors
 ------------
 
+* Oleg Bulkin <obulkin@laslabs.com>
 * Kelly Lougheed <kelly@smdrugstore.com>
 
 Maintainer

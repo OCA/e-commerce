@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <record id="product_pricelist_item_1_demo" model="product.pricelist.item">
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="applied_on">0_product_variant</field>
+        <field name="compute_price">fixed</field>
+        <field name="fixed_price">150</field>
+        <field name="product_id" ref="product_product_1_demo"/>
+        <field name="name">Website Subtotal - Demo Pricelist Item 1</field>
+    </record>
+
+    <record id="product_pricelist_item_2_demo" model="product.pricelist.item">
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="applied_on">0_product_variant</field>
+        <field name="compute_price">fixed</field>
+        <field name="fixed_price">250</field>
+        <field name="product_id" ref="product_product_2_demo"/>
+        <field name="name">Website Subtotal - Demo Pricelist Item 2</field>
+    </record>
+</odoo>

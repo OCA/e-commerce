@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <record id="product_attribute_line_1_demo" model="product.attribute.line">
+        <field name="attribute_id" ref="product_attribute_1_demo"/>
+        <field name="product_tmpl_id" eval="obj(ref('product_product_1_demo')).product_tmpl_id.id" model="product.product"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_value_1_demo'), ref('product_attribute_value_2_demo')])]"/>
+    </record>
+</odoo>
