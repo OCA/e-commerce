@@ -13,6 +13,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[website_sale_search_fuzzy](website_sale_search_fuzzy/) | 10.0.1.0.0 | Extends eCommerce with fuzzy searches for product names
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 10.0.1.0.0 | Suggest users to create an account when buying in the website
 
 
