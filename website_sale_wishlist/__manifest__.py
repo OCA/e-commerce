@@ -4,7 +4,7 @@
 {
     "name": "Products Wishlist",
     "summary": "Wishlist of products in your online shop",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "category": "Website",
     "website": "https://tecnativa.com/",
     "author": "Tecnativa, Odoo Community Association (OCA)",

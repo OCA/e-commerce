@@ -2,136 +2,116 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 odoo.define("website_sale_wishlist.tour", function (require) {
     "use strict";
-    var Tour = require("web.Tour");
+    var tour = require("web_tour.tour");
     var base = require("web_editor.base");
+
 
     var item = "div[itemtype='http://schema.org/Product']",
         ipad = item + ":contains(iPad Mini) .js_wishlist_toggle:enabled",
         ipod = item + ":contains(iPod) .js_wishlist_toggle:enabled",
         imac = item + ":contains(iMac) .js_wishlist_toggle:enabled";
 
-    // HACK https://github.com/odoo/odoo/issues/12961
-    function workaround_12961(path, next_step) {
-        return function () {
-            if ((location.pathname + location.search) == path) {
-                console.log(
-                    "Applying workaround for " +
-                    "https://github.com/odoo/odoo/issues/12961"
-                );
-                return next_step;
-            }
-        };
-    }
 
-    var tour = {
-        id: "test_website_sale_wishlist",
-        name: "(Un)wishlist some things, log in, save in session, log out",
-        path: "/shop",
-        mode: "test",
-        steps: [
+    tour.register("test_website_sale_wishlist", {
+            name: "(Un)wishlist some things, log in, save in session, log out",
+            test: true,
+            url: "/shop",
+            wait_for: base.ready()
+        },
+        [
             {
-                title: "I wish an iPod",
-                element: ipod + " .fa-heart-o",
-                waitFor: ipod + " .fa-heart-o",
+                content: "I wish an iPod",
+                extra_trigger: ipod + " .fa-heart-o",
+                trigger: ".btn.js_wishlist_toggle[data-product=18]",
+                run: "click",
             },
             {
-                title: "I wish an iMac",
-                element: imac + " .fa-heart-o",
-                waitFor: ipod + " .fa-heart",
+                content: "I wish an iMac",
+                extra_trigger: ipod + " .fa-heart, " + imac + " .fa-heart-o",
+                trigger: ".btn.js_wishlist_toggle[data-product=15]",
+                run: "click",
+
             },
             {
-                title: "I want to see only what I wish",
-                element: "a:has(.js_wishlist_quantity:contains(2))",
-                waitFor: "a:has(.js_wishlist_quantity:contains(2))",
-                onload: workaround_12961(
-                    "/shop?wishlist_only=1",
-                    "Well... honestly, I never wished that iPod"
-                ),
+                content: "I want to see only what I wish",
+                extra_trigger: "a:has(.js_wishlist_quantity:contains(2))",
+                trigger: "a[href='/shop?wishlist_only=1']",
+                run: "click",
             },
             {
-                title: "Well... honestly, I never wished that iPod",
-                element: ipod + " .fa-heart",
-                waitFor: ipod + " .fa-heart",
-                waitNot: item + " .fa-heart-o",
+                content: "Well... honestly, I never wished that iPod",
+                extra_trigger: ".active>a[href='/shop?wishlist_only=1']",
+                trigger: ".btn.js_wishlist_toggle[data-product=18]",
+                run: "click",
             },
             {
-                title: "Let me go back to wish another thing",
-                element: "a[href='/shop']",
-                waitFor:
-                    ipod + " .fa-heart-o, .js_wishlist_quantity:contains(1)",
-                onload: workaround_12961(
-                    "/shop",
-                    "What I really wish is an iPad Mini"
-                ),
+                content: "Let me go back to wish another thing",
+                extra_trigger: ipod + " .fa-heart-o, .js_wishlist_quantity:contains(1)",
+                trigger: "a[href='/shop']",
+                run: "click",
             },
             {
-                title: "What I really wish is an iPad Mini",
-                element: ipad + " .fa-heart-o",
-                waitFor: ipad + " .fa-heart-o",
-                waitNot: ipad + " .fa-heart",
+                content: "What I really wish is an iPad Mini",
+                extra_trigger: ipod + " .fa-heart-o",
+                trigger: ".btn.js_wishlist_toggle[data-product=13]",
+                run: "click",
             },
             {
-                title: "I go to login page",
-                waitFor: ipad + " .fa-heart",
-                onload: function () {
-                    window.location = "/web/login?redirect=/shop";
-                },
+                content: "I go to login page",
+                extra_trigger: ipad + " .fa-heart",
+                trigger: "a[href='/web/login']",
+                run: "click",
             },
             {
-                title: "Fill user name and password",
-                waitFor: "#login, #password",
-                onload: function () {
-                    // HACK Weird things happen in Travis.
-                    // See https://github.com/OCA/e-commerce/pull/149
-                    $(this.waitFor).val("demo")
-                    .closest("form").submit();
-                    return "Log in";
-                },
+                content: "Enter user name",
+                trigger: "#login",
+                run: "text(portal)",
+            },{
+                content: "Enter password",
+                trigger: "#password",
+                run: "text(portal)",
             },
             {
-                title: "Log in",
-                element: "button[type=submit]",
-                waitFor: "button[type=submit]",
-                onload: workaround_12961(
-                    "/shop",
-                    "Let me check my wishlist now that I am logged in"
-                ),
+                content: "Log in",
+                trigger: ".btn:contains('Log in')",
+                run: "click",
             },
             {
-                title: "Let me check my wishlist now that I am logged in",
-                element: ".js_wishlist_quantity:contains(2)",
-                waitFor: ipad + " .fa-heart",
-                waitNot: ipod + " .fa-heart",
-                wait: 1200,
-                onload: workaround_12961(
-                    "/shop?wishlist_only=1",
-                    "My wishlist is intact, I click on my name"
-                ),
+                content: "Let me check my wishlist now that I am logged in",
+                extra_trigger: ".dropdown-toggle:contains(Demo Portal User)",
+                trigger: "a[href='/shop?wishlist_only=1']",
+                run: "click",
             },
             {
-                title: "My wishlist is intact, I click on my name",
-                element: ".dropdown-toggle:contains(Demo User)",
-                waitFor:
-                    imac + " .fa-heart, " + ipad + " .fa-heart, "
-                    + ".js_wishlist_quantity:contains(2)",
-                waitNot: ipod,
+                content: "My wishlist is intact, I click on my name",
+                extra_trigger: imac + " .fa-heart, " + ipad + " .fa-heart, "
+                + ".js_wishlist_quantity:contains(2)",
+                trigger: ".dropdown-toggle:contains(Demo Portal User)",
+                run: "click",
             },
             {
-                title: "I log out",
-                element: "a[href='/web/session/logout?redirect=/']",
-                waitFor: "a[href='/web/session/logout?redirect=/']:visible",
+                content: "I log out",
+                trigger: "a[href='/web/session/logout?redirect=/']:visible",
+                run: "click",
             },
             {
-                title: "No wishlist now that it is saved in my account",
-                waitFor: "a[href='/web/login']",
-                waitNot: ".js_wishlist_quantity:visible",
+                //For some reason the first a[href=...] leads to a 404 so
+                // this is just an extra step to get the following step running
+                content: "No wishlist now that it is saved in my account",
+                trigger: "a[href='/page/contactus']",
+                run: "click",
+            },
+            {
+                content: "No wishlist now that it is saved in my account",
+                trigger: "a[href='/shop']",
+                run: "click",
+            },
+            {
+                content: "No wishlist now that it is saved in my account",
+                extra_trigger: ipod + " .fa-heart-o",
+                trigger: imac + " .fa-heart-o",
             },
         ]
-    };
+    );
 
-    // HACK https://github.com/odoo/odoo/pull/13622
-    // TODO When merged, replace by animation.started.done(...)
-    return base.ready().done(function () {
-        return Tour.register(tour);
-    });
 });

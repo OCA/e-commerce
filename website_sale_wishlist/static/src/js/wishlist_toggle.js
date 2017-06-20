@@ -4,7 +4,6 @@ odoo.define("website_sale_wishlist.toggle", function (require) {
     "use strict";
     var animation = require('web_editor.snippets.animation');
     var session = require('web.session');
-    var $ = require("$");
 
     return animation.registry.website_sale_wishlist_toggle =
     animation.Class.extend({

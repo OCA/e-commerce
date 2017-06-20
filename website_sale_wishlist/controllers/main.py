@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-from openerp.http import request, route
-from openerp.addons.website_sale.controllers.main import QueryURL, website_sale
+from odoo.http import request, route
+from odoo.addons.website_sale.controllers.main import QueryURL, WebsiteSale
 
 
-class Wishlist(website_sale):
+class Wishlist(WebsiteSale):
     def _get_search_domain(self, *args, **kwargs):
         """Filter only wishlisted if requested so."""
         result = super(Wishlist, self)._get_search_domain(
