@@ -12,7 +12,7 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
         'website_sale_price_subtotal',
         {
             url: '/shop',
-            name: _t('Test product page logic replacing unit prices with subtotals'),
+            name: _t('Test website shop logic replacing unit prices with subtotals'),
             test: true,
             wait_for: base.ready(),
         },
@@ -59,17 +59,6 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
                 },
             },
             {
-                content: 'Select second product variant',
-                trigger: 'input.js_variant_change',
-                run: function(actions) {
-                    actions.click('input.js_variant_change:last');
-                },
-            },
-            {
-                content: 'Check that subtotal reflects new variant',
-                trigger: '.oe_price span:contains("500")',
-            },
-            {
                 content: 'Add products to cart',
                 trigger: 'a#add_to_cart',
                 run: function(actions) {
@@ -85,11 +74,11 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
             },
             {
                 content: 'Check that subtotal is still correct after back button',
-                trigger: '.oe_price span:contains("500")',
+                trigger: '.oe_price span:contains("300")',
             },
             {
                 content: 'Check public price subtotal after back button',
-                trigger: '.oe_price span:contains("500")',
+                trigger: '.oe_price span:contains("300")',
                 run: function() {
                     var subtotal = parseInt($('.oe_default_price span').text(), 10);
                     if (subtotal !== 600) {
@@ -100,6 +89,17 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
                         );
                     }
                 },
+            },
+            {
+                content: 'Select second product variant',
+                trigger: 'input.js_variant_change',
+                run: function(actions) {
+                    actions.click('input.js_variant_change:last');
+                },
+            },
+            {
+                content: 'Check that subtotal reflects new variant',
+                trigger: '.oe_price span:contains("500")',
             },
             {
                 content: 'Change quantity to 1 using minus button',
@@ -125,6 +125,62 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
                         );
                     }
                 },
+            },
+            {
+                content: 'Add product to cart',
+                trigger: 'a#add_to_cart',
+                run: function(actions) {
+                    actions.click('a#add_to_cart');
+                },
+            },
+            {
+                content: 'Check that correct subtotals are shown in cart',
+                trigger: 'td .oe_currency_value:first:contains("300")',
+                extra_trigger: 'td .oe_currency_value:last:contains("250")',
+            },
+            {
+                content: 'Change quantity of second variant to 2 using input',
+                trigger: '.input-group input:last',
+                run: function() {
+                    // Change event should be fired to properly replicate user action
+                    $('.input-group input:last').val(2).trigger('change');
+                },
+            },
+            {
+                content: 'Check that subtotals correctly reflect new quantity',
+                trigger: 'td .oe_currency_value:last:contains("500")',
+                extra_trigger: 'td .oe_currency_value:first:contains("300")',
+            },
+            {
+                content: 'Change quantity of first variant to 1 using minus button',
+                trigger: '.fa-minus:first',
+                run: function(actions) {
+                    actions.click('.fa-minus:first');
+                },
+            },
+            {
+                content: 'Check that subtotals correctly reflect new quantity',
+                trigger: 'td .oe_currency_value:first:contains("150")',
+                extra_trigger: 'td .oe_currency_value:last:contains("500")',
+            },
+            {
+                content: 'Begin checkout process',
+                trigger: '.btn-primary span',
+                run: function(actions) {
+                    actions.click('.btn-primary span');
+                },
+            },
+            {
+                content: 'Continue to payment page',
+                trigger: 'h3:contains("Billing Address")',
+                run: function(actions) {
+                    actions.click('.btn-primary span');
+                },
+            },
+            {
+                content: 'Check that correct subtotals are shown on payment page',
+                trigger: 'td .oe_currency_value:last:contains("500")',
+                extra_trigger: 'td .oe_currency_value:first:contains("150")',
             },
         ]
     );

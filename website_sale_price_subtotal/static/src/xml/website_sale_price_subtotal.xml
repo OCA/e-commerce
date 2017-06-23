@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+
+<odoo>
+    <template id="cart_lines" name="Website Sale - Cart Subtotals" inherit_id="website_sale.cart_lines">
+        <xpath expr="//thead//th[last()]" position="replace">
+            <th width="130" class="text-center">Product Subtotal</th>
+        </xpath>
+        <xpath expr="//del" position="attributes">
+            <attribute name="t-esc">compute_currency(line.product_id.website_public_price * line.product_uom_qty)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
+            <attribute name="t-field"/>
+            <attribute name="t-esc">compute_currency(line.price_reduce_taxexcl * line.product_uom_qty)</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="attributes">
+            <attribute name="t-field"/>
+            <attribute name="t-esc">compute_currency(line.price_reduce_taxinc * line.product_uom_qty)</attribute>
+        </xpath>
+    </template>
+
+    <template id="payment" name="Website Sale - Payment Page Subtotals" inherit_id="website_sale.payment">
+        <xpath expr="//thead//th[last()]" position="replace">
+            <th width="130" class="text-center">Product Subtotal</th>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute name="t-field"/>
+            <attribute name="t-esc">line.price_unit * line.product_uom_qty</attribute>
+        </xpath>
+    </template>
+</odoo>

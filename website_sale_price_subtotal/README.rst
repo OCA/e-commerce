@@ -6,8 +6,9 @@
 Website Sale - Price Subtotal
 =============================
 
-This module changes the unit prices shown on website product pages to subtotals
-that reflect the quantity currently selected.
+This module changes the unit prices shown on website product pages, in the
+shopping cart, and on the payment page to subtotals that reflect the quantities
+currently selected.
 
 Usage
 =====
@@ -17,7 +18,12 @@ To see this module in action, you can:
 #. Go to ``Website > Shop``
 #. Search for ``Subtotal``
 #. Click on the demo subtotal product to see its detail page
-#. Try changing the quantity and notice that the subtotals change accordingly
+#. Try changing the quantity and notice that the unit price has been replaced
+   with a subtotal that changes accordingly
+#. Add the product to the cart
+#. Try changing the quantity again and notice that the unit price here has
+   also been replaced with a line item subtotal
+#. Proceed to the payment page and notice that the same is true here
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot

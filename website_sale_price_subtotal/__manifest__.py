@@ -4,7 +4,7 @@
 
 {
     'name': 'Website Sale - Price Subtotal',
-    'summary': 'Show subtotals on product page instead of unit prices',
+    'summary': 'Show subtotals on various shop pages instead of unit prices',
     'version': '10.0.1.0.0',
     'category': 'E-Commerce',
     'website': 'https://laslabs.com/',
@@ -16,6 +16,7 @@
         'website_sale',
     ],
     'data': [
+        'static/src/xml/website_sale_price_subtotal.xml',
         'templates/assets.xml',
     ],
     'demo': [
