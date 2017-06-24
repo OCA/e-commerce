@@ -18,38 +18,49 @@
 #
 ##############################################################################
 
-from openerp.addons.website_sale_options.controllers.main import (
-    website_sale_options)
-from openerp.addons.web import http
-from openerp.addons.web.http import request
-from openerp.tools.translate import _
+from odoo import http
+from odoo.addons.website_sale_options.controllers.main import (
+    WebsiteSaleOptions)
+from odoo.http import request
+from odoo.tools.translate import _
 
 
-class website_sale_unsaleable_options(website_sale_options):
-
+class WebsiteSaleUnsalableOptions(WebsiteSaleOptions):
     @http.route()
     def modal(self, product_id, **kw):
-        cr, uid, context, pool = (
-            request.cr, request.uid, request.context, request.registry)
-        website_context = kw.get('kwargs', {}).get('context', {})
-        context = dict(context or {}, **website_context)
-        request.website = request.website.with_context(context)
-        template = pool['product.template']
-        prod_ids = template.search(
-            cr, uid, [('optional_product_ids', 'in', [product_id])],
-            context=context)
+        """Render warning if product is optional.
+
+        `optional_product_ids` is saved on product.template.
+        However, the AJAX request sends the product_id saved
+        on product.product! Since these 2 IDs can vary, we have
+        to consider such cases here.
+
+         :param int product_id:
+            Product ID (product.product) of item in question.
+        """
+        # get corresponding product template id
+        prod_tmpl_id = request.env['product.product'].browse(
+            product_id).product_tmpl_id.id
+
+        product_context = dict(request.context)
+        product_context.update(kw.get('kwargs', {}).get('context', {}))
+
+        template = request.env['product.template']
+        prod_ids = template.with_context(product_context).search(
+            [('optional_product_ids', 'in', [prod_tmpl_id])])
+
         if prod_ids:
-            products = template.browse(
-                cr, uid, prod_ids, context)
+            products = template.with_context(product_context).browse(
+                int(prod_ids))
             prod_list = [p.name for p in products]
             message = _("You can't direcly add to cart an optional "
                         "product. You should first add one of the "
                         "following products: "
                         "%s") % '; '.join(prod_list)
-            return request.website._render(
+            return request.env['ir.ui.view'].render_template(
                 "website_sale_unsaleable_options.modal_warning", {
                     'message': message,
-                    })
+                })
         else:
-            return super(website_sale_unsaleable_options, self).modal(
+            return super(WebsiteSaleUnsalableOptions, self).modal(
                 product_id, **kw)

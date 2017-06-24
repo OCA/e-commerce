@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-<data>
+<odoo>
 
 <template id="modal_warning" name="Warning">
 <div id="modal_optional_products" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -17,5 +16,5 @@
   </div>
 </div>
 </template>
-</data>
-</openerp>
+
+</odoo>
