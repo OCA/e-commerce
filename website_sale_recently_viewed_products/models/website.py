@@ -1,5 +1,5 @@
-from openerp import api, models
-from openerp.http import request
+from odoo import api, models
+from odoo.http import request
 
 
 class Website(models.Model):

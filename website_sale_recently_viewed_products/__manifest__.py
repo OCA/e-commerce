@@ -26,14 +26,19 @@
     'author': "MONK Software,Odoo Community Association (OCA)",
     'website': "http://www.wearemonk.com",
     'category': 'Website',
-    'version': '8.0.1.0.0',
+    'version': '10.0.1.0.0',
     'license': 'AGPL-3',
-    'depends': ['website_sale'],
+    'depends': [
+        'website_sale'
+    ],
+    'demo': [
+        'demo/assets.xml',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'templates/website.xml',
         'templates/website_sale.xml',
         'templates/website_sale_recently_viewed_products.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

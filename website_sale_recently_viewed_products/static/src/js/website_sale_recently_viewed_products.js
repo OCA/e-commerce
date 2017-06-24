@@ -1,5 +1,10 @@
-$(document).ready(function() {
-    var _t = openerp._t;
+odoo.define("website_sale_recently_viewed_products.history", function (require) {
+    "use strict";
+
+    var base = require('web_editor.base');
+    var core = require('web.core');
+    var _t = core._t;
+
     var product_history_link = $('ul#top_menu li a[href^="/shop/recent"]');
     var product_history_link_counter;
 
@@ -13,18 +18,18 @@ $(document).ready(function() {
         container: 'body',
         placement: 'auto',
         template: '<div class="popover history-popover" role="tooltip">' +
-            '<div class="arrow"></div><h3 class="popover-title"></h3>' +
-            '<div class="popover-content"></div></div>'
-    }).on("mouseenter",function () {
+        '<div class="arrow"></div><h3 class="popover-title"></h3>' +
+        '<div class="popover-content"></div></div>'
+    }).on("mouseenter", function () {
+        console.log('hai')
         var self = this;
         clearTimeout(product_history_link_counter);
         product_history_link.not(self).popover('hide');
-        product_history_link_counter = setTimeout(function(){
-            if($(self).is(':hover') && !$(".history-popover:visible").length)
-            {
+        product_history_link_counter = setTimeout(function () {
+            if ($(self).is(':hover') && !$(".history-popover:visible").length) {
                 $.get("/shop/recent", {'type': 'popover'})
                     .then(function (data) {
-                        $(self).data("bs.popover").options.content =  data;
+                        $(self).data("bs.popover").options.content = data;
                         $(self).popover("show");
                         $(".popover").on("mouseleave", function () {
                             $(self).trigger('mouseleave');
@@ -36,9 +41,8 @@ $(document).ready(function() {
         var self = this;
         setTimeout(function () {
             if (!$(".popover:hover").length) {
-                if(!$(self).is(':hover'))
-                {
-                   $(self).popover('hide');
+                if (!$(self).is(':hover')) {
+                    $(self).popover('hide');
                 }
             }
         }, 1000);

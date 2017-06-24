@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from openerp import fields, http
-from openerp.http import request
-from openerp.addons.website_sale.controllers.main import website_sale
+from odoo import fields, http
+from odoo.http import request
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSale(website_sale):
+class WebsiteSale(WebsiteSale):
 
     @http.route()
     def product(self, product, category='', search='', **kwargs):
@@ -29,7 +29,7 @@ class WebsiteSale(website_sale):
             [('sessionid', '=', request.session.sid)], limit=10)
         values = {'history': records}
         if kwargs.get('type') == 'popover':
-            return request.website.render(
+            return request.render(
                 'website_sale_recently_viewed_products.popover', values)
-        return request.website.render(
+        return request.render(
             'website_sale_recently_viewed_products.page', values)

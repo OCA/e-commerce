@@ -25,7 +25,6 @@ Known Issues / Roadmap
 
 * 'Add to cart' button near viewed products not already in the cart
 * Translations
-* Tests
 * Configurable options like number of shown results
 * Counter near the 'My Products' link, like the cart counter
 * Save product views for user if logged in so that they remain saved
@@ -40,6 +39,7 @@ Contributors
 ------------
 
 * Leonardo Donelli <donelli@webmonks.it>
+* Andrei Poehlmann <andrei.poehlmann90@gmail.com>
 
 Maintainer
 ----------
