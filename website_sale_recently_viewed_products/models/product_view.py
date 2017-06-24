@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 
 
 class ProductHistory(models.Model):
@@ -18,7 +18,8 @@ class ProductHistory(models.Model):
 
     @api.multi
     def human_readable_datetime_difference(self, now=None):
-        """
+        """Return time passed since last time viewed.
+
         Return an human readable form of the difference between the supplied
         datetime (or the current datetime if not supplied) and the history
         record ``last_view_datetime``.

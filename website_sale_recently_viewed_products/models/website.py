@@ -7,5 +7,6 @@ class Website(models.Model):
 
     @api.multi
     def recently_viewed_products(self):
+        """Return recently viewed products."""
         return request.env['website.sale.product.view'].search([
             ('sessionid', '=', request.session.sid)], limit=10)

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, http
-from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.http import request
 
 
 class WebsiteSale(WebsiteSale):
 
     @http.route()
     def product(self, product, category='', search='', **kwargs):
+        """Add / update recently viewed products."""
         record = request.env['website.sale.product.view'].search([
             ('sessionid', '=', request.session.sid),
             ('product_id', '=', product.id)
@@ -25,6 +26,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route(['/shop/recent'], type='http', auth='public', website=True)
     def recent(self, **kwargs):
+        """Render recently viewed products."""
         records = request.env['website.sale.product.view'].search(
             [('sessionid', '=', request.session.sid)], limit=10)
         values = {'history': records}
