@@ -1,9 +1,8 @@
-/* © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+/* Copyright 2016-2017 Jairo Llopis <jairo.llopis@tecnativa.com>
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 odoo.define("website_sale_checkout_country_vat.dropdown", function (require) {
     "use strict";
     var animation = require("web_editor.snippets.animation");
-    var $ = require("$");
 
     return animation.registry.website_sale_checkout_country_vat_dropdown
     = animation.Class.extend({

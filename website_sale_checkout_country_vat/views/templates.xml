@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
-     © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+<!-- Copyright 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+     Copyright 2016-2017 Jairo Llopis <jairo.llopis@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
 <odoo>
 
-<template id="checkout" inherit_id="website_sale.checkout">
+<template id="address" inherit_id="website_sale.address">
     <xpath expr="//input[@name='vat']" position="replace">
         <t t-call="website_snippet_country_dropdown.country_dropdown">
             <t t-set="complete_field" t-value="'vat'"/>
