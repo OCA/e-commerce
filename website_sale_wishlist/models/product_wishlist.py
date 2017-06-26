@@ -68,10 +68,12 @@ class ProductWishlist(models.Model):
         user_products = self.search([
             ("user_id", "=", self.env.uid),
         ]).mapped("product_tmpl_id")
-        session_domain = [
-            ("session", "=", request.session.sid),
-            ("user_id", "=", False),
-        ]
+
+        if request:
+            session_domain = [
+                ("session", "=", request.session.sid),
+                ("user_id", "=", False),
+            ]
         # Remove session products already present for the user
         self.search(
             session_domain + [("product_tmpl_id", "in", user_products.ids)]) \
