@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
-# © 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+# Copyright 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+# Copyright 2016-2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
     "name": "Website Sale Checkout Country VAT",
     "summary": "Autocomplete VAT in checkout process",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "category": "Website",
-    'website': 'http://www.tecnativa.com',
+    'website': 'https://www.tecnativa.com',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
     'license': 'LGPL-3',
