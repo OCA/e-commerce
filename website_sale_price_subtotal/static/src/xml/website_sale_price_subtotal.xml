@@ -8,15 +8,13 @@
             <th width="130" class="text-center">Product Subtotal</th>
         </xpath>
         <xpath expr="//del" position="attributes">
-            <attribute name="t-esc">compute_currency(line.product_id.website_public_price * line.product_uom_qty)</attribute>
+            <attribute name="t-esc">compute_currency(line.product_id.with_context(quantity=line.product_uom_qty).website_public_price)</attribute>
         </xpath>
         <xpath expr="//span[@t-field='line.price_reduce_taxexcl']" position="attributes">
-            <attribute name="t-field"/>
-            <attribute name="t-esc">compute_currency(line.price_reduce_taxexcl * line.product_uom_qty)</attribute>
+            <attribute name="t-field">line.price_subtotal</attribute>
         </xpath>
         <xpath expr="//span[@t-field='line.price_reduce_taxinc']" position="attributes">
-            <attribute name="t-field"/>
-            <attribute name="t-esc">compute_currency(line.price_reduce_taxinc * line.product_uom_qty)</attribute>
+            <attribute name="t-field">line.price_total</attribute>
         </xpath>
     </template>
 
@@ -25,8 +23,7 @@
             <th width="130" class="text-center">Product Subtotal</th>
         </xpath>
         <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
-            <attribute name="t-field"/>
-            <attribute name="t-esc">line.price_unit * line.product_uom_qty</attribute>
+            <attribute name="t-field">line.price_subtotal</attribute>
         </xpath>
     </template>
 </odoo>

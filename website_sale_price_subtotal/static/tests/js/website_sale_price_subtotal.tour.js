@@ -135,8 +135,8 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
             },
             {
                 content: 'Check that correct subtotals are shown in cart',
-                trigger: 'td .oe_currency_value:first:contains("300")',
-                extra_trigger: 'td .oe_currency_value:last:contains("250")',
+                trigger: 'td span .oe_currency_value:first:contains("300")',
+                extra_trigger: 'td span .oe_currency_value:last:contains("250")',
             },
             {
                 content: 'Change quantity of second variant to 2 using input',
@@ -148,8 +148,8 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
             },
             {
                 content: 'Check that subtotals correctly reflect new quantity',
-                trigger: 'td .oe_currency_value:last:contains("500")',
-                extra_trigger: 'td .oe_currency_value:first:contains("300")',
+                trigger: 'td span .oe_currency_value:last:contains("500")',
+                extra_trigger: 'td span .oe_currency_value:first:contains("300")',
             },
             {
                 content: 'Change quantity of first variant to 1 using minus button',
@@ -160,8 +160,8 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
             },
             {
                 content: 'Check that subtotals correctly reflect new quantity',
-                trigger: 'td .oe_currency_value:first:contains("150")',
-                extra_trigger: 'td .oe_currency_value:last:contains("500")',
+                trigger: 'td span .oe_currency_value:first:contains("150")',
+                extra_trigger: 'td span .oe_currency_value:last:contains("500")',
             },
             {
                 content: 'Begin checkout process',
@@ -179,8 +179,8 @@ odoo.define('website_sale_price_subtotal.tour', function (require) {
             },
             {
                 content: 'Check that correct subtotals are shown on payment page',
-                trigger: 'td .oe_currency_value:last:contains("500")',
-                extra_trigger: 'td .oe_currency_value:first:contains("150")',
+                trigger: 'td span .oe_currency_value:last:contains("500")',
+                extra_trigger: 'td span .oe_currency_value:first:contains("150")',
             },
         ]
     );
