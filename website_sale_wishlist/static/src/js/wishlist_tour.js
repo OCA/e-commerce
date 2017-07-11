@@ -95,15 +95,9 @@ odoo.define("website_sale_wishlist.tour", function (require) {
                 run: "click",
             },
             {
-                //For some reason the first a[href=...] leads to a 404 so
-                // this is just an extra step to get the following step running
-                content: "No wishlist now that it is saved in my account",
-                trigger: "a[href='/page/contactus']",
-                run: "click",
-            },
-            {
                 content: "No wishlist now that it is saved in my account",
                 trigger: "a[href='/shop']",
+                extra_trigger: "b:contains('Sign in')",
                 run: "click",
             },
             {
