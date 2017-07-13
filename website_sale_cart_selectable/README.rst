@@ -6,35 +6,25 @@
 Website Sale Cart Selectable
 ============================
 
-This module was written to extend the functionality of the website to control
-button add to cart. Button add to cart can now be set to be published or not.
-
-Installation
-============
-
-To install this module, you need to:
-
-1.  Clone the branch 8.0 of the repository https://github.com/OCA/e-commerce
-2.  Add the path to this repository in your configuration (addons-path)
-3.  Update the module list
-4.  Go to menu *Setting -> Modules -> Local Modules*
-5.  Search For *Website Sale Cart Selectable*
-6.  Install the module
+This module extends the functionality of the website to improve the control on
+the button "Add to cart". Button "Add to cart" can now be set to be published
+or not.
 
 Usage
 =====
 
 To use this module, you need to:
 
-1.  Go to menu *Sales -> Products -> Products*
-2.  Edit or create one.
-3.  Within the *Sales* tab, there will be a new field named *Button Add To Cart*
-4.  If you want the button add to cart visible on the website, just click into *Published*.
-    If you dont want the button add to cart visible on the website, just click into *Not Published*  
+#.  Go to menu *Sales -> Products -> Products*
+#.  Edit or create one.
+#.  Within the *Sales* tab, there will be a new field named *Button Add To
+    Cart*
+#.  Set it or unset it to enable or disable the *Add To Cart* button in that
+    product.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/8.0
+   :target: https://runbot.odoo-community.org/runbot/113/10.0
 
 Bug Tracker
 ===========
@@ -57,6 +47,7 @@ Contributors
 ------------
 
 * Michael Viriyananda <viriyananda.michael@gmail.com>
+* David Vidal <david.vidal@tecnativa.com>
 
 Maintainer
 ----------
