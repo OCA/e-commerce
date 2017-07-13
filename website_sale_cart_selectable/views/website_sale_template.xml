@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-       
+<odoo>
+
         <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
             <xpath expr="//a[@class='btn btn-default btn-xs fa fa-shopping-cart a-submit']" position="replace">
                 <t t-if="product.website_btn_addtocart_published == True">
@@ -23,5 +22,4 @@
             </xpath>
         </template>
 
-    </data>
-</openerp>
+</odoo>
