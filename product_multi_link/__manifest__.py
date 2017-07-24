@@ -5,16 +5,17 @@
 
 {
     'name': 'Product Links',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Generic Modules',
     'author': "Camptocamp,Elico-Corp,Sodexis,Odoo Community Association (OCA)",
     'website': 'http://www.camptocamp.com',
     'license': 'AGPL-3',
-    'depends': ['product'],
+    'depends': [
+        'sale',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'views/product_view.xml'
     ],
-    'images': [],
-    'installable': False,
+    'installable': True,
 }

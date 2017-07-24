@@ -17,11 +17,16 @@ These types of links are common in e-commerce shops.
 It can be used as a base to implement synchronizations with
 e-commerce (for instance, it is used in magentoerpconnect).
 
-* Go to ...
+Usage
+=====
+
+To use this module, you need to:
+
+#. Go to Sale > Configuration > Products > Product Links
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/9.0
+   :target: https://runbot.odoo-community.org/runbot/113/10.0
 
 Bug Tracker
 ===========
