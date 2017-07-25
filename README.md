@@ -13,6 +13,8 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[product_multi_link](product_multi_link/) | 10.0.1.0.0 | Product Links
+[website_sale_cart_selectable](website_sale_cart_selectable/) | 10.0.1.0.0 | Enables to control button Add to cart display per product
 [website_sale_default_country](website_sale_default_country/) | 10.0.1.0.0 | Give a default value for country at checkout
 [website_sale_search_fuzzy](website_sale_search_fuzzy/) | 10.0.1.0.0 | Extends eCommerce with fuzzy searches for product names
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 10.0.1.0.0 | Suggest users to create an account when buying in the website
@@ -24,7 +26,6 @@ Unported addons
 addon | version | summary
 --- | --- | ---
 [product_links_goodies](product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
-[product_multi_link](product_multi_link/) | 9.0.1.0.0 (unported) | Product Links
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 (unported) | A megamenu to display product categories in the online shop
 [website_sale_product_brand](website_sale_product_brand/) | 9.0.1.0.0 (unported) | Product Brand Filtering in Website
 [website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 (unported) | Let the users keep track of the products they saw on the ecommerce
