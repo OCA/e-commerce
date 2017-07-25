@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//div[@class='thanks_msg']//h2"
+               position="after">
+            <div class="alert alert-info" role="alert"
+                 t-if="website.checkout_skip_payment">
+                Our team will check your order and send you payment
+                information soon.
+            </div>
+        </xpath>
+        <xpath expr="(//div[@class='oe_cart']//h3)[2]"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="(//div[@class='oe_cart']//table[@class='table'])[2]"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+    <template id="wizard_checkout" inherit_id="website_sale.wizard_checkout">
+        <xpath expr="//li[@id='step40']" position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+</odoo>
