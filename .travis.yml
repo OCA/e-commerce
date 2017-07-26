@@ -27,6 +27,7 @@ before_install:
 env:
   global:
   - VERSION="10.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  - WEBSITE_REPO="1"
   - TRANSIFEX_USER='transbot@odoo-community.org'
   - secure: hK2mRXUaQYPkWzXlmU2ClrqkgiaLkLdfymJdOt5b0nLtiNirK6gT+jqt5z8mpAXYHn9RFu6PiDnb7D+pYFtBvj9965aPGx7iuw2Y+8LrwVv1EZbM3zy+A8tHoCfo6axaCKG28E++hr2V53lw2qZMNojKr9vbdnlcfyaNQaXP4hs=
 
