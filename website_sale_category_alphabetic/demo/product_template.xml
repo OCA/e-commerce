@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2017 LasLabs Inc.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+    <record id="demo_1" model="product.template">
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="name">A - Demo Product</field>
+        <field name="sale_line_warn">no-message</field>
+        <field name="type">consu</field>
+        <field name="public_categ_ids" eval="[(4, ref('demo_category_a'), 0)]"/>
+    </record>
+
+    <record id="demo_2" model="product.template">
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="name">S - Demo Product</field>
+        <field name="sale_line_warn">no-message</field>
+        <field name="type">consu</field>
+        <field name="public_categ_ids" eval="[(4, ref('demo_category_s'), 0)]"/>
+    </record>
+
+    <record id="demo_3" model="product.template">
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="name">1 - Demo Product</field>
+        <field name="sale_line_warn">no-message</field>
+        <field name="type">consu</field>
+        <field name="public_categ_ids" eval="[(4, ref('demo_category_#'), 0)]"/>
+    </record>
+
+    <record id="demo_4" model="product.template">
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="name">$ - Demo Product</field>
+        <field name="sale_line_warn">no-message</field>
+        <field name="type">consu</field>
+        <field name="public_categ_ids" eval="[(4, ref('demo_category_*'), 0)]"/>
+    </record>
+</odoo>

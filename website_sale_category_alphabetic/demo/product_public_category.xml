@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2017 LasLabs Inc.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+    <record id="demo_category_a" model="product.public.category">
+        <field name="name">A</field>
+        <field name="parent_id" ref="base"/>
+        <field name="sequence">65</field>
+    </record>
+
+    <record id="demo_category_s" model="product.public.category">
+        <field name="name">S</field>
+        <field name="parent_id" ref="base"/>
+        <field name="sequence">83</field>
+    </record>
+
+    <record id="demo_category_#" model="product.public.category">
+        <field name="name">#</field>
+        <field name="parent_id" ref="base"/>
+        <field name="sequence">1114112</field>
+    </record>
+
+    <record id="demo_category_*" model="product.public.category">
+        <field name="name">*</field>
+        <field name="parent_id" ref="base"/>
+        <field name="sequence">1114113</field>
+    </record>
+</odoo>
