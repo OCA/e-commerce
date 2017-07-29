@@ -3,13 +3,14 @@
 # * product_multi_link
 # 
 # Translators:
+# Peter Hageman <hageman.p@gmail.com>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 02:19+0000\n"
-"PO-Revision-Date: 2017-03-04 02:19+0000\n"
+"POT-Creation-Date: 2017-07-29 00:53+0000\n"
+"PO-Revision-Date: 2017-07-29 00:53+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -24,59 +25,39 @@ msgid "Active"
 msgstr ""
 
 #. module: product_multi_link
-#: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
-msgid "Brand"
-msgstr ""
-
-#. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_date
 msgid "Created on"
-msgstr ""
-
-#. module: product_multi_link
-#: model:ir.model.fields,field_description:product_multi_link.field_product_product_taxes_id
-msgid "Customer Taxes"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_display_name
 msgid "Display Name"
-msgstr ""
-
-#. module: product_multi_link
-#: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_expense_id
-msgid "Expense Account"
-msgstr ""
+msgstr "Weergavenaam"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_id
 msgid "ID"
-msgstr ""
-
-#. module: product_multi_link
-#: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_income_id
-msgid "Income Account"
-msgstr ""
+msgstr "ID"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst gewijzigd op"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_type
@@ -108,32 +89,8 @@ msgid "Product links"
 msgstr ""
 
 #. module: product_multi_link
-#: model:ir.model.fields,help:product_multi_link.field_product_product_product_brand_id
-msgid "Select a brand for this product"
-msgstr ""
-
-#. module: product_multi_link
 #: model:ir.model.fields,field_description:product_multi_link.field_product_link_product_id
 msgid "Source Product"
-msgstr ""
-
-#. module: product_multi_link
-#: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_expense_id
-msgid ""
-"This account will be used for invoices instead of the default one to value "
-"expenses for the current product."
-msgstr ""
-
-#. module: product_multi_link
-#: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_income_id
-msgid ""
-"This account will be used for invoices instead of the default one to value "
-"sales for the current product."
-msgstr ""
-
-#. module: product_multi_link
-#: model:ir.model.fields,field_description:product_multi_link.field_product_product_supplier_taxes_id
-msgid "Vendor Taxes"
 msgstr ""
 
 #. module: product_multi_link
