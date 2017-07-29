@@ -3,15 +3,14 @@
 # * website_sale_cart_selectable
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
-# Paolo Valier <paolo.valier@hotmail.it>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-28 02:50+0000\n"
-"PO-Revision-Date: 2017-03-28 02:50+0000\n"
-"Last-Translator: Paolo Valier <paolo.valier@hotmail.it>, 2017\n"
+"POT-Creation-Date: 2017-07-29 00:53+0000\n"
+"PO-Revision-Date: 2017-07-29 00:53+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,12 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_cart_selectable
-#: view:website:website_sale.product
+#: model:ir.ui.view,arch_db:website_sale_cart_selectable.product
 msgid "Add to Cart"
 msgstr "Aggiungi al Carrello"
 
 #. module: website_sale_cart_selectable
-#: field:product.template,website_btn_addtocart_published:0
+#: model:ir.model.fields,field_description:website_sale_cart_selectable.field_product_product_website_btn_addtocart_published
+#: model:ir.model.fields,field_description:website_sale_cart_selectable.field_product_template_website_btn_addtocart_published
 msgid "Button Add To Cart"
 msgstr "Pulsante Aggiungi al Carrello"
 
