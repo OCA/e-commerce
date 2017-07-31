@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# © 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+# Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+# Copyright 2017 David Vidal <david.vidal@tecnativa.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from openerp import http
@@ -13,11 +14,10 @@ class CheckoutSkipPayment(website_sale):
     def payment(self, **post):
         if not request.website.checkout_skip_payment:
             return super(CheckoutSkipPayment, self).payment(**post)
-
         context = request.context
         order = request.website.sale_get_order(context=context)
-        if order.action_confirm():
-            # clean context and session, then redirect to the confirmation page
+        if order.force_quotation_send():
+            # Clean context and session, then redirect to the confirmation page
             request.website.sale_reset(context=context)
             return request.redirect('/shop/confirmation')
         else:
