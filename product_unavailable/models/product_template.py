@@ -8,6 +8,13 @@ from odoo import api, fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    availability_sequence_dict = {
+        'in_stock': 0,
+        'warning': 5,
+        'unavailable': 10,
+        'empty': 20,
+    }
+
     availability = fields.Selection(
         selection_add=[('unavailable', 'Unavailable')],
     )
@@ -18,11 +25,8 @@ class ProductTemplate(models.Model):
 
     @api.depends('availability')
     def _compute_availability_sequence(self):
-        sequence_dict = {
-            'in_stock': 0,
-            'warning': 5,
-            'unavailable': 10,
-            'empty': 20,
-        }
         for r in self:
-            r.availability_sequence = sequence_dict.get(r.availability, 20)
+            r.availability_sequence = self.availability_sequence_dict.get(
+                r.availability,
+                20,
+            )

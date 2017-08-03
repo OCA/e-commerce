@@ -7,10 +7,10 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class SearchOrder(WebsiteSale):
     def _get_search_order(self, post):
-        return (
-            'website_published desc,'
-            'availability_sequence asc,'
-            'availability_warning asc,'
-            '%s,'
-            'id desc'
-        ) % post.get('order', 'website_sequence desc')
+        res = super(SearchOrder, self)._get_search_order(post)
+        order_list = res.split(',')
+        order_list.insert(
+            order_list.index('website_published desc') + 1,
+            'availability_sequence asc,availability_warning asc'
+        )
+        return ','.join(order_list)

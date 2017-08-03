@@ -14,12 +14,8 @@ class SearchOrderCase(TransactionCase):
     def test_get_search_order(self):
         post = {}
         order = self.SearchOrder._get_search_order(post)
-        self.assertEqual(
-            order,
-            'website_published desc,'
-            'availability_sequence asc,'
-            'availability_warning asc,'
-            'website_sequence desc,'
-            'id desc',
+        order_list = order.split(',')
+        self.assertIn(
+            'availability_sequence asc', order_list,
             'Availability not added to search order',
         )
