@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<odoo>
+    <record id="sale_affiliate_view_form" model="ir.ui.view">
+        <field name="name">Affiliate</field>
+        <field name="model">sale.affiliate</field>
+        <field name="arch" type="xml">
+            <form string="Affiliate">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="id"/>
+                        <field name="partner_id"/>
+                        <field name="company_id"/>
+                        <field name="sequence_id"/>
+                        <field name="valid_hours"/>
+                        <field name="valid_sales"/>
+                        <field name="request_ids" readonly="1">
+                            <tree string="Form Name">
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="sale_ids"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_affiliate_view_tree" model="ir.ui.view">
+        <field name="name">Affiliates</field>
+        <field name="model">sale.affiliate</field>
+        <field name="arch" type="xml">
+            <tree string="Affiliates">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+                <field name="valid_hours"/>
+                <field name="valid_sales"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_affiliate_view_search" model="ir.ui.view">
+        <field name="name">Affiliates Search</field>
+        <field name="model">sale.affiliate</field>
+        <field name="arch" type="xml">
+            <search string="Affiliates">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+                <field name="sequence_id"/>
+                <field name="valid_hours"/>
+                <field name="valid_sales"/>
+                <field name="request_ids"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_affiliate_action" model="ir.actions.act_window">
+        <field name="name">Affiliates</field>
+        <field name="res_model">sale.affiliate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sale_affiliate_view_search"/>
+    </record>
+
+    <menuitem id="sale_affiliate_category"
+              name="Affiliate Program"
+              parent="sales_team.menu_base_partner"
+              sequence="10"/>
+
+    <menuitem id="sale_affiliate_menu"
+              name="Affiliates"
+              sequence="1"
+              parent="sale_affiliate_category"
+              action="sale_affiliate_action"/>
+</odoo>
