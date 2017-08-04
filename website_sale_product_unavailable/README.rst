@@ -1,14 +1,14 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
+.. image:: https://img.shields.io/badge/licence-LGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+   :alt: License: LGPL-3
 
 ====================
 Unavailable Products
 ====================
 
-This module extends the notion of availability introduced in ``website_sale`` 
-to allow for unavailable products. Unlike products with an availability of 
-``empty``, these are still displayed in the website shop, but their price is 
+This module extends the notion of availability introduced in ``website_sale``
+to allow for unavailable products. Unlike products with an availability of
+``empty``, these are still displayed in the website shop, but their price is
 hidden, and they cannot be added to the cart.
 
 Usage
@@ -18,9 +18,9 @@ To see this module in action, you can:
 
 #. Go to ``Website > Shop``
 #. Search for ``Unavailable``
-#. Notice that the demo unavailable product is marked as ``Unavailable`` and 
+#. Notice that the demo unavailable product is marked as ``Unavailable`` and
    does not have a price
-#. Click on the product to see its detail page, where it is also marked as 
+#. Click on the product to see its detail page, where it is also marked as
    ``Unavailable`` and the ``Add to Cart`` button is not shown
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
@@ -41,7 +41,7 @@ Credits
 Images
 ------
 
-* Odoo Community Association: 
+* Odoo Community Association:
   `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
 
 Contributors
@@ -49,6 +49,7 @@ Contributors
 
 * Kelly Lougheed <kelly@smdrugstore.com>
 * Oleg Bulkin <obulkin@laslabs.com>
+* Brent Hughes <brent.hughes@laslabs.com>
 
 Maintainer
 ----------
