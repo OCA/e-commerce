@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <template id="product_price" inherit_id="website_sale.product_price">
+            <xpath expr="//div[@itemprop='offers']" position="attributes">
+                <attribute name="t-if">
+                    website.website_show_price
+                </attribute>
+            </xpath>
+        </template>
+
+        <template id="products_item" inherit_id="website_sale.products_item">
+            <xpath expr="//div[@itemprop='offers']" position="attributes">
+                <attribute name="t-if">
+                    website.website_show_price
+                </attribute>
+            </xpath>
+        </template>
+
+</odoo>
