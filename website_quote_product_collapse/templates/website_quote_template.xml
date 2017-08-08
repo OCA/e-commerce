@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="so_quotation_content" inherit_id="website_quote.so_quotation_content">
+
+        <xpath expr="//div[@t-field='line.website_description']" position="replace">
+            <div t-attf-id="productPanel{{ line.id }}"
+                 t-if="line.website_description"
+                 t-attf-class="panel panel-default {{ line.website_description and 'hidden-print' }}">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse"
+                           t-attf-data-target="#productPanelContent{{ line.id }}"
+                           t-attf-href="#productPanelContent{{ line.id }}"
+                           class="collapsed"
+                           t-esc="line.product_id.display_name" />
+                    </h4>
+                </div>
+                <div t-attf-id="productPanelContent{{ line.id }}" class="panel-collapse collapse">
+                    <div t-field="line.website_description" class="panel-body" />
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+</odoo>
