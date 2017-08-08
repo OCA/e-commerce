@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="so_quotation" inherit_id="website_quote.so_quotation">
+
+        <xpath expr="//div[@id='quote_content']//div[contains(@t-if, 'done')]" position="replace">
+            <t t-call="website_quote_payment_messages.payment_status_message">
+                <t t-set="tx_state" t-value="'done'" />
+                <t t-set="tx_message" t-value="tx_msg_done" />
+                <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+            </t>
+        </xpath>
+
+        <xpath expr="//div[@id='quote_content']//div[contains(@t-if, 'pending')]" position="replace">
+            <t t-call="website_quote_payment_messages.payment_status_message">
+                <t t-set="tx_state" t-value="'done'" />
+                <t t-set="tx_message" t-value="tx_msg_pending" />
+                <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+            </t>
+        </xpath>
+
+        <xpath expr="//div[@id='quote_content']//div[contains(@t-if, 'authorized')]" position="after">
+            <t t-call="website_quote_payment_messages.payment_status_message">
+                <t t-set="tx_state" t-value="'cancel'" />
+                <t t-set="tx_message" t-value="tx_msg_cancel" />
+                <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+            </t>
+        </xpath>
+
+        <xpath expr="//div[@id='quote_content']//div[contains(@t-if, 'authorized')]" position="replace">
+            <t t-call="website_quote_payment_messages.payment_status_message">
+                <t t-set="tx_state" t-value="'done'" />
+                <t t-set="tx_message" t-value="tx_msg_pending" />
+                <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+            </t>
+        </xpath>
+
+    </template>
+
+    <template id="payment_status_message">
+        <div t-attf-class="alert {{ alert_type or 'alert-warning' }} {{ alert_static or 'alert-dismissable' }}"
+             t-if="tx_id and tx_state == tx_state">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                <i class="fa fa-times" />
+            </button>
+            <span t-esc="tx_message" />
+            <span t-if="tx_message_thanks" t-raw="tx_post_msg"/>
+        </div>
+    </template>
+
+</odoo>
