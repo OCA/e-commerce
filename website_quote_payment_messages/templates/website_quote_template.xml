@@ -28,7 +28,6 @@
                t-if="tx_id and tx_state == 'cancel'">
                 <t t-set="tx_state" t-value="'cancel'" />
                 <t t-set="tx_message" t-value="tx_msg_cancel" />
-                <t t-set="tx_message_thanks" t-value="tx_post_msg" />
                 <t t-set="alert_type" t-value="'alert-danger'" />
             </t>
         </xpath>
