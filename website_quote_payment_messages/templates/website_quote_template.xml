@@ -52,7 +52,8 @@
                 <i class="fa fa-times" />
             </button>
             <span t-raw="tx_message" />
-            <span t-if="tx_message_thanks" t-raw="tx_post_msg"/>
+            <span t-if="tx_message_thanks and tx_message_thanks != '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'"
+                  t-raw="tx_post_msg"/>
         </div>
     </template>
 
