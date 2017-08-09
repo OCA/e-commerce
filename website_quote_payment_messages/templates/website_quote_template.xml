@@ -9,6 +9,7 @@
                 <t t-set="tx_state" t-value="'done'" />
                 <t t-set="tx_message" t-value="tx_msg_done" />
                 <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+                <t t-set="alert_type" t-value="'alert-success'" />
             </t>
         </xpath>
 
@@ -18,6 +19,7 @@
                 <t t-set="tx_state" t-value="'done'" />
                 <t t-set="tx_message" t-value="tx_msg_pending" />
                 <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+                <t t-set="alert_type" t-value="'alert-info'" />
             </t>
         </xpath>
 
@@ -27,6 +29,7 @@
                 <t t-set="tx_state" t-value="'cancel'" />
                 <t t-set="tx_message" t-value="tx_msg_cancel" />
                 <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+                <t t-set="alert_type" t-value="'alert-danger'" />
             </t>
         </xpath>
 
@@ -36,6 +39,7 @@
                 <t t-set="tx_state" t-value="'done'" />
                 <t t-set="tx_message" t-value="tx_msg_pending" />
                 <t t-set="tx_message_thanks" t-value="tx_post_msg" />
+                <t t-set="alert_type" t-value="'alert-info'" />
             </t>
         </xpath>
 
