@@ -12,7 +12,7 @@ class AffiliateRequest(models.Model):
     _name = 'sale.affiliate.request'
     _order = 'create_date desc'
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, index=True)
     affiliate_id = fields.Many2one(
         'sale.affiliate',
         string='Affiliate',
@@ -67,15 +67,17 @@ class AffiliateRequest(models.Model):
             name = affiliate.sequence_id.next_by_id()
         return self.create({'name': name, 'affiliate_id': affiliate.id})
 
-    @api.multi
-    def find_from_session(self):
+    @api.model_cr_context
+    def find_from_session(self, affiliate):
+        """Find affiliate request record based on session contents"""
+        domain = [('affiliate_id', '=', affiliate.id)]
         try:
             key = request.session['affiliate_key']
-            affiliate_request = self.filtered(lambda r: r.name == key)
+            domain.append(('name', '=', key))
         except KeyError:
             ip = request.httprequest.headers.environ.get('REMOTE_ADDR')
-            affiliate_request = self.filtered(lambda r: r.ip == ip)
-        return affiliate_request
+            domain.append(('ip', '=', ip))
+        return self.search(domain, limit=1)
 
     @api.multi
     def conversions_qualify(self):

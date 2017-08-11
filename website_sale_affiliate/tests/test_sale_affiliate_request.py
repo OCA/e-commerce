@@ -60,7 +60,7 @@ class AffiliateRequestCase(SaleCase):
     def test_find_from_session_key_provided(self, request_mock):
         """Returns existing affiliate request record with name matching key"""
         request_mock.session = {'affiliate_key': self.test_request.name}
-        request = self.test_affiliate.request_ids.find_from_session()
+        request = self.AffiliateRequest.find_from_session(self.test_affiliate)
         self.assertEqual(request, self.test_request)
 
     @patch('%s.request' % MODEL)
@@ -72,7 +72,7 @@ class AffiliateRequestCase(SaleCase):
             'REMOTE_ADDR': self.test_request.ip,
         }
 
-        request = self.test_affiliate.request_ids.find_from_session()
+        request = self.AffiliateRequest.find_from_session(self.test_affiliate)
         self.assertEqual(request, self.test_request)
 
     def test_conversions_qualify_valid(self):

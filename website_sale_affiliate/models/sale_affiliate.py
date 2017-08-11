@@ -59,6 +59,7 @@ class Affiliate(models.Model):
 
     @api.model_cr_context
     def find_from_session(self):
+        """Find affiliate record based on session contents"""
         try:
             affiliate_id = request.session['affiliate_id']
             return self.search([('id', '=', affiliate_id)], limit=1)
@@ -68,9 +69,9 @@ class Affiliate(models.Model):
     @api.multi
     def get_request(self):
         self.ensure_one()
-        matching_request = self.request_ids.find_from_session()
+        Request = self.env['sale.affiliate.request']
+        matching_request = Request.find_from_session(self)
         if not matching_request:
-            Request = self.env['sale.affiliate.request']
             matching_request = Request.create_from_session(self)
         if matching_request.conversions_qualify():
             return matching_request

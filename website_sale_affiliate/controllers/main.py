@@ -12,15 +12,17 @@ _logger = logging.getLogger(__name__)
 class WebsiteSale(Base):
     def _store_affiliate_info(self, **kwargs):
         try:
-            request.session['affiliate_id'] = int(kwargs['ref'])
-            try:
-                request.session['affiliate_key'] = kwargs['key']
-            except KeyError:
-                request.session.pop('affiliate_key', None)
+            request.session['affiliate_id'] = int(kwargs['aff_ref'])
+            request.session.pop('affiliate_key', None)
         except KeyError:
             pass
         except ValueError:
             _logger.debug('Invalid affiliate ID value')
+
+        try:
+            request.session['affiliate_key'] = kwargs['aff_key']
+        except KeyError:
+            pass
 
     @route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):

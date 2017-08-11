@@ -15,14 +15,14 @@ To use this module, you must first create at least one affiliate (found in Sales
 
 Once an affiliate has been created, append one of the following to a compatible shop or product url (see below) to track the affiliate's conversions:
 
-* ?ref=\ *affiliate_id*
-* ?ref=\ *affiliate_id*\&key=\ *custom_key*
+* ?aff_ref=\ *affiliate_id*
+* ?aff_ref=\ *affiliate_id*\&aff_key=\ *custom_key*
 
 The "affiliate_id" is the ID displayed on the affiliate's record, e.g. "1".
 
 The "custom_key" (optional) is a url-friendly string of your choice used to track a specific campaign, e.g. "anniversary_sale". Associated affiliate requests will be named after this key, if provided.
 
-**Example:** /shop?ref=1&key=anniversary_sale
+**Example:** /shop?aff_ref=1&aff_key=anniversary_sale
 
 Compatible URLs
 ---------------
@@ -36,6 +36,11 @@ Compatible URLs
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/113/10.0
+
+Known issues / Roadmap
+======================
+
+* Evaluate usefulness of IP as a fallback affiliate request identifier
 
 Bug Tracker
 ===========

@@ -27,11 +27,18 @@ class AffiliateCase(SaleCase):
         self.assertEqual(seq_affiliate.sequence_id, sequence)
 
     @patch('%s.request' % MODEL)
-    def test_find_from_session(self, request_mock):
+    def test_find_from_session_id_provided(self, request_mock):
         """Returns affiliate record matching affiliate_id from session"""
         request_mock.session = {'affiliate_id': self.test_affiliate.id}
         affiliate = self.Affiliate.find_from_session()
         self.assertEqual(affiliate, self.test_affiliate)
+
+    @patch('%s.request' % MODEL)
+    def test_find_from_session_id_absent(self, request_mock):
+        """Returns None when id is absent from session"""
+        request_mock.session = {}
+        affiliate = self.Affiliate.find_from_session()
+        self.assertIsNone(affiliate)
 
     @patch.object(AffiliateRequest, 'conversions_qualify')
     @patch.object(AffiliateRequest, 'find_from_session')
