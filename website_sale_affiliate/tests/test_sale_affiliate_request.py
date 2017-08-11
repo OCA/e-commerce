@@ -41,7 +41,7 @@ class AffiliateRequestCase(SaleCase):
     @patch('%s.request' % MODEL)
     def test_create_from_session_no_key(self, request_mock):
         """Returns new affiliate request record, named according to sequence"""
-        request_mock.session = {'affiliate_key': None}
+        request_mock.session = {}
         request_mock.httprequest.headers.environ = self.request_header_vals
 
         request = self.AffiliateRequest.create_from_session(
@@ -67,7 +67,7 @@ class AffiliateRequestCase(SaleCase):
     def test_find_from_session_no_key(self, request_mock):
         """Returns existing affiliate request record with ip matching ip
         of current session"""
-        request_mock.session = {'affiliate_key': None}
+        request_mock.session = {}
         request_mock.httprequest.headers.environ = {
             'REMOTE_ADDR': self.test_request.ip,
         }

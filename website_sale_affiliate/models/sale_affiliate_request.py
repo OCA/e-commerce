@@ -61,22 +61,18 @@ class AffiliateRequest(models.Model):
 
     @api.model
     def create_from_session(self, affiliate):
-        key = request.session.get('affiliate_key')
-        if key:
-            name = key
-        else:
+        try:
+            name = request.session['affiliate_key']
+        except KeyError:
             name = affiliate.sequence_id.next_by_id()
-        return self.create({
-            'name': name,
-            'affiliate_id': affiliate.id,
-        })
+        return self.create({'name': name, 'affiliate_id': affiliate.id})
 
     @api.multi
     def find_from_session(self):
-        key = request.session.get('affiliate_key')
-        if key:
+        try:
+            key = request.session['affiliate_key']
             affiliate_request = self.filtered(lambda r: r.name == key)
-        else:
+        except KeyError:
             ip = request.httprequest.headers.environ.get('REMOTE_ADDR')
             affiliate_request = self.filtered(lambda r: r.ip == ip)
         return affiliate_request

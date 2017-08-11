@@ -18,6 +18,8 @@ class SaleOrder(models.Model):
     def create(self, vals):
         res = super(SaleOrder, self).create(vals)
         affiliate = self.env['sale.affiliate'].find_from_session()
-        if affiliate:
+        try:
             res.affiliate_request_id = affiliate.get_request()
+        except AttributeError:
+            pass
         return res

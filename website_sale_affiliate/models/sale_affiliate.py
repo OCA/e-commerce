@@ -57,10 +57,13 @@ class Affiliate(models.Model):
             raise_if_not_found=False,
         )
 
-    @api.model
+    @api.model_cr_context
     def find_from_session(self):
-        affiliate_id = request.session.get('affiliate_id')
-        return self.search([('id', '=', affiliate_id)], limit=1)
+        try:
+            affiliate_id = request.session['affiliate_id']
+            return self.search([('id', '=', affiliate_id)], limit=1)
+        except KeyError:
+            return
 
     @api.multi
     def get_request(self):
@@ -71,4 +74,4 @@ class Affiliate(models.Model):
             matching_request = Request.create_from_session(self)
         if matching_request.conversions_qualify():
             return matching_request
-        return None
+        return
