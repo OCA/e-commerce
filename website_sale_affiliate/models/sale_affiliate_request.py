@@ -70,14 +70,14 @@ class AffiliateRequest(models.Model):
     @api.model_cr_context
     def find_from_session(self, affiliate):
         """Find affiliate request record based on session contents"""
-        domain = [('affiliate_id', '=', affiliate.id)]
         try:
-            key = request.session['affiliate_key']
-            domain.append(('name', '=', key))
+            affiliate_key = request.session['affiliate_key']
+            return self.search([
+                ('affiliate_id', '=', affiliate.id),
+                ('name', '=', affiliate_key),
+            ], limit=1)
         except KeyError:
-            ip = request.httprequest.headers.environ.get('REMOTE_ADDR')
-            domain.append(('ip', '=', ip))
-        return self.search(domain, limit=1)
+            return
 
     @api.multi
     def conversions_qualify(self):

@@ -63,18 +63,6 @@ class AffiliateRequestCase(SaleCase):
         request = self.AffiliateRequest.find_from_session(self.test_affiliate)
         self.assertEqual(request, self.test_request)
 
-    @patch('%s.request' % MODEL)
-    def test_find_from_session_no_key(self, request_mock):
-        """Returns existing affiliate request record with ip matching ip
-        of current session"""
-        request_mock.session = {}
-        request_mock.httprequest.headers.environ = {
-            'REMOTE_ADDR': self.test_request.ip,
-        }
-
-        request = self.AffiliateRequest.find_from_session(self.test_affiliate)
-        self.assertEqual(request, self.test_request)
-
     def test_conversions_qualify_valid(self):
         """Returns True when neither valid_hours nor valid_sales reached"""
         self.test_affiliate.write({
