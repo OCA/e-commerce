@@ -15,6 +15,7 @@ addon | version | summary
 --- | --- | ---
 [product_multi_link](product_multi_link/) | 9.0.1.0.0 | Product Links
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 9.0.1.0.0 | Autocomplete VAT in checkout process
+[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 9.0.1.0.0 | Skip payment for logged users in checkout process
 [website_sale_default_country](website_sale_default_country/) | 9.0.1.0.0 | Give a default value for country at checkout
 [website_sale_product_brand](website_sale_product_brand/) | 9.0.1.1.0 | Product Brand Filtering in Website
 [website_sale_qty](website_sale_qty/) | 9.0.1.0.0 | Add price tier radio buttons to product pages in website shop
