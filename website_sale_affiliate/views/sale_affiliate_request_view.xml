@@ -10,19 +10,23 @@
             <form string="Affiliate Request" create="false">
                 <sheet>
                     <group>
-                        <field name="affiliate_id"/>
                         <field name="name"/>
+                        <field name="affiliate_id"/>
                         <field name="date"/>
                     </group>
-                    <group>
-                        <field name="ip"/>
-                        <field name="referrer"/>
-                        <field name="user_agent"/>
-                        <field name="accept_language"/>
-                    </group>
-                    <group>
-                        <field name="sale_ids"/>
-                    </group>
+                    <notebook>
+                        <page string="Sales">
+                            <field name="sale_ids"/>
+                        </page>
+                        <page string="Details">
+                            <group>
+                                <field name="ip"/>
+                                <field name="referrer"/>
+                                <field name="user_agent"/>
+                                <field name="accept_language"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

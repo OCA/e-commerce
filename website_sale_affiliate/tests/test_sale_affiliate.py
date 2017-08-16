@@ -4,10 +4,9 @@
 
 from mock import patch
 
-from ..models.sale_affiliate_request import AffiliateRequest
 from .test_sale_common import SaleCase
 
-MODEL = 'odoo.addons.website_sale_affiliate.models.sale_affiliate'
+REQUEST = 'odoo.addons.website_sale_affiliate.models.sale_affiliate_request'
 
 
 class AffiliateCase(SaleCase):
@@ -15,99 +14,115 @@ class AffiliateCase(SaleCase):
         super(AffiliateCase, self).setUp()
         self.Affiliate = self.env['sale.affiliate']
 
+    def test_compute_conversion_rate_with_requests(self):
+        """Computes conversion rate for affiliate with requests"""
+        requests = self.demo_affiliate.request_ids
+        conversions = requests.filtered(lambda r: len(r.sale_ids) > 0)
+        conversion_rate = float(len(conversions)) / float(len(requests))
+        self.assertAlmostEqual(
+            conversion_rate,
+            self.demo_affiliate.conversion_rate,
+        )
+
+    def test_compute_conversion_rate_no_requests(self):
+        """Sets conversion rate to 0 for affiliate with no requests"""
+        test_affiliate = self.env['sale.affiliate'].create({
+            'name': 'test_affiliate',
+            'company_id': self.demo_company.id,
+            'valid_hours': 24,
+            'valid_sales': 1,
+        })
+        self.assertAlmostEqual(0.0, test_affiliate.conversion_rate)
+
+    def test_compute_sales_per_request_with_requests(self):
+        """Computes sales per request for affiliate with requests"""
+        requests = self.demo_affiliate.request_ids
+        sales_count = sum(len(request.sale_ids) for request in requests)
+        sales_per_request = float(sales_count) / float(len(requests))
+        self.assertAlmostEqual(
+            sales_per_request,
+            self.demo_affiliate.sales_per_request,
+        )
+
+    def test_compute_sales_per_request_no_requests(self):
+        """Sets sales per request to 0 for affiliate with no requests"""
+        test_affiliate = self.env['sale.affiliate'].create({
+            'name': 'test_affiliate',
+            'company_id': self.demo_company.id,
+            'valid_hours': 24,
+            'valid_sales': 1,
+        })
+        self.assertAlmostEqual(0.0, test_affiliate.sales_per_request)
+
     def test_default_sequence_id(self):
         """Sets sequence_id to provided sequence record by default"""
         seq_affiliate = self.Affiliate.create({
             'name': 'sequence test affiliate',
-            'company_id': self.test_company.id,
+            'company_id': self.demo_company.id,
             'valid_hours': -1,
             'valid_sales': -1,
         })
         sequence = self.env.ref('website_sale_affiliate.request_sequence')
         self.assertEqual(seq_affiliate.sequence_id, sequence)
 
-    @patch('%s.request' % MODEL)
-    def test_find_from_session_id_provided(self, request_mock):
-        """Returns affiliate record matching affiliate_id from session"""
-        request_mock.session = {'affiliate_id': self.test_affiliate.id}
-        affiliate = self.Affiliate.find_from_session()
-        self.assertEqual(affiliate, self.test_affiliate)
+    def test_find_from_kwargs_aff_ref_present(self):
+        """Returns affiliate record matching aff_ref from kwargs"""
+        kwargs = {'aff_ref': self.demo_affiliate}
+        affiliate = self.Affiliate.find_from_kwargs(**kwargs)
+        self.assertEqual(affiliate, self.demo_affiliate)
 
-    @patch('%s.request' % MODEL)
-    def test_find_from_session_id_absent(self, request_mock):
-        """Returns None when id is absent from session"""
-        request_mock.session = {}
-        affiliate = self.Affiliate.find_from_session()
+    def test_find_from_kwargs_aff_ref_absent(self):
+        """Returns None when aff_ref is absent from kwargs"""
+        kwargs = {}
+        affiliate = self.Affiliate.find_from_kwargs(**kwargs)
         self.assertIsNone(affiliate)
 
-    @patch.object(AffiliateRequest, 'conversions_qualify')
-    @patch.object(AffiliateRequest, 'find_from_session')
-    @patch('%s.request' % MODEL)
-    def test_get_request_conversions_qualify(
-        self,
-        request_mock,
-        find_from_session_mock,
-        conversions_qualify_mock,
-    ):
-        """It should add the appropriate affiliate request id to sale order
-        when sale is a qualified conversion"""
-        find_from_session_mock.return_value = self.test_request
-        conversions_qualify_mock.return_value = True
+    def test_find_from_kwargs_aff_ref_invalid(self):
+        """Returns None when aff_ref is not an integer"""
+        kwargs = {'aff_ref': 'not_int'}
+        affiliate = self.Affiliate.find_from_kwargs(**kwargs)
+        self.assertIsNone(affiliate)
 
-        request = self.test_affiliate.get_request()
-        self.assertEqual(request, self.test_request)
+    def test_get_request_aff_key_present_and_request_exists(self):
+        """Returns existing affiliate request record matching aff_key
+        from kwargs when match already exists"""
+        kwargs = {'aff_key': self.demo_request.name}
+        request = self.demo_affiliate.get_request(**kwargs)
+        self.assertEqual(request, self.demo_request)
+        self.assertEqual(
+            request.affiliate_id, self.demo_affiliate,
+            'Affiliate request not linked to correct affiliate',
+        )
 
-    @patch.object(AffiliateRequest, 'conversions_qualify')
-    @patch.object(AffiliateRequest, 'find_from_session')
-    @patch('%s.request' % MODEL)
-    def test_get_request_conversions_do_not_qualify(
-        self,
-        request_mock,
-        find_from_session_mock,
-        conversions_qualify_mock,
-    ):
-        """It should not add an affiliate request id to sale order
-        when sale is an unqualified conversion"""
-        find_from_session_mock.return_value = self.test_request
-        conversions_qualify_mock.return_value = False
+    @patch('%s.request' % REQUEST)
+    def test_get_request_aff_key_present_request_missing(self, request_mock):
+        """Creates and returns affiliate request record matching aff_key
+        from kwargs when match does not exist"""
+        test_name = 'test_request_new'
+        kwargs = {'aff_key': test_name}
+        request = self.demo_affiliate.get_request(**kwargs)
+        self.assertTrue(request.exists(), 'Affiliate request not created')
+        self.assertEqual(
+            request.name, test_name,
+            'Affiliate request not created with aff_key name',
+        )
+        self.assertEqual(
+            request.affiliate_id, self.demo_affiliate,
+            'Affiliate request not linked to correct affiliate',
+        )
 
-        request = self.test_affiliate.get_request()
-        self.assertIsNone(request)
-
-    @patch.object(AffiliateRequest, 'create_from_session')
-    @patch.object(AffiliateRequest, 'find_from_session')
-    @patch('%s.request' % MODEL)
-    def test_get_request_call_find_from_session(
-        self,
-        request_mock,
-        find_from_session_mock,
-        create_from_session_mock,
-    ):
-        """Calls find_from_session method and returns its result
-        when matching request exists"""
-        find_from_session_mock.return_value = self.test_request
-        create_from_session_mock.return_value = None
-
-        request = self.test_affiliate.get_request()
-        find_from_session_mock.assert_called_once()
-        create_from_session_mock.assert_not_called()
-        self.assertEqual(request, self.test_request)
-
-    @patch.object(AffiliateRequest, 'create_from_session')
-    @patch.object(AffiliateRequest, 'find_from_session')
-    @patch('%s.request' % MODEL)
-    def test_get_request_call_create_from_session(
-        self,
-        request_mock,
-        find_from_session_mock,
-        create_from_session_mock,
-    ):
-        """Calls create_from_session method and returns its result
-        when find_from_session method returns None"""
-        find_from_session_mock.return_value = None
-        create_from_session_mock.return_value = self.test_request
-
-        request = self.test_affiliate.get_request()
-        find_from_session_mock.assert_called_once()
-        create_from_session_mock.assert_called_once()
-        self.assertEqual(request, self.test_request)
+    @patch('%s.request' % REQUEST)
+    def test_get_request_aff_key_missing(self, request_mock):
+        """Creates and returns affiliate request record with sequential name
+        when match does not exist"""
+        kwargs = {}
+        request = self.demo_affiliate.get_request(**kwargs)
+        self.assertTrue(request.exists(), 'Affiliate request not created')
+        self.assertEqual(
+            request.name, '0000000001',
+            'Affiliate request named improperly',
+        )
+        self.assertEqual(
+            request.affiliate_id, self.demo_affiliate,
+            'Affiliate request not linked to correct affiliate',
+        )

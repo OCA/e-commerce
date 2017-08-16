@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
-import logging
 
-from odoo.http import request, route
 from odoo.addons.website_sale.controllers.main import WebsiteSale as Base
-
-_logger = logging.getLogger(__name__)
+from odoo.http import request, route
 
 
 class WebsiteSale(Base):
     def _store_affiliate_info(self, **kwargs):
+        Affiliate = request.env['sale.affiliate']
+        affiliate = Affiliate.sudo().find_from_kwargs(**kwargs)
         try:
-            request.session['affiliate_id'] = int(kwargs['aff_ref'])
-            request.session.pop('affiliate_key', None)
-        except KeyError:
-            pass
-        except ValueError:
-            _logger.debug('Invalid affiliate ID value')
-
-        try:
-            request.session['affiliate_key'] = kwargs['aff_key']
-        except KeyError:
+            affiliate_request = affiliate.get_request(**kwargs)
+            request.session['affiliate_request'] = affiliate_request.id
+        except (AttributeError, ValueError):
             pass
 
     @route()
@@ -32,7 +24,6 @@ class WebsiteSale(Base):
 
     @route()
     def product(self, product, category='', search='', **kwargs):
-        _logger.warning(request.session)
         self._store_affiliate_info(**kwargs)
         return super(WebsiteSale, self).product(product, category='',
                                                 search='', **kwargs)

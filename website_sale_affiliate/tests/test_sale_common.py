@@ -34,21 +34,13 @@ class SaleCase(TransactionCase):
             ],
             'pricelist_id': self.env.ref('product.list0').id,
         }
-        self.test_company = self.env['res.company'].create({
-            'name': 'test_company',
-            'partner_id': self.partner.id,
-        })
-        self.test_affiliate = self.env['sale.affiliate'].create({
-            'name': 'test_affiliate',
-            'company_id': self.test_company.id,
-            'valid_hours': -1,
-            'valid_sales': -1,
-        })
-        self.test_request = self.env['sale.affiliate.request'].create({
-            'name': 'test_request',
-            'affiliate_id': self.test_affiliate.id,
-            'ip': 'test ip',
-            'referrer': 'test referrer',
-            'user_agent': 'test user_agent',
-            'accept_language': 'test language',
-        })
+        self.demo_affiliate = self.env.ref(
+            'website_sale_affiliate.sale_affiliate_myaffiliate'
+        )
+        self.demo_affiliate_2 = self.env.ref(
+            'website_sale_affiliate.sale_affiliate_myotheraffiliate'
+        )
+        self.demo_request = self.env.ref(
+            'website_sale_affiliate.sale_affiliate_request_firesale'
+        )
+        self.demo_company = self.env.ref('base.main_company')

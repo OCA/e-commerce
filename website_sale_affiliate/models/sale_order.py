@@ -17,9 +17,6 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, vals):
         res = super(SaleOrder, self).create(vals)
-        affiliate = self.env['sale.affiliate'].find_from_session()
-        try:
-            res.affiliate_request_id = affiliate.get_request()
-        except AttributeError:
-            pass
+        AffiliateRequest = self.env['sale.affiliate.request']
+        res.affiliate_request_id = AffiliateRequest.current_qualified()
         return res

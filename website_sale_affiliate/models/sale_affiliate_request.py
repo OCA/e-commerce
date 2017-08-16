@@ -20,6 +20,7 @@ class AffiliateRequest(models.Model):
         help='Affiliate that referred request',
     )
     date = fields.Datetime(
+        string='Start Date',
         required=True,
         default=lambda self: fields.Datetime.now(),
         help='Date and time of initial request',
@@ -32,7 +33,6 @@ class AffiliateRequest(models.Model):
         ),
     )
     referrer = fields.Char(
-        required=True,
         default=lambda self: request.httprequest.headers.environ.get(
             'HTTP_REFERER',
         ),
@@ -59,28 +59,8 @@ class AffiliateRequest(models.Model):
         help='Qualified conversions generated as a result of affiliate request'
     )
 
-    @api.model
-    def create_from_session(self, affiliate):
-        try:
-            name = request.session['affiliate_key']
-        except KeyError:
-            name = affiliate.sequence_id.next_by_id()
-        return self.create({'name': name, 'affiliate_id': affiliate.id})
-
-    @api.model_cr_context
-    def find_from_session(self, affiliate):
-        """Find affiliate request record based on session contents"""
-        try:
-            affiliate_key = request.session['affiliate_key']
-            return self.search([
-                ('affiliate_id', '=', affiliate.id),
-                ('name', '=', affiliate_key),
-            ], limit=1)
-        except KeyError:
-            return
-
     @api.multi
-    def conversions_qualify(self):
+    def _conversions_qualify(self):
         self.ensure_one()
 
         valid_hours = self.affiliate_id.valid_hours
@@ -93,3 +73,14 @@ class AffiliateRequest(models.Model):
         qualified_time = valid_hours < 0 or fields.Datetime.now() < expiration
 
         return qualified_sales and qualified_time
+
+    @api.model_cr_context
+    def current_qualified(self):
+        try:
+            current_id = request.session['affiliate_request']
+            current = self.search([('id', '=', current_id)], limit=1)
+        except KeyError:
+            return
+        if current._conversions_qualify():
+            return current
+        return
