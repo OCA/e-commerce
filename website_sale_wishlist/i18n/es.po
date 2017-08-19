@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-07 02:00+0000\n"
-"PO-Revision-Date: 2017-01-07 02:00+0000\n"
+"POT-Creation-Date: 2017-08-15 03:01+0000\n"
+"PO-Revision-Date: 2017-08-15 03:01+0000\n"
 "Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "MIME-Version: 1.0\n"
@@ -186,6 +186,11 @@ msgstr "Aviso para pedido de venta"
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_product_wishlist_session
 msgid "Session"
 msgstr "Session"
+
+#. module: website_sale_wishlist
+#: model:ir.model.fields,field_description:website_sale_wishlist.field_res_users_skip_website_checkout_payment
+msgid "Skip website checkout payment"
+msgstr "Saltar proceso de  pago en la tienda online"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_res_users_property_account_position_id
