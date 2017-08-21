@@ -3,38 +3,38 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
 import mock
-
 from odoo import http
 from odoo.tests.common import HttpCase
 
-from .test_sale_common import SaleCase
+from ..controllers.main import WebsiteSale
+from .common import SaleCase
+
+CONTROLLER_PATH = 'odoo.addons.website_sale_affiliate.controllers.main'
 
 
 class WebsiteSaleCase(HttpCase, SaleCase):
     def setUp(self):
         super(WebsiteSaleCase, self).setUp()
+        self.controller = WebsiteSale()
         self.opener.addheaders.extend([
             ('Accept-Language', 'test_language'),
             ('Referer', 'test_referrer'),
         ])
         self.Affiliate = self.env['sale.affiliate']
+        self.find_from_kwargs_mock = mock.MagicMock()
         self.get_request_mock = mock.MagicMock()
-        self.get_request_mock.return_value = self.demo_request
-
-    def get_session_from_url_open(self, **kwargs):
-        try:
-            url = '%(url)s?aff_ref=%(aff_ref)s&aff_key=%(aff_key)s' % kwargs
-        except KeyError:
-            url = '%(url)s?aff_ref=%(aff_ref)s' % kwargs
-        self.url_open(url)
-        return http.root.session_store.get(self.session_id)
 
     def test_shop(self):
         """Adds request id to session when aff_ref kwarg present"""
+        self.get_request_mock.return_value = self.demo_request
         self.demo_affiliate._patch_method('get_request', self.get_request_mock)
         try:
-            kwargs = {'url': '/shop', 'aff_ref': str(self.demo_affiliate.id)}
-            session = self.get_session_from_url_open(**kwargs)
+            data = {
+                'url': '/shop',
+                'aff_ref': str(self.demo_affiliate.id),
+            }
+            self.url_open('%(url)s?aff_ref=%(aff_ref)s' % data)
+            session = http.root.session_store.get(self.session_id)
             self.assertEqual(
                 session.get('affiliate_request'),
                 self.demo_request.id,
@@ -44,16 +44,15 @@ class WebsiteSaleCase(HttpCase, SaleCase):
 
     def test_product(self):
         """Adds request id to session when aff_ref kwarg present"""
+        self.get_request_mock.return_value = self.demo_request
         self.demo_affiliate._patch_method('get_request', self.get_request_mock)
         try:
-            product = self.env['product.product'].search([
-                ('website_published', '=', True),
-            ], limit=1)
-            kwargs = {
-                'url': product.website_url,
+            data = {
+                'url': self.demo_product.website_url,
                 'aff_ref': self.demo_affiliate.id,
             }
-            session = self.get_session_from_url_open(**kwargs)
+            self.url_open('%(url)s?aff_ref=%(aff_ref)s' % data)
+            session = http.root.session_store.get(self.session_id)
             self.assertEqual(
                 session.get('affiliate_request'),
                 self.demo_request.id,
@@ -61,92 +60,133 @@ class WebsiteSaleCase(HttpCase, SaleCase):
         finally:
             self.demo_affiliate._revert_method('get_request')
 
-    def test_store_affiliate_info_aff_key_absent(self):
-        """Calls affiliate get_request method
-        when aff_ref valid and aff_key kwarg absent"""
-        self.demo_affiliate._patch_method('get_request', self.get_request_mock)
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_calls_find_from_kwargs(self, request_mock):
+        """Calls affiliate find_from_kwargs method"""
+        request_mock.env = self.env
+        self.find_from_kwargs_mock.return_value = None
+        self.Affiliate._patch_method(
+            'find_from_kwargs',
+            self.find_from_kwargs_mock,
+        )
         try:
-            kwargs = {'aff_ref': str(self.demo_affiliate.id)}
-            self.url_open('/shop?aff_ref=%(aff_ref)s' % kwargs)
+            kwargs = {}
+            self.controller._store_affiliate_info(**kwargs)
+            self.find_from_kwargs_mock.assert_called_once_with(**kwargs)
+        finally:
+            self.Affiliate._revert_method('find_from_kwargs')
+
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_calls_get_request(self, request_mock):
+        """Calls affiliate get_request method with provided kwargs
+        when affiliate matching aff_ref is found"""
+        request_mock.env = self.env
+        self.Affiliate._patch_method('get_request', self.get_request_mock)
+        try:
+            kwargs = {
+                'aff_ref': self.demo_affiliate.id,
+                'aff_key': self.demo_request.id,
+            }
+            self.controller._store_affiliate_info(**kwargs)
             self.get_request_mock.assert_called_once_with(**kwargs)
         finally:
-            self.demo_affiliate._revert_method('get_request')
+            self.Affiliate._revert_method('get_request')
 
-    def test_store_affiliate_info_aff_key_present(self):
-        """Adds valid affiliate request in session that matches aff_key"""
-        kwargs = {
-            'url': '/shop',
-            'aff_ref': self.demo_affiliate.id,
-            'aff_key': self.demo_request.name,
-        }
-        session = self.get_session_from_url_open(**kwargs)
-        affiliate_request = self.env['sale.affiliate.request'].search([
-            ('id', '=', session.get('affiliate_request')),
-        ])
-        self.assertEqual(affiliate_request, self.demo_request)
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_does_not_call_get_request(
+        self,
+        request_mock,
+    ):
+        """Does not call affiliate get_request method
+        when affiliate matching aff_ref is not found"""
+        request_mock.env = self.env
+        self.Affiliate._patch_method('get_request', self.get_request_mock)
+        try:
+            kwargs = {}
+            self.controller._store_affiliate_info(**kwargs)
+            self.assertFalse(self.get_request_mock.called)
+        finally:
+            self.Affiliate._revert_method('get_request')
 
-    def test_store_affiliate_info_aff_ref_absent(self):
-        """Does not add affiliate request to session when aff_ref absent"""
-        self.url_open('/shop')
-        session = http.root.session_store.get(self.session_id)
-        self.assertFalse(session.get('affiliate_request'))
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_adds_affiliate_request_to_session(
+        self,
+        request_mock,
+    ):
+        """Adds affiliate request to session when found"""
+        request_mock.env = self.env
+        request_mock.session = {}
+        self.get_request_mock.return_value = self.demo_request
+        self.Affiliate._patch_method('get_request', self.get_request_mock)
+        try:
+            kwargs = {'aff_ref': self.demo_affiliate.id}
+            self.controller._store_affiliate_info(**kwargs)
+            self.assertEqual(
+                request_mock.session['affiliate_request'],
+                self.demo_request.id,
+            )
+        finally:
+            self.Affiliate._revert_method('get_request')
 
-    def test_store_affiliate_info_aff_ref_no_matches(self):
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_does_not_add_affiliate_request_to_session(
+        self,
+        request_mock,
+    ):
         """Does not add affiliate request to session
-        when there is no affiliate id matching aff_ref"""
-        kwargs = {'url': '/shop', 'aff_ref': 0}
-        session = self.get_session_from_url_open(**kwargs)
-        self.assertFalse(session.get('affiliate_request'))
+        when matching affiliate not found"""
+        request_mock.env = self.env
+        request_mock.session = {}
+        self.find_from_kwargs_mock.return_value = None
+        self.Affiliate._patch_method(
+            'find_from_kwargs',
+            self.find_from_kwargs_mock,
+        )
+        try:
+            kwargs = {}
+            self.controller._store_affiliate_info(**kwargs)
+            self.assertIsNone(request_mock.session.get('affiliate_request'))
+        finally:
+            self.Affiliate._revert_method('find_from_kwargs')
 
-    def test_store_affiliate_info_aff_ref_invalid(self):
-        """Does not add affiliate request to session when aff_ref invalid"""
-        kwargs = {'url': '/shop', 'aff_ref': 'not_int'}
-        session = self.get_session_from_url_open(**kwargs)
-        self.assertFalse(session.get('affiliate_request'))
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_replaces_existing_session_data(
+        self,
+        request_mock,
+    ):
+        """Replaces existing affiliate request in session
+        when new request found"""
+        request_mock.env = self.env
+        request_mock.session = {'affiliate_request': 0}
+        self.get_request_mock.return_value = self.demo_request
+        self.Affiliate._patch_method('get_request', self.get_request_mock)
+        try:
+            kwargs = {'aff_ref': self.demo_affiliate.id}
+            self.controller._store_affiliate_info(**kwargs)
+            self.assertEqual(
+                request_mock.session['affiliate_request'],
+                self.demo_request.id,
+            )
+        finally:
+            self.Affiliate._revert_method('get_request')
 
-    def test_store_affiliate_info_new_aff_ref_replace_existing(self):
-        """Replaces existing affiliate_request in session
-        when new aff_ref kwarg provided"""
-        kwargs = {'url': '/shop', 'aff_ref': self.demo_affiliate.id}
-        session = self.get_session_from_url_open(**kwargs)
-        old_request = session.get('affiliate_request')
-
-        kwargs['aff_ref'] = self.demo_affiliate_2.id
-        session = self.get_session_from_url_open(**kwargs)
-        new_request = session.get('affiliate_request')
-
-        self.assertNotEqual(new_request, old_request)
-
-    def test_store_affiliate_info_new_aff_key_replace_existing(self):
-        """Replaces existing affiliate_request in session
-        when new aff_key kwarg provided"""
-        kwargs = {
-            'url': '/shop',
-            'aff_ref': self.demo_affiliate.id,
-            'aff_key': 'testing',
-        }
-        session = self.get_session_from_url_open(**kwargs)
-        old_request = session.get('affiliate_request')
-
-        kwargs['aff_key'] = self.demo_request.name
-        session = self.get_session_from_url_open(**kwargs)
-        new_request = session.get('affiliate_request')
-
-        self.assertNotEqual(new_request, old_request)
-
-    def test_store_affiliate_info_preserves_existing(self):
-        """Preserves existing affiliate_request in session
-        when no new aff_key or aff_ref provided"""
-        kwargs = {
-            'url': '/shop',
-            'aff_ref': self.demo_affiliate.id,
-            'aff_key': self.demo_request.name,
-        }
-        session = self.get_session_from_url_open(**kwargs)
-        old_request = session.get('affiliate_request')
-
-        self.url_open('/shop')
-        session = http.root.session_store.get(self.session_id)
-        new_request = session.get('affiliate_request')
-
-        self.assertEqual(new_request, old_request)
+    @mock.patch('%s.request' % CONTROLLER_PATH)
+    def test_store_affiliate_info_preserves_existing_session_data(
+        self,
+        request_mock,
+    ):
+        """Preserves old affiliate request in session
+        when no new affiliate found"""
+        request_mock.env = self.env
+        request_mock.session = {'affiliate_request': 0}
+        self.find_from_kwargs_mock.return_value = None
+        self.Affiliate._patch_method(
+            'find_from_kwargs',
+            self.find_from_kwargs_mock
+        )
+        try:
+            kwargs = {}
+            self.controller._store_affiliate_info(**kwargs)
+            self.assertEqual(request_mock.session['affiliate_request'], 0)
+        finally:
+            self.Affiliate._revert_method('find_from_kwargs')

@@ -10,13 +10,6 @@
       <field name="valid_sales">1</field>
   </record>
 
-  <record id="sale_affiliate_myotheraffiliate" model="sale.affiliate">
-      <field name="name">MyOtherAffiliate</field>
-      <field name="company_id" ref="base.main_company"></field>
-      <field name="valid_hours">24</field>
-      <field name="valid_sales">1</field>
-  </record>
-
   <record id="sale_affiliate_request_firesale" model="sale.affiliate.request">
       <field name="name">firesale</field>
       <field name="affiliate_id" ref="sale_affiliate_myaffiliate"></field>

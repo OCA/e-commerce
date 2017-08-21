@@ -5,9 +5,9 @@
 from mock import patch
 
 from ..models.sale_affiliate_request import AffiliateRequest
-from .test_sale_common import SaleCase
+from .common import SaleCase
 
-MODEL = 'odoo.addons.website_sale_affiliate.models.sale_affiliate_request'
+MODEL_PATH = 'odoo.addons.website_sale_affiliate.models.sale_affiliate_request'
 
 
 class AffiliateRequestCase(SaleCase):
@@ -29,7 +29,7 @@ class AffiliateRequestCase(SaleCase):
             'accept_language': 'test language',
         })
 
-    @patch('%s.request' % MODEL)
+    @patch('%s.request' % MODEL_PATH)
     def test_defaults_all_present(self, request_mock):
         ip = '0.0.0.0'
         referrer = 'referrer'
@@ -102,14 +102,14 @@ class AffiliateRequestCase(SaleCase):
         })
         self.assertFalse(self.test_request._conversions_qualify())
 
-    @patch('%s.request' % MODEL)
+    @patch('%s.request' % MODEL_PATH)
     def test_current_qualified_no_request_in_session(self, request_mock):
         """Returns None if no affiliate request is in session"""
         request_mock.session = {}
         self.assertIsNone(self.AffiliateRequest.current_qualified())
 
     @patch.object(AffiliateRequest, '_conversions_qualify')
-    @patch('%s.request' % MODEL)
+    @patch('%s.request' % MODEL_PATH)
     def test_current_qualified_request_in_session_calls_conversions_qualify(
         self,
         request_mock,
@@ -120,7 +120,7 @@ class AffiliateRequestCase(SaleCase):
         self.AffiliateRequest.current_qualified()
         _conversions_qualify_mock.assert_called_once_with()
 
-    @patch('%s.request' % MODEL)
+    @patch('%s.request' % MODEL_PATH)
     def test_current_qualified_request_not_in_session_returns_none(
         self,
         request_mock,
@@ -131,7 +131,7 @@ class AffiliateRequestCase(SaleCase):
         self.assertIsNone(request)
 
     @patch.object(AffiliateRequest, '_conversions_qualify')
-    @patch('%s.request' % MODEL)
+    @patch('%s.request' % MODEL_PATH)
     def test_current_qualified_request_in_session_returns_request(
         self,
         request_mock,
@@ -144,7 +144,7 @@ class AffiliateRequestCase(SaleCase):
         self.assertEqual(request, self.test_request)
 
     @patch.object(AffiliateRequest, '_conversions_qualify')
-    @patch('%s.request' % MODEL)
+    @patch('%s.request' % MODEL_PATH)
     def test_current_qualified_request_in_session_returns_none(
         self,
         request_mock,

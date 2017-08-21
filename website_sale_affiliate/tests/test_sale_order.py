@@ -5,12 +5,32 @@
 from mock import patch
 
 from ..models.sale_affiliate_request import AffiliateRequest
-from .test_sale_common import SaleCase
+from .common import SaleCase
 
 
 class SaleOrderCase(SaleCase):
     def setUp(self):
         super(SaleOrderCase, self).setUp()
+        self.partner = self.env.ref('base.res_partner_1')
+        self.sale_order_vals = {
+            'partner_id': self.partner.id,
+            'partner_invoice_id': self.partner.id,
+            'partner_shipping_id': self.partner.id,
+            'order_line': [
+                (
+                    0,
+                    0,
+                    {
+                        'name': self.demo_product.name,
+                        'product_id': self.demo_product.id,
+                        'product_uom_qty': 2,
+                        'product_uom': self.demo_product.uom_id.id,
+                        'price_unit': self.demo_product.list_price,
+                    },
+                )
+            ],
+            'pricelist_id': self.env.ref('product.list0').id,
+        }
 
     @patch.object(AffiliateRequest, 'current_qualified')
     def test_create_calls_current_qualified(self, current_qualified_mock):

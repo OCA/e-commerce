@@ -4,9 +4,10 @@
 
 from mock import patch
 
-from .test_sale_common import SaleCase
+from .common import SaleCase
 
-REQUEST = 'odoo.addons.website_sale_affiliate.models.sale_affiliate_request'
+MODULE_PATH = 'odoo.addons.website_sale_affiliate'
+AFFILIATE_REQUEST_PATH = MODULE_PATH + '.models.sale_affiliate_request'
 
 
 class AffiliateCase(SaleCase):
@@ -22,6 +23,7 @@ class AffiliateCase(SaleCase):
         self.assertAlmostEqual(
             conversion_rate,
             self.demo_affiliate.conversion_rate,
+            4,
         )
 
     def test_compute_conversion_rate_no_requests(self):
@@ -32,7 +34,7 @@ class AffiliateCase(SaleCase):
             'valid_hours': 24,
             'valid_sales': 1,
         })
-        self.assertAlmostEqual(0.0, test_affiliate.conversion_rate)
+        self.assertAlmostEqual(0.0, test_affiliate.conversion_rate, 4)
 
     def test_compute_sales_per_request_with_requests(self):
         """Computes sales per request for affiliate with requests"""
@@ -42,6 +44,7 @@ class AffiliateCase(SaleCase):
         self.assertAlmostEqual(
             sales_per_request,
             self.demo_affiliate.sales_per_request,
+            4,
         )
 
     def test_compute_sales_per_request_no_requests(self):
@@ -52,7 +55,7 @@ class AffiliateCase(SaleCase):
             'valid_hours': 24,
             'valid_sales': 1,
         })
-        self.assertAlmostEqual(0.0, test_affiliate.sales_per_request)
+        self.assertAlmostEqual(0.0, test_affiliate.sales_per_request, 4)
 
     def test_default_sequence_id(self):
         """Sets sequence_id to provided sequence record by default"""
@@ -94,7 +97,7 @@ class AffiliateCase(SaleCase):
             'Affiliate request not linked to correct affiliate',
         )
 
-    @patch('%s.request' % REQUEST)
+    @patch('%s.request' % AFFILIATE_REQUEST_PATH)
     def test_get_request_aff_key_present_request_missing(self, request_mock):
         """Creates and returns affiliate request record matching aff_key
         from kwargs when match does not exist"""
@@ -111,7 +114,7 @@ class AffiliateCase(SaleCase):
             'Affiliate request not linked to correct affiliate',
         )
 
-    @patch('%s.request' % REQUEST)
+    @patch('%s.request' % AFFILIATE_REQUEST_PATH)
     def test_get_request_aff_key_missing(self, request_mock):
         """Creates and returns affiliate request record with sequential name
         when match does not exist"""

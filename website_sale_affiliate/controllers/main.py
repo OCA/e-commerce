@@ -18,12 +18,14 @@ class WebsiteSale(Base):
 
     @route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
+        res = super(WebsiteSale, self).shop(page, category,
+                                            search, ppg, **post)
         self._store_affiliate_info(**post)
-        return super(WebsiteSale, self).shop(page, category,
-                                             search, ppg, **post)
+        return res
 
     @route()
     def product(self, product, category='', search='', **kwargs):
+        res = super(WebsiteSale, self).product(product, category='',
+                                               search='', **kwargs)
         self._store_affiliate_info(**kwargs)
-        return super(WebsiteSale, self).product(product, category='',
-                                                search='', **kwargs)
+        return res
