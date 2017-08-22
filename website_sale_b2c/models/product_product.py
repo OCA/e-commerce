@@ -33,20 +33,3 @@ class ProductProduct(models.Model):
         )
         for one in self:
             one.price_extra = result[one.id]
-
-
-class ProductPricelist(models.Model):
-    _inherit = 'product.pricelist'
-
-    def price_rule_get_multi(self, cr, uid, ids, products_by_qty_by_partner,
-                             context=None):
-        res = super(ProductPricelist, self).price_rule_get_multi(
-            cr, uid, ids, products_by_qty_by_partner, context)
-        for product in products_by_qty_by_partner:
-            for pricelist, price in res[product[0].id].iteritems():
-                p = product[0].env['product.template']._price_b2c_wrapper(
-                    product[0],
-                    {product[0].id: price[0]},
-                )
-                res[product[0].id][pricelist] = (p[product[0].id], pricelist)
-        return res
