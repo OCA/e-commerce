@@ -14,6 +14,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [product_multi_link](product_multi_link/) | 9.0.1.0.0 | Product Links
+[website_sale_b2c](website_sale_b2c/) | 9.0.1.0.0 | Display prices with taxes included in your online shop
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 9.0.1.0.0 | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 9.0.1.0.0 | Skip payment for logged users in checkout process
 [website_sale_default_country](website_sale_default_country/) | 9.0.1.0.0 | Give a default value for country at checkout
