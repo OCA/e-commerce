@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<odoo noupdate="1">
+  <record id="sale_affiliate_myaffiliate" model="sale.affiliate">
+      <field name="name">MyAffiliate</field>
+      <field name="company_id" ref="base.main_company"></field>
+      <field name="valid_hours">24</field>
+      <field name="valid_sales">1</field>
+  </record>
+
+  <record id="sale_affiliate_request_firesale" model="sale.affiliate.request">
+      <field name="name">firesale</field>
+      <field name="affiliate_id" ref="sale_affiliate_myaffiliate"></field>
+      <field name="ip">0.0.0.0</field>
+      <field name="referrer">referrer</field>
+      <field name="user_agent">user agent</field>
+      <field name="accept_language">language</field>
+  </record>
+
+  <record id="sale.sale_order_1" model="sale.order">
+      <field name="affiliate_request_id" ref="sale_affiliate_request_firesale"/>
+  </record>
+
+  <record id="sale.sale_order_2" model="sale.order">
+      <field name="affiliate_request_id" ref="sale_affiliate_request_firesale"/>
+  </record>
+</odoo>
