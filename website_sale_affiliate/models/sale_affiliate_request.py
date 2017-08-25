@@ -12,7 +12,13 @@ class AffiliateRequest(models.Model):
     _name = 'sale.affiliate.request'
     _order = 'create_date desc'
 
-    name = fields.Char(required=True, index=True)
+    name = fields.Char(
+        required=True,
+        index=True,
+        help='Name corresponds with the "aff_key" value of the url used, if '
+        'present. Otherwise, name is determined by the sequence selected in '
+        'the parent affiliate record',
+    )
     affiliate_id = fields.Many2one(
         'sale.affiliate',
         string='Affiliate',
