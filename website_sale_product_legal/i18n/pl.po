@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-24 03:40+0000\n"
+"POT-Creation-Date: 2017-08-19 02:26+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Polish (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/pl/)\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #. module: website_sale_product_legal
 #: model:ir.actions.act_window,help:website_sale_product_legal.legal_term_action
@@ -49,7 +49,7 @@ msgstr ""
 #. module: website_sale_product_legal
 #: view:website:website_sale_product_legal.legal_terms_modal
 msgid "Close"
-msgstr ""
+msgstr "Zamknięte"
 
 #. module: website_sale_product_legal
 #: field:website_sale_product_legal.legal_term,contents:0

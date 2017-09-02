@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-05 02:12+0000\n"
+"POT-Creation-Date: 2017-08-19 02:26+0000\n"
 "PO-Revision-Date: 2016-03-29 10:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/hr_HR/)\n"
@@ -128,7 +128,7 @@ msgstr ""
 #. module: website_sale_product_legal
 #: model:ir.model,name:website_sale_product_legal.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Predložak proizvoda"
 
 #. module: website_sale_product_legal
 #: field:website_sale_product_legal.legal_term,product_template_ids:0

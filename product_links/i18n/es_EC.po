@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-24 03:40+0000\n"
-"PO-Revision-Date: 2016-11-23 06:14+0000\n"
+"POT-Creation-Date: 2017-08-19 02:25+0000\n"
+"PO-Revision-Date: 2017-08-21 07:23+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (Ecuador) (http://www.transifex.com/oca/OCA-e-commerce-8-0/language/es_EC/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: product_links
 #: field:product.link,is_active:0
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: product_links
 #: field:product.link,create_uid:0
