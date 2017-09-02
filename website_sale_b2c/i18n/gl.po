@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale_b2c
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-23 02:47+0000\n"
+"PO-Revision-Date: 2017-08-23 02:47+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Galician (https://www.transifex.com/oca/teams/23907/gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_sale_b2c
+#: model:ir.model,name:website_sale_b2c.model_product_pricelist
+msgid "Pricelist"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.model,name:website_sale_b2c.model_product_product
+msgid "Product"
+msgstr "Produto"
+
+#. module: website_sale_b2c
+#: model:ir.model,name:website_sale_b2c.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.ui.view,arch_db:website_sale_b2c.view_sales_config
+msgid "Sale Price"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.model,name:website_sale_b2c.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:res.groups,comment:website_sale_b2c.group_show_price_total
+#: selection:sale.config.settings,sale_show_tax:0
+msgid "Show line subtotals with taxes included (B2C)"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:res.groups,comment:website_sale_b2c.group_show_price_subtotal
+#: selection:sale.config.settings,sale_show_tax:0
+msgid "Show line subtotals without taxes (B2B)"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.model.fields,field_description:website_sale_b2c.field_sale_config_settings_group_show_price_subtotal
+msgid "Show subtotal"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.model.fields,field_description:website_sale_b2c.field_sale_config_settings_group_show_price_total
+msgid "Show total"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.model.fields,field_description:website_sale_b2c.field_sale_config_settings_sale_show_tax
+msgid "Tax Display"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:res.groups,name:website_sale_b2c.group_show_price_subtotal
+msgid "Tax display B2B"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:res.groups,name:website_sale_b2c.group_show_price_total
+msgid "Tax display B2C"
+msgstr ""
+
+#. module: website_sale_b2c
+#: model:ir.model,name:website_sale_b2c.model_sale_config_settings
+msgid "sale.config.settings"
+msgstr ""
