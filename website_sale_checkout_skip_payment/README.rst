@@ -8,7 +8,7 @@ Website Sale Checkout Skip Payment
 
 This module allows to logged users to checkout with no payment step. At the
 end of the checkout proccess the quotation is sent to the user email address
-and set to *Qoutation Sent* state.
+and set to *Quotation Sent* state.
 
 Configuration
 =============
@@ -21,7 +21,7 @@ To configure this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/9.0
+   :target: https://runbot.odoo-community.org/runbot/113/10.0
 
 
 Bug Tracker
