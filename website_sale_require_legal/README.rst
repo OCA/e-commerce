@@ -33,7 +33,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/9.0
+   :target: https://runbot.odoo-community.org/runbot/113/10.0
 
 Bug Tracker
 ===========
@@ -49,8 +49,8 @@ Credits
 Contributors
 ------------
 
-* Rafael Blasco <rafaelbn@antiun.com>
-* Jairo Llopis <yajo.sk8@gmail.com>
+* Rafael Blasco <rafael.blasco@tecnativa.com>
+* Jairo Llopis <jairo.llopis@tecnativa.com>
 * Vicent Cubells <vicent.cubells@tecnativa.com>
 
 Maintainer
@@ -66,4 +66,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.
