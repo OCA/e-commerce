@@ -10,7 +10,7 @@
             <t t-set="complete_field" t-value="'vat'"/>
             <t t-set="default_value" t-value="checkout.get('vat', '')"/>
             <t t-set="default_country"
-               t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', checkout.get('country_id'))])"/>
+               t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', checkout.get('country_id') or False)])"/>
         </t>
     </xpath>
 </template>
