@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-<template id="checkout" inherit_id="website_sale.checkout">
-    <xpath expr="//div[@class='js_shipping row mb16']" position="after">
-        <!-- Only shown for public users, out of test mode -->
-        <div t-if="'TestCursor' not in repr(env.cr)"
-             class="row">
-            <div t-attf-class="form-group col-md-12
-                               #{error.get('accepted_legal_terms') and
-                                 'has-error' or ''}">
-                <label for="accepted_legal_terms" class="control-label">
-                    <input type="checkbox"
-                           name="accepted_legal_terms"
-                           id="accepted_legal_terms"
-                           required="required"/>
-                    <t t-call="website_legal_page.acceptance_full"/>
-                </label>
-            </div>
+    <template id="accept_input">
+        <div t-attf-class="form-group col-md-12 #{'has-error' if error.get('accepted_legal_terms') else ''}">
+            <label for="accepted_legal_terms" class="control-label">
+                <input
+                    type="checkbox"
+                    name="accepted_legal_terms"
+                    id="accepted_legal_terms"
+                    required="required"/>
+                <t t-call="website_legal_page.acceptance_full"/>
+            </label>
         </div>
-    </xpath>
+    </template>
 
-    <!-- Replace <a> by <button> to trigger HTML5 validations -->
-    <xpath expr="//a[contains(@class, 'a-submit')]" position="replace">
-        <button class="btn btn-primary pull-right mb32">
-            Confirm
-            <span class="fa fa-long-arrow-right"/>
-        </button>
-    </xpath>
-</template>
+    <template id="address" inherit_id="website_sale.address">
+        <xpath expr="//div[@class='clearfix'][last()]" position="after">
+            <t t-call="website_sale_require_legal.accept_input"/>
+        </xpath>
+    </template>
 
 </odoo>
