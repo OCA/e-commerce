@@ -16,21 +16,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#. module: website_sale_checkout_country_vat
-#: field:website,default_checkout_country_id:0
-#: field:website.config.settings,default_checkout_country_id:0
-msgid "Default country for VAT codes"
-msgstr "País por defecto para códigos NIF"
+#~ msgid "Default country for VAT codes"
+#~ msgstr "País por defecto para códigos NIF"
 
-#. module: website_sale_checkout_country_vat
-#: view:website.config.settings:website_sale_checkout_country_vat.view_checkout_vat_configuration
-msgid "Sale Checkout VAT"
-msgstr "NIF al comprar en línea"
+#~ msgid "Sale Checkout VAT"
+#~ msgstr "NIF al comprar en línea"
 
-#. module: website_sale_checkout_country_vat
-#: model:ir.model,name:website_sale_checkout_country_vat.model_website
-msgid "Website"
-msgstr "Sitio web"
+#~ msgid "Website"
+#~ msgstr "Sitio web"
 
 #~ msgid "Default Country VAT Code"
 #~ msgstr "Código de país por defecto para en NIF"
