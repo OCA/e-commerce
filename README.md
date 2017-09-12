@@ -21,6 +21,7 @@ addon | version | summary
 [website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 | A megamenu to display product categories in the online shop
 [website_sale_checkout_comment](website_sale_checkout_comment/) | 8.0.1.0.0 | Write comments in checkout process
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 8.0.1.0.0 | Autocomplete VAT in checkout process
+[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 8.0.1.0.0 | Skip payment for logged users in checkout process
 [website_sale_default_country](website_sale_default_country/) | 8.0.1.0.0 | Give a default value for country at checkout
 [website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 | Product Brand Filtering in Website
 [website_sale_product_legal](website_sale_product_legal/) | 8.0.2.0.0 | Make buyers to accept legal terms per product
