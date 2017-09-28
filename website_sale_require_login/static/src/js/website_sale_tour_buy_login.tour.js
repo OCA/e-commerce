@@ -18,14 +18,26 @@ odoo.define('website_sale_require_login.tour', function(require) {
                  ".pos .username").text();
     }
 
-    // Alter expected buying workflow for public users
-    if (!user()) {
-        var stepOnload = function () {
-            $("#login").val("demo");
-            $("#password").val("demo");
-        };
-        for (var position = 0; position < steps.length; position++) {
-            if (steps[position].content === "go to checkout") {
+    for (var position = 0; position < steps.length; position++) {
+        if (steps[position].content === "go to checkout") {
+            if (user()) {
+                // if user is authenticated -- add extra dummy step to don't break current_step counter
+                steps.splice(
+                    position,
+                    0,
+                    {
+                        title: 'dummy',
+                        auto: 1,
+                        trigger: "footer :contains(Copyright)"
+                    }
+                );
+            } else {
+                // Alter expected buying workflow for public users
+                var stepOnload = function (actions) {
+                    $("#login").val("demo");
+                    $("#password").val("demo");
+                    actions.auto("form.oe_login_form button[type=submit]");
+                };
                 steps.splice(
                     position,
                     1,
@@ -36,13 +48,13 @@ odoo.define('website_sale_require_login.tour', function(require) {
                     },
                     {
                         title: "Log In",
-                        trigger: "form.oe_login_form button[type=submit]",
+                        trigger: "#login",
                         run: stepOnload
                     }
                 );
-                break;
             }
+            break;
         }
-    }
 
+    }
 });
