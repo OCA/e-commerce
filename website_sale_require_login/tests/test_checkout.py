@@ -27,5 +27,5 @@ class TestUi(odoo.tests.HttpCase):
     def test_03_demo_checkout(self):
         self.run_tour("demo")
 
-    def test_03_public_checkout(self):
+    def test_04_public_checkout(self):
         self.run_tour()
