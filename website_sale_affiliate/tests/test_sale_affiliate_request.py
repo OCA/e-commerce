@@ -108,6 +108,12 @@ class AffiliateRequestCase(SaleCase):
         request_mock.session = {}
         self.assertIsNone(self.AffiliateRequest.current_qualified())
 
+    @patch('%s.request' % MODEL_PATH)
+    def test_current_qualified_no_session(self, request_mock):
+        """Returns None if there is no session."""
+        request_mock.session.__getitem__.side_effect = RuntimeError
+        self.assertIsNone(self.AffiliateRequest.current_qualified())
+
     @patch.object(AffiliateRequest, '_conversions_qualify')
     @patch('%s.request' % MODEL_PATH)
     def test_current_qualified_request_in_session_calls_conversions_qualify(
