@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_product_template_link"
+        parent="sale.prod_config_main"
+        action="action_product_template_link"
+        sequence="100" />
+
+</odoo>
