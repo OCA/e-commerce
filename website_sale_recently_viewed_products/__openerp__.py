@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#     Copyright (c) Leonardo Donelli @ MONK Software http://www.wearemonk.com
+#     Copyright (c) Leonardo Donelli@ MONK Software http://www.monksoftware.it
 #
 #     This is free software: you can redistribute it and/or
 #     modify it under the terms of the GNU Affero General Public License
@@ -24,7 +24,7 @@
     'summary': (
         'Let the users keep track of the products they saw on the ecommerce'),
     'author': "MONK Software,Odoo Community Association (OCA)",
-    'website': "http://www.wearemonk.com",
+    'website': "http://www.monksoftware.it",
     'category': 'Website',
     'version': '8.0.1.0.0',
     'license': 'AGPL-3',
