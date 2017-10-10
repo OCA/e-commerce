@@ -12,7 +12,8 @@ products templates.
 This module adds two types of links :
 
 - **Cross Selling** : suggest your customer to purchase an additional product
-- **Up Selling** : suggest your customers to purchase a higher-end product, an upgrade, etc.
+- **Up Selling** : suggest your customers to purchase a higher-end product,
+  an upgrade, etc.
 
 These types of links are common in e-commerce shops.
 
