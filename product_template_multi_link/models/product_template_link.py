@@ -10,7 +10,7 @@ class ProductTemplateLink(models.Model):
     _name = 'product.template.link'
     _order = 'product_template_id, linked_product_template_id'
 
-    _TYPE_SELECTION = [
+    _LINK_TYPE_SELECTION = [
         ('cross_sell', 'Cross-Sell'),
         ('up_sell', 'Up-Sell'),
     ]
@@ -29,15 +29,15 @@ class ProductTemplateLink(models.Model):
     linked_product_template_image_small = fields.Binary(
         related='linked_product_template_id.image_small')
 
-    type = fields.Selection(
-        string='Link type', selection=_TYPE_SELECTION, required=True,
-        help="* Cross-Sell : suggest your customer to purchase an additional"
-        " product\n"
+    link_type = fields.Selection(
+        string='Link Type', selection=_LINK_TYPE_SELECTION, required=True,
+        default='cross_sell', help="* Cross-Sell : suggest your customer to"
+        " purchase an additional product\n"
         "* Up-Sell : suggest your customer to purchase a higher-end product,"
         "  an upgrade, etc.")
 
     sql_constraints = [(
         'template_link_uniq',
-        'unique (product_template_id, linked_product_template_id, type)',
-        'The products and the type combination must be unique')
+        'unique (product_template_id, linked_product_template_id, link_type)',
+        'The products and the link type combination must be unique')
     ]

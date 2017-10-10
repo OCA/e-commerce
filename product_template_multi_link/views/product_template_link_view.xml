@@ -14,7 +14,7 @@ See odoo/addons/product/models/product_template.py // def name_search()
                 <field name="product_template_id" domain="[('id', '!=', 0)]"
                     invisible="context.get('default_product_template_id', False)"/>
                 <field name="linked_product_template_id" domain="[('id', '!=', 0)]" />
-                <field name="type" />
+                <field name="link_type" />
             </tree>
         </field>
     </record>
@@ -23,12 +23,11 @@ See odoo/addons/product/models/product_template.py // def name_search()
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="type"/>
                 <field name="product_template_id"/>
                 <field name="linked_product_template_id"/>
                 <field name="product_template_image_small"/>
                 <field name="linked_product_template_image_small"/>
-                <field name="type"/>
+                <field name="link_type"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div>
@@ -42,9 +41,9 @@ See odoo/addons/product/models/product_template.py // def name_search()
                             </div>
                             <div name="product_template_link_type" style="height: 64px; width: 10%; float:left;">
                                 <img src="/product_template_multi_link/static/src/img/type_cross_sell.png"
-                                        t-if="record.type.raw_value == 'cross_sell'" style="width:100%"/>
+                                        t-if="record.link_type.raw_value == 'cross_sell'" style="width:100%"/>
                                 <img src="/product_template_multi_link/static/src/img/type_up_sell.png"
-                                        t-if="record.type.raw_value == 'up_sell'" style="width:100%"/>
+                                        t-if="record.link_type.raw_value == 'up_sell'" style="width:100%"/>
                             </div>
                             <div style="height: 64px; width: 45%; float:left;">
                                 <div class="o_kanban_image">
@@ -54,41 +53,11 @@ See odoo/addons/product/models/product_template.py // def name_search()
                                     <field name="linked_product_template_id"/>
                                 </div>
                             </div>
-
-<!--                            <div class="o_kanban_image">-->
-<!--                                <img t-att-src="kanban_image('product.template.link', 'linked_product_template_image_small', record.id.value)"/>-->
-<!--                            </div>-->
-<!--                            <div class="oe_kanban_details">-->
-<!--                                <field name="linked_product_template_id"/>-->
-<!--                            </div>-->
                         </div>
                     </t>
                 </templates>
             </kanban>
         </field>
     </record>
-
-<!--float: right;-->
-<!--padding-left: 0;-->
-    
-
-<!--                            <div class="oe_kanban_details">-->
-<!--                                <strong>-->
-<!--                                    <span t-if="record.default_code.value">[<field name="default_code"/>]</span>-->
-<!--                                    <field name="name"/>-->
-<!--                                </strong>-->
-<!--                                <div t-if="record.product_variant_count.value &gt; 1" groups="product.group_product_variant">-->
-<!--                                    <strong>-->
-<!--                                        <t t-esc="record.product_variant_count.value"/> Variants-->
-<!--                                    </strong>-->
-<!--                                </div>-->
-<!--                                <div name="tags"/>-->
-<!--                                <ul>-->
-<!--                                    <li>Price: <field name="lst_price" widget="monetary"/></li>-->
-<!--                                </ul>-->
-<!--                                <div name="tags"/>-->
-<!--                            </div>-->
-
-
 
 </odoo>
