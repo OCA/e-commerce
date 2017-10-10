@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_link_type
 msgid "* Cross-Sell : suggest your customer to purchase an additional product\n"
 "* Up-Sell : suggest your customer to purchase a higher-end product,  an upgrade, etc."
 msgstr "* Vente Croisée : Proposer à vtre client d'acheter un autre article\n"
@@ -33,7 +33,7 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: product_template_multi_link
-#: selection:product.template.link,type:0
+#: selection:product.template.link,link_type:0
 msgid "Cross-Sell"
 msgstr "Vente Croisée"
 
@@ -63,7 +63,7 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_link_type
 msgid "Link type"
 msgstr "Type de lien"
 
@@ -111,7 +111,7 @@ msgid "Source Product"
 msgstr "Article source"
 
 #. module: product_template_multi_link
-#: selection:product.template.link,type:0
+#: selection:product.template.link,link_type:0
 msgid "Up-Sell"
 msgstr "Montée en gamme"
 
