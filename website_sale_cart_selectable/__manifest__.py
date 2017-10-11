@@ -5,7 +5,7 @@
 
 {
     'name': 'Website Sale Cart Selectable',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.1.0',
     'summary': 'Enables to control button Add to cart display per product',
     'author': 'OpenSynergy Indonesia, '
               'Tecnativa, '
