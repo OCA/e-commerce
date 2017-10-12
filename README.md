@@ -15,7 +15,7 @@ addon | version | summary
 --- | --- | ---
 [product_multi_link](product_multi_link/) | 10.0.1.0.0 | Product Links
 [website_sale_affiliate](website_sale_affiliate/) | 10.0.1.0.0 | Module summary
-[website_sale_cart_selectable](website_sale_cart_selectable/) | 10.0.1.0.0 | Enables to control button Add to cart display per product
+[website_sale_cart_selectable](website_sale_cart_selectable/) | 10.0.1.1.0 | Enables to control button Add to cart display per product
 [website_sale_category_alphabetic](website_sale_category_alphabetic/) | 10.0.1.0.0 | Automatically adds the correct alphabetic website category to all new products
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 10.0.1.1.0 | Autocomplete VAT in checkout process
 [website_sale_default_country](website_sale_default_country/) | 10.0.1.0.0 | Give a default value for country at checkout
