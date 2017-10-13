@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <template id="page" name="Ecommerce Wishlist">
+      <t t-call="website.layout">
+        <div id="wrap">
+          <div class="container oe_website_sale">
+            <h1>Wish List</h1>
+            <t t-set="wishlist" t-value="website.get_wishlist_items()"/>
+            <t t-if="not wishlist">
+              <p>
+                You have no items in your wishlist
+              </p>
+            </t>
+            <table class="table" t-if="wishlist">
+              <thead>
+                <tr>
+                  <th colspan="2">Product</th>
+                  <th>Date Added</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="wishlist" t-as="item">
+                  <tr>
+                    <td>
+                      <span t-field="item.product_id.image_small"
+                            t-field-options='{"widget": "image", "class": "img-rounded", "class": "oe-image-wishlist"}'/>
+                    </td>
+                    <td>
+                      <a t-attf-href="/shop/product/#{ slug(item.product_id.product_tmpl_id) }">
+                        <strong t-esc="item.product_id.with_context(display_default_code=False).display_name"/>
+                      </a>
+                    </td>
+                    <td>
+                      <span t-field="item.date_added"/> <!-- t-field-options='{"format": "d MMMM YY"}'/> -->
+                    </td>
+                    <td>
+                      <form method="post">
+                        <input type="hidden" name="product_id" t-att-value="item.product_id.id"/>
+                        <button type="submit" formaction="/shop/cart/update"
+                                class="btn btn-default fa fa-shopping-cart"/>
+                        <button type="submit" formaction="/shop/wishlist/update"
+                                name="action" value="remove"
+                                class="btn btn-default fa fa-trash"/>
+                      </form>
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </t>
+    </template>
+
+  </data>
+</openerp>
