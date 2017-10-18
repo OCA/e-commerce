@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+<odoo>
+
+<template id="products_item"
+          inherit_id="website_sale.products_item">
+
+    <xpath expr="//a[@t-field='product.name']/../.." position="after">
+        <t t-if="product.inventory_availability == 'always' and product.website_qty_available &lt;= 0.0">
+            <div id="no_stock" class="text-danger">
+                <i class='fa fa-exclamation-triangle'/> Temporarily out of stock
+            </div>
+        </t>
+    </xpath>
+
+</template>
+
+<template id="product" inherit_id="website_sale.product" priority="4">
+    <xpath expr="//a[@id='add_to_cart']" position="after">
+        <div class='availability_messages'/>
+    </xpath>
+</template>
+
+
+<template id="products_add_to_cart"
+          inherit_id="website_sale.products_add_to_cart">
+
+    <xpath expr="//t[@t-if='len(product.product_variant_ids) == 1']" position="attributes">
+        <attribute name="t-if">len(product.product_variant_ids) == 1 and (product.inventory_availability == 'never' or (product.inventory_availability == 'always' and (product.website_qty_available &gt; 0.0)))</attribute>
+    </xpath>
+
+    <xpath expr="//t[@t-if='len(product.product_variant_ids) &gt; 1']" position="attributes">
+        <attribute name="t-if">len(product.product_variant_ids) &gt; 1 and (product.inventory_availability == 'never' or (product.inventory_availability == 'always' and (product.website_qty_available &gt; 0.0)))</attribute>
+    </xpath>
+
+</template>
+
+<!-- Shopping Cart Lines -->
+<template id="cart_lines" inherit_id="website_sale.cart_lines">
+    <xpath expr="//td[@id='td-qty']" position="inside">
+        <t t-if="line.product_uom_qty &gt; line.product_id.website_qty_available">
+            <div id="no_stock" class="text-danger">
+                <i class='fa fa-exclamation-triangle'/> Temporarily out of stock
+            </div>
+        </t>
+    </xpath>
+</template>
+
+</odoo>
