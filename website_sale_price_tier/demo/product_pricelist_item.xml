@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016-2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <record id="product_pricelist_item_1_demo" model="product.pricelist.item">
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="applied_on">1_product</field>
+        <field name="compute_price">fixed</field>
+        <field name="fixed_price">320</field>
+        <field name="product_tmpl_id" eval="obj(ref('product_product_1_demo')).product_tmpl_id.id" model="product.product"/>
+        <field name="min_quantity">2</field>
+        <field name="name">Price Tiers - Demo Pricelist Item 1</field>
+    </record>
+
+    <record id="product_pricelist_item_2_demo" model="product.pricelist.item">
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="applied_on">1_product</field>
+        <field name="compute_price">fixed</field>
+        <field name="fixed_price">280</field>
+        <field name="product_tmpl_id" eval="obj(ref('product_product_1_demo')).product_tmpl_id.id" model="product.product"/>
+        <field name="min_quantity">5</field>
+        <field name="name">Price Tiers - Demo Pricelist Item 2</field>
+    </record>
+</odoo>
