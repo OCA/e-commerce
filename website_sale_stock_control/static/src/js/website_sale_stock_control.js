@@ -1,5 +1,5 @@
 /* Copyright 2017 Sergio Teruel (http://www.tecnativa.com.com)
- * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 odoo.define("website_sale_stock_control.website_sale", function (require) {
     "use strict";
@@ -23,7 +23,7 @@ odoo.define("website_sale_stock_control.website_sale", function (require) {
         template_ready.done(function(){
             $html.find("#no_stock").remove();
         });
-    };
+    }
 
     function deny_buy($html, product_id){
         $html.addClass("css_not_available");
@@ -37,8 +37,8 @@ odoo.define("website_sale_stock_control.website_sale", function (require) {
             template_ready.done(function(){
                 $html.find("#no_stock").remove();
             });
-        };
-    };
+        }
+    }
 
     $(document).ready(function() {
         if(!$('.oe_website_sale').length) {
@@ -54,9 +54,9 @@ odoo.define("website_sale_stock_control.website_sale", function (require) {
                 var values = [];
                 var unchanged_values = $parent.find('div.oe_unchanged_value_ids').data('unchanged_value_ids') || [];
                 $parent.find('input.js_variant_change:checked, select.js_variant_change').each(function () {
-                    values.push(+$(this).val());
+                    values.push(+$(this).val())
                 });
-                values =  values.concat(unchanged_values);
+                values = values.concat(unchanged_values);
                 $parent.find("label").removeClass("text-muted css_not_available");
                 var product_id = false;
                 var no_stock = false;
@@ -73,10 +73,10 @@ odoo.define("website_sale_stock_control.website_sale", function (require) {
                     allow_buy($parent);
                     if (no_stock) {
                         deny_buy($parent,product_id);
-                    };
+                    }
                 } else {
                     deny_buy($parent, product_id);
-                };
+                }
             });
         });
         $('.js_variant_change:checked').trigger('change');

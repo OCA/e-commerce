@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
     "name": "Website Sale Stock Control",
@@ -10,7 +10,7 @@
     "website": "http://www.tecnativa.com",
     "author": "Tecnativa, "
               "Odoo Community Association (OCA)",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "application": False,
     "installable": True,
     "depends": [
@@ -18,8 +18,6 @@
         "stock",
     ],
     "data": [
-        "security/ir.model.access.csv",
-        "security/website_sale_stock_control_security.xml",
         "views/templates.xml",
         "views/product_template_views.xml",
         "views/assets.xml",

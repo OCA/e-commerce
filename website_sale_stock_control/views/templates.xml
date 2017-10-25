@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
 <odoo>
 
 <template id="products_item"
@@ -27,11 +27,11 @@
           inherit_id="website_sale.products_add_to_cart">
 
     <xpath expr="//t[@t-if='len(product.product_variant_ids) == 1']" position="attributes">
-        <attribute name="t-if">len(product.product_variant_ids) == 1 and (product.inventory_availability == 'never' or (product.inventory_availability == 'always' and (product.website_qty_available &gt; 0.0)))</attribute>
+        <attribute name="t-if">len(product.product_variant_ids) == 1 and (product.inventory_availability != 'always' or product.website_qty_available &gt; 0.0)</attribute>
     </xpath>
 
     <xpath expr="//t[@t-if='len(product.product_variant_ids) &gt; 1']" position="attributes">
-        <attribute name="t-if">len(product.product_variant_ids) &gt; 1 and (product.inventory_availability == 'never' or (product.inventory_availability == 'always' and (product.website_qty_available &gt; 0.0)))</attribute>
+        <attribute name="t-if">len(product.product_variant_ids) &gt; 1 and (product.inventory_availability != 'always' or product.website_qty_available &gt; 0.0)</attribute>
     </xpath>
 
 </template>

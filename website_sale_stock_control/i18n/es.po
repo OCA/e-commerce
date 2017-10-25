@@ -24,8 +24,8 @@ msgstr "<i class=\"fa fa-exclamation-triangle\"/> Temporalmente fuera de stock"
 
 #. module: website_sale_stock_control
 #: selection:product.template,inventory_availability:0
-msgid "Allow buy products without control"
-msgstr "Permitir comprar productos sin stock"
+msgid "Always allow to buy products"
+msgstr "Permitir comprar productos sin existencias"
 
 #. module: website_sale_stock_control
 #: model:ir.model.fields,help:website_sale_stock_control.field_product_product_website_qty_available
@@ -50,8 +50,8 @@ msgstr ""
 
 #. module: website_sale_stock_control
 #: selection:product.template,inventory_availability:0
-msgid "Deny buy products without stock"
-msgstr "Denegar comprar productos sin stock"
+msgid "Don't allow to buy product without stock"
+msgstr "No permitir comprar productos sin existencias"
 
 #. module: website_sale_stock_control
 #: model:ir.model.fields,field_description:website_sale_stock_control.field_product_product_website_virtual_available
@@ -101,8 +101,8 @@ msgstr "Cantidad a mano"
 #. module: website_sale_stock_control
 #: model:ir.model.fields,field_description:website_sale_stock_control.field_product_product_inventory_availability
 #: model:ir.model.fields,field_description:website_sale_stock_control.field_product_template_inventory_availability
-msgid "Stock Control"
-msgstr "Control de stock"
+msgid "Website Stock Control"
+msgstr "Control de existencias en sitio web"
 
 #. module: website_sale_stock_control
 #. openerp-web
@@ -112,4 +112,4 @@ msgid "Temporarily out of stock"
 msgstr "Temporalmente fuera de stock"
 
 #~ msgid "No control stock"
-#~ msgstr "Sin control de stock"
+#~ msgstr "Sin control de existencias"

@@ -16,7 +16,8 @@ To use this module, you need to:
 
 #. Go to products and create one of type "Stockable".
 #. Select an option in stock control field.
-#. Go to shop and if product do not have stock yo will see an icon.
+#. Go to the shop and if the product doesn't have stock, you will see an icon
+   indicating that.
 #. The available stock is checked in checkout step too.
 
 
@@ -28,7 +29,7 @@ Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/113/issues>`_. In case of trouble, please
+<https://github.com/OCA/e-commerce/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smashing it by providing a detailed and welcomed feedback.
 

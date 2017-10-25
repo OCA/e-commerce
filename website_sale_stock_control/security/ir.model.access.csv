@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_stock_quant_public_user,stock.quant public user,stock.model_stock_quant,base.group_public,1,0,0,0

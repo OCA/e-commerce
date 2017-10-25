@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import urllib
 from lxml import html
 
+from openerp import http
 from openerp.tests.common import HttpCase
+from openerp.addons.website.models.website import slug
 
 
 class WebsiteSaleStockControlCase(HttpCase):
@@ -44,6 +46,20 @@ class WebsiteSaleStockControlCase(HttpCase):
                     }),
                 ],
             })
+            self.variant_1 = self.product_tmpl.product_variant_ids[0]
+            self.so = env['sale.order'].create({
+                'partner_id': self.public_user.id,
+                'order_line': [
+                    (0, 0, {
+                        'name': 'Test',
+                        'product_id': self.variant_1.id,
+                        'product_uom_qty': 1,
+                        'product_uom': self.variant_1.uom_id.id,
+                        'price_unit': self.variant_1.list_price,
+                        'tax_id': [(6, 0, [])],
+                    })],
+                'pricelist_id': env.ref('product.list0').id,
+            })
 
     def data_post(self, url=None, data=None, timeout=10):
         data_encode = None
@@ -51,15 +67,6 @@ class WebsiteSaleStockControlCase(HttpCase):
             data_encode = urllib.urlencode(data)
         doc = self.url_open(url, data=data_encode, timeout=timeout)
         return doc
-
-    def test_shop_render(self):
-        res = self.data_post(url='/shop').read()
-        res_html = html.document_fromstring(res)
-        query = u"""
-            .//div[@id='no_stock']
-        """
-        no_stock = res_html.xpath(query)
-        self.assertTrue(no_stock)
 
     def update_on_hand(self, env, variant=False, new_qty=0.0):
         """
@@ -82,11 +89,51 @@ class WebsiteSaleStockControlCase(HttpCase):
         wiz = stock_change_obj.create(vals)
         wiz.change_product_qty()
 
-    def test_shop_variant_stock(self):
+    def test_shop_with_stock(self):
         with self.cursor() as cr:
             env = self.env(cr)
             self.update_on_hand(env, new_qty=5.0)
         res = self.data_post(url='/shop').read()
+        res_html = html.document_fromstring(res)
+        query = u"""
+            .//a[@href='/shop/product/%s']/../../..//div[@id='no_stock']
+        """ % slug(self.product_tmpl)
+        no_stock = res_html.xpath(query)
+        self.assertFalse(no_stock)
+
+    def test_shop_without_stock(self):
+        res = self.data_post(url='/shop').read()
+        res_html = html.document_fromstring(res)
+        query = u"""
+            .//a[@href='/shop/product/%s']/../../..//div[@id='no_stock']
+        """ % slug(self.product_tmpl)
+        no_stock = res_html.xpath(query)
+        self.assertTrue(no_stock)
+
+    def test_shop_checkout_without_stock(self):
+        """Test shop/cart redirection"""
+        with self.cursor() as cr:
+            env = self.env(cr)
+            order_id = self.so.with_env(env).id
+        self.session.sale_order_id = order_id
+        http.root.session_store.save(self.session)
+        res = self.data_post(url='/shop/checkout').read()
+        res_html = html.document_fromstring(res)
+        query = u"""
+            .//div[@id='no_stock']
+        """
+        no_stock = res_html.xpath(query)
+        self.assertTrue(no_stock)
+
+    def test_shop_checkout(self):
+        """Test shop/cart redirection"""
+        with self.cursor() as cr:
+            env = self.env(cr)
+            self.update_on_hand(env, variant=self.variant_1, new_qty=5.0)
+            order_id = self.so.with_env(env).id
+        self.session.sale_order_id = order_id
+        http.root.session_store.save(self.session)
+        res = self.data_post(url='/shop/checkout').read()
         res_html = html.document_fromstring(res)
         query = u"""
             .//div[@id='no_stock']
