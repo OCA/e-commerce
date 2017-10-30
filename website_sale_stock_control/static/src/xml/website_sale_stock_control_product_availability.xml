@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
+
+<templates>
+
+    <t t-name="website_sale_stock_control.no_stock">
+        <div id="no_stock" class="text-danger mt16">
+            <i class='fa fa-exclamation-triangle'/> Temporarily out of stock
+        </div>
+    </t>
+
+</templates>
