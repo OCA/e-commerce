@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+product_uom_portal_read_access,Product UoM - Portal Read Access,product.model_product_uom,base.group_portal,1,0,0,0
+product_uom_public_read_access,Product UoM - Public Read Access,product.model_product_uom,base.group_public,1,0,0,0
