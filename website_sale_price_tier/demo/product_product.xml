@@ -9,5 +9,6 @@
         <field name="type">consu</field>
         <field name="uom_id" ref="product.product_uom_unit"/>
         <field name="uom_po_id" ref="product.product_uom_unit"/>
+        <field name="website_published" eval="True"/>
     </record>
 </odoo>

@@ -14,5 +14,4 @@ class TestUi(HttpCase):
                  '.run("website_sale_price_tier")',
             ready='odoo.__DEBUG__.services["web_tour.tour"]'
                   '.tours.website_sale_price_tier.ready',
-            login='admin',
         )
