@@ -39,7 +39,7 @@
 <!-- Shopping Cart Lines -->
 <template id="cart_lines" inherit_id="website_sale.cart_lines">
     <xpath expr="//td[@id='td-qty']" position="inside">
-        <t t-if="line.product_uom_qty &gt; line.product_id.website_qty_available">
+        <t t-if="line.product_id.type == 'product' and line.product_uom_qty &gt; line.product_id.website_qty_available">
             <div id="no_stock" class="text-danger">
                 <i class='fa fa-exclamation-triangle'/> Temporarily out of stock
             </div>
