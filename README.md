@@ -20,7 +20,7 @@ addon | version | summary
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 10.0.1.1.0 | Autocomplete VAT in checkout process
 [website_sale_default_country](website_sale_default_country/) | 10.0.1.0.0 | Give a default value for country at checkout
 [website_sale_hide_price](website_sale_hide_price/) | 10.0.1.0.0 | Hide product prices on the shop
-[website_sale_price_tier](website_sale_price_tier/) | 10.0.1.0.0 | Add price tier radio buttons to product pages in website shop
+[website_sale_price_tier](website_sale_price_tier/) | 10.0.1.1.0 | Add price tier radio buttons to product pages in website shop
 [website_sale_require_login](website_sale_require_login/) | 10.0.1.0.0 | Force users to login for buying
 [website_sale_search_fuzzy](website_sale_search_fuzzy/) | 10.0.1.0.0 | Extends eCommerce with fuzzy searches for product names
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 10.0.1.0.0 | Suggest users to create an account when buying in the website
