@@ -14,8 +14,8 @@ class WebsiteSale(website_sale):
     @http.route(['/shop',
                  '/shop/page/<int:page>',
                  '/shop/category/<model("product.public.category"):category>',
-                 """/shop/category/<model("product.public.category"):category>
-                 /page/<int:page>""",
+                 '/shop/category/<model("product.public.category"):category'
+                 '>/page/<int:page>',  # Continue previous line
                  '/shop/brands'],
                 type='http',
                 auth='public',
