@@ -32,4 +32,8 @@
         </xpath>
     </template>
 
+    <template id="order_state_message">
+      <p>Your order is waiting manual confirmation.</p><br/>
+    </template>
+
 </odoo>
