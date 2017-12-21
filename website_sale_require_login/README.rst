@@ -34,7 +34,7 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/10.0
+   :target: https://runbot.odoo-community.org/runbot/113/11.0
 
 Bug Tracker
 ===========
@@ -58,6 +58,7 @@ Contributors
 * Rafael Blasco <rafaelbn@antiun.com>
 * Jairo Llopis <yajo.sk8@gmail.com>
 * Dave Lasley <dave@laslabs.com>
+* Oscar Alcala <oscar@vauxoo.com>
 
 Maintainer
 ----------
