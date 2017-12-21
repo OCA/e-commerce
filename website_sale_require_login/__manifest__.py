@@ -4,7 +4,7 @@
 {
     "name": "Require login to checkout",
     "summary": "Force users to login for buying",
-    "version": "10.0.1.1.0",
+    "version": "11.0.1.0.0",
     "category": "Website",
     "website": "http://www.antiun.com",
     "author": "Tecnativa, "
