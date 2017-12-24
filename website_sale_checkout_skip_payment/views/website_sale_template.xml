@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
-     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+    <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+         License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
     <template id="confirmation" inherit_id="website_sale.confirmation">
-        <xpath expr="//div[@class='thanks_msg']//h2"
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']"
                position="after">
             <div class="alert alert-info" role="alert"
                  t-if="website.checkout_skip_payment">
@@ -12,11 +12,15 @@
             </div>
         </xpath>
         <!-- Hide payment related info if skip payment step -->
-        <xpath expr="(//div[@class='oe_cart']//h3)[2]"
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']"
                position="attributes">
             <attribute name="t-if">not website.checkout_skip_payment</attribute>
         </xpath>
-        <xpath expr="(//div[@class='oe_cart']//table[@class='table'])[2]"
+        <xpath expr="(//div[hasclass('oe_cart')]//h3)[2]"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="(//div[hasclass('oe_cart')]//table[hasclass('table')])[2]"
                position="attributes">
             <attribute name="t-if">not website.checkout_skip_payment</attribute>
         </xpath>
