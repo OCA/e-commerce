@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
 # Copyright 2017 David Vidal <david.vidal@tecnativa.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
