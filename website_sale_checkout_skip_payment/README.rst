@@ -1,4 +1,4 @@
-.. image:: https://img.shields.io/badge/license-LGPL--3-blue.svg
+git .. image:: https://img.shields.io/badge/license-LGPL--3-blue.svg
    :target: https://www.gnu.org/licenses/lgpl.html
    :alt: License: LGPL-3
 
@@ -8,7 +8,7 @@ Website Sale Checkout Skip Payment
 
 This module allows to logged users to checkout with no payment step. At the
 end of the checkout proccess the quotation is sent to the user email address
-and set to *Quotation Sent* state.
+and set to *Qoutation Sent* state.
 
 Configuration
 =============
@@ -19,9 +19,16 @@ To configure this module, you need to:
 #. Set on *Skip Website Checkout Payment* so this partner will override the
    payment step on website sales.
 
+Usage
+=====
+
+To use this module, you need to:
+
+#. Go to *Website > shop* and perform a checkout.
+
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/113/10.0
+   :target: https://runbot.odoo-community.org/runbot/113/11.0
 
 
 Bug Tracker
@@ -46,6 +53,7 @@ Contributors
 
 * Sergio Teruel <sergio.teruel@tecnativa.com>
 * David Vidal <david.vidal@tecnativa.com>
+* Martin Wilderoth <martin.wilderoth@linserv.se>
 
 Maintainer
 ----------
