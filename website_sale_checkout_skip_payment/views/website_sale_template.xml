@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+         License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']"
+               position="after">
+            <div class="alert alert-info" role="alert"
+                 t-if="website.checkout_skip_payment">
+                Our team will check your order and send you payment
+                information soon.
+            </div>
+        </xpath>
+        <!-- Hide payment related info if skip payment step -->
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="(//div[hasclass('oe_cart')]//h3)[2]"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="(//div[hasclass('oe_cart')]//table[hasclass('table')])[2]"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+    <template id="wizard_checkout" inherit_id="website_sale.wizard_checkout">
+        <xpath expr="//li[@id='step40']" position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+</odoo>
