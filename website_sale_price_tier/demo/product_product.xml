@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <record id="product_product_1_demo" model="product.product">
+        <field name="categ_id" ref="product.product_category_1"/>
+        <field name="name">Price Tiers - Demo Product</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="product.product_uom_unit"/>
+        <field name="uom_po_id" ref="product.product_uom_unit"/>
+        <field name="website_published" eval="True"/>
+    </record>
+</odoo>

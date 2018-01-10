@@ -1,0 +1,9 @@
+# Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+- !record {id: garbage_collector, model: ir.cron}:
+    name: Wishlisted products garbage collector
+    interval_type: weeks
+    numbercall: -1
+    model: product.wishlist
+    function: _garbage_collector
+    args: "()"

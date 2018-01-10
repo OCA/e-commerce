@@ -1,0 +1,2 @@
+id,name,model_id:id,groups:id,domain_force,perm_read,perm_write,perm_create,perm_unlink
+rule_product_wishlist_own,Only access your own wishlists,model_product_wishlist,,"[""|"", (""user_id"", ""="", user.id), ""&"", (""user_id"", ""="", False), (""session"", ""="", user.current_session)]",1,1,1,1

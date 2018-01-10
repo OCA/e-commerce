@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2015 Antiun Ingeniería S.L. - Jairo Llopis
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<odoo>
+
+    <!-- Hide checkout without signup -->
+    <template id="suggestion_cart" inherit_id="website_sale_suggest_create_account.cart">
+        <xpath expr="//a[@id='anonymous_checkout']" position="replace"/>
+    </template>
+    
+    <template id="cart" inherit_id="website_sale.cart" priority="20">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t t-set="hide_checkout_button" t-value="not (user_authenticated and can_checkout)" />
+        </xpath>
+        <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+            <attribute name="t-if">not hide_checkout_button</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t t-set="user_authenticated" t-value="user_id != website.user_id"/>
+            <t t-set="signup_allowed" t-value="env['ir.config_parameter'].get_param('auth_signup.allow_uninvited') == 'True' "/>
+            <!-- TODO: optional_products has to be removed since odoo 12.0 at least. See https://github.com/odoo/odoo/pull/21461 -->
+            <t t-set="can_checkout" t-value="not optional_products 
+                                             and website_sale_order and
+                                             website_sale_order.website_order_line"/>
+
+            <t t-set="suggest_create_account" t-value="not user_authenticated and signup_allowed and can_checkout" />
+        </xpath>
+
+        <!-- Show normal "Checkout" button if user is logged in or external login
+             is disabled -->
+        <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+            <attribute name="t-if">(user_authenticated or not signup_allowed) and can_checkout</attribute>
+        </xpath>
+    
+        <!-- Show choice in other cases -->
+        <xpath expr="//a[@href='/shop/checkout']" position="after">
+            <a t-if="not user_authenticated"
+               class="btn btn-primary pull-right mb32"
+               href="/web/login?redirect=/shop/checkout">
+                <span>Log in and checkout</span>
+                <span class="fa fa-long-arrow-right"/>
+            </a>
+            <t t-if="suggest_create_account">
+                <a class="btn btn-primary pull-right mb32"
+                   href="/web/signup?redirect=/shop/checkout">
+                    <span>Sign up and checkout</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+                <a id="anonymous_checkout" class="btn btn-default mb32" href="/shop/checkout">
+                    <span>Checkout without sign up</span>
+                </a>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
