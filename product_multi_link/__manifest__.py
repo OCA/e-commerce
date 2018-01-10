@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Product Links',
+    'name': 'Product Multi Links (Variants)',
     'version': '10.0.1.0.0',
     'category': 'Generic Modules',
     'author': "Camptocamp,Elico-Corp,Sodexis,Odoo Community Association (OCA)",
