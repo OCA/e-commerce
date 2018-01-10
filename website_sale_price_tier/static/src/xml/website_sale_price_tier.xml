@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016-2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <template id="product_price" inherit_id="website_sale.product_price" customize_show="True" active="False" name="Website Sale - Quantity Tiers (Price Wording)">
+        <xpath expr="//b" position="after">
+            <strong>per <t t-esc="product.uom_id.name.lower()"/></strong>
+        </xpath>
+    </template>
+
+    <template id="product" inherit_id="website_sale.product" customize_show="True" name="Website Sale - Quantity Tiers">
+        <xpath expr="//div[contains(@class, 'css_quantity')]" position="before">
+            <t t-if="len(product.price_quantity_tiers) &gt; 0">
+                <strong>Quantity</strong>
+                <ul class="list-unstyled" style="margin-bottom: 5px;">
+                    <t t-foreach="product.price_quantity_tiers" t-as="price_qty_tier">
+                        <li class="form-group" style="margin: 0;">
+                            <label class="control-label">
+                                <input class="js-pqt-input" type="radio" name="price_qty_tiers" t-att-value="price_qty_tier[0]" style="vertical-align: top; margin-right: 5px;"/>
+                                <span t-esc="price_qty_tier[0]"/>
+                                <span class="badge"><t t-esc="price_qty_tier[1]" t-esc-options="{
+                                    'widget': 'monetary',
+                                    'from_currency': pricelist.currency_id,
+                                    'display_currency': website.currency_id,
+                                }"/></span>
+                            </label>
+                        </li>
+                    </t>
+                </ul>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item" customize_show="True" name="Website Sale - Quantity Tiers in Search">
+        <xpath expr="//div[@itemprop='offers']/b" position="replace">
+            <t t-if="len(product.price_quantity_tiers) &gt; 0">
+                <t t-set="bottom_price_qty_tier" t-value="product.price_quantity_tiers[0]"/>
+                <strong>
+                    <span><t t-esc="bottom_price_qty_tier[1]" t-esc-options="{
+                        'widget': 'monetary',
+                        'from_currency': pricelist.currency_id,
+                        'display_currency': website.currency_id,
+                    }"/></span>
+                </strong>
+                for
+                <strong>
+                    <span t-esc="bottom_price_qty_tier[0]"/>
+                </strong>
+            </t>
+            <t t-else="">$0</t>
+        </xpath>
+    </template>
+</odoo>

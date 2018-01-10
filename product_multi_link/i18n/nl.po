@@ -1,0 +1,142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * product_multi_link
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 02:19+0000\n"
+"PO-Revision-Date: 2017-03-04 02:19+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_is_active
+msgid "Active"
+msgstr "Actief"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
+msgid "Brand"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_taxes_id
+msgid "Customer Taxes"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_display_name
+msgid "Display Name"
+msgstr "Te tonen naam"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_expense_id
+msgid "Expense Account"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_income_id
+msgid "Income Account"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link___last_update
+msgid "Last Modified on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_type
+msgid "Link type"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_linked_product_id
+msgid "Linked product"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model,name:product_multi_link.model_product_product
+msgid "Product"
+msgstr "Product"
+
+#. module: product_multi_link
+#: model:ir.actions.act_window,name:product_multi_link.product_link_action
+#: model:ir.ui.menu,name:product_multi_link.product_link_menu
+#: model:ir.ui.view,arch_db:product_multi_link.product_link_form
+#: model:ir.ui.view,arch_db:product_multi_link.product_link_tree
+#: model:ir.ui.view,arch_db:product_multi_link.product_product_link_form
+msgid "Product Links"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_link_ids
+msgid "Product links"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,help:product_multi_link.field_product_product_product_brand_id
+msgid "Select a brand for this product"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_product_id
+msgid "Source Product"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_expense_id
+msgid ""
+"This account will be used for invoices instead of the default one to value "
+"expenses for the current product."
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_income_id
+msgid ""
+"This account will be used for invoices instead of the default one to value "
+"sales for the current product."
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model,name:product_multi_link.model_product_link
+msgid "product.link"
+msgstr ""

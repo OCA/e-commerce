@@ -1,0 +1,142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * product_multi_link
+# 
+# Translators:
+# Ozge Altinisik <ozge@altinkaya.com.tr>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-07 02:00+0000\n"
+"PO-Revision-Date: 2017-01-07 02:00+0000\n"
+"Last-Translator: Ozge Altinisik <ozge@altinkaya.com.tr>, 2017\n"
+"Language-Team: Turkish (Turkey) (https://www.transifex.com/oca/teams/23907/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_is_active
+msgid "Active"
+msgstr "Etkin"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_brand_id
+msgid "Brand"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_create_date
+msgid "Created on"
+msgstr "Oluşturulma tarihi"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_taxes_id
+msgid "Customer Taxes"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_display_name
+msgid "Display Name"
+msgstr "Görünen ad"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_expense_id
+msgid "Expense Account"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_id
+msgid "ID"
+msgstr "Kimlik"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_property_account_income_id
+msgid "Income Account"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link___last_update
+msgid "Last Modified on"
+msgstr "En son güncelleme tarihi"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_uid
+msgid "Last Updated by"
+msgstr "En son güncelleyen "
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_write_date
+msgid "Last Updated on"
+msgstr "En son güncelleme tarihi"
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_type
+msgid "Link type"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_linked_product_id
+msgid "Linked product"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model,name:product_multi_link.model_product_product
+msgid "Product"
+msgstr "Ürün"
+
+#. module: product_multi_link
+#: model:ir.actions.act_window,name:product_multi_link.product_link_action
+#: model:ir.ui.menu,name:product_multi_link.product_link_menu
+#: model:ir.ui.view,arch_db:product_multi_link.product_link_form
+#: model:ir.ui.view,arch_db:product_multi_link.product_link_tree
+#: model:ir.ui.view,arch_db:product_multi_link.product_product_link_form
+msgid "Product Links"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_product_link_ids
+msgid "Product links"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,help:product_multi_link.field_product_product_product_brand_id
+msgid "Select a brand for this product"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_link_product_id
+msgid "Source Product"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_expense_id
+msgid ""
+"This account will be used for invoices instead of the default one to value "
+"expenses for the current product."
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,help:product_multi_link.field_product_product_property_account_income_id
+msgid ""
+"This account will be used for invoices instead of the default one to value "
+"sales for the current product."
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model.fields,field_description:product_multi_link.field_product_product_supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr ""
+
+#. module: product_multi_link
+#: model:ir.model,name:product_multi_link.model_product_link
+msgid "product.link"
+msgstr ""

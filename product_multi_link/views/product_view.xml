@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="product_link_form">
+        <field name="name">product.link.form</field>
+        <field name="model">product.link</field>
+        <field name="arch" type="xml">
+            <form string="Product Links">
+                <group>
+                    <field name="product_id" select="1" />
+                    <field name="is_active" select="1" />
+                    <field name="linked_product_id" select="1" />
+                    <field name="type" select="1" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_link_tree">
+        <field name="name">product.link.tree</field>
+        <field name="model">product.link</field>
+        <field name="arch" type="xml">
+            <tree string="Product Links">
+                <field name="product_id" />
+                <field name="is_active" />
+                <field name="linked_product_id" />
+                <field name="type" />
+            </tree>
+        </field>
+    </record>
+    <record id="product_link_action" model="ir.actions.act_window">
+        <field name="name">Product Links</field>
+        <field name="res_model">product.link</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="product_link_menu" parent="sale.prod_config_main"
+        action="product_link_action" sequence="100" />
+
+    <record model="ir.ui.view" id="product_product_link_form">
+        <field name="name">product.normal.form.custom.link</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Product Links">
+                    <field name="product_link_ids" colspan="4"
+                        nolabel="1">
+                        <tree>
+                            <field name="is_active" />
+                            <field name="linked_product_id" />
+                            <field name="type" />
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="is_active" />
+                                <field name="linked_product_id" />
+                                <field name="type" />
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

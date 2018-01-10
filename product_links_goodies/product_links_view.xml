@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  product_links_goodies for OpenERP
+  Copyright (C) 2012 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+  The licence is in the file __openerp__.py
+-->
+
+<openerp>
+    <data>
+    
+        <!-- INHERITED VIEW FOR THE OBJECT : product_links -->
+
+        <record id="product_links_view_form" model="ir.ui.view">
+            <field name="name">product_links_goodies.product_links.view_form</field>
+            <field name="model">product.link</field>
+            <field name="inherit_id" ref="product_links.product_link_form" />
+            <field eval="16" name="priority"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <group name='goodies_info' attrs="{'invisible':[('type','!=','goodies')]}" colspan="4">
+                        <separator string="Goodies Information" colspan="4"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="quantity"/>
+                        <field name="uom_id"/>
+                        <field name="supplier_goodies"/>
+                        <field name="cost_price" attrs="{'invisible':[('supplier_goodies','!=',True)]}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_links_view_tree" model="ir.ui.view">
+            <field name="name">product_links_goodies.product_links.view_tree</field>
+            <field name="model">product.link</field>
+            <field name="inherit_id" ref="product_links.product_link_tree" />
+            <field eval="16" name="priority"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html) -->
+
+<odoo>
+    <record id="account_tax_1_demo" model="account.tax">
+        <field name="amount">10</field>
+        <field name="amount_type">percent</field>
+        <field name="name">Price Tiers - Demo Tax</field>
+    </record>
+</odoo>
