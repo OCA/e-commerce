@@ -13,7 +13,8 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[product_multi_link](product_multi_link/) | 10.0.1.0.0 | Product Links
+[product_multi_link](product_multi_link/) | 10.0.1.0.0 | Product Multi Links (Variants)
+[product_template_multi_link](product_template_multi_link/) | 10.0.1.0.0 | Product Multi Links (Template)
 [website_sale_affiliate](website_sale_affiliate/) | 10.0.1.0.0 | Module summary
 [website_sale_cart_selectable](website_sale_cart_selectable/) | 10.0.1.1.0 | Enables to control button Add to cart display per product
 [website_sale_category_alphabetic](website_sale_category_alphabetic/) | 10.0.1.0.0 | Automatically adds the correct alphabetic website category to all new products
