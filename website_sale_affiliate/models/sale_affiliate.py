@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
@@ -72,7 +71,7 @@ class Affiliate(models.Model):
             sales_count = sum(len(request.sale_ids) for request in requests)
             try:
                 record.sales_per_request = (
-                    float(sales_count)/float(len(requests)))
+                    float(sales_count) / float(len(requests)))
             except ZeroDivisionError:
                 pass
 
@@ -83,7 +82,7 @@ class Affiliate(models.Model):
             conversions = requests.filtered(lambda r: len(r.sale_ids) > 0)
             try:
                 record.conversion_rate = (
-                    float(len(conversions))/float(len(requests)))
+                    float(len(conversions)) / float(len(requests)))
             except ZeroDivisionError:
                 pass
 

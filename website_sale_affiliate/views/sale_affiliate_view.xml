@@ -87,8 +87,8 @@
 
     <menuitem id="sale_affiliate_category"
               name="Affiliate Program"
-              parent="sales_team.menu_base_partner"
-              sequence="10"/>
+              parent="website.menu_website_configuration"
+              sequence="5"/>
 
     <menuitem id="sale_affiliate_menu"
               name="Affiliates"

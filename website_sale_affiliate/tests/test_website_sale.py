@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
@@ -16,10 +15,11 @@ class WebsiteSaleCase(HttpCase, SaleCase):
     def setUp(self):
         super(WebsiteSaleCase, self).setUp()
         self.controller = WebsiteSale()
-        self.opener.addheaders.extend([
-            ('Accept-Language', 'test_language'),
-            ('Referer', 'test_referrer'),
-        ])
+        self.opener.headers.update(
+            {'Accept-Language': 'test_language',
+             'Referer': 'test_referrer',
+             })
+
         self.Affiliate = self.env['sale.affiliate']
         self.find_from_kwargs_mock = mock.MagicMock()
         self.get_request_mock = mock.MagicMock()

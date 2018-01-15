@@ -62,6 +62,7 @@ Contributors
 ------------
 
 * Brent Hughes <brent.hughes@laslabs.com>
+* Darko Nikolovski <darko@versada.eu>
 
 Do not contact contributors directly about support or help with technical issues.
 
