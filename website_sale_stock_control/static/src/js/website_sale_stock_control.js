@@ -48,35 +48,38 @@ odoo.define("website_sale_stock_control.website_sale", function (require) {
             var oe_website_sale = this;
             $(oe_website_sale).on('change', 'input.js_variant_change, select.js_variant_change, ul[data-attribute_value_ids]', function (ev) {
                 var $ul = $(ev.target).closest('.js_add_cart_variants');
-                var $parent = $ul.closest('.js_product');
-                var $product_id = $parent.find('.product_id').first();
                 var variant_ids = $ul.data("attribute_value_ids");
-                var values = [];
-                var unchanged_values = $parent.find('div.oe_unchanged_value_ids').data('unchanged_value_ids') || [];
-                $parent.find('input.js_variant_change:checked, select.js_variant_change').each(function () {
-                    values.push(+$(this).val())
-                });
-                values = values.concat(unchanged_values);
-                $parent.find("label").removeClass("text-muted css_not_available");
-                var product_id = false;
-                var no_stock = false;
-                for (var k in variant_ids) {
-                    if (_.isEmpty(_.difference(variant_ids[k][1], values))) {
-                        product_id = variant_ids[k][0];
-                        if (variant_ids[k][4] <= 0.0) {
-                            no_stock = true;
+                if (variant_ids[0][5] == 1) {
+                    /* Product type is product*/
+                    var $parent = $ul.closest('.js_product');
+                    var $product_id = $parent.find('.product_id').first();
+                    var values = [];
+                    var unchanged_values = $parent.find('div.oe_unchanged_value_ids').data('unchanged_value_ids') || [];
+                    $parent.find('input.js_variant_change:checked, select.js_variant_change').each(function () {
+                        values.push(+$(this).val())
+                    });
+                    values = values.concat(unchanged_values);
+                    $parent.find("label").removeClass("text-muted css_not_available");
+                    var product_id = false;
+                    var no_stock = false;
+                    for (var k in variant_ids) {
+                        if (_.isEmpty(_.difference(variant_ids[k][1], values))) {
+                            product_id = variant_ids[k][0];
+                            if (variant_ids[k][4] <= 0.0) {
+                                no_stock = true;
+                            }
+                            break;
                         }
-                        break;
                     }
-                }
-                if (product_id) {
-                    allow_buy($parent);
-                    if (no_stock) {
-                        deny_buy($parent,product_id);
-                    }
-                } else {
-                    deny_buy($parent, product_id);
-                }
+                    if (product_id) {
+                        allow_buy($parent);
+                        if (no_stock) {
+                            deny_buy($parent,product_id);
+                        }
+                    } else {
+                        deny_buy($parent, product_id);
+                    };
+                };
             });
         });
         $('.js_variant_change:checked').trigger('change');

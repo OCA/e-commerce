@@ -14,7 +14,9 @@ class WebsiteSale(website_sale):
         variant_ids = [r[0] for r in res]
         for r, variant in zip(
                 res, request.env['product.product'].browse(variant_ids)):
-            r.extend([variant.website_qty_available])
+            # To render ul element to be handled by js [..., stock, 0 or 1]
+            r.extend([variant.website_qty_available,
+                      0 if variant.type != 'product' else 1])
         return res
 
     def checkout_redirection(self, order):
