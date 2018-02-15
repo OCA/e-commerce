@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<template id="cart_lines"
+          inherit_id="website_sale.cart_lines"
+          customize_show="True"
+          name="Itemize Bundles In Cart">
+    <xpath expr="//strong[@t-esc='line.product_id.with_context(display_default_code=False).display_name']/../.."
+           position="inside">
+        <t t-if="line.product_id.bundle_ok">
+            <div class="text-muted">
+                <ul class="list-unstyled">
+                    <t t-call="website_sale_bundle.direct_list">
+                        <t t-set="product" t-value="line.product_id"/>
+                        <t t-set="multiplier" t-value="line.product_uom_qty"/>
+                    </t>
+                </ul>
+            </div>
+        </t>
+    </xpath>
+</template>
+
+</odoo>

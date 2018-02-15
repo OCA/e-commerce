@@ -1,0 +1,2 @@
+id,name,model_id:id,groups:id,domain_force
+access_product_bundle_line,Public and portal users are restricted,product_bundle.model_product_bundle_line,"base.group_portal,base.group_public","[('bundle_id.website_published', '=', True), (""bundle_id.sale_ok"", ""="", True)]"

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<template id="bundle_direct"
+          inherit_id="website_sale.product"
+          customize_show="True"
+          priority="25"
+          name="Bundled Products">
+    <xpath expr="//*[@t-field='product.description_sale']/.." position="after">
+        <div
+            t-if="product.bundle_line_ids"
+            class="o_product_bundle_direct">
+            <hr/>
+            <h5>This <strong>bundle</strong> includes:</h5>
+            <ul class="list-unstyled">
+                <t t-call="website_sale_bundle.direct_list"/>
+            </ul>
+        </div>
+    </xpath>
+</template>
+
+<template id="bundle_inverse"
+          inherit_id="website_sale.product"
+          customize_show="True"
+          priority="20"
+          name="Display Bundles Including This Product">
+    <xpath expr="//*[@t-field='product.description_sale']/.." position="after">
+        <div
+            t-if="product.inverse_bundle_line_ids"
+            class="o_product_bundle_inverse">
+            <hr/>
+            <h5>Find this product in one of these bundles:</h5>
+            <ul class="list-unstyled">
+                <t t-call="website_sale_bundle.inverse_list"/>
+            </ul>
+        </div>
+    </xpath>
+</template>
+
+</odoo>
