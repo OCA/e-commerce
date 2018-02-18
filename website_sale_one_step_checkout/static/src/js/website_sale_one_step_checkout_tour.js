@@ -106,13 +106,13 @@ odoo.define("website_sale_one_step_checkout.tour_shop", function (require) {
             },
             {
                 //step 3
-                content: "Add new shipping address",
-                trigger: '#add-public-user-address .btn',
+                content: "Checkout as guest",
+                trigger: '#public_acc_info > li:nth-child(2) > div:nth-child(1)',
             },
             {
                 //step 4
                 content: "Test with input error",
-                trigger: '#js_confirm_address.btn',
+                trigger: '.js_payment .btn',
                 run: function () {
                     $("input[name='name']").val("website_sale-test-shoptest");
                 }
@@ -121,7 +121,7 @@ odoo.define("website_sale_one_step_checkout.tour_shop", function (require) {
                 //step 5
                 content: "Test without input error",
                 waitFor: 'div[id="osc_billing"] .has-error',
-                trigger: '#js_confirm_address.btn',
+                trigger: '.js_payment .btn',
                 run: function () {
                     if ($("input[name='name']").val() === ""){
                         $("input[name='name']").val("website_sale-test-shoptest");}
@@ -136,11 +136,11 @@ odoo.define("website_sale_one_step_checkout.tour_shop", function (require) {
             },
             {
                 // step 6
-                content: 'Confirm address',
-                trigger: '#js_confirm_address.btn',
+                content: 'Pay now',
+                trigger: '.js_payment .btn',
             },
             {
-                //step 7
+                //step 7 Buggy, for some reason this btn needs to be triggered twice
                 content: 'Confirm payment and wait for redirection to Confirmation page',
                 trigger: '.js_payment .btn'
             },

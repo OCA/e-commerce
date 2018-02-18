@@ -17,7 +17,7 @@ class WebsiteSaleOneStepCheckoutDelivery(WebsiteSale):
         Change and apply delivery carrier / amount to sale order.
         """
         order = request.website.sale_get_order()
-        carrier_id = int(post.get('carrier_id'))
+        carrier_id = int(post['carrier_id']) if 'carrier_id' in post else None
 
         return self.do_change_delivery(order, carrier_id)
 
