@@ -97,7 +97,6 @@ odoo.define("website_sale_one_step_checkout.tour_shop", function (require) {
                 //step 1
                 content: "Click on 'Add to cart'",
                 trigger: '#add_to_cart',
-                // position: 'bottom',
             },
             {
                 //step 2
@@ -105,9 +104,9 @@ odoo.define("website_sale_one_step_checkout.tour_shop", function (require) {
                 trigger: 'a[href$="/shop/checkout"]',
             },
             {
-                //step 3
-                content: "Checkout as guest",
-                trigger: '#public_acc_info > li:nth-child(2) > div:nth-child(1)',
+                // step 3
+                content: 'Try to pay',
+                trigger: '.js_payment .btn',
             },
             {
                 //step 4
@@ -135,17 +134,12 @@ odoo.define("website_sale_one_step_checkout.tour_shop", function (require) {
                 },
             },
             {
-                // step 6
-                content: 'Pay now',
-                trigger: '.js_payment .btn',
-            },
-            {
-                //step 7 Buggy, for some reason this btn needs to be triggered twice
+                //step 6
                 content: 'Confirm payment and wait for redirection to Confirmation page',
                 trigger: '.js_payment .btn'
             },
             {
-                // step 8
+                // step 7
                 content: "Finish",
                 trigger: '.oe_website_sale:contains("Thank you for your order")'
             }
