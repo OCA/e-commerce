@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- website name shown in list/grid -->
+        <template id="products_website_name"
+            inherit_id="website_sale.products_item"
+            name="Product website name">
+            <xpath expr="//a[@itemprop='name']" position="attributes">
+                <attribute name="t-field">product.display_website_name</attribute>
+            </xpath>
+        </template>
+        <!-- website name in product page -->
+        <template id="website_name_product_page" inherit_id="website_sale.product"  name="Product website name for product page">
+            <xpath expr="//t[@t-set='additional_title']" position="attributes">
+                <attribute name="t-value">product.display_website_name</attribute>
+            </xpath>
+            <xpath expr="//ol[@class='breadcrumb']/li[@class='active']" position="replace">
+                <li class="active"><span t-field="product.display_website_name"/></li>
+            </xpath>
+            <xpath expr="//div[@id='product_details']//h1[@t-field='product.name']" position="attributes">
+                <attribute name="t-field">product.display_website_name</attribute>
+            </xpath>
+            <xpath expr="//span[@t-att-title='alt_product.name']" position="attributes">
+                <attribute name="t-att-title">alt_product.display_website_name</attribute>
+                <attribute name="t-field">alt_product.display_website_name</attribute>
+            </xpath>
+        </template>
+        <!-- Show website name in cart too -->
+        <template id="products_website_name_cart" inherit_id="website_sale.cart_lines"  name="Product website name in cart">
+            <xpath expr="//strong[@t-esc='line.product_id.with_context(display_default_code=False).display_name']" position="attributes">
+                <attribute name="t-esc">line.product_id.display_website_name</attribute>
+            </xpath>
+        </template>
+    </data>
+</openerp>
