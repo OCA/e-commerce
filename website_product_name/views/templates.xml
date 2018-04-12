@@ -23,7 +23,7 @@
         </template>
 
 
-        <template id="website_name_product_page" inherit_id="website_sale.recommended_products"  
+        <template id="website_name_product_recommended_ext" inherit_id="website_sale.recommended_products"  
             name="Product website name for recomendations">
             <xpath expr="//h5/a/span" position="attributes">
                 <attribute name="t-att-title">alt_product.display_website_name</attribute>
