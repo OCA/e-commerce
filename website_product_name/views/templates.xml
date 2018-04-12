@@ -30,9 +30,8 @@
                 <attribute name="t-field">alt_product.display_website_name</attribute>
             </xpath>
         </template>
-        <!-- Show website name in cart too -->
         <template id="products_website_name_cart" inherit_id="website_sale.cart_lines"  name="Product website name in cart">
-            <xpath expr="//td[@t-if='line.product_id.product_tmpl_id']//div" position="`replace">
+            <xpath expr="//td[@t-if='line.product_id.product_tmpl_id']//div" position="replace">
                   <div>
                       <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
                           <strong t-esc="line.product_id.display_website_name"/>
