@@ -20,7 +20,12 @@
             <xpath expr="//div[@id='product_details']//h1[@t-field='product.name']" position="attributes">
                 <attribute name="t-field">product.display_website_name</attribute>
             </xpath>
-            <xpath expr="//span[@t-att-title='alt_product.name']" position="attributes">
+        </template>
+
+
+        <template id="website_name_product_page" inherit_id="website_sale.recommended_products"  
+            name="Product website name for recomendations">
+            <xpath expr="//h5/a/span" position="attributes">
                 <attribute name="t-att-title">alt_product.display_website_name</attribute>
                 <attribute name="t-field">alt_product.display_website_name</attribute>
             </xpath>
