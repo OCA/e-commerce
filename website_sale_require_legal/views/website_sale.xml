@@ -4,7 +4,7 @@
 <odoo>
 
     <template id="accept_input">
-        <div t-attf-class="form-group col-md-12 #{'has-error' if error.get('accepted_legal_terms') else ''}">
+        <div t-attf-class="form-group col-md-12 #{'has-error' if error and error.get('accepted_legal_terms') else ''}">
             <label for="accepted_legal_terms" class="control-label">
                 <input
                     type="checkbox"
