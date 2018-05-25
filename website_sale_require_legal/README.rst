@@ -43,6 +43,15 @@ e-commerce/issues>`_. In case of trouble, please check there if your issue has
 already been reported. If you spotted it first, help us smashing it by
 providing a detailed and welcomed feedback.
 
+Known issues / Roadmap
+======================
+
+* Shopping terms and conditions are accepted only on user registration or
+  address edition. So if those terms change after the user signed up, a
+  notification should be made. An implicit acceptance could be printed in the
+  payment screen to solve this. Maybe that could be a work to develope in
+  another module.
+
 Credits
 =======
 
@@ -52,6 +61,7 @@ Contributors
 * Rafael Blasco <rafael.blasco@tecnativa.com>
 * Jairo Llopis <jairo.llopis@tecnativa.com>
 * Vicent Cubells <vicent.cubells@tecnativa.com>
+* David Vidal <david.vidal@tecnativa.com>
 
 Maintainer
 ----------
