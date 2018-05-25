@@ -3,6 +3,7 @@
 # Copyright 2016 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import SUPERUSER_ID
 from odoo.http import request
 from odoo.addons.website_sale.controllers import main
 
@@ -34,3 +35,23 @@ class WebsiteSale(main.WebsiteSale):
         # Unpatch context
         request.context = old_context
         return result
+
+    def _checkout_form_save(self, mode, checkout, all_values):
+        res = super(WebsiteSale, self)._checkout_form_save(
+            mode, checkout, all_values)
+        if (all_values.get('submitted') and
+                all_values.get('accepted_legal_terms')):
+            environ = request.httprequest.headers.environ
+            metadata = "Website legal terms acceptance metadata: "
+            metadata += "\n".join(
+                "%s: %s" % (val, environ.get(val)) for val in (
+                        "REMOTE_ADDR",
+                        "HTTP_USER_AGENT",
+                        "HTTP_ACCEPT_LANGUAGE",
+                    )
+                )
+            partner_id = request.env['res.partner'].browse(res)
+            website_user = request.website.salesperson_id.id or SUPERUSER_ID
+            partner_id.sudo(website_user).message_post(
+                body=metadata, message_type='notification')
+        return res
