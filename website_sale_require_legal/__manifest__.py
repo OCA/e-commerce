@@ -7,7 +7,7 @@
     "summary": "Force the user to accept legal tems to buy in the web shop",
     "version": "10.0.1.0.0",
     "category": "Website",
-    "website": "https://www.tecnativa.com",
+    "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, "
               "Odoo Community Association (OCA)",
     "license": "AGPL-3",
