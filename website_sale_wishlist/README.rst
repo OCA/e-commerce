@@ -14,7 +14,7 @@ Configuration
 
 This module includes some templates, enabled by default. To disable them:
 
-#. Go to `your shop </shop>`_.
+#. Go to `your shop </shop>`__.
 #. Click on *Customize*.
 #. Uncheck *Add to Wishlist From List*.
 #. Enter any product.
@@ -26,7 +26,7 @@ Usage
 
 To use this module, you need to:
 
-#. Go to `your shop </shop>`_.
+#. Go to `your shop </shop>`__.
 #. Press on the heart icon for any product.
 #. You have now the top *My Wishlist* menu.
 #. Clicking on it, you go to a filtered view of your shop with only the
