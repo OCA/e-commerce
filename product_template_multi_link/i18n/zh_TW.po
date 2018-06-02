@@ -11,12 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
 "PO-Revision-Date: 2018-06-01 11:28+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Language-Team: Chinese (Taiwan) (https://www.transifex.com/oca/teams/23907/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_link_type
@@ -24,48 +24,46 @@ msgid ""
 "* Cross-Sell : suggest your customer to purchase an additional product\n"
 "* Up-Sell : suggest your customer to purchase a higher-end product,  an upgrade, etc."
 msgstr ""
-"* Vente Croisée : Proposer à vtre client d'acheter un autre article\n"
-"* Montée en Gamme : Proposer à votre client d'acheter un article d'une gamme supérieure, une amélioration, etc."
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr "建立者"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr "建立於"
 
 #. module: product_template_multi_link
 #: selection:product.template.link,link_type:0
 msgid "Cross-Sell"
-msgstr "Vente Croisée"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "顯示名稱"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_id
 msgid "ID"
-msgstr "ID"
+msgstr "編號"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link___last_update
 msgid "Last Modified on"
-msgstr "Dernière Modification le"
+msgstr "最後修改:"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr "最後更新："
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "最後更新於"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_link_type
@@ -75,7 +73,7 @@ msgstr ""
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_product_template_id
 msgid "Linked Product"
-msgstr "Article lié"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.action_product_template_link
@@ -85,24 +83,24 @@ msgstr "Article lié"
 #: model:ir.ui.menu,name:product_template_multi_link.menu_product_template_link
 #: model:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 msgid "Product Links"
-msgstr "Liens d'articles"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_product_product_template_link_qty
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_product_template_link_qty
 msgid "Product Links Quantity"
-msgstr "Qté de liens d'articles"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template
 msgid "Product Template"
-msgstr "Modèle d'article"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_product_template_image_small
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_product_template_image_small
 msgid "Small-sized image"
-msgstr "Image de petite taille"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_linked_product_template_image_small
@@ -112,21 +110,18 @@ msgid ""
 "image, with aspect ratio preserved. Use this field anywhere a small image is"
 " required."
 msgstr ""
-"Vignette de l'article. Elle sera automatiquement redimensionnée à 64 x 64 "
-"px, en préservent le rapport hauteur/largeur. Utilisez ce champ partout où "
-"une petite image est nécessaire."
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_product_template_id
 msgid "Source Product"
-msgstr "Article source"
+msgstr ""
 
 #. module: product_template_multi_link
 #: selection:product.template.link,link_type:0
 msgid "Up-Sell"
-msgstr "Montée en gamme"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
 msgid "product.template.link"
-msgstr "product.template.link"
+msgstr ""
