@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="acquirer_form_fee" model="ir.ui.view">
+        <field name="name">acquirer_form_fee</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Charge payment fee">
+                    <group>
+                        <field name="charge_fee"/>
+                        <field name="charge_fee_product_id"
+                               attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"/>
+                        <field name="charge_fee_description"
+                               attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"/>
+                        <field name="charge_fee_type"
+                               attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"/>
+
+                        <label for="charge_fee_fixed_price"
+                               attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'fixed')]}"/>
+                        <div attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'fixed')]}">
+                            <field name="charge_fee_fixed_price" class="oe_inline"/>
+                        </div>
+
+                        <label for="charge_fee_percentage"
+                               attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}"/>
+                        <div attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}">
+                            <field name="charge_fee_percentage" class="oe_inline"/>
+                            <label string="%" class="oe_inline"/>
+                        </div>
+
+                        <field name="charge_fee_tax_ids" widget="many2many_tags"
+                               attrs="{'invisible': [('charge_fee', '=', False)]}"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

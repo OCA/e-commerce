@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/website_sale_charge_payment_fee_quote/static/src/js/website_quote_fee.js"/>
+      </xpath>
+    </template>
+
+  <template id="so_quotation_fee" inherit_id="website_quote.so_quotation">
+    <xpath expr="//input[@id='validity_date']" position="after">
+        <t t-set="current_acquirer"
+           t-value="selected_acquirer and selected_acquirer or acquirers and acquirers[0] or ''"/>
+      <input type="hidden"
+         t-att-value="current_acquirer and current_acquirer.id or ''"
+         name="selected_acquirer_id"
+        t-att-data-charge-fee="current_acquirer and current_acquirer.charge_fee or ''"/>
+    </xpath>
+    <xpath expr="//input[@t-att-value='acquirer.id']" position="attributes">
+        <attribute name="t-att-checked">acquirer == selected_acquirer if selected_acquirer else acquirers[0] == acquirer</attribute>
+    </xpath>
+    <xpath expr="//span[@t-field='acquirer.name']" position="after">
+    <t t-if="acquirer.charge_fee and quotation.state in ['draft', 'sent']">
+        <span>(Fee:
+        <t t-if="acquirer.charge_fee_type == 'fixed'">
+            <span id="charge_fee_fixed_price" t-field="acquirer.charge_fee_fixed_price"/>
+        </t>
+        <t t-if="acquirer.charge_fee_type == 'percentage'">
+            <span id="charge_fee_percentage" t-field="acquirer.charge_fee_percentage"/> %
+        </t>
+        )</span>
+    </t>
+    </xpath>
+    <xpath expr="//input[@t-att-value='acquirer.id']" position="attributes">
+        <attribute name="t-att-data-charge-fee">acquirer.charge_fee</attribute>
+    </xpath>
+  </template>
+
+</odoo>
