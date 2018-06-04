@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/website_sale_charge_payment_fee/static/src/js/website_sale_fee.js"/>
+      </xpath>
+    </template>
+
+    <template id="payment_fee" inherit_id="website_sale.payment">
+        <xpath expr="//span[@t-if='acquirer.fees_active']" position="after">
+            <t t-if="acquirer.charge_fee">
+                <span>(Fee:
+                <t t-if="acquirer.charge_fee_type == 'fixed'">
+                    <span id="charge_fee_fixed_price" t-field="acquirer.charge_fee_fixed_price"/>
+                </t>
+                <t t-if="acquirer.charge_fee_type == 'percentage'">
+                    <span id="charge_fee_percentage" t-field="acquirer.charge_fee_percentage"/> %
+                </t>
+                )</span>
+            </t>
+        </xpath>
+        <xpath expr="//input[@t-att-value='acquirer.id']" position="attributes">
+            <attribute name="t-att-checked">acquirer == selected_acquirer if selected_acquirer else acquirers[0] == acquirer</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='not website_sale_order.amount_total']" position="after">
+            <input type="hidden" t-att-value="selected_acquirer.id if selected_acquirer else acquirers[0].id"
+                   name="selected_acquirer_id"/>
+        </xpath>
+        <xpath expr="//a[@t-attf-href='/shop/product/#{ slug(line.product_id.product_tmpl_id) }']" position="attributes">
+            <attribute name="t-if">not line.payment_fee_line</attribute>
+        </xpath>
+    </template>
+
+    <template id="confirmation_fee" inherit_id="website_sale.confirmation">
+        <xpath expr="//a[@t-attf-href='/shop/product/#{ slug(line.product_id.product_tmpl_id) }']" position="replace">
+            <t t-if="line.payment_fee_line">
+                <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+            </t>
+            <t t-if="not line.payment_fee_line">
+                <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                  <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                </a>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="cart_lines_fee" inherit_id="website_sale.cart_lines">
+        <xpath expr="//a[@t-attf-href='/shop/product/#{ slug(line.product_id.product_tmpl_id) }']" position="replace">
+            <t t-if="line.payment_fee_line">
+                <strong t-esc="line.product_id.with_context(display_default_code=False).display_name" />
+            </t>
+            <t t-if="not line.payment_fee_line">
+                <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                    <strong t-esc="line.product_id.with_context(display_default_code=False).display_name" />
+                </a>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
