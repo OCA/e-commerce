@@ -10,6 +10,9 @@ This module was written to extend the functionality of your website shop to
 support forcing the user to accept your legal advice, terms of use and privacy
 policy, and allow you to comply with some countries' laws.
 
+Every time the acceptance is fulfilled the metadata of the user (with IP, User
+Agent and Accept language) is recorded in the partner's chatter.
+
 Installation
 ============
 
@@ -58,8 +61,8 @@ Credits
 Contributors
 ------------
 
-* Rafael Blasco <rafaelbn@antiun.com>
-* Jairo Llopis <yajo.sk8@gmail.com>
+* Rafael Blasco <rafael.blasco@tecnativa.com>
+* Jairo Llopis <jairo.llopis@tecnativa.com>
 * Vicent Cubells <vicent.cubells@tecnativa.com>
 * David Vidal <david.vidal@tecnativa.com>
 

@@ -45,8 +45,8 @@ class RequireLegalTermsToCheckout(website_sale):
                     partner_id = order.partner_id
             if partner_id:
                 environ = request.httprequest.headers.environ
-                metadata = "Website legal terms acceptance metadata: "
-                metadata += "\n".join(
+                metadata = "Website legal terms acceptance metadata:<br/>"
+                metadata += "<br/>".join(
                     "%s: %s" % (val, environ.get(val)) for val in (
                             "REMOTE_ADDR",
                             "HTTP_USER_AGENT",
