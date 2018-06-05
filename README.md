@@ -20,7 +20,7 @@ addon | version | summary
 [website_sale_default_country](website_sale_default_country/) | 9.0.1.0.0 | Give a default value for country at checkout
 [website_sale_product_brand](website_sale_product_brand/) | 9.0.1.1.1 | Product Brand Filtering in Website
 [website_sale_qty](website_sale_qty/) | 9.0.1.0.1 | Add price tier radio buttons to product pages in website shop
-[website_sale_require_legal](website_sale_require_legal/) | 9.0.1.0.0 | Force the user to accept legal tems to buy in the web shop
+[website_sale_require_legal](website_sale_require_legal/) | 9.0.1.1.0 | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 9.0.1.0.0 | Force users to login for buying
 [website_sale_stock_control](website_sale_stock_control/) | 9.0.1.0.0 | Do not show products without stock in shop on line
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 9.0.1.0.0 | Suggest users to create an account when buying in the website
