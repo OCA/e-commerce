@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015-2017 Tecnativa - Jairo Llopis
 # Copyright 2016 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -43,7 +42,7 @@ class WebsiteSale(main.WebsiteSale):
                 all_values.get('accepted_legal_terms')):
             environ = request.httprequest.headers.environ
             metadata = "Website legal terms acceptance metadata: "
-            metadata += "\n".join(
+            metadata += "<br/>".join(
                 "%s: %s" % (val, environ.get(val)) for val in (
                         "REMOTE_ADDR",
                         "HTTP_USER_AGENT",
