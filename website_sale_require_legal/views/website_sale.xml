@@ -17,7 +17,7 @@
     </template>
 
     <template id="address" inherit_id="website_sale.address">
-        <xpath expr="//div[@class='clearfix'][last()]" position="after">
+        <xpath expr="//div[hasclass('clearfix')][last()]" position="after">
             <t t-call="website_sale_require_legal.accept_input"/>
         </xpath>
     </template>

@@ -17,6 +17,9 @@
             trigger: ".btn-primary:contains('Process Checkout')",
         },
         {
+            trigger: "a.js_edit_address:first",
+        },
+        {
             trigger: ".btn-primary:contains('Next')",
         },
         {
@@ -26,7 +29,16 @@
             trigger: ".btn-primary:contains('Next')",
         },
         {
-            trigger: ".form-group:not(.has-error) #accepted_legal_terms",
+            trigger: "form[action='/shop/address'] a",
+        },
+        {
+            trigger: ".btn-primary:contains('Next')",
+        },
+        {
+            trigger: ".form-group.has-error #accepted_legal_terms",
+        },
+        {
+            trigger: ".btn-primary:contains('Next')",
         },
     ];
 
