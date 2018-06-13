@@ -44,6 +44,7 @@ Contributors
 ------------
 
 * David Vidal <david.vidal@tecnativa.com>
+* Abraham González <abraham@trey.es>
 
 Maintainer
 ----------
