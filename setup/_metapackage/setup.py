@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo11-addon-website_sale_default_country',
+        'odoo11-addon-website_sale_product_brand',
         'odoo11-addon-website_sale_require_legal',
         'odoo11-addon-website_sale_require_login',
         'odoo11-addon-website_sale_suggest_create_account',
