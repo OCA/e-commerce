@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo11-addon-website_sale_require_legal',
         'odoo11-addon-website_sale_require_login',
         'odoo11-addon-website_sale_suggest_create_account',
+        'odoo11-addon-website_sale_vat_required',
     ],
     classifiers=[
         'Programming Language :: Python',
