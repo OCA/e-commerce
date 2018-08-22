@@ -4,10 +4,10 @@
 <odoo>
 
     <template id="address" inherit_id="website_sale.address">
-        <!--Show portal user company info-->
-        <xpath expr="//form[name='/shop/checkout']//t[@t-if='mode == (&#39;new&#39;, &#39;billing&#39;)']" position="after">
+        <!--Show user company info if any-->
+        <xpath expr="//input[@name='company_name']/../.." position="after">
             <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-            <t  t-if="mode == ('edit', 'billing') and website_sale_order.partner_id.parent_id">
+            <t t-if="mode == ('edit', 'billing') and website_sale_order.partner_id.parent_id">
                 <div t-attf-class="form-group col-md-6">
                     <label class="control-label font-weight-normal label-optional" for="commercial_company_name">Company Name</label>
                     <p name="commercial_company_name" class="form-control" t-esc="website_sale_order.partner_id.commercial_company_name"/>
