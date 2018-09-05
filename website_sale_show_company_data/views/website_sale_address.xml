@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Tecnativa
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="address" inherit_id="website_sale.address">
+        <!--Show user company info if any-->
+        <xpath expr="//input[@name='company_name']/../.." position="after">
+            <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+            <t t-if="mode == ('edit', 'billing') and website_sale_order.partner_id.parent_id">
+                <div t-attf-class="form-group col-md-6">
+                    <label class="control-label font-weight-normal label-optional" for="commercial_company_name">Company Name</label>
+                    <p name="commercial_company_name" class="form-control" t-esc="website_sale_order.partner_id.commercial_company_name"/>
+                </div>
+                <div t-attf-class="col-md-6 div_vat">
+                    <label class="control-label font-weight-normal label-optional" for="commercial_company_vat">TIN / VAT </label>
+                    <p name="commercial_company_vat" class="form-control" t-esc="website_sale_order.partner_id.commercial_partner_id.vat"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
