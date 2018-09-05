@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * product_template_multi_link
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
@@ -11,18 +11,20 @@ msgstr ""
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
 "PO-Revision-Date: 2018-06-01 11:28+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: Vietnamese (Viet Nam) (https://www.transifex.com/oca/teams/23907/vi_VN/)\n"
+"Language-Team: Vietnamese (Viet Nam) (https://www.transifex.com/oca/"
+"teams/23907/vi_VN/)\n"
+"Language: vi_VN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_link_type
 msgid ""
 "* Cross-Sell : suggest your customer to purchase an additional product\n"
-"* Up-Sell : suggest your customer to purchase a higher-end product,  an upgrade, etc."
+"* Up-Sell : suggest your customer to purchase a higher-end product,  an "
+"upgrade, etc."
 msgstr ""
 
 #. module: product_template_multi_link
@@ -107,8 +109,8 @@ msgstr ""
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_product_template_image_small
 msgid ""
 "Small-sized image of the product. It is automatically resized as a 64x64px "
-"image, with aspect ratio preserved. Use this field anywhere a small image is"
-" required."
+"image, with aspect ratio preserved. Use this field anywhere a small image is "
+"required."
 msgstr ""
 
 #. module: product_template_multi_link
