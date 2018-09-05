@@ -1,0 +1,21 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_search_fuzzy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_search_fuzzy
+#: code:addons/website_sale_search_fuzzy/hooks.py:15
+#, python-format
+msgid "TRGM extension has not been installed on your database. Follow the config instructions from base_search_fuzzy before installing this module."
+msgstr ""
+
