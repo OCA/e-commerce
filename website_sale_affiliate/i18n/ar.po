@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * website_sale_affiliate
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
@@ -12,11 +12,12 @@ msgstr ""
 "PO-Revision-Date: 2017-12-16 01:57+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Arabic (https://www.transifex.com/oca/teams/23907/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_accept_language
@@ -151,9 +152,9 @@ msgstr ""
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_valid_hours
 msgid ""
-"If the request is more than this many hours old, it will not be counted as a"
-" qualified conversion if a sale takes place. Use negative numbers to "
-"indicate infinity."
+"If the request is more than this many hours old, it will not be counted as a "
+"qualified conversion if a sale takes place. Use negative numbers to indicate "
+"infinity."
 msgstr ""
 
 #. module: website_sale_affiliate
