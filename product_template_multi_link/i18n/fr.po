@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * product_template_multi_link
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
@@ -12,20 +12,22 @@ msgstr ""
 "PO-Revision-Date: 2018-06-01 11:28+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_link_type
 msgid ""
 "* Cross-Sell : suggest your customer to purchase an additional product\n"
-"* Up-Sell : suggest your customer to purchase a higher-end product,  an upgrade, etc."
+"* Up-Sell : suggest your customer to purchase a higher-end product,  an "
+"upgrade, etc."
 msgstr ""
 "* Vente Croisée : Proposer à vtre client d'acheter un autre article\n"
-"* Montée en Gamme : Proposer à votre client d'acheter un article d'une gamme supérieure, une amélioration, etc."
+"* Montée en Gamme : Proposer à votre client d'acheter un article d'une gamme "
+"supérieure, une amélioration, etc."
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_uid
@@ -109,8 +111,8 @@ msgstr "Image de petite taille"
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_product_template_image_small
 msgid ""
 "Small-sized image of the product. It is automatically resized as a 64x64px "
-"image, with aspect ratio preserved. Use this field anywhere a small image is"
-" required."
+"image, with aspect ratio preserved. Use this field anywhere a small image is "
+"required."
 msgstr ""
 "Vignette de l'article. Elle sera automatiquement redimensionnée à 64 x 64 "
 "px, en préservent le rapport hauteur/largeur. Utilisez ce champ partout où "
