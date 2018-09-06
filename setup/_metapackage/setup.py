@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo10-addon-website_sale_require_login',
         'odoo10-addon-website_sale_search_fuzzy',
         'odoo10-addon-website_sale_select_qty',
+        'odoo10-addon-website_sale_show_company_data',
         'odoo10-addon-website_sale_suggest_create_account',
         'odoo10-addon-website_sale_wishlist',
     ],
