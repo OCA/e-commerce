@@ -26,6 +26,7 @@ addon | version | summary
 [website_sale_require_login](website_sale_require_login/) | 10.0.1.1.0 | Force users to login for buying
 [website_sale_search_fuzzy](website_sale_search_fuzzy/) | 10.0.1.0.0 | Extends eCommerce with fuzzy searches for product names
 [website_sale_select_qty](website_sale_select_qty/) | 10.0.1.0.0 | Support "quantity" URL parameter on shop product pages
+[website_sale_show_company_data](website_sale_show_company_data/) | 10.0.1.0.0 | Show commercial partner data if any
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 10.0.1.1.0 | Suggest users to create an account when buying in the website
 [website_sale_wishlist](website_sale_wishlist/) | 10.0.1.0.0 | Wishlist of products in your online shop
 
