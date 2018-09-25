@@ -3,7 +3,7 @@
 <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
     <template id="confirmation" inherit_id="website_sale.confirmation">
-        <xpath expr="//div[@class='thanks_msg']//h2"
+        <xpath expr="//div[hasclass('thanks_msg')]//h2"
                position="after">
             <div class="alert alert-info" role="alert"
                  t-if="website.checkout_skip_payment">
@@ -12,11 +12,11 @@
             </div>
         </xpath>
         <!-- Hide payment related info if skip payment step -->
-        <xpath expr="(//div[@class='oe_cart']//h3)[2]"
+        <xpath expr="(//div[hasclass('oe_cart')]//h3)[2]"
                position="attributes">
             <attribute name="t-if">not website.checkout_skip_payment</attribute>
         </xpath>
-        <xpath expr="(//div[@class='oe_cart']//table[@class='table'])[2]"
+        <xpath expr="(//div[hasclass('oe_cart')]//table[hasclass('table')])[2]"
                position="attributes">
             <attribute name="t-if">not website.checkout_skip_payment</attribute>
         </xpath>
@@ -29,7 +29,9 @@
     </template>
 
     <template id="order_state_message">
-      <p>Your order is waiting manual confirmation.</p><br/>
+        <div class="alert alert-warning">
+            <span><i class="fa fa-info-circle"/> Your order is waiting manual confirmation.</span>
+        </div>
     </template>
 
 </odoo>
