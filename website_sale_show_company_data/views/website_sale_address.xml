@@ -20,4 +20,15 @@
         </xpath>
     </template>
 
+    <template id="address_kanban" inherit_id="website_sale.address_kanban">
+        <!--Show user company info at the address kanban-->
+        <xpath expr="//t[@t-esc='contact']" position="before">
+            <t t-if="contact.commercial_partner_id and contact.commercial_partner_id.vat">
+                <span class="label label-info">
+                    <i class="fa fa-building"/> <t t-esc="contact.commercial_partner_id.name"/> <strong><t t-esc="contact.commercial_partner_id.vat"/></strong>
+                </span>
+            </t>
+        </xpath>
+    </template>
+
 </odoo>
