@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_suggest_create_account
+# 	* website_sale_suggest_create_account
 #
 msgid ""
 msgstr ""
@@ -17,22 +17,32 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid "<span>Checkout without sign up</span>"
-msgstr "<span>Zur Kasse ohne Registrierung</span>"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Log in and checkout</span>"
+msgstr ""
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid "<span>Log in and checkout</span>\n"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+msgid ""
+"<span>Log in and checkout</span>\n"
 "                <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 "<span>Mit Login zur Kasse</span>\n"
 "                <span class=\"fa fa-long-arrow-right\"/>"
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid "<span>Sign up and checkout</span>\n"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Sign up and checkout</span>"
+msgstr ""
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+msgid ""
+"<span>Sign up and checkout</span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 "<span>Mit Registrierung zur Kasse</span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
+
+#~ msgid "<span>Checkout without sign up</span>"
+#~ msgstr "<span>Zur Kasse ohne Registrierung</span>"
