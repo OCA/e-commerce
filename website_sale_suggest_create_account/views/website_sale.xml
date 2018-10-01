@@ -3,10 +3,8 @@
     <template id="cart" inherit_id="website_sale.cart">
         <xpath expr="//div[@id='wrap']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id"/>
-            <t t-set="signup_allowed" t-value="env['ir.config_parameter'].sudo().get_param('auth_signup.allow_uninvited') == 'True' "/>
-            <!-- TODO: optional_products has to be removed since odoo 12.0 at least. See https://github.com/odoo/odoo/pull/21461 -->
-            <t t-set="can_checkout" t-value="not optional_products
-                                             and website_sale_order and
+            <t t-set="signup_allowed" t-value="env['ir.config_parameter'].sudo().get_param('auth_signup.invitation_scope') == 'b2c' "/>
+            <t t-set="can_checkout" t-value="website_sale_order and
                                              website_sale_order.website_order_line"/>
 
             <t t-set="suggest_create_account" t-value="not user_authenticated and signup_allowed and can_checkout" />
@@ -14,25 +12,72 @@
 
         <!-- Show normal "Checkout" button if user is logged in or external login
              is disabled -->
-        <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+        <xpath expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']" position="attributes">
             <attribute name="t-if">(user_authenticated or not signup_allowed) and can_checkout</attribute>
         </xpath>
 
         <!-- Show choice in other cases -->
-        <xpath expr="//a[@href='/shop/checkout']" position="after">
-            <a t-if="not user_authenticated"
-               class="btn btn-primary pull-right mb32"
-               href="/web/login?redirect=/shop/checkout">
+        <xpath expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']" position="after">
+            <a t-if="not user_authenticated" role="button"
+               class="btn btn-primary pull-right mb32 d-none d-xl-inline-block"
+               href="/web/login?redirect=/shop/checkout?express=1">
                 <span>Log in and checkout</span>
                 <span class="fa fa-long-arrow-right"/>
             </a>
             <t t-if="suggest_create_account">
-                <a class="btn btn-primary pull-right mb32"
-                   href="/web/signup?redirect=/shop/checkout">
+                <a class="btn btn-primary pull-right mb32 d-none d-xl-inline-block" role="button"
+                   href="/web/signup?redirect=/shop/checkout?express=1">
                     <span>Sign up and checkout</span>
                     <span class="fa fa-long-arrow-right"/>
                 </a>
-                <a id="anonymous_checkout" class="btn btn-default mb32" href="/shop/checkout">
+                <a id="anonymous_checkout" class="btn btn-default mb32 d-none d-xl-inline-block" href="/shop/checkout?express=1">
+                    <span>Checkout without sign up</span>
+                </a>
+            </t>
+        </xpath>
+
+        <!-- Buttons for small screens, same modifications as above -->
+        <xpath expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']" position="attributes">
+            <attribute name="t-if">(user_authenticated or not signup_allowed) and can_checkout</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']" position="after">
+            <a t-if="not user_authenticated" role="button"
+               class="btn btn-primary pull-right mb32 d-xl-none"
+               href="/web/login?redirect=/shop/checkout?express=1">
+                <span>Log in and checkout</span>
+                <span class="fa fa-long-arrow-right"/>
+            </a>
+            <t t-if="suggest_create_account">
+                <a class="btn btn-primary pull-right mb32 d-xl-none" role="button"
+                   href="/web/signup?redirect=/shop/checkout?express=1">
+                    <span>Sign up and checkout</span>
+                    <span class="fa fa-long-arrow-right"/>
+                </a>
+                <a id="anonymous_checkout" class="btn btn-default mb32 d-xl-none" href="/shop/checkout?express=1">
+                    <span>Checkout without sign up</span>
+                </a>
+            </t>
+        </xpath>
+
+    </template>
+
+    <!-- Cart summary -->
+    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+        <xpath expr="//a[@href='/shop/checkout?express=1']" position="attributes">
+            <attribute name="t-if">(user_authenticated or not signup_allowed) and can_checkout</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop/checkout?express=1']" position="after">
+            <a t-if="not user_authenticated" role="button"
+               class="btn btn-secondary float-right d-none d-xl-inline-block"
+               href="/web/login?redirect=/shop/checkout?express=1">
+                <span>Log in and checkout</span>
+            </a>
+            <t t-if="suggest_create_account">
+                <a class="btn btn-secondary float-right d-none d-xl-inline-block" role="button"
+                   href="/web/signup?redirect=/shop/checkout?express=1" style="margin-top:3px">
+                    <span>Sign up and checkout</span>
+                </a>
+                <a id="anonymous_checkout" class="btn btn-default float-right d-none d-xl-inline-block" href="/shop/checkout?express=1">
                     <span>Checkout without sign up</span>
                 </a>
             </t>
