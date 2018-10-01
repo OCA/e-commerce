@@ -21,24 +21,36 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
 #, fuzzy
-msgid "<span>Checkout without sign up</span>"
-msgstr "Vai alla Cassa senza registrarti"
+#| msgid "Log in and checkout"
+msgid "<span>Log in and checkout</span>"
+msgstr "Accedi e vai alla Cassa"
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 msgid ""
 "<span>Log in and checkout</span>\n"
 "                <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+#, fuzzy
+#| msgid "Sign up and checkout"
+msgid "<span>Sign up and checkout</span>"
+msgstr "Registrati e vai alla Cassa"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 msgid ""
 "<span>Sign up and checkout</span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
+
+#, fuzzy
+#~ msgid "<span>Checkout without sign up</span>"
+#~ msgstr "Vai alla Cassa senza registrarti"
 
 #~ msgid ""
 #~ "(\n"
@@ -56,9 +68,3 @@ msgstr ""
 #~ "not optional_products and website_sale_order and\n"
 #~ "website_sale_order.website_order_line\n"
 #~ ")"
-
-#~ msgid "Log in and checkout"
-#~ msgstr "Accedi e vai alla Cassa"
-
-#~ msgid "Sign up and checkout"
-#~ msgstr "Registrati e vai alla Cassa"
