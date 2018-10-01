@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2015 Antiun Ingeniería S.L. - Jairo Llopis
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<odoo>
+
+    <template id="cart" inherit_id="website_sale.cart" priority="20">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t t-set="hide_checkout_button" t-value="not (user_authenticated and can_checkout)" />
+        </xpath>
+        <xpath expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']" position="attributes">
+            <attribute name="t-if">not hide_checkout_button</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']" position="attributes">
+            <attribute name="t-if">not hide_checkout_button</attribute>
+        </xpath>
+    </template>
+
+    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+        <xpath expr="//a[@href='/shop/checkout?express=1']" position="attributes">
+            <attribute name="t-if">not hide_checkout_button</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="cart" inherit_id="website_sale.cart" customize_show="True">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t t-set="user_authenticated" t-value="user_id != website.user_id" />
+            <t
+                t-set="signup_allowed"
+                t-value="user_id._get_signup_invitation_scope() == 'b2c'"
+            />
+            <t
+                t-set="can_checkout"
+                t-value="website_sale_order and
+                                             website_sale_order.website_order_line"
+            />
+            <t
+                t-set="suggest_create_account"
+                t-value="not user_authenticated and signup_allowed and can_checkout"
+            />
+            <t
+                t-set="suggest_login"
+                t-value="not user_authenticated and not signup_allowed and can_checkout"
+            />
+        </xpath>
+        <!-- Show normal "Checkout" button if user is logged in or external login
+             is disabled -->
+        <xpath
+            expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']"
+            position="attributes"
+        >
+            <attribute name="class" />
+            <attribute
+                name="t-attf-class"
+            >#{'btn btn-primary float-right d-none d-xl-inline-block' if user_authenticated else 'btn btn-default float-right d-none d-xl-inline-block'}</attribute>
+        </xpath>
+        <!-- Show choice in other cases -->
+        <xpath
+            expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']"
+            position="after"
+        >
+            <a
+                t-if="suggest_login"
+                role="button"
+                class="btn btn-primary pull-right mb32 d-none d-xl-inline-block"
+                href="/web/login?redirect=/shop/checkout?express=1"
+            >
+                <span>Log in and checkout</span>
+                <span class="fa fa-long-arrow-right" />
+            </a>
+            <t t-if="suggest_create_account">
+                <a
+                    class="btn btn-primary pull-right mb32 d-none d-xl-inline-block"
+                    role="button"
+                    href="/web/signup?redirect=/shop/checkout?express=1"
+                >
+                    <span>Sign up and checkout</span>
+                    <span class="fa fa-long-arrow-right" />
+                </a>
+            </t>
+        </xpath>
+        <!-- Buttons for small screens, same modifications as above -->
+        <xpath
+            expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']"
+            position="attributes"
+        >
+            <attribute name="class" />
+            <attribute
+                name="t-attf-class"
+            >#{'btn btn-primary float-right' if user_authenticated else 'btn btn-default float-right'}</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']"
+            position="after"
+        >
+            <a
+                t-if="suggest_login"
+                role="button"
+                class="btn btn-primary pull-right mb32 d-xl-none"
+                href="/web/login?redirect=/shop/checkout?express=1"
+            >
+                <span>Log in and checkout</span>
+                <span class="fa fa-long-arrow-right" />
+            </a>
+            <t t-if="suggest_create_account">
+                <a
+                    class="btn btn-primary pull-right mb32 d-xl-none"
+                    role="button"
+                    href="/web/signup?redirect=/shop/checkout?express=1"
+                >
+                    <span>Sign up and checkout</span>
+                    <span class="fa fa-long-arrow-right" />
+                </a>
+            </t>
+        </xpath>
+    </template>
+    <!-- Cart summary -->
+    <template
+        id="short_cart_summary"
+        inherit_id="website_sale.short_cart_summary"
+        customize_show="True"
+    >
+        <xpath expr="//a[@href='/shop/checkout?express=1']" position="attributes">
+            <attribute name="class" />
+            <attribute
+                name="t-attf-class"
+            >#{'btn btn-secondary float-right d-none d-xl-inline-block' if user_authenticated else 'btn btn-default float-right d-none d-xl-inline-block'}</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop/checkout?express=1']" position="after">
+            <a
+                t-if="suggest_login"
+                role="button"
+                class="btn btn-secondary float-right d-none d-xl-inline-block"
+                href="/web/login?redirect=/shop/checkout?express=1"
+            >
+                <span>Log in and checkout</span>
+            </a>
+            <t t-if="suggest_create_account">
+                <a
+                    class="btn btn-secondary float-right d-none d-xl-inline-block"
+                    role="button"
+                    href="/web/signup?redirect=/shop/checkout?express=1"
+                >
+                    <span>Sign up and checkout</span>
+                </a>
+            </t>
+        </xpath>
+    </template>
+</odoo>
