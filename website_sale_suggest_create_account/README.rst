@@ -28,23 +28,13 @@ the buyer to log in or create an account, but without forcing him to do it.
 This way you can avoid duplication of partners in your database and offer your
 users a better experience without blocking 1-time buyers.
 
-However, the *Checkout without sign in* button is not highlighted, to
-implicitly encourage users to create the account.
+However, the *Process Checkout* button is not highlighted, to
+implicitly encourage users to create the account or log in.
 
 **Table of contents**
 
 .. contents::
    :local:
-
-Configuration
-=============
-
-To configure this module, you need to:
-
-* *Settings > Configuration > General Settings* and enable *Allow external
-  users to sign up*.
-
-Otherwise you will notice no change after installing this module.
 
 Usage
 =====
