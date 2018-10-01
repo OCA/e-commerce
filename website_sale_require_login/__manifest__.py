@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
-# © 2015 Antiun Ingeniería, S.L. - Jairo Llopis
+# Copyright 2015 Antiun Ingeniería, S.L. - Jairo Llopis
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Require login to checkout",
     "summary": "Force users to login for buying",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Website",
-    "website": "http://www.antiun.com",
+    "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, "
               "LasLabs, "
               "Odoo Community Association (OCA)",
