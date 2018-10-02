@@ -1,0 +1,1 @@
+This module makes website_sale_charge_payment_fee and website_quote modules work together
