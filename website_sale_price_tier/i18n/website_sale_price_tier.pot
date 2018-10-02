@@ -41,6 +41,7 @@ msgid "Price Tiers - Demo Tax"
 msgstr ""
 
 #. module: website_sale_price_tier
+#: model:ir.model.fields,field_description:website_sale_price_tier.field_delivery_carrier_price_quantity_tiers
 #: model:ir.model.fields,field_description:website_sale_price_tier.field_product_product_price_quantity_tiers
 #: model:ir.model.fields,field_description:website_sale_price_tier.field_product_template_price_quantity_tiers
 msgid "Price quantity tiers"
@@ -59,6 +60,7 @@ msgid "Quantity"
 msgstr ""
 
 #. module: website_sale_price_tier
+#: model:ir.model.fields,help:website_sale_price_tier.field_delivery_carrier_price_quantity_tiers
 #: model:ir.model.fields,help:website_sale_price_tier.field_product_product_price_quantity_tiers
 #: model:ir.model.fields,help:website_sale_price_tier.field_product_template_price_quantity_tiers
 msgid "This is a list of minimum quantities where pricing for the product changes, along with total costs for each of those quantities. It is computed for the current pricelist."
