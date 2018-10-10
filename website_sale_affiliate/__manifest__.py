@@ -4,9 +4,10 @@
 
 {
     "name": "Affiliate Program",
-    "summary": "Module summary",
-    "version": "10.0.1.0.0",
-    "category": "Uncategorized",
+    "summary": "Create an e-commerce affiliate program for the tracking of "
+               "referrals and conversions.",
+    "version": "10.0.1.0.1",
+    "category": "E-Commerce",
     "website": "https://laslabs.com",
     "author": "LasLabs, Odoo Community Association (OCA)",
     "license": "LGPL-3",
