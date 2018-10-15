@@ -12,7 +12,7 @@
     "license": "AGPL-3",
     "maintainer": "IT-Projects LLC",
     "category": "Extra Tools",
-    "website": "https://odoo-community.org/",
+    "website": "https://github.com/OCA/e-commerce",
     "depends": [
         "website_sale",
         "partner_firstname",
@@ -20,6 +20,5 @@
     "data": [
         "data/data.xml",
     ],
-    "auto_install": False,
     "installable": True,
 }

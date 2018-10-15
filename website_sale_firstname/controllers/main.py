@@ -5,11 +5,13 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSaleExtended(WebsiteSale):
     def _get_mandatory_billing_fields(self):
-        fields = super()._get_mandatory_billing_fields()
-        fields = list(filter(lambda x: x != "name", fields))
-        return fields
+        return [
+            fname for fname in super()._get_mandatory_billing_fields()
+            if fname != 'name'
+        ]
 
     def _get_mandatory_shipping_fields(self):
-        fields = super()._get_mandatory_shipping_fields()
-        fields = list(filter(lambda x: x != "name", fields))
-        return fields
+        return [
+            fname for fname in super()._get_mandatory_billing_fields()
+            if fname != 'name'
+        ]
