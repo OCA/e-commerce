@@ -19,4 +19,5 @@ class SaleOrder(models.Model):
         if self.partner_id.sale_type:
             self.type_id = self.partner_id.sale_type
             self.onchange_type_id()
+        self.match_order_type()
         return res
