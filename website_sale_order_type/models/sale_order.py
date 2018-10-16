@@ -16,6 +16,7 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self)._cart_update(
             product_id=product_id, line_id=line_id,
             add_qty=add_qty, set_qty=set_qty, attributes=attributes, **kwargs)
-        self.onchange_partner_id()
-        self.onchange_type_id()
+        if self.partner_id.sale_type:
+            self.type_id = self.partner_id.sale_type
+            self.onchange_type_id()
         return res
