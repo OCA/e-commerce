@@ -1,6 +1,7 @@
 # © 2014-2015 Antiun Ingenieria, SL (Madrid, Spain, http://www.antiun.com)
 #             Antonio Espinosa <antonioea@antiun.com>
 #             Daniel Gómez-Zurita <danielgz@antiun.com>
+# Copyright 2018 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
