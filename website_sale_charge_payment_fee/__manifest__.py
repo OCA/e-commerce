@@ -5,7 +5,7 @@
 {
     "name": "eCommerce: charge payment fee",
     "summary": "Payment fee charged to customer",
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.0.1",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
