@@ -23,7 +23,7 @@
             <attribute name="t-att-checked">acquirer == selected_acquirer if selected_acquirer else acquirers[0] == acquirer</attribute>
         </xpath>
         <xpath expr="//div[@t-if='not website_sale_order.amount_total']" position="after">
-            <input type="hidden" t-att-value="selected_acquirer.id if selected_acquirer else acquirers and acquirers[0].id"
+            <input type="hidden" t-att-value="selected_acquirer.id if selected_acquirer else acquirers and acquirers[0].id or False"
                    name="selected_acquirer_id"/>
         </xpath>
         <xpath expr="//a[@t-attf-href='/shop/product/#{ slug(line.product_id.product_tmpl_id) }']" position="attributes">
