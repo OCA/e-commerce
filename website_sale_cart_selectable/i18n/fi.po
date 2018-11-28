@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_cart_selectable
+#: model:ir.model.fields,field_description:website_sale_cart_selectable.field_delivery_carrier_website_btn_addtocart_published
 #: model:ir.model.fields,field_description:website_sale_cart_selectable.field_product_product_website_btn_addtocart_published
 #: model:ir.model.fields,field_description:website_sale_cart_selectable.field_product_template_website_btn_addtocart_published
 msgid "Button Add To Cart"
