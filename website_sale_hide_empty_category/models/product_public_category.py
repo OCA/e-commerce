@@ -18,7 +18,7 @@ class ProductPublicCategory(models.Model):
     )
 
     has_product_recurcive = fields.Boolean(
-        string='This catégory or one of its children has product',
+        string='This category or one of its children has products',
         compute='_compute_has_product_recurcive'
     )
 
