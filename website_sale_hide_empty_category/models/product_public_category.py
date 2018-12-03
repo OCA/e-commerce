@@ -19,14 +19,13 @@ class ProductPublicCategory(models.Model):
 
     has_products_recurcive = fields.Boolean(
         string='This catégory or one of its children has product',
-        compute='_has_products_recurcive'
+        compute='_compute_has_products_recurcive'
     )
 
     @api.depends('product_ids', 'child_id.has_products_recurcive')
-    def _has_products_recurcive(self):
+    def _compute_has_products_recurcive(self):
         for category in self:
             category.has_products_recurcive = \
                 bool(category.product_ids or any((child.has_products_recurcive
                                                   for child in
                                                   category.child_id)))
-
