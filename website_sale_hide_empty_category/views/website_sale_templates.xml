@@ -12,7 +12,7 @@
               name="Hide Empty Category list">
         <xpath expr="//t[@t-name='website_sale.categories_recursive']"
                position="attributes">
-            <attribute name="t-if">c.has_products_recurcive</attribute>
+            <attribute name="t-if">c.has_product_recurcive</attribute>
         </xpath>
     </template>
 
@@ -23,7 +23,7 @@
               name="Hide Empty Category in Collapsible list">
         <xpath expr="//t[@t-name='website_sale.option_collapse_categories_recursive']"
                position="attributes">
-            <attribute name="t-if">categ.has_products_recurcive</attribute>
+            <attribute name="t-if">categ.has_product_recurcive</attribute>
         </xpath>
     </template>
     
