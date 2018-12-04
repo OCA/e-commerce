@@ -17,15 +17,15 @@ class ProductPublicCategory(models.Model):
         column2='product_template_id',
     )
 
-    has_product_recurcive = fields.Boolean(
+    has_product_recursive = fields.Boolean(
         string='This category or one of its children has products',
-        compute='_compute_has_product_recurcive'
+        compute='_compute_has_product_recursive'
     )
 
-    @api.depends('product_ids', 'child_id.has_product_recurcive')
-    def _compute_has_product_recurcive(self):
+    @api.depends('product_ids', 'child_id.has_product_recursive')
+    def _compute_has_product_recursive(self):
         for category in self:
-            category.has_product_recurcive = \
-                bool(category.product_ids or any((child.has_product_recurcive
+            category.has_product_recursive = \
+                bool(category.product_ids or any((child.has_product_recursive
                                                   for child in
                                                   category.child_id)))
