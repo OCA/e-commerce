@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-15 03:01+0000\n"
-"PO-Revision-Date: 2017-08-15 03:01+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2018-12-28 23:41+0000\n"
+"Last-Translator: paolovalier <paolo@valier.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.3\n"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -61,7 +62,7 @@ msgstr "Sito internet"
 #. module: website_sale_checkout_skip_payment
 #: model:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
-msgstr ""
+msgstr "Il tuo ordine è in attesa di conferma manuale."
 
 #~ msgid "Partner"
 #~ msgstr "Partner"
