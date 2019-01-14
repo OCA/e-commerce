@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo10-addon-website_sale_checkout_country_vat',
         'odoo10-addon-website_sale_default_country',
         'odoo10-addon-website_sale_hide_price',
+        'odoo10-addon-website_sale_order_type',
         'odoo10-addon-website_sale_price_tier',
         'odoo10-addon-website_sale_require_legal',
         'odoo10-addon-website_sale_require_login',
