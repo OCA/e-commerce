@@ -25,7 +25,9 @@ class WebsiteSaleFee(WebsiteSale):
                     'payment.acquirer'].browse(int(payment_fee_id))
                 values['selected_acquirer'] = selected_acquirer
             else:
-                selected_acquirer = values['acquirers'][0]
+                selected_acquirer = request.env['payment.acquirer'].browse()
+                if values['acquirers']:
+                    selected_acquirer = values['acquirers'][0]
             order.sudo().update_fee_line(selected_acquirer.sudo())
             return request.render("website_sale.payment", values)
         return res
