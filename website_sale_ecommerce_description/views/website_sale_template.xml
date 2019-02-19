@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_description" inherit_id="website_sale.products_description">
+        <xpath expr="//div[@t-field='product.description_sale']" position="after">
+            <div itemprop="description" t-field="product.description_ecommerce"/>
+        </xpath>
+    </template>
+
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[p[@t-field='product.description_sale']]" position="after">
+            <hr t-if="product.description_ecommerce" />
+            <div class="o_not_editable">
+                <p t-field="product.description_ecommerce" class="text-muted" />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list">
+        <xpath expr="//div[@t-field='product.description_sale']" position="after">
+            <div class="text-muted hidden-xs" t-field="product.description_ecommerce" />
+        </xpath>
+    </template>
+
+</odoo>
