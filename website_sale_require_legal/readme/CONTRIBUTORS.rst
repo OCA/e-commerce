@@ -5,3 +5,4 @@
     * Vicent Cubells <vicent.cubells@tecnativa.com>
     * David Vidal <david.vidal@tecnativa.com>
     * Ernesto Tejeda <ernesto.tejeda87@gmail.com>
+    * Cristina Martin R.
