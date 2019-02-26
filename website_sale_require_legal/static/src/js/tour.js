@@ -8,7 +8,8 @@
 
     var steps = [
         {
-            trigger: "a:contains('iPod')",
+            content: "select Chair floor protection",
+            trigger: '.oe_product_cart a:contains("Chair floor protection")',
         },
         {
             trigger: "#add_to_cart",
