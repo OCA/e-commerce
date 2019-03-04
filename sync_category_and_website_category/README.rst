@@ -13,11 +13,11 @@ automatically updated.
 
 
 Works in conjuction and depends on product_category_attribute_set
-and webshop_product_filter and it syncs also the attributes of private and
+and website_sale_product_filter and it syncs also the attributes of private and
 public categories.
 The module syncs also the category attributes and the associated products so
 that public category now is rendered functionally useless, the
-webshop_product_filter module , that works on public categories will seamlessly
+website_sale_product_filter module , that works on public categories will seamlessly
 work the same.
 The one-way sync from private to public category is achieved by hiding all
 managment of public (website ) category.

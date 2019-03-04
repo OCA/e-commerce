@@ -11,7 +11,7 @@
     "depends": [
         'website_sale',
         'product_category_attribute_set',
-        'webshop_product_filter',
+        'website_sale_product_filter',
         'product_multi_category',
         'website_sale_category_conditional',
     ],
