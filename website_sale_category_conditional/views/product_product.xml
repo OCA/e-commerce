@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_cat_form_view_inherited" model="ir.ui.view">
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="published"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_cat_list_view_inherited" model="ir.ui.view">
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='complete_name']" position="after">
+                    <field name="published" editable="1" />
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- note had to write a new view (priority 0) because it seems that 
+             XPATH does not access the root "TREE" tag to make it editable -->
+        
+        <record id="product_category_list_view_new" model="ir.ui.view">
+            <field name="name">product.category.list</field>
+            <field name="model">product.category</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="complete_name"/>
+                    <field name="published"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="product_pubcat_form_view_inherit" model="ir.ui.view">
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="published"  readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
