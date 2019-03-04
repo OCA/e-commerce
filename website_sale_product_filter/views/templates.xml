@@ -6,7 +6,7 @@
             inherit_id="website.assets_frontend" name="extrasearch">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" type="css"
-                    href="/webshop_product_filter/static/src/css/webshop_product_filter.css"
+                    href="/website_sale_product_filter/static/src/css/website_sale_product_filter.css"
                     />
             </xpath>
         </template>
