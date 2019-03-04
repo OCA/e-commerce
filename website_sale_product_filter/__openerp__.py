@@ -4,7 +4,7 @@
 {
     "name": "Filter Products By Category Attributes On Webshop",
     "version": "9.0.1.0.0",
-    "author": "Therp BV",
+    "author": "Odoo Community Association (OCA), Therp BV",
     "license": "AGPL-3",
     "summary": "Allows to associate product attributes to categories and"
                " filter by those attributes when the category is selected"
