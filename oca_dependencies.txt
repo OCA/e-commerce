@@ -1,3 +1,4 @@
 product-attribute
 website
 partner-contact
+sale-workflow
