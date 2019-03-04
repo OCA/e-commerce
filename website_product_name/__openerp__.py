@@ -8,6 +8,7 @@
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Shows a different name for the product on website",
+    'website': 'https://github.com/OCA/e-commerce',
     "depends": [
         'website_sale',
     ],

@@ -41,7 +41,7 @@ Images
 
 Contributors
 ------------
-
+Giovanni Francesco Capalbo <giovanni@therp.nl>
 
 Maintainer
 ----------

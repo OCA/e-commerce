@@ -7,17 +7,17 @@ from openerp import api, fields, models
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    @api.multi
-    @api.depends('name', 'website_name')
-    def _compute_display_website_name(self):
-        for this in self:
-            this.display_website_name = this.website_name or this.name
-
     website_name = fields.Char(
         string='Product name on website',
         help='Name to be shown on website,if not set normal name will be '
         'shown.'
     )
     display_website_name = fields.Char(
-        compute=_compute_display_website_name, store=False
+        compute='_compute_display_website_name', store=False
     )
+
+    @api.multi
+    @api.depends('name', 'website_name')
+    def _compute_display_website_name(self):
+        for this in self:
+            this.display_website_name = this.website_name or this.name
