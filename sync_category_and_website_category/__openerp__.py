@@ -4,7 +4,7 @@
 {
     "name": "Syncronize internal categories and website categories",
     "version": "9.0.2.10.4",
-    "author": "Therp BV",
+    "author": "Odoo Community Association (OCA), Therp BV",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "syncs all internal categories with website category",

@@ -4,7 +4,7 @@
 {
     "name": "Attribute sets on Product Category",
     "version": "9.0.2.0.1",
-    "author": "Therp BV",
+    "author": "Odoo Community Association (OCA), Therp BV",
     "license": "AGPL-3",
     "category": "Sales",
     "summary": """

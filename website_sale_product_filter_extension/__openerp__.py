@@ -4,7 +4,7 @@
 {
     "name": "Webshop Product Filter Extension",
     "version": "9.0.2.2.0",
-    "author": "Therp BV",
+    "author": "Odoo Community Association (OCA), Therp BV",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Adds 2 usefull booleans to fields for extended filtering",
