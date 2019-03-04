@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="0">
+        <!--we need this to be certainly inactive and hidden-->
+        <record id="website_sale.products_add_to_cart" model="ir.ui.view">
+            <field name="active" eval="False"/>
+            <field name="customize_show" eval="False"/>
+        </record>
+    </data>
+</openerp>

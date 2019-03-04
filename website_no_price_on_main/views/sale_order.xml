@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_ext" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='technical']" position="after">
+                    <field name="customer_notes" />
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="from_website_id" />
+                    <field name="website_confirmed" />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>

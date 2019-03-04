@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="products_no_item_price" name="Products item price" inherit_id="website_sale.products_item">
+            <xpath expr="//form//div//section//div[@class='product_price']" position="before">
+                <t t-if="not is_main" id="condit_price_show">
+                </t>
+            </xpath>
+            <xpath expr="//form//div//section//div[@class='product_price']" position="move" target="//t[@id='condit_price_show']"/>
+        </template>
+
+        <template id="product_no_price" name="no price" inherit_id="website_sale.product_price">
+            <xpath expr="//div[@class='product_price mt16']" position="before">
+                <t t-if="not is_main" id="condit_price_show2">
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='product_price mt16']"  position="move" target="//t[@id='condit_price_show2']"/>
+        </template>
+
+        <template id="product_cart_lines_ext" name="product_quote_on_main" inherit_id="website_sale.cart_lines">
+            <xpath expr="//td[@id='td-price']" position="before">
+                <t t-if="not is_main" id="condit_price_show4">
+                </t>
+            </xpath>
+            <xpath expr="//td[@id='td-price']" position="move" target="//t[@id='condit_price_show4']"/>
+
+            <xpath expr="//thead/tr/th[4]" position="replace">
+                <th></th>
+            </xpath>
+        </template>
+
+        <template id="product_cart_ext" name="product_cart_ric" inherit_id="website_sale.cart">
+            <xpath expr="//h4[1]/.." position="attributes">
+                <attribute name="t-if">not website.is_main</attribute>
+            </xpath>
+            <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+                <attribute name="t-if">not website.is_main</attribute>
+            </xpath>
+            <xpath expr="//a[@href='/shop/checkout']" position="after">
+                <t t-if="website.is_main">
+                    <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" href="/shop/checkout">
+                        <span class="hidden-xs">Request Quotation</span>
+                        <span class="visible-xs-inline">Request Quotation</span> 
+                        <span class="fa fa-long-arrow-right"/>
+                    </a>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="product_cart_total_ext" name="product_quote_cart_total" inherit_id="website_sale.total">
+            <xpath expr="//div[@id='order_total_untaxed']" position="attributes">
+                <attribute name="t-if">not is_main</attribute>
+            </xpath>
+            <xpath expr="//div[@id='order_total_taxes']" position="attributes">
+                <attribute name="t-if">not is_main</attribute>
+            </xpath>
+            <xpath expr="//div[@id='order_total']" position="attributes">
+                <attribute name="t-if">not is_main</attribute>
+            </xpath>
+            <xpath expr="//div[@id='order_total']" position="after">
+                <t t-if="is_main">
+                    <span class="col-xs-6 text-right text-muted" title="Request quotation"> Request Quotation.</span>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="cart_wizard_checkout_extend" name="cartwiz_checkout_ext" 
+            inherit_id="website_sale.wizard_checkout">
+            <xpath expr="//li[@id='step20']" position="attributes">
+                <attribute name="t-if">not is_main</attribute>
+            </xpath>
+            <xpath expr="//li[@id='step10']" position="after">
+                <t t-if="is_main">
+                    <li t-att-class="(step==20 and 'text-primary') or 'text-muted'" id="step21">
+                        <a href="/shop/checkout"  class='text-success'>
+                            <t t-if="not website_sale_order or not website_sale_order.website_order_line or not website_sale_order.only_services"></t>Request For Quotation<span class="chevron"></span> </a>
+                    </li>
+                </t>
+            </xpath>
+            <xpath expr="//li[@id='step40']" position="attributes">
+                <attribute name="t-if">not is_main</attribute>
+            </xpath>
+        </template>
+
+        <template id="cart_checkout_extend" 
+            name="cart_checkout_ext" 
+            inherit_id="website_sale.checkout">
+           <xpath expr="//form/div[last()]" position="after">
+               <div t-attf-class="form-group col-lg-6">
+                     <label class="control-label" for="name">Customer Notes</label>
+                    <input type="text" name="customer_notes" class="form-control" t-att-value="checkout.get('customer_notes')"/>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="confirm_quotation" name="confirm quotation" >
+            <t t-call="website.layout">
+                <div class="container mt32" >
+                    <h3>
+                        Your request for quotation has been received, we will contact
+                        your email with our best offer for the requested items in the requested 
+                        quantity.
+                    </h3>
+                    <table class="table table-round-border" style="border: 1px solid gray" >
+                        <tr>
+                            <td>Request for quotation details</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><t t-esc="sale.name" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td><t t-esc="sale.date_order" /></td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td><t t-esc="sale.partner_id.name" /></td>
+                        </tr>
+                        <tr>
+                            <td><b>Product</b></td>
+                            <td><b>Quantity</b></td>
+                            <td><b>UOM</b></td>
+                        </tr>
+                        <t t-foreach="sale.order_line" t-as="line">
+                            <tr>
+                                <td><t t-esc="line.product_id.name" /></td>
+                                <td><t t-esc="line.product_uom_qty" /></td>
+                                <td><t t-esc="line.product_uom.name" /></td>
+                            </tr>
+                        </t>
+                        <tr></tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td><t t-esc="sale.customer_notes" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>
