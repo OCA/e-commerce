@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_secondary_unit_public,access_product_second_unit_public,product_secondary_unit.model_product_secondary_unit,base.group_public,1,0,0,0
+access_product_secondary_unit_portal,access_product_second_unit_portal,product_secondary_unit.model_product_secondary_unit,base.group_portal,1,0,0,0
+access_product_uom_public,access_product_uom_public,product.model_product_uom,base.group_public,1,0,0,0
+access_product_uom_portal,access_product_uom_portal,product.model_product_uom,base.group_portal,1,0,0,0
