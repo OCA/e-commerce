@@ -4,7 +4,7 @@
 {
     "name": "Conditionally views categories on website",
     "version": "9.0.2.7.0",
-    "author": "Therp BV",
+    "author": "Odoo Community Association (OCA), Therp BV",
     "license": "AGPL-3",
     "category": "Website",
     "summary": """Conditionally views categories on websites and orders them in
