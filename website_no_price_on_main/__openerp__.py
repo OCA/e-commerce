@@ -4,7 +4,7 @@
 {
     "name": "No prices visualized on main website",
     "version": "9.0.1.0.0",
-    "author": "Therp BV",
+    "author": "Odoo Community Association (OCA), Therp BV",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Do not show th epricing on the main website",
