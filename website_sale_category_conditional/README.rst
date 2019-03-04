@@ -7,8 +7,7 @@ Website sale category conditional
 =================================
 
 * adds published
-* depends on sync category and website category
-* extends the one-way syncing to published field
+* hides empty categories automatically
 * extends domain to filter only through published categories 
 * extends template sale to show in menu published categories
 * extends backend view to manage such categories.
