@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <template id="assets_website_extrasearch_frontend" 
+            inherit_id="website.assets_frontend" name="extrasearch">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="css"
+                    href="/webshop_product_filter/static/src/css/webshop_product_filter.css"
+                    />
+            </xpath>
+        </template>
+
+        <template id="extra_filters" inherit_id="website.website_search_box">
+            <xpath expr="//div[@class='input-group']" position ="before">
+                <t t-if="category and filter">
+                    <div>
+                        <b>
+                            <t t-esc="extra_domain_subtitle"/>
+                        </b>
+                    </div>
+                </t>
+            </xpath>
+
+            <xpath
+                expr="//div[@class='input-group']/div[@class='oe_search']/input[@name='search']" 
+                position ="attributes">
+                <attribute name="placeholder">Search in name and description...</attribute>
+            </xpath>
+
+            <xpath
+                expr="//div[@class='input-group']"
+                position="after">
+                <t t-if="filters">
+                    <!--overwrite the normal height of form-control class -->
+                    <t t-foreach="filters.keys()" t-as="f">
+                        <div class="row align-items-start advanced_filter_row" >
+                            <div class="form-control advanced_filter" >
+                                <div class="col-md-3 col-xs-12">
+                                    <label
+                                        t-attf-for="#{FILTER_PREFIX}#{f.name}">
+                                        <t t-esc="f.field_description"/>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-9 col-xs-12">
+                                    <input
+                                        t-if="f.ttype in ['char', 'text']"
+                                        t-attf-id="#{FILTER_PREFIX}#{f.name}"
+                                        class=" search-query oe_search_box form-control"
+                                        type="text"
+                                        t-attf-name="#{FILTER_PREFIX}#{f.name}"
+                                        t-attf-placeholder="contains ..."
+                                        />
+
+                                    <t t-if="f.ttype in ['integer','float']" >
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12">
+                                                <select
+                                                    t-attf-id="#{POLICY_PREFIX}#{f.name}"
+                                                    t-attf-name="#{POLICY_PREFIX}#{f.name}" >
+                                                    <option value="disable" selected="selected">disable</option>
+                                                    <option value="exact">Exact value</option>
+                                                    <option value="more">More than</option>
+                                                    <option value="less"> Less than</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--min , slider, max -->
+
+                                            <div class="col-md-12 col-xs-12">
+                                                <span t-esc="filters[f][0]"/>
+                                                <input 
+                                                    class="form-control"
+                                                    t-attf-id="#{FILTER_PREFIX}#{f.name}"
+                                                    type="range"
+                                                    t-att-min="filters[f][0]"
+                                                    t-att-max="filters[f][1]"
+                                                    t-attf-name="#{FILTER_PREFIX}#{f.name}"
+                                                    t-attf-value="filters[f][0]"
+                                                    />
+                                                <span t-esc="filters[f][1]"/>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                    <t t-if="f.ttype in ['date','datetime']" >
+                                        <select
+                                            t-attf-id="#{POLICY_PREFIX}#{f.name}"
+                                            t-attf-name="#{POLICY_PREFIX}#{f.name}"
+                                            >
+                                            <option value="disable" selected="selected">disable</option>
+                                            <option value="exact">Exact </option>
+                                            <option value="more">After</option>
+                                            <option value="less">Before</option>
+                                        </select>
+                                        <input
+                                            t-attf-id="#{FILTER_PREFIX}#{f.name}"
+                                            class="search-query oe_search_box form-control"
+                                            type="date"
+                                            t-attf-name="#{FILTER_PREFIX}#{f.name}"
+                                            placeholder="dd-mm-yyy  (after this date)"
+                                            />
+                                    </t>
+
+                                    <input
+                                        t-if="f.ttype == 'boolean'"
+                                        t-attf-id="#{FILTER_PREFIX}#{f.name}"
+                                        type="checkbox"
+                                        t-attf-name="#{FILTER_PREFIX}#{f.name}"
+                                        />
+
+                                    <t t-if="f.ttype in ['selection']" >
+                                        <select
+                                            t-attf-id="#{POLICY_PREFIX}#{f.name}"
+                                            t-attf-name="#{POLICY_PREFIX}#{f.name}"
+                                            >
+                                            <option value="disable" selected="selected">disable</option>
+                                            <option value="is">is </option>
+                                            <option value="isnot">is not</option>
+                                        </select>
+                                        <select
+                                            t-if="f.ttype == 'selection'"
+                                            t-attf-name="#{FILTER_PREFIX}#{f.name}">
+                                            <option>
+                                            </option>
+                                            <t t-foreach="filters[f]" t-as="opt">
+                                                <option t-attf-value="x2x_#{opt[0]}_x2x_opt_#{opt[1]}">
+                                                    <t t-esc="opt[1]"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </t>
+
+                                    <t t-if="f.ttype in ['many2one', 'one2many', 'many2many']">
+                                        <select
+                                            t-attf-id="#{POLICY_PREFIX}#{f.name}"
+                                            t-attf-name="#{POLICY_PREFIX}#{f.name}">
+                                            <option value="disable" selected="selected">disabled</option>
+                                            <option value="is">is </option>
+                                            <option value="isnot">is not</option>
+                                        </select>
+                                        <select t-attf-name="#{FILTER_PREFIX}#{f.name}" >
+                                            <option value=""></option>
+                                            <t t-foreach="filters[f]" t-as="opt">
+                                                <option t-attf-value="x2x_#{opt['id']}_x2x_opt_#{opt['display_name']}">
+                                                    <t t-esc="opt['display_name']"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,25 @@
+.extra_input_group label , .extra_input_group input 
+{   
+    float: none; 
+    display: inline-block;
+    vertical-align: middle;  
+    height:100%;
+}
+
+.extra_input_group label 
+{   
+margin-right:20px;
+height:100%;
+}
+
+.extra_input_group 
+{
+margin-right:60px;
+height:100%
+}
+
+
+.rangeselector
+{
+
+}

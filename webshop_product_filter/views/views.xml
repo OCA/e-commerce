@@ -1,0 +1,20 @@
+<openerp>
+    <data>
+        <!-- separating views and templates -->
+        <record 
+            id="product_public_category_form_view_inherited" 
+            model="ir.ui.view">
+            <field name="model">product.public.category</field>
+            <field 
+                name="inherit_id" 
+                ref="website_sale.product_public_category_form_view"/>
+            <field name="arch" type="xml">
+                <!--xpath should have a good anchor point, not a generic
+                     class used everywhere -->
+                <xpath expr="//field[@name='name']" position="after">
+                        <field name="category_attributes"  widget="many2many"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
