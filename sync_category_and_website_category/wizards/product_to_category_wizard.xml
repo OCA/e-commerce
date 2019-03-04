@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <record id="wizard_add_product_to_cat" model="ir.ui.view">
+            <field name="name">Add product to cat</field>
+            <field name="model">add_prd_wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add product to category">
+                    <separator string="Add to Category"></separator>
+                    <group>
+                        <field name="category_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="category_type"/>
+                    </group>
+                    <separator string="Product currently in:"></separator>
+                    <group>
+                        <field name="current_main_cat_id"/>
+                        <field name="current_extra_cat_ids"/>
+                    </group>
+                    <footer>
+                        <button name="add_product_to_internal_category" 
+                            string="Add product" 
+                            type="object"
+                            class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wiz_add_product_to_cat"
+            model="ir.actions.act_window" >
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Add Product to Category</field>
+            <field name="view_type">form</field>
+            <field name="res_model">add_prd_wiz</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_add_product_to_cat"/>
+            <field name ="target">new</field>
+        </record>
+
+        <record id="wizard_add_rem_mult_product_from_cat" model="ir.ui.view">
+            <field name="name">Add Rem multiple product from cat</field>
+            <field name="model">add_rem_mult_prd_wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add/remove multiple products from category">
+                    <h3>All records added here will be added as extra category, if you want to add as main use the 
+                        "add a product to this category" button</h3>
+                    <separator string="Add/remove multiple products from Category"></separator>
+                    <group>
+                        <field name="category_id" readonly="1"/>
+                    </group>
+                        <field name="products_ids"/>
+                    <footer>
+                        <button name="rem_products_from_internal_category" string="Update products" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_wiz_add_rem_mult_product_from_cat"
+            model="ir.actions.act_window" >
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Add Remove multiple Products from Category</field>
+            <field name="view_type">form</field>
+            <field name="res_model">add_rem_mult_prd_wiz</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_add_rem_mult_product_from_cat"/>
+            <field name ="target">new</field>
+        </record>
+
+        <record id="wizard_feedback" model="ir.ui.view">
+            <field name="name">Feedback Add Delete</field>
+            <field name="model">add_rem_mult_prd_wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Feedback Multiple Add/Remove">
+                    <separator string='Products Removed From Category'/>
+                    <field name='removed' readonly="1"></field>
+                    <field name='moved_to_all' readonly="1"></field>
+                    <field name='removed_extra' readonly="1"></field>
+                    <separator string='Products Added To Category'/>
+                    <field name='added_as_extra' readonly="1"></field>
+                </form>
+            <footer>
+                <button special="cancel" string="Close"/>
+            </footer>
+            </field>
+        </record>
+
+    </data>
+</openerp>

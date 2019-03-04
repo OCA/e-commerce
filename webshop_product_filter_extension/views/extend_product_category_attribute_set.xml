@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="extend_category_attribute_set_tree" 
+            model="ir.ui.view">
+            <field name="name">extend.field.treeview</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after" >
+                    <field name="is_filter" readonly="0"/>
+                    <field name="is_in_description" readonly="0"/>
+                </field>
+            </field>
+        </record>
+        <record id="extend_category_attribute_set_form" 
+            model="ir.ui.view">
+            <field name="name">extend.field.formview</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_form"/>
+            <field name="arch" type="xml">
+                <field name="ttype" position="after" >
+                    <field name="is_filter" readonly="0"/>
+                    <field name="is_in_description" readonly="0"/>
+                </field>
+            </field>
+        </record>
+        <record id="extend_category_attribute_set_form_limited" 
+            model="ir.ui.view">
+            <field name="name">extend.field.formview</field>
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="product_category_attribute_set.edit_model_fields_limited"/>
+            <field name="arch" type="xml">
+                <field name="ttype" position="after" >
+                    <field name="is_filter" readonly="0"/>
+                    <field name="is_in_description" readonly="0"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

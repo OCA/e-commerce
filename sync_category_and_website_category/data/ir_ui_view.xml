@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.menu" id="website_sale.menu_product_public_category" >
+            <field name="action"/>
+        </record>
+    </data>
+</openerp>

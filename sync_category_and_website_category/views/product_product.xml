@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_product_form_view_medisafe_hide_website_cats" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='public_categ_ids']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_cat_list_view_inherited" model="ir.ui.view">
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='complete_name']" position="before">
+                    <field name="sequence" widget="handle" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_cat_form_view_inherited" model="ir.ui.view">
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="sequence"/>
+                </xpath>
+                <xpath expr="//group[last()]" position="after">
+                    <separator colspan="4" string="Products in this category"/>
+                    <field name="category_products" readonly="0"/>
+                    <button 
+                        type="action" 
+                        name="%(sync_category_and_website_category.action_wiz_add_product_to_cat)d"
+                        string="Add a product to this category" />
+                    <button 
+                        type="action" 
+                        name="%(sync_category_and_website_category.action_wiz_add_rem_mult_product_from_cat)d"
+                        string="Add/Remove Multiple products from this category" />
+                    <separator colspan="4" string="Sub-categories"/>
+                    <field name="child_id"  readonly="0"/>
+                    <separator colspan="4" string="Check syncronization with public categories (readonly) "/>
+                    <field name="public_category_id"  readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="product_pubcat_form_view_inherited" model="ir.ui.view">
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="internal_category_id"  readonly="1"/>
+                    <separator colspan="4" string="Products in this Category (readonly)" />
+                    <field name="category_products"  readonly="0"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+<odoo>
+
+        <record id="edit_model_fields_limited" model="ir.ui.view">
+            <field name="model">ir.model.fields</field>
+            <field name="arch" type="xml">
+                <form string="Fields_limited" duplicate="false">
+                    <sheet>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="model_id" readonly="1"/>
+                            <field name="field_description"/>
+                            <field name="help"/>
+                            <field name="ttype" readonly="1"/>
+                            <field name="selection" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="product_category_form_ext" model="ir.ui.view">
+            <field name="name">product_category.form.extend</field>
+            <field name="model">product.category</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[last()]" position="after">
+                    <group>
+                        <field name="product_field_ids" widget="many2many"  
+                            context="{'form_view_ref':'product_category_attribute_set.edit_model_fields_limited'}"
+                            options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+</odoo>
