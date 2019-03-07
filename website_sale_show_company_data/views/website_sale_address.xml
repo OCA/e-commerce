@@ -20,4 +20,20 @@
         </xpath>
     </template>
 
+    <template id="address_kanban" inherit_id="website_sale.address_kanban">
+        <!--Show user company info at the address kanban-->
+        <xpath expr="//t[@t-esc='contact']" position="after">
+            <t t-if="contact.commercial_partner_id and contact.commercial_partner_id.vat">
+                <t t-esc="contact.commercial_partner_id.vat"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="bill_to" inherit_id="website_sale.bill_to">
+        <!--Show company VAT -->
+        <xpath expr="//div[@t-field='order.partner_invoice_id']" position="after">
+            <t t-if="order.partner_invoice_id.vat" t-esc="order.partner_invoice_id.vat"/>
+        </xpath>
+    </template>
+
 </odoo>
