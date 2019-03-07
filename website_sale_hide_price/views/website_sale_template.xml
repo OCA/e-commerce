@@ -10,7 +10,7 @@
         <template id="products_item" inherit_id="website_sale.products_item">
             <xpath expr="//div[@itemprop='offers']" position="attributes">
                 <attribute name="t-if">
-                    website.website_show_price
+                    product.product_variant_ids and website.website_show_price
                 </attribute>
             </xpath>
         </template>
