@@ -12,6 +12,4 @@ class ProductTemplate(models.Model):
         string='Attachments',
         domain=[
             ('public', '=', True),
-            ('res_model', '=', 'product.template'),
-        ]
-    )
+            ('res_model', '=', 'product.template')])
