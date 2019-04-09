@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo11-addon-website_sale_product_brand',
         'odoo11-addon-website_sale_require_legal',
         'odoo11-addon-website_sale_require_login',
+        'odoo11-addon-website_sale_secondary_unit',
         'odoo11-addon-website_sale_suggest_create_account',
         'odoo11-addon-website_sale_vat_required',
     ],
