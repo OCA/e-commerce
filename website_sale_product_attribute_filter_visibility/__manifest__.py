@@ -15,7 +15,10 @@
         'website_sale',
     ],
     'data': [
+        'views/assets.xml',
         'views/product_attribute_views.xml',
     ],
-    'post_init_hook': 'post_init_hook',
+    'demo': [
+        'data/demo.xml',
+    ]
 }
