@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_test_color" model="product.attribute">
+        <field name="website_published" eval="True"/>
+        <field name="name">Test Color</field>
+        <field name="create_variant" eval="False"/>
+    </record>
+    <record id="product_attribute_value_color_red" model="product.attribute.value">
+        <field name="name">Test Red</field>
+        <field name="attribute_id" ref="product_attribute_test_color"/>
+    </record>
+    <record id="product_attribute_value_color_green" model="product.attribute.value">
+        <field name="name">Test Green</field>
+        <field name="attribute_id" ref="product_attribute_test_color"/>
+    </record>
+    <record id="product_attribute_value_color_blue" model="product.attribute.value">
+        <field name="name">Test Blue</field>
+        <field name="attribute_id" ref="product_attribute_test_color"/>
+    </record>
+
+    <record id="product_attribute_test_size" model="product.attribute">
+        <field name="website_published" eval="False"/>
+        <field name="name">Test Size</field>
+        <field name="create_variant" eval="False"/>
+    </record>
+    <record id="product_attribute_value_test_size_small" model="product.attribute.value">
+        <field name="name">Size Small</field>
+        <field name="attribute_id" ref="product_attribute_test_size"/>
+    </record>
+    <record id="product_attribute_value_test_size_large" model="product.attribute.value">
+        <field name="name">Size Large</field>
+        <field name="attribute_id" ref="product_attribute_test_size"/>
+    </record>
+
+    <record id="product_attribute_line_test_color" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_11_product_template"/>
+        <field name="attribute_id" ref="product_attribute_test_color"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_value_color_red'), ref('product_attribute_value_color_green')])]"/>
+    </record>
+    <record id="product_attribute_line_test_size" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_11_product_template"/>
+        <field name="attribute_id" ref="product_attribute_test_size"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_value_test_size_small'), ref('product_attribute_value_test_size_large')])]"/>
+    </record>
+
+    <record id="product.product_product_11_product_template" model="product.template">
+        <field name="attribute_line_ids" eval="[(4, ref('product_attribute_line_test_color')), (4, ref('product_attribute_line_test_size'))]"/>
+    </record>
+
+</odoo>
