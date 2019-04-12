@@ -17,4 +17,5 @@
     'data': [
         'views/product_attribute_views.xml',
     ],
+    'post_init_hook': 'post_init_hook',
 }
