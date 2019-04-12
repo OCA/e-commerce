@@ -9,6 +9,8 @@ class WebsiteSaleHttpCase(HttpCase):
         super(WebsiteSaleHttpCase, self).setUp()
         with self.cursor() as cr:
             env = self.env(cr)
+            self.all_attributes = env['product.attribute'].search([])
+            self.all_attributes.write({'website_published': False})
             self.attribute_color = env['product.attribute'].create({
                 'name': 'test_color',
                 'create_variant': False,
@@ -59,14 +61,11 @@ class WebsiteSaleHttpCase(HttpCase):
             })
 
     def _active_product_filter_view(self):
-        with self.cursor() as cr:
-            env = self.env(cr)
-            # Active the view Product Attributes Filter
-            view = env['ir.ui.view'].search([
-                ('key', '=', 'website_sale.products_attributes'),
-                ('active', '=', False),
-            ])
-            view.active = True
+        # Active the view Product Attributes Filter
+        view = self.env['ir.ui.view'].search([
+            ('key', '=', 'website_sale.products_attributes'),
+        ])
+        view.active = True
 
     def test_render_shop_one_attribute(self):
         self._active_product_filter_view()
@@ -85,3 +84,13 @@ class WebsiteSaleHttpCase(HttpCase):
         attribute_values = len(tree.xpath(
             "//form[@class='js_attributes']//input[@name='attrib']"))
         self.assertEqual(attribute_values, 5)
+
+    def test_post_init_hook(self):
+        from ..hooks import post_init_hook
+        with self.cursor():
+            self.all_attributes.write({
+                'website_published': False,
+            })
+            post_init_hook(self.cursor(), None)
+            self.assertTrue(all(
+                self.all_attributes.mapped('website_published')))
