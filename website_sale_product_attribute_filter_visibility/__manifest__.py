@@ -15,6 +15,10 @@
         'website_sale',
     ],
     'data': [
+        'views/assets.xml',
         'views/product_attribute_views.xml',
     ],
+    'demo': [
+        'data/demo.xml',
+    ]
 }
