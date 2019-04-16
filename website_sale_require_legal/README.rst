@@ -23,7 +23,7 @@ Require accepting legal terms to checkout
     :target: https://runbot.odoo-community.org/runbot/113/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module was written to extend the functionality of your website shop to
 support forcing the user to accept your legal advice, terms of use and privacy
