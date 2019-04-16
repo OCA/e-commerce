@@ -73,9 +73,11 @@ class SaleOrderLine(models.Model):
         SecondaryUom = self.env['product.secondary.unit']
         secondary_uom = SecondaryUom.browse(
             vals.get('secondary_uom_id', False))
-        product_uom = self.env['product.uom'].browse(vals['product_uom'])
+        product_uom = self.env['product.uom'].browse(
+            vals.get('product_uom', False))
         if secondary_uom:
-            factor = secondary_uom.factor * product_uom.factor
+            factor = (secondary_uom.factor * (product_uom and
+                      product_uom.factor or 1.0))
             vals['secondary_uom_qty'] = float_round(
                 vals['product_uom_qty'] / (factor or 1.0),
                 precision_rounding=secondary_uom.uom_id.rounding
