@@ -20,12 +20,12 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid "<span>Checkout without sign up</span>"
-msgstr "<span>Završi bez prijave </span>"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Log in and checkout</span>"
+msgstr ""
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 msgid ""
 "<span>Log in and checkout</span>\n"
 "                <span class=\"fa fa-long-arrow-right\"/>"
@@ -34,10 +34,18 @@ msgstr ""
 "                <span class=\"fa fa-long-arrow-right\"/>"
 
 #. module: website_sale_suggest_create_account
-#: model:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Sign up and checkout</span>"
+msgstr ""
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 msgid ""
 "<span>Sign up and checkout</span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 "<span>Kreiraj korisnika i završi </span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
+
+#~ msgid "<span>Checkout without sign up</span>"
+#~ msgstr "<span>Završi bez prijave </span>"
