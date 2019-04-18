@@ -24,6 +24,12 @@ msgid "Allow to sell in unit of measure"
 msgstr "Permitir vender en la unidad de medida"
 
 #. module: website_sale_secondary_unit
+#: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_10
+#: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_5
+msgid "Box"
+msgstr ""
+
+#. module: website_sale_secondary_unit
 #: model:ir.model,name:website_sale_secondary_unit.model_product_template
 msgid "Product Template"
 msgstr "Plantilla de producto"

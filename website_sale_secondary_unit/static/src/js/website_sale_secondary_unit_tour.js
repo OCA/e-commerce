@@ -7,13 +7,24 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
     var tour = require("web_tour.tour");
     var base = require("web_editor.base");
 
+    // Get an option value by its text
+    // HACK https://github.com/odoo/odoo/pull/32718
+    function opt_val (option_text) {
+        return function (action_helper) {
+            var option_id = this.$anchor.children(_.str.sprintf(
+                "option:contains('%s')", option_text
+            )).val();
+            action_helper.text(option_id);
+        };
+    }
+
     var steps = [
         {
             trigger: "a:contains('iPod')",
         },
         {
             trigger: "#secondary_uom",
-            run: "text 1",
+            run: opt_val("Box 5 Unit(s)"),
         },
         {
             trigger: "#add_to_cart",
