@@ -2,8 +2,6 @@
 import odoo.tests
 
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
 class TestUi(odoo.tests.HttpCase):
     def run_tour(self, login=None):
         self.phantom_js(
@@ -27,4 +25,7 @@ class TestUi(odoo.tests.HttpCase):
         self.run_tour("demo")
 
     def test_04_public_checkout(self):
+        # Disable sign up, in case auth_signup is installed
+        self.env["ir.config_parameter"].set_param(
+            "auth_signup.invitation_scope", "b2b")
         self.run_tour()
