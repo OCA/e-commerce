@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Tecnativa - Jairo Llopis <jairo.llopis@tecnativa.com>
+     Copyright 2019 Tecnativa - Cristina Martin R
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="accept_input">
+        <div class="col-lg-12">
+            <input
+                t-attf-class="form-check-input position-relative ml-0 mr-1 #{'is-invalid' if error and error.get('accepted_legal_terms') else ''}"
+                type="checkbox"
+                name="accepted_legal_terms"
+                id="accepted_legal_terms"
+                required="required"/>
+            <label for="accepted_legal_terms" class="control-label form-check-label">
+                <t t-call="website_legal_page.acceptance_full"/>
+            </label>
+        </div>
+    </template>
+
+    <template id="address" inherit_id="website_sale.address">
+        <xpath expr="//div[hasclass('w-100')][last()]" position="after">
+            <t t-call="website_sale_require_legal.accept_input"/>
+        </xpath>
+    </template>
+
+</odoo>
