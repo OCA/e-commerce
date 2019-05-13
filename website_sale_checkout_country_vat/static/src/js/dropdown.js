@@ -2,12 +2,11 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 odoo.define("website_sale_checkout_country_vat.dropdown", function (require) {
     "use strict";
-    var animation = require("web_editor.snippets.animation");
+    var animation = require('website.content.snippets.animation');
 
-    return animation.registry.website_sale_checkout_country_vat_dropdown
-    = animation.Class.extend({
-        selector: ".oe_website_sale:has(.js_country_dropdown, \
-                                        select[name=country_id])",
+    var CheckoutCountryVatDropdown = animation.Class.extend({
+        selector: ".oe_website_sale:has(.js_country_dropdown, " +
+                  "select[name=country_id])",
         start: function (editable_mode) {
             var result = this._super(editable_mode);
             this.$address_country = this.$("select[name=country_id]");
@@ -32,9 +31,12 @@ odoo.define("website_sale_checkout_country_vat.dropdown", function (require) {
         // Get a country element inside the vat dropdown
         get_vat_country_selector: function (country_code) {
             return this.$(
-                ".js_select_country_code[data-country_id='"
-                + country_code + "']"
+                ".js_select_country_code[data-country_id='" +
+                country_code + "']"
             );
         },
     });
+
+    animation.registry.website_sale_checkout_country_vat =
+        CheckoutCountryVatDropdown;
 });
