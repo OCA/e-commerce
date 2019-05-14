@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_test_special_color" model="product.attribute">
+        <field name="website_published" eval="True"/>
+        <field name="name">Test Special Color</field>
+    </record>
+
+    <record id="product_attribute_value_color_red" model="product.attribute.value">
+        <field name="name">Test red</field>
+        <field name="attribute_id" ref="product_attribute_test_special_color"/>
+    </record>
+    <record id="product_attribute_value_color_green" model="product.attribute.value">
+        <field name="name">Test green</field>
+        <field name="attribute_id" ref="product_attribute_test_special_color"/>
+    </record>
+    <record id="product_attribute_value_color_blue" model="product.attribute.value">
+        <field name="name">Test blue</field>
+        <field name="attribute_id" ref="product_attribute_test_special_color"/>
+    </record>
+
+    <record id="product_attribute_line_test_color" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_11_product_template"/>
+        <field name="attribute_id" ref="product_attribute_test_special_color"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_value_color_red'), ref('product_attribute_value_color_green')])]"/>
+    </record>
+    <record id="product.product_product_11_product_template" model="product.template">
+        <field name="attribute_line_ids" eval="[(4, ref('product_attribute_line_test_color'))]"/>
+    </record>
+
+    <record id="product_attribute_line_test_color_27" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_27_product_template"/>
+        <field name="attribute_id" ref="product_attribute_test_special_color"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_value_color_red'), ref('product_attribute_value_color_blue')])]"/>
+    </record>
+    <record id="product.product_product_27_product_template" model="product.template">
+        <field name="attribute_line_ids" eval="[(4, ref('product_attribute_line_test_color_27'))]"/>
+    </record>
+
+</odoo>
