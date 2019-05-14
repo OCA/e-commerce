@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Victor M.M. Torres
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <template id="products_attributes" inherit_id="website_sale.products_attributes">
+
+        <xpath expr="//t[@t-if=&quot;a.type == &apos;select&apos;&quot;]//t[@t-foreach='a.value_ids']/option" position="attributes">
+            <attribute name="t-if">attr_values_used &amp; v</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;a.type == &apos;radio&apos;&quot;]//t[@t-foreach='a.value_ids']/li" position="attributes">
+            <attribute name="t-if">attr_values_used &amp; v</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;a.type == &apos;color&apos;&quot;]//t[@t-foreach='a.value_ids']/label" position="attributes">
+            <attribute name="t-if">attr_values_used &amp; v</attribute>
+        </xpath>
+
+    </template>
+
+</odoo>
