@@ -28,6 +28,8 @@ Website Sale Stock Available Display
 This module extends the functionality of website sale stock module to allow to
 display available stock in website products and allow to buy if not enough
 stock.
+Also re-use the field Custom Message for inform to customer of any message
+when stock is less than 0.0 units.
 
 **Table of contents**
 
@@ -40,6 +42,8 @@ Usage
 #. Go to *'Sale > Catalog > Product'*.
 #. Set *Show inventory on website and allow sales if not enough stock* in
    inventory availability field.
+#. You can set a custom message that appears when available stock is less than
+   0.0 units.
 #. Go to Website Shop.
 #. Click in any product that you know that no stock available.
 #. You will see '*0 units in stock*' but you will buy this product.

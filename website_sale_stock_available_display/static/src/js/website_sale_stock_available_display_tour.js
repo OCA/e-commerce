@@ -13,7 +13,7 @@ odoo.define("website_sale_stock_available_display.tour", function (require) {
         },
         {
             trigger: "a#add_to_cart",
-            extra_trigger: ".availability_messages:has(span:contains('0 Unit(s) in stock'))",
+            extra_trigger: ".availability_messages:has(span:contains('0 Unit(s) in stock')):has(div:contains('Available in 10 days'))",
         },
         {
             trigger: "a[href='/shop/checkout']",

@@ -6,6 +6,7 @@
         <field name="type">product</field>
         <field name="inventory_availability">always_no_lock</field>
         <field name="website_published" eval="True"/>
+        <field name="custom_message">Available in 10 days</field>
     </record>
 
     <record id="product_product_w_qty" model="product.product">
