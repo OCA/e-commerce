@@ -27,7 +27,7 @@ odoo.define("website_sale_require_legal.tour", function (require) {
             trigger: "#add_to_cart",
         },
         {
-            trigger: ".btn-primary:contains('Process Checkout')",
+            trigger: ".btn:contains('Process Checkout')",
         },
         // Fill all required fields except legal terms acceptance
         {
