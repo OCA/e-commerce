@@ -19,6 +19,18 @@ odoo.define("website_sale_stock_available_display.tour", function (require) {
             trigger: "a[href='/shop/checkout']",
             extra_trigger: ".availability_messages:has(span:contains('0 Unit(s) in stock'))",
         },
+        // To compatibility with website_sale_vat_required
+        {
+            trigger: "div.div_vat input[name='vat']",
+            run: function(actions){
+                $('div.div_vat input[name="vat"]').val("BE0477472701");
+                $('#div_phone input').val('11111111');
+                $('div input[name="accepted_legal_terms"]').prop( "checked", true );
+            },
+        },
+        {
+            trigger: ".btn-primary:contains('Next')",
+        },
         {
             trigger: "a[href='/shop/confirm_order']",
         },
