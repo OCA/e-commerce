@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+     Copyright 2016-2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+     Copyright 2019 Alexandre Díaz <alexandre.diaz@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
+<odoo>
+
+<template id="address" inherit_id="website_sale.address">
+    <xpath expr="//input[@name='vat']" position="replace">
+        <t t-call="website_snippet_country_dropdown.country_dropdown">
+            <t t-set="complete_field" t-value="'vat'"/>
+            <t t-set="default_value" t-value="'vat' in checkout and checkout['vat'] or ''"/>
+            <t t-set="country_id" t-value="'country_id' in checkout and checkout['country_id'] or False" />
+            <t t-set="default_country"
+               t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', country_id and int(country_id) or False)])"/>
+        </t>
+    </xpath>
+</template>
+
+</odoo>
