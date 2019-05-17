@@ -1,35 +1,29 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    has_variant_price_extra = fields.Boolean(
-        compute='_compute_has_variant_price_extra',
-        store=True,
-        string='Has variants with price extra',
+    has_distinct_variant_price = fields.Boolean(
+        compute='_compute_has_distinct_variant_price',
+        string='Has variants with distinct extra',
     )
 
-    @api.depends(
-        'product_variant_ids.attribute_value_ids.price_ids.price_extra')
-    def _compute_has_variant_price_extra(self):
+    def _compute_has_distinct_variant_price(self):
         for template in self:
-            if (template.product_variant_count and len(set(
-                    template.product_variant_ids.mapped('price_extra'))) != 1):
-                template.has_variant_price_extra = True
+            if template.product_variant_count > 1:
+                prices = template.product_variant_ids.mapped('website_price')
+                if len(prices) > 1:
+                    template.has_distinct_variant_price = True
 
     def _website_price(self):
-        templates = self.filtered(
-            lambda x: (
-                x.product_variant_count > 1 and any(
-                    [v.price_extra != 0.0 for v in x.product_variant_ids]))
-        )
+        templates = self.filtered(lambda x: x.product_variant_count > 1)
         super(ProductTemplate, self - templates)._website_price()
         for product in templates:
             variant = product.product_variant_ids.sorted(
-                key=lambda v: v.price_extra)[:1]
+                key=lambda p: p.website_price)[:1]
             product.website_price = variant.website_price
             product.website_public_price = variant.website_public_price
             product.website_price_difference = variant.website_price_difference

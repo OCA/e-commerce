@@ -26,8 +26,8 @@ Website Sale Product Minimal Price
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module extends the functionality of website sale module to allow to
-display the minimal price in '/shop' view  when product has extra variants
-price and set order by extra price in product's view.
+display the minimal price in '/shop' view  when product has distinct variants
+price and set order by minimal price in product's view.
 
 **Table of contents**
 
@@ -38,10 +38,10 @@ Usage
 =====
 
 #. Go to backend and set a product with variants and extra price by attribute
-   value.
+   value or define a distinct prices in public price list for this variant.
 #. Go to Website Shop.
 #. You will see that in main products view appears the text "From " with
-   minimal price if the product has a diferent extra prices by attribute.
+   minimal price if the product has a distinct prices by attribute.
 #. Click on product, the price displayed is the minimal variant price.
 
 Bug Tracker
