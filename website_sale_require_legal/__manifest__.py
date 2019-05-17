@@ -20,7 +20,6 @@
     ],
     "data": [
         "views/website_sale.xml",
-        "data/auth_signup_data.xml"
     ],
     "demo": [
         "demo/assets.xml",
