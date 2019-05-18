@@ -6,10 +6,20 @@ odoo.define("website_sale_stock_available_display.tour", function (require) {
 
     var tour = require("web_tour.tour");
     var base = require("web_editor.base");
+    var rpc = require("web.rpc");
 
     var steps = [
         {
             trigger: "a:contains('Computer Motherboard')",
+            run: function(actions){
+                    rpc.query({
+                        model: 'res.partner',
+                        method: 'write',
+                        args: [[3], {'vat': false}]})
+                        .then(function(data){
+                            actions.auto();
+                        })
+                    }
         },
         {
             trigger: "a#add_to_cart",
