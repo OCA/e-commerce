@@ -5,13 +5,14 @@
 
 {
     'name': 'Product Multi Links (Template)',
-    'version': '10.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Generic Modules',
     'author': "GRAP,Odoo Community Association (OCA)",
     'website': 'https://odoo-community.org',
     'license': 'AGPL-3',
     'depends': [
         'sale',
+        'product',
     ],
     'data': [
         'security/ir.model.access.csv',
