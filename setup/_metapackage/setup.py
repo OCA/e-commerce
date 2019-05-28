@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo11-addon-website_sale_product_attribute_value_filter_existing',
         'odoo11-addon-website_sale_product_brand',
         'odoo11-addon-website_sale_product_detail_attribute_image',
+        'odoo11-addon-website_sale_product_minimal_price',
         'odoo11-addon-website_sale_require_legal',
         'odoo11-addon-website_sale_require_login',
         'odoo11-addon-website_sale_secondary_unit',
