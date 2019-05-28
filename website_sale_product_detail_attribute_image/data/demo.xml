@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_image_danger" model="product.attribute">
+        <field name="website_published" eval="True"/>
+        <field name="name">Dangerousness</field>
+        <field name="create_variant" eval="False"/>
+        <field name="website_product_detail_image_published" eval="False"/>
+        <field name="website_product_detail_image" type="base64" file="website_sale_product_detail_attribute_image/static/src/img/EN388.png"/>
+    </record>
+    <record id="product_attribute_image_high" model="product.attribute.value">
+        <field name="name">High dangerousness</field>
+        <field name="attribute_id" ref="product_attribute_image_danger"/>
+    </record>
+    <record id="product_attribute_image_low" model="product.attribute.value">
+        <field name="name">Low dangerousness</field>
+        <field name="attribute_id" ref="product_attribute_image_danger"/>
+    </record>
+    <record id="product_attribute_line_image_danger" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_11_product_template"/>
+        <field name="attribute_id" ref="product_attribute_image_danger"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_image_high')])]"/>
+    </record>
+    <record id="product.product_product_11_product_template" model="product.template">
+        <field name="attribute_line_ids" eval="[(4, ref('product_attribute_line_image_danger'))]"/>
+    </record>
+
+    <record id="product_attribute_image_policy_one" model="product.attribute">
+        <field name="website_published" eval="True"/>
+        <field name="name">Policy One</field>
+        <field name="website_name">Website Policy One</field>
+        <field name="create_variant" eval="False"/>
+        <field name="website_product_detail_image_published" eval="True"/>
+        <field name="website_product_detail_image" type="base64" file="website_sale_product_detail_attribute_image/static/src/img/EN374.png"/>
+    </record>
+    <record id="product_attribute_image_policy_one_1" model="product.attribute.value">
+        <field name="name">Policy One Value 1</field>
+        <field name="website_name">Policy One Value 1 for website</field>
+        <field name="attribute_id" ref="product_attribute_image_policy_one"/>
+    </record>
+
+    <record id="product_attribute_line_image_policy_one" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_11_product_template"/>
+        <field name="attribute_id" ref="product_attribute_image_policy_one"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_image_policy_one_1')])]"/>
+    </record>
+    <record id="product.product_product_11_product_template" model="product.template">
+        <field name="attribute_line_ids" eval="[(4, ref('product_attribute_line_image_policy_one'))]"/>
+    </record>
+
+    <record id="product_attribute_image_policy_two" model="product.attribute">
+        <field name="website_published" eval="True"/>
+        <field name="name">Policy Two</field>
+        <field name="create_variant" eval="False"/>
+        <field name="website_product_detail_image_published" eval="True"/>
+        <field name="website_product_detail_image" type="base64" file="website_sale_product_detail_attribute_image/static/src/img/EN374:2003.png"/>
+    </record>
+    <record id="product_attribute_image_policy_two_1" model="product.attribute.value">
+        <field name="name">Policy Two Value 1</field>
+        <field name="attribute_id" ref="product_attribute_image_policy_two"/>
+    </record>
+
+    <record id="product_attribute_line_image_policy_two" model="product.attribute.line">
+        <field name="product_tmpl_id" ref="product.product_product_11_product_template"/>
+        <field name="attribute_id" ref="product_attribute_image_policy_two"/>
+        <field name="value_ids" eval="[(6, 0, [ref('product_attribute_image_policy_two_1')])]"/>
+    </record>
+    <record id="product.product_product_11_product_template" model="product.template">
+        <field name="attribute_line_ids" eval="[(4, ref('product_attribute_line_image_policy_two'))]"/>
+    </record>
+
+</odoo>
