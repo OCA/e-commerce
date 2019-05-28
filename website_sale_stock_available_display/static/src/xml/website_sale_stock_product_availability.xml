@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-extend="website_sale_stock.product_availability">
+        <t t-jquery="t:eq(0)" t-operation="after">
+            <t t-if="product_type == 'product' and _.contains(['always_no_lock'], inventory_availability)">
+                <div t-attf-class="availability_message_#{product_template} text-#{virtual_available and 'success' or 'danger'} mt16">
+                    <span><t t-esc="virtual_available"/> <t t-esc="uom_name"/> in stock</span>
+                </div>
+                <div t-if="virtual_available &lt;= 0.0">
+                    <!-- Re-use this core field -->
+                    <t t-esc="custom_message" />
+                </div>
+            </t>
+        </t>
+    </t>
+
+</templates>
