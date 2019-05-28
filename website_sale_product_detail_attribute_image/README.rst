@@ -25,8 +25,9 @@ Website Sale Product Detail Attribute Image
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module extends the functionality of website sale module to allow display
-product attributes images in shop product detail.
+This module extends the functionality of website sale module to allow to
+display images, name and values related to product attributes in e-commerce
+product page.
 
 **Table of contents**
 
@@ -39,7 +40,9 @@ Usage
 * Go to 'Website > Settings > Configuration > Products > Attributes'.
 * Set an image in 'Website image' field to display this attribute in shop
   product detail.
-* Check 'Display in shop product detail' field to display this attribute in
+* You can set alternative name for attribute in field "Bebsite name".
+* You can set alternative name for attribute value in field "Bebsite name".
+* Active 'Publish in website' field to display this attribute in
   shop product detail.
 
 Bug Tracker
@@ -66,6 +69,11 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
     * Sergio Teruel <sergio.teruel@tecnativa.com>
+
+Other credits
+~~~~~~~~~~~~~
+
+This module has free images from https://www.iconfinder.com/
 
 Maintainers
 ~~~~~~~~~~~
