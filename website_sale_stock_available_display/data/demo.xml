@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_wo_qty" model="product.template">
+        <field name="name">Computer Motherboard</field>
+        <field name="type">product</field>
+        <field name="inventory_availability">always_no_lock</field>
+        <field name="website_published" eval="True"/>
+        <field name="custom_message">Available in 10 days</field>
+    </record>
+
+    <record id="product_product_w_qty" model="product.product">
+        <field name="name">Special Mouse</field>
+        <field name="type">product</field>
+        <field name="inventory_availability">always_no_lock</field>
+        <field name="website_published" eval="True"/>
+    </record>
+    <record id="product_product_w_qty_quant" model="stock.quant">
+        <field name="product_id" ref="website_sale_stock_available_display.product_product_w_qty"/>
+        <field name="product_uom_id" ref="product.product_uom_unit"/>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="quantity">10.0</field>
+    </record>
+
+</odoo>
