@@ -9,24 +9,20 @@ odoo.define("website_sale_product_attribute_filter_visibility.tour", function (r
 
     var steps = [
         {
-            trigger: "a:contains('Customize')",
-        },
-        {
-            trigger: "a:contains('Product Attribute')",
-        },
-        {
-            trigger: "a[href='/shop']",
-        },
-        {
-            trigger: "a:contains('iPod')",
+            trigger: "a:contains('Customizable Desk')",
             extra_trigger: ".js_attributes:has(strong:contains('Test Color'))",
         },
         {
             trigger: "a[href='/shop']",
+            extra_trigger: "#product_details:has(strong:contains('Test Color'))",
         },
         {
-            trigger: "a:contains('iPod')",
+            trigger: "a:contains('Customizable Desk')",
             extra_trigger: ".js_attributes:not(:has(strong:contains('Test Size')))",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "a:contains('Products')",
         },
     ];
     tour.register("website_sale_product_attribute_filter_visibility",
