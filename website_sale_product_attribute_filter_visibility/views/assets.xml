@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website_sale.assets_frontend">
+        <xpath expr=".">
+            <script type="text/javascript"
+                    src="/website_sale_product_attribute_filter_visibility/static/src/js/website_sale_product_attribute_filter_visibility_tour.js"/>
+        </xpath>
+    </template>
+</odoo>
