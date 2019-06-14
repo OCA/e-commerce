@@ -47,6 +47,14 @@
         </xpath>
     </template>
 
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//b[@t-esc='product.website_price']" position="after">
+            <t t-if="product.secondary_uom_ids">
+                / <span class="css_editable_mode_hidden price_uom" t-field="product.uom_id"/>
+            </t>
+        </xpath>
+    </template>
+
     <template id="product_quantity" inherit_id="website_sale.product_quantity">
         <xpath expr="//input[@name='add_qty']/.." position="attributes">
             <attribute name="t-attf-class">css_quantity input-group oe_website_spinner #{'hide' if product.secondary_uom_ids else None}</attribute>
@@ -95,6 +103,12 @@
                 <span t-esc="line.product_uom.name"/>
             </td>
         </xpath>
+        <!-- Display product uom to price column to clarify that price is per product unit -->
+        <xpath expr="//td[@name='price']" position="inside">
+            <t t-if="line.product_id.secondary_uom_ids">
+                / <span class="css_editable_mode_hidden price_uom" t-field="line.product_id.uom_id"/>
+            </t>
+        </xpath>
     </template>
 
     <template id="payment" inherit_id="website_sale.payment">
@@ -123,6 +137,12 @@
                 <span t-esc="line.product_uom.name"/>
             </td>
         </xpath>
+        <!-- Display product uom to price column to clarify that price is per product unit -->
+        <xpath expr="//td[hasclass('td-price')]" position="inside">
+            <t t-if="line.product_id.secondary_uom_ids">
+                / <span class="css_editable_mode_hidden price_uom" t-field="line.product_id.uom_id"/>
+            </t>
+        </xpath>
     </template>
 
     <template id="confirmation" inherit_id="website_sale.confirmation">
@@ -136,6 +156,15 @@
         </xpath>
         <xpath expr="//td[hasclass('td-qty')]/div" position="attributes">
             <attribute name="t-attf-class">#{'hide' if line.secondary_uom_id else None}</attribute>
+        </xpath>
+        <!-- Display product uom to price column to clarify that price is per product unit -->
+        <xpath expr="//td[hasclass('td-price')]/span/div" position="attributes">
+            <attribute name="class" separator=" " add="pull-left"/>
+        </xpath>
+        <xpath expr="//td[hasclass('td-price')]/span" position="inside">
+            <t t-if="line.product_id.secondary_uom_ids">
+                / <span class="css_editable_mode_hidden price_uom" t-field="line.product_id.uom_id"/>
+            </t>
         </xpath>
     </template>
 
