@@ -28,7 +28,7 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
         },
         {
             trigger: "#add_to_cart",
-            extra_trigger: ".js_product:has(input[name='add_qty']:propValueContains(5))",
+            extra_trigger: ".js_product:has(input[name='add_qty']:propValueContains(5)):has(.price_uom)",
         },
         {
             trigger: "a[href='/shop']",
