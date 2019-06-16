@@ -46,10 +46,8 @@ msgstr "en stock"
 msgid "res.config.settings"
 msgstr "res.config.settings"
 
-#. module: website_sale_stock_available_display
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and allow sales if not enough stock"
-msgstr ""
-"Mostrar el inventario en el sitio web y no bloquear las ventas si no hay \n"
-"suficientes existencias"
+#~ msgid "Show inventory on website and allow sales if not enough stock"
+#~ msgstr ""
+#~ "Mostrar el inventario en el sitio web y no bloquear las ventas si no "
+#~ "hay \n"
+#~ "suficientes existencias"
