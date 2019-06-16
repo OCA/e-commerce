@@ -8,24 +8,19 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-15 08:17+0000\n"
 "PO-Revision-Date: 2019-05-15 10:19+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.6\n"
-"Last-Translator: \n"
-"Language: es\n"
 
 #. module: website_sale_product_attribute_value_filter_existing
-#: model:product.attribute.value,name:website_sale_product_attribute_value_filter_existing.product_attribute_value_color_red
-msgid "Test red"
-msgstr "rojo"
-
-#. module: website_sale_product_attribute_value_filter_existing
-#: model:product.attribute.value,name:website_sale_product_attribute_value_filter_existing.product_attribute_value_color_green
-msgid "Test green"
-msgstr "verde"
+#: model:product.attribute,name:website_sale_product_attribute_value_filter_existing.product_attribute_test_special_color
+msgid "Test Special Color"
+msgstr "Color especial de prueba"
 
 #. module: website_sale_product_attribute_value_filter_existing
 #: model:product.attribute.value,name:website_sale_product_attribute_value_filter_existing.product_attribute_value_color_blue
@@ -33,6 +28,11 @@ msgid "Test blue"
 msgstr "azul"
 
 #. module: website_sale_product_attribute_value_filter_existing
-#: model:product.attribute,name:website_sale_product_attribute_value_filter_existing.product_attribute_test_special_color
-msgid "Test Special Color"
-msgstr "Color especial de prueba"
+#: model:product.attribute.value,name:website_sale_product_attribute_value_filter_existing.product_attribute_value_color_green
+msgid "Test green"
+msgstr "verde"
+
+#. module: website_sale_product_attribute_value_filter_existing
+#: model:product.attribute.value,name:website_sale_product_attribute_value_filter_existing.product_attribute_value_color_red
+msgid "Test red"
+msgstr "rojo"
