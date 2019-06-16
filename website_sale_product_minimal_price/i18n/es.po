@@ -23,6 +23,12 @@ msgid "<span>From </span>"
 msgstr "<span>Desde </span>"
 
 #. module: website_sale_product_minimal_price
+#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_product_has_distinct_variant_price
+#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template_has_distinct_variant_price
+msgid "Has variants with distinct extra"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
 #: model:product.product,name:website_sale_product_minimal_price.product_product_test_1
 #: model:product.product,name:website_sale_product_minimal_price.product_product_test_2
 #: model:product.template,name:website_sale_product_minimal_price.product_product_test_1_product_template
