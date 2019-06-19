@@ -25,7 +25,7 @@ class WebsiteSale(Base):
 
     @route()
     def product(self, product, category='', search='', **kwargs):
-        res = super(WebsiteSale, self).product(product, category='',
-                                               search='', **kwargs)
+        res = super(WebsiteSale, self).product(product, category=category,
+                                               search=search, **kwargs)
         self._store_affiliate_info(**kwargs)
         return res
