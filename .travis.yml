@@ -18,6 +18,8 @@ env:
   global:
   - VERSION="10.0" TESTS="0" LINT_CHECK="0" MAKEPOT="0"
   - WEBSITE_REPO="1"
+  - PHANTOMJS_VERSION="2.1.2"
+  - WKHTMLTOPDF_VERSION="0.12.4"
 
   matrix:
   - LINT_CHECK="1"
