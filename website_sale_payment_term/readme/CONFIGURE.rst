@@ -1,4 +1,1 @@
-Configuration
-=============
-
-No configuration can take place
+No specific configuration is needed for this module.

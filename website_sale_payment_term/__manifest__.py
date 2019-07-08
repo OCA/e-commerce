@@ -6,8 +6,8 @@
     "version": "10.0.1.0.0",
     "author": "Therp BV,Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "category": "",
-    "summary": "",
+    "category": "Website",
+    "description": "Set Payment Terms on your Payment Acquirers",
     "depends": [
         'website_sale',
         'payment',
