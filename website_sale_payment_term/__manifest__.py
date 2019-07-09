@@ -7,6 +7,7 @@
     "author": "Therp BV,Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Website",
+    "website": "https://github.com/OCA/e-commerce",
     "description": "Set Payment Terms on your Payment Acquirers",
     "depends": [
         'website_sale',
