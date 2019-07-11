@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo11-addon-website_sale_product_minimal_price',
         'odoo11-addon-website_sale_require_legal',
         'odoo11-addon-website_sale_require_login',
+        'odoo11-addon-website_sale_search_no_kept',
         'odoo11-addon-website_sale_secondary_unit',
         'odoo11-addon-website_sale_stock_available_display',
         'odoo11-addon-website_sale_suggest_create_account',
