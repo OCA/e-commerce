@@ -45,7 +45,7 @@ class WebsiteSale(WebsiteSale):
         domain = []
         if post.get('search'):
             domain += [('name', 'ilike', post.get('search'))]
-        brand_rec = b_obj.search(domain)
+        brand_rec = b_obj.sudo().search(domain)
 
         keep = QueryURL('/page/product_brands', brand_id=[])
         values = {'brand_rec': brand_rec,
