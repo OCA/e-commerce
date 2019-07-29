@@ -10,10 +10,10 @@
                     <div class="row">
                         <form action="/page/product_brands" class="form-horizontal mt32 col-md-8" method="post" >
                             <div class="input-group" style="margin-left:60%;">
-                                <div class='col-md-6'>
-                                    <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value='search'/>
+                                <div class="col-md-6">
+                                    <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value="search"/>
                                 </div>
-                                <div class='col-md-2'>
+                                <div class="col-md-2">
                                     <button class="btn btn-primary">Search</button>
                                 </div>
                             </div>
@@ -22,21 +22,23 @@
                     </div>
                     <br/>
                     <section>
-                        <t t-if='brand_rec'>
+                        <t t-if="brand_rec">
                             <t t-foreach="brand_rec" t-as="o">
-                                <div class="col-md-3" style="display: inline-block;">
+                                <div class="col-md-3 d-md-inline-block">
                                     <a t-att-href="keep('/shop/brands',brand = o.id)">
-                                        <div class='row' style='margin-left:15%;'>
-                                            <img itemprop="image" width="200px" height="200px" class="img" t-attf-src="/website/image/product.brand/#{o.id}/logo#{'?max_width=300&amp;max_height=300'}"/>
+                                        <div class="row">
+                                            <div class="col">
+                                                <img itemprop="image" width="200px" height="200px" class="img" t-attf-src="/website/image/product.brand/#{o.id}/logo#{'?max_width=300&amp;max_height=300'}"/>
+                                            </div>
                                         </div>
-                                        <div class='row' style='text-align:center;'>
-                                            <t t-esc='o.name' />
+                                        <div class="row text-center">
+                                            <t t-esc="o.name" />
                                         </div>
                                     </a>
                                 </div>
                             </t>
                         </t>
-                        <t t-if='not brand_rec'>
+                        <t t-if="not brand_rec">
                             <div class="text-center text-muted">
                                 <h3 class="css_editable_display">No Brands Found.</h3>
                             </div>
@@ -47,14 +49,10 @@
         </t>
     </template>
 
-    <template id="website_sale.categories_recursive" name="Category list">
-        <li t-att-class="'active' if c.id == int(category or 0) else ''">
-            <a t-att-href="keep('/shop/category/' + slug(c), category=0, brand=brand)" t-field="c.name"/>
-            <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
-                <t t-foreach="c.child_id" t-as="c">
-                    <t t-call="website_sale.categories_recursive"/></t>
-            </ul>
-        </li>
+    <template id="categories_recursive" inherit_id="website_sale.categories_recursive">
+        <xpath expr="//span[@t-field='c.name']/.." position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(c), category=0, brand=brand)</attribute>
+        </xpath>
     </template>
 
 </odoo>
