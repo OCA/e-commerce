@@ -2,4 +2,5 @@
 * Meet Dholakia <m.dholakia.serpentcs@gmail.com>
 * `Tecnativa <https://www.tecnativa.com>`_:
 
-    * Ernesto Tejeda <ernesto.tejeda87@gmail.com>
+    * Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
+    * Sergio Teruel <sergio.teruel@tecnativa.com>
