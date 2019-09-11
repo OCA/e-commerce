@@ -5,7 +5,7 @@
 {
     'name': 'e-commerce required VAT',
     'summary': 'VAT number required in checkout form',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Website',
     'author': "Agile Business Group, "
               "Tecnativa, "
