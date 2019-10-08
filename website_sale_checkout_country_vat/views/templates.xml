@@ -13,6 +13,7 @@
             <t t-set="country_id" t-value="'country_id' in checkout and checkout['country_id'] or False" />
             <t t-set="default_country"
                t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', country_id and int(country_id) or False)])"/>
+            <t t-set="no_country_field_extra_classes" t-value="error.get('vat') and 'is-invalid' or ''"/>
         </t>
     </xpath>
 </template>
