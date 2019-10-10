@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="address" inherit_id="website_sale.address_b2b" name="Address Management">
+        <xpath expr="//input[@name='vat']/.." position="replace"/>
+        <xpath expr="//input[@name='company_name']/../.." position="after">
+            <t t-if="mode[1] == 'billing'">
+                <div t-attf-class="form-group #{error.get('vat') and 'o_has_error' or ''} col-lg-6 div_vat">
+                    <label class="col-form-label font-weight-normal" for="vat">TIN / VAT </label>
+                    <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="'vat' in checkout and checkout['vat']" />
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
