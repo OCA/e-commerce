@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_require_login',
         'odoo12-addon-website_sale_show_company_data',
         'odoo12-addon-website_sale_suggest_create_account',
+        'odoo12-addon-website_sale_vat_required',
     ],
     classifiers=[
         'Programming Language :: Python',
