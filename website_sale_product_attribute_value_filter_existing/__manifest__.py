@@ -3,7 +3,7 @@
 {
     'name': 'Website Sale Attribute Value Existing',
     'summary': 'Allow hide attributes values not used in variants',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'development_status': 'Beta',
     'category': 'Website',
     'website': 'https://github.com/OCA/e-commerce',
@@ -18,7 +18,4 @@
         'views/assets.xml',
         'views/templates.xml',
     ],
-    'demo': [
-        'data/demo.xml',
-    ]
 }
