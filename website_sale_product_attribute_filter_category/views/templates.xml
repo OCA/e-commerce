@@ -19,7 +19,7 @@
                                     <i class="fa fas"/>
                                     <span t-esc="attr_category[1]"/>
                                 </a>
-                                <ul t-attf-id="collapse{{attr_category_index}}" t-attf-class="nav nav-pills nav-stacked #{'collapse in' if values_selected else 'collapse'}">
+                                <ul t-attf-id="collapse{{attr_category_index}}" t-attf-class="nav nav-pills nav-stacked #{'collapse in show' if values_selected else 'collapse'}">
 
                                     <t>$0</t>
 
