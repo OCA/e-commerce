@@ -28,8 +28,9 @@ class ProductAttributeValues(WebsiteSale):
         # attribute values
         templates = request.env['product.template'].search(
             domain, limit=False)
-        ProductAttributeLine = request.env['product.attribute.line']
-        attribute_values = ProductAttributeLine.search([
+        ProductTemplateAttributeLine = request.env[
+            'product.template.attribute.line']
+        attribute_values = ProductTemplateAttributeLine.search([
             ('product_tmpl_id', 'in', templates.ids),
         ])
         res.qcontext['attr_values_used'] = attribute_values.mapped('value_ids')
