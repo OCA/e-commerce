@@ -9,17 +9,11 @@ odoo.define("website_sale_attribute_filter_category.tour", function (require) {
 
     var steps = [
         {
-            trigger: "a:contains('Customize')",
-        },
-        {
-            trigger: "a:contains('Product Attribute')",
-        },
-        {
             trigger: "a[href='/shop']",
         },
         {
-            trigger: "a:contains('iPod')",
-            extra_trigger: ".js_attributes:has(span:contains('Test Category'))",
+            trigger: "a:contains('Customizable Desk')",
+            extra_trigger: ".js_attributes:has(span:contains('Test category'))",
         },
     ];
     tour.register("website_sale_attribute_filter_category",
