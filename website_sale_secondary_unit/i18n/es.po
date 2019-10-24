@@ -18,15 +18,25 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_secondary_unit
-#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_product_allow_uom_sell
-#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_template_allow_uom_sell
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.secondary_qty
+msgid "Add one"
+msgstr ""
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_product__allow_uom_sell
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_template__allow_uom_sell
 msgid "Allow to sell in unit of measure"
 msgstr "Permitir vender en la unidad de medida"
 
 #. module: website_sale_secondary_unit
-#: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_10
-#: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_5
-msgid "Box"
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit__is_published
+msgid "Is published"
+msgstr ""
+
+#. module: website_sale_secondary_unit
+#: model:ir.model,name:website_sale_secondary_unit.model_product_secondary_unit
+msgid "Product Secondary Unit"
 msgstr ""
 
 #. module: website_sale_secondary_unit
@@ -35,32 +45,36 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: website_sale_secondary_unit
-#: model:ir.ui.view,arch_db:website_sale_secondary_unit.cart_popover
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_popover
 msgid "Qty:"
 msgstr "Ctdad."
 
 #. module: website_sale_secondary_unit
-#: model:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
-#: model:ir.ui.view,arch_db:website_sale_secondary_unit.payment
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_summary
 msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: website_sale_secondary_unit
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.secondary_qty
+msgid "Remove one"
+msgstr ""
+
+#. module: website_sale_secondary_unit
 #: model:ir.model,name:website_sale_secondary_unit.model_sale_order
-msgid "Quotation"
-msgstr "Presupuesto"
+#, fuzzy
+#| msgid "Sales Order Line"
+msgid "Sale Order"
+msgstr "Línea de pedido"
 
 #. module: website_sale_secondary_unit
 #: model:ir.model,name:website_sale_secondary_unit.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido"
 
-#. module: website_sale_secondary_unit
-#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit_website_published
-msgid "Visible in Website"
-msgstr "Visible en website"
+#~ msgid "Quotation"
+#~ msgstr "Presupuesto"
 
-#. module: website_sale_secondary_unit
-#: model:ir.model,name:website_sale_secondary_unit.model_product_secondary_unit
-msgid "product.secondary.unit"
-msgstr ""
+#~ msgid "Visible in Website"
+#~ msgstr "Visible en website"
