@@ -10,19 +10,6 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 class CheckoutSkipPayment(WebsiteSale):
 
     @http.route()
-    def payment(self, **post):
-        if not request.website.checkout_skip_payment:
-            return super(CheckoutSkipPayment, self).payment(**post)
-        order = request.website.sale_get_order()
-        if order.force_quotation_send():
-            # Clean session, then redirect to the confirmation page
-            request.website.sale_reset()
-            return request.redirect('/shop/confirmation')
-        else:
-            return request.render(
-                'website_sale_skip_payment.confirmation_order_error')
-
-    @http.route()
     def payment_get_status(self, sale_order_id, **post):
         # When skip payment step, the transaction not exists so only render
         # the waiting message in ajax json call
@@ -34,3 +21,16 @@ class CheckoutSkipPayment(WebsiteSale):
             'message': request.website._render(
                 'website_sale_checkout_skip_payment.order_state_message'),
         }
+
+    @http.route()
+    def payment_confirmation(self, **post):
+        if not request.website.checkout_skip_payment:
+            return super().payment_confirmation(**post)
+        order = request.env['sale.order'].sudo().browse(
+            request.session.get('sale_last_order_id'))
+        order.action_confirm()
+        if not order.force_quotation_send():
+            return request.render(
+                'website_sale_skip_payment.confirmation_order_error')
+        request.website.sale_reset()
+        return request.render("website_sale.confirmation", {'order': order})
