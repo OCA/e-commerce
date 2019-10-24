@@ -20,7 +20,7 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
 
     var steps = [
         {
-            trigger: "a:contains('iPod')",
+            trigger: "a:contains('Customizable Desk')",
         },
         {
             trigger: "#secondary_uom",
@@ -35,18 +35,15 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
             extra_trigger: "span:contains(Box 5 Unit(s))"
         },
         {
-            trigger: "a:contains('iPod')",
+            trigger: "a:contains('Customizable Desk')",
         },
         {
             trigger: "#add_to_cart",
             extra_trigger: ".js_product:has(input[name='add_qty']:propValueContains(1))",
         },
         {
-            trigger: "a[href='/shop/checkout']",
+            trigger: "a[href='/shop/checkout?express=1']",
             extra_trigger: "span:containsExact(Unit(s))"
-        },
-        {
-            trigger: "a[href='/shop/confirm_order']",
         },
         {
             trigger: "#o_payment_form_pay",

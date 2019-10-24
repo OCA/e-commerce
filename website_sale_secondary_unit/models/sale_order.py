@@ -45,16 +45,15 @@ class SaleOrder(models.Model):
         ctx = self.env.context.copy()
         if secondary_uom_id:
             ctx['secondary_uom_id'] = secondary_uom_id
-        res = super(SaleOrder, self.with_context(ctx))._cart_update(
+        return super(SaleOrder, self.with_context(ctx))._cart_update(
             product_id=product_id,
             line_id=line_id,
             add_qty=add_qty,
             set_qty=set_qty,
             attributes=attributes, **kwargs)
-        return res
 
     def _compute_cart_info(self):
-        super(SaleOrder, self)._compute_cart_info()
+        super()._compute_cart_info()
         for order in self:
             secondary_unit_lines = order.website_order_line.filtered(
                 'secondary_uom_id')
@@ -69,30 +68,33 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         SecondaryUom = self.env['product.secondary.unit']
-        secondary_uom = SecondaryUom.browse(
-            vals.get('secondary_uom_id', False))
-        product_uom = self.env['product.uom'].browse(
-            vals.get('product_uom', False))
-        if secondary_uom:
-            factor = (secondary_uom.factor * (product_uom and
-                      product_uom.factor or 1.0))
-            vals['secondary_uom_qty'] = float_round(
-                vals['product_uom_qty'] / (factor or 1.0),
-                precision_rounding=secondary_uom.uom_id.rounding
-            )
-        return super(SaleOrderLine, self).create(vals)
+        Uom = self.env['uom.uom']
+        for vals in vals_list:
+            secondary_uom = SecondaryUom.browse(
+                vals.get('secondary_uom_id', False))
+            uom = Uom.browse(vals.get('product_uom', False))
+            if secondary_uom:
+                factor = (secondary_uom.factor * (uom.factor or 1.0))
+                vals['secondary_uom_qty'] = float_round(
+                    vals['product_uom_qty'] / (factor or 1.0),
+                    precision_rounding=secondary_uom.uom_id.rounding
+                )
+        return super(SaleOrderLine, self).create(vals_list)
 
     def write(self, vals):
         SecondaryUom = self.env['product.secondary.unit']
+        Uom = self.env['uom.uom']
         for line in self:
             secondary_uom = ('secondary_uom_id' in vals and
                              SecondaryUom.browse(vals['secondary_uom_id']) or
                              line.secondary_uom_id)
+            uom = ('product_uom' in vals and Uom.browse(vals['product_uom']) or
+                   line.product_uom)
             if 'product_uom_qty' in vals and secondary_uom:
-                factor = secondary_uom.factor * vals.get(
-                    'product_uom', line.product_uom.factor)
+                factor = secondary_uom.factor * uom.factor
                 vals['secondary_uom_qty'] = float_round(
                     vals['product_uom_qty'] / (factor or 1.0),
                     precision_rounding=secondary_uom.uom_id.rounding
