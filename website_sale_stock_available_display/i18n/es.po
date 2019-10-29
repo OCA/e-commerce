@@ -18,9 +18,24 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_stock_available_display
-#: model:product.template,name:website_sale_stock_available_display.product_template_wo_qty
-msgid "Computer Motherboard"
-msgstr "Placa base"
+#: model:ir.model.fields,help:website_sale_stock_available_display.field_product_product__inventory_availability
+#: model:ir.model.fields,help:website_sale_stock_available_display.field_product_template__inventory_availability
+msgid "Adds an inventory availability status on the web product page."
+msgstr ""
+
+#. module: website_sale_stock_available_display
+#: model:ir.model,name:website_sale_stock_available_display.model_res_config_settings
+#, fuzzy
+#| msgid "res.config.settings"
+msgid "Config Settings"
+msgstr "res.config.settings"
+
+#. module: website_sale_stock_available_display
+#: model:ir.model.fields,field_description:website_sale_stock_available_display.field_product_product__inventory_availability
+#: model:ir.model.fields,field_description:website_sale_stock_available_display.field_product_template__inventory_availability
+#: model:ir.model.fields,field_description:website_sale_stock_available_display.field_res_config_settings__inventory_availability
+msgid "Inventory Availability"
+msgstr ""
 
 #. module: website_sale_stock_available_display
 #: model:ir.model,name:website_sale_stock_available_display.model_product_template
@@ -28,26 +43,55 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: website_sale_stock_available_display
-#: model:product.product,name:website_sale_stock_available_display.product_product_w_qty
-#: model:product.template,name:website_sale_stock_available_display.product_product_w_qty_product_template
-msgid "Special Mouse"
-msgstr "Ratón especial"
+#: selection:product.template,inventory_availability:0
+#: selection:res.config.settings,inventory_availability:0
+msgid "Sell regardless of inventory"
+msgstr ""
+
+#. module: website_sale_stock_available_display
+#: selection:product.template,inventory_availability:0
+#: selection:res.config.settings,inventory_availability:0
+#, fuzzy
+#| msgid "Show inventory on website and allow sales if not enough stock"
+msgid "Show inventory below a threshold and prevent sales if not enough stock"
+msgstr ""
+"Mostrar el inventario en el sitio web y no bloquear las ventas si no hay \n"
+"suficientes existencias"
+
+#. module: website_sale_stock_available_display
+#: selection:product.template,inventory_availability:0
+#: selection:res.config.settings,inventory_availability:0
+msgid "Show inventory on website and allow sales if not enough stock"
+msgstr ""
+"Mostrar el inventario en el sitio web y no bloquear las ventas si no hay \n"
+"suficientes existencias"
+
+#. module: website_sale_stock_available_display
+#: selection:product.template,inventory_availability:0
+#: selection:res.config.settings,inventory_availability:0
+#, fuzzy
+#| msgid "Show inventory on website and allow sales if not enough stock"
+msgid "Show inventory on website and prevent sales if not enough stock"
+msgstr ""
+"Mostrar el inventario en el sitio web y no bloquear las ventas si no hay \n"
+"suficientes existencias"
+
+#. module: website_sale_stock_available_display
+#: selection:product.template,inventory_availability:0
+#: selection:res.config.settings,inventory_availability:0
+msgid "Show product-specific notifications"
+msgstr ""
 
 #. module: website_sale_stock_available_display
 #. openerp-web
 #: code:addons/website_sale_stock_available_display/static/src/xml/website_sale_stock_product_availability.xml:8
-#: model:ir.ui.view,arch_db:website_sale_stock_available_display.stock_info
+#: model_terms:ir.ui.view,arch_db:website_sale_stock_available_display.stock_info
 #, python-format
 msgid "in stock"
 msgstr "en stock"
 
-#. module: website_sale_stock_available_display
-#: model:ir.model,name:website_sale_stock_available_display.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"
+#~ msgid "Computer Motherboard"
+#~ msgstr "Placa base"
 
-#~ msgid "Show inventory on website and allow sales if not enough stock"
-#~ msgstr ""
-#~ "Mostrar el inventario en el sitio web y no bloquear las ventas si no "
-#~ "hay \n"
-#~ "suficientes existencias"
+#~ msgid "Special Mouse"
+#~ msgstr "Ratón especial"
