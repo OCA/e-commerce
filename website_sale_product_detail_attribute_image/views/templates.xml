@@ -4,7 +4,7 @@
 <odoo>
 
     <template id="product_detail_attribute_image" inherit_id="website_sale.product" active="True" customize_show="True" name="Attribute's Images">
-        <xpath expr="//span[@itemprop='image']/.." position="inside">
+        <xpath expr="//div[@id='o-carousel-product']/.." position="inside">
             <div class="row mt16 mb0 product-detail-attributes">
                 <t t-foreach="attributes_detail" t-as="attribute">
                     <div class="col-md-2 col-xs-4">
