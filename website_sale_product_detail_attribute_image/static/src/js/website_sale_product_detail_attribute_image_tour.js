@@ -9,7 +9,7 @@ odoo.define("website_sale_product_detail_attribute_image.tour", function (requir
 
     var steps = [
         {
-            trigger: "a:contains('iPod')",
+            trigger: "a:contains('Customizable Desk')",
         },
         {
             trigger: "a[href='/shop']",
