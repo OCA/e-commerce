@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="attribute_tree_view" model="ir.ui.view">
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.attribute_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="create_variant" position="after">
+                <field name="website_product_detail_image"/>
+                <field name="website_name"/>
+                <field name="website_product_detail_image_published" widget="boolean_toggle"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_attribute_view_form" model="ir.ui.view">
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form"/>
+        <field name="arch" type="xml">
+            <group name="main_fields" position="after">
+                <group name="product_detail_image" string="Website product image detail">
+                    <field name="website_product_detail_image" widget="image"/>
+                    <field name="website_name"/>
+                    <field name="website_product_detail_image_published" widget="boolean_toggle"/>
+                </group>
+            </group>
+            <xpath expr="//field[@name='value_ids']/tree" position="inside">
+                <field name="website_name"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="variants_tree_view" model="ir.ui.view">
+        <field name="model">product.attribute.value</field>
+        <field name="inherit_id" ref="product.variants_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="website_name"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

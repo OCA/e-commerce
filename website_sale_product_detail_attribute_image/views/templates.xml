@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="product_detail_attribute_image" inherit_id="website_sale.product" active="True" customize_show="True" name="Attribute's Images">
+        <xpath expr="//div[@id='o-carousel-product']/.." position="inside">
+            <div class="row mt16 mb0 product-detail-attributes">
+                <t t-foreach="attributes_detail" t-as="attribute">
+                    <div class="col-md-2 col-xs-4">
+                        <div class="text-center"> <span t-esc="attribute.attribute_id.website_name or attribute.attribute_id.name"/> </div>
+                        <div class="text-center">
+                            <img class="img"
+                                 t-attf-src="/web/image/product.attribute/#{attribute.attribute_id.id}/website_product_detail_image/40x40"/>
+                        </div>
+                        <t t-foreach="attribute.value_ids" t-as="value">
+                            <div class="text-center"> <span t-esc="value.website_name or value.name"/> </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
