@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo12-addon-website_sale_checkout_country_vat',
         'odoo12-addon-website_sale_product_attribute_filter_visibility',
+        'odoo12-addon-website_sale_product_detail_attribute_image',
         'odoo12-addon-website_sale_require_legal',
         'odoo12-addon-website_sale_require_login',
         'odoo12-addon-website_sale_show_company_data',
