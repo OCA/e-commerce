@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="stock_info">
+        <t t-if="line.product_id.inventory_availability == 'always_no_lock'">
+            <t t-set="virtual_available" t-value="line.product_id.virtual_available"/>
+            <div t-attf-class="availability_messages text-#{virtual_available and 'success' or 'danger'}">
+                <span><t t-esc="virtual_available"/> <t t-esc="line.product_uom.name"/> in stock</span>
+            </div>
+        </t>
+    </template>
+
+    <!-- Shopping Cart Lines -->
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//td[hasclass('td-qty')]" position="inside">
+            <t t-call="website_sale_stock_available_display.stock_info"/>
+        </xpath>
+    </template>
+
+    <!-- Cart Summary -->
+    <template id="cart_summary" inherit_id="website_sale.cart_summary">
+        <xpath expr="//table[@id='cart_products']//td[hasclass('td-qty')]" position="inside">
+            <t t-call="website_sale_stock_available_display.stock_info"/>
+        </xpath>
+    </template>
+
+</odoo>
