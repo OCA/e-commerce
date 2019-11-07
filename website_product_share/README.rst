@@ -2,7 +2,7 @@
     :alt: License
 
 Product Share
-============
+=============
 This module brings the users the possibility to globally enable/disable a share button 
 that will be displayed in each product page.
 
