@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+         License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//div[hasclass('js_payment')]" position="after">
+            <div class="float-left mt-2" t-if="website.checkout_skip_payment">
+                <a role="button" href="/shop/cart" class="btn btn-secondary">
+                    <i class="fa fa-chevron-left"/>
+                    Return to Cart
+                </a>
+            </div>
+            <div class="js_skip_payment mt-3" t-if="website.checkout_skip_payment" id="skip_payment_method">
+                <form target="_self" action="/shop/confirmation" method="post" class="float-right">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                    <a role="button" class="btn btn-primary a-submit" href="#">
+                        <span>Confirm Order <span class="fa fa-chevron-right"></span></span>
+                    </a>
+                </form>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='payment_method']" position="attributes">
+            <attribute name="t-if">(acquirers or tokens) and website_sale_order.amount_total and not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('js_payment')]" position="attributes">
+            <attribute name="t-if">not website_sale_order.amount_total and not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr='//t[@t-if="payment_tx_id.state == &apos;done&apos;"]' position="attributes">
+            <attribute name="t-if">payment_tx_id.state == 'done' or (website.checkout_skip_payment and order.state == 'sale')</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']"
+               position="after">
+            <div class="alert alert-info" role="alert"
+                 t-if="website.checkout_skip_payment">
+                Our team will check your order and send you payment
+                information soon.
+            </div>
+        </xpath>
+        <!-- Hide payment related info if skip payment step -->
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']"
+               position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+    <template id="order_state_message">
+      <p>Your order is waiting manual confirmation.</p><br/>
+    </template>
+
+</odoo>
