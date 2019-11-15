@@ -6,14 +6,15 @@
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button
-                    name="%(action_product_template_link_from_product_template)d"
-                    type="action"
-                    icon="fa-hand-o-right"
+                    name="show_product_template_links"
+                    help="Product links"
                     class="oe_stat_button"
+                    icon="fa-sitemap"
+                    type="object"
                 >
                     <field
                         string="Product Links"
-                        name="product_template_link_qty"
+                        name="product_template_link_count"
                         widget="statinfo"
                     />
                 </button>
