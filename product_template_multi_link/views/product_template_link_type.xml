@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="product_template_link_type_tree_view">
+        <field
+            name="name"
+        >product.template.link.type.tree (in product_template_multi_link)</field>
+        <field name="model">product.template.link.type</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="is_symmetric" />
+                <field name="name" />
+                <field
+                    name="inverse_name"
+                    required="1"
+                    attrs="{'readonly': [('is_symmetric', '=', True)]}"
+                />
+                <field name="code" />
+                <field
+                    name="inverse_code"
+                    attrs="{'readonly': [('is_symmetric', '=', True)]}"
+                />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="product_template_link_type_act_window">
+        <field name="name">Product Template Link Type</field>
+        <field name="res_model">product.template.link.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <record model="ir.ui.menu" id="product_template_link_type_menu">
+        <field name="name">Product Template Link Type</field>
+        <field name="parent_id" ref="sale.prod_config_main" />
+        <field name="action" ref="product_template_link_type_act_window" />
+        <field name="sequence" eval="16" />
+    </record>
+</odoo>
