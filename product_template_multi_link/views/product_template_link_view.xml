@@ -3,7 +3,7 @@
 
 <!-- Technical Note: domain=[('id', '!=', 0)] is set on both template fields
 to enable research by name for product templates. Otherwise, the resarch will
-be done on product.product table, that is not the attempted behaviour 
+be done on product.product table, that is not the attempted behaviour
 See odoo/addons/product/models/product_template.py // def name_search()
 -->
 
