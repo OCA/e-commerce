@@ -161,7 +161,7 @@ class ProductTemplateLink(models.Model):
     def _invalidate_links(self):
         self.env["product.template"].invalidate_cache(["product_template_link_ids"])
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
         with self._invalidate_links_on_product_template():
             return super().create(vals_list)
