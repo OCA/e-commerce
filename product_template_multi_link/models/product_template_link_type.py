@@ -11,8 +11,13 @@ class ProductTemplateLinkType(models.Model):
 
     name = fields.Char(required=True, translate=True)
     inverse_name = fields.Char(
-        compute="_compute_inverse_name", readonly=False, store=True, translate=True
+        compute="_compute_inverse_name",
+        inverse="_inverse_inverse_name",
+        readonly=False,
+        store=True,
+        translate=True,
     )
+    manual_inverse_name = fields.Char()
     is_symmetric = fields.Boolean(
         help="The relation meaning is the same from each side of the relation",
         default=True,
@@ -25,11 +30,13 @@ class ProductTemplateLinkType(models.Model):
     inverse_code = fields.Char(
         "Technical code (inverse)",
         compute="_compute_inverse_code",
+        inverse="_inverse_inverse_code",
         readonly=False,
         store=True,
         help="This code allows to provide a technical code to external"
         "systems identifying this link type",
     )
+    manual_inverse_code = fields.Char()
     _sql_constraints = [
         ("name_uniq", "unique (name)", "Link type name already exists !"),
         (
@@ -51,6 +58,14 @@ class ProductTemplateLinkType(models.Model):
 
     display_name = fields.Char(compute="_compute_display_name")
 
+    def _inverse_inverse_name(self):
+        for record in self:
+            record.manual_inverse_name = record.inverse_name
+
+    def _inverse_inverse_code(self):
+        for record in self:
+            record.manual_inverse_code = record.inverse_code
+
     @api.depends("name", "inverse_name")
     def _compute_display_name(self):
         for record in self:
@@ -64,12 +79,16 @@ class ProductTemplateLinkType(models.Model):
         for record in self:
             if record.is_symmetric:
                 record.inverse_name = record.name
+            else:
+                record.inverse_name = record.manual_inverse_name
 
     @api.depends("code", "is_symmetric")
     def _compute_inverse_code(self):
         for record in self:
             if record.is_symmetric:
                 record.inverse_code = record.code
+            else:
+                record.inverse_code = record.manual_inverse_code
 
     def write(self, vals):
         if not self:
