@@ -13,24 +13,4 @@
         <field name="link_type">cross_sell</field>
     </record>
 
-    <record id="link_membership_1" model="product.template.link">
-        <field name="product_template_id" ref="product.membership_2_product_template"/>
-        <field name="linked_product_template_id" ref="product.membership_1_product_template"/>
-        <field name="link_type">up_sell</field>
-    </record>
-
-    <record id="link_membership_2" model="product.template.link">
-        <field name="product_template_id" ref="product.membership_2_product_template"/>
-        <field name="linked_product_template_id" ref="product.membership_0_product_template"/>
-        <field name="link_type">up_sell</field>
-    </record>
-
-    <record id="link_membership_3" model="product.template.link">
-        <field name="product_template_id" ref="product.membership_1_product_template"/>
-        <field name="linked_product_template_id" ref="product.membership_0_product_template"/>
-        <field name="link_type">up_sell</field>
-    </record>
-
-
-
 </odoo>
