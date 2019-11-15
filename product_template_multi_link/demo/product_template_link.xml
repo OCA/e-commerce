@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="link_apple_1" model="product.template.link">
+    <record id="link_cross_selling_1" model="product.template.link">
         <field
-            name="product_template_id"
+            name="left_product_tmpl_id"
             ref="product.product_product_7_product_template"
         />
         <field
-            name="linked_product_template_id"
-            ref="product.product_product_9_product_template"
-        />
-        <field name="link_type">cross_sell</field>
-    </record>
-    <record id="link_apple_2" model="product.template.link">
-        <field
-            name="product_template_id"
+            name="right_product_tmpl_id"
             ref="product.product_product_9_product_template"
         />
         <field
-            name="linked_product_template_id"
-            ref="product.product_product_7_product_template"
+            name="type_id"
+            ref="product_template_multi_link.product_template_link_type_cross_selling"
         />
-        <field name="link_type">cross_sell</field>
     </record>
 </odoo>
