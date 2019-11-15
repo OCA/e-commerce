@@ -81,7 +81,6 @@ class ProductTemplate(models.Model):
 
     def show_product_template_links(self):
         self.ensure_one()
-
         return {
             "name": _("Product links"),
             "type": "ir.actions.act_window",
