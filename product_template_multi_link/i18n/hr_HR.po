@@ -100,14 +100,14 @@ msgid "Product Template"
 msgstr "Predložak proizvoda"
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_product_template_image_small
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_product_template_image_small
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_image_128
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_image_128
 msgid "Small-sized image"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_linked_product_template_image_small
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_product_template_image_small
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_linked_image_128
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_image_128
 msgid ""
 "Small-sized image of the product. It is automatically resized as a 64x64px "
 "image, with aspect ratio preserved. Use this field anywhere a small image is "
