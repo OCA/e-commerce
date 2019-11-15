@@ -4,10 +4,10 @@
 
 {
     "name": "Product Multi Links (Template)",
-    "version": "10.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Generic Modules",
-    "author": "GRAP,Odoo Community Association (OCA)",
-    "website": "https://odoo-community.org",
+    "author": "GRAP, ACSONE SA/NV, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/e-commerce",
     "license": "AGPL-3",
     "depends": ["sale"],
     "data": [
