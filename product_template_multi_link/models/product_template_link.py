@@ -8,6 +8,7 @@ from odoo import fields, models
 class ProductTemplateLink(models.Model):
     _name = "product.template.link"
     _order = "product_template_id, linked_product_template_id"
+    _description = "Product link"
 
     _LINK_TYPE_SELECTION = [("cross_sell", "Cross-Sell"), ("up_sell", "Up-Sell")]
 
@@ -18,19 +19,11 @@ class ProductTemplateLink(models.Model):
         ondelete="cascade",
     )
 
-    product_template_image_small = fields.Binary(
-        related="product_template_id.image_small"
-    )
-
     linked_product_template_id = fields.Many2one(
         string="Linked Product",
         comodel_name="product.template",
         required=True,
         ondelete="cascade",
-    )
-
-    linked_product_template_image_small = fields.Binary(
-        related="linked_product_template_id.image_small"
     )
 
     link_type = fields.Selection(
