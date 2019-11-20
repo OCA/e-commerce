@@ -12,7 +12,7 @@
               name="Hide Empty Category list">
         <xpath expr="//t[@t-name='website_sale.categories_recursive']"
                position="attributes">
-            <attribute name="t-if">c.product_ids</attribute>
+            <attribute name="t-if">not c.is_empty</attribute>
         </xpath>
     </template>
 
