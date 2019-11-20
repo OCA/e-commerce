@@ -15,5 +15,24 @@
             <attribute name="t-if">not c.is_empty</attribute>
         </xpath>
     </template>
+    <template inherit_id="website_sale.option_collapse_categories_recursive"
+              id="hide_categories_recursive_collapse"
+              active="True"
+              customize_show="True"
+              name="Hide Empty Category list on collapsable">
+        <xpath expr="//li" position="replace">
+            <li t-att-class="'active' if categ.id == int(category or 0) else 'disabled' if categ.is_empty else None">
+                <t t-if="not categ.is_empty">
+                    <i t-if="categ.child_id" t-attf-class="text-primary fa #{'fa-chevron-down' if categ.id in parent_category_ids else 'fa-chevron-right'}"/>
+                    <a t-att-href="keep('/shop/category/' + slug(categ), category=0)" t-field="categ.name"/>
+                </t>
+                <ul t-if="not categ.is_empty and categ.child_id" class="nav nav-pills nav-stacked nav-hierarchy" t-att-style="'display:block;' if categ.id in parent_category_ids else 'display:none;'">
+                    <t t-foreach="categ.child_id" t-as="categ">
+                        <t t-call="website_sale.option_collapse_categories_recursive"/>
+                    </t>
+                </ul>
+            </li>
+        </xpath>
+    </template>
 
 </odoo>
