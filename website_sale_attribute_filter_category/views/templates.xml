@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="products_attributes" inherit_id="website_sale.products_attributes" priority="9999">
+        <xpath expr="//form/ul" position="replace">
+                <h4>
+                    <i class="fa fa-filter" aria-hidden="true"/> <span>Filters by category</span>
+                </h4>
+                <t t-foreach="attribute_categories" t-as="attr_category">
+                    <t t-set="attributes_filtered" t-value="attributes.filtered(lambda x: x.category_id.id == attr_category[0])"/>
+                    <t t-set="display_category" t-value="any(len(a.value_ids) &gt;1 for a in attributes_filtered)"/>
+                    <t t-if="(not filtered_products or attributes_filtered) and display_category">
+                        <ul class="nav nav-stacked o_shop_collapse_attribute_filter" id="accordion">
+                            <li>
+                                <t t-set="values_selected" t-value="bool(attrib_set &amp; set(attributes_filtered.mapped('value_ids').ids))"/>
+                                <a data-toggle="collapse" t-attf-href="#collapse{{attr_category_index}}">
+                                    <i class="fa fas"/>
+                                    <span t-esc="attr_category[1]"/>
+                                </a>
+                                <ul t-attf-id="collapse{{attr_category_index}}" t-attf-class="nav nav-pills nav-stacked #{'collapse in show' if values_selected else 'collapse'}">
+
+                                    <t>$0</t>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='attributes']" position="attributes">
+            <attribute name="t-foreach">attributes_filtered</attribute>
+        </xpath>
+    </template>
+
+</odoo>
