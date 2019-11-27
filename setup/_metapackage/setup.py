@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-e-commerce Odoo addons",
     version=version,
     install_requires=[
+        'odoo12-addon-website_sale_attribute_filter_category',
         'odoo12-addon-website_sale_checkout_country_vat',
         'odoo12-addon-website_sale_checkout_skip_payment',
         'odoo12-addon-website_sale_product_attribute_filter_visibility',
