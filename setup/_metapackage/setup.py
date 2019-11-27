@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_checkout_country_vat',
         'odoo12-addon-website_sale_checkout_skip_payment',
         'odoo12-addon-website_sale_product_attribute_filter_visibility',
+        'odoo12-addon-website_sale_product_attribute_value_filter_existing',
         'odoo12-addon-website_sale_product_detail_attribute_image',
         'odoo12-addon-website_sale_require_legal',
         'odoo12-addon-website_sale_require_login',
