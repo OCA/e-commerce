@@ -3,8 +3,9 @@
 {
     'name': 'Website Sale Product Minimal Price',
     'summary': 'Display minimal price for products that has variants',
-    'version': '11.0.1.0.0',
-    'development_status': 'Beta',
+    'version': '12.0.1.0.0',
+    'development_status': 'Production/Stable',
+    'maintainers': ['sergio-teruel'],
     'category': 'Website',
     'website': 'https://github.com/OCA/e-commerce',
     'author': 'Tecnativa, Odoo Community Association (OCA)',
@@ -17,8 +18,5 @@
     'data': [
         'views/assets.xml',
         'views/templates.xml',
-    ],
-    'demo': [
-        'data/demo.xml',
     ],
 }
