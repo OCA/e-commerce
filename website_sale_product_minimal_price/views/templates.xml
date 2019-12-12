@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="variants" inherit_id="sale.variants">
+        <!-- Sort product attribute values by minimal price extra -->
+        <xpath expr="//strong[@t-field='variant_id.attribute_id.name']" position="before">
+            <t t-set="sorted_values" t-value="variant_id.product_template_value_ids.sorted('price_extra')"/>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;variant_id.attribute_id.type == &apos;select&apos;&quot;]//t[@t-foreach='variant_id.product_template_value_ids']" position="attributes">
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;variant_id.attribute_id.type == &apos;radio&apos;&quot;]//t[@t-foreach='variant_id.product_template_value_ids']" position="attributes">
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+        <xpath expr="//li[@t-foreach='variant_id.product_template_value_ids']" position="attributes">
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <!-- Display "From" if variants have distinct extra prices -->
+        <xpath expr="//span[@t-if=&quot;combination_info[&apos;price&apos;]&quot;]" position="before">
+            <t t-if="product.has_distinct_variant_price">
+                <span>From </span>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
