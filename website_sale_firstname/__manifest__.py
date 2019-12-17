@@ -12,7 +12,9 @@
     "maintainer": "IT-Projects LLC",
     "category": "Extra Tools",
     "website": "https://github.com/OCA/e-commerce",
-    "depends": ["website_sale", "partner_firstname",],
-    "data": ["data/data.xml",],
+    "depends": ["website_sale", "partner_firstname", "portal"],
+    "data": [
+        "data/data.xml",
+        "views/templates.xml",],
     "installable": True,
 }
