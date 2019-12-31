@@ -25,6 +25,10 @@ class PaymentAcquirer(models.Model):
         ('fixed', 'Fixed'),
         ('percentage', 'Percentage'),
     ], string="Computation type", default='fixed')
+    charge_fee_amount_type = fields.Selection([
+        ('amount_total', 'Amount Total'),
+        ('amount_untaxed', 'Amount Untaxed'),
+    ], string="Fee Applied at", default='amount_total')
 
     @api.onchange("charge_fee_product_id")
     def onchange_charge_fee_product_id(self):

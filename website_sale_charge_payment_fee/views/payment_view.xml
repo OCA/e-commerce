@@ -28,6 +28,7 @@
                         <div attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}">
                             <field name="charge_fee_percentage" class="oe_inline"/>
                             <label string="%" class="oe_inline"/>
+                            <field name="charge_fee_amount_type"/>
                         </div>
 
                         <field name="charge_fee_tax_ids" widget="many2many_tags"
