@@ -25,8 +25,8 @@ Display product reference in e-commerce
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module extends the `website_sale` views to display the product's full
-display name, with it's product reference included.
+This module extends the ``website_sale`` views to display the product's full
+display name, with its product reference included.
 
 **Table of contents**
 
