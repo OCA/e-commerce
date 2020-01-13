@@ -33,7 +33,7 @@ class ProductTemplate(models.Model):
         if (only_template and self.env.context.get('website_id') and
                 self.product_variant_count > 1):
             cheaper_variant = self.product_variant_ids.sorted(
-                key=lambda p: p.price_extra)[:1]
+                key=lambda p: p.website_price)[:1]
 
             res = cheaper_variant._get_combination_info_variant()
 
@@ -59,12 +59,16 @@ class ProductTemplate(models.Model):
                 self.product_variant_count > 1):
             ptav_obj = self.env['product.template.attribute.value']
             pav = self.product_variant_ids.sorted(
-                'lst_price')[:1].attribute_value_ids
+                'website_price')[:1].attribute_value_ids
             cheaper_combination = ptav_obj.search([
                 ('product_tmpl_id', '=', self.id),
                 ('product_attribute_value_id', 'in', pav.ids),
             ])
             variant_combination = combination.filtered(
                 lambda x: x.attribute_id.create_variant == 'always')
-            return cheaper_combination + (combination - variant_combination)
+            combination_returned = cheaper_combination + (
+                combination - variant_combination)
+            # Keep order to avoid This combination does not exist message
+            return combination_returned.sorted(
+                lambda x: x.attribute_id.sequence)
         return combination
