@@ -7,4 +7,4 @@ class ProductAttribute(models.Model):
     _inherit = ['product.attribute', 'website.published.mixin']
     _name = 'product.attribute'
 
-    website_published = fields.Boolean(default=True)
+    is_published = fields.Boolean(default=True)
