@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record model="ir.ui.view" id="product_template_orderable_form_view">
+       <field name="name">Product Template: Add Orderable Fields</field>
+       <field name="model">product.template</field>
+       <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+       <field name="arch" type="xml">
+           <field name="public_categ_ids" position="after">
+               <field name="orderable" widget="boolean_toggle"/>
+               <field name="not_available_display_message"
+                      placeholder="Input the message you want to display to the customer if the product is not yet available to order."
+                      attrs="{'required': [('orderable', '=', False)]}"
+                      />
+           </field>
+       </field>
+   </record>
+</odoo>
