@@ -5,7 +5,7 @@
     'name': 'Website Sale Product Template Sequence Rigid',
     'version': '1.0.0',
     'author': 'Numigi',
-    'maintainer': 'numigi',
+    'maintainer': 'numigi, Odoo Community Association (OCA)',
     'website': 'https://bit.ly/numigi-com',
     'license': 'LGPL-3',
     'category': 'Sale',
