@@ -6,7 +6,7 @@
        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
        <field name="arch" type="xml">
            <field name="public_categ_ids" position="after">
-               <field name="orderable" widget="boolean_toggle"/>
+               <field name="orderable"/>
                <field name="not_available_display_message"
                       placeholder="Input the message you want to display to the customer if the product is not yet available to order."
                       attrs="{'required': [('orderable', '=', False)]}"
