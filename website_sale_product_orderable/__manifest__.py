@@ -3,7 +3,7 @@
 
 {
     'name': 'Website Sale Product Orderable',
-    'version': '1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'Numigi, Odoo Community Association (OCA)',
     'maintainer': 'Numigi',
     'license': 'LGPL-3',
