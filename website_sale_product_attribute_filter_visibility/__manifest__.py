@@ -4,7 +4,7 @@
     "name": "Website Sale Product Attribute Filter Visibility",
     "summary": "Allow hide any attributes in shop attributes filter",
     "version": "13.0.1.0.0",
-    "development_status": "Beta",
+    "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
