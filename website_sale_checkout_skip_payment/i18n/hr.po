@@ -20,15 +20,39 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid ""
-"<strong>Error!</strong> An error occurred trying to\n"
-"                        confirm the sale order."
+"<i class=\"fa fa-chevron-left\"/>\n"
+"                    Return to Cart"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+"specific.\" groups=\"website.group_multi_website\"/>"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid "<span>Confirm Order <span class=\"fa fa-chevron-right\"/></span>"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
+msgid ""
+"<strong>Error!</strong> An error occurred trying to\n"
+"                            confirm the sale order."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__checkout_skip_payment
 msgid "Checkout Skip Payment"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model,name:website_sale_checkout_skip_payment.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
@@ -37,20 +61,23 @@ msgid "Contact"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation
-msgid ""
-"Our team will check your order and send you payment\n"
-"                information soon."
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Message shown to the user when the purchase is finished"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Sale Checkout Skip Message"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
 msgid "Shop - Confirmation - Error"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner_skip_website_checkout_payment
-#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users_skip_website_checkout_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__skip_website_checkout_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
 msgstr ""
 
@@ -60,7 +87,17 @@ msgid "Website"
 msgstr "Web stranica"
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_skip_message
+msgid "Website Sale Checkout Skip Message"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_skip_message
+msgid "Website Sale SKip Message"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
 msgstr ""
 
