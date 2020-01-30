@@ -20,22 +20,22 @@ msgstr ""
 "X-Generator: Weblate 3.0.1\n"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
 msgstr "هیچ برندی پیدا نشد."
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
 msgstr "برندهای محصول"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
 msgstr "جستجو"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search..."
 msgstr "جستجو..."
 
