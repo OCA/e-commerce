@@ -61,8 +61,7 @@
                 role="alert"
                 t-if="website.checkout_skip_payment"
             >
-                Our team will check your order and send you payment
-                information soon.
+                <span t-field="website.website_sale_checkout_skip_message" />
             </div>
         </xpath>
         <!-- Hide payment related info if skip payment step -->
