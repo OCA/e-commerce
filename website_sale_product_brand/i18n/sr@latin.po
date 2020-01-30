@@ -21,22 +21,22 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search..."
 msgstr ""
 
