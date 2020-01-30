@@ -14,9 +14,7 @@ class CheckoutSkipPayment(WebsiteSale):
         # When skip payment step, the transaction not exists so only render
         # the waiting message in ajax json call
         if not request.website.checkout_skip_payment:
-            return super(CheckoutSkipPayment, self).payment_get_status(
-                sale_order_id, **post
-            )
+            return super().payment_get_status(sale_order_id, **post)
         return {
             "recall": True,
             "message": request.website._render(
@@ -34,7 +32,11 @@ class CheckoutSkipPayment(WebsiteSale):
             .browse(request.session.get("sale_last_order_id"))
         )
         order.action_confirm()
-        if not order.force_quotation_send():
-            return request.render("website_sale_skip_payment.confirmation_order_error")
+        try:
+            order._send_order_confirmation_mail()
+        except Exception:
+            return request.render(
+                "website_sale_checkout_skip_payment.confirmation_order_error"
+            )
         request.website.sale_reset()
         return request.render("website_sale.confirmation", {"order": order})
