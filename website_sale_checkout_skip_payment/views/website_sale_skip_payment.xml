@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
-
     <template id="confirmation_order_error">
         <t t-call="website.layout">
             <t t-set="additional_title">Shop - Confirmation - Error</t>
@@ -16,5 +15,4 @@
             </div>
         </t>
     </template>
-
 </odoo>
