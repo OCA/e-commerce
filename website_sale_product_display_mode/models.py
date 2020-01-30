@@ -14,6 +14,6 @@ class ProductTemplateDisplayMode(models.Model):
             ('unlocked', 'Unlocked'),
         ],
         string='Display Mode',
-        default='normal',
+        default='no_preview',
         help="Set the display mode of the product"
     )
