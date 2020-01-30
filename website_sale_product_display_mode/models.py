@@ -9,10 +9,9 @@ class ProductTemplateDisplayMode(models.Model):
 
     display_mode = fields.Selection(
         [
-            ('normal', 'Normal'),
-            ('summary', 'Summary'),
-            ('open', 'Open'),
-            ('filled', 'Filled')
+            ('has_preview', 'Has Preview'),
+            ('no_preview', 'No Preview'),
+            ('unlocked', 'Unlocked'),
         ],
         string='Display Mode',
         default='normal',
