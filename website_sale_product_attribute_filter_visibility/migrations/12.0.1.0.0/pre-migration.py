@@ -3,10 +3,8 @@
 
 from openupgradelib import openupgrade
 
-
 _field_renames = [
-    ('product.attribute', 'product_attribute',
-     'website_published', 'is_published'),
+    ("product.attribute", "product_attribute", "website_published", "is_published")
 ]
 
 
