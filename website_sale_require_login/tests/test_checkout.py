@@ -6,14 +6,9 @@ class TestUi(odoo.tests.HttpCase):
     def run_tour(self, login=None):
         self.phantom_js(
             "/",
-
-            "odoo.__DEBUG__.services['web_tour.tour']"
-            ".run('shop_buy_product')",
-
-            "odoo.__DEBUG__.services['web_tour.tour']"
-            ".tours.shop_buy_product.ready",
-
-            login=login
+            "odoo.__DEBUG__.services['web_tour.tour']" ".run('shop_buy_product')",
+            "odoo.__DEBUG__.services['web_tour.tour']" ".tours.shop_buy_product.ready",
+            login=login,
         )
 
     # keep test numbering from module website_sale.
@@ -26,6 +21,5 @@ class TestUi(odoo.tests.HttpCase):
 
     def test_04_public_checkout(self):
         # Disable sign up, in case auth_signup is installed
-        self.env["ir.config_parameter"].set_param(
-            "auth_signup.invitation_scope", "b2b")
+        self.env["ir.config_parameter"].set_param("auth_signup.invitation_scope", "b2b")
         self.run_tour()
