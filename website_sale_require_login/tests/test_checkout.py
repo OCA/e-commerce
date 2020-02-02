@@ -1,25 +1,13 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Copyright (C) 2020 Alexandre Díaz - Tecnativa S.L.
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import odoo.tests
 
 
+@odoo.tests.tagged("post_install", "-at_install")
 class TestUi(odoo.tests.HttpCase):
-    def run_tour(self, login=None):
-        self.phantom_js(
-            "/",
-            "odoo.__DEBUG__.services['web_tour.tour']" ".run('shop_buy_product')",
-            "odoo.__DEBUG__.services['web_tour.tour']" ".tours.shop_buy_product.ready",
-            login=login,
-        )
-
-    # keep test numbering from module website_sale.
-    # Test 01 is not needed in this module
-    def test_02_admin_checkout(self):
-        self.run_tour("admin")
-
-    def test_03_demo_checkout(self):
-        self.run_tour("demo")
-
-    def test_04_public_checkout(self):
-        # Disable sign up, in case auth_signup is installed
-        self.env["ir.config_parameter"].set_param("auth_signup.invitation_scope", "b2b")
-        self.run_tour()
+    def test_01_shop_buy(self):
+        current_website = self.env["website"].get_current_website()
+        current_website.auth_signup_uninvited = "b2b"
+        self.env.ref("website_sale_require_login.cart").active = True
+        self.env.ref("website_sale_require_login.short_cart_summary").active = True
+        self.start_tour("/shop", "shop_buy_checkout_required_login_website")
