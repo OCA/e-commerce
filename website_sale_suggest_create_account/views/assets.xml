@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_tests"
+        name="Website Sale Suggest Create Account - Shop Buy Test"
+        inherit_id="web.assets_tests"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_suggest_create_account/static/tests/tours/checkout.js"
+            />
+        </xpath>
+    </template>
+</odoo>
