@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="cart" inherit_id="website_sale.cart">
+    <template id="cart" inherit_id="website_sale.cart" customize_show="True">
         <xpath expr="//div[@id='wrap']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id"/>
-            <t t-set="signup_allowed" t-value="env['ir.config_parameter'].sudo().get_param('auth_signup.invitation_scope') == 'b2c' "/>
+            <t t-set="signup_allowed" t-value="user_id._get_signup_invitation_scope() == 'b2c'"/>
             <t t-set="can_checkout" t-value="website_sale_order and
                                              website_sale_order.website_order_line"/>
 
@@ -59,7 +59,7 @@
     </template>
 
     <!-- Cart summary -->
-    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary" customize_show="True">
         <xpath expr="//a[@href='/shop/checkout?express=1']" position="attributes">
             <attribute name="class"/>
             <attribute name="t-attf-class">#{'btn btn-secondary float-right d-none d-xl-inline-block' if user_authenticated else 'btn btn-default float-right d-none d-xl-inline-block'}</attribute>
@@ -72,7 +72,7 @@
             </a>
             <t t-if="suggest_create_account">
                 <a class="btn btn-secondary float-right d-none d-xl-inline-block" role="button"
-                   href="/web/signup?redirect=/shop/checkout?express=1" style="margin-top:3px">
+                   href="/web/signup?redirect=/shop/checkout?express=1">
                     <span>Sign up and checkout</span>
                 </a>
             </t>
