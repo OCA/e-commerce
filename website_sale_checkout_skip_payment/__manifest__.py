@@ -5,7 +5,7 @@
 {
     'name': 'Website Sale Checkout Skip Payment',
     'summary': 'Skip payment for logged users in checkout process',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'category': 'Website',
     'website': 'https://www.tecnativa.com',
     'author': 'Tecnativa, Odoo Community Association (OCA)',
