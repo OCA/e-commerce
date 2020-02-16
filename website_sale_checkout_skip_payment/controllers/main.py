@@ -31,6 +31,6 @@ class CheckoutSkipPayment(WebsiteSale):
         order.action_confirm()
         if not order.force_quotation_send():
             return request.render(
-                'website_sale_skip_payment.confirmation_order_error')
+                'website_sale_checkout_skip_payment.confirmation_order_error')
         request.website.sale_reset()
         return request.render("website_sale.confirmation", {'order': order})
