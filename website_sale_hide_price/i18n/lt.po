@@ -25,8 +25,8 @@ msgid "Contact"
 msgstr ""
 
 #. module: website_sale_hide_price
-#: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner_website_show_price
-#: model:ir.model.fields,field_description:website_sale_hide_price.field_res_users_website_show_price
+#: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
+#: model:ir.model.fields,field_description:website_sale_hide_price.field_res_users__website_show_price
 msgid "Show prices on website"
 msgstr ""
 
@@ -36,6 +36,6 @@ msgid "Website"
 msgstr "Tinklapis"
 
 #. module: website_sale_hide_price
-#: model:ir.model.fields,field_description:website_sale_hide_price.field_website_website_show_price
+#: model:ir.model.fields,field_description:website_sale_hide_price.field_website__website_show_price
 msgid "Website Show Price"
 msgstr ""
