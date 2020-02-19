@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Tecnativa - David Vidal
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Website Sale Hide Price',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.0.0',
     'category': 'Website',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
