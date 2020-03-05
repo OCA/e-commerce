@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-website_sale_product_brand',
+        'odoo13-addon-website_sale_suggest_create_account',
     ],
     classifiers=[
         'Programming Language :: Python',
