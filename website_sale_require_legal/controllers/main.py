@@ -4,6 +4,7 @@
 
 from odoo import SUPERUSER_ID
 from odoo.http import request
+
 from odoo.addons.website_sale.controllers import main
 
 
@@ -30,27 +31,24 @@ class WebsiteSale(main.WebsiteSale):
         new_context = dict(request.context, needs_legal=True)
         request.context = new_context
         result = super(WebsiteSale, self).checkout_form_validate(
-            mode, all_form_values, data)
+            mode, all_form_values, data
+        )
         # Unpatch context
         request.context = old_context
         return result
 
     def _checkout_form_save(self, mode, checkout, all_values):
-        res = super(WebsiteSale, self)._checkout_form_save(
-            mode, checkout, all_values)
-        if (all_values.get('submitted') and
-                all_values.get('accepted_legal_terms')):
+        res = super(WebsiteSale, self)._checkout_form_save(mode, checkout, all_values)
+        if all_values.get("submitted") and all_values.get("accepted_legal_terms"):
             environ = request.httprequest.headers.environ
             metadata = "Website legal terms acceptance metadata: "
             metadata += "<br/>".join(
-                "%s: %s" % (val, environ.get(val)) for val in (
-                        "REMOTE_ADDR",
-                        "HTTP_USER_AGENT",
-                        "HTTP_ACCEPT_LANGUAGE",
-                    )
-                )
-            partner_id = request.env['res.partner'].browse(res)
+                "{}: {}".format(val, environ.get(val))
+                for val in ("REMOTE_ADDR", "HTTP_USER_AGENT", "HTTP_ACCEPT_LANGUAGE",)
+            )
+            partner_id = request.env["res.partner"].browse(res)
             website_user = request.website.salesperson_id.id or SUPERUSER_ID
             partner_id.sudo(website_user).message_post(
-                body=metadata, message_type='notification')
+                body=metadata, message_type="notification"
+            )
         return res
