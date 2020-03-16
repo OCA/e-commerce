@@ -1,19 +1,19 @@
 /* Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_require_legal.tour", function (require) {
+odoo.define("website_sale_require_legal.tour", function(require) {
     "use strict";
 
-    var base = require('web_editor.base');
+    var base = require("web_editor.base");
     var tour = require("web_tour.tour");
 
     // Get an option value by its text
     // HACK https://github.com/odoo/odoo/pull/32718
-    function opt_val (option_text) {
-        return function (action_helper) {
-            var option_id = this.$anchor.children(_.str.sprintf(
-                "option:contains('%s')", option_text
-            )).val();
+    function opt_val(option_text) {
+        return function(action_helper) {
+            var option_id = this.$anchor
+                .children(_.str.sprintf("option:contains('%s')", option_text))
+                .val();
             action_helper.text(option_id);
         };
     }
