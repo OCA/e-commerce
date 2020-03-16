@@ -6,16 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 13:14+0000\n"
-"PO-Revision-Date: 2019-03-22 14:15+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: es\n"
+"PO-Revision-Date: 2020-03-16 13:13+0000\n"
+"Last-Translator: Retropikzel <retropikzel@mailbox.org>\n"
+"Language-Team: none\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_attribute_filter_category
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_category.products_attributes
@@ -23,11 +22,23 @@ msgid ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filters by category</"
 "span>"
 msgstr ""
-"<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filtros por "
-"categoría</span>"
+"<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filtterit "
+"kategorioittain</span>"
 
 #. module: website_sale_attribute_filter_category
 #: code:addons/website_sale_attribute_filter_category/controllers/main.py:19
 #, python-format
 msgid "Undefined"
-msgstr "Indefinido"
+msgstr "Määrittelemätön"
+
+#~ msgid "Test"
+#~ msgstr "Testi"
+
+#~ msgid "Test Category"
+#~ msgstr "Testi Kategoria"
+
+#~ msgid "Test v1"
+#~ msgstr "Testi v1"
+
+#~ msgid "Test v2"
+#~ msgstr "Testi v2"
