@@ -8,8 +8,12 @@ from odoo.addons.website_sale.controllers.main import QueryURL, WebsiteSale
 
 
 class WebsiteSale(WebsiteSale):
-    def _get_search_domain(self, search, category, attrib_values):
-        domain = super()._get_search_domain(search, category, attrib_values)
+    def _get_search_domain(
+        self, search, category, attrib_values, search_in_description=True
+    ):
+        domain = super()._get_search_domain(
+            search, category, attrib_values, search_in_description=search_in_description
+        )
         if "brand_id" in request.env.context:
             domain.append(("product_brand_id", "=", request.env.context["brand_id"]))
         return domain
