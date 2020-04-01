@@ -1,5 +1,7 @@
-# Copyright (C) 2015 Antiun Ingeniería, S.L.
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# Copyright 2020 Tecnativa - Carlos Roca
+# Copyright 2020 Tecnativa - Sergio Teruel
+# Copyright 2020 Tecnativa - Carlos Dauden
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Show Stock Preview",
     "summary": "Show the stock of products on the product previews",
@@ -7,7 +9,7 @@
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce/",
     "author": "Tecnativa, Odoo Community Association (OCA)",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "depends": ["website_sale_stock"],
     "data": ["views/assets.xml"],
