@@ -1,5 +1,5 @@
 ===============================
-Website Sale Show Stock Preview
+Website Sale Stock List Preview
 ===============================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -10,14 +10,14 @@ Website Sale Show Stock Preview
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
-    :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
-    :alt: License: LGPL-3
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/13.0/website_sale_show_stock_preview
+    :target: https://github.com/OCA/e-commerce/tree/13.0/website_sale_stock_list_preview
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-13-0/e-commerce-13-0-website_sale_show_stock_preview
+    :target: https://translation.odoo-community.org/projects/e-commerce-13-0/e-commerce-13-0-website_sale_stock_list_preview
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/113/13.0
@@ -38,9 +38,9 @@ Usage
 
 To use this module, you need to:
 
+* Edit some products on the option Availability of e-commerce
 * Go to the shop on the website.
-* You can see on each product the quantity available.
-
+* You can see on your products the results of the options that you had choose.
 
 Bug Tracker
 ===========
@@ -48,7 +48,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_show_stock_preview%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_list_preview%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -64,6 +64,8 @@ Contributors
 ~~~~~~~~~~~~
 
 * Carlos Roca <carlos.roca@tecnativa.com>
+* Sergio Teruel <sergio.teruel@tecnativa.com>
+* Carlos Dauden <carlos.dauden@tecnativa.com>
 
 Maintainers
 ~~~~~~~~~~~
@@ -78,6 +80,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/13.0/website_sale_show_stock_preview>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/13.0/website_sale_stock_list_preview>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
