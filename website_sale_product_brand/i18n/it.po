@@ -21,22 +21,22 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
 msgstr "Nessuna marca trovata."
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
 msgstr "Marche prodotto"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
 msgstr "Cerca"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search..."
 msgstr "Cerca..."
 
