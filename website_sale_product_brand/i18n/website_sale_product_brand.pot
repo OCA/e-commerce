@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,22 +14,22 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model:ir.ui.view,arch_db:website_sale_product_brand.product_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search..."
 msgstr ""
 
