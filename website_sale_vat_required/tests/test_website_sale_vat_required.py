@@ -8,9 +8,8 @@ class TestUi(HttpCase):
         self.env.user.partner_id.vat = False
         self.browser_js(
             url_path="/",
-            code="odoo.__DEBUG__.services['web_tour.tour']"
-                 ".run('shop_buy_product')",
+            code="odoo.__DEBUG__.services['web_tour.tour']" ".run('shop_buy_product')",
             ready="odoo.__DEBUG__.services['web_tour.tour']"
-                  ".tours.shop_buy_product.ready",
+            ".tours.shop_buy_product.ready",
             login="admin",
         )
