@@ -10,22 +10,21 @@ msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-06 13:06+0000\n"
-"PO-Revision-Date: 2016-05-01 08:34+0000\n"
-"Last-Translator: Paolo Valier\n"
+"PO-Revision-Date: 2020-04-14 16:19+0000\n"
+"Last-Translator: Alberto Carollo <baba75@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-e-commerce-8-0/"
 "language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
-#, fuzzy
-#| msgid "Log in and checkout"
 msgid "<span>Log in and checkout</span>"
-msgstr "Accedi e vai alla Cassa"
+msgstr "<span>Accedi e vai alla Cassa</span>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
@@ -33,13 +32,13 @@ msgid ""
 "<span>Log in and checkout</span>\n"
 "                <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
+"<span>Accedi e vai alla Cassa</span>\n"
+"                <span class=\"fa fa-long-arrow-right\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
-#, fuzzy
-#| msgid "Sign up and checkout"
 msgid "<span>Sign up and checkout</span>"
-msgstr "Registrati e vai alla Cassa"
+msgstr "<span>Registrati e vai alla Cassa</span>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
@@ -47,6 +46,8 @@ msgid ""
 "<span>Sign up and checkout</span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
+"<span>Registrati e vai alla Cassa</span>\n"
+"                    <span class=\"fa fa-long-arrow-right\"/>"
 
 #, fuzzy
 #~ msgid "<span>Checkout without sign up</span>"
