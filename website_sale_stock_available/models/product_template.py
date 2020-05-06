@@ -14,7 +14,7 @@ class ProductTemplate(models.Model):
         combination_info = super()._get_combination_info(
             combination, product_id, add_qty, pricelist, parent_combination,
             only_template)
-        if combination_info.get("virtual_available"):
+        if self.env.context.get('website_sale_stock_get_quantity'):
             product_id = combination_info['product_id']
             if product_id:
                 product_obj = self.env['product.product'].sudo()
