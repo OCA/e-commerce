@@ -17,6 +17,7 @@
     ],
     'data': [
         'views/assets.xml',
+        'views/product_template_views.xml',
         'views/templates.xml',
     ],
 }

@@ -10,6 +10,7 @@ odoo.define('website_sale_stock_force_block.load', function (require) {
          QWeb
     );
 
+    // Save original method
     var _onChangeCombinationStock = ProductConfiguratorMixin._onChangeCombinationStock;
     ProductConfiguratorMixin._onChangeCombinationStock = function (ev, $parent, combination) {
         if (!this.isWebsite){
@@ -26,9 +27,8 @@ odoo.define('website_sale_stock_force_block.load', function (require) {
             });
         }
         else {
-            _onChangeCombinationStock(ev, $parent, combination);
+            _onChangeCombinationStock.apply(this, arguments);
         }
     };
-
     return ProductConfiguratorMixin;
 });

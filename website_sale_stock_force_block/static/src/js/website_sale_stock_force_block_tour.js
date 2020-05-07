@@ -10,11 +10,11 @@ odoo.define("website_sale_stock_force_block.tour", function (require) {
     var steps = [
         {
             trigger: "a:contains('Computer Motherboard')",
-//            extra_trigger: ".product_price:not(:has(a))",
+            extra_trigger: ".product_price:not(:has(a))",
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger: "#add_to_cart[class='disabled']",
+            extra_trigger: "#add_to_cart.disabled",
         },
 
     ];

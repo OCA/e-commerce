@@ -38,7 +38,8 @@ these case.
 Usage
 =====
 
-#. Go to *'Sale > Catalog > Product'*.
+#. Go to *'Website > Products > Products*.
+#. Go to *eCommerce* tab.
 #. Set *Block sales on website and display a message custom* in inventory
    availability field.
 #. You can set a custom message that appears when blocks this product.
@@ -72,6 +73,7 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
     * Sergio Teruel <sergio.teruel@tecnativa.com>
+    * Carlos Dauden<carlos.dauden@tecnativa.com>
 
 Maintainers
 ~~~~~~~~~~~

@@ -1,4 +1,5 @@
-#. Go to *'Sale > Catalog > Product'*.
+#. Go to *'Website > Products > Products*.
+#. Go to *eCommerce* tab.
 #. Set *Block sales on website and display a message custom* in inventory
    availability field.
 #. You can set a custom message that appears when blocks this product.
