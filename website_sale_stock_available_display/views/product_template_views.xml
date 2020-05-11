@@ -7,8 +7,9 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="website_sale_stock.product_template_form_view_inherit_website_sale_stock" />
         <field name="arch" type="xml">
-            <field name="custom_message" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('type', 'in', ['service', 'consu']), ('inventory_availability', 'not in', ['custom', 'always_no_lock'])]}</attribute>
+            <field name="custom_message" position="after">
+                <field name="custom_message"
+                       attrs="{'invisible': ['|', ('type', 'in', ['service', 'consu']), ('inventory_availability', '!=', 'always_no_lock')]}"/>
             </field>
         </field>
     </record>
