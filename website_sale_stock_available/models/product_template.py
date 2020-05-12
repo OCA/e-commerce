@@ -11,14 +11,7 @@ class ProductTemplate(models.Model):
     def _get_combination_info(self, combination=False, product_id=False,
                               add_qty=1, pricelist=False,
                               parent_combination=False, only_template=False):
-        combination_info = super()._get_combination_info(
+        template = self.with_context(website_sale_stock_available=True)
+        return super(ProductTemplate, template)._get_combination_info(
             combination, product_id, add_qty, pricelist, parent_combination,
             only_template)
-        if self.env.context.get('website_sale_stock_get_quantity'):
-            product_id = combination_info['product_id']
-            if product_id:
-                product_obj = self.env['product.product'].sudo()
-                product = product_obj.browse(product_id)
-                combination_info.update(
-                    virtual_available=product.immediately_usable_qty)
-        return combination_info
