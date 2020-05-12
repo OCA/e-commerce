@@ -23,9 +23,9 @@ Website Sale Exception
     :target: https://runbot.odoo-community.org/runbot/113/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module allows to pass a website sale from draft state to sent if there are exeptions that do not let to continue to done state. This is required to close the website sale order after the sale order has been confirmed and the payment has been receive. This way the user can create a new sale order from website without overwritten the last one and without losing the payment information.
+This module allows to pass a website sale from draft state to sent if there are exeptions that do not let to continue to done state. This is required to close the website sale order after the sale order has been confirmed and the payment has been received. This way the user can create a new sale order from the website without overwriting the last one and without losing the payment information.
 
 **Table of contents**
 
