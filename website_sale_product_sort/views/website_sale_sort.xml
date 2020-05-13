@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="sort" active="True" customize_show="True" inherit_id="website_sale.sort" name="Extend Sort by">
+        <xpath expr="//t[@t-set='website_sale_sortable']" position="attributes">
+            <attribute name="t-value">
+                [(x[1], x[0]) for x in request.website._get_product_sort_criterias()]
+            </attribute>
+        </xpath>
+    </template>
+
+</odoo>
