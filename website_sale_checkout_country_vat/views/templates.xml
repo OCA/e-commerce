@@ -5,7 +5,7 @@
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
 <odoo>
 
-<template id="address" inherit_id="website_sale.address">
+<template id="address" inherit_id="website_sale.address_b2b">
     <xpath expr="//input[@name='vat']" position="replace">
         <t t-call="website_snippet_country_dropdown.country_dropdown">
             <t t-set="complete_field" t-value="'vat'"/>
@@ -14,6 +14,7 @@
             <t t-set="default_country"
                t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', country_id and int(country_id) or False)])"/>
             <t t-set="no_country_field_extra_classes" t-value="error.get('vat') and 'is-invalid' or ''"/>
+            <t t-set="readonly" t-value="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"/>
         </t>
     </xpath>
 </template>
