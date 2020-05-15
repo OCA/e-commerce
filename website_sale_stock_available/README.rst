@@ -26,9 +26,24 @@ Website Sale Stock Available
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module extends the functionality of 'Product Availability' module
-(Technical name: website_sale_stock) to display 'Available to promise'
-quantity of each product instead 'Virtual available' quantity in your
-eCommerce store.
+(Technical name: website_sale_stock) so that for the 'Website shop' the
+'Available' quantity of a product is taken into account instead of
+'Forecasted' quantity.
+
+This image shows where you can see those quantities:
+
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_stock_available/static/description/product_quantities.png
+    :width: 600 px
+    :alt: Product quantities
+
+|
+
+If a product is configured to 'prevent sales if not enough stock'
+(see configuration section) and its page is accessed in the Website Shop,
+the availability messages will be based on the 'Available' quantity instead of
+'Forecasted' quantity. And also, the Website shop wont allow you to buy more
+products than 'Available' quantity (not 'Forecasted' quantity is taken
+into account).
 
 **Table of contents**
 
@@ -40,20 +55,33 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to *Inventory > Master Data > Products*
-#. Create or edit a product, navigate to 'eCommerce' tab and set
-   Its inventory availability status on the web product page.
+#. Go to *Inventory > Master Data > Products* and edit a product that
+   you only want to sell in the website shop if there is enough stock.
+#. Navigate to 'Availability' field in the 'eCommerce' tab and set
+   one of these options:
+
+   * Show inventory on website and prevent sales if not enough stock
+   * Show inventory below a threshold and prevent sales if not enough stock.
+#. Go to *Inventory > Configuration > Settings*, navigate to *Stock available
+   to promise* section and set the desired option. If you do not choose any,
+   the value of 'Available' quantity will be equal to 'Forecasted' quantity.
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to your eCommerce store.
-#. Select a product that has an inventory availability status set for
-   the web product page.
-#. You will see under **Add to cart** button the 'Available to promise'
-   quantity of the product instead of 'Virtual available' quantity.
+#. Go to your Website shop.
+#. Select a product that you has previously configured to 'prevent sales
+   if not enough stock' for the web product page.
+#. Odoo doesn't allow you to add the product to the car if 'Available'
+   quantity (not 'Forecasted' quantity) is equal or less than zero.
+   Besides, availability messages will be based on the 'Available'
+   quantity instead of the 'Forecasted' quantity.
+
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_stock_available/static/description/availability_message.png
+    :width: 600 px
+    :alt: Availability message
 
 Bug Tracker
 ===========
