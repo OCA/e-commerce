@@ -1,57 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-<!-- Technical Note: domain=[('id', '!=', 0)] is set on both template fields
+    <!-- Technical Note: domain=[('id', '!=', 0)] is set on both template fields
 to enable research by name for product templates. Otherwise, the resarch will
 be done on product.product table, that is not the attempted behaviour
 See odoo/addons/product/models/product_template.py // def name_search()
 -->
-
     <record id="product_template_link_tree" model="ir.ui.view">
         <field name="name">Product.template.link.tree</field>
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
-                <field name="product_template_id" domain="[('id', '!=', 0)]"
-                    invisible="context.get('default_product_template_id', False)"/>
+                <field
+                    name="product_template_id"
+                    domain="[('id', '!=', 0)]"
+                    invisible="context.get('default_product_template_id', False)"
+                />
                 <field name="linked_product_template_id" domain="[('id', '!=', 0)]" />
                 <field name="link_type" />
             </tree>
         </field>
     </record>
-
     <record id="product_template_link_kanban" model="ir.ui.view">
         <field name="name">Product.template.link.kanban</field>
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="product_template_id"/>
-                <field name="linked_product_template_id"/>
-                <field name="link_type"/>
+                <field name="product_template_id" />
+                <field name="linked_product_template_id" />
+                <field name="link_type" />
                 <templates>
                     <t t-name="kanban-box">
                         <div>
                             <div style="height: 64px; width: 45%; float:left;">
                                 <div class="o_kanban_image">
-                                    <img t-att-src="kanban_image('product.template', 'image_128', record.product_template_id.raw_value)" alt="Product" class="o_image_64_contain"/>
+                                    <img
+                                        t-att-src="kanban_image('product.template', 'image_128', record.product_template_id.raw_value)"
+                                        alt="Product"
+                                        class="o_image_64_contain"
+                                    />
                                 </div>
                                 <div class="oe_kanban_details" style="font-size: 10px;">
-                                    <field name="product_template_id"/>
+                                    <field name="product_template_id" />
                                 </div>
                             </div>
-                            <div name="product_template_link_type" style="height: 64px; width: 10%; float:left;">
-                                <img src="/product_template_multi_link/static/src/img/type_cross_sell.png"
-                                        t-if="record.link_type.raw_value == 'cross_sell'" style="width:100%" alt="Cross Selling"/>
-                                <img src="/product_template_multi_link/static/src/img/type_up_sell.png"
-                                        t-if="record.link_type.raw_value == 'up_sell'" style="width:100%" alt="Up Selling"/>
+                            <div
+                                name="product_template_link_type"
+                                style="height: 64px; width: 10%; float:left;"
+                            >
+                                <img
+                                    src="/product_template_multi_link/static/src/img/type_cross_sell.png"
+                                    t-if="record.link_type.raw_value == 'cross_sell'"
+                                    style="width:100%"
+                                    alt="Cross Selling"
+                                />
+                                <img
+                                    src="/product_template_multi_link/static/src/img/type_up_sell.png"
+                                    t-if="record.link_type.raw_value == 'up_sell'"
+                                    style="width:100%"
+                                    alt="Up Selling"
+                                />
                             </div>
                             <div style="height: 64px; width: 45%; float:left;">
                                 <div class="o_kanban_image">
-                                    <img t-att-src="kanban_image('product.template', 'image_128', record.linked_product_template_id.raw_value)" alt="Product" class="o_image_64_contain"/>
+                                    <img
+                                        t-att-src="kanban_image('product.template', 'image_128', record.linked_product_template_id.raw_value)"
+                                        alt="Product"
+                                        class="o_image_64_contain"
+                                    />
                                 </div>
-
                                 <div class="oe_kanban_details" style="font-size: 10px;">
-                                    <field name="linked_product_template_id"/>
+                                    <field name="linked_product_template_id" />
                                 </div>
                             </div>
                         </div>
@@ -60,5 +78,4 @@ See odoo/addons/product/models/product_template.py // def name_search()
             </kanban>
         </field>
     </record>
-
 </odoo>
