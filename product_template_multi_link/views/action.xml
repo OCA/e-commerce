@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="action_product_template_link" model="ir.actions.act_window">
         <field name="name">Product Links</field>
         <field name="res_model">product.template.link</field>
         <field name="view_mode">tree,kanban</field>
     </record>
-
-    <record id="action_product_template_link_from_product_template" model="ir.actions.act_window">
+    <record
+        id="action_product_template_link_from_product_template"
+        model="ir.actions.act_window"
+    >
         <field name="name">Product Links</field>
         <field name="res_model">product.template.link</field>
         <field name="view_mode">tree,kanban</field>
         <field name="domain">[('product_template_id', '=', active_id)]</field>
         <field name="context">{'default_product_template_id': active_id}</field>
     </record>
-
 </odoo>
