@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- No render add to cart button for products with always lock sale
+        option in main products view -->
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <xpath expr="//t[@t-if='product_variant_id']/a" position="attributes">
+            <attribute name="t-if">product_variant_id and product.inventory_availability != 'custom_block'</attribute>
+        </xpath>
+    </template>
+
+    <!-- Disable Add to cart button in product view -->
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-att-class">'{} {}'.format('btn btn-primary btn-lg mt8 js_check_product a-submit', ' disabled' if product.inventory_availability == 'custom_block' else '')</attribute>
+        </xpath>
+    </template>
+
+</odoo>
