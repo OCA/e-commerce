@@ -8,20 +8,22 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-06 20:37+0000\n"
 "PO-Revision-Date: 2020-05-06 22:40+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.6\n"
-"Last-Translator: \n"
-"Language: es\n"
 
 #. module: website_sale_stock_force_block
 #: model:ir.model.fields,help:website_sale_stock_force_block.field_product_product__inventory_availability
 #: model:ir.model.fields,help:website_sale_stock_force_block.field_product_template__inventory_availability
 msgid "Adds an inventory availability status on the web product page."
-msgstr "Añade un estado de disponibilidad en inventario en la página web del producto."
+msgstr ""
+"Añade un estado de disponibilidad en inventario en la página web del "
+"producto."
 
 #. module: website_sale_stock_force_block
 #: selection:product.template,inventory_availability:0
@@ -56,7 +58,9 @@ msgstr "Vender independientemente del inventario"
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
 msgid "Show inventory below a threshold and prevent sales if not enough stock"
-msgstr "Mostrar el inventario por debajo de un determinado umbral y bloquear las ventas si no hay suficientes existencias"
+msgstr ""
+"Mostrar el inventario por debajo de un determinado umbral y bloquear las "
+"ventas si no hay suficientes existencias"
 
 #. module: website_sale_stock_force_block
 #: selection:product.template,inventory_availability:0
@@ -70,7 +74,9 @@ msgstr ""
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
 msgid "Show inventory on website and prevent sales if not enough stock"
-msgstr "Mostrar el inventario en el sitio web y bloquear las ventas si no hay suficientes existencias"
+msgstr ""
+"Mostrar el inventario en el sitio web y bloquear las ventas si no hay "
+"suficientes existencias"
 
 #. module: website_sale_stock_force_block
 #: selection:product.template,inventory_availability:0
