@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_show_company_data',
         'odoo12-addon-website_sale_stock_available',
         'odoo12-addon-website_sale_stock_available_display',
+        'odoo12-addon-website_sale_stock_force_block',
         'odoo12-addon-website_sale_suggest_create_account',
         'odoo12-addon-website_sale_vat_required',
     ],
