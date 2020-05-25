@@ -3,8 +3,8 @@
 {
     "name": "Website Sale Attribute Filter Category",
     "summary": "Allow group attributes in shop by categories",
-    "version": "12.0.1.0.0",
-    "development_status": "Beta",
+    "version": "13.0.1.0.0",
+    "development_status": "Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
