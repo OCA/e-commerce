@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="link[last()]" position="after">
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="/website_snippet_product_category/static/src/scss/snippet.scss"
+            />
+        </xpath>
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_snippet_product_category/static/src/js/frontend.js"
+            />
+        </xpath>
+    </template>
+
+    <template id="assets_editor" inherit_id="web_editor.assets_editor">
+        <xpath expr="script[last()]" position="after">
+            <script
+                type="text/javascript"
+                src="/website_snippet_product_category/static/src/js/snippet.options.js"
+            />
+        </xpath>
+    </template>
+</odoo>
