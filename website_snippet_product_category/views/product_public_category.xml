@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="product_public_category_form_view" model="ir.ui.view">
+            <field name="name">public.category.form</field>
+            <field name="model">product.public.category</field>
+            <field
+                name="inherit_id"
+                ref="website_sale.product_public_category_form_view"
+            />
+            <field name="arch" type="xml">
+                <field name="image_medium" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="website_publish_button"
+                            type="object" icon="fa-globe">
+                            <field name="website_published" widget="website_button"/>
+                            <field name="is_published" invisible="1"/>
+                        </button>
+                    </div>
+                </field>
+                <xpath expr="//div[hasclass('oe_left')]" position="attributes">
+                    <attribute name="class" remove="oe_left" separator=" " />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
