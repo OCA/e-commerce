@@ -3,7 +3,7 @@
 from odoo.tests.common import HttpCase
 
 
-class websiteSaleAttributeFilterCategoryHttpCase(HttpCase):
+class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
         # Models
@@ -15,7 +15,6 @@ class websiteSaleAttributeFilterCategoryHttpCase(HttpCase):
         self.product_attribute = ProductAttribute.create(
             {
                 "name": "Test",
-                "website_published": True,
                 "create_variant": "no_variant",
                 "category_id": self.attribute_category.id,
             }
@@ -46,7 +45,10 @@ class websiteSaleAttributeFilterCategoryHttpCase(HttpCase):
             }
         )
         self.product_template.write(
-            {"attribute_line_ids": [(4, self.product_attribute_line.id)]}
+            {
+                "attribute_line_ids": [(4, self.product_attribute_line.id)],
+                "is_published": True,
+            }
         )
         # Active attribute's filter in /shop. By default it's disabled.
         self.env.ref("website_sale.products_attributes").active = True
