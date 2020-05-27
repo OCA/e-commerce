@@ -48,6 +48,12 @@ To use this module, you need to:
    because there are also one top and one bottom drop areas which are shared
    among all eCommerce pages.
 
+Known issues / Roadmap
+======================
+
+* This feature is included in Odoo 13.0, so this module will not be needed in
+  that version.
+
 Bug Tracker
 ===========
 
