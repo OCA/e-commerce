@@ -19,8 +19,8 @@ class WebsiteSale(WebsiteSale):
     @http.route(['/shop',
                  '/shop/page/<int:page>',
                  '/shop/category/<model("product.public.category"):category>',
-                 '/shop/category/<model("product.public.category"):category'
-                 '>/page/<int:page>',  # Continue previous line
+                 '/shop/category/<model("product.public.category"):category>/page/<int:page>',  # Continue previous line
+                 '/shop/brand/<model("product.brand"):brand>',
                  '/shop/brands'],
                 type='http',
                 auth='public',
@@ -30,9 +30,28 @@ class WebsiteSale(WebsiteSale):
             context = dict(request.env.context)
             context.setdefault('brand_id', int(brand))
             request.env.context = context
-        return super(WebsiteSale, self).shop(page=page, category=category,
-                                             brand=brand, search=search,
-                                             **post)
+        response = super(WebsiteSale, self).shop(page=page, category=category,
+                                                 brand=brand, search=search,
+                                                 **post)
+        values = response.qcontext
+        ProductBrand = request.env['product.brand']
+
+        if brand:
+            brand = ProductBrand.browse(int(brand))
+
+        products = values['products']
+        brands = ProductBrand.search([])
+        if search or category:
+            brands = products.mapped('product_brand_id')
+        if brand:
+            brands=brand
+            products = products.filtered(lambda p: p.product_brand_id == brand)
+
+        keep = values['keep']
+        keep.brand = brand and int(brand)
+
+        values.update(brands=brands, products=products, brand=brand)
+        return response
 
     # Method to get the brands.
     @http.route(

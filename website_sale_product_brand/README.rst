@@ -66,6 +66,9 @@ Based on this configuration, you will see the menuitem shop by brand next to sho
 It will show all the brands and once you select that brand it will show product's which
 is related to this brand.
 
+In the Shop menu, you can also display the brands as a sidebar filter by enabling it in the page
+editor: Customize/eCommerce Brands Sidebar
+
 Bug Tracker
 ===========
 
@@ -94,6 +97,11 @@ Contributors
 
     * Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
     * Sergio Teruel <sergio.teruel@tecnativa.com>
+* `NEXTERP ROMANIA S.R.L. <http://www.nexterp.ro>`_:
+
+    * Fekete Mihai <contact@nexterp.ro>
+    * Cojocaru Marcel <cojocarumarcel@nexterp.ro>
+
 
 Maintainers
 ~~~~~~~~~~~

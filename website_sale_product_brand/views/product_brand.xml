@@ -55,8 +55,42 @@
 
     <template id="categories_recursive" inherit_id="website_sale.categories_recursive">
         <xpath expr="//span[@t-field='c.name']/.." position="attributes">
-            <attribute name="t-att-href">keep('/shop/category/' + slug(c), category=0, brand=brand)</attribute>
+            <attribute name="t-att-href">keep('/shop/category/' + slug(c), category=0, brand=brand and brand.id or 0)</attribute>
         </xpath>
     </template>
+
+    <template id="product_brand_sidebar" name="Brand Sidebar Item">
+        <li class="nav-item">
+            <a t-att-href="keep('/shop/brand/' + slug(b), category=category and category.id or 0, brand=0)" t-attf-class="nav-link#{' active' if b.id == int(brand or 0) else ''}">
+                <span t-field="b.name"/>
+            </a>
+        </li>
+    </template>
+
+    <template id="products_brands" inherit_id="website_sale.products" active="False" customize_show="True" name="eCommerce Brands Sidebar">
+        <xpath expr="//div[@id='products_grid_before']" position="inside">
+            <ul class="nav nav-pills flex-column mt16">
+                <li class="nav-item">
+                    <a t-att-href="keep('/shop', category=category and category.id or 0, brand=0)" t-attf-class="nav-link#{'' if brand else ' active'} o_not_editable">All Brands</a>
+                </li>
+                <t t-foreach="brands" t-as="b">
+                    <t t-call="website_sale_product_brand.product_brand_sidebar" />
+                </t>
+            </ul>
+        </xpath>
+        <xpath expr="//div[@id='products_grid_before']" position="attributes">
+            <attribute name="class">col-lg-3 col-md-4 col-12</attribute>
+        </xpath>
+        <xpath expr="//div[@id='products_grid']" position="attributes">
+            <attribute name="class">col-lg-9 col-md-8</attribute>
+        </xpath>
+    </template>
+
+    <template id="option_collapse_categories_recursive" inherit_id="website_sale.option_collapse_categories_recursive">
+        <xpath expr="//a[@t-field='categ.name']" position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(categ), category=0, brand=brand and brand.id or 0)</attribute>
+        </xpath>
+    </template>
+
 
 </odoo>
