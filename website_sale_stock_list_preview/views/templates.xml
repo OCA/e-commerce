@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <xpath
+            expr="//a[hasclass('a-submit')]/span[hasclass('fa-shopping-cart')]/.."
+            position="attributes"
+        >
+            <attribute name="class" add="disabled" separator=" " />
+        </xpath>
+        <xpath
+            expr="//a[hasclass('a-submit')]/span[hasclass('fa-shopping-cart')]"
+            position="attributes"
+        >
+            <attribute name="class" add="d-none" separator=" " />
+        </xpath>
+        <xpath
+            expr="//a[hasclass('a-submit')]/span[hasclass('fa-shopping-cart')]"
+            position="after"
+        >
+            <span class="fa fa-spinner fa-spin" />
+        </xpath>
+    </template>
+</odoo>

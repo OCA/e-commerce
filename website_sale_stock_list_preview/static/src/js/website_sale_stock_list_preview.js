@@ -43,10 +43,35 @@ odoo.define("website_sale_stock_list_preview.shop_stock", function(require) {
                                         custom_message: product.custom_message,
                                         product_template: product.id,
                                         product_type: product.type,
+                                        uom_name: product.uom_name,
                                     }
                                 )
                             ).get(0)
                         );
+                    // With this code we active just the products that can be sold on website.
+                    if (
+                        product.virtual_available <= 0 &&
+                        (product.inventory_availability == "always" ||
+                            product.inventory_availability == "threshold")
+                    ) {
+                        $(product_dic[product.id])
+                            .find(".fa-spinner")
+                            .addClass("d-none");
+                        $(product_dic[product.id])
+                            .find(".fa-shopping-cart")
+                            .removeClass("d-none");
+                    } else {
+                        $(product_dic[product.id])
+                            .find(".fa-spinner")
+                            .addClass("d-none");
+                        $(product_dic[product.id])
+                            .find(".fa-shopping-cart")
+                            .removeClass("d-none");
+                        $(product_dic[product.id])
+                            .find(".fa-shopping-cart")
+                            .parent()
+                            .removeClass("disabled");
+                    }
                 }
             });
         },
