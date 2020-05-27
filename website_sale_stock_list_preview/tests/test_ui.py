@@ -88,6 +88,7 @@ class UICase(HttpCase):
                 },
             ]
         )
+        self.env.ref("website_sale.products_add_to_cart").active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
