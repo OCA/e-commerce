@@ -15,6 +15,7 @@
         'website_sale'
     ],
     'data': [
+        'security/ir.model.access.csv',
         "data/website_menu.xml",
         "views/product_brand.xml",
         "views/product_brand_views.xml",
