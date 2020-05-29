@@ -29,9 +29,7 @@ class WebsiteSaleVariantController(VariantController):
             .with_context(warehouse=current_website.warehouse_id.id)
             .browse(product_template_ids)
         )
-        for template in templates.filtered(
-            lambda t: t.is_published and t.inventory_availability != "never"
-        ):
+        for template in templates.filtered(lambda t: t.is_published):
 
             res.append(
                 {
@@ -41,6 +39,7 @@ class WebsiteSaleVariantController(VariantController):
                     "available_threshold": template.available_threshold,
                     "custom_message": template.custom_message,
                     "type": template.type,
+                    "uom_name": template.uom_name,
                 }
             )
         return res

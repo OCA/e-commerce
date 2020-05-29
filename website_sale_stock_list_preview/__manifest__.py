@@ -12,5 +12,5 @@
     "license": "AGPL-3",
     "installable": True,
     "depends": ["website_sale_stock"],
-    "data": ["views/assets.xml"],
+    "data": ["views/assets.xml", "views/templates.xml"],
 }

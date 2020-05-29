@@ -8,50 +8,116 @@ odoo.define("website_sale_stock_list_preview.tour", function(require) {
 
     var steps = [
         {
-            trigger: "a:contains('Test Product 1')",
-            extra_trigger: ".text-success:contains('30  available')",
+            trigger:
+                ".o_wsale_product_information:has(.text-success:contains('30 Units available')) a:contains('Test Product 1')",
         },
         {
             trigger: "a[href='/shop']",
+            extra_trigger:
+                "#product_details .text-success:contains('30 Units available')",
         },
         {
-            trigger: "a:contains('Test Product 2')",
-            extra_trigger: ".text-success:contains('In stock')",
-        },
-        {
-            trigger: "a[href='/shop']",
-        },
-        {
-            trigger: "a:contains('Test Product 3')",
-            extra_trigger: ".text-warning:contains('5  available')",
+            trigger:
+                ".o_wsale_product_information:not(:has(.btn-secondary.disabled)) a:contains('Test Product 1')",
         },
         {
             trigger: "a[href='/shop']",
+            extra_trigger: "#product_details a:not(#add_to_cart.disabled)",
         },
         {
-            trigger: "a:contains('Test Product 4')",
-            extra_trigger: ".text-success:contains('test message')",
-        },
-        {
-            trigger: "a[href='/shop']",
-        },
-        {
-            trigger: "a:contains('Test Product 5')",
-            //            Extra_trigger: ".text-success:contains('30  available')",
+            trigger:
+                ".o_wsale_product_information:has(.text-success:contains('In stock')) a:contains('Test Product 2')",
         },
         {
             trigger: "a[href='/shop']",
+            extra_trigger: "#product_details .text-success:contains('In stock')",
         },
         {
-            trigger: "a:contains('Test Product 6')",
-            extra_trigger: ".text-danger:contains(' Temporarily out of stock')",
+            trigger:
+                ".o_wsale_product_information:not(:has(.btn-secondary.disabled)) a:contains('Test Product 2')",
         },
         {
             trigger: "a[href='/shop']",
+            extra_trigger: "#product_details a:not(#add_to_cart.disabled)",
         },
         {
-            trigger: "a:contains('Test Product 7')",
-            extra_trigger: ".text-danger:contains(' Temporarily out of stock')",
+            trigger:
+                ".o_wsale_product_information:has(.text-warning:contains('5 Units available')) a:contains('Test Product 3')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger:
+                "#product_details .text-warning:contains('5 Units available')",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:not(:has(.btn-secondary.disabled)) a:contains('Test Product 3')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "#product_details a:not(#add_to_cart.disabled)",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:has(.text-success:contains('test message')) a:contains('Test Product 4')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "#product_details .text-success:contains('test message')",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:not(:has(.btn-secondary.disabled)) a:contains('Test Product 4')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "#product_details a:not(#add_to_cart.disabled)",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:has(.product_price:not(:has(.mt16))) a:contains('Test Product 5')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "#product_details :not(.mt16)",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:not(:has(btn-secondary.disabled)) a:contains('Test Product 5')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "#product_details a:not(#add_to_cart.disabled)",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:has(.text-danger:contains(' Temporarily out of stock')) a:contains('Test Product 6')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger:
+                "#product_details .text-danger:contains(' Temporarily out of stock')",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:has(.btn-secondary.disabled) a:contains('Test Product 6')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger: "#product_details a#add_to_cart.disabled",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:has(.text-danger:contains(' Temporarily out of stock')) a:contains('Test Product 7')",
+        },
+        {
+            trigger: "a[href='/shop']",
+            extra_trigger:
+                "#product_details .text-danger:contains(' Temporarily out of stock')",
+        },
+        {
+            trigger:
+                ".o_wsale_product_information:has(.btn-secondary.disabled) a:contains('Test Product 7')",
         },
     ];
 
