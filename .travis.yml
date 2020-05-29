@@ -16,7 +16,7 @@ addons:
 
 env:
   global:
-  - VERSION="10.0" TESTS="0" LINT_CHECK="0" MAKEPOT="0"
+  - VERSION="10.0" TESTS="0" LINT_CHECK="0" MAKEPOT="0" WKHTMLTOPDF_VERSION="0.12.4"
   - WEBSITE_REPO="1"
 
   matrix:
