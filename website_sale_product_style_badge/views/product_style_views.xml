@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_style_form_view" model="ir.ui.view">
+        <field name="name">product.style.common.form</field>
+        <field name="model">product.style</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Product Style">
+                <sheet>
+                    <group>
+                        <field name='name'/>
+                    </group>
+                    <group>
+                        <field name='html_class' required="1"/>
+                        <field name='html_content'/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
