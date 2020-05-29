@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('ribbon-wrapper')]" position="before">
+            <div class="custom-badges-container position-absolute p-2">
+                <t t-foreach="product.website_style_ids" t-as="style">
+                    <t t-if="style.sudo().html_content" t-raw="style.sudo().html_content.replace('$style_name', style.name)" />
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
