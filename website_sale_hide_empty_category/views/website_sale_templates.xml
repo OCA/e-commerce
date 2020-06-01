@@ -14,7 +14,7 @@
             expr="//t[@t-name='website_sale.categories_recursive']"
             position="attributes"
         >
-            <attribute name="t-if">c.product_ids</attribute>
+            <attribute name="t-if">c.product_tmpl_ids</attribute>
         </xpath>
     </template>
 </odoo>
