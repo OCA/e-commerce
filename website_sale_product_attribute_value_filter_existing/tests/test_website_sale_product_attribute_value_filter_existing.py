@@ -11,11 +11,7 @@ class WebsiteSaleHttpCase(HttpCase):
         ProductAttributeValue = self.env["product.attribute.value"]
         ProductAttributeLine = self.env["product.template.attribute.line"]
         self.product_attribute = ProductAttribute.create(
-            {
-                "name": "Test Special Color",
-                "website_published": True,
-                "create_variant": "no_variant",
-            }
+            {"name": "Test Special Color", "create_variant": "no_variant"}
         )
         self.product_attribute_value_red = ProductAttributeValue.create(
             {"name": "Test red", "attribute_id": self.product_attribute.id}
@@ -79,7 +75,7 @@ class WebsiteSaleHttpCase(HttpCase):
             "odoo.__DEBUG__.services['web_tour.tour']",
             "website_sale_product_attribute_value_filter_existing",
         )
-        self.phantom_js(
+        self.browser_js(
             url_path="/",
             code="%s.run('%s')" % tour,
             ready="%s.tours['%s'].ready" % tour,
