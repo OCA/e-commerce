@@ -4,19 +4,19 @@
 <odoo>
     <template id="products_attributes" inherit_id="website_sale.products_attributes">
         <xpath
-            expr="//t[@t-if=&quot;a.type == &apos;select&apos;&quot;]//t[@t-foreach='a.value_ids']/option"
+            expr="//t[@t-if=&quot;a.display_type == 'select'&quot;]//t[@t-foreach='a.value_ids']/option"
             position="attributes"
         >
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
         <xpath
-            expr="//t[@t-if=&quot;a.type == &apos;radio&apos;&quot;]//t[@t-foreach='a.value_ids']/li"
+            expr="//t[@t-if=&quot;a.display_type == 'radio'&quot;]//t[@t-foreach='a.value_ids']/li"
             position="attributes"
         >
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
         <xpath
-            expr="//t[@t-if=&quot;a.type == &apos;color&apos;&quot;]//t[@t-foreach='a.value_ids']/label"
+            expr="//t[@t-if=&quot;a.display_type == 'color'&quot;]//t[@t-foreach='a.value_ids']/label"
             position="attributes"
         >
             <attribute name="t-if">attr_values_used &amp; v</attribute>
