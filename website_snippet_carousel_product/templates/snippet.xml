@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Modify Snippets Menu -->
+    <template
+        id="snippets"
+        inherit_id="website.snippets"
+        name="Snippet Products Carousel Panel Option"
+    >
+        <xpath
+            expr="//div[@id='snippet_feature']//div[hasclass('o_panel_body')]"
+            position="inside"
+        >
+            <t
+                t-snippet="website_snippet_carousel_product.s_product_carousel"
+                t-thumbnail="/website_snippet_carousel_product/static/description/icon.png"
+            />
+        </xpath>
+    </template>
+    <!-- Snippet Carousel Product -->
+    <template id="s_product_carousel" name="Products Carousel">
+        <div class="oe_structure" />
+        <section class="s_product_carousel">
+            <div class="container">
+                <div class="js_product_carousel">
+                    <div class='text-center'>
+                        <i class='fa fa-circle-o-notch fa-spin fa-3x fa-fwg'></i>
+                        <span>Loading Product Carousel</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="s_product_carousel_items">
+        <div class="product_carousel_slider oe_website_sale">
+            <input
+                type="hidden"
+                name="product_count"
+                t-if="objects"
+                t-att-value="len(objects)"
+            />
+            <div
+                t-att-id="uniqueId"
+                class="carousel slide d-flex"
+                data-ride="carousel"
+            >
+                <a
+                    class="o_product_carousel_control carousel-control-prev position-relative"
+                    t-att-href="'#' + uniqueId"
+                    role="button"
+                    data-slide="prev"
+                    t-if='num_slides > 1'
+                >
+                    <i class="fa fa-2x fa-chevron-left text-black-50" />
+                    <span class="sr-only">Previous</span>
+                </a>
+                <div class="carousel-inner">
+                    <t t-foreach="objects" t-as="products">
+                        <div
+                            t-attf-class="carousel-item #{'' if products_index else 'active'}"
+                        >
+                            <div class="row">
+                                <t t-foreach="products" t-as="product">
+                                    <div t-attf-class="col-12 col-sm-6 col-md-#{int(12 / products_per_slide)}">
+                                        <div t-attf-class="oe_product #{' '.join(x.html_class for x in product.website_style_ids if x.html_class)}" >
+                                            <t t-call="website_sale.products_item"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                <a
+                    class="o_product_carousel_control carousel-control-next position-relative"
+                    t-att-href="'#' + uniqueId"
+                    role="button"
+                    data-slide="next"
+                    t-if='num_slides > 1'
+                >
+                    <i class="fa fa-2x fa-chevron-right text-black-50" />
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </template>
+    <template id="s_product_carousel_options" inherit_id="website.snippet_options">
+        <xpath expr="." position="inside">
+            <div data-js="js_product_carousel" data-selector=".js_product_carousel">
+                <a href="#" class="dropdown-item s_carousel_set_domain"><i
+                        class="fa fa-fw fa-bars"
+                    /> Set Domain</a>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item"><i
+                            class="fa fa-fw fa-stop-circle-o"
+                        /> Limit</a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#" class="dropdown-item" data-products-limit="2">2</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-limit="4"
+                        >4</a>
+                        <a href="#" class="dropdown-item" data-products-limit="8">8</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-limit="12"
+                        >12</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-limit="24"
+                        >24</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item"><i
+                            class="fa fa-fw fa-list-ol"
+                        /> Show</a>
+                    <div class="dropdown-menu" role="menu">
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-per-slide="2"
+                        >2</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-per-slide="3"
+                        >3</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-per-slide="4"
+                        >4</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-products-per-slide="6"
+                        >6</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item"><i
+                            class="fa fa-fw fa-clock-o"
+                        />Slideshow Speed</a>
+                    <div class="dropdown-menu" role="menu">
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-interval="1000"
+                        >1s</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-interval="2000"
+                        >2s</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-interval="3000"
+                        >3s</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-interval="5000"
+                        >5s</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-interval="10000"
+                        >10s</a>
+                        <a
+                            href="#"
+                            role="menuitem"
+                            class="dropdown-item"
+                            data-interval="0"
+                        >Disable autoplay</a>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
