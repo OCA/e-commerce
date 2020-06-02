@@ -1,2 +1,5 @@
-* Victor M.M. Torres <victor.martin@tecnativa.com>
-* Sergio Teruel <sergio.teruel@tecnativa.com>
+* `Tecnativa <https://www.tecnativa.com>`_:
+
+  * Victor M.M. Torres
+  * Sergio Teruel
+  * Carlos Roca
