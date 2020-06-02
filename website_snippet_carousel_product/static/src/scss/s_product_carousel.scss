@@ -1,0 +1,11 @@
+// Copyright 2020 Tecnativa - Alexandre Díaz
+// License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+.s_product_carousel {
+    .oe_product {
+        border-width: 0;
+
+        .oe_product_image, .oe_product_image img {
+            position: unset;
+        }
+    }
+}
