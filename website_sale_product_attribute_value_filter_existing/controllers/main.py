@@ -7,10 +7,12 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class ProductAttributeValues(WebsiteSale):
-    def _get_search_domain(self, search, category, attrib_values):
+    def _get_search_domain(
+        self, search, category, attrib_values, search_in_description=True
+    ):
         # Store used domain in context to be reused after
-        domain = super(ProductAttributeValues, self)._get_search_domain(
-            search, category, attrib_values
+        domain = super()._get_search_domain(
+            search, category, attrib_values, search_in_description=search_in_description
         )
         new_context = dict(request.env.context, shop_search_domain=domain)
         request.context = new_context
@@ -18,9 +20,7 @@ class ProductAttributeValues(WebsiteSale):
 
     @http.route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super(ProductAttributeValues, self).shop(
-            page=page, category=category, search=search, ppg=ppg, **post
-        )
+        res = super().shop(page=page, category=category, search=search, ppg=ppg, **post)
         domain = request.env.context.get("shop_search_domain", [])
         # Load all products without limit for the filter check on
         # attribute values
