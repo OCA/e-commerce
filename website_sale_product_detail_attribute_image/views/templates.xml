@@ -9,7 +9,10 @@
         customize_show="True"
         name="Attribute's Images"
     >
-        <xpath expr="//div[@id='o-carousel-product']/.." position="inside">
+        <xpath
+            expr="//div[@id='product_details']/../div[hasclass('col-md-6', 'col-xl-8')]"
+            position="inside"
+        >
             <div class="row mt16 mb0 product-detail-attributes">
                 <t t-foreach="attributes_detail" t-as="attribute">
                     <div class="col-md-2 col-xs-4">
