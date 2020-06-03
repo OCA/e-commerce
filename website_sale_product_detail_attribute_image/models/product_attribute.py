@@ -4,21 +4,21 @@ from odoo import fields, models
 
 
 class ProductAttribute(models.Model):
-    _inherit = 'product.attribute'
+    _inherit = "product.attribute"
 
     website_product_detail_image = fields.Binary(
-        string='Website detail image',
+        string="Website detail image",
         attachment=True,
-        help='Image of the attribute for shop online product detail.',
+        help="Image of the attribute for shop online product detail.",
     )
     website_product_detail_image_published = fields.Boolean(
-        string='Publish in website',
-        help='Display attribute image in shop online product detail',
+        string="Publish in website",
+        help="Display attribute image in shop online product detail",
     )
-    website_name = fields.Char(string='Website name', translate=True)
+    website_name = fields.Char(string="Website name", translate=True)
 
 
 class ProductAttributevalue(models.Model):
-    _inherit = 'product.attribute.value'
+    _inherit = "product.attribute.value"
 
-    website_name = fields.Char(string='Website value', translate=True)
+    website_name = fields.Char(string="Website value", translate=True)
