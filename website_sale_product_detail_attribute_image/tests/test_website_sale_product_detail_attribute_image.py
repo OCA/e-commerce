@@ -10,19 +10,21 @@ class WebsiteSaleHttpCase(HttpCase):
         self.ProductAttributeValue = self.env["product.attribute.value"]
         self.ProductAttributeLine = self.env["product.template.attribute.line"]
 
+        detail_image = "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+
         attribute_dangerous = self.ProductAttribute.create(
             {
                 "name": "Dangerousness",
                 "create_variant": "no_variant",
                 "website_product_detail_image_published": False,
-                "website_product_detail_image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                "website_product_detail_image": detail_image,
             }
         )
         product_attribute_image_high = self.ProductAttributeValue.create(
-            {"name": "High dangerousness", "attribute_id": attribute_dangerous.id,}
+            {"name": "High dangerousness", "attribute_id": attribute_dangerous.id}
         )
         self.ProductAttributeValue.create(
-            {"name": "Low dangerousness", "attribute_id": attribute_dangerous.id,}
+            {"name": "Low dangerousness", "attribute_id": attribute_dangerous.id}
         )
         self.product_template = self.env.ref(
             "product.product_product_4_product_template"
@@ -41,7 +43,7 @@ class WebsiteSaleHttpCase(HttpCase):
                 "website_name": "Website Policy One",
                 "create_variant": "no_variant",
                 "website_product_detail_image_published": True,
-                "website_product_detail_image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                "website_product_detail_image": detail_image,
             }
         )
         value_image_policy_one_1 = self.ProductAttributeValue.create(
@@ -65,7 +67,7 @@ class WebsiteSaleHttpCase(HttpCase):
                 "name": "Policy Two",
                 "create_variant": "no_variant",
                 "website_product_detail_image_published": True,
-                "website_product_detail_image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                "website_product_detail_image": detail_image,
             }
         )
         value_image_policy_two_1 = self.ProductAttributeValue.create(
