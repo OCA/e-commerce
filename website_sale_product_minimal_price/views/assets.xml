@@ -4,7 +4,11 @@
         <xpath expr=".">
             <script
                 type="text/javascript"
-                src="/website_sale_product_minimal_price/static/src/js/website_sale_product_minimal_price_tour.js"
+                src="/web/static/src/js/fields/field_utils.js"
+            />
+            <script
+                type="text/javascript"
+                src="/website_sale_product_minimal_price/static/src/js/website_sale_product_minimal_price.js"
             />
         </xpath>
     </template>
