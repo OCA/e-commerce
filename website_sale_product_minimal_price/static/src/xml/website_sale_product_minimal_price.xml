@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="website_sale_product_minimal_price.product_minimal_price">
+        <span class="oe_currency_value" t-esc="price" />
+    </t>
+    <t t-name="website_sale_product_minimal_price.from_view">
+        <span>From</span>
+    </t>
+</templates>
