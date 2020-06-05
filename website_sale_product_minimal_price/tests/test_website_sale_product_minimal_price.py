@@ -8,19 +8,13 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
         super().setUp()
 
         # Models
-        AttributeCategory = self.env["product.attribute.category"]
+
         ProductAttribute = self.env["product.attribute"]
         ProductAttributeValue = self.env["product.attribute.value"]
         ProductTmplAttributeValue = self.env["product.template.attribute.value"]
 
-        self.attribute_category = AttributeCategory.create({"name": "Test category"})
         self.product_attribute = ProductAttribute.create(
-            {
-                "name": "Test",
-                "website_published": True,
-                "create_variant": "always",
-                "category_id": self.attribute_category.id,
-            }
+            {"name": "Test", "create_variant": "always"}
         )
         self.product_attribute_value_test_1 = ProductAttributeValue.create(
             {"name": "Test v1", "attribute_id": self.product_attribute.id}
@@ -31,10 +25,10 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
         self.product_template = self.env["product.template"].create(
             {
                 "name": "My product test with various prices",
-                "website_published": True,
+                "is_published": True,
                 "type": "consu",
                 "list_price": 100.0,
-                "website_sequence": 5000,
+                "website_sequence": 1,
                 "attribute_line_ids": [
                     (
                         0,
@@ -82,7 +76,8 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
             "website_sale_product_minimal_price",
         )
         self.browser_js(
-            url_path="/",
+            url_path="/shop",
             code="%s.run('%s')" % tour,
             ready="%s.tours['%s'].ready" % tour,
+            login="admin",
         )
