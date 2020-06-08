@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_attributes" inherit_id="website_sale.products_attributes" active="False" customize_show="True" name="Product Attribute's Filters Marked First" priority="900">
+        <xpath expr="//t[@t-if=&quot;a.type == 'radio'&quot;]//t[@t-foreach='a.value_ids']" position="attributes">
+            <attribute name="t-foreach">a.value_ids.sorted(key=lambda x: x.id in attrib_set, reverse=True)</attribute>
+        </xpath>
+    </template>
+</odoo>
