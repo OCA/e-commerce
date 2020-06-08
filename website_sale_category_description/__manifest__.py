@@ -4,7 +4,7 @@
 {
     "name": "eCommerce Category Descriptions",
     "summary": "Display a description for each eCommerce category",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "development_status": "Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
