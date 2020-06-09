@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr=".">
+            <link type="text/less" rel="stylesheet"
+                  href="/website_sale_product_style_badge/static/src/scss/website_sale.scss"/>
+        </xpath>
+    </template>
+</odoo>

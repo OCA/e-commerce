@@ -1,0 +1,13 @@
+.oe_product {
+    .custom-badges-container {
+        z-index: 6;
+
+        [class^="product-badge-"] {
+            display: inline-block;
+        }
+    }
+}
+
+[class^="product-badge-"] {
+    display: none;
+}
