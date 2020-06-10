@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_product_attribute_filter_visibility',
         'odoo13-addon-website_sale_product_attribute_value_filter_existing',
         'odoo13-addon-website_sale_product_brand',
+        'odoo13-addon-website_sale_product_detail_attribute_image',
         'odoo13-addon-website_sale_require_login',
         'odoo13-addon-website_sale_stock_list_preview',
         'odoo13-addon-website_sale_suggest_create_account',
