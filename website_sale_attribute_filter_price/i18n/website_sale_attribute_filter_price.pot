@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_attribute_filter_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_attribute_filter_price
+#: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_price.pricefilter
+msgid "<strong>Price Filter</strong>"
+msgstr ""
+
+#. module: website_sale_attribute_filter_price
+#: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_price.pricefilter
+msgid "Max"
+msgstr ""
+
+#. module: website_sale_attribute_filter_price
+#: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_price.pricefilter
+msgid "Min"
+msgstr ""
+
+#. module: website_sale_attribute_filter_price
+#: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_price.pricefilter
+msgid "Reset Filter"
+msgstr ""
+
