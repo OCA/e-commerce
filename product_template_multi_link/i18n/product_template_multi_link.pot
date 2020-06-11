@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_template_multi_link
+# 	* product_template_multi_link
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,74 +14,85 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_link_type
-msgid "* Cross-Sell : suggest your customer to purchase an additional product\n"
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link__link_type
+msgid ""
+"* Cross-Sell : suggest your customer to purchase an additional product\n"
 "* Up-Sell : suggest your customer to purchase a higher-end product,  an upgrade, etc."
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: product_template_multi_link
-#: selection:product.template.link,link_type:0
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
+msgid "Cross Selling"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields.selection,name:product_template_multi_link.selection__product_template_link__link_type__cross_sell
 msgid "Cross-Sell"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_display_name
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_id
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
 msgid "ID"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link___last_update
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_write_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_write_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_link_type
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__link_type
 msgid "Link Type"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_product_template_id
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__linked_product_template_id
 msgid "Linked Product"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
+msgid "Product"
 msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.action_product_template_link
 #: model:ir.actions.act_window,name:product_template_multi_link.action_product_template_link_from_product_template
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_product_product_template_link_ids
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_product_template_link_ids
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_product__product_template_link_ids
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__product_template_link_ids
 #: model:ir.ui.menu,name:product_template_multi_link.menu_product_template_link
-#: model:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 msgid "Product Links"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_product_product_template_link_qty
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_product_template_link_qty
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_product__product_template_link_qty
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__product_template_link_qty
 msgid "Product Links Quantity"
 msgstr ""
 
@@ -91,29 +102,21 @@ msgid "Product Template"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_image_128
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_image_128
-msgid "Small-sized image"
+#: model:ir.model,name:product_template_multi_link.model_product_template_link
+msgid "Product link"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_linked_image_128
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_image_128
-msgid "Small-sized image of the product. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
-msgstr ""
-
-#. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_product_template_id
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__product_template_id
 msgid "Source Product"
 msgstr ""
 
 #. module: product_template_multi_link
-#: selection:product.template.link,link_type:0
-msgid "Up-Sell"
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
+msgid "Up Selling"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model,name:product_template_multi_link.model_product_template_link
-msgid "product.template.link"
+#: model:ir.model.fields.selection,name:product_template_multi_link.selection__product_template_link__link_type__up_sell
+msgid "Up-Sell"
 msgstr ""
-
