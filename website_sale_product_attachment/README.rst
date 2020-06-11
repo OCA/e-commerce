@@ -44,6 +44,7 @@ Instead of configuring attachments per product, to configure products per attach
 #. Go to *Settings > Dashboard > Activate the developer mode*.
 #. Go to *Settings > Technical > Database Structure > Attachments*.
 #. Pick or create one.
+#. Enable *Attached To > Is public document*.
 #. Use the field *Attached in product templates* to choose the products.
 
 .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_product_attachment/static/description/backend-attachment.png
@@ -87,6 +88,11 @@ Once you set up the product attachments, public users will be able to download t
 
 .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_product_attachment/static/description/frontend-download.gif
    :alt: Attachments view in backend
+
+Known issues / Roadmap
+======================
+
+* Add tests.
 
 Bug Tracker
 ===========
