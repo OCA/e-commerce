@@ -53,7 +53,7 @@
         <field name="name">Policy Two</field>
         <field name="create_variant" eval="False"/>
         <field name="website_product_detail_image_published" eval="True"/>
-        <field name="website_product_detail_image" type="base64" file="website_sale_product_detail_attribute_image/static/src/img/EN374:2003.png"/>
+        <field name="website_product_detail_image" type="base64" file="website_sale_product_detail_attribute_image/static/src/img/EN374_2003.png"/>
     </record>
     <record id="product_attribute_image_policy_two_1" model="product.attribute.value">
         <field name="name">Policy Two Value 1</field>
