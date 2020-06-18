@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Tecnativa - Alexandre D. Díaz
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="product_detail_attribute_value_image" inherit_id="website_sale.product_attributes" active="True" customize_show="True" name="Attributes Values Images" priority="10">
+        <!-- Create a new zone to avoid be hidden by customize option -->
+        <xpath expr="//hr[@id='hr_product_attributes_simple']" position="after">
+            <div id="attr_value_detail_images" />
+        </xpath>
+        <!-- Move the attributes loop to the new zone -->
+        <xpath expr="//div[@id='attr_value_detail_images']" position="inside">
+            <xpath expr="//t[@t-as='variant_id']" position="move"/>
+        </xpath>
+        <!-- Disable default Odoo behaviour -->
+        <xpath expr="//hr[@id='hr_product_attributes_simple']" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='len(variant_id.value_ids)==1']" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <!-- Add the attribute value images -->
+        <xpath expr="//hr[@id='hr_product_attributes_simple']" position="after">
+            <hr t-if="sum([(1 if any(l.value_ids) else 0) for l in product._get_valid_product_template_attribute_lines()])" id="attr_value_image_separator" />
+        </xpath>
+        <xpath expr="//t[@t-as='variant_id']" position="inside">
+            <div class="d-inline-flex flex-wrap mb-0 product-detail-attributes-values">
+                <t t-foreach="variant_id.value_ids.filtered(lambda x: x.website_product_detail_image_published)" t-as="attr_value">
+                    <div class="flex-fill px-1">
+                        <div class="text-center">
+                            <span
+                                t-field="attr_value.website_product_detail_image"
+                                t-options="{'widget': 'image', 'resize': '40x40'}"
+                            />
+                        </div>
+                        <div class="text-center"> <span t-esc="attr_value.website_name or attr_value.name"/> </div>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
