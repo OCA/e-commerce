@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Alexandre D. Díaz
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="variants_tree_view" model="ir.ui.view">
+        <field name="model">product.attribute.value</field>
+        <field name="inherit_id" ref="product.variants_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="website_product_detail_image"/>
+                <field name="website_name"/>
+                <field name="website_product_detail_image_published" widget="boolean_toggle"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
