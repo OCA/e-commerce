@@ -34,6 +34,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_stock_force_block',
         'odoo12-addon-website_sale_suggest_create_account',
         'odoo12-addon-website_sale_vat_required',
+        'odoo12-addon-website_snippet_carousel_product',
         'odoo12-addon-website_snippet_product_category',
     ],
     classifiers=[
