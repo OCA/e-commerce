@@ -20,7 +20,8 @@ class WebsiteSale(main.WebsiteSale):
         )["website_attachment_ids"]["domain"]
         attachments = request.env["ir.attachment"].search(
             [("id", "in", result.qcontext["product"].website_attachment_ids.ids)]
-            + attachments_domain
+            + attachments_domain,
+            order="name"
         )
         result.qcontext["product_attachments"] = attachments
         return result
