@@ -17,9 +17,9 @@ class ProductAttributeCategory(WebsiteSale):
         )
         # Load all categories, and load a "False" category for attributes that
         # has not category and display it under 'Undefined' category
-        categories = [(False, _("Undefined"))]
+        categories = [(False, _("Undefined"), True)]
         categories.extend(
-            (x.id, x.name)
+            (x.id, x.name, x.website_folded)
             for x in response.qcontext["attributes"].mapped("category_id")
         )
         response.qcontext["attribute_categories"] = categories
