@@ -26,10 +26,20 @@ msgstr ""
 "kategorioittain</span>"
 
 #. module: website_sale_attribute_filter_category
+#: model:ir.model,name:website_sale_attribute_filter_category.model_product_attribute_category
+msgid "Product Attribute Category"
+msgstr ""
+
+#. module: website_sale_attribute_filter_category
 #: code:addons/website_sale_attribute_filter_category/controllers/main.py:19
 #, python-format
 msgid "Undefined"
 msgstr "Määrittelemätön"
+
+#. module: website_sale_attribute_filter_category
+#: model:ir.model.fields,field_description:website_sale_attribute_filter_category.field_product_attribute_category__website_folded
+msgid "Website folded"
+msgstr ""
 
 #~ msgid "Test"
 #~ msgstr "Testi"
