@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_affiliate_sale_user,Sales Affiliate User,website_sale_affiliate.model_sale_affiliate,sales_team.group_sale_salesman,1,0,0,0
+access_sale_affiliate_request_sale_user,Sales Affiliate Request User,website_sale_affiliate.model_sale_affiliate_request,sales_team.group_sale_salesman,1,0,0,0
+access_sale_affiliate_sale_manager,Sales Affiliate Manager,website_sale_affiliate.model_sale_affiliate,sales_team.group_sale_manager,1,1,1,1
+access_sale_affiliate_request_sale_manager,Sales Affiliate Request Manager,website_sale_affiliate.model_sale_affiliate_request,sales_team.group_sale_manager,1,1,1,1
