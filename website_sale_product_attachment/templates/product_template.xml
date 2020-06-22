@@ -40,7 +40,7 @@
 
     <template id="download_icons" inherit_id="product_attachments" name="Download icons" customize_show="True">
         <xpath expr="//*[@t-field='attachment.name']" position="before">
-            <span class="o_image mr8" t-att-data-mimetype="attachment.mimetype" />
+            <span class="o_image mr8 flex-shrink-0" t-att-data-mimetype="attachment.mimetype" />
         </xpath>
     </template>
 
