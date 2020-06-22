@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_attribute_category_tree_view" model="ir.ui.view">
+        <field name="model">product.attribute.category</field>
+        <field name="inherit_id" ref="website_sale_comparison.product_attribute_category_tree_view"/>
+        <field name="priority" eval="999"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="website_folded" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

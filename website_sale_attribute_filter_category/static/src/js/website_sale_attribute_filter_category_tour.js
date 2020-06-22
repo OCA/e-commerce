@@ -15,6 +15,14 @@ odoo.define("website_sale_attribute_filter_category.tour", function (require) {
             trigger: "a:contains('Customizable Desk')",
             extra_trigger: ".js_attributes:has(span:contains('Test category'))",
         },
+        {
+            trigger: "a[href='/shop']",
+        },
+        // span element must be available directly
+        {
+            trigger: "a:contains('Customizable Desk')",
+            extra_trigger: "span:contains('Test category')",
+        },
     ];
     tour.register("website_sale_attribute_filter_category",
         {
