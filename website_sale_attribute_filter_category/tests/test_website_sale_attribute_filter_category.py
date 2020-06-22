@@ -11,7 +11,9 @@ class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
         ProductAttribute = self.env["product.attribute"]
         ProductAttributeValue = self.env["product.attribute.value"]
         ProductAttributeLine = self.env["product.template.attribute.line"]
-        self.attribute_category = AttributeCategory.create({"name": "Test category"})
+        self.attribute_category = AttributeCategory.create(
+            {"name": "Test category", "website_folded": False}
+        )
         self.product_attribute = ProductAttribute.create(
             {
                 "name": "Test",
