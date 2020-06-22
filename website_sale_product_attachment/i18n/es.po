@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-28 11:01+0000\n"
-"PO-Revision-Date: 2020-05-28 12:03+0100\n"
+"PO-Revision-Date: 2020-06-22 10:19+0000\n"
 "Last-Translator: Jairo Llopis <jairo.llopis@tecnativa.com>\n"
 "Language-Team: \n"
-"Language: es_ES\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_attachments
@@ -36,29 +36,29 @@ msgid ""
 "delete\n"
 "                        or unpublish it from your database."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                        Aquí solo se pueden usar o crear adjuntos públicos.\n"
+"                        Quitar un adjunto de esta lista no lo borra\n"
+"                        ni despublica de su base de datos."
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
 msgid "Attached in products"
-msgstr ""
+msgstr "Adjunto en los productos"
 
 #. module: website_sale_product_attachment
 #: model:ir.model,name:website_sale_product_attachment.model_ir_attachment
-#, fuzzy
-#| msgid "Website Attachments"
 msgid "Attachment"
-msgstr "Adjuntos del sitio web"
+msgstr "Adjunto"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
-#, fuzzy
-#| msgid "Files publicly downloadable from the product eCommerce page."
 msgid ""
 "Attachment publicly downladable from eCommerce pages in these product "
 "templates."
 msgstr ""
-"Archivos descargables públicamente desde la página del producto en la tienda "
-"del sitio web."
+"Archivo descargable públicamente desde las páginas de estas plantillas de "
+"producto en la tienda del sitio web."
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_product_product__website_attachment_ids
