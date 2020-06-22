@@ -16,10 +16,12 @@ class ProductAttributeCategory(WebsiteSale):
                 lambda x: (x.category_id.sequence, x.id)))
         # Load all categories, and load a "False" category for attributes that
         # has not category and display it under 'Undefined' category
-        categories = [(False, _('Undefined'))]
+        categories = [(False, _('Undefined'), True)]
         categories.extend(
-            (x.id, x.name) for x in response.qcontext['attributes'].mapped(
-                'category_id'))
+            (x.id,
+             x.name,
+             x.website_folded
+             ) for x in response.qcontext['attributes'].mapped('category_id'))
         response.qcontext['attribute_categories'] = categories
         response.qcontext['filtered_products'] = False
         if search or post.get('attrib', False):

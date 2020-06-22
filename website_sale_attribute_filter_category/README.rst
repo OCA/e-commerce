@@ -27,6 +27,8 @@ Website Sale Attribute Filter Category
 
 This module extends the functionality of website sale module to allow to group
 product attributes filter by their categories.
+Also you can select if you want display folded or un folded category in website
+attribute's filter.
 
 **Table of contents**
 
@@ -39,6 +41,7 @@ Configuration
 To configure this module, you need to:
 
 * Go to 'Website > Configuration > Attribute Categories' and create one.
+  You can select if you want display it folded or unfolded in website.
 * Go to 'Website > Configuration > Attributes' and create one or more with
   this category.
 * Go to 'Website > Configuration > Attribute Values' and create more than one

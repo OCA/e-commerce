@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 13:14+0000\n"
-"PO-Revision-Date: 2019-03-22 14:15+0100\n"
+"POT-Creation-Date: 2020-06-22 08:46+0000\n"
+"PO-Revision-Date: 2020-06-22 10:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -27,7 +27,17 @@ msgstr ""
 "categoría</span>"
 
 #. module: website_sale_attribute_filter_category
+#: model:ir.model,name:website_sale_attribute_filter_category.model_product_attribute_category
+msgid "Product Attribute Category"
+msgstr "Categoría de atributo de producto"
+
+#. module: website_sale_attribute_filter_category
 #: code:addons/website_sale_attribute_filter_category/controllers/main.py:19
 #, python-format
 msgid "Undefined"
 msgstr "Indefinido"
+
+#. module: website_sale_attribute_filter_category
+#: model:ir.model.fields,field_description:website_sale_attribute_filter_category.field_product_attribute_category__website_folded
+msgid "Website folded"
+msgstr "Plegado en website"

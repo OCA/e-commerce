@@ -17,5 +17,6 @@
     'data': [
         'views/assets.xml',
         'views/templates.xml',
+        'views/website_sale_attribute_filter_category_view.xml',
     ],
 }
