@@ -67,13 +67,11 @@ class AffiliateRequest(models.Model):
     @api.multi
     def _conversions_qualify(self):
         self.ensure_one()
-
         valid_hours = self.affiliate_id.valid_hours
         valid_sales = self.affiliate_id.valid_sales
         datetime_start = fields.Datetime.from_string(self.date)
         datetime_delta = timedelta(hours=valid_hours)
-        expiration = fields.Datetime.to_string(datetime_start + datetime_delta)
-
+        expiration = datetime_start + datetime_delta
         qualified_sales = valid_sales < 0 or len(self.sale_ids) < valid_sales
         qualified_time = valid_hours < 0 or fields.Datetime.now() < expiration
 
