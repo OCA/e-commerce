@@ -32,7 +32,6 @@ class AffiliateRequest(models.Model):
     )
     ip = fields.Char(
         string='Client IP',
-        required=True,
         default=lambda self: request.httprequest.headers.environ.get(
             'REMOTE_ADDR',
         ),
@@ -44,14 +43,12 @@ class AffiliateRequest(models.Model):
         help='Request session referrer header',
     )
     user_agent = fields.Char(
-        required=True,
         default=lambda self: request.httprequest.headers.environ.get(
             'HTTP_USER_AGENT',
         ),
         help='Request session user agent',
     )
     accept_language = fields.Char(
-        required=True,
         default=lambda self: request.httprequest.headers.environ.get(
             'HTTP_ACCEPT_LANGUAGE',
         ),

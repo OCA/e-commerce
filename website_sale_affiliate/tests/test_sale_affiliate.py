@@ -120,8 +120,12 @@ class AffiliateCase(SaleCase):
         kwargs = {}
         request = self.demo_affiliate.get_request(**kwargs)
         self.assertTrue(request.exists(), 'Affiliate request not created')
+        request_sequence = self.env.ref(
+            'website_sale_affiliate.request_sequence')
+        request_actual_number = (request_sequence.number_next_actual -
+                                 request_sequence.number_increment)
         self.assertEqual(
-            request.name, '0000000001',
+            request.name, '{:010d}'.format(request_actual_number),
             'Affiliate request named improperly',
         )
         self.assertEqual(
