@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_product_attribute_value_filter_existing',
         'odoo12-addon-website_sale_product_brand',
         'odoo12-addon-website_sale_product_detail_attribute_image',
+        'odoo12-addon-website_sale_product_detail_attribute_value_image',
         'odoo12-addon-website_sale_product_minimal_price',
         'odoo12-addon-website_sale_product_sort',
         'odoo12-addon-website_sale_product_style_badge',
