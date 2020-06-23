@@ -7,7 +7,7 @@
     "version": "12.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "LasLabs, Versada, Odoo Community Association (OCA)",
+    "author": "LasLabs, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": [
         "website_sale",
