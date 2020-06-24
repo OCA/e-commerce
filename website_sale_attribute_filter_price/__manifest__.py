@@ -6,7 +6,7 @@
     "summary": "A price filter for website sale",
     "version": "12.0.1.0.0",
     "license": "LGPL-3",
-    "depends": ["website"],
+    "depends": ["website_sale"],
     "data": ["templates/assets.xml", "templates/shop.xml"],
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "installable": True,
