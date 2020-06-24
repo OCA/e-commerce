@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- This view is set as customize_show because
+        the test of website_sale_wishlist need the 
+        checkbox as not selected -->
+    <template
+        id="default_active_b2b_wish"
+        name="Keep items on wishlist"
+        inherit_id="website_sale_wishlist.product_wishlist"
+        customize_show="True"
+        active="False">
+        <xpath expr="//input[@id='b2b_wish']" position="attributes">
+            <attribute name="checked" add="checked"/>
+        </xpath>
+    </template>
+</odoo>
