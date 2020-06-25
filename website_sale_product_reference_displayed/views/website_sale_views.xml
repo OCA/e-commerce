@@ -6,10 +6,10 @@
     <template id="products_item" name="Display product reference" inherit_id="website_sale.products_item" customize_show="True">
         <!-- Product title in list -->
         <xpath expr="//a[@t-field='product.name']" position="attributes">
-            <attribute name="class" add="hidden" separator=" "/>
+            <attribute name="class" add="d-none" separator=" "/>
         </xpath>
         <xpath expr="//a[@t-field='product.name']" position="after">
-            <a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))" t-att-content="product.display_name" t-field="product.display_name"/>
+            <a itemprop="name" t-att-href="product_href" t-att-content="product.display_name" t-field="product.display_name"/>
         </xpath>
     </template>
 
@@ -19,14 +19,14 @@
         </xpath>
         <!-- Breadcrumb -->
         <xpath expr="//span[@t-field='product.name']" position="attributes">
-            <attribute name="class" add="hidden" separator=" "/>
+            <attribute name="class" add="d-none" separator=" "/>
         </xpath>
         <xpath expr="//span[@t-field='product.name']" position="after">
             <span t-field="product.display_name"/>
         </xpath>
         <!-- Product Title -->
         <xpath expr="//h1[@t-field='product.name']" position="attributes">
-            <attribute name="class" add="hidden" separator=" "/>
+            <attribute name="class" add="d-none" separator=" "/>
         </xpath>
         <xpath expr="//h1[@t-field='product.name']" position="after">
             <h1 itemprop="name" t-field="product.display_name"/>
@@ -36,10 +36,10 @@
     <template id="recommended_products" name="Display product reference" inherit_id="website_sale.recommended_products" customize_show="True">
         <!-- Product title in recommended products -->
         <xpath expr="//span[@t-field='alt_product.name']" position="attributes">
-            <attribute name="class" add="hidden" separator=" "/>
+            <attribute name="class" add="d-none" separator=" "/>
         </xpath>
         <xpath expr="//span[@t-field='alt_product.name']" position="after">
-            <span t-att-title="alt_product.name" t-field="alt_product.display_name" class="o_text_overflow show"/>
+            <span t-att-title="alt_product.display_name" t-field="alt_product.display_name" class="o_text_overflow" style="display: block;"/>
         </xpath>
     </template>
 
