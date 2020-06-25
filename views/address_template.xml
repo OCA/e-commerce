@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="address" inherit_id="website_sale.address">
+    <xpath expr="//form//input[@name='name']/ancestor::div[1]" position="replace">
+      <!-- Replace name by firstname + lastname (slimpay requires them) -->
+      <div t-attf-class="form-group #{error.get('firstname') and 'has-error' or ''} col-md-6 div_firstname">
+        <label class="control-label" for="firstname">First name</label>
+        <input type="text" name="firstname" class="form-control" t-att-value="'firstname' in checkout and checkout['firstname']" />
+      </div>
+      <div t-attf-class="form-group #{error.get('lastname') and 'has-error' or ''} col-md-6 div_lastname">
+        <label class="control-label" for="lastname">Last name</label>
+        <input type="text" name="lastname" class="form-control" t-att-value="'lastname' in checkout and checkout['lastname']" />
+      </div>
+    </xpath>
+    <xpath expr="//form//input[@name='field_required']" position="replace">
+      <!-- Adjust required fields for Slimpay -->
+      <input type="hidden" name="field_required" t-att-value="'firstname,lastname,phone,country_id'" />
+    </xpath>
+  </template>
+</odoo>
