@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Tecnativa - David Vidal
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="products_item" name="Display product reference" inherit_id="website_sale.products_item" customize_show="True">
+        <!-- Product title in list -->
+        <xpath expr="//a[@t-field='product.name']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//a[@t-field='product.name']" position="after">
+            <a itemprop="name" t-att-href="product_href" t-att-content="product.display_name" t-field="product.display_name"/>
+        </xpath>
+    </template>
+
+    <template id="product" name="Display product reference" inherit_id="website_sale.product" customize_show="True">
+        <xpath expr="//t[@t-set='additional_title']" positions="after">
+            <t t-set="additional_title" t-value="product.display_name" />
+        </xpath>
+        <!-- Breadcrumb -->
+        <xpath expr="//span[@t-field='product.name']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//span[@t-field='product.name']" position="after">
+            <span t-field="product.display_name"/>
+        </xpath>
+        <!-- Product Title -->
+        <xpath expr="//h1[@t-field='product.name']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//h1[@t-field='product.name']" position="after">
+            <h1 itemprop="name" t-field="product.display_name"/>
+        </xpath>
+    </template>
+
+    <template id="recommended_products" name="Display product reference" inherit_id="website_sale.recommended_products" customize_show="True">
+        <!-- Product title in recommended products -->
+        <xpath expr="//span[@t-field='alt_product.name']" position="attributes">
+            <attribute name="class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//span[@t-field='alt_product.name']" position="after">
+            <span t-att-title="alt_product.display_name" t-field="alt_product.display_name" class="o_text_overflow" style="display: block;"/>
+        </xpath>
+    </template>
+
+</odoo>
