@@ -20,9 +20,6 @@ msgstr ""
 #. module: website_sale_attribute_filter_category
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_category.products_attributes
 #, fuzzy
-#| msgid ""
-#| "<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filters by "
-#| "category</span>"
 msgid ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
 "                <span>Filters by category</span>"
