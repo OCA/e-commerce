@@ -7,9 +7,9 @@
                 src="/website_sale_attribute_filter_category/static/src/js/website_sale_attribute_filter_category_tour.js"
             />
             <link
-                type="text/less"
+                type="text/css"
                 rel="stylesheet"
-                href="/website_sale_attribute_filter_category/static/src/less/website_sale_attribute_filter_category.less"
+                href="/website_sale_attribute_filter_category/static/src/scss/website_sale_attribute_filter_category.scss"
             />
         </xpath>
     </template>
