@@ -5,7 +5,12 @@
 
     <template id="stock_info">
         <t t-if="line.product_id.inventory_availability == 'always_no_lock'">
-            <t t-set="virtual_available" t-value="line.product_id.virtual_available"/>
+            <!--
+            Compute virtual_available with context key added by
+            website_sale_stock_available module. Is not needed dependency of it.
+            -->
+            <t t-set="virtual_available"
+               t-value="line.product_id.with_context(website_sale_stock_available=True).virtual_available"/>
             <div t-attf-class="availability_messages text-#{virtual_available and 'success' or 'danger'}">
                 <span><t t-esc="virtual_available"/> <t t-esc="line.product_uom.name"/> in stock</span>
             </div>
