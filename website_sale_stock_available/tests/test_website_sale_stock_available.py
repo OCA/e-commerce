@@ -57,6 +57,7 @@ class SaleStockAvailableInfoPopup(SavepointCase):
         product_tmpl = self.product.product_tmpl_id
         combination_info = product_tmpl.with_context(
             website_sale_stock_get_quantity=True,
+            website_id=1,
         )._get_combination_info()
         self.assertEqual(
             combination_info['virtual_available'],
@@ -66,6 +67,7 @@ class SaleStockAvailableInfoPopup(SavepointCase):
         self.picking_in.action_assign()
         combination_info = product_tmpl.with_context(
             website_sale_stock_get_quantity=True,
+            website_id=1,
         )._get_combination_info()
         self.assertEqual(
             combination_info['virtual_available'],
