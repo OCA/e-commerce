@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 
+  <record id="sale_affiliate_view_form" model="ir.ui.view">
+      <field name="model">sale.affiliate</field>
+      <field name="inherit_id" ref="website_sale_affiliate.sale_affiliate_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook[1]" position="before">
+          <group>
+            <field name="partner_description"/>
+          </group>
+        </xpath>
+        <xpath expr="//notebook[1]" position="inside">
+          <page string="Gain">
+            <group>
+              <field name="gain_type"/>
+              <field name="gain_value"/>
+            </group>
+          </page>
+        </xpath>
+      </field>
+  </record>
+
+</odoo>
