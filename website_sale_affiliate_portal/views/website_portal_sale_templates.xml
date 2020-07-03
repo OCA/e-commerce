@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="portal_my_home_sale" inherit_id="sale.portal_my_home_sale">
+    <xpath expr="//div[contains(@class,'o_portal_docs')]" position="inside">
+      <t t-if="affiliate_count">
+        <h3 class="page-header">
+          <a href="/my/affiliations">Your Affiliations
+          <small class="ml8">
+            <span class='badge'><t t-esc="affiliate_count"/></span>
+          </small>
+          </a>
+        </h3>
+      </t>
+    </xpath>
+  </template>
+
+  <template id="portal_my_affiliations" name="My Affiliations">
+    <t t-call="portal.portal_layout">
+      <h3 class="page-header">Your Affiliations</h3>
+      <t t-set="history_month_number" t-value="6"/>
+      <t t-if="not affiliates">
+        <p>There are currently no affiliates for your account.</p>
+      </t>
+      <t t-if="affiliates">
+        <t t-foreach="affiliates" t-as="affiliate">
+          <h4 class='affiliate-title'>
+            <span>Campaign:</span> <t t-esc="affiliate.name"/>
+          </h4>
+          <div class="affiliate-description">
+            <t t-raw="affiliate.partner_description"/>
+          </div>
+          <div class="affiliate-requests">
+            <t t-set="data"
+               t-value="affiliate.report_data(history_month_number)"/>
+            <t t-if="data">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <th>Month</th>
+                  <th>Visits</th>
+                  <th>Product</th>
+                  <th>Validated sales</th>
+                  <th>Gain</th>
+                </thead>
+                <t t-foreach="data" t-as="month">
+                  <t t-foreach="month_value['by-product']" t-as="product">
+                    <tr>
+                      <t t-if="product_index==0">
+                        <t t-set="prod_nb" t-value="len(month_value['by-product'])"/>
+                        <th t-att-rowspan="prod_nb"><t t-esc="month"/></th>
+                        <th t-att-rowspan="prod_nb"><t t-esc="month_value['visits']"/></th>
+                      </t>
+                      <td><t t-esc="product"/></td>
+                      <td><t t-esc="product_value['validated']"/></td>
+                      <td><t t-esc="product_value['gain']"
+                             t-options="{'widget': 'monetary', 'display_currency': env.ref('base.main_company').currency_id}"/></td>
+                    </tr>
+                  </t>
+                </t>
+              </table>
+            </t>
+            <t t-else="">
+              <p class="info">No visit for this affiliation campaign yet.</p>
+            </t>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+
+</odoo>
