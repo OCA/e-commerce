@@ -27,24 +27,29 @@ class TestWebsiteSaleAffiliateProductRestriction(SavepointCase):
         request_mock = request_patcher.start()
         request_mock.configure_mock(session={})
         cls.fake_session = request_mock.session
-        cls.addCleanup(request_patcher.stop)
-        cls.req = cls.env['sale.affiliate.request'].create({
+        #cls.addCleanup(request_patcher.stop)
+        cls.pt1 = cls.env.ref('product.product_product_1').product_tmpl_id
+        cls.pt2 = cls.env.ref('product.product_product_2').product_tmpl_id
+        cls.pt3 = cls.env.ref('product.product_product_3').product_tmpl_id
+
+    def create_affiliate_req(self, create_date=None):
+        req = self.env['sale.affiliate.request'].create({
             'name': 'test affiliate request',
-            'affiliate_id': cls.affiliate.id,
+            'affiliate_id': self.affiliate.id,
             'date': fields.Datetime.now(),
             'ip': '127.0.0.1',
             'referrer': 'https://commown.fr',
             'user_agent': 'firefox',
             'accept_language': 'fr',
         })
-        cls.p1 = cls.env.ref('product.product_product_1').product_tmpl_id
-        cls.p2 = cls.env.ref('product.product_product_2').product_tmpl_id
-        cls.p3 = cls.env.ref('product.product_product_3').product_tmpl_id
+        if create_date is not None:
+            req.create_date = create_date
+        return req
 
     def create_sale(self, products=None, state='sent', create_date=None):
         partner_1 = self.env.ref('base.res_partner_1')
         if products is None:
-            products = [self.env.ref('product.product_product_1')]
+            products = [self.env.ref('product.product_product_1'), 1]
         data = {
             'partner_id': partner_1.id,
             'partner_invoice_id': partner_1.id,
@@ -53,49 +58,47 @@ class TestWebsiteSaleAffiliateProductRestriction(SavepointCase):
             'state': state,
             'order_line': [],
             }
-        for product in products:
+        for product, qty in products:
             data['order_line'].append((0, 0, {
                 'name': product.name,
                 'product_id': product.id,
-                'product_uom_qty': 1,
+                'product_uom_qty': qty,
                 'product_uom': product.uom_id.id,
                 'price_unit': product.list_price,
             }))
         sale = self.env['sale.order'].create(data)
         if create_date is not None:
-            self.cr.execute('UPDATE sale_order SET create_date=%s WHERE id=%s',
-                            (create_date, sale.id))
-
+            sale.create_date = create_date
         return sale
 
     def test_sale_order_without_product_restriction(self):
-        self.fake_session['affiliate_request'] = self.req.id
-        self.create_sale([self.p1, self.p2], 'sent')
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
+        self.create_sale([(self.pt1, 1), (self.pt2, 1)], 'sent')
 
-        self.fake_session['affiliate_request'] = self.req.id
-        self.create_sale([self.p2, self.p3], 'draft')
-        self.create_sale([self.p3], 'sent')
-        self.create_sale([self.p1], 'sent')
-        self.create_sale([self.p2], 'sent')
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
+        self.create_sale([(self.pt2, 1), (self.pt3, 1)], 'draft')
+        self.create_sale([(self.pt3, 1)], 'sent')
+        self.create_sale([(self.pt1, 1)], 'sent')
+        self.create_sale([(self.pt2, 1)], 'sent')
 
-        self.fake_session['affiliate_request'] = self.req.id
-        self.fake_session['affiliate_request'] = self.req.id
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
 
-        self.assertAlmostEqual(self.affiliate.sales_per_request, 4)
-        self.assertAlmostEqual(self.affiliate.conversion_rate, 1)
+        self.assertAlmostEqual(self.affiliate.sales_per_request, 1)
+        self.assertAlmostEqual(self.affiliate.conversion_rate, 0.5)
 
     def test_sale_order_with_product_restriction(self):
-        self.affiliate.restriction_product_tmpl_ids |= (self.p2 | self.p3)
+        self.affiliate.restriction_product_tmpl_ids |= (self.pt2 | self.pt3)
 
-        self.fake_session['affiliate_request'] = self.req.id
-        self.create_sale([self.p1], 'sent')
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
+        self.create_sale([(self.pt1, 1)], 'sent')
 
-        self.fake_session['affiliate_request'] = self.req.id
-        self.create_sale([self.p1, self.p3], 'sent')
-        self.create_sale([self.p2], 'sent')
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
+        self.create_sale([(self.pt1, 1), (self.pt3, 1)], 'sent')
+        self.create_sale([(self.pt2, 1)], 'sent')
 
-        self.fake_session['affiliate_request'] = self.req.id
-        self.fake_session['affiliate_request'] = self.req.id
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
+        self.fake_session['affiliate_request'] = self.create_affiliate_req().id
 
-        self.assertEqual(self.affiliate.sales_per_request, 2)
-        self.assertAlmostEqual(self.affiliate.conversion_rate, 1)
+        self.assertEqual(self.affiliate.sales_per_request, 0.5)
+        self.assertAlmostEqual(self.affiliate.conversion_rate, 0.25)
