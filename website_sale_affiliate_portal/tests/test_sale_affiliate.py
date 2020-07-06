@@ -3,10 +3,12 @@
 
 from collections import OrderedDict
 
-from odoo.addons.website_sale_affiliate_product_restriction.tests import test_sale_affiliate
+from odoo.addons.website_sale_affiliate_product_restriction.tests import (
+    test_sale_affiliate)
 
 
-class TestWebsiteSaleAffiliatePortal(test_sale_affiliate.TestWebsiteSaleAffiliateProductRestriction):
+class TestWebsiteSaleAffiliatePortal(test_sale_affiliate.
+                                     TestWebsiteSaleAffiliateProductRestriction):
 
     @classmethod
     def setUpClass(cls):
@@ -28,7 +30,8 @@ class TestWebsiteSaleAffiliatePortal(test_sale_affiliate.TestWebsiteSaleAffiliat
         self.create_sale([(self.pp2, 4)], create_date='2018-02-21')
 
         sess['affiliate_request'] = self.create_affiliate_req('2018-03-20').id
-        self.create_sale([(self.pp2, 2), (self.pp1, 1)], 'draft', create_date='2018-03-20')
+        self.create_sale(
+            [(self.pp2, 2), (self.pp1, 1)], 'draft', create_date='2018-03-20')
         self.create_sale([(self.pp3, 8), (self.pp2, 1)], create_date='2018-03-20')
 
         sess['affiliate_request'] = self.create_affiliate_req('2018-04-20').id
