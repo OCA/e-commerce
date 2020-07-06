@@ -27,7 +27,7 @@ class TestWebsiteSaleAffiliateProductRestriction(SavepointCase):
         request_mock = request_patcher.start()
         request_mock.configure_mock(session={})
         cls.fake_session = request_mock.session
-        #cls.addCleanup(request_patcher.stop)
+        cls.addCleanup(request_patcher.stop)
         cls.pt1 = cls.env.ref('product.product_product_1').product_tmpl_id
         cls.pt2 = cls.env.ref('product.product_product_2').product_tmpl_id
         cls.pt3 = cls.env.ref('product.product_product_3').product_tmpl_id
