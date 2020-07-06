@@ -10,6 +10,7 @@ _logger = logging.getLogger(__name__)
 
 class Affiliate(models.Model):
     _name = 'sale.affiliate'
+    _description = 'Sale Affiliate'
     _order = 'create_date desc'
 
     name = fields.Char(required=True)
