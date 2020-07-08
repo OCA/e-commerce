@@ -1,5 +1,7 @@
 # Copyright 2018 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+import mock
+
 from odoo.tests.common import HttpCase
 
 
@@ -11,6 +13,14 @@ class WebsiteSaleHttpCase(HttpCase):
         self.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
             {"skip_website_checkout_payment": True}
         )
+
+    def test_checkout_skip_payment(self):
+        website = self.env.ref("website.website2")
+        with mock.patch(
+            "odoo.addons.website_sale_checkout_skip_payment.models.website.request"
+        ) as request:
+            request.session.uid = False
+            self.assertFalse(website.checkout_skip_payment)
 
     def test_ui_website(self):
         """Test frontend tour."""
