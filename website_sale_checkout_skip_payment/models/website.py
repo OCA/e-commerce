@@ -21,3 +21,5 @@ class Website(models.Model):
                 rec.checkout_skip_payment = (
                     request.env.user.partner_id.skip_website_checkout_payment
                 )
+            else:
+                rec.checkout_skip_payment = False
