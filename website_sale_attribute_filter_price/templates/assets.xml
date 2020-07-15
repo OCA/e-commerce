@@ -12,7 +12,7 @@
         </template>
         <template id="assets_editor" inherit_id="web_editor.assets_editor">
             <xpath expr="." position="inside">
-                 <script
+                <script
                     type="text/javascript"
                     src="/website_sale_attribute_filter_price/static/src/lib/ionRangeSlider/ion.rangeSlider.js"
                 />
