@@ -12,7 +12,7 @@ odoo.define("website_sale_tax_toggle.tour", function (require) {
             trigger: "a[href='/shop']",
         },
         {
-            trigger: "a:contains('Customizable Desk')",
+            trigger: "a:contains('Product test tax toggle')",
             extra_trigger: ".product_price:has(span:contains('750.00'))",
         },
         {
@@ -29,7 +29,7 @@ odoo.define("website_sale_tax_toggle.tour", function (require) {
             trigger: "a[href='/shop']",
         },
         {
-            trigger: "a:contains('Customizable Desk')",
+            trigger: "a:contains('Product test tax toggle')",
             extra_trigger: ".product_price:has(span:contains('862.50'))",
         },
         {
@@ -43,7 +43,7 @@ odoo.define("website_sale_tax_toggle.tour", function (require) {
             trigger: "a[href='/shop']",
         },
         {
-            trigger: "a:contains('Customizable Desk')",
+            trigger: "a:contains('Product test tax toggle')",
             extra_trigger: ".product_price:has(span:contains('750.00'))",
         },
     ];
