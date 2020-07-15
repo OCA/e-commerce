@@ -7,13 +7,11 @@ odoo.define("website_sale_attribute_filter_price.Shop", function(require) {
 
     $(function() {
         // Price Filter
-        var $price_slider = $("#filter_price_slider");
-        var $min_value_input = $("#price_range_min_value");
-        var $max_value_input = $("#price_range_max_value");
-        var $clean_btn = $("#clear_price_filter");
-        $price_slider.on("change", function(ev) {
-            ev.stopPropagation();
-        });
+        const $price_slider = $("#filter_price_slider");
+        const $min_value_input = $("#price_range_min_value");
+        const $max_value_input = $("#price_range_max_value");
+        const $clean_btn = $("#clear_price_filter");
+        $price_slider.on("change", ev => ev.stopPropagation());
         $price_slider.ionRangeSlider({
             hide_min_max: true,
             keyboard: true,
@@ -33,12 +31,12 @@ odoo.define("website_sale_attribute_filter_price.Shop", function(require) {
         });
         $min_value_input.on("change", function(ev) {
             ev.stopPropagation();
-            var ionRange = $price_slider.data("ionRangeSlider");
+            const ionRange = $price_slider.data("ionRangeSlider");
             ionRange.update({from: $(this).val() || 0});
         });
         $max_value_input.on("change", function(ev) {
             ev.stopPropagation();
-            var ionRange = $price_slider.data("ionRangeSlider");
+            const ionRange = $price_slider.data("ionRangeSlider");
             ionRange.update({
                 to: $(this).val() || $price_slider.data("max_price"),
             });

@@ -8,8 +8,12 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSale(WebsiteSale):
-    def _get_search_domain(self, search, category, attrib_values):
-        domain = super()._get_search_domain(search, category, attrib_values)
+    def _get_search_domain(
+        self, search, category, attrib_values, search_in_description=True
+    ):
+        domain = super()._get_search_domain(
+            search, category, attrib_values, search_in_description=search_in_description
+        )
         price_vals = request.context.get("price_vals")
         if price_vals:
             to_add = []
