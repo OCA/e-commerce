@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Lorenzo Battistini - Agile Business Group
 # Copyright 2020 AITIC S.A.S
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
