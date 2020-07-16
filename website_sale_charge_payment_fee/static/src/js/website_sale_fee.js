@@ -1,9 +1,7 @@
 /* License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define('website_sale.fee', function (require) {
-"use strict";
-
 $(document).ready(function () {
+    "use strict";
 
     if (_.str.startsWith(window.location.pathname, "/shop/payment")) {
         var $pay_button = $('.oe_sale_acquirer_button button');
@@ -31,7 +29,5 @@ $(document).ready(function () {
             }
         });
     }
-
-});
 
 });
