@@ -1,3 +1,8 @@
+/* License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
+
+odoo.define('website_sale.fee', function (require) {
+"use strict";
+
 $(document).ready(function () {
 
     if (_.str.startsWith(window.location.pathname, "/shop/payment")) {
@@ -17,13 +22,16 @@ $(document).ready(function () {
             // See website_sale/static/src/js/website_sale_payment.js :
             // .find("input[name='acquirer']:checked").click();
             // Without this check, redirect would be performed right after
-            //page load
+            // page load
             if (selected_acquirer_id != null
                 && payment_id != selected_acquirer_id){
                 $pay_button.prop('disabled', true);
-                window.location.href = '/shop/payment?payment_fee_id=' + payment_id;
+                window.location.href = '/shop/payment?payment_fee_id=' +
+                                        payment_id;
             }
         });
     }
+
+});
 
 });

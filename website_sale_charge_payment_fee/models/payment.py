@@ -13,18 +13,13 @@ class PaymentAcquirer(models.Model):
              "payment method")
     charge_fee_description = fields.Text("Fee Description")
     charge_fee_product_id = fields.Many2one(
-        'product.product',
-        string="Fee Product"
-    )
-    charge_fee_tax_ids = fields.Many2many('account.tax', string='Taxes')
+        'product.product', string="Fee Product")
+    charge_fee_tax_ids = fields.Many2many(
+        'account.tax', string='Taxes')
     charge_fee_fixed_price = fields.Float(
-        'Fixed Price',
-        digits=dp.get_precision('Product Price')
-    )
+        'Fixed Price', digits=dp.get_precision('Product Price'))
     charge_fee_percentage = fields.Float(
-        'Percentage',
-        help="Percentage applied to order total"
-    )
+        'Percentage', help="Percentage applied to order total")
     charge_fee_type = fields.Selection([
         ('fixed', 'Fixed'),
         ('percentage', 'Percentage'),
