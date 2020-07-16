@@ -19,6 +19,7 @@
         "views/product_template_view.xml",
         "views/product_template_link_view.xml",
         "views/menu.xml",
+        "wizards/product_template_linker.xml",
     ],
     "demo": ["demo/product_template_link_type.xml", "demo/product_template_link.xml"],
     "installable": True,

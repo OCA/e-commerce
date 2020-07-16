@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="product_template_linker_form_view">
+        <field
+            name="name"
+        >product.template.linker.form (in product_template_multi_link)</field>
+        <field name="model">product.template.linker</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main_group">
+                    <group name="main_data_group">
+                        <field name="operation_type" />
+                        <field
+                            name="type_id"
+                            attrs="{'invisible': [('operation_type', '!=', 'link')], 'required': [('operation_type', '=', 'link')]}"
+                        />
+                    </group>
+                </group>
+                <group colspan="2" name="product_group">
+                    <field
+                        name="product_ids"
+                        nolabel="1"
+                        colspan="2"
+                        options="{'no_open':True, 'no_create':True}"
+                    >
+                        <tree>
+                            <field name="name" />
+                            <field name="default_code" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                   <button
+                        name="action_apply"
+                        string="Create links"
+                        type="object"
+                        class="oe_highlight"
+                        help="Create links?"
+                        attrs="{'invisible': [('operation_type', '!=', 'link')]}"
+                    />
+                   <button
+                        name="action_apply"
+                        string="Remove links"
+                        type="object"
+                        class="oe_highlight"
+                        help="Remove links?"
+                        attrs="{'invisible': [('operation_type', '!=', 'unlink')]}"
+                    />
+                   <button string="Cancel" class="oe_link" special="cancel" />
+               </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="product_template_linker_action">
+        <field name="name">Manage Product Links</field>
+        <field name="res_model">product.template.linker</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="product_template_linker_form_view" />
+        <field name="binding_model_id" ref="product.model_product_template" />
+    </record>
+</odoo>
