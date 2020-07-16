@@ -3,21 +3,23 @@
 # @author Sylvain LE GAL <https://twitter.com/legalsylvain>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ProductTemplateLink(models.Model):
     _name = 'product.template.link'
     _order = 'product_template_id, linked_product_template_id'
 
-    _LINK_TYPE_SELECTION = [
-        ('cross_sell', 'Cross-Sell'),
-        ('up_sell', 'Up-Sell'),
-    ]
+    @api.model
+    def _selection_link_type(self):
+        return [
+            ('cross_sell', 'Cross-Sell'),
+            ('up_sell', 'Up-Sell'),
+        ]
 
     product_template_id = fields.Many2one(
         string='Source Product', comodel_name='product.template',
-        required=True, ondelete='cascade')
+        required=True, ondelete='cascade', index=True)
 
     product_template_image_small = fields.Binary(
         related='product_template_id.image_small')
@@ -30,7 +32,7 @@ class ProductTemplateLink(models.Model):
         related='linked_product_template_id.image_small')
 
     link_type = fields.Selection(
-        string='Link Type', selection=_LINK_TYPE_SELECTION, required=True,
+        string='Link Type', selection="_selection_link_type", required=True,
         default='cross_sell', help="* Cross-Sell : suggest your customer to"
         " purchase an additional product\n"
         "* Up-Sell : suggest your customer to purchase a higher-end product,"

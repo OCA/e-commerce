@@ -32,6 +32,10 @@ Usage
 * To mass edit or create links between products templates, Go to
   Sale > Configuration > Products > Product Links
 
+  Or just use the dedicated wizard: select product templates
+  (tree or form view) to links together
+  and click on "Action" button, then "Manage Product Links".
+
 .. figure:: /product_template_multi_link/static/description/product_template_link_tree.png
    :width: 800 px
 
