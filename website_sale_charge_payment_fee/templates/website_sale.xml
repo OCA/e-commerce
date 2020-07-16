@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_sale_charge_payment_fee/static/src/js/website_sale_fee.js"/>
+        </xpath>
+    </template>
+
+    <template id="payment_fee" inherit_id="website_sale.payment">
+        <xpath expr="//div[@t-if='not website_sale_order.amount_total']" position="after">
+            <input type="hidden"
+                   t-att-value="selected_acquirer.id if selected_acquirer else form_acquirers and form_acquirers[0].id or False"
+                   name="selected_acquirer_id"/>
+        </xpath>
+    </template>
+
+    <template id="payment_tokens_list_fee" inherit_id="payment.payment_tokens_list">
+        <xpath expr="/t[1]/form[1]/div[1]/t[5]/div[1]/label[1]/input[1]" position="attributes">
+            <attribute name="t-att-checked">acq.id == selected_acquirer.id if selected_acquirer else form_acquirers[0].id == acq.id</attribute>
+        </xpath>
+
+        <xpath expr="//span[@class='payment_icon_name']" position="after">
+            <t t-if="acq.charge_fee">
+                <span>(Fee:
+                    <t t-if="acq.charge_fee_type == 'fixed'">
+                        <span id="charge_fee_fixed_price" t-field="acq.charge_fee_fixed_price"/>
+                    </t>
+                    <t t-if="acq.charge_fee_type == 'percentage'">
+                        <span id="charge_fee_percentage" t-field="acq.charge_fee_percentage"/>
+                        %
+                    </t>
+                    )
+                </span>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="cart_line_product_link_fee" inherit_id="website_sale.cart_lines">
+        <a position="replace">
+            <t t-if="line.payment_fee_line">
+                <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+            </t>
+            <t t-if="not line.payment_fee_line">
+                <a t-att-href="line.product_id.website_url">
+                    <t t-raw="0"/>
+                </a>
+            </t>
+        </a>
+    </template>
+
+    <template id="cart_lines_fee" inherit_id="website_sale.cart_lines">
+        <xpath expr="//td[@class='text-center td-qty']" position="replace">
+            <t t-if="line.payment_fee_line">
+                <td class="text-center td-qty">
+                    <div class="css_quantity input-group mx-auto">
+                        <div class="text-center td-qty">
+                            <span t-esc="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"/>
+                        </div>
+                    </div>
+                </td>
+            </t>
+            <t t-if="not line.payment_fee_line">
+                <td class="text-center td-qty">
+                    <div class="css_quantity input-group oe_website_spinner">
+                        <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json hidden-xs">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        <input type="text" class="js_quantity form-control quantity" t-att-data-line-id="line.id"
+                               t-att-data-product-id="line.product_id.id"
+                               t-att-value="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"/>
+                        <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_cart_json hidden-xs">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                </td>
+            </t>
+        </xpath>
+        <xpath expr="//a[@class='js_delete_product hidden-xs no-decoration']" position="replace">
+            <t t-if="not line.payment_fee_line">
+                <a href='#' class='js_delete_product hidden-xs no-decoration'>
+                    <small>
+                        <i class='fa fa-trash-o'></i>
+                        Remove
+                    </small>
+                </a>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
