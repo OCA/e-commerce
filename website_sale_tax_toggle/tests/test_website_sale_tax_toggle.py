@@ -1,9 +1,8 @@
 # Copyright 2020 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase, tagged
+from odoo.tests.common import HttpCase
 
 
-@tagged('post_install', '-at_install')
 class WebsiteSaleTaxesToggleHttpCase(HttpCase):
 
     def setUp(self):
