@@ -13,13 +13,17 @@ class SaleOrder(models.Model):
         if acquirer.charge_fee:
             if acquirer.charge_fee_type == 'fixed':
                 price = acquirer.charge_fee_fixed_price
-                if self.company_id.currency_id.id != self.pricelist_id.currency_id.id:
-                    price = self.company_id.currency_id._convert(price, self.pricelist_id.currency_id, self.company_id,
-                                                                 self.date_order)
+                if (
+                    self.company_id.currency_id.id !=
+                    self.pricelist_id.currency_id.id
+                ):
+                    price = self.company_id.currency_id.with_context(
+                        date=self.date_order
+                    ).compute(price, self.pricelist_id.currency_id)
             elif acquirer.charge_fee_type == 'percentage':
                 price = (
-                    acquirer.charge_fee_percentage / 100.0
-                ) * self.amount_total
+                            acquirer.charge_fee_percentage / 100.0
+                        ) * self.amount_total
             self.env['sale.order.line'].create({
                 'order_id': self.id,
                 'payment_fee_line': True,

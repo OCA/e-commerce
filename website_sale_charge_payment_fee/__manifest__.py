@@ -9,7 +9,8 @@
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "Agile Business Group, AITIC S.A.S, Odoo Community Association (OCA)",
+    "author": "Agile Business Group, AITIC S.A.S, "
+              "Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
     "installable": True,
