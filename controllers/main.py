@@ -5,13 +5,14 @@ from odoo.http import request
 from odoo.exceptions import UserError
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.payment_slimpay.controllers.main import SlimpayController
+
+from odoo.addons.payment_slimpay.models import slimpay_utils
 
 
 _logger = logging.getLogger(__name__)
 
 
-class SlimpayControllerWebsiteSale(SlimpayController, WebsiteSale):
+class SlimpayControllerWebsiteSale(WebsiteSale):
 
     @http.route(['/payment/slimpay_transaction/<int:acquirer_id>'],
                 type='json', auth="public", website=True)
@@ -36,6 +37,19 @@ class SlimpayControllerWebsiteSale(SlimpayController, WebsiteSale):
         else:
             return self._approval_url(so, acquirer_id, validated_payment_url)
 
+    def _approval_url(self, so, acquirer_id, return_url):
+        """ Helper to be used with website_sale to get a Slimpay URL for the
+        end-user to sign a mandate and create a first payment online."
+        """
+        acquirer = request.env['payment.acquirer'].sudo().browse(acquirer_id)
+        locale = request.env.context.get('lang', 'fr_FR').split('_')[0]
+        # May emit a direct debit only if a mandate exists; unsupported for now
+        subscriber = slimpay_utils.subscriber_from_partner(so.partner_id)
+        return acquirer.slimpay_client.approval_url(
+            so.payment_tx_id.reference, so.id, locale, so.amount_total,
+            so.currency_id.name, so.currency_id.decimal_places,
+            subscriber, return_url)
+
     def _pay_with_token(self, tx):
         """Use Slimpay s2s API to create a payment with transaction's token,
         then confirm the sale as usual.
@@ -48,12 +62,13 @@ class SlimpayControllerWebsiteSale(SlimpayController, WebsiteSale):
 
     def _get_mandatory_billing_fields(self):
         ''' Replace "name" by "firstname" and "lastname" '''
-        fields = super(SlimpayController, self)._get_mandatory_billing_fields()
+        fields = super(SlimpayControllerWebsiteSale,
+                       self)._get_mandatory_billing_fields()
         return ['firstname', 'lastname'] + [f for f in fields if f != 'name']
 
     def _get_mandatory_shipping_fields(self):
         ''' Replace "name" by "firstname" and "lastname" '''
-        fields = super(SlimpayController,
+        fields = super(SlimpayControllerWebsiteSale,
                        self)._get_mandatory_shipping_fields()
         return ['firstname', 'lastname'] + [f for f in fields if f != 'name']
 
@@ -61,8 +76,9 @@ class SlimpayControllerWebsiteSale(SlimpayController, WebsiteSale):
         """ Do not drop firstname and lastname fields for `partner_firstname`
         module compatiblity. """
         new_values, errors, error_msg = super(
-            SlimpayController, self).values_postprocess(order, mode, values,
-                                                        errors, error_msg)
+            SlimpayControllerWebsiteSale,
+            self).values_postprocess(order, mode, values,
+                                     errors, error_msg)
         for field in ('firstname', 'lastname'):
             if field in values:
                 _logger.debug(
@@ -74,7 +90,7 @@ class SlimpayControllerWebsiteSale(SlimpayController, WebsiteSale):
     def checkout_form_validate(self, mode, all_form_values, data):
         """ Validate partner constraints wrt Slimpay's rule """
         errors, error_msg = super(
-            SlimpayController, self).checkout_form_validate(
+            SlimpayControllerWebsiteSale, self).checkout_form_validate(
                 mode, all_form_values, data)
         order = request.website.sale_get_order()
         partner = order.partner_id
