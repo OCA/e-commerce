@@ -2,7 +2,7 @@
     'name': 'Slimpay Payment Acquirer for Website Sale',
     'category': 'Website',
     'summary': 'Slimpay payment acquirer for your e-commerce',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'description': 'Slimpay payment acquirer for your e-commerce',
     'author': "Commown SCIC SAS",
     'license': "AGPL-3",
