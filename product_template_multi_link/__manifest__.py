@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": ["sale"],
     "data": [
+        "data/product_template_link_type.xml",
         "security/product_template_link_type.xml",
         "views/product_template_link_type.xml",
         "security/ir.model.access.csv",
@@ -19,10 +20,6 @@
         "views/product_template_link_view.xml",
         "views/menu.xml",
     ],
-    "demo": [
-        "data/product_template_link_type.xml",
-        "demo/product_template_link_type.xml",
-        "demo/product_template_link.xml",
-    ],
+    "demo": ["demo/product_template_link_type.xml", "demo/product_template_link.xml"],
     "installable": True,
 }
