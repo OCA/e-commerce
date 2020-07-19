@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart" priority="9999">
+        <xpath expr="//t[@t-if='product_variant_id']" position="attributes">
+            <attribute name="t-if">product_variant_id and product.website_btn_addtocart_published</attribute>
+        </xpath>
+    </template>
+
+    <template id="product" inherit_id="website_sale.product" priority="9999">
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-if">product.website_btn_addtocart_published</attribute>
+        </xpath>
+    </template>
+
+</odoo>
