@@ -20,7 +20,7 @@ Website Sale Cart Selectable
     :target: https://translation.odoo-community.org/projects/e-commerce-12-0/e-commerce-12-0-website_sale_cart_selectable
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/167/12.0
+    :target: https://runbot.odoo-community.org/runbot/113/12.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -28,6 +28,11 @@ Website Sale Cart Selectable
 This module extends the functionality of the website to improve the control on
 the button "Add to cart". Button "Add to cart" can now be set to be published
 or not.
+
+**Table of contents**
+
+.. contents::
+   :local:
 
 Usage
 =====
@@ -55,21 +60,21 @@ Credits
 =======
 
 Authors
--------
+~~~~~~~
 
 * OpenSynergy Indonesia
 * Tecnativa
 * Akretion
 
 Contributors
-------------
+~~~~~~~~~~~~
 
 * Michael Viriyananda <viriyananda.michael@gmail.com>
 * David Vidal <david.vidal@tecnativa.com>
 * Chafique Delli <chafique.delli@akretion.com>
 
 Maintainers
------------
+~~~~~~~~~~~
 
 This module is maintained by the OCA.
 
