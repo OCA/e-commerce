@@ -16,20 +16,16 @@
         </template>
 
         <!-- Hide Add To Cart Button if not website_show_price -->
-        <template id="product_add" inherit_id="website_sale.product">
+        <template id="website_sale_product" inherit_id="website_sale.product" name="Product Hide Add to Cart">
             <xpath expr="//a[@id='add_to_cart']" position="attributes">
-                <attribute name="t-if">
-                    website.website_show_price
-                </attribute>
+                <attribute name="t-att-class" add="'hide btn btn-primary btn-lg mt8 js_check_product a-submit' if not website.website_show_price else 'btn btn-primary btn-lg mt8 js_check_product a-submit'" separator=" "/>
             </xpath>
         </template>
 
         <!-- Hide quantity selector if not website_show_price -->
-        <template id="product_qty" inherit_id="website_sale.product_quantity">
+        <template id="website_sale_product_quantity" inherit_id="website_sale.product_quantity" name="Select Quantity Hide Price">
             <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
-                <attribute name="t-if">
-                    website.website_show_price
-                </attribute>
+                <attribute name="t-att-class" add="'hide css_quantity input-group oe_website_spinner' if not website.website_show_price else 'css_quantity input-group oe_website_spinner'" separator=" "/>
             </xpath>
         </template>
 </odoo>
