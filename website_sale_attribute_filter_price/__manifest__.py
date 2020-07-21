@@ -4,7 +4,7 @@
     "name": "Wesbite Sale Attribute Filter Price",
     "category": "Website",
     "summary": "A price filter for website sale",
-    "version": "12.0.1.1.0",
+    "version": "12.0.1.2.0",
     "license": "LGPL-3",
     "depends": ["website_sale"],
     "data": ["templates/assets.xml", "templates/shop.xml"],
