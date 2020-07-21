@@ -90,7 +90,7 @@ msgstr ""
 
 #. module: website_sale_stock_available_display
 #. openerp-web
-#: code:addons/website_sale_stock_available_display/static/src/xml/website_sale_stock_product_availability.xml:8
+#: code:addons/website_sale_stock_available_display/static/src/xml/website_sale_stock_product_availability.xml:10
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_available_display.stock_info
 #, python-format
 msgid "in stock"
