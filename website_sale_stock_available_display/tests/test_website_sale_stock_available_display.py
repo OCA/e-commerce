@@ -3,7 +3,7 @@
 from odoo.tests.common import HttpCase
 
 
-class websiteSaleStockNoQtyAllowed(HttpCase):
+class websiteSaleStockAvailableDisplay(HttpCase):
 
     def setUp(self):
         super().setUp()
