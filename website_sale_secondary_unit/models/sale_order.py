@@ -43,6 +43,20 @@ class SaleOrder(models.Model):
         else:
             secondary_uom_id = request.session.get('secondary_uom_id', False)
         ctx = self.env.context.copy()
+        if not secondary_uom_id:
+            # Check the default value for secondary uom or is a product can
+            # not allow to sell in base unit, so the default secondary uom
+            # will be the first secondary uom record.
+            product = self.env['product.product'].browse(product_id)
+            if not product.allow_uom_sell:
+                secondary_uom = (product.sale_secondary_uom_id or
+                                 product.secondary_uom_ids[:1])
+                if secondary_uom and add_qty:
+                    add_qty = float_round(
+                        float(add_qty) * secondary_uom.factor,
+                        precision_rounding=secondary_uom.uom_id.rounding
+                    )
+                    secondary_uom_id = secondary_uom.id
         if secondary_uom_id:
             ctx['secondary_uom_id'] = secondary_uom_id
         return super(SaleOrder, self.with_context(ctx))._cart_update(
