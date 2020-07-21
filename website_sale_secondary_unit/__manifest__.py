@@ -3,7 +3,7 @@
 {
     'name': 'Website Sale Secondary Unit',
     'summary': 'Allow manage secondary units in website shop',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.1.0',
     'development_status': 'Beta',
     'category': 'Website',
     'website': 'https://github.com/OCA/e-commerce',
