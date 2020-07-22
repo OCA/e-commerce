@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="pricefilter"
+        name="Price Filter"
+        inherit_id="website_sale.products_attributes"
+        active="False"
+        customize_show="True"
+        priority="10"
+    >
+        <xpath expr="//form[hasclass('js_attributes')]/ul" position="before">
+            <div class="nav-item mb-4">
+                <div>
+                    <strong>Price Filter</strong>
+                </div>
+                <div class="form_class price_filter_main">
+                    <div class="row">
+                        <div class="col-12">
+                            <input
+                                id="filter_price_slider"
+                                t-att-data-custom_min_price="custom_min_price"
+                                t-att-data-custom_max_price="custom_max_price"
+                                t-att-data-max_price="max_price"
+                                t-att-data-symbol="website.currency_id.symbol"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex d-flex-row mt-1">
+                        <div class="input-group input-group-sm mr-2">
+                            <div
+                                class="input-group-prepend"
+                                t-if="website.currency_id.position == 'before'"
+                            >
+                                <span
+                                    id="currency_simbol_from"
+                                    class="input-group-text"
+                                    t-field="website.currency_id.symbol"
+                                />
+                            </div>
+                            <input
+                                type="text"
+                                name="min_price"
+                                t-att-value="custom_min_price"
+                                placeholder="Min"
+                                id="price_range_min_value"
+                                onpaste="return false"
+                                class="form-control"
+                            />
+                            <div
+                                class="input-group-append"
+                                t-if="website.currency_id.position == 'after'"
+                            >
+                                <span
+                                    id="currency_simbol_from"
+                                    class="input-group-text"
+                                    t-field="website.currency_id.symbol"
+                                />
+                            </div>
+                        </div>
+                        <div class="input-group input-group-sm ml-2">
+                            <div
+                                class="input-group-prepend"
+                                t-if="website.currency_id.position == 'before'"
+                            >
+                                <span
+                                    id="currency_simbol_from"
+                                    class="input-group-text"
+                                    t-field="website.currency_id.symbol"
+                                />
+                            </div>
+                            <input
+                                type="text"
+                                name="max_price"
+                                t-att-value="custom_max_price"
+                                placeholder="Max"
+                                id="price_range_max_value"
+                                onpaste="return false"
+                                class="form-control"
+                            />
+                            <div
+                                class="input-group-append"
+                                t-if="website.currency_id.position == 'after'"
+                            >
+                                <span
+                                    id="currency_simbol_from"
+                                    class="input-group-text"
+                                    t-field="website.currency_id.symbol"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-auto ml-auto">
+                            <div class="btn-group" role="group">
+                                <input
+                                    type="submit"
+                                    class="btn btn-sm btn-default"
+                                    value="Apply"
+                                />
+                                <button
+                                    id="clear_price_filter"
+                                    type="button"
+                                    class="btn btn-sm btn-default"
+                                    title="Reset Filter"
+                                >
+                                    <i class="fa fa-eraser" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
