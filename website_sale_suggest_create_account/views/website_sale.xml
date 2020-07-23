@@ -2,8 +2,8 @@
 <odoo>
     <template id="cart" inherit_id="website_sale.cart">
         <xpath expr="//div[@id='wrap']" position="before">
-            <t t-set="user_authenticated" t-value="user_id != website.user_id"/>
-            <t t-set="signup_allowed" t-value="env['ir.config_parameter'].sudo().get_param('auth_signup.invitation_scope') == 'b2c' "/>
+            <t t-set="user_authenticated" t-value="not website.is_public_user()"/>
+            <t t-set="signup_allowed" t-value="env['res.users']._get_signup_invitation_scope() == 'b2c'"/>
             <t t-set="can_checkout" t-value="website_sale_order and
                                              website_sale_order.website_order_line"/>
 
