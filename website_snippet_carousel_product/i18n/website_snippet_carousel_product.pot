@@ -95,7 +95,7 @@ msgstr ""
 
 #. module: website_snippet_carousel_product
 #. openerp-web
-#: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:81
+#: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:87
 #, python-format
 msgid "An error occured with this product carousel block. If the problem persists, please consider deleting it and adding a new one"
 msgstr ""
