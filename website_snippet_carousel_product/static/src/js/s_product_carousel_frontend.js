@@ -72,6 +72,12 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function (req
                         self.$target.find('.carousel').carousel({
                             interval: interval,
                         });
+                        // Initialize 'animations' for the product card.
+                        // This is necessary because the snippet is asynchonously
+                        // rendered on the server.
+                        self.trigger_up('animation_start_demand', {
+                            $target: self.$target.find('.oe_website_sale'),
+                        });
                     },
                     function () {
                         if (self.editableMode) {
