@@ -4,7 +4,7 @@
 {
     "name": "Suggest to create user account when buying",
     "summary": "Suggest users to create an account when buying in the website",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Website",
     "website": "https://www.tecnativa.com",
     "author": "Tecnativa, "
