@@ -6,7 +6,7 @@
     "name": "eCommerce Fuzzy Search",
     "summary": "Extends eCommerce with fuzzy searches for product names",
     "version": "10.0.1.0.0",
-    "category": "eCommerce",
+    "category": "Website",
     "website": "https://laslabs.com",
     "author": "LasLabs, Odoo Community Association (OCA)",
     "license": "AGPL-3",
