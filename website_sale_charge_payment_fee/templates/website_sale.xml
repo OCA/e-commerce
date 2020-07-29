@@ -36,7 +36,7 @@
     </template>
 
     <template id="cart_lines_fee" inherit_id="website_sale.cart_lines">
-        <xpath expr="//td[hasclass('text-center td-qty')]" position="replace">
+        <xpath expr="//td[hasclass('td-qty')]" position="replace">
             <t t-if="line.payment_fee_line">
                 <td class="text-center td-qty">
                     <div class="css_quantity input-group mx-auto">
@@ -62,7 +62,7 @@
                 </td>
             </t>
         </xpath>
-        <xpath expr="//a[hasclass('js_delete_product hidden-xs no-decoration')]" position="replace">
+        <xpath expr="//a[hasclass('js_delete_product')]" position="replace">
             <t t-if="not line.payment_fee_line">
                 <a href='#' class='js_delete_product hidden-xs no-decoration'>
                     <small>
