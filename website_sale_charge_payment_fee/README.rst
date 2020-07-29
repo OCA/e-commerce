@@ -23,7 +23,7 @@ eCommerce: charge payment fee
     :target: https://runbot.odoo-community.org/runbot/113/10.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module allows to associate generic payment fee to online payment methods. Thus, when website user select a payment method with additional fee, an additional sale order line will be added to online order
 
@@ -58,7 +58,6 @@ Authors
 ~~~~~~~
 
 * Agile Business Group
-* AITIC SAS
 
 Contributors
 ~~~~~~~~~~~~

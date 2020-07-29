@@ -19,7 +19,7 @@
             <attribute name="t-att-checked">acq.id == selected_acquirer.id if selected_acquirer else form_acquirers[0].id == acq.id</attribute>
         </xpath>
 
-        <xpath expr="//span[@class='payment_icon_name']" position="after">
+        <xpath expr="//span[hasclass('payment_icon_name')]" position="after">
             <t t-if="acq.charge_fee">
                 <span>(Fee:
                     <t t-if="acq.charge_fee_type == 'fixed'">
@@ -35,21 +35,8 @@
         </xpath>
     </template>
 
-    <template id="cart_line_product_link_fee" inherit_id="website_sale.cart_lines">
-        <a position="replace">
-            <t t-if="line.payment_fee_line">
-                <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
-            </t>
-            <t t-if="not line.payment_fee_line">
-                <a t-att-href="line.product_id.website_url">
-                    <t t-raw="0"/>
-                </a>
-            </t>
-        </a>
-    </template>
-
     <template id="cart_lines_fee" inherit_id="website_sale.cart_lines">
-        <xpath expr="//td[@class='text-center td-qty']" position="replace">
+        <xpath expr="//td[hasclass('text-center td-qty')]" position="replace">
             <t t-if="line.payment_fee_line">
                 <td class="text-center td-qty">
                     <div class="css_quantity input-group mx-auto">
@@ -75,7 +62,7 @@
                 </td>
             </t>
         </xpath>
-        <xpath expr="//a[@class='js_delete_product hidden-xs no-decoration']" position="replace">
+        <xpath expr="//a[hasclass('js_delete_product hidden-xs no-decoration')]" position="replace">
             <t t-if="not line.payment_fee_line">
                 <a href='#' class='js_delete_product hidden-xs no-decoration'>
                     <small>
