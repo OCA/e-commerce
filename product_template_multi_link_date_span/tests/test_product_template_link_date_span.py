@@ -32,7 +32,7 @@ class TestProductTemplateLinkDateSpan(SavepointCase):
         self.link.date_start = ""
         self.assertTrue(self.link.is_link_active)
 
-    def test_un_active_link(self):
+    def test_inactive_link(self):
         self.link.date_start = "2021-01-01"
         self.assertFalse(self.link.is_link_active)
         self.link.date_start = "2020-01-01"
