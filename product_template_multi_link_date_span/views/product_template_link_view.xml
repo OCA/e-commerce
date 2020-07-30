@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_template_link_tree" model="ir.ui.view">
+        <field name="name">product.template.link.tree.replacement</field>
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="right_product_tmpl_id" position="after">
+                <field name="date_start" />
+                <field name="date_end" />
+            </field>
+        </field>
+    </record>
+</odoo>
