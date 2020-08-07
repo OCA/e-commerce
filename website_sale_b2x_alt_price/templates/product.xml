@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Jairo Llopis - Tecnativa
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+
+<data>
+
+    <template id="alt_price" name="Alternative taxes">
+        <span t-if="combination_info.get('alt_price') != combination_info['price']">
+            <del t-attf-class="js_alt_list_price mr8 text-muted text-nowrap #{ '' if combination_info['has_discounted_price'] else 'd-none' }" t-esc="combination_info['alt_list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+            <span class="js_alt_price" t-esc="combination_info['alt_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            <span t-if="combination_info['alt_field'] == 'total_included'">with taxes</span>
+            <span t-if="combination_info['alt_field'] == 'total_excluded'">without taxes</span>
+        </span>
+    </template>
+
+    <template id="products_item" name="Alternative (un)taxed price" inherit_id="website_sale.products_item" customize_show="True">
+        <xpath expr="//*[hasclass('product_price')]">
+            <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price"/>
+        </xpath>
+    </template>
+
+    <template id="product_price" name="Alternative (un)taxed price" inherit_id="website_sale.product_price" customize_show="True">
+        <xpath expr="//*[hasclass('product_price')]">
+            <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price"/>
+        </xpath>
+    </template>
+
+</data>
