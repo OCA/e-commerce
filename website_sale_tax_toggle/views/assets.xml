@@ -4,8 +4,6 @@
         <xpath expr=".">
             <script type="text/javascript"
                     src="/website_sale_tax_toggle/static/src/js/website_sale_tax_toggle.js"/>
-            <script type="text/javascript"
-                    src="/website_sale_tax_toggle/static/src/js/website_sale_tax_toggle_tour.js"/>
             <link type="text/scss" rel="stylesheet"
                   href="/website_sale_tax_toggle/static/src/scss/website_sale_tax_toggle.scss"/>
         </xpath>
