@@ -3,7 +3,7 @@
 {
     'name': 'Website Sale Tax Toggle',
     'summary': 'Allow display price in Shop with or without taxes',
-    'version': '12.0.1.0.3',
+    'version': '12.0.1.1.0',
     'development_status': 'Beta',
     'category': 'Website',
     'website': 'https://github.com/OCA/e-commerce',
@@ -18,4 +18,5 @@
         'views/assets.xml',
         'views/templates.xml',
     ],
+    "demo": ["demo/assets.xml"],
 }

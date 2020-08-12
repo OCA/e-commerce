@@ -6,8 +6,8 @@
     <template id="tax_toggle_template">
         <t t-set="taxed" t-value="request.session.get('tax_toggle_taxed', request.env.user.with_context(skip_tax_toggle_check=True).has_group('account.group_show_line_subtotals_tax_included'))"/>
         <div class="js_tax_toggle_management" data-controller="/website/tax_toggle">
-            <label class="o_switch o_switch_danger js_tax_toggle_btn" for="id">
-                <input type="checkbox" t-att-checked="taxed" id="id"/>
+            <label class="o_switch o_switch_danger js_tax_toggle_btn">
+                <input type="checkbox" t-att-checked="taxed"/>
                 <span/>
                 <span>Show prices with taxes included</span>
             </label>
