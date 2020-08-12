@@ -9,42 +9,22 @@ odoo.define("website_sale_tax_toggle.tour", function (require) {
 
     var steps = [
         {
-            trigger: "a[href='/shop']",
-        },
-        {
-            trigger: "a:contains('Product test tax toggle')",
-            extra_trigger: ".product_price:has(span:contains('750.00'))",
-        },
-        {
-            trigger: "a[href='/shop']",
-        },
-        {
-            content: "Toggle tax button click",
+            content: "Toggle tax button click from list page",
             trigger: '.js_tax_toggle_btn',
-            run: function() {
-                    $('.js_tax_toggle_btn').trigger('click');
-            },
+            extra_trigger: ".oe_product_cart:contains('Product test tax toggle') .oe_currency_value:containsExact('750.00')",
         },
         {
-            trigger: "a[href='/shop']",
+            content: "Enter the product page",
+            trigger: ".oe_product_cart:has(.oe_currency_value:containsExact('862.50')) a:contains('Product test tax toggle')",
         },
         {
-            trigger: "a:contains('Product test tax toggle')",
-            extra_trigger: ".product_price:has(span:contains('862.50'))",
-        },
-        {
-            content: "Toggle tax button click",
+            content: "Toggle tax button click from product page",
             trigger: '.js_tax_toggle_btn',
-            run: function() {
-                    $('.js_tax_toggle_btn').trigger('click');
-            },
+            extra_trigger: "#product_details .oe_currency_value:containsExact('862.50')",
         },
         {
-            trigger: "a[href='/shop']",
-        },
-        {
-            trigger: "a:contains('Product test tax toggle')",
-            extra_trigger: ".product_price:has(span:contains('750.00'))",
+            content: "Check the product price is back to what it should",
+            trigger: "#product_details .oe_currency_value:containsExact('750.00')",
         },
     ];
     tour.register("website_sale_tax_toggle",
