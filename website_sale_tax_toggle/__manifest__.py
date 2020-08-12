@@ -18,4 +18,5 @@
         'views/assets.xml',
         'views/templates.xml',
     ],
+    "demo": ["demo/assets.xml"],
 }
