@@ -41,7 +41,7 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
             "website_sale_tax_toggle",
         )
         self.browser_js(
-            url_path="/",
+            url_path="/shop",
             code="%s.run('%s')" % tour,
             ready="%s.tours['%s'].ready" % tour,
             login="admin"
