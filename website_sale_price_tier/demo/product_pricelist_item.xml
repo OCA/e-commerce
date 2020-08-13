@@ -4,7 +4,7 @@
 
 <odoo>
     <record id="product_pricelist_item_1_demo" model="product.pricelist.item">
-        <field name="pricelist_id" ref="product.list0"/>
+        <field name="pricelist_id" eval="obj(ref('base.public_user')).property_product_pricelist.id" model="res.users"/>
         <field name="applied_on">1_product</field>
         <field name="compute_price">fixed</field>
         <field name="fixed_price">320</field>
@@ -14,7 +14,7 @@
     </record>
 
     <record id="product_pricelist_item_2_demo" model="product.pricelist.item">
-        <field name="pricelist_id" ref="product.list0"/>
+        <field name="pricelist_id" eval="obj(ref('base.public_user')).property_product_pricelist.id" model="res.users"/>
         <field name="applied_on">1_product</field>
         <field name="compute_price">fixed</field>
         <field name="fixed_price">280</field>
