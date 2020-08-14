@@ -50,16 +50,16 @@ odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
                     "#product_details:has(.js_alt_price :containsExact(5.00)):has(.oe_currency_value:containsExact(6.10)):contains('Pen')",
                 run: tour_b2b.goSearch,
             },
-            // Switch to discounted pricelist
+            // Switch to "website_sale_b2x_alt_price discounted" pricelist
             {
                 content: "open pricelist selector",
                 extra_trigger:
                     ".oe_product_cart:not(:has(.js_alt_list_price:visible, .text-danger:visible)) a:contains('Pen')",
-                trigger: ".btn:containsExact('Public Pricelist')",
+                trigger: ".btn:containsExact('website_sale_b2x_alt_price public')",
             },
             {
-                content: "select discounted pricelist",
-                trigger: ".switcher_pricelist:containsExact('Discounted Pricelist')",
+                content: "select website_sale_b2x_alt_price discounted",
+                trigger: ".switcher_pricelist:containsExact('website_sale_b2x_alt_price discounted')",
             },
             // Pen now has 10% discount
             {
@@ -90,12 +90,12 @@ odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
                 content: "open pricelist selector",
                 extra_trigger:
                     "#product_details:has(.js_alt_list_price:visible :containsExact(3.50)):has(.js_alt_price :containsExact(3.15)):has(.text-danger :containsExact(4.27)):has(.oe_currency_value:containsExact(3.15)):contains('Notebook')",
-                trigger: ".btn:containsExact('Discounted Pricelist')",
+                trigger: ".btn:containsExact('website_sale_b2x_alt_price discounted')",
             },
-            // Change to public pricelist; 10% discount disappears
+            // Change to "website_sale_b2x_alt_price public" pricelist; 10% discount disappears
             {
-                content: "select public pricelist",
-                trigger: ".switcher_pricelist:containsExact('Public Pricelist')",
+                content: "select website_sale_b2x_alt_price public",
+                trigger: ".switcher_pricelist:containsExact('website_sale_b2x_alt_price public')",
             },
             {
                 content: "select variant: a4 size",

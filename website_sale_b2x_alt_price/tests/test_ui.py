@@ -7,6 +7,15 @@ from odoo.tests.common import HttpCase, Form
 class UICase(HttpCase):
     def setUp(self):
         super().setUp()
+        # Create and select a pricelist
+        # to make tests pass no matter what l10n package is enabled
+        website = self.env["website"].get_current_website()
+        pricelist = self.env["product.pricelist"].create({
+            "name": "website_sale_b2x_alt_price public",
+            "currency_id": website.user_id.company_id.currency_id.id,
+            "selectable": True,
+        })
+        website.user_id.property_product_pricelist = pricelist
         # Create some demo taxes
         self.tax_group_22 = self.env["account.tax.group"].create(
             {"name": "Tax group 22%"}
@@ -110,7 +119,7 @@ class UICase(HttpCase):
         # Create a pricelist selectable from website with 10% discount
         self.discount_pricelist = self.env["product.pricelist"].create(
             {
-                "name": "Discounted Pricelist",
+                "name": "website_sale_b2x_alt_price discounted",
                 "discount_policy": "without_discount",
                 "selectable": True,
                 "item_ids": [
