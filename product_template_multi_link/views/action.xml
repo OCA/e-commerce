@@ -3,7 +3,7 @@
     <record id="action_product_template_link" model="ir.actions.act_window">
         <field name="name">Product Links</field>
         <field name="res_model">product.template.link</field>
-        <field name="view_mode">tree,kanban</field>
+        <field name="view_mode">tree,kanban,form</field>
     </record>
     <record
         id="action_product_template_link_from_product_template"
