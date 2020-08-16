@@ -36,7 +36,6 @@ msgstr "Créé le"
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_cross_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_cross_selling
 #, fuzzy
-#| msgid "Cross-Sell"
 msgid "Cross Selling"
 msgstr "Vente Croisée"
 
@@ -139,7 +138,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
 #, fuzzy
-#| msgid "Product Links"
 msgid "Product"
 msgstr "Liens d'articles"
 
@@ -157,7 +155,6 @@ msgstr "Liens d'articles"
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_product__product_template_link_count
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__product_template_link_count
 #, fuzzy
-#| msgid "Product Links Quantity"
 msgid "Product Links Count"
 msgstr "Qté de liens d'articles"
 
@@ -171,14 +168,12 @@ msgstr "Modèle d'article"
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product Template Link Type"
 msgstr "Modèle d'article"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
 #, fuzzy
-#| msgid "Product Links"
 msgid "Product link"
 msgstr "Liens d'articles"
 
@@ -186,14 +181,12 @@ msgstr "Liens d'articles"
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 #, fuzzy, python-format
-#| msgid "Product Links"
 msgid "Product links"
 msgstr "Liens d'articles"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #, fuzzy
-#| msgid "product.template.link"
 msgid "Product template links"
 msgstr "product.template.link"
 
@@ -234,7 +227,6 @@ msgstr ""
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_up_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_up_selling
 #, fuzzy
-#| msgid "Up-Sell"
 msgid "Up Selling"
 msgstr "Montée en gamme"
 
