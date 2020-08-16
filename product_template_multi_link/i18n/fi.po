@@ -137,7 +137,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product"
 msgstr "Tuotteen malli"
 
@@ -167,14 +166,12 @@ msgstr "Tuotteen malli"
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product Template Link Type"
 msgstr "Tuotteen malli"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product link"
 msgstr "Tuotteen malli"
 
@@ -182,14 +179,12 @@ msgstr "Tuotteen malli"
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 #, fuzzy, python-format
-#| msgid "Product Template"
 msgid "Product links"
 msgstr "Tuotteen malli"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product template links"
 msgstr "Tuotteen malli"
 
