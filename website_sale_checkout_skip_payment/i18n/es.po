@@ -41,9 +41,6 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
 #, fuzzy
-#| msgid ""
-#| "<strong>Error!</strong> An error occurred trying to\n"
-#| "                        confirm the sale order."
 msgid ""
 "<strong>Error!</strong> An error occurred trying to\n"
 "                            confirm the sale order."
@@ -74,7 +71,6 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 #, fuzzy
-#| msgid "Checkout Skip Payment"
 msgid "Sale Checkout Skip Message"
 msgstr "Saltar proceso de pago en la tienda online"
 
@@ -97,7 +93,6 @@ msgstr "Website"
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_skip_message
 #, fuzzy
-#| msgid "Skip Website Checkout Payment"
 msgid "Website Sale Checkout Skip Message"
 msgstr "Saltar proceso de  pago en la tienda online"
 

@@ -41,9 +41,6 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
 #, fuzzy
-#| msgid ""
-#| "<strong>Error!</strong> An error occurred trying to\n"
-#| "                        confirm the sale order."
 msgid ""
 "<strong>Error!</strong> An error occurred trying to\n"
 "                            confirm the sale order."
