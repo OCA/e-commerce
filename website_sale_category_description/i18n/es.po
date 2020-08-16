@@ -20,7 +20,6 @@ msgstr ""
 #. module: website_sale_category_description
 #: model:ir.model.fields,field_description:website_sale_category_description.field_product_public_category__website_description
 #, fuzzy
-#| msgid "Website description (top)"
 msgid "Website Description"
 msgstr "Descripción para el website (arriba)"
 
