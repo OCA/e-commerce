@@ -139,7 +139,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
 #, fuzzy
-#| msgid "Product Links"
 msgid "Product"
 msgstr "Poveznice proizvoda"
 
@@ -157,7 +156,6 @@ msgstr "Poveznice proizvoda"
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_product__product_template_link_count
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__product_template_link_count
 #, fuzzy
-#| msgid "Product Links"
 msgid "Product Links Count"
 msgstr "Poveznice proizvoda"
 
@@ -171,14 +169,12 @@ msgstr "Predložak proizvoda"
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product Template Link Type"
 msgstr "Predložak proizvoda"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
 #, fuzzy
-#| msgid "Product Links"
 msgid "Product link"
 msgstr "Poveznice proizvoda"
 
@@ -186,14 +182,12 @@ msgstr "Poveznice proizvoda"
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 #, fuzzy, python-format
-#| msgid "Product Links"
 msgid "Product links"
 msgstr "Poveznice proizvoda"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #, fuzzy
-#| msgid "Product Template"
 msgid "Product template links"
 msgstr "Predložak proizvoda"
 
