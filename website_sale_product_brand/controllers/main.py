@@ -3,6 +3,7 @@
 
 from odoo import http
 from odoo.http import request
+from odoo.osv import expression
 
 from odoo.addons.website_sale.controllers.main import QueryURL, WebsiteSale
 
@@ -15,7 +16,9 @@ class WebsiteSale(WebsiteSale):
             search, category, attrib_values, search_in_description=search_in_description
         )
         if "brand_id" in request.context:
-            domain.append(("product_brand_id", "=", request.env.context["brand_id"]))
+            domain = expression.AND(
+                [domain, [("product_brand_id", "=", request.context["brand_id"])]]
+            )
         return domain
 
     @http.route(
@@ -61,7 +64,7 @@ class WebsiteSale(WebsiteSale):
     @http.route(["/page/product_brands"], type="http", auth="public", website=True)
     def product_brands(self, **post):
         b_obj = request.env["product.brand"]
-        domain = []
+        domain = [("website_published", "=", True)]
         if post.get("search"):
             domain += [("name", "ilike", post.get("search"))]
         brand_rec = b_obj.sudo().search(domain)
