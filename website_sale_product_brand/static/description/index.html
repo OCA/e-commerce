@@ -371,55 +371,60 @@ ul.auto-toc {
 <p>This module was written to extend the functionality of product filtering on website.
 It will allow you to filter product based on its brand.</p>
 <p>While shopping online, we have seen various eShops having a feature to shop by brands
-which ODOO does not yet provide officially. Website Sale Product Brand fills the gap at certain
-extent and by providing basic search by brands, thus reducing end-user’s efforts in
-searching the products he/she wants to purchase.</p>
+which ODOO does not yet provide officially. Website Sale Product Brand fills the gap
+at certain extent and by providing basic search by brands, thus reducing end-user’s
+efforts in searching the products he/she wants to purchase.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#installation" id="id1">Installation</a></li>
-<li><a class="reference internal" href="#usage" id="id2">Usage</a></li>
-<li><a class="reference internal" href="#bug-tracker" id="id3">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="id4">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="id5">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="id6">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="id7">Maintainers</a></li>
+<li><a class="reference internal" href="#configuration" id="id2">Configuration</a></li>
+<li><a class="reference internal" href="#usage" id="id3">Usage</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="id4">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="id5">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="id6">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="id7">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="id8">Maintainers</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="installation">
 <h1><a class="toc-backref" href="#id1">Installation</a></h1>
-<p>To install this module, you need to install following module:
--&gt;https://github.com/OCA/product-attribute/tree/12.0/product_brand</p>
+<p>To install this module, you need to install the module <cite>product_brand</cite> form
+OCA/product-attribute.</p>
+</div>
+<div class="section" id="configuration">
+<h1><a class="toc-backref" href="#id2">Configuration</a></h1>
+<p>In order to hide brands from the e-commerce:</p>
+<ol class="arabic simple">
+<li>Go to <em>Website &gt; Settings &gt; Products &gt; Product brands</em></li>
+<li>Click on the brand you want to unpublish.</li>
+<li>Click on the <em>Website published</em> smart button.</li>
+</ol>
 </div>
 <div class="section" id="usage">
-<h1><a class="toc-backref" href="#id2">Usage</a></h1>
-<p>Shop by brand feature is available on various famous e-commerce websites like amazon, flipkart and many.
-Shop by brand feature enables you to display product relevant to that particular brand.</p>
+<h1><a class="toc-backref" href="#id3">Usage</a></h1>
+<p>Shop by brand feature is available on various famous e-commerce websites like amazon,
+flipkart and many. Shop by brand feature enables you to display product relevant to
+that particular brand.</p>
 <p>To use this module, you need to:</p>
-<p>Once you install this module, user will be able to create a new brand and define the brand to a product.</p>
+<p>Once you install this module, user will be able to create a new brand and define the
+brand to a product.</p>
+<p>To create product brand go to <em>Website &gt; Settings &gt; Products &gt; Product brands</em>:</p>
+<blockquote>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>To create product brand</dt>
-<dd><dl class="first last docutils">
-<dt>go to:</dt>
-<dd>sales&gt;products&gt;product brands</dd>
-</dl>
-</dd>
-</dl>
-</li>
+<li>User can assign a nice logo with brand description.</li>
+<li>After configuring the brand, user can assign a particular brand to a particular
+products.</li>
 </ul>
-<p>User can assign a nice logo with brand description.</p>
-<ul class="simple">
-<li>After configuring the brand, user can assign a particular brand to a particular products.</li>
-</ul>
+</blockquote>
 <p>Based on this configuration, you will see the menuitem shop by brand next to shop menu.
 It will show all the brands and once you select that brand it will show product’s which
 is related to this brand.</p>
 </div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#id3">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#id4">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/e-commerce/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
@@ -427,16 +432,16 @@ If you spotted it first, help us smashing it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#id4">Credits</a></h1>
+<h1><a class="toc-backref" href="#id5">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#id5">Authors</a></h2>
+<h2><a class="toc-backref" href="#id6">Authors</a></h2>
 <ul class="simple">
 <li>Serpent Consulting Services Pvt. Ltd.</li>
 <li>Tecnativa</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#id6">Contributors</a></h2>
+<h2><a class="toc-backref" href="#id7">Contributors</a></h2>
 <ul>
 <li><p class="first">Jay Vora &lt;<a class="reference external" href="mailto:jay.vora&#64;serpentcs.com">jay.vora&#64;serpentcs.com</a>&gt;</p>
 </li>
@@ -447,13 +452,14 @@ If you spotted it first, help us smashing it by providing a detailed and welcome
 <ul class="simple">
 <li>Ernesto Tejeda &lt;<a class="reference external" href="mailto:ernesto.tejeda&#64;tecnativa.com">ernesto.tejeda&#64;tecnativa.com</a>&gt;</li>
 <li>Sergio Teruel &lt;<a class="reference external" href="mailto:sergio.teruel&#64;tecnativa.com">sergio.teruel&#64;tecnativa.com</a>&gt;</li>
+<li>David Vidal &lt;<a class="reference external" href="mailto:david.vidal&#64;tecnativa.com">david.vidal&#64;tecnativa.com</a>&gt;</li>
 </ul>
 </blockquote>
 </li>
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#id7">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#id8">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
 <a class="reference external image-reference" href="https://odoo-community.org"><img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" /></a>
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
