@@ -1,15 +1,19 @@
+# Copyright 2020 Commown SCIC SAS (https://commown.coop)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    'name': 'Slimpay Payment Acquirer for Website Sale',
-    'category': 'Website',
-    'summary': 'Slimpay payment acquirer for your e-commerce',
-    'version': '10.0.1.0.1',
-    'description': 'Slimpay payment acquirer for your e-commerce',
-    'author': "Commown SCIC SAS",
-    'license': "AGPL-3",
-    'website': "https://commown.coop",
-    'depends': ['website_sale', 'payment_slimpay'],
-    'data': [
-        'views/address_template.xml',
+    "name": "Slimpay online payment and mandate signing for e-commerce",
+    "summary": "Provide your website customers seamless online SEPA mandate signing with Slimpay",
+    "version": "12.0.1.0.0",
+    "development_status": "Beta",
+    "category": "e-commerce",
+    "website": "https://github.com/OCA/e-commerce",
+    "author": "Commown SCIC SAS, Odoo Community Association (OCA)",
+    "maintainers": ["fcayre"],
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": ["website_sale", "account_payment_slimpay"],
+    "data": [
+        "views/address_template.xml",
     ],
-    'installable': True,
 }
