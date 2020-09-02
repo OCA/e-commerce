@@ -1,11 +1,11 @@
-from urllib import urlencode
-import urllib2
-import json
+from urllib.parse import urlencode
+import urllib.request, urllib.error, urllib.parse
+from json import dumps as json_dumps
 from datetime import datetime
 
 from mock import patch
 
-from odoo.addons.payment_slimpay.models.payment import SlimpayClient
+from odoo.addons.account_payment_slimpay.models.payment import SlimpayClient
 
 from odoo.tests.common import HttpCase, at_install, post_install, HOST, PORT
 
@@ -28,7 +28,7 @@ class SlimpayControllersTC(HttpCase):
         self._patchers = []
         # Mock SlimpayClient
         self._start_patcher(
-            patch('odoo.addons.payment_slimpay.models.'
+            patch('odoo.addons.account_payment_slimpay.models.'
                   'slimpay_utils.get_client'))
         # Mock its "get" and "get_from_doc" methods (to ease their config)
         self.fake_get = self._start_patcher(patch.object(SlimpayClient, 'get'))
@@ -42,39 +42,48 @@ class SlimpayControllersTC(HttpCase):
         # Stop patchers in case of a test exception or normal termination
         for patcher in self._patchers:
             self.addCleanup(patcher.stop)
-        self.slimpay = self.env.ref('payment.payment_acquirer_slimpay')
+        # Setup a journal for Slimpay acquirer
+        self.slimpay = self.env.ref(
+            'account_payment_slimpay.payment_acquirer_slimpay')
+        journal = self.env['account.journal'].search([('type', '=', 'bank')],
+                                                     limit=1).exists()
+        self.slimpay.journal_id = journal.id
 
     def _start_patcher(self, patcher):
         self._patchers.append(patcher)
         return patcher.start()
 
-    def post(self, path, data=None, encoder=urlencode,
+    def post(self, path, data=None, json=None,
              headers=None, timeout=30, assert_code=200):
-        """ POST an http request using an urllib2 Request object.
-        Complements HttpCase.url_open with POST and bigger default timeout """
-        data = encoder(data or {})
+        """ POST an http request using requests. Complements HttpCase.url_open
+        with headers, json and bigger default timeout """
         url = 'http://%s:%s%s' % (HOST, PORT, path)
-        req = urllib2.Request(url, data, headers or {})
-        resp = self.opener.open(req, data, timeout)
-        self.assertEqual(assert_code, resp.code)
-        return resp.read()
+        resp = self.opener.post(url, data=data, json=json, timeout=timeout,
+                                headers=headers)
+        self.assertEqual(assert_code, resp.status_code)
+        return resp.text if json is None else resp.json()
 
     def jsonrpc(self, path, params=None, timeout=30, assert_code=200):
         " Helper method to perform a jsonrpc request and return its result "
         headers = {'Content-Type': 'application/json'}
         data = {"jsonrpc": "2.0", "method": "call", "params": params or {}}
-        return json.loads(self.post(
-            path, data, json.dumps, headers, timeout, assert_code))['result']
+        json = self.post(
+            path, json=data, headers=headers, timeout=timeout,
+            assert_code=assert_code)
+        try:
+            return json['result']
+        except KeyError:
+            self.fail('jsonrpc error:\n%s' % json)
 
-    def search_read(self, model, domain, kwargs=None):
+    def search_read(self, model, *args, kwargs=None):
         " Helper method to perform a model + domain search via jsonrpc "
         return self.jsonrpc('/web/dataset/call_kw', {
-            'model': model, 'method': 'search_read', 'args': [domain],
+            'model': model, 'method': 'search_read', 'args': args,
             'kwargs': kwargs or {}})
 
     def add_product_to_user_cart(self):
         product = self.env['product.product'].search([])[0]
-        self.post('/shop/cart/update', {"product_id": product.id})
+        self.post('/shop/cart/update', data={"product_id": product.id})
 
     def pay_cart(self):
         """ Simulate a clik on Slimpay "Pay" button.
@@ -94,8 +103,9 @@ class SlimpayControllersTC(HttpCase):
         self.fake_get.return_value = {
             'reference': tx_ref, 'state': state, 'id': 'test-id',
             'dateClosed': datetime.today().isoformat()}
-        self.post('/payment/slimpay/s2s/feedback', feedback, json.dumps,
-                  {'Content-Type': 'application/hal+json'})
+        self.post('/payment/slimpay/s2s/feedback', data=json_dumps(feedback),
+                  headers={'Content-Type': 'application/hal+json'},
+        )
 
     def check_transaction(self, tx_ref, state):
         tx = self.search_read('payment.transaction',
@@ -104,6 +114,10 @@ class SlimpayControllersTC(HttpCase):
         self.assertEqual([self.slimpay.id, self.slimpay.name],
                          tx['acquirer_id'])
         return tx
+
+    def check_so(self, so_id, state):
+        so = self.search_read('sale.order', [('id', '=', so_id)], ['state'])
+        self.assertEqual([{'id': so_id, 'state': state}], so)
 
     def test_slimpay_portal_sale_ok(self):
         """ Perform a portal sale, paid using a mocked Slimpay and using a fake
@@ -119,7 +133,8 @@ class SlimpayControllersTC(HttpCase):
         tx = self.check_transaction(tx_ref, 'done')
 
         self.assertEqual('IBAN my-iban (my-bank)', tx['payment_token_id'][1])
-        self.assertEqual('sale', tx['so_state'])
+        self.assertEqual(1, len(tx['sale_order_ids']))
+        self.check_so(tx['sale_order_ids'][0], 'sale')
 
     def test_slimpay_portal_sale_ok_with_two_transaction(self):
         """ Perform a successful portal sale in two steps:
@@ -134,11 +149,14 @@ class SlimpayControllersTC(HttpCase):
         self.check_transaction(tx1_ref, 'draft')
         self.simulate_feedback(tx1_ref, 'closed.aborted.aborted_byclient')
         tx1 = self.check_transaction(tx1_ref, 'cancel')
-        self.assertEqual('draft', tx1['so_state'])
+        self.assertFalse(tx1['sale_order_ids'])
 
         tx2_ref = self.pay_cart()
         self.check_transaction(tx2_ref, 'draft')
         self.simulate_feedback(tx2_ref)
         tx2 = self.check_transaction(tx2_ref, 'done')
-        self.assertEqual('sale', tx2['so_state'])
-        self.assertEqual(tx1['sale_order_id'][0], tx2['sale_order_id'][0])
+        self.assertEqual(1, len(tx2['sale_order_ids']))
+        self.check_so(tx2['sale_order_ids'][0], 'sale')
+        # Check transactions' reference start with the same SO name
+        self.assertEqual(1, len(set(tx['reference'].split('-')[0]
+                                    for tx in (tx1, tx2))))

@@ -6,7 +6,7 @@ from odoo.exceptions import UserError
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
-from odoo.addons.payment_slimpay.models import slimpay_utils
+from odoo.addons.account_payment_slimpay.models import slimpay_utils
 
 
 _logger = logging.getLogger(__name__)
@@ -28,16 +28,19 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
             del request.session['sale_transaction_id']
         self.payment_transaction(
             acquirer_id, tx_type='form', token=token, **kwargs)
+        transaction_id = request.session['__website_sale_last_tx_id']
+        transaction = request.env['payment.transaction'].browse(transaction_id)
         so = request.env['sale.order'].sudo().browse(
             request.session['sale_order_id'])
         validated_payment_url = '/shop/payment/validate'
         if token:
-            self._pay_with_token(so.payment_tx_id)
+            self._pay_with_token(transaction.sudo())
             return validated_payment_url
         else:
-            return self._approval_url(so, acquirer_id, validated_payment_url)
+            return self._approval_url(
+                so, transaction, acquirer_id, validated_payment_url)
 
-    def _approval_url(self, so, acquirer_id, return_url):
+    def _approval_url(self, so, transaction, acquirer_id, return_url):
         """ Helper to be used with website_sale to get a Slimpay URL for the
         end-user to sign a mandate and create a first payment online."
         """
@@ -46,7 +49,7 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         # May emit a direct debit only if a mandate exists; unsupported for now
         subscriber = slimpay_utils.subscriber_from_partner(so.partner_id)
         return acquirer.slimpay_client.approval_url(
-            so.payment_tx_id.reference, so.id, locale, so.amount_total,
+            transaction.reference, so.id, locale, so.amount_total,
             so.currency_id.name, so.currency_id.decimal_places,
             subscriber, return_url)
 
@@ -55,7 +58,8 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         then confirm the sale as usual.
         """
         if tx.slimpay_s2s_do_transaction():
-            tx._confirm_so(acquirer_name='slimpay')
+            tx._set_transaction_done()
+            tx._post_process_after_done()
         else:
             raise UserError(
                 _('Transaction error: take a screenshot and contact us'))
