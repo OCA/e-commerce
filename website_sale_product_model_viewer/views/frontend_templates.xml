@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript"
+                    src="/website_sale_product_model_viewer/static/src/js/product_model_viewer.js"/>
+        </xpath>
+    </template>
+    <template id="product_3d_model" inherit_id="website_sale.product" >
+        <xpath expr="//div[@id='o-carousel-product']" position="after">
+            <model-viewer t-if="product.gltf_3d_model"
+                t-attf-src='/web/content/product.template/{{product.id}}/gltf_3d_model'
+                t-attf-name="3D model {{product.name}}"
+                alt="3D model"
+                auto-rotate="1"
+                camera-controls="1"
+                ar="1"
+                style="width:100%; height:100%; min-height:300px; background-color: #FFFFFF;">
+                    <div class="text-center mt-2 mb-2 mr-2">
+                        <span id="product-3d-model-viewer-fullscreen" title="View fullscreen" role="img" aria-label="Fullscreen">
+                            <i class="fa fa-arrows-alt fa-2x"/>
+                        </span>
+                    </div>
+            </model-viewer>
+        </xpath>
+        <xpath expr="//div[@id='o-carousel-product']" position="attributes">
+            <attribute name="t-if">not product.gltf_3d_model</attribute>
+        </xpath>
+    </template>
+</odoo>
