@@ -29,9 +29,9 @@ This module was written to extend the functionality of product filtering on webs
 It will allow you to filter product based on its brand.
 
 While shopping online, we have seen various eShops having a feature to shop by brands
-which ODOO does not yet provide officially. Website Sale Product Brand fills the gap at certain
-extent and by providing basic search by brands, thus reducing end-user’s efforts in
-searching the products he/she wants to purchase.
+which ODOO does not yet provide officially. Website Sale Product Brand fills the gap
+at certain extent and by providing basic search by brands, thus reducing end-user’s
+efforts in searching the products he/she wants to purchase.
 
 **Table of contents**
 
@@ -41,26 +41,35 @@ searching the products he/she wants to purchase.
 Installation
 ============
 
-To install this module, you need to install following module:
-->https://github.com/OCA/product-attribute/tree/12.0/product_brand
+To install this module, you need to install the module `product_brand` form
+OCA/product-attribute.
+
+Configuration
+=============
+
+In order to hide brands from the e-commerce:
+
+#. Go to *Website > Settings > Products > Product brands*
+#. Click on the brand you want to unpublish.
+#. Click on the *Website published* smart button.
 
 Usage
 =====
 
-Shop by brand feature is available on various famous e-commerce websites like amazon, flipkart and many.
-Shop by brand feature enables you to display product relevant to that particular brand.
+Shop by brand feature is available on various famous e-commerce websites like amazon,
+flipkart and many. Shop by brand feature enables you to display product relevant to
+that particular brand.
 
 To use this module, you need to:
 
-Once you install this module, user will be able to create a new brand and define the brand to a product.
+Once you install this module, user will be able to create a new brand and define the
+brand to a product.
 
-- To create product brand
-    go to:
-        sales>products>product brands
+To create product brand go to *Website > Settings > Products > Product brands*:
 
-User can assign a nice logo with brand description.
-
-- After configuring the brand, user can assign a particular brand to a particular products.
+  - User can assign a nice logo with brand description.
+  - After configuring the brand, user can assign a particular brand to a particular
+    products.
 
 Based on this configuration, you will see the menuitem shop by brand next to shop menu.
 It will show all the brands and once you select that brand it will show product's which
@@ -94,6 +103,7 @@ Contributors
 
     * Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
     * Sergio Teruel <sergio.teruel@tecnativa.com>
+    * David Vidal <david.vidal@tecnativa.com>
 
 Maintainers
 ~~~~~~~~~~~

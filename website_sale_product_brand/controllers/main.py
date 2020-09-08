@@ -42,7 +42,7 @@ class WebsiteSale(WebsiteSale):
         website=True)
     def product_brands(self, **post):
         b_obj = request.env['product.brand']
-        domain = []
+        domain = [('website_published', '=', True)]
         if post.get('search'):
             domain += [('name', 'ilike', post.get('search'))]
         brand_rec = b_obj.sudo().search(domain)

@@ -4,3 +4,4 @@
 
     * Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
     * Sergio Teruel <sergio.teruel@tecnativa.com>
+    * David Vidal <david.vidal@tecnativa.com>
