@@ -21,11 +21,24 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
+msgid "Is published"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
 msgstr "Nessuna marca trovata."
 
 #. module: website_sale_product_brand
+#: model:ir.model,name:website_sale_product_brand.model_product_brand
+#, fuzzy
+#| msgid "Product Brands"
+msgid "Product Brand"
+msgstr "Marche prodotto"
+
+#. module: website_sale_product_brand
+#: model:ir.ui.menu,name:website_sale_product_brand.menu_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
 msgstr "Marche prodotto"
