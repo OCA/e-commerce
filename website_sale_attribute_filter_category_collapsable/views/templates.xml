@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Tecnativa - Alexandre D. Díaz
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="products_attributes" inherit_id="website_sale.products_attributes" priority="999">
+        <!-- Add a new title zone -->
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/div" position="before">
+            <a data-toggle="collapse" t-attf-href="#collapse_v_{{a.id}}">
+                <i class="fa fas" />
+            </a>
+        </xpath>
+        <!-- Move attribute name to the title zone -->
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/a" position="inside">
+            <xpath expr="//ul[hasclass('nav-pills')]/t/li/div/strong" position="move"/>
+        </xpath>
+        <!-- Hide empty div -->
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/div" position="attributes">
+            <attribute name="class" add="d-none" separator=" " />
+        </xpath>
+        <!-- Move 'select' type to a new collapsible zone -->
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'select')]/select" position="before">
+            <div t-attf-id="collapse_v_{{a.id}}" t-attf-class="#{'collapse in show' if (values_selected or not folded) else 'collapse'}"/>
+        </xpath>
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'select')]/div[1]" position="inside">
+            <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'select')]/select" position="move" />
+        </xpath>
+        <!-- Move 'radio' type to a new collapsible zone -->
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'radio')]/ul" position="before">
+            <div t-attf-id="collapse_v_{{a.id}}" t-attf-class="#{'collapse in show' if (values_selected or not folded) else 'collapse'}"/>
+        </xpath>
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'radio')]/div[1]" position="inside">
+            <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'radio')]/ul" position="move" />
+        </xpath>
+        <!-- Move 'color' type to a new collapsible zone -->
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'color')]/t" position="before">
+            <div t-attf-id="collapse_v_{{a.id}}" t-attf-class="#{'collapse in show' if (values_selected or not folded) else 'collapse'}"/>
+        </xpath>
+        <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'color')]/div[1]" position="inside">
+            <xpath expr="//ul[hasclass('nav-pills')]/t/li/t[contains(@t-if,'color')]/t" position="move" />
+        </xpath>
+    </template>
+
+</odoo>
