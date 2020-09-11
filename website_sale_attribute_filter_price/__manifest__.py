@@ -1,7 +1,7 @@
 # Copyright 2020 Tecnativa - Alexandre Díaz
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
-    "name": "Wesbite Sale Attribute Filter Price",
+    "name": "Website Sale Attribute Filter Price",
     "category": "Website",
     "summary": "A price filter for website sale",
     "version": "12.0.1.2.0",
