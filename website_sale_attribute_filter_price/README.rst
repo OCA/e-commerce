@@ -1,5 +1,5 @@
 ===================================
-Wesbite Sale Attribute Filter Price
+Website Sale Attribute Filter Price
 ===================================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
