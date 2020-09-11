@@ -1,5 +1,5 @@
 ================================
-Wesbite Snippet Product Category
+Website Snippet Product Category
 ================================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
