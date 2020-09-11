@@ -398,6 +398,7 @@ ul.auto-toc {
 <h2><a class="toc-backref" href="#id2">Theming</a></h2>
 <p>CSS Classes:</p>
 <ul class="simple">
+<li><tt class="docutils literal">js_attribute_filter_price</tt> &gt; The class-trigger to initialize the slider</li>
 <li><tt class="docutils literal">price_filter_main</tt> &gt; The main container (slider + inputs + button)</li>
 </ul>
 <p>HTML ID’s:</p>
@@ -407,6 +408,17 @@ ul.auto-toc {
 <li><tt class="docutils literal">price_range_max_value</tt> &gt; The input for maximum price</li>
 <li><tt class="docutils literal">price_slider_form</tt> &gt; The submit button</li>
 </ul>
+<p>HTML Attributes:</p>
+<p><tt class="docutils literal">filter_price_slider</tt> accepts the following attributes:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">data-custom_min_price</span></tt> &gt; Float &gt; Used to store the user min. value</li>
+<li><tt class="docutils literal"><span class="pre">data-custom_max_price</span></tt> &gt; Float &gt; Used to store the user max. value</li>
+<li><tt class="docutils literal"><span class="pre">data-max_price</span></tt> &gt; Float &gt; Used in the slider configuration to set the max. value</li>
+<li><tt class="docutils literal"><span class="pre">data-symbol</span></tt> &gt; Char &gt; Used in the slider configuration to set the currency symbol</li>
+<li><tt class="docutils literal"><span class="pre">data-options</span></tt> &gt; Dict &gt; You can use this to overwrite all slider configuration values</li>
+</ul>
+</blockquote>
 </div>
 </div>
 <div class="section" id="usage">
