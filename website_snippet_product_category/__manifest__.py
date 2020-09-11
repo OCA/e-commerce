@@ -1,7 +1,7 @@
 # Copyright 2020 Tecnativa - Alexandre Díaz
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
-    "name": "Wesbite Snippet Product Category",
+    "name": "Website Snippet Product Category",
     "category": "Website",
     "summary": "Adds a new snippet to show e-commerce categories",
     "version": "12.0.1.0.0",
