@@ -9,6 +9,7 @@ class TestProductTemplateLink(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.ProductTemplateLink = cls.env["product.template.link"]
         cls.product_product_1 = cls.env.ref("product.product_product_1")
         cls.product_product_2 = cls.env.ref("product.product_product_2")
