@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id='product_template_link__search' model='ir.ui.view'>
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link__search"
+        />
+        <field name="arch" type="xml">
+            <field name="left_product_tmpl_id" position="after">
+                <field
+                    name="left_product_id"
+                    string="Variant"
+                    filter_domain="['|',('left_product_id','ilike',self),('right_product_id','ilike',self)]"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_link_tree" model="ir.ui.view">
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="left_product_tmpl_id" position="after">
+                <field
+                    name="left_product_id"
+                    domain="[('product_tmpl_id','=',left_product_tmpl_id)]"
+                />
+            </field>
+            <field name="right_product_tmpl_id" position="after">
+                <field
+                    name="right_product_id"
+                    domain="[('product_tmpl_id','=',right_product_tmpl_id)]"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_link_kanban" model="ir.ui.view">
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_kanban"
+        />
+        <field name="arch" type="xml">
+            <field name="left_product_tmpl_id" position="after">
+                <field
+                    name="left_product_id"
+                    domain="[('product_tmpl_id','=',left_product_tmpl_id)]"
+                />
+            </field>
+            <field name="right_product_tmpl_id" position="after">
+                <field
+                    name="right_product_id"
+                    domain="[('product_tmpl_id','=',right_product_tmpl_id)]"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_link_form" model="ir.ui.view">
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_form"
+        />
+        <field name="arch" type="xml">
+            <field name="left_product_tmpl_id" position="after">
+                <field
+                    name="left_product_id"
+                    domain="[('product_tmpl_id','=',left_product_tmpl_id)]"
+                />
+            </field>
+            <field name="right_product_tmpl_id" position="after">
+                <field
+                    name="right_product_id"
+                    domain="[('product_tmpl_id','=',right_product_tmpl_id)]"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
