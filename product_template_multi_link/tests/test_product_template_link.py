@@ -9,7 +9,15 @@ class TestProductTemplateLink(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                tracking_disable=True,
+                # compatibility flag when you run tests on a db
+                # where `product_variant_multi_link` is installed.
+                _product_variant_link_bypass_check=True,
+            )
+        )
         cls.ProductTemplateLink = cls.env["product.template.link"]
         cls.product_product_1 = cls.env.ref("product.product_product_1")
         cls.product_product_2 = cls.env.ref("product.product_product_2")
