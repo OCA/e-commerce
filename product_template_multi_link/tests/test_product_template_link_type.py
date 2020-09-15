@@ -11,6 +11,7 @@ class TestProductTemplateLinkType(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.LinkType = cls.env["product.template.link.type"]
         cls.link_type_cross_selling = cls.env.ref(
             "product_template_multi_link.product_template_link_type_cross_selling"
