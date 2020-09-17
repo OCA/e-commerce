@@ -28,10 +28,7 @@
                 <t t-foreach="variant_id.value_ids.filtered(lambda x: x.website_product_detail_image_published)" t-as="attr_value">
                     <div class="flex-fill px-1">
                         <div class="text-center">
-                            <span
-                                t-field="attr_value.website_product_detail_image"
-                                t-options="{'widget': 'image', 'resize': '40x40'}"
-                            />
+                            <img class="img" t-attf-src="/web/image?model=product.attribute.value&amp;field=website_product_detail_image&amp;id=#{attr_value.id}" t-att-title="attr_value.website_name or attr_value.name" t-att-alt="attr_value.website_name or attr_value.name"/>
                         </div>
                         <div class="text-center"> <span t-esc="attr_value.website_name or attr_value.name"/> </div>
                     </div>
