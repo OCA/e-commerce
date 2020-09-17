@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo13-addon-product_template_multi_link',
         'odoo13-addon-product_template_multi_link_date_span',
+        'odoo13-addon-product_variant_multi_link',
         'odoo13-addon-website_sale_attribute_filter_category',
         'odoo13-addon-website_sale_attribute_filter_order',
         'odoo13-addon-website_sale_attribute_filter_price',
