@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-26 12:49+0000\n"
+"PO-Revision-Date: 2020-10-26 12:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,9 +21,10 @@ msgid "<span>From </span>"
 msgstr ""
 
 #. module: website_sale_product_minimal_price
-#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_product__has_distinct_variant_price
-#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__has_distinct_variant_price
-msgid "Has variants with distinct price extra"
+#. openerp-web
+#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:5
+#, python-format
+msgid "Prices per quantity ("
 msgstr ""
 
 #. module: website_sale_product_minimal_price

@@ -22,7 +22,7 @@
     <template id="products_item" inherit_id="website_sale.products_item">
         <!-- Display "From" if variants have distinct extra prices -->
         <xpath expr="//span[@t-if=&quot;combination_info[&apos;price&apos;]&quot;]" position="before">
-            <t t-if="product.has_distinct_variant_price">
+            <t t-if="combination_info.get('has_distinct_price')">
                 <span>From </span>
             </t>
         </xpath>

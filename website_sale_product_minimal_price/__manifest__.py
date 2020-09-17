@@ -13,7 +13,10 @@
     'application': False,
     'installable': True,
     'depends': [
-        'website_sale',
+        'website_sale_stock',
+    ],
+    'demo': [
+        'demo/assets.xml',
     ],
     'data': [
         'views/assets.xml',
