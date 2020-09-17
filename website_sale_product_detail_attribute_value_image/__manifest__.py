@@ -19,4 +19,7 @@
         'templates/assets.xml',
         'templates/shop_product.xml',
     ],
+    'demo': [
+        'demo/assets_tour.xml',
+    ],
 }
