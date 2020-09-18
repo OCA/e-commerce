@@ -21,11 +21,12 @@
         </xpath>
         <!-- Add the attribute value images -->
         <xpath expr="//hr[@id='hr_product_attributes_simple']" position="after">
-            <hr t-if="sum([(1 if any(l.value_ids) else 0) for l in product._get_valid_product_template_attribute_lines()])" id="attr_value_image_separator" />
+            <hr t-if="attrs_published" id="attr_value_image_separator" />
         </xpath>
         <xpath expr="//t[@t-as='variant_id']" position="inside">
-            <div class="d-inline-flex flex-wrap mb-0 product-detail-attributes-values">
-                <t t-foreach="variant_id.value_ids.filtered(lambda x: x.website_product_detail_image_published)" t-as="attr_value">
+            <t t-set="attrs_published" t-value="variant_id.value_ids.filtered(lambda x: x.website_product_detail_image_published)" />
+            <div t-if="any(attrs_published)" class="d-inline-flex flex-wrap mb-0 product-detail-attributes-values">
+                <t t-foreach="attrs_published" t-as="attr_value">
                     <div class="flex-fill px-1">
                         <div class="text-center">
                             <img class="img" t-attf-src="/web/image?model=product.attribute.value&amp;field=website_product_detail_image&amp;id=#{attr_value.id}" t-att-title="attr_value.website_name or attr_value.name" t-att-alt="attr_value.website_name or attr_value.name"/>
