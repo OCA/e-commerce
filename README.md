@@ -18,7 +18,7 @@ addon | version | summary
 [website_sale_affiliate](website_sale_affiliate/) | 10.0.1.0.1 | Create an e-commerce affiliate program for the tracking of referrals and conversions.
 [website_sale_cart_selectable](website_sale_cart_selectable/) | 10.0.1.1.0 | Enables to control button Add to cart display per product
 [website_sale_category_alphabetic](website_sale_category_alphabetic/) | 10.0.1.0.0 | Automatically adds the correct alphabetic website category to all new products
-[website_sale_charge_payment_fee](website_sale_charge_payment_fee/) | 10.0.1.0.1 | Payment fee charged to customer
+[website_sale_charge_payment_fee](website_sale_charge_payment_fee/) | 10.0.1.0.2 | Payment fee charged to customer
 [website_sale_charge_payment_fee_delivery](website_sale_charge_payment_fee_delivery/) | 10.0.1.0.0 | Link module
 [website_sale_charge_payment_fee_quote](website_sale_charge_payment_fee_quote/) | 10.0.1.0.0 | Link module
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 10.0.1.1.0 | Autocomplete VAT in checkout process
