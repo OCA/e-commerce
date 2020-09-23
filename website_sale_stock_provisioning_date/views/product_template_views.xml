@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Tecnativa - Ernesto Tejeda
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale_stock.product_template_form_view_inherit_website_sale_stock" />
+        <field name="arch" type="xml">
+            <field name="custom_message" position="after">
+                <field name="show_next_provisioning_date"/>
+            </field>
+        </field>
+    </record>
+</odoo>
