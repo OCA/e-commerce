@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 Tecnativa - Ernesto Tejeda
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<templates>
+    <t t-extend="website_sale_stock.product_availability">
+        <t t-jquery="div[t-if*='inventory_availability == \'custom\'']" t-operation="after">
+            <!-- If qty_available - outgoing_qty > 0 or show_next_provisioning_date
+            is not checked, then provisioning_date is False -->
+            <div t-if="provisioning_date" t-attf-class="availability_message_#{product_template} text-success mt16">
+                <span>
+                    Next provisioning date: <t t-esc="provisioning_date" />
+                </span>
+            </div>
+        </t>
+    </t>
+</templates>
