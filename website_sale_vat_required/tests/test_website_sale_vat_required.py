@@ -3,7 +3,7 @@
 from odoo.tests.common import HttpCase
 
 
-class TestUi(HttpCase):
+class TestWebsiteSaleVatRequired(HttpCase):
     def test_website_sale_vat_required(self):
         self.env.user.partner_id.vat = False
         self.browser_js(
