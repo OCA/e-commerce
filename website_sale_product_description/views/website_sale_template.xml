@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='o-carousel-product']" position="after">
+            <div class="o_not_editable">
+                <p t-field="product.public_description" id="product_public_description"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
