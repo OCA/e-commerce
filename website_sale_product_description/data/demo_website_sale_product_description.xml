@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product.product_product_4_product_template" model="product.template">
+        <field name="public_description"><![CDATA[This is an <i>extended</i> 
+            description for this product, only available on <b>e-commerce frontend</b>.
+            <br/>
+            This description can include <u>HTML markup</u>.]]></field>
+    </record>
+</odoo>
