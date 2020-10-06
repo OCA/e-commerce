@@ -9,9 +9,7 @@ class UICase(HttpCase):
         """Ensure website lang is en_US."""
         super().setUp()
         website = self.env["website"].get_current_website()
-        wiz = self.env["base.language.install"].create({
-            "lang": "en_US",
-        })
+        wiz = self.env["base.language.install"].create({"lang": "en_US",})
         wiz.website_ids = website
         wiz.lang_install()
         website.default_lang_id = self.env.ref("base.lang_en")
@@ -21,8 +19,6 @@ class UICase(HttpCase):
         tour = "website_sale_require_legal"
         self.browser_js(
             url_path="/shop",
-            code="odoo.__DEBUG__.services['web_tour.tour']"
-                 ".run('%s')" % tour,
-            ready="odoo.__DEBUG__.services['web_tour.tour']"
-                  ".tours.%s.ready" % tour,
+            code="odoo.__DEBUG__.services['web_tour.tour']" ".run('%s')" % tour,
+            ready="odoo.__DEBUG__.services['web_tour.tour']" ".tours.%s.ready" % tour,
         )
