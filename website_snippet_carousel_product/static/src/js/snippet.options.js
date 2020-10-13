@@ -64,7 +64,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 .removeClass("active")
                 .filter(function () {
                     var limit = $(this).attr("data-products-limit");
-                    var old_limit = 
+                    var old_limit =
                         self.$target.attr("data-products-limit") || '12';
                     return old_limit === limit;
                 })
@@ -76,7 +76,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 .removeClass("active")
                 .filter(function () {
                     var pps = $(this).attr("data-products-per-slide");
-                    var old_pps = 
+                    var old_pps =
                         self.$target.attr("data-products-per-slide") || '4';
                     return old_pps === pps;
                 })
@@ -88,7 +88,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 .removeClass("active")
                 .filter(function () {
                     var interval = $(this).attr("data-interval");
-                    var old_interval = 
+                    var old_interval =
                         self.$target.attr("data-interval") || '5000';
                     return old_interval === interval;
                 })

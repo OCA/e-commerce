@@ -52,5 +52,7 @@ class ProductCarouselWebsiteSale(WebsiteSale):
                 "products_per_slide": products_per_slide,
                 "num_slides": len(records_grouped),
                 "uniqueId": "pc-%d" % int(time.time() * 1000),
+                "is_website_designer":
+                request.env.user.has_group('website.group_website_designer')
             }
         )

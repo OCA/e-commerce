@@ -38,49 +38,54 @@
                 t-if="objects"
                 t-att-value="len(objects)"
             />
-            <div
-                t-att-id="uniqueId"
-                class="carousel slide d-flex"
-                data-ride="carousel"
-            >
-                <a
-                    class="o_product_carousel_control carousel-control-prev position-relative"
-                    t-att-href="'#' + uniqueId"
-                    role="button"
-                    data-slide="prev"
-                    t-if='num_slides > 1'
+            <t t-if="len(objects)">
+                <div
+                    t-att-id="uniqueId"
+                    class="carousel slide d-flex"
+                    data-ride="carousel"
                 >
-                    <i class="fa fa-2x fa-chevron-left text-black-50" />
-                    <span class="sr-only">Previous</span>
-                </a>
-                <div class="carousel-inner">
-                    <t t-foreach="objects" t-as="products">
-                        <div
-                            t-attf-class="carousel-item #{'' if products_index else 'active'}"
-                        >
-                            <div class="row">
-                                <t t-foreach="products" t-as="product">
-                                    <div t-attf-class="col-12 col-sm-6 col-md-#{int(12 / products_per_slide)}">
-                                        <div t-attf-class="oe_product #{' '.join(x.html_class for x in product.website_style_ids if x.html_class)}" >
-                                            <t t-call="website_sale.products_item"/>
+                    <a
+                        class="o_product_carousel_control carousel-control-prev position-relative"
+                        t-att-href="'#' + uniqueId"
+                        role="button"
+                        data-slide="prev"
+                        t-if='num_slides > 1'
+                    >
+                        <i class="fa fa-2x fa-chevron-left text-black-50" />
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <div class="carousel-inner">
+                        <t t-foreach="objects" t-as="products">
+                            <div
+                                t-attf-class="carousel-item #{'' if products_index else 'active'}"
+                            >
+                                <div class="row">
+                                    <t t-foreach="products" t-as="product">
+                                        <div t-attf-class="col-12 col-sm-6 col-md-#{int(12 / products_per_slide)}">
+                                            <div t-attf-class="oe_product #{' '.join(x.html_class for x in product.website_style_ids if x.html_class)}" >
+                                                <t t-call="website_sale.products_item"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                </t>
+                                    </t>
+                                </div>
                             </div>
-                        </div>
-                    </t>
+                        </t>
+                    </div>
+                    <a
+                        class="o_product_carousel_control carousel-control-next position-relative"
+                        t-att-href="'#' + uniqueId"
+                        role="button"
+                        data-slide="next"
+                        t-if='num_slides > 1'
+                    >
+                        <i class="fa fa-2x fa-chevron-right text-black-50" />
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-                <a
-                    class="o_product_carousel_control carousel-control-next position-relative"
-                    t-att-href="'#' + uniqueId"
-                    role="button"
-                    data-slide="next"
-                    t-if='num_slides > 1'
-                >
-                    <i class="fa fa-2x fa-chevron-right text-black-50" />
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            </t>
+            <t t-if="is_website_designer and not len(objects)">
+                <div class="alert alert-warning alert-dismissible text-center">No products was found. Make sure you have products published on the website that matches the domain.</div>
+            </t>
         </div>
     </template>
     <template id="s_product_carousel_options" inherit_id="website.snippet_options">
