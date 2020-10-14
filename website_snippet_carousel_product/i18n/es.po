@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_snippet_carousel_product
+# 	* website_snippet_carousel_product
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-16 18:26+0000\n"
-"PO-Revision-Date: 2020-10-16 18:26+0000\n"
+"PO-Revision-Date: 2020-10-16 20:28+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 2.4.1\n"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
@@ -52,70 +54,86 @@ msgstr ""
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
-msgid "<i class=\"fa fa-2x fa-chevron-left text-black-50\"/>\n"
+msgid ""
+"<i class=\"fa fa-2x fa-chevron-left text-black-50\"/>\n"
 "                        <span class=\"sr-only\">Previous</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-chevron-left text-black-50\"/>\n"
+"                        <span class=\"sr-only\">Anterior</span>"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
-msgid "<i class=\"fa fa-2x fa-chevron-right text-black-50\"/>\n"
+msgid ""
+"<i class=\"fa fa-2x fa-chevron-right text-black-50\"/>\n"
 "                        <span class=\"sr-only\">Next</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-chevron-right text-black-50\"/>\n"
+"                        <span class=\"sr-only\">Siguiente</span>"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel
-msgid "<i class=\"fa fa-circle-o-notch fa-spin fa-3x fa-fwg\"/>\n"
+msgid ""
+"<i class=\"fa fa-circle-o-notch fa-spin fa-3x fa-fwg\"/>\n"
 "                        <span>Loading Product Carousel</span>"
 msgstr ""
+"<i class=\"fa fa-circle-o-notch fa-spin fa-3x fa-fwg\"/>\n"
+"                        <span>Cargando carrusel de productos</span>"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
 msgid "<i class=\"fa fa-fw fa-bars\"/> Set Domain"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-bars\"/> Establecer dominio"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
 msgid "<i class=\"fa fa-fw fa-clock-o\"/>Slideshow Speed"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-clock-o\"/>Velocidad diapositivas"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
 msgid "<i class=\"fa fa-fw fa-list-ol\"/> Show"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-list-ol\"/> Mostrar"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
 msgid "<i class=\"fa fa-fw fa-stop-circle-o\"/> Limit"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-stop-circle-o\"/> Límite"
 
 #. module: website_snippet_carousel_product
 #. openerp-web
 #: code:addons/website_snippet_carousel_product/static/src/js/snippet.options.js:14
 #, python-format
 msgid "Add a products carousel"
-msgstr ""
+msgstr "Añade un carrusel de productos"
 
 #. module: website_snippet_carousel_product
 #. openerp-web
 #: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:71
 #, python-format
-msgid "An error occured with this product carousel block. If the problem persists, please consider deleting it and adding a new one"
+msgid ""
+"An error occured with this product carousel block. If the problem persists, "
+"please consider deleting it and adding a new one"
 msgstr ""
+"Ocurrió un error con este bloque de carrusel de productos. Si el problema "
+"persiste, porfavor considera borrar y volver a añadir uno nuevo"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
 msgid "Disable autoplay"
-msgstr ""
+msgstr "Desactivar reproducción automàtica"
 
 #. module: website_snippet_carousel_product
 #. openerp-web
 #: code:addons/website_snippet_carousel_product/static/src/js/snippet.options.js:107
 #, python-format
 msgid "Domain (can be empty)"
-msgstr ""
+msgstr "Dominio (puede estar vacío)"
 
 #. module: website_snippet_carousel_product
 #: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
-msgid "No products was found. Make sure you have products published on the website that matches the domain."
+msgid ""
+"No products was found. Make sure you have products published on the website "
+"that matches the domain."
 msgstr ""
-
+"No se han encontrado productos. Asegúrese de que tiene productos publicados "
+"que coincidan con el dominio."
