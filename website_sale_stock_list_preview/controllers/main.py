@@ -35,6 +35,12 @@ class WebsiteSaleVariantController(VariantController):
                 {
                     "id": template.id,
                     "virtual_available": template.virtual_available,
+                    "virtual_available_formatted": request.env[
+                        "ir.qweb.field.float"
+                    ].value_to_html(
+                        template.virtual_available,
+                        {"decimal_precision": "Product Unit of Measure"},
+                    ),
                     "inventory_availability": template.inventory_availability,
                     "available_threshold": template.available_threshold,
                     "custom_message": template.custom_message,

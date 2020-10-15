@@ -36,6 +36,8 @@ odoo.define("website_sale_stock_list_preview.shop_stock", function(require) {
                                     "website_sale_stock.product_availability",
                                     {
                                         virtual_available: product.virtual_available,
+                                        virtual_available_formatted:
+                                            product.virtual_available_formatted,
                                         inventory_availability:
                                             product.inventory_availability,
                                         available_threshold:

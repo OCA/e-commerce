@@ -89,6 +89,12 @@ class UICase(HttpCase):
             ]
         )
         self.env.ref("website_sale.products_add_to_cart").active = True
+        # Ensure website lang is en_US.
+        website = self.env["website"].get_current_website()
+        wiz = self.env["base.language.install"].create({"lang": "en_US"})
+        wiz.website_ids = website
+        wiz.lang_install()
+        website.default_lang_id = self.env.ref("base.lang_en")
 
     def test_ui_website(self):
         """Test frontend tour."""
