@@ -9,12 +9,12 @@ odoo.define("website_sale_stock_list_preview.tour", function(require) {
     var steps = [
         {
             trigger:
-                ".o_wsale_product_information:has(.text-success:contains('30 Units available')) a:contains('Test Product 1')",
+                ".o_wsale_product_information:has(.text-success:contains('30.000 Units available')) a:contains('Test Product 1')",
         },
         {
             trigger: "a[href='/shop']",
             extra_trigger:
-                "#product_details .text-success:contains('30 Units available')",
+                "#product_details .text-success:contains('30.000 Units available')",
         },
         {
             trigger:
@@ -42,12 +42,12 @@ odoo.define("website_sale_stock_list_preview.tour", function(require) {
         },
         {
             trigger:
-                ".o_wsale_product_information:has(.text-warning:contains('5 Units available')) a:contains('Test Product 3')",
+                ".o_wsale_product_information:has(.text-warning:contains('5.000 Units available')) a:contains('Test Product 3')",
         },
         {
             trigger: "a[href='/shop']",
             extra_trigger:
-                "#product_details .text-warning:contains('5 Units available')",
+                "#product_details .text-warning:contains('5.000 Units available')",
         },
         {
             trigger:
