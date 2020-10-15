@@ -1,0 +1,27 @@
+.website_sale_attribute_filter_category {
+    .attrib-category-radio {
+        margin: 0 20px;
+    }
+
+    ul ul {
+        margin-left: 0;
+        margin-top: 0;
+
+        .mt16 {
+            margin-top: 8px !important;
+        }
+    }
+
+    /* Display ">" icon for collapsed elements */
+    [data-toggle="collapse"] .fas:before {
+        content: "\f105";
+    }
+
+    [aria-expanded="true"] .fas:before {
+        content: "\f107";
+    }
+
+    [data-toggle="collapse"].collapsed .fas:before {
+        content: "\f105";
+    }
+}

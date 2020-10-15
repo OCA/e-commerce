@@ -19,4 +19,7 @@
         'views/templates.xml',
         'views/website_sale_attribute_filter_category_view.xml',
     ],
+    'demo': [
+        'demo/assets_tour.xml',
+    ]
 }
