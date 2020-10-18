@@ -4,7 +4,7 @@
     "name": "Website Sale Attribute Value Existing",
     "summary": "Allow hide attributes values not used in variants",
     "version": "13.0.1.0.0",
-    "development_status": "Stable",
+    "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
