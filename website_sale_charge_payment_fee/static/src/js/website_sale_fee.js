@@ -10,8 +10,8 @@ $(document).ready(function () {
         var $payment_method = $("#payment_method");
         var $selected_acquirer_id = $("input[name='selected_acquirer_id']");
         var selected_acquirer_id = $selected_acquirer_id.val();
-        $payment_method.find("input[name='acquirer']").click(function (ev) {
-            var payment_id = $(ev.currentTarget).val();
+        $payment_method.find("input[name='pm_id']").click(function (ev) {
+            var payment_id = $(ev.currentTarget).val().substring(5);
             // We need to check selected_acquirer_id because website_sale module clicks on checked acquirer at page load.
             // See website_sale/static/src/js/website_sale_payment.js :
             // .find("input[name='acquirer']:checked").click();
