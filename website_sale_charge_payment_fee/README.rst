@@ -58,11 +58,13 @@ Authors
 ~~~~~~~
 
 * Agile Business Group
+* AITIC SAS
 
 Contributors
 ~~~~~~~~~~~~
 
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
+* AITIC SAS <info@aitic.com.ar>
 
 Maintainers
 ~~~~~~~~~~~
