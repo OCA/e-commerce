@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-
-from . import payment
-from . import sale
+from . import payment_acquirer
+from . import sale_order
+from . import sale_order_line
