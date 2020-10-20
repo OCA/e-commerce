@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2018 Lorenzo Battistini - Agile Business Group
+# Copyright 2020 AITIC S.A.S
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     "name": "eCommerce: charge payment fee",
     "summary": "Payment fee charged to customer",
-    "version": "10.0.1.0.2",
+    "version": "12.0.1.0.1",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "Agile Business Group, Odoo Community Association (OCA)",
+    "author": "Agile Business Group, AITIC S.A.S, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
     "installable": True,
