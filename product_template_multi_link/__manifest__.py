@@ -5,7 +5,7 @@
 
 {
     'name': 'Product Multi Links (Template)',
-    'version': '10.0.1.0.0',
+    'version': '10.0.2.0.0',
     'category': 'Generic Modules',
     'author': "GRAP,Odoo Community Association (OCA)",
     'website': 'https://odoo-community.org',
@@ -27,5 +27,6 @@
         "demo/product_template_link_type.xml",
         "demo/product_template_link.xml",
     ],
+    'external_dependencies': {'python': ['openupgradelib']},
     'installable': True,
 }

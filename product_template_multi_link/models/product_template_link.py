@@ -49,7 +49,6 @@ class ProductTemplateLink(models.Model):
             - there is only one link between the same two templates for the same type
         :raise: ValidationError if not ok
         """
-        self.invalidate_cache()  # flush required since the method uses plain sql
         if any(rec.left_product_tmpl_id == rec.right_product_tmpl_id for rec in self):
             raise ValidationError(
                 _("You can only create a link between 2 different products")
