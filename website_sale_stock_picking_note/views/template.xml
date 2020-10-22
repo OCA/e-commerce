@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="website_sale_customer_comment" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='payment_method']" position="before">
+            <div
+                class="mb5 row"
+                id="order_comment"
+                t-if="not website.is_picking_note_feature"
+            >
+                <div t-attf-class="form-group col-12">
+                    <label
+                        class="control-label"
+                        for="picking_note"
+                    >Custom delivery comment</label>
+                    <textarea
+                        id="picking_note"
+                        class="form-control"
+                        placeholder="Write a comment..."
+                    />
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

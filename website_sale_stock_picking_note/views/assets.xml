@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_frontend"
+        inherit_id="website.assets_frontend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_stock_picking_note/static/src/js/website_sale_stock_picking_note.js"
+            />
+        </xpath>
+    </template>
+</odoo>
