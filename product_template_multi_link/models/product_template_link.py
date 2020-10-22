@@ -19,18 +19,21 @@ class ProductTemplateLink(models.Model):
         comodel_name="product.template",
         required=True,
         ondelete="cascade",
+        index=True,
     )
     right_product_tmpl_id = fields.Many2one(
         string="Linked Product",
         comodel_name="product.template",
         required=True,
         ondelete="cascade",
+        index=True,
     )
     type_id = fields.Many2one(
         string="Link type",
         comodel_name="product.template.link.type",
         required=True,
         ondelete="restrict",
+        index=True,
     )
     link_type_name = fields.Char(related="type_id.name")  # left to right
     link_type_inverse_name = fields.Char(
