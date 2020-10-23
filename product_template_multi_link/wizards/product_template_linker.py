@@ -78,7 +78,9 @@ class ProductTemplateLinker(models.TransientModel):
             existing_links = product.product_template_link_ids.filtered(
                 lambda l: l.type_id == self.type_id
             )
-            linked_products = existing_links.mapped("linked_product_template_id")
+            linked_products = existing_links.mapped(
+                "left_product_tmpl_id"
+            ) | existing_links.mapped("right_product_tmpl_id")
             products_to_link = self.product_ids - linked_products - product
             links |= self._create_link(product, products_to_link)
         return links
@@ -95,8 +97,8 @@ class ProductTemplateLinker(models.TransientModel):
         product_links = prod_link_obj.browse()
         for target_product in target_products:
             values = {
-                "product_template_id": product_source.id,
-                "linked_product_template_id": target_product.id,
+                "left_product_tmpl_id": product_source.id,
+                "right_product_tmpl_id": target_product.id,
                 "type_id": self.type_id.id,
             }
             product_links |= prod_link_obj.create(values)
