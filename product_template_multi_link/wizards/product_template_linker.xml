@@ -10,7 +10,7 @@
                 <group name="main_group">
                     <group name="main_data_group">
                         <field name="operation_type"/>
-                        <field name="link_type" attrs="{'invisible': [('operation_type', '!=', 'link')], 'required': [('operation_type', '=', 'link')]}"/>
+                        <field name="type_id" attrs="{'invisible': [('operation_type', '!=', 'link')], 'required': [('operation_type', '=', 'link')]}"/>
                     </group>
                 </group>
                 <group colspan="2" name="product_group">

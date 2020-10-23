@@ -27,15 +27,10 @@ class ProductTemplateLinker(models.TransientModel):
         comodel_name="product.template",
         string="Products",
     )
-    link_type = fields.Selection(
-        string='Link Type',
-        selection=lambda self: self.env[
-            'product.template.link']._selection_link_type(),
-        default='cross_sell',
-        help="* Cross-Sell: suggest your customer to  purchase an "
-             "additional product;\n"
-             "* Up-Sell: suggest your customer to purchase a "
-             "higher-end product, an upgrade, etc.")
+    type_id = fields.Many2one(
+        comodel_name='product.template.link.type',
+        ondelete='cascade',
+        )
 
     @api.model
     def default_get(self, fields_list):
@@ -81,9 +76,10 @@ class ProductTemplateLinker(models.TransientModel):
         links = self.env['product.template.link'].browse()
         for product in self.product_ids:
             existing_links = product.product_template_link_ids.filtered(
-                lambda l: l.link_type == self.link_type)
+                lambda l: l.type_id == self.type_id)
             linked_products = existing_links.mapped(
-                "linked_product_template_id")
+                "left_product_tmpl_id") | existing_links.mapped(
+                "right_product_tmpl_id")
             products_to_link = self.product_ids - linked_products - product
             links |= self._create_link(product, products_to_link)
         return links
@@ -101,9 +97,9 @@ class ProductTemplateLinker(models.TransientModel):
         product_links = prod_link_obj.browse()
         for target_product in target_products:
             values = {
-                "product_template_id": product_source.id,
-                "linked_product_template_id": target_product.id,
-                "link_type": self.link_type,
+                "left_product_tmpl_id": product_source.id,
+                "right_product_tmpl_id": target_product.id,
+                "type_id": self.type_id.id,
             }
             product_links |= prod_link_obj.create(values)
         return product_links
