@@ -31,7 +31,7 @@
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
             <tree editable="top">
-                <field name="left_product_tmpl_id" domain="[('id', '!=', 0)]"/>
+                <field name="left_product_tmpl_id" domain="[('id', '!=', 0)]" />
                 <field name="type_id" />
                 <field name="right_product_tmpl_id" domain="[('id', '!=', 0)]" />
             </tree>
