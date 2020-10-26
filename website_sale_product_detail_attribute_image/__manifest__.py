@@ -4,7 +4,7 @@
     "name": "Website Sale Product Detail Attribute Image",
     "summary": "Display attributes images in shop product detail",
     "version": "13.0.1.1.0",
-    "development_status": "Stable",
+    "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
