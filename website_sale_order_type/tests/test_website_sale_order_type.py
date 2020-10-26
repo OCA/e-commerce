@@ -11,7 +11,7 @@ class TestFrontend(HttpCase):
         self.env = api.Environment(self.registry.test_cr, self.uid, {})
         self.sale_type_model = self.env['sale.order.type']
 
-        self.partner = self.env.ref('base.partner_root')
+        self.partner = self.env.ref('base.partner_admin')
         self.sale_type = self.create_sale_type()
 
     def create_sale_type(self):
@@ -27,7 +27,7 @@ class TestFrontend(HttpCase):
         self.immediate_payment = self.env.ref(
             'account.account_payment_term_immediate')
         self.sale_pricelist = self.env.ref('product.list0')
-        self.free_carrier = self.env.ref('stock.incoterm_FCA')
+        self.free_carrier = self.env.ref('account.incoterm_FCA')
         return self.sale_type_model.create({
             'name': 'Test Sale Order Type',
             'sequence_id': self.sequence.id,
