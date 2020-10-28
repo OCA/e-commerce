@@ -5,6 +5,8 @@
     <template
         id="products_attributes"
         inherit_id="website_sale.products_attributes"
+        customize_show="True"
+        name="Product Attribute's Filters Categories"
         priority="9999"
     >
         <xpath expr="//form/ul" position="replace">
@@ -37,17 +39,17 @@
                             <a
                                 data-toggle="collapse"
                                 t-attf-href="#collapse{{attr_category_index}}"
-                                t-attf-class="#{'collapsed' if folded else none}"
+                                t-attf-aria-expanded="{{'true' if not folded else none}}"
                             >
-                                <i class="fa fas" />
+                                <i class="fa fas text-primary" />
                                 <span t-esc="attr_category[1]" />
                             </a>
-                            <ul
+                            <div
                                 t-attf-id="collapse{{attr_category_index}}"
                                 t-attf-class="nav nav-pills nav-stacked #{'collapse in show' if (values_selected or not folded) else 'collapse'}"
                             >
                                 <t>$0</t>
-                            </ul>
+                            </div>
                         </li>
                     </ul>
                 </t>

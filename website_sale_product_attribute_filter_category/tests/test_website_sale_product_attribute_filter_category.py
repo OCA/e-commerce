@@ -1,9 +1,11 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
+# Copyright 2020 Iván Todorovich
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase
+import odoo.tests
 
 
-class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
+@odoo.tests.tagged("-at_install", "post_install")
+class WebsiteSaleProductAttributeFilterCategoryHttpCase(odoo.tests.HttpCase):
     def setUp(self):
         super().setUp()
         # Models
@@ -52,18 +54,13 @@ class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
                 "is_published": True,
             }
         )
-        # Active attribute's filter in /shop. By default it's disabled.
-        self.env.ref("website_sale.products_attributes").active = True
+        # Activate attribute's filter in /shop. By default it's disabled.
+        website = self.env["website"].with_context(website_id=1)
+        website.viewref("website_sale.products_attributes").active = True
+        # Activate filter category view
+        module_name = "website_sale_product_attribute_filter_category"
+        self.env.ref("%s.products_attributes" % module_name).active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_attribute_filter_category",
-        )
-        self.browser_js(
-            url_path="/",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_product_attribute_filter_category")
