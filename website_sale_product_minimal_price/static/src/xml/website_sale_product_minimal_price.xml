@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="website_sale_product_minimal_price.title">
+        <h5 class="temporal"><strong>Prices per quantity ( <span t-esc="uom"/> )</strong></h5>
+    </t>
+
+    <t t-name="website_sale_product_minimal_price.pricelist">
+        <div class="col-3 text-center">
+            <div><strong>≥<span t-esc="quantity"/></strong></div>
+            <div><span t-esc="price"/></div>
+        </div>
+    </t>
+
+</templates>

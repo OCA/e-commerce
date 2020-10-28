@@ -34,6 +34,12 @@ price and set order by minimal price in product's view.
 .. contents::
    :local:
 
+Configuration
+=============
+
+#. Go to *Settings > General Settings > Website* and active the option *Multiple Sales
+   Prices per Product* with the second option, for use the pricelists.
+
 Usage
 =====
 
@@ -41,8 +47,35 @@ Usage
    value or define a distinct prices in public price list for this variant.
 #. Go to Website Shop.
 #. You will see that in main products view appears the text "From " with
-   minimal price if the product has a distinct prices by attribute.
-#. Click on product, the price displayed is the minimal variant price.
+   minimal price if the product has a distinct prices by attribute or at least a
+   rate on the current pricelist.
+#. Click on product, the price displayed is the minimal variant price. On the chart
+   under the buy button you can see the different taxes applied to the product.
+
+Changelog
+=========
+
+12.0.1.1.0 (2020-09-30)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [IMP] Has been added the functionality that allows to take care about the rates to
+  calculate the minimum price of the product. Furthermore, a dynamic grid was added
+  to the product sheet to see the different prices that his variants take.
+
+  The grid depends on product variant selected and the quantity selected. If more than 3
+  rates are assigned to some product variant the rates on the grid will be the actual
+  and 2 next rates, when we achieve the quantity of the next, the table will be updated
+  to show next values.
+
+12.0.1.0.0 (2019-12-12)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [MIG] Initial V12 version. Complete migration from v11.
+
+11.0.1.0.0 (2019-05-28)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [NEW] Module added to v11.
 
 Bug Tracker
 ===========
@@ -67,7 +100,8 @@ Contributors
 
 * `Tecnativa <https://www.tecnativa.com>`_:
 
-    * Sergio Teruel <sergio.teruel@tecnativa.com>
+    * Sergio Teruel
+    * Carlos Roca
 
 Maintainers
 ~~~~~~~~~~~

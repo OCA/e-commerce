@@ -9,20 +9,15 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
         super().setUp()
 
         # Models
-        AttributeCategory = self.env['product.attribute.category']
         ProductAttribute = self.env['product.attribute']
         ProductAttributeValue = self.env['product.attribute.value']
         ProductTmplAttributeValue = self.env[
             'product.template.attribute.value']
 
-        self.attribute_category = AttributeCategory.create({
-            'name': 'Test category',
-        })
         self.product_attribute = ProductAttribute.create({
             'name': 'Test',
             'website_published': True,
             'create_variant': 'always',
-            'category_id': self.attribute_category.id,
         })
         self.product_attribute_value_test_1 = ProductAttributeValue.create({
             'name': 'Test v1',
