@@ -31,7 +31,7 @@
         <xpath expr="//input[@name='search']" position="attributes">
             <attribute
                 name="t-att-data-display-price"
-            >website.website_show_price</attribute>
+            >website and website.website_show_price</attribute>
         </xpath>
     </template>
 </odoo>
