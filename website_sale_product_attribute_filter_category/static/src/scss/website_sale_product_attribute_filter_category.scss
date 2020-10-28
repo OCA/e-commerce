@@ -1,0 +1,28 @@
+#wsale_products_attributes_collapse {
+    .o_shop_collapse_attribute_filter {
+        padding: 2px 0;
+
+        /* Remove style="margin" on checkboxes labels, they don't play nice here */
+        ul > li > label {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        /* Simulate same styles than eCommerce Categories list */
+        li a {
+            text-decoration: none !important;
+            span {
+                padding: 4px 3px;
+            }
+        }
+
+        /* Display ">" icon for collapsed elements */
+        [data-toggle="collapse"] .fas:before {
+            content: "\f054";
+        }
+
+        [aria-expanded="true"] .fas:before {
+            content: "\f078";
+        }
+    }
+}
