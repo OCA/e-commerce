@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="payment_delivery"
+        inherit_id="website_sale_delivery.payment_delivery"
+        customize_show="True"
+        name="Group shipping methods"
+    >
+        <xpath
+            expr="//div[@id='delivery_method']/ul[hasclass('list-group')]"
+            position="replace"
+        >
+            <t
+                t-set="delivery_groups"
+                t-value="deliveries.mapped('group_id').sorted()"
+            />
+            <!-- No groups to show, fallback to ungrouped -->
+            <t t-if="len(delivery_groups) == 0">
+                <ul class="list-group">
+                    <t t-foreach="deliveries" t-as="delivery">
+                        <li class="list-group-item o_delivery_carrier_select">
+                            <t
+                                t-call="website_sale_delivery.payment_delivery_methods"
+                            />
+                        </li>
+                    </t>
+                </ul>
+            </t>
+            <!-- Grouped methods -->
+            <t t-else="">
+                <t
+                    t-set="delivery_group_tuple"
+                    t-value="[(g, g.carrier_ids) for g in delivery_groups]"
+                />
+                <t
+                    t-set="ungroupped_deliveries"
+                    t-value="deliveries.filtered(lambda d: not d.group_id)"
+                />
+                <t t-if="ungroupped_deliveries">
+                    <t
+                        t-set="delivery_group_tuple"
+                        t-value="delivery_group_tuple + [(None, ungroupped_deliveries)]"
+                    />
+                </t>
+                <div class="accordion" id="delivery_groups">
+                    <t t-foreach="delivery_group_tuple" t-as="group">
+                        <t t-set="group_id" t-value="group[0]" />
+                        <t t-set="carrier_ids" t-value="group[1]" />
+                        <t
+                            t-set="group_ref"
+                            t-value="group_id and group_id.id or 'none'"
+                        />
+                        <t t-if="order.carrier_id">
+                            <t
+                                t-set="expanded"
+                                t-value="order.carrier_id.id in carrier_ids.ids"
+                            />
+                        </t>
+                        <t t-else="">
+                            <t
+                                t-set="expanded"
+                                t-value="group_id == delivery_groups[0]"
+                            />
+                        </t>
+                        <div class="card">
+                            <div
+                                class="card-header"
+                                t-attf-id="dga-heading-{{group_ref}}"
+                            >
+                                <a
+                                    data-toggle="collapse"
+                                    role="button"
+                                    t-att-aria-expanded="expanded and 'true' or 'false'"
+                                    t-attf-href="#dga-collapse-{{group_ref}}"
+                                    t-attf-aria-controls="dga-collapse-{{group_ref}}"
+                                >
+                                    <span class="text">
+                                        <strong>
+                                            <span
+                                                t-if="group_id"
+                                                t-field="group_id.name"
+                                            />
+                                            <span t-else="">Ungroupped</span>
+                                        </strong>
+                                    </span>
+                                </a>
+                            </div>
+                            <div
+                                t-attf-id="dga-collapse-{{group_ref}}"
+                                t-attf-aria-labelledby="dga-heading-{{group_ref}}"
+                                t-attf-class="collapse {{ 'show' if expanded else '' }}"
+                                data-parent="#delivery_groups"
+                            >
+                                <div class="card-body">
+                                    <p
+                                        t-if="group_id"
+                                        class="text-muted"
+                                        t-field="group_id.description"
+                                    />
+                                    <ul class="list-group">
+                                        <t t-foreach="carrier_ids" t-as="delivery">
+                                            <li
+                                                class="list-group-item o_delivery_carrier_select"
+                                            >
+                                                <t
+                                                    t-call="website_sale_delivery.payment_delivery_methods"
+                                                />
+                                            </li>
+                                        </t>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

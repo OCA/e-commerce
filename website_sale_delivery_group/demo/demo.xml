@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_standard" model="delivery.carrier.group">
+        <field name="name">Standard</field>
+        <field name="description">Most common delivery methods</field>
+        <field name="sequence" eval="1" />
+    </record>
+    <record id="group_carriers" model="delivery.carrier.group">
+        <field name="name">Carriers and Other</field>
+        <field name="description">Another list of delivery methods</field>
+        <field name="sequence" eval="2" />
+    </record>
+    <record id="delivery.free_delivery_carrier" model="delivery.carrier">
+        <field name="group_id" ref="group_carriers" />
+    </record>
+    <record id="delivery.delivery_carrier" model="delivery.carrier">
+        <field name="group_id" ref="group_carriers" />
+    </record>
+    <record id="delivery.normal_delivery_carrier" model="delivery.carrier">
+        <field name="group_id" ref="group_standard" />
+    </record>
+</odoo>
