@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_attributes_count"
+        inherit_id="website_sale.products_attributes"
+        customize_show="True"
+        name="Show Product Count"
+    >
+        <xpath
+            expr="//t[@t-if=&quot;a.display_type == 'select'&quot;]//t[@t-foreach='a.value_ids']/option"
+            position="attributes"
+        >
+            <!--
+                On select fields we only show the counts if its attribute filter is not applied,
+                because they are not aggregated like the others, but rather replaced.
+            -->
+            <attribute name="t-esc">
+                "%s (%s)" % (v.name, attrib_values_count.get(v.id, 0)) if not set(a.value_ids.ids) &amp; attrib_set else v.name
+            </attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-if=&quot;a.display_type == 'radio'&quot;]//t[@t-foreach='a.value_ids']/li//label"
+            position="inside"
+        >
+            <span
+                class="attribute-variant-count"
+                t-esc="attrib_values_count.get(v.id, 0)"
+            />
+        </xpath>
+        <xpath
+            expr="//t[@t-if=&quot;a.display_type == 'color'&quot;]//t[@t-foreach='a.value_ids']//input"
+            position="attributes"
+        >
+            <attribute name="t-att-title">
+                "%s (%s)" % (v.name, attrib_values_count.get(v.id, 0))
+            </attribute>
+        </xpath>
+    </template>
+    <template
+        id="products_attributes_existing"
+        inherit_id="website_sale.products_attributes"
+        customize_show="True"
+        name="Hide Unavailable Values"
+        active="False"
+    >
+        <!--
+            Do not hide select options, because they don't work the same way as others.
+            'select' attribute filters are not be aggregated, but rather replaced.
+            So, even if there aren't any products in the current result set, it doesn't mean
+            there wouldn't be any if the filter weren't applied.
+        -->
+        <xpath
+            expr="//t[@t-if=&quot;a.display_type == 'radio'&quot;]//t[@t-foreach='a.value_ids']/li"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+                separator=" and "
+                add="attrib_values_count.get(v.id) or v.id in attrib_set"
+            />
+        </xpath>
+        <xpath
+            expr="//t[@t-if=&quot;a.display_type == 'color'&quot;]//t[@t-foreach='a.value_ids']/label"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+                separator=" and "
+                add="attrib_values_count.get(v.id) or v.id in attrib_set"
+            />
+        </xpath>
+    </template>
+</odoo>

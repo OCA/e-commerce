@@ -1,0 +1,13 @@
+#wsale_products_attributes_collapse {
+    span.attribute-variant-count {
+        font-weight: normal;
+    }
+
+    span.attribute-variant-count::before {
+        content: "(";
+    }
+
+    span.attribute-variant-count::after {
+        content: ")";
+    }
+}
