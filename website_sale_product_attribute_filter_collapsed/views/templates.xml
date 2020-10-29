@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_attributes"
+        inherit_id="website_sale.products_attributes"
+        customize_show="True"
+        name="Collapsible Product Attributes"
+    >
+        <xpath
+            expr="//form/ul/t/li[hasclass('nav-item')]//strong[@t-field='a.name']"
+            position="replace"
+        />
+        <xpath expr="//form/ul/t/li[hasclass('nav-item')]" position="replace">
+            <li
+                t-if="a.value_ids and len(a.value_ids) &gt; 1"
+                class="nav-item attribute-collapse"
+            >
+                <t
+                    t-set="attribute_collapsed"
+                    t-value="a.website_folded and not bool(attrib_set &amp; set(a.value_ids.ids))"
+                />
+                <a
+                    data-toggle="collapse"
+                    t-attf-href="#collapse-attribute-{{a.id}}"
+                    t-attf-aria-expanded="{{'true' if not attribute_collapsed else none}}"
+                >
+                    <i class="fa fas text-primary" />
+                    <span t-field="a.name" />
+                </a>
+                <ul
+                    t-attf-id="collapse-attribute-{{a.id}}"
+                    t-attf-class="nav nav-pills nav-stacked {{'collapse' if attribute_collapsed else 'collapse in show'}}"
+                >
+                    <t>$0</t>
+                </ul>
+            </li>
+        </xpath>
+    </template>
+</odoo>
