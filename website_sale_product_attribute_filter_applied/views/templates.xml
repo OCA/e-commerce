@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_attributes"
+        inherit_id="website_sale.products_attributes"
+        customize_show="True"
+        name="Applied Filters"
+        priority="9999"
+    >
+        <xpath expr="//div[@id='products_grid_before']/*" position="before">
+            <div t-if="attrib_set" id="wsale_products_attributes_filters_applied">
+                <div>
+                    <strong>Applied Filters</strong>
+                </div>
+                <div class="applied-attributes">
+                    <t t-foreach="attributes.sorted()" t-as="a">
+                        <t t-foreach="a.value_ids" t-as="v">
+                            <t t-if="v.id in attrib_set">
+                                <span class="badge badge-pill badge-primary">
+                                    <span t-esc="'%s: %s' % (a.name, v.name)" />
+                                    <label t-att-data-value="'%s-%s' % (a.id,v.id)">
+                                        <i class="fa fa-sm fa-remove" />
+                                    </label>
+                                </span>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
