@@ -23,39 +23,54 @@ class WebsiteSaleProductDetailAttributeImage(WebsiteSale):
         today = fields.Date.today()
         res = []
         pricelist = current_website.get_current_pricelist()
-        pricelist_variant_items = pricelist.item_ids.filtered(
+        pricelist_items = pricelist.item_ids.filtered(
             lambda i: i.product_id.id == product.id
             and (not i.date_start or i.date_start <= today)
             and (not i.date_end or today <= i.date_end)
             and i.min_quantity > 0)
-        if pricelist_variant_items:
-            item_min_qty = min(pricelist_variant_items, key=lambda i: i.min_quantity)
+        if pricelist_items:
+            item_min_qty = min(pricelist_items, key=lambda i: i.min_quantity)
             min_qty = item_min_qty.min_quantity
-            pricelist_tmpl_items = pricelist.item_ids.filtered(
+            pricelist_items = pricelist_items + pricelist.item_ids.filtered(
                 lambda i: i.product_tmpl_id.id == product.product_tmpl_id.id
                 and i.min_quantity < min_qty
                 and (not i.date_start or i.date_start <= today)
                 and (not i.date_end or today <= i.date_end)
                 and i.min_quantity > 0)
         else:
-            pricelist_tmpl_items = pricelist.item_ids.filtered(
+            pricelist_items = pricelist_items + pricelist.item_ids.filtered(
                 lambda i: i.product_tmpl_id.id == product.product_tmpl_id.id
                 and (not i.date_start or i.date_start <= today)
                 and (not i.date_end or today <= i.date_end)
                 and i.min_quantity > 0)
-        self._prepare_dictionary(pricelist_variant_items, product, res)
-        self._prepare_dictionary(pricelist_tmpl_items, product, res)
+        if pricelist_items:
+            item_min_qty = min(pricelist_items, key=lambda i: i.min_quantity)
+            min_qty = item_min_qty.min_quantity
+            pricelist_items = pricelist_items + pricelist.item_ids.filtered(
+                lambda i: i.categ_id.id == product.categ_id.id
+                and i.min_quantity < min_qty
+                and (not i.date_start or i.date_start <= today)
+                and (not i.date_end or today <= i.date_end)
+                and i.min_quantity > 0)
+        else:
+            pricelist_items = pricelist_items + pricelist.item_ids.filtered(
+                lambda i: i.categ_id.id == product.categ_id.id
+                and (not i.date_start or i.date_start <= today)
+                and (not i.date_end or today <= i.date_end)
+                and i.min_quantity > 0)
+        self._prepare_dictionary(pricelist_items, product, res)
         res.sort(key=lambda i: i.get('min_qty', 0))
         return res
 
     def _prepare_dictionary(self, pricelist_items, product, res):
         for item in pricelist_items:
             final_price = item.fixed_price
+            price = product.price_compute(item.base)[product.id]
             if item.compute_price == 'formula':
-                price_limit = product.list_price
+                price_limit = price
                 price = (
-                    product.list_price - (
-                        (product.list_price * item.price_discount) / 100)
+                    price_limit - (
+                        (price_limit * item.price_discount) / 100)
                 )
                 if item.price_round:
                     price = tools.float_round(

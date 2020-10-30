@@ -1,6 +1,7 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models, tools
+import math
 
 
 class ProductTemplate(models.Model):
@@ -31,7 +32,6 @@ class ProductTemplate(models.Model):
         else:
             product = product_template._get_variant_for_combination(combination)
         if pricelist and "bin_size" in self.env.context:
-            # In this version the categories are not contempled.
             today = fields.Date.today()
             pricelist_items = pricelist.item_ids.filtered(
                 lambda i: i.product_tmpl_id.id == self.id
@@ -39,32 +39,30 @@ class ProductTemplate(models.Model):
                 and i.min_quantity > add_qty
                 and (not i.date_start or i.date_start <= today)
                 and (not i.date_end or today <= i.date_end))
+            # With this condition we add the category pricelist items to our
+            # list of pricelist_items. We make the comprobation of the product
+            # template because is more restrictive than the categories.
+            min_tmpl_qty = min(
+                pricelist_items,
+                key=lambda i:
+                    i.min_quantity if i.applied_on == '1_product' else math.inf,
+                default=False
+            )
+            if min_tmpl_qty and min_tmpl_qty.applied_on == '1_product':
+                min_tmpl_qty = min_tmpl_qty.min_quantity
+            else:
+                min_tmpl_qty = math.inf
+            pricelist_items = pricelist_items + pricelist.item_ids.filtered(
+                lambda i: i.categ_id.id == self.categ_id.id
+                and i.min_quantity < min_tmpl_qty
+                and (not i.date_start or i.date_start <= today)
+                and (not i.date_end or today <= i.date_end)
+            )
             has_pricelist_items = bool(pricelist_items)
-            if product:
+            if product and has_pricelist_items:
                 min_price = product.list_price
                 for item in pricelist_items:
-                    final_price = item.fixed_price
-                    price = product.list_price
-                    price_limit = product.list_price
-                    if item.compute_price == 'formula':
-                        price = (
-                            price_limit - (price_limit * item.price_discount) / 100
-                        )
-                        if item.price_round:
-                            price = tools.float_round(
-                                price, precision_rounding=item.price_round)
-                        if item.price_surcharge:
-                            price += item.price_surcharge
-                        if item.price_min_margin:
-                            price = max(price, price_limit + item.price_min_margin)
-                        if item.price_max_margin:
-                            price = min(price, price_limit + item.price_max_margin)
-                        final_price = price
-                    elif item.compute_price == 'percentage':
-                        final_price = (
-                            product.list_price - (
-                                product.list_price * item.percent_price) / 100
-                        )
+                    final_price = self._prepare_product_price(item, product)
                     if final_price < min_price:
                         add_qty = item.min_quantity
                         min_price = final_price
@@ -118,3 +116,28 @@ class ProductTemplate(models.Model):
             return combination_returned.sorted(
                 lambda x: x.attribute_id.sequence)
         return combination
+
+    def _prepare_product_price(self, pricelist_item, product):
+        final_price = pricelist_item.fixed_price
+        price = product.price_compute(pricelist_item.base)[product.id]
+        if pricelist_item.compute_price == 'formula':
+            price_limit = price
+            price = (
+                price_limit - (price_limit * pricelist_item.price_discount) / 100
+            )
+            if pricelist_item.price_round:
+                price = tools.float_round(
+                    price, precision_rounding=pricelist_item.price_round)
+            if pricelist_item.price_surcharge:
+                price += pricelist_item.price_surcharge
+            if pricelist_item.price_min_margin:
+                price = max(price, price_limit + pricelist_item.price_min_margin)
+            if pricelist_item.price_max_margin:
+                price = min(price, price_limit + pricelist_item.price_max_margin)
+            final_price = price
+        elif pricelist_item.compute_price == 'percentage':
+            final_price = (
+                price - (
+                    price * pricelist_item.percent_price) / 100
+            )
+        return final_price

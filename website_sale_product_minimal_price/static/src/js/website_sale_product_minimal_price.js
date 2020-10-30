@@ -43,7 +43,7 @@ odoo.define("website_sale_product_minimal_price.load", function (require) {
                         )
                     );
                     // We define a limit of displayed columns as 4
-                    const limit_col = 4;
+                    var limit_col = 4;
                     var $div = undefined;
                     for (var i in unit_prices) {
                         if (unit_prices[i].price === 0) {
