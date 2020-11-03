@@ -10,19 +10,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-29 01:20+0000\n"
-"PO-Revision-Date: 2016-11-29 01:20+0000\n"
-"Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>, 2016\n"
+"PO-Revision-Date: 2020-11-03 13:08+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
 msgid "Is published"
-msgstr ""
+msgstr "Está publicado"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
@@ -31,10 +32,8 @@ msgstr "No se han encontrado marcas."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_brand
-#, fuzzy
-#| msgid "Product Brands"
 msgid "Product Brand"
-msgstr "Marcas de producto"
+msgstr "Marca de producto"
 
 #. module: website_sale_product_brand
 #: model:ir.ui.menu,name:website_sale_product_brand.menu_product_brand
