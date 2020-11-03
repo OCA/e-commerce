@@ -7,41 +7,41 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-07 21:58+0000\n"
-"PO-Revision-Date: 2019-05-08 00:04+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2020-11-03 13:08+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model.fields,help:website_sale_stock_available_display.field_product_product__inventory_availability
 #: model:ir.model.fields,help:website_sale_stock_available_display.field_product_template__inventory_availability
 msgid "Adds an inventory availability status on the web product page."
 msgstr ""
+"Añade un estado de disponibilidad en inventario en la página web del "
+"producto."
 
 #. module: website_sale_stock_available_display
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
 msgid "Block sales on website and display a message custom"
-msgstr ""
+msgstr "Bloquear la venta en la tienda y mostrar el mensaje personalizado"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model,name:website_sale_stock_available_display.model_res_config_settings
-#, fuzzy
-#| msgid "res.config.settings"
 msgid "Config Settings"
-msgstr "res.config.settings"
+msgstr "Opciones de Configuración"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model.fields,field_description:website_sale_stock_available_display.field_product_product__inventory_availability
 #: model:ir.model.fields,field_description:website_sale_stock_available_display.field_product_template__inventory_availability
 #: model:ir.model.fields,field_description:website_sale_stock_available_display.field_res_config_settings__inventory_availability
 msgid "Inventory Availability"
-msgstr ""
+msgstr "Disponibilidad del inventario"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model,name:website_sale_stock_available_display.model_product_template
@@ -52,17 +52,15 @@ msgstr "Plantilla de producto"
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
 msgid "Sell regardless of inventory"
-msgstr ""
+msgstr "Vender independientemente del inventario"
 
 #. module: website_sale_stock_available_display
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
-#, fuzzy
-#| msgid "Show inventory on website and allow sales if not enough stock"
 msgid "Show inventory below a threshold and prevent sales if not enough stock"
 msgstr ""
-"Mostrar el inventario en el sitio web y no bloquear las ventas si no hay \n"
-"suficientes existencias"
+"Mostrar el inventario por debajo de un determinado umbral y bloquear las "
+"ventas si no hay suficientes existencias"
 
 #. module: website_sale_stock_available_display
 #: selection:product.template,inventory_availability:0
@@ -75,18 +73,16 @@ msgstr ""
 #. module: website_sale_stock_available_display
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
-#, fuzzy
-#| msgid "Show inventory on website and allow sales if not enough stock"
 msgid "Show inventory on website and prevent sales if not enough stock"
 msgstr ""
-"Mostrar el inventario en el sitio web y no bloquear las ventas si no hay \n"
+"Mostrar el inventario en el sitio web y bloquear las ventas si no hay "
 "suficientes existencias"
 
 #. module: website_sale_stock_available_display
 #: selection:product.template,inventory_availability:0
 #: selection:res.config.settings,inventory_availability:0
 msgid "Show product-specific notifications"
-msgstr ""
+msgstr "Mostrar notificaciones sobre el producto"
 
 #. module: website_sale_stock_available_display
 #. openerp-web
