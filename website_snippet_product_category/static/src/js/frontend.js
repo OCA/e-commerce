@@ -18,17 +18,11 @@ odoo.define("website_snippet_product_category.s_product_category", function (req
          */
         start: function () {
             var self = this;
-            var template =
-                this.$target.data("template") ||
-                "website_snippet_product_category.s_product_category_items";
             // Prevent user edition
             this.$target.attr("contenteditable", "False");
 
             var def = this._rpc({
                 route: "/website_sale/render_product_category",
-                params: {
-                    template: template,
-                },
             })
                 .then(
                     function (object_html) {

@@ -13,12 +13,14 @@ class Website(http.Controller):
         auth="public",
         website=True,
     )
-    def render_product_category(self, template, **kwargs):
+    def render_product_category(self, **kwargs):
         categories = request.env["product.public.category"].search(
             [("parent_id", "=", False), ("website_published", "=", True)]
         )
         keep = QueryURL("/shop", category=0)
-        return request.website.viewref(template).render({
+        return request.website.viewref(
+            "website_snippet_product_category.s_product_category_items"
+        ).render({
             "object": categories,
-            "keep": keep
+             "keep": keep
         })
