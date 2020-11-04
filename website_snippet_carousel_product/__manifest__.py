@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "Website Snippet Carousel Product",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "category": "Website",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
