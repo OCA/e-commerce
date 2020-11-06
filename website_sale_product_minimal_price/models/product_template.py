@@ -3,7 +3,6 @@
 # Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models
-import math
 
 
 class ProductTemplate(models.Model):
@@ -14,15 +13,15 @@ class ProductTemplate(models.Model):
         # TODO: Cache this method for getting better performance
         self.ensure_one()
         context = dict(self.env.context, pricelist=pricelist.id)
-        min_price = math.inf
+        min_price = 99999999
         product_id = False
         add_qty = 0
         has_distinct_price = False
         for product in self.product_variant_ids:
-            for qty in [1, math.inf]:
+            for qty in [1, 99999999]:
                 context = dict(context, quantity=qty)
                 product_price = product.with_context(context).price
-                if product_price != min_price and min_price != math.inf:
+                if product_price != min_price and min_price != 99999999:
                     # Mark if there are different prices iterating over
                     # variants and comparing qty 1 and maximum qty
                     has_distinct_price = True
