@@ -1,6 +1,5 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import api
 from odoo.tests import HttpCase
 
 
@@ -8,7 +7,6 @@ class TestFrontend(HttpCase):
 
     def setUp(self):
         super(TestFrontend, self).setUp()
-        self.env = api.Environment(self.registry.test_cr, self.uid, {})
         self.sale_type_model = self.env['sale.order.type']
 
         self.partner = self.env.ref('base.partner_admin')
@@ -42,6 +40,17 @@ class TestFrontend(HttpCase):
     def test_website_sale_order_type(self):
         self.partner.sale_type = self.sale_type
         existing_orders = self.env['sale.order'].search([])
+        # Precreate SO report assets cache to avoid tour step timeouts
+        views = (
+            "web.assets_common",
+            "web.report_assets_common",
+            "web.report_assets_pdf",
+        )
+        for view in views:
+            self.env["ir.qweb"]._get_asset_nodes(
+                view, self.env.context, js=False)
+            self.env["ir.qweb"]._get_asset_nodes(
+                view, self.env.context, css=False)
         # In frontend, create an order
         tour_prefix = "odoo.__DEBUG__.services['web_tour.tour']"
         self.phantom_js(
