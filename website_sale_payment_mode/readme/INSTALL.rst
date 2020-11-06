@@ -1,0 +1,1 @@
+This module is automatically installed if `website_sale` and `account_payment_sale` are installed

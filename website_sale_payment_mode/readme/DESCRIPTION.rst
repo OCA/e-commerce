@@ -1,0 +1,2 @@
+When creating a SO directly from the website, the field payment mode is not filled with the value configured on the partner.
+This is a glue module when using `account_payment_sale` along with `website_sale` to circumvent this behavior.
