@@ -10,7 +10,9 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleFee(WebsiteSale):
-    @http.route()
+    @http.route(
+        ["/shop/payment"], type="http", auth="public", website=True, sitemap=False
+    )
     def payment(self, **post):
         res = super(WebsiteSaleFee, self).payment(**post)
         values = res.qcontext
