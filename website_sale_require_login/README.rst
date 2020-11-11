@@ -23,7 +23,7 @@ Require login to checkout
     :target: https://runbot.odoo-community.org/runbot/113/13.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module extends the functionality of eCommerce to force users
 to login before buying anything in the website  and allow you to get rid of
