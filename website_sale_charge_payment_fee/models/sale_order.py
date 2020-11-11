@@ -34,6 +34,5 @@ class SaleOrder(models.Model):
                     "name": acquirer.charge_fee_description,
                     "price_unit": price,
                     "product_uom_qty": 1,
-                    "tax_id": [(6, 0, [t.id for t in acquirer.charge_fee_tax_ids])],
                 }
             )
