@@ -46,11 +46,6 @@
                                     class="oe_inline"
                                 />%
                             </div>
-                            <field
-                                name="charge_fee_tax_ids"
-                                widget="many2many_tags"
-                                attrs="{'invisible': [('charge_fee', '=', False)]}"
-                            />
                         </group>
                         <group />
                     </group>
