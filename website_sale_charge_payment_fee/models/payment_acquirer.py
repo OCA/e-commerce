@@ -18,7 +18,6 @@ class PaymentAcquirer(models.Model):
     )
     charge_fee_description = fields.Text("Fee Description")
     charge_fee_product_id = fields.Many2one("product.product", string="Fee Product")
-    charge_fee_tax_ids = fields.Many2many("account.tax", string="Taxes")
     charge_fee_fixed_price = fields.Float(
         "Fixed Price", digits=dp.get_precision("Product Price")
     )
