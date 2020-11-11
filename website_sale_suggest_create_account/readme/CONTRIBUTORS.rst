@@ -4,3 +4,4 @@
 * Oscar Alcala <oscar@vauxoo.com>
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 * Alexandre Díaz <alexandre.diaz@tecnativa.com>
+* Dhara Solanki <dhara.solanki@initos.com> (http://www.initos.com)
