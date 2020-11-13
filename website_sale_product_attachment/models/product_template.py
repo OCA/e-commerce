@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
-from odoo.addons.website.models import ir_http
 
 
 class ProductTemplate(models.Model):
@@ -34,8 +33,4 @@ class ProductTemplate(models.Model):
             "!",
             ("name", "=ilike", r"/web/content/%/web\_editor.summernote%.css"),
         ]
-        # Filter by website domain in frontend
-        if ir_http.get_request_website():
-            website = self.env["website"].get_current_website()
-            domain += website.website_domain()
         return domain
