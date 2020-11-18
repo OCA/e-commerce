@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo11-addon-website_sale_firstname',
         'odoo11-addon-website_sale_hide_empty_category',
         'odoo11-addon-website_sale_hide_price',
+        'odoo11-addon-website_sale_payment_mode',
         'odoo11-addon-website_sale_product_attribute_filter_visibility',
         'odoo11-addon-website_sale_product_attribute_value_filter_existing',
         'odoo11-addon-website_sale_product_brand',
