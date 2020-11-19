@@ -26,6 +26,11 @@ msgid "Contact"
 msgstr ""
 
 #. module: website_sale_hide_price
+#: model:ir.model,name:website_sale_hide_price.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_users__website_show_price
 msgid "Show prices on website"
