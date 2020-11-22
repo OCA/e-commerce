@@ -33,7 +33,6 @@ msgstr "Nessuna marca trovata."
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_brand
 #, fuzzy
-#| msgid "Product Brands"
 msgid "Product Brand"
 msgstr "Marche prodotto"
 
