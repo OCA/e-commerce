@@ -6,8 +6,8 @@
         <xpath expr=".">
             <script type="text/javascript"
                     src="/website_sale_product_detail_attribute_image/static/src/js/website_sale_product_detail_attribute_image_tour.js"/>
-            <link type="text/less" rel="stylesheet"
-                  href="/website_sale_product_detail_attribute_image/static/src/less/style.less"/>
+            <link type="text/scss" rel="stylesheet"
+                  href="/website_sale_product_detail_attribute_image/static/src/scss/style.scss"/>
         </xpath>
     </template>
 </odoo>
