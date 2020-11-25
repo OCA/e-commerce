@@ -17,8 +17,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.6\n"
 
+#. module: website_sale_hide_empty_category
+#: model:ir.model.fields,field_description:website_sale_hide_empty_category.field_product_public_category__has_product_recursive
+msgid "This category or one of its children has products"
+msgstr ""
+
+#. module: website_sale_hide_empty_category
+#: model:ir.model,name:website_sale_hide_empty_category.model_product_public_category
+msgid "Website Product Category"
+msgstr "Categoría del Producto"
+
 #~ msgid "Products"
 #~ msgstr "Productos"
-
-#~ msgid "Website Product Category"
-#~ msgstr "Categoría del Producto"
