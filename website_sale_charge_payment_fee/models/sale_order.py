@@ -3,11 +3,47 @@
 # Copyright 2020 Quartile Limited
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import models
+from odoo import api, fields, models
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+
+    amount_payment_fee = fields.Monetary(
+        compute="_compute_amount_payment_fee",
+        digits=0,
+        string="Payment Fee Amount",
+        store=True,
+        track_visibility="always",
+    )
+
+    @api.one
+    def _compute_website_order_line(self):
+        super(SaleOrder, self)._compute_website_order_line()
+        self.website_order_line = self.website_order_line.filtered(
+            lambda l: not l.payment_fee_line
+        )
+
+    @api.depends(
+        "order_line.price_unit",
+        "order_line.tax_id",
+        "order_line.discount",
+        "order_line.product_uom_qty",
+    )
+    def _compute_amount_payment_fee(self):
+        for order in self:
+            if self.env.user.has_group(
+                "account.group_show_line_subtotals_tax_excluded"
+            ):
+                order.amount_payment_fee = sum(
+                    order.order_line.filtered("payment_fee_line").mapped(
+                        "price_subtotal"
+                    )
+                )
+            else:
+                order.amount_payment_fee = sum(
+                    order.order_line.filtered("payment_fee_line").mapped("price_total")
+                )
 
     def update_fee_line(self, acquirer):
         for line in self.order_line:
