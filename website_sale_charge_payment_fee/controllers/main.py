@@ -18,6 +18,9 @@ class WebsiteSaleFee(WebsiteSale):
         values = res.qcontext
         order = request.website.sale_get_order()
         payment_fee_id = post.get("payment_fee_id")
+        checked_pm_id = post.get("pm_id")
+        if checked_pm_id:
+            values["checked_pm_id"] = int(checked_pm_id)
         if payment_fee_id or "acquirers" in values:
             # If 'acquirers' in values, default behaviour when acquirers are
             # present, we update the order with the first one
@@ -28,9 +31,9 @@ class WebsiteSaleFee(WebsiteSale):
                 selected_acquirer = request.env["payment.acquirer"].browse(
                     int(payment_fee_id)
                 )
-                values["selected_acquirer"] = selected_acquirer
             else:
                 selected_acquirer = values["acquirers"][0]
+            values["selected_acquirer"] = selected_acquirer
             order.sudo().update_fee_line(selected_acquirer.sudo())
             return request.render("website_sale.payment", values)
         return res
