@@ -59,6 +59,7 @@ Authors
 
 * Agile Business Group
 * AITIC S.A.S
+* Quartile Limited
 
 Contributors
 ~~~~~~~~~~~~

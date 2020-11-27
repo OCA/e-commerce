@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-02 23:13+0000\n"
-"PO-Revision-Date: 2020-06-02 23:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,11 +16,6 @@ msgstr ""
 #. module: website_sale_charge_payment_fee
 #: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.payment_tokens_list_fee
 msgid "(Fee:"
-msgstr ""
-
-#. module: website_sale_charge_payment_fee
-#: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.cart_lines_fee
-msgid "Add one"
 msgstr ""
 
 #. module: website_sale_charge_payment_fee
@@ -71,6 +64,16 @@ msgid "Payment Acquirer"
 msgstr ""
 
 #. module: website_sale_charge_payment_fee
+#: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_sale_order__amount_payment_fee
+msgid "Payment Fee Amount"
+msgstr ""
+
+#. module: website_sale_charge_payment_fee
+#: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.total
+msgid "Payment Fee:"
+msgstr ""
+
+#. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_sale_order_line__payment_fee_line
 msgid "Payment fee line"
 msgstr ""
@@ -87,16 +90,6 @@ msgid "Percentage applied to order total"
 msgstr ""
 
 #. module: website_sale_charge_payment_fee
-#: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.cart_lines_fee
-msgid "Remove from cart"
-msgstr ""
-
-#. module: website_sale_charge_payment_fee
-#: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.cart_lines_fee
-msgid "Remove one"
-msgstr ""
-
-#. module: website_sale_charge_payment_fee
 #: model:ir.model,name:website_sale_charge_payment_fee.model_sale_order
 msgid "Sale Order"
 msgstr ""
@@ -104,10 +97,5 @@ msgstr ""
 #. module: website_sale_charge_payment_fee
 #: model:ir.model,name:website_sale_charge_payment_fee.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
-
-#. module: website_sale_charge_payment_fee
-#: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_acquirer__charge_fee_tax_ids
-msgid "Taxes"
 msgstr ""
 
