@@ -5,7 +5,7 @@
         <field name="model">payment.acquirer</field>
         <field name="inherit_id" ref="payment.acquirer_form" />
         <field name="arch" type="xml">
-            <xpath expr="//notebook[last()]" position="inside">
+            <xpath expr="//notebook" position="inside">
                 <page string="Charge payment fee">
                     <group>
                         <group>
