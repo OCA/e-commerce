@@ -17,7 +17,23 @@ class ProductTemplate(models.Model):
         product_id = False
         add_qty = 0
         has_distinct_price = False
-        for product in self.product_variant_ids:
+        # Variants with extra price
+        variants_extra_price = self.product_variant_ids.filtered('price_extra')
+        # Avoid compute prices when pricelist has not item variants defined
+        variant_items = pricelist.item_ids.filtered(
+            lambda i: i.product_id in self.product_variant_ids
+        )
+        if variant_items:
+            # Take into account only the variants defined in pricelist and one
+            # variant not defined to compute prices defined at template or
+            # category level. Maybe there is any definition on template that
+            # has cheaper price.
+            variants = variant_items.mapped('product_id')
+            products = variants + (self.product_variant_ids - variants)[:1]
+        else:
+            products = self.product_variant_ids[:1]
+        products |= variants_extra_price
+        for product in products:
             for qty in [1, 99999999]:
                 context = dict(context, quantity=qty)
                 product_price = product.with_context(context).price
