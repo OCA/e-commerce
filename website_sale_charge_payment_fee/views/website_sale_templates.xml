@@ -48,7 +48,7 @@
             </t>
         </xpath>
     </template>
-    <template id="total" name="Payment Fee" inherit_id="website_sale.total">
+    <template id="payment_fee" name="Payment Fee" inherit_id="website_sale.total">
         <xpath expr="//tr[@id='order_total_untaxed']" position="before">
             <tr
                 id="order_payment_fee"

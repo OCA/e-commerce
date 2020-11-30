@@ -9,6 +9,8 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    # Follow the field definition as amount_delivery from
+    # the website_sale_delivery module.
     amount_payment_fee = fields.Monetary(
         compute="_compute_amount_payment_fee",
         digits=0,
@@ -46,6 +48,7 @@ class SaleOrder(models.Model):
                 )
 
     def update_fee_line(self, acquirer):
+        self.ensure_one()
         for line in self.order_line:
             if line.payment_fee_line:
                 line.unlink()
