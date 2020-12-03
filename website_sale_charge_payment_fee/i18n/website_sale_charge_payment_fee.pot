@@ -34,6 +34,11 @@ msgid "Computation type"
 msgstr ""
 
 #. module: website_sale_charge_payment_fee
+#: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_acquirer__charge_fee_currency_id
+msgid "Fee Currency"
+msgstr ""
+
+#. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_acquirer__charge_fee_description
 msgid "Fee Description"
 msgstr ""
@@ -69,7 +74,7 @@ msgid "Payment Fee Amount"
 msgstr ""
 
 #. module: website_sale_charge_payment_fee
-#: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.total
+#: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.payment_fee
 msgid "Payment Fee:"
 msgstr ""
 

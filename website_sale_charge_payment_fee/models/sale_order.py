@@ -55,8 +55,11 @@ class SaleOrder(models.Model):
         if acquirer.charge_fee:
             if acquirer.charge_fee_type == "fixed":
                 price = acquirer.charge_fee_fixed_price
-                if self.company_id.currency_id.id != self.pricelist_id.currency_id.id:
-                    price = self.company_id.currency_id._convert(
+                if (
+                    acquirer.charge_fee_currency_id.id
+                    != self.pricelist_id.currency_id.id
+                ):
+                    price = acquirer.charge_fee_currency_id._convert(
                         price,
                         self.pricelist_id.currency_id,
                         self.company_id,
