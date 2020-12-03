@@ -21,6 +21,7 @@ class PaymentAcquirer(models.Model):
     charge_fee_fixed_price = fields.Float(
         "Fixed Price", digits=dp.get_precision("Product Price")
     )
+    charge_fee_currency_id = fields.Many2one("res.currency", string="Fee Currency")
     charge_fee_percentage = fields.Float(
         "Percentage", help="Percentage applied to order total"
     )
