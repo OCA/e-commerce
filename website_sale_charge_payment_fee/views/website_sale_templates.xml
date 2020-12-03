@@ -34,6 +34,7 @@
                         <span
                             id="charge_fee_fixed_price"
                             t-field="acq.charge_fee_fixed_price"
+                            t-options="{'widget': 'monetary', 'display_currency': acq.charge_fee_currency_id}"
                         />
                     </t>
                     <t t-if="acq.charge_fee_type == 'percentage'">
