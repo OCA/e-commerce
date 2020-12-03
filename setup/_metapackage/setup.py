@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_exception',
         'odoo12-addon-website_sale_hide_empty_category',
         'odoo12-addon-website_sale_hide_price',
+        'odoo12-addon-website_sale_invoice_address',
         'odoo12-addon-website_sale_product_attachment',
         'odoo12-addon-website_sale_product_attribute_filter_visibility',
         'odoo12-addon-website_sale_product_attribute_value_filter_existing',
