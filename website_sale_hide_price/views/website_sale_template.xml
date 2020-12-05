@@ -21,6 +21,8 @@
                     website.website_show_price
                 </attribute>
         </xpath>
+    </template>
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
         <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
             <attribute name="t-if">
                     website.website_show_price
