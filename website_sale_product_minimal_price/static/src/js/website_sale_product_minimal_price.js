@@ -76,9 +76,8 @@ odoo.define("website_sale_product_minimal_price.load", function (require) {
                         $($div[i]).addClass('border-bottom');
                     }
                 });
-            } else {
-                _onChangeCombinationStock.apply(self, args);
             }
+            _onChangeCombinationStock.apply(self, args);
         });
     };
     return ProductConfiguratorMixin;
