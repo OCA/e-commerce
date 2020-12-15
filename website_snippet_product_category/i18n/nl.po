@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-12-15 13:19+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: website_snippet_product_category
 #. openerp-web
@@ -32,6 +34,8 @@ msgstr ""
 #, python-format
 msgid "No categories were found. Make sure you have categories defined."
 msgstr ""
+"Er zijn geen categorieen gevonden. Zorg er voor dat er categorieen zijn "
+"aangemaakt."
 
 #. module: website_snippet_product_category
 #: model:website.menu,name:website_snippet_product_category.snippet_product_category_demo_page_link
@@ -56,7 +60,7 @@ msgstr ""
 #. module: website_snippet_product_category
 #: model:ir.model,name:website_snippet_product_category.model_product_public_category
 msgid "Website Product Category"
-msgstr ""
+msgstr "Website Product Categorie"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
