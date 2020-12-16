@@ -14,7 +14,7 @@ class WebsiteSale(WebsiteSale):
         domain = super()._get_search_domain(
             search, category, attrib_values, search_in_description=search_in_description
         )
-        price_vals = request.context.get("price_vals")
+        price_vals = request.env.context.get("price_vals")
         if price_vals:
             to_add = []
             if price_vals[0] is not None:
@@ -42,8 +42,9 @@ class WebsiteSale(WebsiteSale):
             # Sanitize Values
             if custom_min_price > custom_max_price:
                 custom_max_price, custom_min_price = custom_min_price, custom_max_price
-        request.context = dict(
-            request.context, price_vals=[custom_min_price, custom_max_price]
+        # FIXME: Using 'request.env.context' to avoid issues with other modules
+        request.env.context = dict(
+            request.env.context, price_vals=[custom_min_price, custom_max_price]
         )
         response = super().shop(
             page=page, category=category, search=search, ppg=ppg, **post
