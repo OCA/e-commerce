@@ -32,7 +32,7 @@
                                 <field
                                     name="charge_fee_currency_id"
                                     class="oe_inline"
-                                    attrs="{'required': [('charge_fee_type', '=', 'fixed')]}"
+                                    attrs="{'required': [('charge_fee_type', '=', 'fixed'), ('charge_fee', '=', True)]}"
                                 />
                                 <field
                                     name="charge_fee_fixed_price"
