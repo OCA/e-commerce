@@ -55,8 +55,8 @@
                 id="order_payment_fee"
                 t-if="website_sale_order and website_sale_order.order_line.filtered(lambda l: l.payment_fee_line)"
             >
-                <td class="text-right noborder text-muted">Payment Fee:</td>
-                <td class="text-xl-right noborder text-muted">
+                <td class="text-right noborder">Payment Fee:</td>
+                <td class="text-xl-right noborder">
                     <span
                         t-field="website_sale_order.amount_payment_fee"
                         style="white-space: nowrap;"
