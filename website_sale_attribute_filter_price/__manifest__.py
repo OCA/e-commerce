@@ -9,6 +9,7 @@
     "depends": ["website_sale"],
     "data": ["templates/assets.xml", "templates/shop.xml"],
     "author": "Tecnativa, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/e-commerce",
     "installable": True,
     "maintainers": ["Tardo"],
 }
