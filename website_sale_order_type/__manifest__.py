@@ -15,5 +15,8 @@
         "website_sale",
         "sale_order_type"
     ],
+    "demo": [
+        "demo/assets.xml"
+    ],
     "auto_install": True
 }

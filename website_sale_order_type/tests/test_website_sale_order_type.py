@@ -40,23 +40,12 @@ class TestFrontend(HttpCase):
     def test_website_sale_order_type(self):
         self.partner.sale_type = self.sale_type
         existing_orders = self.env['sale.order'].search([])
-        # Precreate SO report assets cache to avoid tour step timeouts
-        views = (
-            "web.assets_common",
-            "web.report_assets_common",
-            "web.report_assets_pdf",
-        )
-        for view in views:
-            self.env["ir.qweb"]._get_asset_nodes(
-                view, self.env.context, js=False)
-            self.env["ir.qweb"]._get_asset_nodes(
-                view, self.env.context, css=False)
         # In frontend, create an order
         tour_prefix = "odoo.__DEBUG__.services['web_tour.tour']"
         self.phantom_js(
-            "/",
-            tour_prefix + ".run('shop_buy_product')",
-            tour_prefix + ".tours.shop_buy_product.ready",
+            "/shop",
+            tour_prefix + ".run('website_sale_order_type_tour')",
+            tour_prefix + ".tours.website_sale_order_type_tour.ready",
             login="admin")
         created_order = self.env['sale.order'].search([
             ('id', 'not in', existing_orders.ids)])
