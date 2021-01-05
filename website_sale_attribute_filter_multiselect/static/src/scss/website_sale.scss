@@ -1,0 +1,15 @@
+.multiple-select {
+    .ms-choice {
+        position: relative;
+        border: none;
+        &:focus {
+            outline: none;
+        }
+    }
+    .ms-drop {
+        left: 0;
+    }
+}
+#wsale_products_attributes_collapse li.nav-item.attribute-collapse li.nav-item {
+    width: 100%;
+}
