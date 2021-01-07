@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_product_form_inherit_multilinks" model="ir.ui.view">
+        <field name="name">product.product.multilinks.button</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    name="show_product_product_links"
+                    help="Product links"
+                    class="oe_stat_button"
+                    icon="fa-sitemap"
+                    type="object"
+                >
+                    <field
+                        string="Product Links"
+                        name="product_product_link_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

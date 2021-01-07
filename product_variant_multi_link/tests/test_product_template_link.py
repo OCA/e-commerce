@@ -86,3 +86,16 @@ class TestProductVariantLink(SavepointCase):
         link1.unlink()
         self.assertNotIn(link1, self.product_product_1.product_variant_link_ids)
         self.assertNotIn(link1, self.product_product_2.product_variant_link_ids)
+
+    def test_product_variant_links(self):
+        link1 = self._create_link_default()
+        self.assertIn(link1, self.product_product_1.product_variant_link_ids)
+        self.assertIn(link1, self.product_product_2.product_variant_link_ids)
+        self.assertEqual(self.product_product_1.product_product_link_count, 1)
+        self.assertEqual(self.product_product_2.product_product_link_count, 1)
+
+        link1.unlink()
+        self.assertNotIn(link1, self.product_product_1.product_variant_link_ids)
+        self.assertNotIn(link1, self.product_product_2.product_variant_link_ids)
+        self.assertEqual(self.product_product_1.product_product_link_count, 0)
+        self.assertEqual(self.product_product_1.product_product_link_count, 0)
