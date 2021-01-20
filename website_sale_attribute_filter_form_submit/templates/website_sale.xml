@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_attributes_class_hook"
+        name="products_attributes"
+        inherit_id="website_sale.products_attributes"
+    >
+        <!-- Add a class we can hook into to apply or not the auto form submit -->
+        <xpath expr="//form[hasclass('js_attributes')]" position="attributes">
+            <attribute name="class" remove="js_attributes_manual" />
+        </xpath>
+    </template>
+    <template
+        id="products_attributes_filter_manual"
+        name="Manual filters"
+        inherit_id="website_sale.products_attributes"
+        active="False"
+        customize_show="True"
+    >
+        <xpath expr="//form[hasclass('js_attributes')]" position="inside">
+            <div class='py-2'>
+                <button id="btn-attribute-filter" class="btn btn-primary">
+                    Apply
+                </button>
+            </div>
+        </xpath>
+        <xpath expr="//form[hasclass('js_attributes')]" position="attributes">
+            <attribute name="class" separator=" " add="js_attributes_manual" />
+        </xpath>
+    </template>
+</odoo>
