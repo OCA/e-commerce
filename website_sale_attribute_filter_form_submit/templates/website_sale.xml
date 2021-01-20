@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_attributes"
+        name="products_attributes_inherit"
+        inherit_id="website_sale.products_attributes"
+    >
+        <xpath expr="//form" position="attributes">
+            <attribute name="class">attribute-filter-form-submit</attribute>
+        </xpath>
+        <xpath expr="//form" position="inside">
+            <div class='pt-2 pb-2'>
+                <button id="btn-attribute-filter" class="btn btn-primary">Apply</button>
+            </div>
+        </xpath>
+    </template>
+</odoo>
