@@ -15,7 +15,6 @@
             />
         </xpath>
     </template>
-
     <template id="assets_editor" inherit_id="web_editor.assets_editor">
         <xpath expr="script[last()]" position="after">
             <script

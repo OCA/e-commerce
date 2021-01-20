@@ -14,10 +14,7 @@
         "templates/snippets.xml",
         "views/product_public_category.xml",
     ],
-    "demo": [
-        "demo/demo.xml",
-        "demo/pages.xml",
-    ],
+    "demo": ["demo/demo.xml", "demo/pages.xml",],
     "maintainers": ["Tardo"],
     "installable": True,
 }

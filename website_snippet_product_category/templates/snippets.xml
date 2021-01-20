@@ -60,7 +60,11 @@
                     t-if="object"
                     t-att-value="len(object)"
                 />
-                <div t-foreach="object" t-as="categories" class="p-2 col-12 col-md-3 col-lg-2 categ_container">
+                <div
+                    t-foreach="object"
+                    t-as="categories"
+                    class="p-2 col-12 col-md-3 col-lg-2 categ_container"
+                >
                     <div class="categ_scroll_wrapper px-2 h-100">
                         <div class="categ_scroll">
                             <t
