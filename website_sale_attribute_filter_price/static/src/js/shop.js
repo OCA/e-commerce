@@ -23,6 +23,7 @@ odoo.define("website_sale_attribute_filter_price.Shop", function (require) {
             type: "double",
             step: 1,
             grid: false,
+            extra_classes: "irs-primary",
 
             onChange: function (data) {
                 $min_value_input.val(data.from);
