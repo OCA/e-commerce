@@ -38,7 +38,9 @@ class TestProductVariantLink(SavepointCase):
                     "type_id": self.link_type.id,
                 }
             )
-        self.assertEqual(err.exception.name, "Source and target variants are required!")
+        self.assertEqual(
+            err.exception.args[0], "Source and target variants are required!"
+        )
 
     def test_duplicated_link_different_product(self):
         link1 = self._create_link_default()
