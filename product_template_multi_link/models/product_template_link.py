@@ -63,7 +63,7 @@ class ProductTemplateLink(models.Model):
         if True in is_duplicate_by_link_id.values():
             ids = [k for k, v in is_duplicate_by_link_id.items() if v]
             descrs = "\n ".join(
-                [l._duplicate_link_error_msg() for l in self.browse(ids)]
+                [link._duplicate_link_error_msg() for link in self.browse(ids)]
             )
             raise ValidationError(
                 _(
