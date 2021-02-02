@@ -9,10 +9,14 @@ class ProductTemplateLink(models.Model):
     _inherit = "product.template.link"
 
     left_product_id = fields.Many2one(
-        string="Source Variant", comodel_name="product.product", ondelete="cascade",
+        string="Source Variant",
+        comodel_name="product.product",
+        ondelete="cascade",
     )
     right_product_id = fields.Many2one(
-        string="Linked Variant", comodel_name="product.product", ondelete="cascade",
+        string="Linked Variant",
+        comodel_name="product.product",
+        ondelete="cascade",
     )
 
     def _product_variant_check_enabled(self):
