@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Stock Available",
     "summary": "Display 'Available to promise' in shop online "
-               "instead 'Quantity On Hand'",
+    "instead 'Quantity On Hand'",
     "version": "14.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -13,7 +13,6 @@
         "stock_available",
         "website_sale_stock",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
 }
