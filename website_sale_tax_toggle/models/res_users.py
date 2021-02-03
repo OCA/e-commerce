@@ -10,8 +10,8 @@ class ResUsers(models.Model):
 
     @api.model
     def has_group(self, group_ext_id):
-        tax_included = 'account.group_show_line_subtotals_tax_included'
-        tax_excluded = 'account.group_show_line_subtotals_tax_excluded'
+        tax_included = 'sale.group_show_price_total'
+        tax_excluded = 'sale.group_show_price_subtotal'
         if (self.env.context.get('website_id') and
                 group_ext_id in [tax_included, tax_excluded] and
                 not self.env.context.get('skip_tax_toggle_check')):

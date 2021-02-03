@@ -8,8 +8,8 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
         # Get company for Mitchel Admin user
-        self.user_admin = self.env.ref('base.user_admin')
-        user_company = self.user_admin.company_id
+        self.user_root = self.env.ref('base.user_root')
+        user_company = self.user_root.company_id
         self.tax = self.env['account.tax'].create({
             'name': 'Taxes toggle test tax',
             'amount_type': 'percent',
@@ -40,7 +40,7 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
             "odoo.__DEBUG__.services['web_tour.tour']",
             "website_sale_tax_toggle",
         )
-        self.browser_js(
+        self.phantom_js(
             url_path="/shop",
             code="%s.run('%s')" % tour,
             ready="%s.tours['%s'].ready" % tour,
