@@ -2,7 +2,7 @@
 <odoo>
 
   <template id="portal_my_home_sale" inherit_id="sale.portal_my_home_sale">
-    <xpath expr="//div[contains(@class,'o_portal_docs')]" position="inside">
+    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
       <t t-if="affiliate_count">
         <h3 class="page-header">
           <a href="/my/affiliations">Your Affiliations
