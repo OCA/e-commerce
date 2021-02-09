@@ -67,11 +67,12 @@ class WebsiteSale(WebsiteSale):
             order='list_price DESC', limit=1)
         max_price = product_id.list_price
         # Price Filter QWeb Values
+        attrib_list = request.httprequest.args.getlist('attrib')
         keep = QueryURL(
             '/shop',
             category=category and int(category),
-            search=post.get('search'),
-            attrib=post.get('atrib'),
+            search=search,
+            attrib=attrib_list,
             order=post.get('order'),
             min_price=custom_min_price,
             max_price=custom_max_price)
