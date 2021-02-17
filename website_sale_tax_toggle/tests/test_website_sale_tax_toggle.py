@@ -32,9 +32,7 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
         )
         self.env.user.partner_id.property_product_pricelist = pricelist
         # To avoid currency converter
-        self.env["res.currency.rate"].search([]).write(
-            {"rate": 1,}
-        )
+        self.env["res.currency.rate"].search([]).write({"rate": 1})
 
     def test_ui_website(self):
         """Test frontend tour."""
