@@ -80,3 +80,10 @@ class ProductTemplateLinkType(models.Model):
                 v.pop("inverse_name", None)
             r = super(ProductTemplateLinkType, record).write(v)
         return r
+
+    def get_by_code(self, code):
+        """Get link matching given code.
+
+        Just a shortcut for a search that can be done very often.
+        """
+        return self.search([("code", "=", code)], limit=1)
