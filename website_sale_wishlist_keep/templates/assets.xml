@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="assets_editor_demo" inherit_id="website.assets_editor">
+    <template id="assets_tests" inherit_id="website.assets_tests">
         <xpath expr=".">
             <script
                 type="text/javascript"
