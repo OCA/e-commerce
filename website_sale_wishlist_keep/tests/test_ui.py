@@ -14,7 +14,7 @@ class TestUi(HttpCase):
                 "type": "consu",
             }
         )
-        self.env.ref('website_sale_wishlist_keep.default_active_b2b_wish').active = True
+        self.env.ref("website_sale_wishlist_keep.default_active_b2b_wish").active = True
 
     def test_ui_wishlist(self):
         """Test frontend tour."""
@@ -26,5 +26,5 @@ class TestUi(HttpCase):
             url_path="/shop",
             code="%s.run('%s')" % tour,
             ready="%s.tours['%s'].ready" % tour,
-            login="admin"
+            login="admin",
         )
