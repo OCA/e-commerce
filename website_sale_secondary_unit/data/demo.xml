@@ -2,7 +2,7 @@
 <odoo noupdate="0">
     <record id="secondary_unit_box_5" model="product.secondary.unit">
         <field name="name">Box</field>
-        <field name="uom_id" ref="product.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="factor">5.0</field>
         <field
             name="product_tmpl_id"
@@ -12,7 +12,7 @@
     </record>
     <record id="secondary_unit_box_10" model="product.secondary.unit">
         <field name="name">Box</field>
-        <field name="uom_id" ref="product.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="factor">10.0</field>
         <field
             name="product_tmpl_id"
