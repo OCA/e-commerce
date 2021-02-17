@@ -72,6 +72,9 @@ class ProductTemplateLinkType(models.Model):
                 record.inverse_code = record.code
 
     def write(self, vals):
+        if not self:
+            return True
+        r = True
         for record in self:
             is_symmetric = vals.get("is_symmetric", record.is_symmetric)
             v = vals.copy()
