@@ -4,27 +4,16 @@
 odoo.define("website_sale_secondary_unit.tour", function(require) {
     "use strict";
 
-    var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+    const tour = require("web_tour.tour");
+    const base = require("web_editor.base");
 
-    // Get an option value by its text
-    // HACK https://github.com/odoo/odoo/pull/32718
-    function opt_val(option_text) {
-        return function(action_helper) {
-            var option_id = this.$anchor
-                .children(_.str.sprintf("option:contains('%s')", option_text))
-                .val();
-            action_helper.text(option_id);
-        };
-    }
-
-    var steps = [
+    const steps = [
         {
-            trigger: "a:contains('Customizable Desk')",
+            trigger: "a:contains('Test product')",
         },
         {
             trigger: "#secondary_uom",
-            run: opt_val("Box 5 Unit(s)"),
+            run: "text(Box 5 Units)",
         },
         {
             trigger: "#add_to_cart",
@@ -33,10 +22,10 @@ odoo.define("website_sale_secondary_unit.tour", function(require) {
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger: "span:contains(Box 5 Unit(s))",
+            extra_trigger: "span:contains(Box 5 Units)",
         },
         {
-            trigger: "a:contains('Customizable Desk')",
+            trigger: "a:contains('Test product')",
         },
         {
             trigger: "#add_to_cart",
@@ -45,17 +34,17 @@ odoo.define("website_sale_secondary_unit.tour", function(require) {
         },
         {
             trigger: "a[href='/shop/checkout?express=1']",
-            extra_trigger: "span:containsExact(Unit(s))",
+            extra_trigger: "span:containsExact(Units)",
         },
         {
             trigger: "#o_payment_form_pay",
             extra_trigger:
-                "table:has(span:contains(Box 5 Unit(s)):has(span:contains(Unit(s)))",
+                "table:has(span:contains(Box 5 Units)):has(span:contains(Units))",
         },
         {
             trigger: "a[href='/shop']",
             extra_trigger:
-                "table:has(span:contains(Box 5 Unit(s)):has(span:contains(Unit(s)))",
+                "table:has(span:contains(Box 5 Units)):has(span:contains(Units))",
         },
     ];
 
