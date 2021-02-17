@@ -97,3 +97,10 @@ class ProductTemplate(models.Model):
                 "default_left_product_tmpl_id": self.id,
             },
         }
+
+    def get_links_by_code(self, code):
+        """Get all active active links maching code for current product."""
+        self.ensure_one()
+        return self.product_template_link_ids.filtered(
+            lambda r: r.type_id.code == code and r.is_link_active
+        )
