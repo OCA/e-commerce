@@ -1,7 +1,7 @@
 /* Copyright 2020 Carlos Roca
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_wishlist_keep.tour", function (require) {
+odoo.define("website_sale_wishlist_keep.tour", function(require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -29,7 +29,8 @@ odoo.define("website_sale_wishlist_keep.tour", function (require) {
             extra_trigger: "span:contains('Process Checkout')",
         },
     ];
-    tour.register("website_sale_wishlist_keep",
+    tour.register(
+        "website_sale_wishlist_keep",
         {
             url: "/shop",
             test: true,
