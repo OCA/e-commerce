@@ -3,10 +3,13 @@
 
 from openupgradelib import openupgrade
 
-
 _field_renames = [
-    ('product.secondary.unit', 'product_secondary_unit',
-     'website_published', 'is_published'),
+    (
+        "product.secondary.unit",
+        "product_secondary_unit",
+        "website_published",
+        "is_published",
+    ),
 ]
 
 
