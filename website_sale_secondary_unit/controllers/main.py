@@ -16,9 +16,7 @@ class WebsiteSaleSecondaryUnit(WebsiteSale):
                 int(kw["secondary_uom_id"])
             )
             request.session["secondary_uom_id"] = secondary_uom.id
-        return super(WebsiteSaleSecondaryUnit, self).cart_update(
-            product_id, add_qty=add_qty, set_qty=set_qty, **kw
-        )
+        return super().cart_update(product_id, add_qty=add_qty, set_qty=set_qty, **kw)
 
     @http.route()
     def cart_update_json(
@@ -28,7 +26,7 @@ class WebsiteSaleSecondaryUnit(WebsiteSale):
         request.session.pop("secondary_uom_id", None)
         if so_line.sudo().secondary_uom_id:
             request.session["secondary_uom_id"] = so_line.sudo().secondary_uom_id.id
-        return super(WebsiteSaleSecondaryUnit, self).cart_update_json(
+        return super().cart_update_json(
             product_id,
             line_id=line_id,
             add_qty=add_qty,

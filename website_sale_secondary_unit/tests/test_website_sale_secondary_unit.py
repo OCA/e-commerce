@@ -9,8 +9,13 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
         # Models
         ProductSecondaryUnit = self.env["product.secondary.unit"]
         product_uom_unit = self.env.ref("uom.product_uom_unit")
-        self.product_template = self.env.ref(
-            "product.product_product_4_product_template"
+        self.product_template = self.env["product.template"].create(
+            {
+                "name": "Test product",
+                "is_published": True,
+                "website_sequence": 1,
+                "type": "consu",
+            }
         )
         vals = {
             "name": "Box",
@@ -32,19 +37,12 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
                         [self.secondary_unit_box_5.id, self.secondary_unit_box_10.id],
                     ),
                 ],
-                "optional_product_ids": [(6, 0, [])],
             }
         )
+        # Add group "Manage Multiple Units of Measure" to admin
+        admin = self.env.ref("base.user_admin")
+        admin.groups_id |= self.browse_ref("uom.group_uom")
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_secondary_unit",
-        )
-        self.browser_js(
-            url_path="/",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/", "website_sale_secondary_unit", login="admin")
