@@ -18,13 +18,4 @@ class TestUi(HttpCase):
 
     def test_ui_wishlist(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_wishlist_keep",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_wishlist_keep", login="admin")
