@@ -8,7 +8,6 @@ from odoo.tools.float_utils import float_round
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.multi
     def _cart_find_product_line(self, product_id=None, line_id=None, **kwargs):
         """
         Search sale order lines with secondary units
@@ -27,14 +26,12 @@ class SaleOrder(models.Model):
             )
         return so_lines
 
-    @api.multi
     def _website_product_id_change(self, order_id, product_id, qty=0):
         res = super()._website_product_id_change(order_id, product_id, qty=qty)
         secondary_uom_id = self.env.context.get("secondary_uom_id", False)
         res["secondary_uom_id"] = secondary_uom_id
         return res
 
-    @api.multi
     def _cart_update(
         self,
         product_id=None,
@@ -105,7 +102,7 @@ class SaleOrderLine(models.Model):
                     vals["product_uom_qty"] / (factor or 1.0),
                     precision_rounding=secondary_uom.uom_id.rounding,
                 )
-        return super(SaleOrderLine, self).create(vals_list)
+        return super().create(vals_list)
 
     def write(self, vals):
         SecondaryUom = self.env["product.secondary.unit"]
@@ -127,4 +124,4 @@ class SaleOrderLine(models.Model):
                     vals["product_uom_qty"] / (factor or 1.0),
                     precision_rounding=secondary_uom.uom_id.rounding,
                 )
-        return super(SaleOrderLine, self).write(vals)
+        return super().write(vals)
