@@ -37,6 +37,44 @@ class ProductTemplateLink(models.Model):
                     )
         super()._check_products()
 
+    @api.onchange("left_product_tmpl_id")
+    def onchange_left_product_tmpl(self):
+        self.ensure_one()
+        domain = []
+        if self.left_product_tmpl_id:
+            # Remove left_product_id if its template doesn't match anymore
+            if self.left_product_id.product_tmpl_id != self.left_product_tmpl_id:
+                self.left_product_id = False
+            domain = [("product_tmpl_id", "=", self.left_product_tmpl_id.id)]
+        else:
+            self.left_product_id = False
+        return {"domain": {"left_product_id": domain}}
+
+    @api.onchange("left_product_id")
+    def onchange_left_product(self):
+        self.ensure_one()
+        if self.left_product_id:
+            self.left_product_tmpl_id = self.left_product_id.product_tmpl_id
+
+    @api.onchange("right_product_tmpl_id")
+    def onchange_right_product_tmpl(self):
+        self.ensure_one()
+        domain = []
+        if self.right_product_tmpl_id:
+            # Remove right_product_id if its template doesn't match anymore
+            if self.right_product_id.product_tmpl_id != self.right_product_tmpl_id:
+                self.right_product_id = False
+            domain = [("product_tmpl_id", "=", self.right_product_tmpl_id.id)]
+        else:
+            self.right_product_id = False
+        return {"domain": {"right_product_id": domain}}
+
+    @api.onchange("right_product_id")
+    def onchange_right_product(self):
+        self.ensure_one()
+        if self.right_product_id:
+            self.right_product_tmpl_id = self.right_product_id.product_tmpl_id
+
     def _check_product_not_different(self):
         res = super()._check_product_not_different()
         if self._product_variant_check_enabled():
