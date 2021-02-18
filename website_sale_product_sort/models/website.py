@@ -10,7 +10,7 @@ class Website(models.Model):
     def _get_product_sort_criterias(self):
         """Extend to add more sort criterias"""
         return [
-            ("website_sequence desc", _("Relevance")),
+            ("website_sequence asc", _("Relevance")),
             ("list_price desc", _("Catalog price: High to Low")),
             ("list_price asc", _("Catalog price: Low to High")),
             ("name asc", _("Name - A to Z")),
@@ -21,6 +21,6 @@ class Website(models.Model):
         selection="_get_product_sort_criterias",
         string="Sort products by",
         help="Default criteria for sorting products in the shop",
-        default="website_sequence desc",
+        default="website_sequence asc",
         required=True,
     )
