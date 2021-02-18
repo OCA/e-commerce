@@ -1,13 +1,12 @@
 # Copyright 2020 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import models
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    @api.multi
     def _get_combination_info(
         self,
         combination=False,

@@ -19,7 +19,7 @@ class SaleStockAvailableInfoPopup(SavepointCase):
             }
         )
         cls.product = cls.env["product.product"].create(
-            {"name": "Storable product", "type": "product",}
+            {"name": "Storable product", "type": "product"}
         )
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
         cls.customers_location = cls.env.ref("stock.stock_location_customers")
