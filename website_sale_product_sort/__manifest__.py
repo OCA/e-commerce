@@ -3,14 +3,14 @@
 {
     "name": "Website Sale Product Sort",
     "summary": "Allow to define default sort criteria for e-commerce",
-    "version": "12.0.1.0.0",
-    "development_status": "Beta",
+    "version": "13.0.1.0.0",
+    "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["website_sale",],
-    "data": ["views/website_sale_sort.xml", "views/res_config_settings_view.xml",],
+    "depends": ["website_sale"],
+    "data": ["views/website_sale_sort.xml", "views/res_config_settings_view.xml"],
     "application": False,
     "installable": True,
 }
