@@ -14,13 +14,37 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_template_multi_link_date_span
+#: code:addons/product_template_multi_link_date_span/models/product_template_link.py:0
+#, python-format
+msgid "A start date is required according to link type: %s"
+msgstr ""
+
+#. module: product_template_multi_link_date_span
 #: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__date_end
 msgid "End Date"
 msgstr ""
 
 #. module: product_template_multi_link_date_span
-#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__is_link_active
-msgid "Is Link Active"
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__limited_by_dates
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link_type__limited_by_dates
+msgid "Limited By Dates"
+msgstr ""
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link__limited_by_dates
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link_type__limited_by_dates
+msgid "Links of this type will have a limited life based on start/end dates."
+msgstr ""
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__mandatory_date_start
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link_type__mandatory_date_start
+msgid "Mandatory Date Start"
+msgstr ""
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model,name:product_template_multi_link_date_span.model_product_template_link_type
+msgid "Product Template Link Type"
 msgstr ""
 
 #. module: product_template_multi_link_date_span
@@ -31,4 +55,10 @@ msgstr ""
 #. module: product_template_multi_link_date_span
 #: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__date_start
 msgid "Start Date"
+msgstr ""
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link__mandatory_date_start
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link_type__mandatory_date_start
+msgid "When limited by dates, make date start required."
 msgstr ""
