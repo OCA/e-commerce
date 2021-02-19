@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
 "PO-Revision-Date: 2020-09-29 13:00+0000\n"
 "Last-Translator: mailovemisa <meomaimaimeo@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (https://www.transifex.com/oca/teams/"
-"23907/vi_VN/)\n"
+"Language-Team: Vietnamese (Viet Nam) (https://www.transifex.com/oca/"
+"teams/23907/vi_VN/)\n"
 "Language: vi_VN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,6 +61,11 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__link_type_inverse_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__inverse_name
 msgid "Inverse Name"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__is_link_active
+msgid "Is Link Active"
 msgstr ""
 
 #. module: product_template_multi_link
