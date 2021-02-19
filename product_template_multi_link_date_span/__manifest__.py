@@ -10,6 +10,9 @@
     "license": "AGPL-3",
     "depends": ["product_template_multi_link"],
     "website": "https://github.com/OCA/e-commerce",
-    "data": ["views/product_template_link_view.xml"],
+    "data": [
+        "views/product_template_link_view.xml",
+        "views/product_template_link_type_view.xml",
+    ],
     "installable": True,
 }

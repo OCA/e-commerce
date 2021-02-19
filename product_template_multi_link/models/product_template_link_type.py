@@ -72,6 +72,9 @@ class ProductTemplateLinkType(models.Model):
                 record.inverse_code = record.code
 
     def write(self, vals):
+        if not self:
+            return True
+        r = True
         for record in self:
             is_symmetric = vals.get("is_symmetric", record.is_symmetric)
             v = vals.copy()
@@ -80,3 +83,10 @@ class ProductTemplateLinkType(models.Model):
                 v.pop("inverse_name", None)
             r = super(ProductTemplateLinkType, record).write(v)
         return r
+
+    def get_by_code(self, code):
+        """Get link matching given code.
+
+        Just a shortcut for a search that can be done very often.
+        """
+        return self.search([("code", "=", code)], limit=1)
