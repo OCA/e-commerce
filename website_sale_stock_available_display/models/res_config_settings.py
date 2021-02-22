@@ -5,9 +5,13 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-    inventory_availability = fields.Selection(selection_add=[
-        ('always_no_lock',
-         'Show inventory on website and allow sales if not enough stock'),
-    ])
+    inventory_availability = fields.Selection(
+        selection_add=[
+            (
+                "always_no_lock",
+                "Show inventory on website and allow sales if not enough stock",
+            ),
+        ]
+    )

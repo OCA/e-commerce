@@ -4,9 +4,13 @@ from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    inventory_availability = fields.Selection(selection_add=[
-        ('always_no_lock',
-         'Show inventory on website and allow sales if not enough stock'),
-    ])
+    inventory_availability = fields.Selection(
+        selection_add=[
+            (
+                "always_no_lock",
+                "Show inventory on website and allow sales if not enough stock",
+            ),
+        ]
+    )
