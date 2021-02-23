@@ -4,22 +4,22 @@
 odoo.define("website_sale_stock_available_display.tour", function(require) {
     "use strict";
 
-    var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+    const tour = require("web_tour.tour");
+    const base = require("web_editor.base");
 
-    var steps = [
+    const steps = [
         {
             trigger: "a:contains('Computer Motherboard')",
         },
         {
             trigger: "a#add_to_cart",
             extra_trigger:
-                ".availability_messages:has(span:contains('0 Unit(s) in stock')):has(div:contains('Available in 10 days'))",
+                ".availability_messages:has(div.text-danger):has(div:contains('Available in 10 days'))",
         },
         {
             trigger: "span:contains('Process Checkout')",
             extra_trigger:
-                ".availability_messages:has(span:contains('0 Unit(s) in stock'))",
+                ".availability_messages:has(span:contains('0 Units in stock'))",
         },
         {
             trigger: ".btn-primary:contains('Confirm Order')",
@@ -27,20 +27,19 @@ odoo.define("website_sale_stock_available_display.tour", function(require) {
         {
             trigger: "a[href='/shop']",
             extra_trigger:
-                ".availability_messages:has(span:contains('0 Unit(s) in stock'))",
+                ".availability_messages:has(span:contains('0 Units in stock'))",
         },
         {
             trigger: "a:contains('Special Mouse')",
         },
         {
             trigger: "a#add_to_cart",
-            extra_trigger:
-                ".availability_messages:has(span:contains('10 Unit(s) in stock'))",
+            extra_trigger: ".availability_messages:has(div.text-success)",
         },
         {
             trigger: "span:contains('Process Checkout')",
             extra_trigger:
-                ".availability_messages:has(span:contains('10.0 Unit(s) in stock'))",
+                ".availability_messages:has(span:contains('10.0 Units in stock'))",
         },
         {
             trigger: ".btn-primary:contains('Confirm Order')",
@@ -48,7 +47,7 @@ odoo.define("website_sale_stock_available_display.tour", function(require) {
         {
             trigger: "a[href='/shop']",
             extra_trigger:
-                ".availability_messages:has(span:contains('10.0 Unit(s) in stock'))",
+                ".availability_messages:has(span:contains('10.0 Units in stock'))",
         },
     ];
     tour.register(

@@ -4,7 +4,7 @@
     "name": "Website Sale Stock Available Display",
     "summary": "Display stock in shop online and allow to sell with no stock "
     "available",
-    "version": "12.0.1.2.1",
+    "version": "13.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -12,10 +12,12 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale_stock",],
+    "depends": ["website_sale_stock"],
+    "demo": ["data/demo.xml"],
     "data": [
         "views/assets.xml",
+        "templates/assets.xml",
         "views/product_template_views.xml",
-        "views/templates.xml",
+        "templates/templates.xml",
     ],
 }

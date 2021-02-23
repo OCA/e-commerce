@@ -10,9 +10,8 @@
                 >
                     <span>
                         <t t-if="virtual_available gt 0.0" t-esc="virtual_available" />
-                        <t t-else="1" t-esc="0.0" /> <t
-                            t-esc="uom_name"
-                        /> in stock</span>
+                        <t t-else="1" t-esc="0.0" />
+                        <t t-esc="uom_name" /> in stock</span>
                 </div>
                 <div t-if="virtual_available &lt;= 0.0">
                     <!-- Re-use this core field -->

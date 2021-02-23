@@ -3,13 +3,13 @@
 from odoo.tests.common import HttpCase
 
 
-class websiteSaleStockAvailableDisplay(HttpCase):
+class WebsiteSaleStockAvailableDisplay(HttpCase):
     def setUp(self):
         super().setUp()
         # For testing with website_sale_vat_required module, I avoid
         # address step to fill partner vat
         self.env.ref("base.user_admin").partner_id.write(
-            {"vat": "BE0477472701", "phone": "9999999999",}
+            {"vat": "BE0477472701", "phone": "9999999999"}
         )
         self.ProductTemplate = self.env["product.template"]
         # The website_sequence is set quite high to display this products in
@@ -25,13 +25,11 @@ class websiteSaleStockAvailableDisplay(HttpCase):
         }
         vals = common_vals.copy()
         vals.update(
-            {"name": "Computer Motherboard", "custom_message": "Available in 10 days",}
+            {"name": "Computer Motherboard", "custom_message": "Available in 10 days"}
         )
         self.product_template_wo_qty = self.ProductTemplate.create(vals)
         vals = common_vals.copy()
-        vals.update(
-            {"name": "Special Mouse",}
-        )
+        vals.update({"name": "Special Mouse"})
         self.product_product_w_qty = self.ProductTemplate.create(vals)
         self.env["stock.quant"].create(
             {
@@ -44,13 +42,4 @@ class websiteSaleStockAvailableDisplay(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_stock_available_display",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_stock_available_display", login="admin")
