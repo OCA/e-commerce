@@ -1,5 +1,8 @@
-* Sergio Teruel <sergio.teruel@tecnativa.com>
-* Carlos Dauden <carlos.dauden@tecnativa.com>
-* Pedro M. Baeza <pedro.baeza@tecnativa.com>
-* Jairo Llopis <jairo.llopis@tecnativa.com>
-* Alexandre Díaz <alexandre.diaz@tecnativa.com>
+* `Tecnativa <https://www.tecnativa.com>`_:
+
+  * Sergio Teruel
+  * Carlos Dauden
+  * Pedro M. Baeza
+  * Jairo Llopis
+  * Alexandre Díaz
+  * Carlos Roca
