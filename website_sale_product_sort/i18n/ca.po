@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_product_sort
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-01-20 20:44+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: website_sale_product_sort
+#: code:addons/website_sale_product_sort/models/website.py:14
+#, python-format
+msgid "Catalog price: High to Low"
+msgstr "Preu de catàleg: Alt a Baix"
+
+#. module: website_sale_product_sort
+#: code:addons/website_sale_product_sort/models/website.py:15
+#, python-format
+msgid "Catalog price: Low to High"
+msgstr "Preu de catàleg: Baix a Alt"
+
+#. module: website_sale_product_sort
+#: model:ir.model,name:website_sale_product_sort.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paràmetres de configuració"
+
+#. module: website_sale_product_sort
+#: model_terms:ir.ui.view,arch_db:website_sale_product_sort.res_config_settings_view_form
+msgid "Default Sort Criteria"
+msgstr "Criteris d'ordenació predeterminats"
+
+#. module: website_sale_product_sort
+#: model:ir.model.fields,help:website_sale_product_sort.field_res_config_settings__product_sort_criteria
+#: model:ir.model.fields,help:website_sale_product_sort.field_website__default_product_sort_criteria
+msgid "Default criteria for sorting products in the shop"
+msgstr "Criteris predeterminats per ordenar els productes a la botiga"
+
+#. module: website_sale_product_sort
+#: code:addons/website_sale_product_sort/models/website.py:16
+#, python-format
+msgid "Name - A to Z"
+msgstr "Nom - A a Z"
+
+#. module: website_sale_product_sort
+#: code:addons/website_sale_product_sort/models/website.py:17
+#, python-format
+msgid "Name - Z to A"
+msgstr "Nom - Z a A"
+
+#. module: website_sale_product_sort
+#: code:addons/website_sale_product_sort/models/website.py:13
+#, python-format
+msgid "Relevance"
+msgstr "Rellevància"
+
+#. module: website_sale_product_sort
+#: model_terms:ir.ui.view,arch_db:website_sale_product_sort.res_config_settings_view_form
+msgid "Sort Criteria"
+msgstr "Criteri d'ordenació"
+
+#. module: website_sale_product_sort
+#: model:ir.model.fields,field_description:website_sale_product_sort.field_res_config_settings__product_sort_criteria
+#: model:ir.model.fields,field_description:website_sale_product_sort.field_website__default_product_sort_criteria
+msgid "Sort products by"
+msgstr "Ordenar productes per"
+
+#. module: website_sale_product_sort
+#: model:ir.model,name:website_sale_product_sort.model_website
+msgid "Website"
+msgstr "Lloc web"
