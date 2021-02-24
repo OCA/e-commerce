@@ -12,14 +12,7 @@
     "license": "LGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "website_sale",
-    ],
-    "data": [
-        "templates/assets.xml",
-        "templates/product.xml",
-    ],
-    "demo": [
-        "demo/assets.xml",
-    ],
+    "depends": ["website_sale",],
+    "data": ["templates/assets.xml", "templates/product.xml",],
+    "demo": ["demo/assets.xml",],
 }

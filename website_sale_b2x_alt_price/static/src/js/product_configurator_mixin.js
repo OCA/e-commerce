@@ -1,7 +1,7 @@
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
 
-odoo.define("website_sale_b2x_alt_price", function (require) {
+odoo.define("website_sale_b2x_alt_price", function(require) {
     "use strict";
 
     var ProductConfiguratorMixin = require("sale.ProductConfiguratorMixin");
@@ -22,7 +22,7 @@ odoo.define("website_sale_b2x_alt_price", function (require) {
      * @param {$.Element} $parent
      * @param {Object} combination
      */
-    ProductConfiguratorMixin._onChangeCombinationAltPrices = function (
+    ProductConfiguratorMixin._onChangeCombinationAltPrices = function(
         _ev,
         $parent,
         combination
@@ -44,7 +44,7 @@ odoo.define("website_sale_b2x_alt_price", function (require) {
          *
          * @override
          */
-        _onChangeCombination: function () {
+        _onChangeCombination: function() {
             ProductConfiguratorMixin._onChangeCombinationAltPrices.apply(
                 this,
                 arguments
