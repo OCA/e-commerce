@@ -1,7 +1,7 @@
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
 
-odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
+odoo.define("website_sale_b2x_alt_price.tour_b2c", function(require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -59,7 +59,8 @@ odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
             },
             {
                 content: "select website_sale_b2x_alt_price discounted",
-                trigger: ".switcher_pricelist:containsExact('website_sale_b2x_alt_price discounted')",
+                trigger:
+                    ".switcher_pricelist:containsExact('website_sale_b2x_alt_price discounted')",
             },
             // Pen now has 10% discount
             {
@@ -95,7 +96,8 @@ odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
             // Change to "website_sale_b2x_alt_price public" pricelist; 10% discount disappears
             {
                 content: "select website_sale_b2x_alt_price public",
-                trigger: ".switcher_pricelist:containsExact('website_sale_b2x_alt_price public')",
+                trigger:
+                    ".switcher_pricelist:containsExact('website_sale_b2x_alt_price public')",
             },
             {
                 content: "select variant: a4 size",
