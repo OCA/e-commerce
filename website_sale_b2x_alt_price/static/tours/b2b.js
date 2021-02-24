@@ -4,10 +4,10 @@
 odoo.define("website_sale_b2x_alt_price.tour_b2b", function(require) {
     "use strict";
 
-    var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+    const tour = require("web_tour.tour");
+    const base = require("web_editor.base");
 
-    var searchResultsPage = "/shop?search=website_sale_b2x_alt_price";
+    const searchResultsPage = "/shop?search=website_sale_b2x_alt_price";
 
     /**
      * Go directly to the filtered products page.

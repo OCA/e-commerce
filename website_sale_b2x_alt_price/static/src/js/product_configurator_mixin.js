@@ -4,13 +4,13 @@
 odoo.define("website_sale_b2x_alt_price", function(require) {
     "use strict";
 
-    var ProductConfiguratorMixin = require("sale.ProductConfiguratorMixin");
-    var animation = require("website.content.snippets.animation");
+    const VariantMixin = require("sale.VariantMixin");
+    const publicWidget = require("web.public.widget");
 
     /**
      * Change alt prices when picking a product configurator combination.
      *
-     * Addition to `ProductConfiguratorMixin._onChangeCombination`.
+     * Addition to `VariantMixin._onChangeCombination`.
      *
      * This behavior is only applied for the web shop (and not on the SO form)
      * and only for the main product.
@@ -22,11 +22,7 @@ odoo.define("website_sale_b2x_alt_price", function(require) {
      * @param {$.Element} $parent
      * @param {Object} combination
      */
-    ProductConfiguratorMixin._onChangeCombinationAltPrices = function(
-        _ev,
-        $parent,
-        combination
-    ) {
+    VariantMixin._onChangeCombinationAltPrices = function(_ev, $parent, combination) {
         // Write new alt prices
         $parent
             .find(".js_alt_price .oe_currency_value")
@@ -38,20 +34,17 @@ odoo.define("website_sale_b2x_alt_price", function(require) {
             .text(this._priceToStr(combination.alt_list_price));
     };
 
-    animation.registry.WebsiteSale.include({
+    publicWidget.registry.WebsiteSale.include({
         /**
          * Add alt price onchange to the regular _onChangeCombination method.
          *
          * @override
          */
         _onChangeCombination: function() {
-            ProductConfiguratorMixin._onChangeCombinationAltPrices.apply(
-                this,
-                arguments
-            );
+            VariantMixin._onChangeCombinationAltPrices.apply(this, arguments);
             return this._super.apply(this, arguments);
         },
     });
 
-    return ProductConfiguratorMixin;
+    return VariantMixin;
 });

@@ -18,6 +18,8 @@ class UICase(HttpCase):
             }
         )
         website.user_id.property_product_pricelist = pricelist
+        admin = self.env.ref("base.user_admin")
+        admin.property_product_pricelist = pricelist
         # Create some demo taxes
         self.tax_group_22 = self.env["account.tax.group"].create(
             {"name": "Tax group 22%"}
@@ -84,7 +86,7 @@ class UICase(HttpCase):
             }
         )
         self.sheet_size = self.env["product.attribute"].create(
-            {"name": "Sheet size", "type": "radio", "create_variant": "always"}
+            {"name": "Sheet size", "create_variant": "always"}
         )
         self.sheet_size_a4 = self.env["product.attribute.value"].create(
             {"name": "A4", "attribute_id": self.sheet_size.id, "sequence": 20}
@@ -92,28 +94,26 @@ class UICase(HttpCase):
         self.sheet_size_a5 = self.env["product.attribute.value"].create(
             {"name": "A5", "attribute_id": self.sheet_size.id, "sequence": 10}
         )
-        self.notebook_a4 = self.env["product.product"].create(
-            {
-                "default_code": "NB_A4",
-                "product_tmpl_id": self.notebook.id,
-                "attribute_value_ids": [(6, 0, self.sheet_size_a4.ids)],
-            }
-        )
-        self.notebook_a5 = self.env["product.product"].create(
-            {
-                "default_code": "NB_A5",
-                "product_tmpl_id": self.notebook.id,
-                "attribute_value_ids": [(6, 0, self.sheet_size_a5.ids)],
-            }
-        )
-        self.notebook_attline_sheet_size = self.env[
-            "product.template.attribute.line"
-        ].create(
+        self.notebook_attline = self.env["product.template.attribute.line"].create(
             {
                 "product_tmpl_id": self.notebook.id,
                 "attribute_id": self.sheet_size.id,
                 "value_ids": [(6, 0, [self.sheet_size_a4.id, self.sheet_size_a5.id])],
             }
+        )
+        self.notebook_size_a4 = self.notebook_attline.product_template_value_ids[1]
+        self.notebook_size_a5 = self.notebook_attline.product_template_value_ids[0]
+        self.notebook_a4 = self.notebook._get_variant_for_combination(
+            self.notebook_size_a4
+        )
+        self.notebook_a4.write(
+            {"default_code": "NB_A4", "product_tmpl_id": self.notebook.id}
+        )
+        self.notebook_a5 = self.notebook._get_variant_for_combination(
+            self.notebook_size_a5
+        )
+        self.notebook_a5.write(
+            {"default_code": "NB_A5", "product_tmpl_id": self.notebook.id}
         )
         # A4 notebook is slightly more expensive
         self.notebook_a4.product_template_attribute_value_ids.price_extra = 0.5
@@ -141,8 +141,8 @@ class UICase(HttpCase):
         assert mode in {"tax_excluded", "tax_included"}
         config = Form(self.env["res.config.settings"])
         config.show_line_subtotals_tax_selection = mode
-        config.multi_sales_price = True
-        config.multi_sales_price_method = "formula"
+        config.group_product_pricelist = True
+        config.product_pricelist_setting = "advanced"
         config.group_discount_per_so_line = True
         config = config.save()
         config.execute()
@@ -150,23 +150,17 @@ class UICase(HttpCase):
     def test_ui_website_b2b(self):
         """Test frontend b2b tour."""
         self._switch_tax_mode("tax_excluded")
-        # TODO Use self.start_tour in v13
-        service = "odoo.__DEBUG__.services['web_tour.tour']"
-        tour_name = "website_sale_b2x_alt_price_b2b"
-        self.browser_js(
-            url_path="/shop?search=website_sale_b2x_alt_price",
-            code="{}.run('{}')".format(service, tour_name),
-            ready="{}.tours.{}.ready".format(service, tour_name),
+        self.start_tour(
+            "/shop?search=website_sale_b2x_alt_price",
+            "website_sale_b2x_alt_price_b2b",
+            login="admin",
         )
 
     def test_ui_website_b2c(self):
         """Test frontend b2c tour."""
         self._switch_tax_mode("tax_included")
-        # TODO Use self.start_tour in v13
-        service = "odoo.__DEBUG__.services['web_tour.tour']"
-        tour_name = "website_sale_b2x_alt_price_b2c"
-        self.browser_js(
-            url_path="/shop?search=website_sale_b2x_alt_price",
-            code="{}.run('{}')".format(service, tour_name),
-            ready="{}.tours.{}.ready".format(service, tour_name),
+        self.start_tour(
+            "/shop?search=website_sale_b2x_alt_price",
+            "website_sale_b2x_alt_price_b2c",
+            login="admin",
         )
