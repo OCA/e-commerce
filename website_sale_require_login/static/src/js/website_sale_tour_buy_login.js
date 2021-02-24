@@ -4,6 +4,10 @@
 
 "use strict";
 (function ($) {
+
+	var website = openerp.website;
+    website.ready().done(function() {
+    
     var steps = openerp.Tour.tours.shop_buy_product.steps;
 
     // Gets user name from login menu (see openerp.Tour.log)
@@ -38,4 +42,7 @@
             }
         }
     }
+    
+    });
+    
 })(jQuery);
