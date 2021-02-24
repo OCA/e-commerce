@@ -4,9 +4,9 @@
 odoo.define("website_sale_b2x_alt_price.tour_b2c", function(require) {
     "use strict";
 
-    var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
-    var tour_b2b = require("website_sale_b2x_alt_price.tour_b2b");
+    const tour = require("web_tour.tour");
+    const base = require("web_editor.base");
+    const tour_b2b = require("website_sale_b2x_alt_price.tour_b2b");
 
     /**
      * Test eCommerce in B2C mode.
