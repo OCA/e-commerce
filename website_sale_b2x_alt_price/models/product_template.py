@@ -32,24 +32,19 @@ class ProductTemplate(models.Model):
         company_id = website.company_id
         pricelist = pricelist or website.get_current_pricelist()
         product = (
-            self.env["product.product"].browse(
-                combination_info["product_id"])
-            or self
+            self.env["product.product"].browse(combination_info["product_id"]) or self
         )
         # The list_price is always the price of one.
         quantity_1 = 1
         # Obtain the inverse field of the normal b2b/b2c behavior
         alt_field = (
             "total_included"
-            if self.env.user.has_group(
-                "account.group_show_line_subtotals_tax_excluded"
-            )
+            if self.env.user.has_group("account.group_show_line_subtotals_tax_excluded")
             else "total_excluded"
         )
         # Obtain taxes that apply to the product and context
         taxes = partner.property_account_position_id.map_tax(
-            product.sudo().taxes_id.filtered(
-                lambda x: x.company_id == company_id),
+            product.sudo().taxes_id.filtered(lambda x: x.company_id == company_id),
             product,
             partner,
         ).with_context(force_price_include=alt_field == "total_excluded")
@@ -71,8 +66,6 @@ class ProductTemplate(models.Model):
                 partner,
             )[alt_field]
         combination_info.update(
-            alt_price=alt_price,
-            alt_list_price=alt_list_price,
-            alt_field=alt_field
+            alt_price=alt_price, alt_list_price=alt_list_price, alt_field=alt_field
         )
         return combination_info

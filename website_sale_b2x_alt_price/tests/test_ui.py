@@ -1,7 +1,7 @@
 # Copyright 2020 Jairo Llopis - Tecnativa
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo.tests.common import HttpCase, Form
+from odoo.tests.common import Form, HttpCase
 
 
 class UICase(HttpCase):
@@ -10,11 +10,13 @@ class UICase(HttpCase):
         # Create and select a pricelist
         # to make tests pass no matter what l10n package is enabled
         website = self.env["website"].get_current_website()
-        pricelist = self.env["product.pricelist"].create({
-            "name": "website_sale_b2x_alt_price public",
-            "currency_id": website.user_id.company_id.currency_id.id,
-            "selectable": True,
-        })
+        pricelist = self.env["product.pricelist"].create(
+            {
+                "name": "website_sale_b2x_alt_price public",
+                "currency_id": website.user_id.company_id.currency_id.id,
+                "selectable": True,
+            }
+        )
         website.user_id.property_product_pricelist = pricelist
         # Create some demo taxes
         self.tax_group_22 = self.env["account.tax.group"].create(
@@ -110,8 +112,7 @@ class UICase(HttpCase):
             {
                 "product_tmpl_id": self.notebook.id,
                 "attribute_id": self.sheet_size.id,
-                "value_ids":
-                    [(6, 0, [self.sheet_size_a4.id, self.sheet_size_a5.id])],
+                "value_ids": [(6, 0, [self.sheet_size_a4.id, self.sheet_size_a5.id])],
             }
         )
         # A4 notebook is slightly more expensive
@@ -154,14 +155,8 @@ class UICase(HttpCase):
         tour_name = "website_sale_b2x_alt_price_b2b"
         self.browser_js(
             url_path="/shop?search=website_sale_b2x_alt_price",
-            code="{}.run('{}')".format(
-                service,
-                tour_name
-            ),
-            ready="{}.tours.{}.ready".format(
-                service,
-                tour_name
-            ),
+            code="{}.run('{}')".format(service, tour_name),
+            ready="{}.tours.{}.ready".format(service, tour_name),
         )
 
     def test_ui_website_b2c(self):
@@ -172,12 +167,6 @@ class UICase(HttpCase):
         tour_name = "website_sale_b2x_alt_price_b2c"
         self.browser_js(
             url_path="/shop?search=website_sale_b2x_alt_price",
-            code="{}.run('{}')".format(
-                service,
-                tour_name
-            ),
-            ready="{}.tours.{}.ready".format(
-                service,
-                tour_name
-            ),
+            code="{}.run('{}')".format(service, tour_name),
+            ready="{}.tours.{}.ready".format(service, tour_name),
         )
