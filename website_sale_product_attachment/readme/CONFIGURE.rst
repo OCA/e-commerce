@@ -5,7 +5,7 @@ Instead of configuring attachments per product, to configure products per attach
 #. Go to *Settings > Technical > Database Structure > Attachments*.
 #. Pick or create one.
 #. Enable *Attached To > Is public document*.
-#. Use the field *Attached in product templates* to choose the products.
+#. Use the field *Attached in products* to choose the products.
 
 .. figure:: ../static/description/backend-attachment.png
    :alt: Attachments view in backend
