@@ -27,6 +27,12 @@ class ProductTemplate(models.Model):
             ("public", "=", True),
             # Exclude Odoo asset files to avoid confusing the user
             "!",
+            ("name", "=ilike", "%.assets%.js"),
+            "!",
+            ("name", "=ilike", "%.assets%.css"),
+            "!",
+            ("name", "=ilike", "web_editor%"),
+            "!",
             ("name", "=ilike", "/web/content/%.assets%.js"),
             "!",
             ("name", "=ilike", "/web/content/%.assets%.css"),
