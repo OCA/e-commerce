@@ -11,9 +11,7 @@
     "maintainers": ["Yajo"],
     "license": "LGPL-3",
     "installable": True,
-    "depends": [
-        "website_sale",
-    ],
+    "depends": ["website_sale",],
     "data": [
         "templates/product_template.xml",
         "views/ir_attachment.xml",

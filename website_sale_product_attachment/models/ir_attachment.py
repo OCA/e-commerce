@@ -11,5 +11,5 @@ class IrAttachment(models.Model):
         string="Attached in products",
         comodel_name="product.template",
         help="Attachment publicly downladable from eCommerce pages "
-             "in these product templates.",
+        "in these product templates.",
     )
