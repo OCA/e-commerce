@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 from odoo.http import request, route
+
 from odoo.addons.website_sale.controllers import main
 
 
@@ -21,7 +22,7 @@ class WebsiteSale(main.WebsiteSale):
         attachments = request.env["ir.attachment"].search(
             [("id", "in", result.qcontext["product"].website_attachment_ids.ids)]
             + attachments_domain,
-            order="name"
+            order="name",
         )
         result.qcontext["product_attachments"] = attachments
         return result
