@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 Tecnativa - Jairo Llopis
+     Copyright 2021 Tecnativa - Víctor Martínez
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <data>
     <template
@@ -9,7 +10,7 @@
         customize_show="True"
     >
         <xpath expr="//*[@id='product_details']">
-            <t t-if="product_attachments">
+            <t t-if="product.website_attachment_ids">
                 <hr />
                 <div class="card o_not_editable" id="product_attachments">
                     <div class="card-header" id="product_attachments_header">
@@ -38,7 +39,10 @@
                         aria-labelledby="product_attachments_header"
                     >
                         <ul class="list-group list-group-flush">
-                            <t t-foreach="product_attachments" t-as="attachment">
+                            <t
+                                t-foreach="product.website_attachment_ids"
+                                t-as="attachment"
+                            >
                                 <li class="list-group-item">
                                     <a
                                         class="d-flex justify-content-start align-items-center"
