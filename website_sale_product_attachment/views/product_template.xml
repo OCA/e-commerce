@@ -18,7 +18,6 @@
                     <field name="website_attachment_ids" nolabel="1">
                         <tree>
                             <field name="name" />
-                            <field name="datas_fname" />
                             <field
                                 name="website_id"
                                 groups="website.group_multi_website"
