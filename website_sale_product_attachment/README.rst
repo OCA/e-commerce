@@ -89,11 +89,6 @@ Once you set up the product attachments, public users will be able to download t
 .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_product_attachment/static/description/frontend-download.gif
    :alt: Attachments view in backend
 
-Known issues / Roadmap
-======================
-
-* Add tests.
-
 Bug Tracker
 ===========
 
