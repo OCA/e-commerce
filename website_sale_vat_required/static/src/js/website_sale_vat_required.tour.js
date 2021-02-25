@@ -1,6 +1,6 @@
 /* License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
  */
-odoo.define("website_sale_vat_required.tour", function(require) {
+odoo.define("website_sale_vat_required.tour", function (require) {
     "use strict";
 
     require("website_sale.tour");
@@ -18,7 +18,7 @@ odoo.define("website_sale_vat_required.tour", function(require) {
             content: "Set VAT",
             trigger: "div.o_has_error label[for='vat']",
             extra_trigger: "div.o_has_error label[for='vat']",
-            run: function() {
+            run: function () {
                 $('div.o_has_error input[name="vat"]').val("US01234567891");
                 if ($("#div_phone").hasClass("o_has_error")) {
                     $("#div_phone input").val("11111111");
