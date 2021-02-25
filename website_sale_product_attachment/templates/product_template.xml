@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 Tecnativa - Jairo Llopis
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
-
 <data>
-
-    <template id="product_attachments" inherit_id="website_sale.product" name="Product downloads" customize_show="True">
+    <template
+        id="product_attachments"
+        inherit_id="website_sale.product"
+        name="Product downloads"
+        customize_show="True"
+    >
         <xpath expr="//*[@id='product_details']">
             <t t-if="product_attachments">
                 <hr />
                 <div class="card o_not_editable" id="product_attachments">
                     <div class="card-header" id="product_attachments_header">
-                        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#product_attachments_body" aria-expanded="true" aria-controls="product_attachments_body">
+                        <button
+                            class="btn btn-block text-left"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#product_attachments_body"
+                            aria-expanded="true"
+                            aria-controls="product_attachments_body"
+                        >
                             <div class="row justify-content-between">
                                 <div class="col-auto">
                                     <i class="fa fa-download" />
@@ -22,11 +32,19 @@
                             </div>
                         </button>
                     </div>
-                    <div id="product_attachments_body" class="collapse" aria-labelledby="product_attachments_header">
+                    <div
+                        id="product_attachments_body"
+                        class="collapse"
+                        aria-labelledby="product_attachments_header"
+                    >
                         <ul class="list-group list-group-flush">
                             <t t-foreach="product_attachments" t-as="attachment">
                                 <li class="list-group-item">
-                                    <a class="d-flex justify-content-start align-items-center" target="_new" t-att-href="attachment.local_url">
+                                    <a
+                                        class="d-flex justify-content-start align-items-center"
+                                        target="_new"
+                                        t-att-href="attachment.local_url"
+                                    >
                                         <span t-field="attachment.name" />
                                     </a>
                                 </li>
@@ -37,11 +55,17 @@
             </t>
         </xpath>
     </template>
-
-    <template id="download_icons" inherit_id="product_attachments" name="Download icons" customize_show="True">
+    <template
+        id="download_icons"
+        inherit_id="product_attachments"
+        name="Download icons"
+        customize_show="True"
+    >
         <xpath expr="//*[@t-field='attachment.name']" position="before">
-            <span class="o_image mr8 flex-shrink-0" t-att-data-mimetype="attachment.mimetype" />
+            <span
+                class="o_image mr8 flex-shrink-0"
+                t-att-data-mimetype="attachment.mimetype"
+            />
         </xpath>
     </template>
-
 </data>
