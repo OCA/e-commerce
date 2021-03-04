@@ -25,14 +25,14 @@ class WebsiteSale(WebsiteSale):
                 type='http',
                 auth='public',
                 website=True)
-    def shop(self, page=0, category=None, brand=None, search='', **post):
+    def shop(self, page=0, category=None, search='', ppg=False, brand=None, **post):
         if brand:
             context = dict(request.env.context)
             context.setdefault('brand_id', int(brand))
             request.env.context = context
         return super(WebsiteSale, self).shop(page=page, category=category,
-                                             brand=brand, search=search,
-                                             **post)
+                                             search=search, ppg=ppg,
+                                             brand=brand, **post)
 
     # Method to get the brands.
     @http.route(
