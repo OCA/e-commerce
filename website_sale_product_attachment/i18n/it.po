@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-03-08 09:39+0000\n"
-"Last-Translator: Angeli Cecilia <cecilia@ooops404.com>\n"
+"PO-Revision-Date: 2021-03-08 11:45+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr ""
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
 msgid "Attached in products"
-msgstr "Allegato in prodotti"
+msgstr "Allegato nei prodotti"
 
 #. module: website_sale_product_attachment
 #: model:ir.model,name:website_sale_product_attachment.model_ir_attachment
@@ -59,20 +59,20 @@ msgstr ""
 #: model:ir.model.fields,help:website_sale_product_attachment.field_product_product__website_attachment_ids
 #: model:ir.model.fields,help:website_sale_product_attachment.field_product_template__website_attachment_ids
 msgid "Files publicly downloadable from the product eCommerce page."
-msgstr "Files pubblicamente scaricabili dalla pagina prodotto eCommerce"
+msgstr "Files pubblicamente scaricabili dalla pagina prodotto eCommerce."
 
 #. module: website_sale_product_attachment
 #: model:ir.model,name:website_sale_product_attachment.model_product_template
 msgid "Product Template"
-msgstr "Modello di Prodotto"
+msgstr "Modello Prodotto"
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
 msgid "Website Attachments"
-msgstr "Allegati lato web"
+msgstr "Allegati Sito Web"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_product__website_attachment_ids
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__website_attachment_ids
 msgid "Website attachments"
-msgstr "Allegati lato web"
+msgstr "Allegati Sito Web"
