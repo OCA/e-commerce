@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_attribute_filter_category',
         'odoo13-addon-website_sale_attribute_filter_order',
         'odoo13-addon-website_sale_attribute_filter_price',
+        'odoo13-addon-website_sale_checkout_country_vat',
         'odoo13-addon-website_sale_checkout_skip_payment',
         'odoo13-addon-website_sale_hide_empty_category',
         'odoo13-addon-website_sale_hide_price',
