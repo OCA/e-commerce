@@ -15,6 +15,7 @@
     "depends": ["website_sale", "partner_firstname", "portal"],
     "data": [
         "data/data.xml",
-        "views/templates.xml",],
+        "views/templates.xml",
+    ],
     "installable": True,
 }

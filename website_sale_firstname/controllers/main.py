@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class WebsiteSaleExtended(WebsiteSale):
     def values_preprocess(self, order, mode, values):
-       return values
+        return values
 
     def _get_mandatory_billing_fields(self):
         return [
@@ -28,5 +28,8 @@ class WebsiteSaleExtended(WebsiteSale):
 
 class CustomerPortalExtend(CustomerPortal):
 
-    MANDATORY_BILLING_FIELDS = ["firstname", "lastname", "phone", "email", "street", "city", "country_id"]
+    MANDATORY_BILLING_FIELDS = [
+        "firstname", "lastname", "phone",
+        "email", "street", "city", "country_id"
+    ]
     OPTIONAL_BILLING_FIELDS = ["zipcode", "state_id", "vat", "company_name"]
