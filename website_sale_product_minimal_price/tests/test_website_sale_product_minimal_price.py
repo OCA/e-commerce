@@ -13,7 +13,12 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
         ProductAttributeValue = self.env['product.attribute.value']
         ProductTmplAttributeValue = self.env[
             'product.template.attribute.value']
-
+        self.pricelist = self.env['product.pricelist'].create({
+            'name': 'Test pricelist minimal price',
+            "selectable": True,
+        })
+        user = self.env['res.users'].search([('name', 'like', 'Admin')])
+        user.property_product_pricelist = self.pricelist
         self.product_attribute = ProductAttribute.create({
             'name': 'Test',
             'website_published': True,
@@ -68,4 +73,5 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
             url_path="/",
             code="%s.run('%s')" % tour,
             ready="%s.tours['%s'].ready" % tour,
+            login="admin"
         )

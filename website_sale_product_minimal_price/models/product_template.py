@@ -1,120 +1,97 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
+# Copyright 2020 Tecnativa - Carlos Roca
+# Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import fields, models, tools
+from odoo import models
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    def _get_cheapest_info(self, pricelist):
+        """Helper method for getting the variant with lowest price."""
+        # TODO: Cache this method for getting better performance
+        self.ensure_one()
+        context = dict(self.env.context, pricelist=pricelist.id)
+        min_price = 99999999
+        product_id = False
+        add_qty = 0
+        has_distinct_price = False
+        # Variants with extra price
+        variants_extra_price = self.product_variant_ids.filtered('price_extra')
+        variants_without_extra_price = self.product_variant_ids - variants_extra_price
+        # Avoid compute prices when pricelist has not item variants defined
+        variant_items = pricelist.item_ids.filtered(
+            lambda i: i.product_id in self.product_variant_ids
+        )
+        if variant_items:
+            # Take into account only the variants defined in pricelist and one
+            # variant not defined to compute prices defined at template or
+            # category level. Maybe there is any definition on template that
+            # has cheaper price.
+            variants = variant_items.mapped('product_id')
+            products = variants + (self.product_variant_ids - variants)[:1]
+        else:
+            products = variants_without_extra_price[:1]
+        products |= variants_extra_price
+        for product in products:
+            for qty in [1, 99999999]:
+                context = dict(context, quantity=qty)
+                product_price = product.with_context(context).price
+                if product_price != min_price and min_price != 99999999:
+                    # Mark if there are different prices iterating over
+                    # variants and comparing qty 1 and maximum qty
+                    has_distinct_price = True
+                if product_price < min_price:
+                    min_price = product_price
+                    add_qty = qty
+                    product_id = product.id
+        return product_id, add_qty, has_distinct_price
+
     def _get_combination_info(
         self, combination=False, product_id=False, add_qty=1, pricelist=False,
             parent_combination=False, only_template=False):
+        """Update product template prices for products items view in website
+        shop render with cheaper variant prices. We are testing both edges for
+        quantity, considering that one of them will be the cheaper one.
         """
-        Update product template prices for products items view in website shop
-        render with cheaper variant prices.
-        Checking the context, we can know if we are on grid view or at the product view.
-        With this comprobation we avoid problems rendering the price at the product
-        view.
-        """
-        has_pricelist_items = False
-        quantity = self.env.context.get('quantity', add_qty)
-        context = dict(
-            self.env.context,
-            quantity=quantity,
-            pricelist=pricelist.id if pricelist else False
-        )
-        product_template = self.with_context(context)
-        combination = combination or product_template.env[
-            'product.template.attribute.value']
-        if product_id and not combination:
-            product = product_template.env['product.product'].browse(product_id)
-        else:
-            product = product_template._get_variant_for_combination(combination)
+        self.ensure_one()
+        has_distinct_price = False
         if pricelist and "bin_size" in self.env.context:
-            # In this version the categories are not contempled.
-            today = fields.Date.today()
-            pricelist_items = pricelist.item_ids.filtered(
-                lambda i: i.product_tmpl_id.id == self.id
-                or i.product_id.product_tmpl_id.id == self.id
-                and i.min_quantity > add_qty
-                and (not i.date_start or i.date_start <= today)
-                and (not i.date_end or today <= i.date_end))
-            has_pricelist_items = bool(pricelist_items)
-            if product:
-                min_price = product.list_price
-                for item in pricelist_items:
-                    final_price = item.fixed_price
-                    price = product.list_price
-                    price_limit = product.list_price
-                    if item.compute_price == 'formula':
-                        price = (
-                            price_limit - (price_limit * item.price_discount) / 100
-                        )
-                        if item.price_round:
-                            price = tools.float_round(
-                                price, precision_rounding=item.price_round)
-                        if item.price_surcharge:
-                            price += item.price_surcharge
-                        if item.price_min_margin:
-                            price = max(price, price_limit + item.price_min_margin)
-                        if item.price_max_margin:
-                            price = min(price, price_limit + item.price_max_margin)
-                        final_price = price
-                    elif item.compute_price == 'percentage':
-                        final_price = (
-                            product.list_price - (
-                                product.list_price * item.percent_price) / 100
-                        )
-                    if final_price < min_price:
-                        add_qty = item.min_quantity
-                        min_price = final_price
-        combination_info = super()._get_combination_info(
+            # This key in the context indicates that we are on the grid view,
+            # for avoiding problems on the product view
+            # FIXME: Find an stronger condition for this - Check only_template?
+            only_template = False
+            product_id, add_qty, has_distinct_price = self._get_cheapest_info(
+                pricelist)
+        res = super()._get_combination_info(
             combination=combination, product_id=product_id, add_qty=add_qty,
             pricelist=pricelist, parent_combination=parent_combination,
             only_template=only_template)
-        if (only_template and self.env.context.get('website_id') and
-                (self.product_variant_count > 1 or has_pricelist_items)):
-            cheaper_variant = self.product_variant_ids.sorted(
-                key=lambda p: p._get_combination_info_variant(
-                    pricelist=pricelist
-                )['price']
-            )[:1]
-
-            res = cheaper_variant._get_combination_info_variant(pricelist=pricelist)
-
-            combination_info.update({
-                'price': res.get('price'),
-                'list_price': res.get('list_price'),
-                'has_discounted_price': res.get('has_discounted_price'),
-                'has_distinct_price': True,
-            })
-        return combination_info
+        # Inject the boolean for telling if putting "From " text before price
+        res["has_distinct_price"] = has_distinct_price
+        return res
 
     def _get_first_possible_combination(
             self, parent_combination=None, necessary_values=None):
-        """
-        Get the cheaper product combination for the product for website view.
-        We only take into account attributes that generate variants and
-        products with more than one variant.
-        """
-        combination = super()._get_first_possible_combination(
+        """Get the cheaper product combination for the website view."""
+        res = super()._get_first_possible_combination(
             parent_combination=parent_combination,
             necessary_values=necessary_values
         )
-        if (self.env.context.get('website_id') and
+        context = self.env.context
+        if (context.get("website_id") and context.get("pricelist") and
                 self.product_variant_count > 1):
-            ptav_obj = self.env['product.template.attribute.value']
-            pav = self.product_variant_ids.sorted(
-                'website_price')[:1].attribute_value_ids
-            cheaper_combination = ptav_obj.search([
-                ('product_tmpl_id', '=', self.id),
-                ('product_attribute_value_id', 'in', pav.ids),
-            ])
-            variant_combination = combination.filtered(
-                lambda x: x.attribute_id.create_variant == 'always')
-            combination_returned = cheaper_combination + (
-                combination - variant_combination)
-            # Keep order to avoid This combination does not exist message
-            return combination_returned.sorted(
-                lambda x: x.attribute_id.sequence)
-        return combination
+            # It only makes sense to change the default one when there are
+            # more than one variants and we know the pricelist
+            pricelist = self.env["product.pricelist"].browse(
+                context["pricelist"])
+            product_id = self._get_cheapest_info(pricelist)[0]
+            product = self.env["product.product"].browse(product_id)
+            ptavs = product.product_template_attribute_value_ids
+            variant_attributes = ptavs.mapped("attribute_id")
+            # remove returned values that are variant specific
+            res.filtered(lambda x: x.attribute_id not in variant_attributes)
+            # and inject cheapest variant ones
+            res += ptavs
+        return res
