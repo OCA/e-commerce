@@ -52,13 +52,6 @@ Usage
 #. Click on product, the price displayed is the minimal variant price. On the chart
    under the buy button you can see the different taxes applied to the product.
 
-Known issues / Roadmap
-======================
-
-* This module assumes that the minimum price is got either with the lowest
-  product quantity or the highest one (the most usual). If it's not your case,
-  then the price displayed in the product list/grid won't be the minimum.
-
 Changelog
 =========
 
