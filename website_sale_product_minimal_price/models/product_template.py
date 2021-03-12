@@ -19,6 +19,7 @@ class ProductTemplate(models.Model):
         has_distinct_price = False
         # Variants with extra price
         variants_extra_price = self.product_variant_ids.filtered('price_extra')
+        variants_without_extra_price = self.product_variant_ids - variants_extra_price
         # Avoid compute prices when pricelist has not item variants defined
         variant_items = pricelist.item_ids.filtered(
             lambda i: i.product_id in self.product_variant_ids
@@ -31,7 +32,7 @@ class ProductTemplate(models.Model):
             variants = variant_items.mapped('product_id')
             products = variants + (self.product_variant_ids - variants)[:1]
         else:
-            products = self.product_variant_ids[:1]
+            products = variants_without_extra_price[:1]
         products |= variants_extra_price
         for product in products:
             for qty in [1, 99999999]:
