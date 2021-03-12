@@ -39,7 +39,7 @@ odoo.define("website_sale_stock_available_display.tour", function(require) {
         {
             trigger: "span:contains('Process Checkout')",
             extra_trigger:
-                ".availability_messages:has(span:contains('10.0 Units in stock'))",
+                ".availability_messages:has(span:contains('10.000 Units in stock'))",
         },
         {
             trigger: ".btn-primary:contains('Confirm Order')",
@@ -47,7 +47,7 @@ odoo.define("website_sale_stock_available_display.tour", function(require) {
         {
             trigger: "a[href='/shop']",
             extra_trigger:
-                ".availability_messages:has(span:contains('10.0 Units in stock'))",
+                ".availability_messages:has(span:contains('10.000 Units in stock'))",
         },
     ];
     tour.register(
