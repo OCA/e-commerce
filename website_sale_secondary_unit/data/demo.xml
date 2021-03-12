@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="0">
+    <record id="secondary_unit_box_5" model="product.secondary.unit">
+        <field name="name">Box</field>
+        <field name="uom_id" ref="uom.product_uom_unit" />
+        <field name="factor">5.0</field>
+        <field
+            name="product_tmpl_id"
+            ref="product.product_product_11_product_template"
+        />
+        <field name="website_published">True</field>
+    </record>
+    <record id="secondary_unit_box_10" model="product.secondary.unit">
+        <field name="name">Box</field>
+        <field name="uom_id" ref="uom.product_uom_unit" />
+        <field name="factor">10.0</field>
+        <field
+            name="product_tmpl_id"
+            ref="product.product_product_11_product_template"
+        />
+        <field name="website_published">True</field>
+    </record>
+    <record id="product.product_product_11" model="product.product">
+        <field
+            name="secondary_uom_ids"
+            eval="[(6, 0, [ref('website_sale_secondary_unit.secondary_unit_box_5'),
+                                                           ref('website_sale_secondary_unit.secondary_unit_box_10')]),]"
+        />
+        <field name="allow_uom_sell" eval="True" />
+    </record>
+</odoo>

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
-"PO-Revision-Date: 2021-02-17 19:45+0000\n"
+"PO-Revision-Date: 2021-02-25 17:45+0000\n"
 "Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "Language: ca\n"
@@ -65,7 +65,7 @@ msgstr "Nom invers"
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__is_link_active
 msgid "Is Link Active"
-msgstr ""
+msgstr "Està el link actiu"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__is_symmetric
@@ -161,7 +161,7 @@ msgstr "Enllaços de producte"
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_product__product_template_link_count
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__product_template_link_count
 msgid "Product Links Count"
-msgstr ""
+msgstr "Recompte d'enllaços de producte"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template
@@ -172,48 +172,45 @@ msgstr "Plantilla del producte"
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_link_type_act_window
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
-#, fuzzy
 msgid "Product Template Link Type"
-msgstr "Plantilla del producte"
+msgstr "Tipus d'enllaç de plantilla de producte"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
-#, fuzzy
 msgid "Product link"
-msgstr "Plantilla del producte"
+msgstr "Link del producte"
 
 #. module: product_template_multi_link
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
-#, fuzzy, python-format
+#, python-format
 msgid "Product links"
-msgstr "Plantilla del producte"
+msgstr "Links del producte"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
-#, fuzzy
 msgid "Product template links"
-msgstr "Plantilla del producte"
+msgstr "Links de plantilles del producte"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__left_product_tmpl_id
 msgid "Source Product"
-msgstr ""
+msgstr "Producte d'origen"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__code
 msgid "Technical code"
-msgstr ""
+msgstr "Codi tècnic"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__inverse_code
 msgid "Technical code (inverse)"
-msgstr ""
+msgstr "Codi tècnic ( invers)"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type__is_symmetric
 msgid "The relation meaning is the same from each side of the relation"
-msgstr ""
+msgstr "El significat de la relació és el mateix de cada costat de la relació"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type__code
@@ -221,26 +218,26 @@ msgstr ""
 msgid ""
 "This code allows to provide a technical code to externalsystems identifying "
 "this link type"
-msgstr ""
+msgstr "El significat de la relació és el mateix de cada costat de la relació"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #. module: product_template_multi_link
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_up_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_up_selling
 msgid "Up Selling"
-msgstr ""
+msgstr "Venda a l'alça"
 
 #. module: product_template_multi_link
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_demo_range
 msgid "Upper Range"
-msgstr ""
+msgstr "Rang superior"
 
 #. module: product_template_multi_link
 #: code:addons/product_template_multi_link/models/product_template_link.py:0
 #, python-format
 msgid "You can only create a link between 2 different products"
-msgstr ""
+msgstr "Només es pot crear un link entre 2 productes diferents"

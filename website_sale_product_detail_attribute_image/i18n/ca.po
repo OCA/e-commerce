@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_detail_attribute_image
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-02-25 17:46+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute_value
+msgid "Attribute Value"
+msgstr "Valor d'atribut"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
+msgid "Display attribute image in shop online product detail"
+msgstr ""
+"Mostra la imatge de l'atribut al detall del producte de la botiga en línia"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
+msgid "Image of the attribute for shop online product detail."
+msgstr "Imatge de l'atribut del detall del producte de la botiga en línia."
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute
+msgid "Product Attribute"
+msgstr "Atribut de producte"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
+msgid "Publish in website"
+msgstr "Publicar a la web"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
+msgid "Website detail image"
+msgstr "Imatge de detall del lloc web"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_name
+msgid "Website name"
+msgstr "Nom de la web"
+
+#. module: website_sale_product_detail_attribute_image
+#: model_terms:ir.ui.view,arch_db:website_sale_product_detail_attribute_image.product_attribute_view_form
+msgid "Website product image detail"
+msgstr "Detall de la imatge del producte del lloc web"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__website_name
+msgid "Website value"
+msgstr "Valor del lloc web"
