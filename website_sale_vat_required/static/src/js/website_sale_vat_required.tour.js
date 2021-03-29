@@ -20,10 +20,12 @@ odoo.define('website_sale_vat_required.tour', function(require) {
             extra_trigger: "div.o_has_error label[for='vat']",
             run: function (actions) {
                 $('div.o_has_error input[name="vat"]').val("US01234567891");
+                // Integration with phone_validation
                 if ($('#div_phone').hasClass('o_has_error')){
                     $('#div_phone input').val('11111111');
                 }
-                $('div.o_has_error input[name="accepted_legal_terms"]').prop("checked", true);
+                // Integration with website_sale_require_legal
+                $('#accepted_legal_terms.is-invalid').prop("checked", true);
             }
         },
         {
