@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2020 Algoritmun Ltd.
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+    <template id="portal_my_details" name="My Details" inherit_id="portal.portal_my_details">
+        <xpath expr="//input[@name='name']/.." position="replace">
+            <div t-attf-class="form-group #{error.get('firstname') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="firstname">Firstname</label>
+                <input type="text" name="firstname" t-attf-class="form-control #{error.get('firstname') and 'is-invalid' or ''}" t-att-value="firstname or partner.firstname" />
+            </div>
+            <div t-attf-class="form-group #{error.get('lastname') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="lastname">Lastname</label>
+                <input type="text" name="lastname" t-attf-class="form-control #{error.get('lastname') and 'is-invalid' or ''}" t-att-value="lastname or partner.lastname" />
+            </div>
+        </xpath>
+    </template>
+</odoo>
