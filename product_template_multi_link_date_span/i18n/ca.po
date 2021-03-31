@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_template_multi_link_date_span
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-02-25 17:46+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: product_template_multi_link_date_span
+#: code:addons/product_template_multi_link_date_span/models/product_template_link.py:0
+#, python-format
+msgid "A start date is required according to link type: %s"
+msgstr "Cal una data d'inici segons el tipus d'enllaç :%s"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__date_end
+msgid "End Date"
+msgstr "Data final"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__limited_by_dates
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link_type__limited_by_dates
+msgid "Limited By Dates"
+msgstr "Limitat per dates"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link__limited_by_dates
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link_type__limited_by_dates
+msgid "Links of this type will have a limited life based on start/end dates."
+msgstr ""
+"Els enllaços d’aquest tipus tindran una vida útil limitada segons les dates "
+"d’inici / finalització."
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__mandatory_date_start
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link_type__mandatory_date_start
+msgid "Mandatory Date Start"
+msgstr "Data d'inici obligatòria"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model,name:product_template_multi_link_date_span.model_product_template_link_type
+msgid "Product Template Link Type"
+msgstr "Tipus d'enllaç de plantilla de producte"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model,name:product_template_multi_link_date_span.model_product_template_link
+msgid "Product link"
+msgstr "Link del producte"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,field_description:product_template_multi_link_date_span.field_product_template_link__date_start
+msgid "Start Date"
+msgstr "Data d'inici"
+
+#. module: product_template_multi_link_date_span
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link__mandatory_date_start
+#: model:ir.model.fields,help:product_template_multi_link_date_span.field_product_template_link_type__mandatory_date_start
+msgid "When limited by dates, make date start required."
+msgstr ""
+"Quan estigui limitat per dates, cal que feu que la data sigui requerida."

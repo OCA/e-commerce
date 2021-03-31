@@ -4,12 +4,15 @@
 {
     "name": "Product Template Multi Link With Dates",
     "summary": "Add an optional date span for when a link is active.",
-    "version": "13.0.1.1.0",
+    "version": "13.0.1.2.0",
     "category": "Sale",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["product_template_multi_link"],
     "website": "https://github.com/OCA/e-commerce",
-    "data": ["views/product_template_link_view.xml"],
+    "data": [
+        "views/product_template_link_view.xml",
+        "views/product_template_link_type_view.xml",
+    ],
     "installable": True,
 }

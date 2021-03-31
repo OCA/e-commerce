@@ -1,0 +1,80 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_product_attachment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-01-20 20:44+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: website_sale_product_attachment
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_attachments
+msgid "<i class=\"fa fa-download\"/>\n"
+"                                    Product downloads"
+msgstr ""
+"<i class=\"fa fa-download\"/>\n"
+"                                    Descàrregues de productes"
+
+#. module: website_sale_product_attachment
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
+msgid "<i class=\"fa fa-info-circle\"/>\n"
+"                        Only public attachments can be used or created here.\n"
+"                        Removing one attachment from this list does not delete\n"
+"                        or unpublish it from your database."
+msgstr ""
+"<i class = \"fa fa-info-circle\" />\n"
+"                        Aquí només es poden utilitzar o crear fitxers "
+"adjunts públics.\n"
+"                        L'eliminació d'un fitxer adjunt d'aquesta llista no "
+"se suprimeix\n"
+"                        o anul·leu la publicació de la vostra base de dades."
+
+#. module: website_sale_product_attachment
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
+msgid "Attached in products"
+msgstr "Adjunt als productes"
+
+#. module: website_sale_product_attachment
+#: model:ir.model,name:website_sale_product_attachment.model_ir_attachment
+msgid "Attachment"
+msgstr "Adjunts"
+
+#. module: website_sale_product_attachment
+#: model:ir.model.fields,help:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
+msgid "Attachment publicly downladable from eCommerce pages in these product templates."
+msgstr ""
+"Adjunt que es pot baixar públicament de pàgines de comerç electrònic en "
+"aquestes plantilles de producte."
+
+#. module: website_sale_product_attachment
+#: model:ir.model.fields,help:website_sale_product_attachment.field_product_product__website_attachment_ids
+#: model:ir.model.fields,help:website_sale_product_attachment.field_product_template__website_attachment_ids
+msgid "Files publicly downloadable from the product eCommerce page."
+msgstr ""
+"Adjunt que es pot baixar públicament de pàgines de comerç electrònic en "
+"aquestes plantilles de producte."
+
+#. module: website_sale_product_attachment
+#: model:ir.model,name:website_sale_product_attachment.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producte"
+
+#. module: website_sale_product_attachment
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
+msgid "Website Attachments"
+msgstr "Adjunts del lloc web"
+
+#. module: website_sale_product_attachment
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_product__website_attachment_ids
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__website_attachment_ids
+msgid "Website attachments"
+msgstr "Adjunts del lloc web"

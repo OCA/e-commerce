@@ -1,1 +1,4 @@
 brand
+stock-logistics-warehouse
+sale-workflow
+website
