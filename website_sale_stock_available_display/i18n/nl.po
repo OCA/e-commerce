@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-22 12:04+0000\n"
-"PO-Revision-Date: 2021-02-22 13:05+0100\n"
-"Last-Translator: Carlos <carlos.roca@tecnativa.com>\n"
+"PO-Revision-Date: 2021-04-05 18:46+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model.fields,help:website_sale_stock_available_display.field_product_product__inventory_availability
@@ -28,17 +28,17 @@ msgstr ""
 #. module: website_sale_stock_available_display
 #: model:product.template,custom_message:website_sale_stock_available_display.product_template_wo_qty
 msgid "Available in 10 days"
-msgstr ""
+msgstr "Beschikbaar over 10 dagen"
 
 #. module: website_sale_stock_available_display
 #: model:product.template,name:website_sale_stock_available_display.product_template_wo_qty
 msgid "Computer Motherboard"
-msgstr ""
+msgstr "Computer Moederbord"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model,name:website_sale_stock_available_display.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #. module: website_sale_stock_available_display
 #: model:ir.model.fields,field_description:website_sale_stock_available_display.field_product_product__inventory_availability
@@ -57,19 +57,20 @@ msgstr "Product Sjabloon"
 #: model:ir.model.fields.selection,name:website_sale_stock_available_display.selection__res_config_settings__inventory_availability__always_no_lock
 msgid "Show inventory on website and allow sales if not enough stock"
 msgstr ""
+"Beschikbaarheid weergeven op website en verkoop toestaan bij geen voorraad"
 
 #. module: website_sale_stock_available_display
 #: model:product.product,name:website_sale_stock_available_display.product_product_w_qty
 #: model:product.template,name:website_sale_stock_available_display.product_product_w_qty_product_template
 msgid "Special Mouse"
-msgstr ""
+msgstr "Speciale muis"
 
 #. module: website_sale_stock_available_display
 #: model:product.product,uom_name:website_sale_stock_available_display.product_product_w_qty
 #: model:product.template,uom_name:website_sale_stock_available_display.product_product_w_qty_product_template
 #: model:product.template,uom_name:website_sale_stock_available_display.product_template_wo_qty
 msgid "Units"
-msgstr ""
+msgstr "stuks"
 
 #. module: website_sale_stock_available_display
 #. openerp-web
@@ -77,4 +78,4 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_available_display.stock_info
 #, python-format
 msgid "in stock"
-msgstr ""
+msgstr "Op voorraad"
