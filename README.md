@@ -20,6 +20,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 14.0.1.0.0 | Display attributes images in shop product detail
+[website_sale_stock_available](website_sale_stock_available/) | 14.0.1.0.0 | Display 'Available to promise' in shop online instead 'Quantity On Hand'
 
 [//]: # (end addons)
 
