@@ -14,13 +14,13 @@ Website Sale Stock Available
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/12.0/website_sale_stock_available
+    :target: https://github.com/OCA/e-commerce/tree/14.0/website_sale_stock_available
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-12-0/e-commerce-12-0-website_sale_stock_available
+    :target: https://translation.odoo-community.org/projects/e-commerce-14-0/e-commerce-14-0-website_sale_stock_available
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/113/12.0
+    :target: https://runbot.odoo-community.org/runbot/113/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -32,7 +32,7 @@ This module extends the functionality of 'Product Availability' module
 
 This image shows where you can see those quantities:
 
-.. image:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_stock_available/static/description/product_quantities.png
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/14.0/website_sale_stock_available/static/description/product_quantities.png
     :width: 600 px
     :alt: Product quantities
 
@@ -79,7 +79,7 @@ To use this module, you need to:
    Besides, availability messages will be based on the 'Available'
    quantity instead of the 'Forecasted' quantity.
 
-.. image:: https://raw.githubusercontent.com/OCA/e-commerce/12.0/website_sale_stock_available/static/description/availability_message.png
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/14.0/website_sale_stock_available/static/description/availability_message.png
     :width: 600 px
     :alt: Availability message
 
@@ -89,7 +89,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_available%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_available%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -109,6 +109,8 @@ Contributors
   * Ernesto Tejeda
   * Pedro M. Baeza
 
+* Iván Todorovich
+
 Maintainers
 ~~~~~~~~~~~
 
@@ -122,6 +124,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/12.0/website_sale_stock_available>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/14.0/website_sale_stock_available>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
