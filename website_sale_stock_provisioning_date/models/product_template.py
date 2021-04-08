@@ -1,6 +1,6 @@
 # Copyright 2019 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
@@ -13,10 +13,9 @@ class ProductTemplate(models.Model):
         "shows the inventory of the product in the website shop."
     )
 
-    def _get_next_provisioning_date(self):
-        return self.product_variant_ids._get_next_provisioning_date()
+    def _get_next_provisioning_date(self, company):
+        return self.product_variant_ids._get_next_provisioning_date(company)
 
-    @api.multi
     def _get_combination_info(
         self,
         combination=False,
@@ -47,6 +46,8 @@ class ProductTemplate(models.Model):
             product.show_next_provisioning_date
             and product.qty_available - product.outgoing_qty <= 0
         ):
-            provisioning_date = product._get_next_provisioning_date()
+            website_id = self.env.context.get("website_id")
+            company = self.env["website"].browse(website_id).company_id
+            provisioning_date = product._get_next_provisioning_date(company)
         combination_info.update(provisioning_date=provisioning_date)
         return combination_info
