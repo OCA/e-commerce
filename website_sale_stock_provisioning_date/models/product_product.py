@@ -4,7 +4,7 @@ from odoo import fields, models
 
 
 class ProductProduct(models.Model):
-    _inherit = 'product.product'
+    _inherit = "product.product"
 
     def _get_next_provisioning_date(self):
         domain = [
@@ -16,8 +16,6 @@ class ProductProduct(models.Model):
             ("date_expected", ">=", fields.Datetime.now()),
         ]
         move = (
-            self.env["stock.move"]
-                .sudo()
-                .search(domain, order="date_expected", limit=1)
+            self.env["stock.move"].sudo().search(domain, order="date_expected", limit=1)
         )
         return move and move.date_expected.date() or False
