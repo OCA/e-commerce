@@ -1,6 +1,6 @@
 /* Copyright 2020 Tecnativa - Ernesto Tejeda
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
-odoo.define("website_sale_stock_provisioning_date.tour", function (require) {
+odoo.define("website_sale_stock_provisioning_date.tour", function(require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -22,10 +22,12 @@ odoo.define("website_sale_stock_provisioning_date.tour", function (require) {
         },
         {
             trigger: "a#add_to_cart",
-            extra_trigger: ".availability_messages:has(span:contains('Next provisioning date:'))",
+            extra_trigger:
+                ".availability_messages:has(span:contains('Next provisioning date:'))",
         },
     ];
-    tour.register("website_sale_stock_provisioning_date",
+    tour.register(
+        "website_sale_stock_provisioning_date",
         {
             url: "/shop",
             test: true,
