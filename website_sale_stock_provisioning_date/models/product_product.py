@@ -6,9 +6,9 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    def _get_next_provisioning_date(self):
+    def _get_next_provisioning_date(self, company):
         domain = [
-            ("company_id", "=", self.env.user.company_id.id),
+            ("company_id", "=", company.id),
             ("product_id", "in", self.ids),
             ("state", "not in", ["draft", "done", "cancel"]),
             ("location_id.usage", "=", "supplier"),
