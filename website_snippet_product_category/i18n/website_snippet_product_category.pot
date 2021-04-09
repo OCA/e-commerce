@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_snippet_product_category
+# 	* website_snippet_product_category
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,9 +15,11 @@ msgstr ""
 
 #. module: website_snippet_product_category
 #. openerp-web
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:64
+#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
-msgid "An error occured with this product categories block. If the problem persists, please consider deleting it and adding a new one"
+msgid ""
+"An error occured with this product categories block. If the problem "
+"persists, please consider deleting it and adding a new one"
 msgstr ""
 
 #. module: website_snippet_product_category
@@ -27,7 +29,7 @@ msgstr ""
 
 #. module: website_snippet_product_category
 #. openerp-web
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:46
+#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
 msgid "No categories were found. Make sure you have categories defined."
 msgstr ""
@@ -61,4 +63,3 @@ msgstr ""
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
 msgstr ""
-
