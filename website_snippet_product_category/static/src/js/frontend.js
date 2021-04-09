@@ -3,37 +3,38 @@
 odoo.define("website_snippet_product_category.s_product_category", function(require) {
     "use strict";
 
-    var core = require("web.core");
-    var sAnimation = require("website.content.snippets.animation");
+    const core = require("web.core");
+    const sAnimation = require("website.content.snippets.animation");
 
-    var _t = core._t;
+    const _t = core._t;
 
     sAnimation.registry.js_product_category = sAnimation.Class.extend({
         selector: ".js_product_category",
+        disabledInEditableMode: false,
 
         /**
          * Asynchronous server side template rendering
          * @override
          */
         start: function() {
-            var self = this;
-            var template =
+            const _this = this;
+            const template =
                 this.$target.data("template") ||
                 "website_snippet_product_category.s_product_category_items";
             // Prevent user edition
-            this.$target.attr("contenteditable", "False");
+            this.$target.attr("contenteditable", "false");
 
-            var def = this._rpc({
+            const def = this._rpc({
                 route: "/website_sale/render_product_category",
                 params: {
                     template: template,
                 },
             }).then(
                 function(object_html) {
-                    var $object_html = $(object_html);
-                    var count = $object_html.find("input[name='object_count']").val();
+                    const $object_html = $(object_html);
+                    const count = $object_html.find("input[name='object_count']").val();
                     if (!count) {
-                        self.$target.append(
+                        _this.$target.append(
                             $("<div/>").append(
                                 $("<div/>", {
                                     class:
@@ -50,11 +51,11 @@ odoo.define("website_snippet_product_category.s_product_category", function(requ
                         return;
                     }
 
-                    self.$target.html($object_html);
+                    _this.$target.html($object_html);
                 },
                 function() {
-                    if (self.editableMode) {
-                        self.$target.append(
+                    if (_this.editableMode) {
+                        _this.$target.append(
                             $("<p/>", {
                                 class: "text-danger",
                                 text: _t(
