@@ -9,7 +9,7 @@
                 ref="website_sale.product_public_category_form_view"
             />
             <field name="arch" type="xml">
-                <field name="image_medium" position="before">
+                <field name="image_1920" position="before">
                     <div class="oe_button_box" name="button_box">
                         <button
                             class="oe_stat_button"
@@ -17,7 +17,10 @@
                             type="object"
                             icon="fa-globe"
                         >
-                            <field name="website_published" widget="website_button" />
+                            <field
+                                name="is_published"
+                                widget="website_publish_button"
+                            />
                         </button>
                     </div>
                 </field>

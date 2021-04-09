@@ -15,7 +15,7 @@ class Website(http.Controller):
     )
     def render_product_category(self, template, **kwargs):
         categories = request.env["product.public.category"].search(
-            [("parent_id", "=", False), ("website_published", "=", True)]
+            [("parent_id", "=", False), ("is_published", "=", True)]
         )
         keep = QueryURL("/shop", category=0)
         return request.website.viewref(template).render(

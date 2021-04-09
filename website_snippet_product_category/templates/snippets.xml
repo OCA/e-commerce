@@ -26,12 +26,12 @@
             <div
                 t-attf-class="categ_tree_level {{'pb-2 main_tree_level text-primary text-uppercase' if cur_level == 1 else ''}} {{cur_level &gt; 2 and 'pl-'+str(min((cur_level-2)*2, 5))}}"
                 t-att-data-tree-level="cur_level"
-                t-if="category.website_published"
+                t-if="category.is_published"
             >
                 <div class="d-flex d-flex-row">
                     <div
-                        t-if="category.image_small"
-                        t-field="category.image_small"
+                        t-if="category.image_128"
+                        t-field="category.image_128"
                         class="categ_img pr-1"
                         t-options="{'widget': 'image','resize': '24x24' }"
                     />
