@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_public_style_action" model="ir.actions.act_window">
         <field name="name">Product Styles</field>
@@ -6,13 +6,16 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
+            <p class="o_view_nocontent_smiling_face">
             Define a new product style
           </p>
         </field>
     </record>
-    <menuitem id="menu_catalog_styles"
+    <menuitem
+        id="menu_catalog_styles"
         action="product_public_style_action"
-        parent="website_sale.menu_product_settings" sequence="1"
-        groups="website.group_website_publisher"/>
+        parent="website_sale.menu_product_settings"
+        sequence="1"
+        groups="website.group_website_publisher"
+    />
 </odoo>
