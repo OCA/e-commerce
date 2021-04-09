@@ -23,7 +23,7 @@
             <div class="container">
                 <div class="js_product_carousel">
                     <div class='text-center'>
-                        <i class='fa fa-circle-o-notch fa-spin fa-3x fa-fwg'></i>
+                        <i class='fa fa-circle-o-notch fa-spin fa-3x fa-fwg' />
                         <span>Loading Product Carousel</span>
                     </div>
                 </div>
@@ -38,11 +38,7 @@
                 t-if="objects"
                 t-att-value="len(objects)"
             />
-            <div
-                t-att-id="uniqueId"
-                class="carousel slide d-flex"
-                data-ride="carousel"
-            >
+            <div t-att-id="uniqueId" class="carousel slide d-flex" data-ride="carousel">
                 <a
                     class="o_product_carousel_control carousel-control-prev position-relative"
                     t-att-href="'#' + uniqueId"
@@ -60,9 +56,13 @@
                         >
                             <div class="row">
                                 <t t-foreach="products" t-as="product">
-                                    <div t-attf-class="col-12 col-sm-6 col-md-#{int(12 / products_per_slide)}">
-                                        <div t-attf-class="oe_product #{' '.join(x.html_class for x in product.website_style_ids if x.html_class)}" >
-                                            <t t-call="website_sale.products_item"/>
+                                    <div
+                                        t-attf-class="col-12 col-sm-6 col-md-#{int(12 / products_per_slide)}"
+                                    >
+                                        <div
+                                            t-attf-class="oe_product #{' '.join(x.html_class for x in product.website_style_ids if x.html_class)}"
+                                        >
+                                            <t t-call="website_sale.products_item" />
                                         </div>
                                     </div>
                                 </t>

@@ -1,6 +1,6 @@
 // Copyright 2020 Tecnativa - Alexandre Díaz
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-odoo.define("website_snippet_carousel_product.snippet_options", function (require) {
+odoo.define("website_snippet_carousel_product.snippet_options", function(require) {
     "use strict";
 
     var core = require("web.core");
@@ -16,7 +16,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
         /**
          * @override
          */
-        _onLinkClick: function (ev) {
+        _onLinkClick: function(ev) {
             // Get the selected menu item
             var $elm = $(ev.target);
             if ($elm.is(".s_carousel_set_domain")) {
@@ -34,10 +34,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 );
                 this._refreshAnimations();
             } else if ($elm.is("[data-interval]")) {
-                this.$target.attr(
-                    "data-interval",
-                    $elm.attr("data-interval")
-                );
+                this.$target.attr("data-interval", $elm.attr("data-interval"));
                 this._refreshAnimations();
             }
             return this._super.apply(this, arguments);
@@ -46,7 +43,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
         /**
          * @override
          */
-        onBuilt: function () {
+        onBuilt: function() {
             this._super();
             this.select_domain();
         },
@@ -54,7 +51,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
         /**
          * @override
          */
-        _setActive: function () {
+        _setActive: function() {
             var self = this;
             this._super.apply(this, arguments);
             // Active 'Limit' option
@@ -62,10 +59,9 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 .find("[data-products-limit]")
                 .addBack("[data-products-limit]")
                 .removeClass("active")
-                .filter(function () {
+                .filter(function() {
                     var limit = $(this).attr("data-products-limit");
-                    var old_limit =
-                        self.$target.attr("data-products-limit") || '12';
+                    var old_limit = self.$target.attr("data-products-limit") || "12";
                     return old_limit === limit;
                 })
                 .addClass("active");
@@ -74,10 +70,9 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 .find("[data-products-per-slide]")
                 .addBack("[data-products-per-slide]")
                 .removeClass("active")
-                .filter(function () {
+                .filter(function() {
                     var pps = $(this).attr("data-products-per-slide");
-                    var old_pps =
-                        self.$target.attr("data-products-per-slide") || '4';
+                    var old_pps = self.$target.attr("data-products-per-slide") || "4";
                     return old_pps === pps;
                 })
                 .addClass("active");
@@ -86,10 +81,9 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 .find("[data-interval]")
                 .addBack("[data-interval]")
                 .removeClass("active")
-                .filter(function () {
+                .filter(function() {
                     var interval = $(this).attr("data-interval");
-                    var old_interval =
-                        self.$target.attr("data-interval") || '5000';
+                    var old_interval = self.$target.attr("data-interval") || "5000";
                     return old_interval === interval;
                 })
                 .addClass("active");
@@ -99,18 +93,18 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
          * Open domain selector dialog
          * @returns {Promise}
          */
-        select_domain: function () {
+        select_domain: function() {
             var self = this;
             var def = wUtils.prompt({
                 id: this.popup_template_id,
                 window_title: this.popup_title,
                 input: _t("Domain (can be empty)"),
-                init: function () {
+                init: function() {
                     return self.$target.attr("data-domain");
                 },
             });
-            return def.always(function (domain) {
-                var sdomain = domain || '';
+            return def.always(function(domain) {
+                var sdomain = domain || "";
                 self.$target.attr("data-domain", sdomain.replace(/'/g, '"'));
                 self._refreshAnimations();
                 // The change is made after the option selection, so we
@@ -118,14 +112,14 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
                 // changes are saved.
                 self.__click = true;
                 self._select(false, self.$target);
-                self.$target.trigger('snippet-option-change', [self]);
+                self.$target.trigger("snippet-option-change", [self]);
             });
         },
 
         /**
          * @override
          */
-        cleanForSave: function () {
+        cleanForSave: function() {
             this._super.apply(this, arguments);
             this.$target.empty();
         },
@@ -133,9 +127,10 @@ odoo.define("website_snippet_carousel_product.snippet_options", function (requir
         /**
          * @override
          */
-        interval: function (previewMode, value) {
-            this.$target.find('.carousel:first')
-                .carousel('dispose')
+        interval: function(previewMode, value) {
+            this.$target
+                .find(".carousel:first")
+                .carousel("dispose")
                 .carousel({
                     interval: Number(value),
                 });

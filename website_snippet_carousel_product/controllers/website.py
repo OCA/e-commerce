@@ -5,8 +5,8 @@ import time
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.website.controllers.main import QueryURL
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class ProductCarouselWebsiteSale(WebsiteSale):
@@ -26,9 +26,8 @@ class ProductCarouselWebsiteSale(WebsiteSale):
         _pricelist_context, pricelist = self._get_pricelist_context()
         # Used this way to follow Odoo implementation
         request.context = dict(
-            request.context,
-            pricelist=pricelist.id,
-            partner=request.env.user.partner_id)
+            request.context, pricelist=pricelist.id, partner=request.env.user.partner_id
+        )
         records = request.env["product.template"].search(domain or [], limit=limit)
 
         records_grouped = []
