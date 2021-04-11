@@ -12,4 +12,5 @@ class ProductTemplate(models.Model):
         "Description for e-Commerce",
         sanitize_attributes=False,
         translate=html_translate,
-        copy=False)
+        copy=False,
+    )
