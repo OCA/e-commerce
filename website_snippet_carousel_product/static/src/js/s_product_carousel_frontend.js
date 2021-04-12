@@ -3,30 +3,31 @@
 odoo.define("website_snippet_carousel_product.s_product_carousel", function(require) {
     "use strict";
 
-    var core = require("web.core");
-    var sAnimation = require("website.content.snippets.animation");
+    const core = require("web.core");
+    const sAnimation = require("website.content.snippets.animation");
 
-    var _t = core._t;
+    const _t = core._t;
 
     sAnimation.registry.js_product_carousel = sAnimation.Class.extend({
         selector: ".js_product_carousel",
+        disabledInEditableMode: false,
 
         /**
          * @override
          */
         start: function() {
-            var self = this;
-            var limit = Number(this.$target.attr("data-products-limit")) || 12;
-            var domain = this.$target.attr("data-domain") || "[]";
-            var products_per_slide =
+            const _this = this;
+            const limit = Number(this.$target.attr("data-products-limit")) || 12;
+            const domain = this.$target.attr("data-domain") || "[]";
+            const products_per_slide =
                 Number(this.$target.attr("data-products-per-slide")) || 4;
-            var interval = Number(this.$target.attr("data-interval"));
+            let interval = Number(this.$target.attr("data-interval"));
             if (_.isNaN(interval)) {
                 interval = 5000;
             }
 
             // Prevent user edition
-            this.$target.attr("contenteditable", "False");
+            this.$target.attr("contenteditable", "false");
 
             // Loading Indicator
             this.$target.html(
@@ -37,7 +38,7 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
                 )
             );
 
-            var def = this._rpc({
+            const def = this._rpc({
                 route: "/website/render_product_carousel",
                 params: {
                     limit: limit,
@@ -46,10 +47,13 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
                 },
             }).then(
                 function(object_html) {
-                    var $object_html = $(object_html);
-                    var count = $object_html.find("input[name='product_count']").val();
+                    const $object_html = $(object_html);
+                    $object_html.find(".oe_product").removeClass("oe_image_full");
+                    const count = $object_html
+                        .find("input[name='product_count']")
+                        .val();
                     if (!count) {
-                        self.$target.append(
+                        _this.$target.append(
                             $("<div/>", {class: "col-md-6 offset-md-3"}).append(
                                 $("<div/>", {
                                     class:
@@ -66,20 +70,20 @@ odoo.define("website_snippet_carousel_product.s_product_carousel", function(requ
                         return;
                     }
 
-                    self.$target.html($object_html);
-                    self.$target.find(".carousel").carousel({
+                    _this.$target.html($object_html);
+                    _this.$target.find(".carousel").carousel({
                         interval: interval,
                     });
                     // Initialize 'animations' for the product card.
                     // This is necessary because the snippet is asynchonously
                     // rendered on the server.
-                    self.trigger_up("animation_start_demand", {
-                        $target: self.$target.find(".oe_website_sale"),
+                    _this.trigger_up("widgets_start_request", {
+                        $target: _this.$target.find(".oe_website_sale"),
                     });
                 },
                 function() {
-                    if (self.editableMode) {
-                        self.$target.append(
+                    if (_this.editableMode) {
+                        _this.$target.append(
                             $("<p/>", {
                                 class: "text-danger",
                                 text: _t(

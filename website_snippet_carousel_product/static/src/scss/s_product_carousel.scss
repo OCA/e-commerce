@@ -4,6 +4,10 @@
     .oe_product {
         border-width: 0;
 
+        .oe_product_cart {
+            height: 300px;
+        }
+
         .oe_product_image,
         .oe_product_image img {
             position: unset;

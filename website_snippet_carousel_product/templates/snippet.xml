@@ -38,7 +38,11 @@
                 t-if="objects"
                 t-att-value="len(objects)"
             />
-            <div t-att-id="uniqueId" class="carousel slide d-flex" data-ride="carousel">
+            <div
+                t-att-id="uniqueId"
+                class="carousel slide d-flex carousel_edit"
+                data-ride="carousel"
+            >
                 <a
                     class="o_product_carousel_control carousel-control-prev position-relative"
                     t-att-href="'#' + uniqueId"
@@ -84,112 +88,52 @@
         </div>
     </template>
     <template id="s_product_carousel_options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-js='carousel']" position="attributes">
+            <attribute
+                name="data-selector"
+            >:not(.o_gallery > .container) > .carousel:not(.carousel_edit)</attribute>
+        </xpath>
         <xpath expr="." position="inside">
             <div data-js="js_product_carousel" data-selector=".js_product_carousel">
-                <a href="#" class="dropdown-item s_carousel_set_domain"><i
+                <we-button href="#" class="dropdown-item s_carousel_set_domain"><i
                         class="fa fa-fw fa-bars"
-                    /> Set Domain</a>
-                <div class="dropdown-submenu">
-                    <a href="#" class="dropdown-item"><i
-                            class="fa fa-fw fa-stop-circle-o"
-                        /> Limit</a>
-                    <div class="dropdown-menu" role="menu">
-                        <a href="#" class="dropdown-item" data-products-limit="2">2</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-limit="4"
-                        >4</a>
-                        <a href="#" class="dropdown-item" data-products-limit="8">8</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-limit="12"
-                        >12</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-limit="24"
-                        >24</a>
-                    </div>
-                </div>
-                <div class="dropdown-submenu">
-                    <a href="#" class="dropdown-item"><i
-                            class="fa fa-fw fa-list-ol"
-                        /> Show</a>
-                    <div class="dropdown-menu" role="menu">
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-per-slide="2"
-                        >2</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-per-slide="3"
-                        >3</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-per-slide="4"
-                        >4</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-products-per-slide="6"
-                        >6</a>
-                    </div>
-                </div>
-                <div class="dropdown-submenu">
-                    <a href="#" class="dropdown-item"><i
-                            class="fa fa-fw fa-clock-o"
-                        />Slideshow Speed</a>
-                    <div class="dropdown-menu" role="menu">
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-interval="1000"
-                        >1s</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-interval="2000"
-                        >2s</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-interval="3000"
-                        >3s</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-interval="5000"
-                        >5s</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-interval="10000"
-                        >10s</a>
-                        <a
-                            href="#"
-                            role="menuitem"
-                            class="dropdown-item"
-                            data-interval="0"
-                        >Disable autoplay</a>
-                    </div>
-                </div>
+                    /> Set Domain</we-button>
+                <we-collapse-area>
+                    <we-toggler>
+                        <i class="fa fa-fw fa-stop-circle-o" /> Limit
+                    </we-toggler>
+                    <we-collapse>
+                        <we-button data-products-limit="2">2</we-button>
+                        <we-button data-products-limit="4">4</we-button>
+                        <we-button data-products-limit="8">8</we-button>
+                        <we-button data-products-limit="12">12</we-button>
+                        <we-button data-products-limit="24">24</we-button>
+                    </we-collapse>
+                </we-collapse-area>
+                <we-collapse-area>
+                    <we-toggler>
+                        <i class="fa fa-fw fa-list-ol" /> Show
+                    </we-toggler>
+                    <we-collapse>
+                        <we-button data-products-per-slide="2">2</we-button>
+                        <we-button data-products-per-slide="3">3</we-button>
+                        <we-button data-products-per-slide="4">4</we-button>
+                        <we-button data-products-per-slide="6">6</we-button>
+                    </we-collapse>
+                </we-collapse-area>
+                <we-collapse-area>
+                    <we-toggler>
+                        <i class="fa fa-fw fa-clock-o" />Slideshow Speed
+                    </we-toggler>
+                    <we-collapse>
+                        <we-button data-interval="1000">1s</we-button>
+                        <we-button data-interval="2000">2s</we-button>
+                        <we-button data-interval="3000">3s</we-button>
+                        <we-button data-interval="5000">5s</we-button>
+                        <we-button data-interval="10000">10s</we-button>
+                        <we-button data-interval="0">Disable autoplay</we-button>
+                    </we-collapse>
+                </we-collapse-area>
             </div>
         </xpath>
     </template>

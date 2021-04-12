@@ -3,11 +3,11 @@
 odoo.define("website_snippet_carousel_product.snippet_options", function(require) {
     "use strict";
 
-    var core = require("web.core");
-    var options = require("web_editor.snippets.options");
-    var wUtils = require("website.utils");
+    const core = require("web.core");
+    const options = require("web_editor.snippets.options");
+    const wUtils = require("website.utils");
 
-    var _t = core._t;
+    const _t = core._t;
 
     options.registry.js_product_carousel = options.Class.extend({
         popup_template_id: "editor_new_product_carousel_domain",
@@ -18,24 +18,25 @@ odoo.define("website_snippet_carousel_product.snippet_options", function(require
          */
         _onLinkClick: function(ev) {
             // Get the selected menu item
-            var $elm = $(ev.target);
+            const $elm = $(ev.target);
             if ($elm.is(".s_carousel_set_domain")) {
+                ev.stopImmediatePropagation();
                 this.select_domain();
             } else if ($elm.is("[data-products-per-slide]")) {
                 this.$target.attr(
                     "data-products-per-slide",
                     $elm.attr("data-products-per-slide")
                 );
-                this._refreshAnimations();
+                this._refreshPublicWidgets();
             } else if ($elm.is("[data-products-limit]")) {
                 this.$target.attr(
                     "data-products-limit",
                     $elm.attr("data-products-limit")
                 );
-                this._refreshAnimations();
+                this._refreshPublicWidgets();
             } else if ($elm.is("[data-interval]")) {
                 this.$target.attr("data-interval", $elm.attr("data-interval"));
-                this._refreshAnimations();
+                this._refreshPublicWidgets();
             }
             return this._super.apply(this, arguments);
         },
@@ -52,7 +53,7 @@ odoo.define("website_snippet_carousel_product.snippet_options", function(require
          * @override
          */
         _setActive: function() {
-            var self = this;
+            const _this = this;
             this._super.apply(this, arguments);
             // Active 'Limit' option
             this.$el
@@ -60,8 +61,8 @@ odoo.define("website_snippet_carousel_product.snippet_options", function(require
                 .addBack("[data-products-limit]")
                 .removeClass("active")
                 .filter(function() {
-                    var limit = $(this).attr("data-products-limit");
-                    var old_limit = self.$target.attr("data-products-limit") || "12";
+                    const limit = $(this).attr("data-products-limit");
+                    const old_limit = _this.$target.attr("data-products-limit") || "12";
                     return old_limit === limit;
                 })
                 .addClass("active");
@@ -71,8 +72,9 @@ odoo.define("website_snippet_carousel_product.snippet_options", function(require
                 .addBack("[data-products-per-slide]")
                 .removeClass("active")
                 .filter(function() {
-                    var pps = $(this).attr("data-products-per-slide");
-                    var old_pps = self.$target.attr("data-products-per-slide") || "4";
+                    const pps = $(this).attr("data-products-per-slide");
+                    const old_pps =
+                        _this.$target.attr("data-products-per-slide") || "4";
                     return old_pps === pps;
                 })
                 .addClass("active");
@@ -82,8 +84,8 @@ odoo.define("website_snippet_carousel_product.snippet_options", function(require
                 .addBack("[data-interval]")
                 .removeClass("active")
                 .filter(function() {
-                    var interval = $(this).attr("data-interval");
-                    var old_interval = self.$target.attr("data-interval") || "5000";
+                    const interval = $(this).attr("data-interval");
+                    const old_interval = _this.$target.attr("data-interval") || "5000";
                     return old_interval === interval;
                 })
                 .addClass("active");
@@ -94,26 +96,33 @@ odoo.define("website_snippet_carousel_product.snippet_options", function(require
          * @returns {Promise}
          */
         select_domain: function() {
-            var self = this;
-            var def = wUtils.prompt({
-                id: this.popup_template_id,
-                window_title: this.popup_title,
-                input: _t("Domain (can be empty)"),
-                init: function() {
-                    return self.$target.attr("data-domain");
-                },
-            });
-            return def.always(function(domain) {
-                var sdomain = domain || "";
-                self.$target.attr("data-domain", sdomain.replace(/'/g, '"'));
-                self._refreshAnimations();
-                // The change is made after the option selection, so we
-                // need send a new "option change" to make sure the new
-                // changes are saved.
-                self.__click = true;
-                self._select(false, self.$target);
-                self.$target.trigger("snippet-option-change", [self]);
-            });
+            const _this = this;
+            return wUtils
+                .prompt({
+                    id: this.popup_template_id,
+                    window_title: this.popup_title,
+                    input: _t("Domain (can be empty)"),
+                    init: function() {
+                        return _this.$target.attr("data-domain");
+                    },
+                })
+                .then(domain => this.set_domain(domain.val))
+                .catch(() => this.set_domain());
+        },
+
+        /**
+         * @param {String} domain
+         */
+        set_domain: function(domain) {
+            const sdomain = domain || "";
+            this.$target.attr("data-domain", sdomain.replace(/'/g, '"'));
+            this._refreshPublicWidgets();
+            // The change is made after the option selection, so we
+            // need send a new "option change" to make sure the new
+            // changes are saved.
+            this.__click = true;
+            this._select(false, this.$target);
+            this.$target.trigger("snippet-option-change", [this]);
         },
 
         /**
