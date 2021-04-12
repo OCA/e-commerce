@@ -27,6 +27,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_product_minimal_price',
         'odoo13-addon-website_sale_product_reference_displayed',
         'odoo13-addon-website_sale_product_sort',
+        'odoo13-addon-website_sale_product_style_badge',
         'odoo13-addon-website_sale_require_login',
         'odoo13-addon-website_sale_secondary_unit',
         'odoo13-addon-website_sale_stock_available',
