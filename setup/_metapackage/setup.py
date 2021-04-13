@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_b2x_alt_price',
         'odoo13-addon-website_sale_checkout_country_vat',
         'odoo13-addon-website_sale_checkout_skip_payment',
+        'odoo13-addon-website_sale_free_qty',
         'odoo13-addon-website_sale_hide_empty_category',
         'odoo13-addon-website_sale_hide_price',
         'odoo13-addon-website_sale_product_attachment',
