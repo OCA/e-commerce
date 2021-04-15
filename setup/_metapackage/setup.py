@@ -38,6 +38,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_tax_toggle',
         'odoo13-addon-website_sale_vat_required',
         'odoo13-addon-website_sale_wishlist_keep',
+        'odoo13-addon-website_snippet_product_category',
     ],
     classifiers=[
         'Programming Language :: Python',
