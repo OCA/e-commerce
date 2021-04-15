@@ -104,6 +104,7 @@ Contributors
 
   * Alexandre D. Díaz
   * Pedro M. Baeza
+  * Carlos Roca
 
 Other credits
 ~~~~~~~~~~~~~
