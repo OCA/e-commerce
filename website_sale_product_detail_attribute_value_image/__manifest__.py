@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Detail Attribute Value Image",
     "summary": "Display attributes values images in shop product detail",
-    "version": "12.0.1.1.0",
+    "version": "13.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -11,11 +11,11 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale",],
+    "depends": ["website_sale"],
     "data": [
         "views/product_attribute_value_views.xml",
         "templates/assets.xml",
         "templates/shop_product.xml",
     ],
-    "demo": ["demo/assets_tour.xml",],
+    "demo": ["demo/assets_tour.xml"],
 }
