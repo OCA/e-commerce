@@ -11,18 +11,20 @@ class WebsiteSaleHttpCase(HttpCase):
         self.ProductAttributeLine = self.env["product.template.attribute.line"]
 
         attribute_dangerous = self.ProductAttribute.create(
-            {"name": "Dangerousness", "create_variant": "no_variant",}
+            {"name": "Dangerousness", "create_variant": "no_variant"}
         )
         product_attribute_image_high = self.ProductAttributeValue.create(
             {
                 "name": "High dangerousness",
                 "attribute_id": attribute_dangerous.id,
                 "website_product_detail_image_published": False,
-                "website_product_detail_image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                "website_product_detail_image": (
+                    "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                ),
             }
         )
         self.ProductAttributeValue.create(
-            {"name": "Low dangerousness", "attribute_id": attribute_dangerous.id,}
+            {"name": "Low dangerousness", "attribute_id": attribute_dangerous.id}
         )
         self.product_template = self.env.ref(
             "product.product_product_4_product_template"
@@ -36,11 +38,7 @@ class WebsiteSaleHttpCase(HttpCase):
         )
         self.product_template.write({"attribute_line_ids": [(4, attribute_line.id)]})
         attribute_image_policy_one = self.ProductAttribute.create(
-            {
-                "name": "Policy One",
-                "website_name": "Website Policy One",
-                "create_variant": "no_variant",
-            }
+            {"name": "Policy One", "create_variant": "no_variant"}
         )
         value_image_policy_one_1 = self.ProductAttributeValue.create(
             {
@@ -48,7 +46,9 @@ class WebsiteSaleHttpCase(HttpCase):
                 "website_name": "Policy One Value 1 for website",
                 "attribute_id": attribute_image_policy_one.id,
                 "website_product_detail_image_published": True,
-                "website_product_detail_image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                "website_product_detail_image": (
+                    "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                ),
             }
         )
         attribute_line = self.ProductAttributeLine.create(
@@ -61,14 +61,16 @@ class WebsiteSaleHttpCase(HttpCase):
         self.product_template.write({"attribute_line_ids": [(4, attribute_line.id)]})
 
         attribute_image_policy_two = self.ProductAttribute.create(
-            {"name": "Policy Two", "create_variant": "no_variant",}
+            {"name": "Policy Two", "create_variant": "no_variant"}
         )
         value_image_policy_two_1 = self.ProductAttributeValue.create(
             {
                 "name": "Policy Two Value 1",
                 "attribute_id": attribute_image_policy_two.id,
                 "website_product_detail_image_published": True,
-                "website_product_detail_image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                "website_product_detail_image": (
+                    "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                ),
             }
         )
         attribute_line = self.ProductAttributeLine.create(
