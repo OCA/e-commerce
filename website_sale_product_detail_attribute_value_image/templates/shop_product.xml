@@ -4,29 +4,32 @@
 <odoo>
     <template
         id="product_detail_attribute_value_image"
-        inherit_id="website_sale.product_attributes"
+        inherit_id="website_sale.product"
         active="True"
         customize_show="True"
         name="Attributes Values Images"
         priority="10"
     >
         <!-- Create a new zone to avoid be hidden by customize option -->
-        <xpath expr="//hr[@id='hr_product_attributes_simple']" position="after">
+        <xpath expr="//div[@id='product_attributes_simple']" position="after">
             <div id="attr_value_detail_images" />
         </xpath>
         <!-- Move the attributes loop to the new zone -->
         <xpath expr="//div[@id='attr_value_detail_images']" position="inside">
-            <xpath expr="//t[@t-as='variant_id']" position="move" />
+            <t
+                t-foreach="product.valid_product_template_attribute_line_ids"
+                t-as="variant_id"
+            />
         </xpath>
         <!-- Disable default Odoo behaviour -->
-        <xpath expr="//hr[@id='hr_product_attributes_simple']" position="attributes">
+        <xpath expr="//div[@id='product_attributes_simple']" position="attributes">
             <attribute name="t-if">0</attribute>
         </xpath>
-        <xpath expr="//t[@t-if='len(variant_id.value_ids)==1']" position="attributes">
+        <xpath expr="//t[@t-as='attribute']" position="attributes">
             <attribute name="t-if">0</attribute>
         </xpath>
         <!-- Add the attribute value images -->
-        <xpath expr="//hr[@id='hr_product_attributes_simple']" position="after">
+        <xpath expr="//div[@id='product_attributes_simple']" position="after">
             <hr t-if="attrs_published" id="attr_value_image_separator" />
         </xpath>
         <xpath expr="//t[@t-as='variant_id']" position="inside">
