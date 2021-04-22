@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Tecnativa - Jairo Llopis
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<data>
+
+    <record id="view_order_form_inherit_sale" model="ir.ui.view">
+        <field name="name">Link line to survey user input</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']//form//field[@name='tax_id']" position="after">
+                <field name="survey_user_input_id" />
+            </xpath>
+        </field>
+    </record>
+
+</data>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Tecnativa - Jairo Llopis
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<data>
+
+    <!-- Display badge on pending survey cart items -->
+    <template id="cart_line_product_link" inherit_id="website_sale.cart_line_product_link">
+        <xpath expr="//a" position="after">
+            <t t-set="survey_url" t-value="line._survey_url()" />
+            <t t-if="survey_url">
+                <t t-if="line.survey_user_input_ids.state == 'done'">
+                    <a t-att-href="survey_url" class="js_pending_survey badge badge-success" title="Click to review survey answers">
+                        <i class="fa fa-check" />
+                        Survey filled
+                    </a>
+                </t>
+                <t t-else="">
+                    <a t-att-href="survey_url" class="js_pending_survey badge badge-warning" title="Click to fill the required survey to buy this product">
+                        <i class="fa fa-warning" />
+                        Pending survey
+                    </a>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Alert users to fill pending surveys -->
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//table" position="inside">
+            <t t-set="lines_pending_survey" t-value="website_sale_order._lines_pending_survey()" />
+            <t t-if="lines_pending_survey">
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div class="js_pending_survey alert alert-warning">
+                                Before checkout, you have to fill the surveys indicated above.
+                                <a class="alert-link" t-att-href="lines_pending_survey[:1]._survey_url()">
+                                    Fill survey
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </t>
+        </xpath>
+    </template>
+
+</data>

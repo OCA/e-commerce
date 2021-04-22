@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Tecnativa - Jairo Llopis
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<data>
+
+    <template id="survey_return_cart" name="Button to return to cart from survey results">
+        <div class="mt16" t-if="user_input and user_input.sale_order_line_id">
+            <a href="/shop/cart" class="btn btn-primary">
+                <i class="fa fa-shopping-cart"/> Return to cart
+            </a>
+        </div>
+    </template>
+
+    <template id="sfinished" inherit_id="survey.sfinished">
+        <xpath expr="//div[hasclass('jumbotron')]" position="inside">
+            <t t-call="website_sale_survey.survey_return_cart"/>
+        </xpath>
+    </template>
+
+    <template id="survey_print" inherit_id="survey.survey_print">
+        <xpath expr="//div[hasclass('container')]" position="inside">
+            <t t-call="website_sale_survey.survey_return_cart"/>
+        </xpath>
+    </template>
+
+</data>
