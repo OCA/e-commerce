@@ -49,6 +49,7 @@ msgstr "Imatge de detall del lloc web"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_name
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__website_name
 msgid "Website name"
 msgstr "Nom de la web"
 
@@ -57,7 +58,5 @@ msgstr "Nom de la web"
 msgid "Website product image detail"
 msgstr "Detall de la imatge del producte del lloc web"
 
-#. module: website_sale_product_detail_attribute_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__website_name
-msgid "Website value"
-msgstr "Valor del lloc web"
+#~ msgid "Website value"
+#~ msgstr "Valor del lloc web"
