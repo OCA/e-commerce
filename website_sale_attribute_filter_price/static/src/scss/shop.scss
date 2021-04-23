@@ -1,0 +1,20 @@
+.price_filter_main {
+    .irs-primary {
+        .irs-bar {
+            background-color: var(--primary);
+        }
+        .irs-handle > i:first-child {
+            background-color: var(--primary);
+        }
+        .irs-from,
+        .irs-to,
+        .irs-single {
+            background-color: var(--primary);
+        }
+        .irs-from:before,
+        .irs-to:before,
+        .irs-single:before {
+            border-top-color: var(--primary);
+        }
+    }
+}
