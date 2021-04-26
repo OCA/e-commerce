@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_force_qty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-26 09:09+0000\n"
+"PO-Revision-Date: 2021-04-26 09:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_force_qty
+#: model_terms:ir.ui.view,arch_db:website_sale_force_qty.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_force_qty.product_configurator_configure_optional_products
+msgid "<span class=\"badge badge-pill text-info\">\n"
+"                        <i class=\"fa fa-info\"/>\n"
+"                        This product has a fixed quantity\n"
+"                    </span>"
+msgstr ""
+
+#. module: website_sale_force_qty
+#: model:ir.model.fields,field_description:website_sale_force_qty.field_product_product__website_sale_force_qty
+#: model:ir.model.fields,field_description:website_sale_force_qty.field_product_template__website_sale_force_qty
+msgid "Force quantity in website"
+msgstr ""
+
+#. module: website_sale_force_qty
+#: model:ir.model.fields,help:website_sale_force_qty.field_product_product__website_sale_force_qty
+#: model:ir.model.fields,help:website_sale_force_qty.field_product_template__website_sale_force_qty
+msgid "Limit the product to a specific quantity to be bought in the website. Set to 0 to disable"
+msgstr ""
+
+#. module: website_sale_force_qty
+#: model:ir.model,name:website_sale_force_qty.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: website_sale_force_qty
+#: model:ir.model,name:website_sale_force_qty.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: website_sale_force_qty
+#: sql_constraint:product.template:0
+msgid "The forced quantity on the website can not be negative"
+msgstr ""
+
+#. module: website_sale_force_qty
+#: model_terms:ir.ui.view,arch_db:website_sale_force_qty.product
+msgid "This product has a fixed quantity"
+msgstr ""

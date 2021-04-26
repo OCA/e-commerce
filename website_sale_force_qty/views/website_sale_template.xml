@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Block quantity selector if website_sale_force_qty -->
+
+    <!-- Product view -->
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
+        <xpath expr="//div[hasclass('css_quantity')]//div[hasclass('input-group-prepend')]//a[i[hasclass('fa-minus')]]" position="attributes">
+            <attribute name="t-if">not product.website_sale_force_qty</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('css_quantity')]//input" position="attributes">
+            <attribute name="t-att-disabled">1 if product.website_sale_force_qty else 0</attribute>
+            <attribute name="t-att-value">int(product.website_sale_force_qty) or 1</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('css_quantity')]//div[hasclass('input-group-append')]//a[i[hasclass('fa-plus')]]" position="attributes">
+            <attribute name="t-if">not product.website_sale_force_qty</attribute>
+        </xpath>
+    </template>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//a[@id='add_to_cart']" position="after">
+            <t t-if="product.website_sale_force_qty">
+                <div class="o_not_editable">
+                    <div class="text-info mt16">
+                        This product has a fixed quantity
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Hidden product view for each product in shop overview -->
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//form//input" position="after">
+            <input type="hidden" name="add_qty" t-att-value="product.website_sale_force_qty or 1"/>
+        </xpath>
+    </template>
+
+    <!-- Cart view -->
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//td[hasclass('td-product_name')]" position="inside">
+            <t t-if="line.product_id.website_sale_force_qty">
+                <div class="oe_website_spinner">
+                    <span class="badge badge-pill text-info">
+                        <i class="fa fa-info" />
+                        This product has a fixed quantity
+                    </span>
+                </div>
+            </t>
+        </xpath>
+        <!-- Odoo replaces upstream, so a little HACK is needed in the xpath to find the element
+        https://github.com/odoo/odoo/blob/12.0/addons/website_sale_stock/views/website_sale_stock_templates.xml -->
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-prepend')]//a[i[hasclass('fa-minus')]]" position="attributes">
+            <attribute name="t-if">not line.product_id.website_sale_force_qty</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-prepend')]//a[i[hasclass('fa-minus')]]" position="after">
+            <div t-else="" style="visibility: hidden;">
+                <a class="btn btn-link d-none d-md-inline-block"><i class="fa fa-minus" /></a>
+            </div>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//input" position="attributes">
+            <attribute name="t-att-disabled">1 if line.product_id.website_sale_force_qty else 0</attribute>
+            <!-- No need to override the value here as it already comes from the product view -->
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-append')]//a[i[hasclass('fa-plus')]]" position="attributes">
+            <attribute name="t-if">not line.product_id.website_sale_force_qty</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-append')]//a[i[hasclass('fa-plus')]]" position="after">
+            <div t-else="" style="visibility: hidden;">
+                <a class="btn btn-link d-none d-md-inline-block"><i class="fa fa-plus" /></a>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- "Add to cart" modal view for products with optional associated -->
+    <template id="product_configurator_configure_optional_products" inherit_id="sale.product_configurator_configure_optional_products">
+        <xpath expr="//div[hasclass('js_attributes')]" position="after">
+            <t t-if="product.website_sale_force_qty">
+                <div class="oe_website_spinner">
+                    <span class="badge badge-pill text-info">
+                        <i class="fa fa-info" />
+                        This product has a fixed quantity
+                    </span>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-prepend')]//button[i[hasclass('fa-minus')]]" position="attributes">
+            <attribute name="t-if">not product.website_sale_force_qty</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-prepend')]//button[i[hasclass('fa-minus')]]" position="after">
+            <div t-else="" style="visibility: hidden;">
+                <a class="btn btn-link d-none d-md-inline-block"><i class="fa fa-minus" /></a>
+            </div>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//input" position="attributes">
+            <attribute name="t-att-disabled">1 if product.website_sale_force_qty else 0</attribute>
+            <!-- No need to override the value here as it already comes from the product view -->
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-append')]//button[i[hasclass('fa-plus')]]" position="attributes">
+            <attribute name="t-if">not product.website_sale_force_qty</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('td-qty')]//div[hasclass('input-group-append')]//button[i[hasclass('fa-plus')]]" position="after">
+            <div t-else="" style="visibility: hidden;">
+                <a class="btn btn-link d-none d-md-inline-block"><i class="fa fa-plus" /></a>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
