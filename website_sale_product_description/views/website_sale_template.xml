@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath
+            expr="//div[@id='product_details']/../div[hasclass('col-md-6', 'col-xl-4')]"
+            position="after"
+        >
+            <div class="o_not_editable">
+                <p
+                    t-field="product.public_description"
+                    id="product_public_description"
+                />
+            </div>
+        </xpath>
+    </template>
+</odoo>

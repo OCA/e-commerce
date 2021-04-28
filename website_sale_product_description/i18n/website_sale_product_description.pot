@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_product_description
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_product_description
+#: model:ir.model.fields,field_description:website_sale_product_description.field_product_product__public_description
+#: model:ir.model.fields,field_description:website_sale_product_description.field_product_template__public_description
+#: model_terms:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
+msgid "Description for e-Commerce"
+msgstr ""
+
+#. module: website_sale_product_description
+#: model:ir.model,name:website_sale_product_description.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: website_sale_product_description
+#: model_terms:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
+msgid "This description will be shown on e-commerce frontend"
+msgstr ""
+
