@@ -19,7 +19,7 @@ msgstr ""
 
 #. module: website_sale_stock_provisioning_date
 #. openerp-web
-#: code:addons/website_sale_stock_provisioning_date/static/src/xml/website_sale_stock_product_availability.xml:10
+#: code:addons/website_sale_stock_provisioning_date/static/src/xml/website_sale_stock_product_availability.xml:0
 #, python-format
 msgid "Next provisioning date:"
 msgstr "Fecha de aprovisionamiento:"
