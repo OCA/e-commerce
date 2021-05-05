@@ -7,12 +7,5 @@
                 src="/website_sale_attribute_filter_form_submit/static/src/js/website_sale.js"
             />
         </xpath>
-        <xpath expr="link[last()]" position="after">
-            <link
-                rel="stylesheet"
-                type="text/scss"
-                href="/website_sale_attribute_filter_form_submit/static/src/scss/website_sale.scss"
-            />
-            </xpath>
     </template>
 </odoo>
