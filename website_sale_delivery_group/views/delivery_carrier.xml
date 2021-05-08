@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_delivery_carrier_form_website_delivery" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field
+            name="inherit_id"
+            ref="website_sale_delivery.view_delivery_carrier_form_website_delivery"
+        />
+        <field name="arch" type="xml">
+            <field name="website_id" position="after">
+                <field name="group_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_delivery_carrier_tree" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field
+            name="inherit_id"
+            ref="website_sale_delivery.view_delivery_carrier_tree_inherit_website_sale_delivery"
+        />
+        <field name="arch" type="xml">
+            <field name="delivery_type" position="after">
+                <field name="group_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_delivery_carrier_search" model="ir.ui.view">
+        <field name="model">delivery.carrier</field>
+        <field
+            name="inherit_id"
+            ref="website_sale_delivery.view_delivery_carrier_search_inherit_website_sale_delivery"
+        />
+        <field name="arch" type="xml">
+            <field name="delivery_type" position="after">
+                <field name="group_id" />
+            </field>
+            <filter name="provider" position="after">
+                <filter
+                    name="group_by_group"
+                    string="Group"
+                    context="{'group_by': 'group_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
