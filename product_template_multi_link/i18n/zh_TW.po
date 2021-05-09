@@ -20,61 +20,171 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_link_type
-msgid ""
-"* Cross-Sell : suggest your customer to purchase an additional product\n"
-"* Up-Sell : suggest your customer to purchase a higher-end product,  an "
-"upgrade, etc."
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Create links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Create links?"
 msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_create_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_create_uid
 msgid "Created by"
 msgstr "建立者"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_create_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_create_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_create_date
 msgid "Created on"
 msgstr "建立於"
 
 #. module: product_template_multi_link
-#: selection:product.template.link,link_type:0
-msgid "Cross-Sell"
+#: model:product.template.link,link_type_inverse_name:product_template_multi_link.link_cross_selling_1
+#: model:product.template.link,link_type_name:product_template_multi_link.link_cross_selling_1
+#: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_cross_selling
+#: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_cross_selling
+msgid "Cross Selling"
 msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_display_name
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_display_name
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_display_name
 msgid "Display Name"
 msgstr "顯示名稱"
 
 #. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
+msgid "Group By"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_id
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_id_5376
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_id
 msgid "ID"
 msgstr "編號"
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_link_type_inverse_name
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_inverse_name
+msgid "Inverse name"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_is_symmetric
+msgid "Is symmetric"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link___last_update
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type___last_update
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker___last_update
 msgid "Last Modified on"
 msgstr "最後修改:"
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_write_uid
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_write_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_write_uid
 msgid "Last Updated by"
 msgstr "最後更新："
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_write_date
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_write_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_write_date
 msgid "Last Updated on"
 msgstr "最後更新於"
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_link_type
-msgid "Link Type"
+#: sql_constraint:product.template.link.type:0
+msgid "Link code already exists !"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_product_template_id
+#: sql_constraint:product.template.link.type:0
+msgid "Link inverse code already exists !"
+msgstr ""
+
+#. module: product_template_multi_link
+#: selection:product.template.linker,operation_type:0
+msgid "Link these products"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_id
+msgid "Link type"
+msgstr ""
+
+#. module: product_template_multi_link
+#: sql_constraint:product.template.link.type:0
+msgid "Link type inverse name already exists !"
+msgstr ""
+
+#. module: product_template_multi_link
+#: sql_constraint:product.template.link.type:0
+msgid "Link type name already exists !"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_right_product_tmpl_id
 msgid "Linked Product"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_demo_range
+msgid "Lower Range"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.actions.act_window,name:product_template_multi_link.product_template_linker_action
+msgid "Manage Product Links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_manual_inverse_code
+msgid "Manual inverse code"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_manual_inverse_name
+msgid "Manual inverse name"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_link_type_name
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_name
+msgid "Name"
+msgstr ""
+
+#. module: product_template_multi_link
+#: code:addons/product_template_multi_link/models/product_template_link.py:127
+#, python-format
+msgid ""
+"Only one link with the same type is allowed between 2 products. \n"
+" %s"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_operation_type
+msgid "Operation"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
+msgid "Product"
 msgstr ""
 
 #. module: product_template_multi_link
@@ -89,10 +199,10 @@ msgid "Product Links"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_delivery_carrier_product_template_link_qty
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_product_product_template_link_qty
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_product_template_link_qty
-msgid "Product Links Quantity"
+#: model:ir.model.fields,field_description:product_template_multi_link.field_delivery_carrier_product_template_link_count
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_product_product_template_link_count
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_product_template_link_count
+msgid "Product Links Count"
 msgstr ""
 
 #. module: product_template_multi_link
@@ -101,31 +211,113 @@ msgid "Product Template"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_linked_product_template_image_small
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_product_template_image_small
-msgid "Small-sized image"
-msgstr ""
-
-#. module: product_template_multi_link
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_linked_product_template_image_small
-#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_product_template_image_small
-msgid ""
-"Small-sized image of the product. It is automatically resized as a 64x64px "
-"image, with aspect ratio preserved. Use this field anywhere a small image is "
-"required."
-msgstr ""
-
-#. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_product_template_id
-msgid "Source Product"
-msgstr ""
-
-#. module: product_template_multi_link
-#: selection:product.template.link,link_type:0
-msgid "Up-Sell"
+#: model:ir.actions.act_window,name:product_template_multi_link.product_template_link_type_act_window
+#: model:ir.model,name:product_template_multi_link.model_product_template_link_type
+#: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
+msgid "Product Template Link Type"
 msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
-msgid "product.template.link"
+msgid "Product link"
+msgstr ""
+
+#. module: product_template_multi_link
+#: code:addons/product_template_multi_link/models/product_template.py:87
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
+#, python-format
+msgid "Product links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model,name:product_template_multi_link.model_product_template_linker
+msgid "Product template linker wizard"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
+msgid "Product template links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_product_ids
+msgid "Products"
+msgstr ""
+
+#. module: product_template_multi_link
+#: selection:product.template.linker,operation_type:0
+msgid "Remove existing links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_linker_operation_type
+msgid ""
+"Remove existing links: will remove every existing link on each selected "
+"products;\n"
+"Link these products: will link all selected products together."
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Remove links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Remove links?"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_left_product_tmpl_id
+msgid "Source Product"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_code
+msgid "Technical code"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type_inverse_code
+msgid "Technical code (inverse)"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type_is_symmetric
+msgid "The relation meaning is the same from each side of the relation"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type_code
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type_inverse_code
+msgid ""
+"This code allows to provide a technical code to externalsystems identifying "
+"this link type"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
+msgid "Type"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker_type_id
+msgid "Type id"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_up_selling
+#: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_up_selling
+msgid "Up Selling"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_demo_range
+msgid "Upper Range"
+msgstr ""
+
+#. module: product_template_multi_link
+#: code:addons/product_template_multi_link/models/product_template_link.py:57
+#, python-format
+msgid "You can only create a link between 2 different products"
 msgstr ""
