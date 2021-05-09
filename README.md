@@ -20,6 +20,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | A price filter for website sale
+[website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.0 | Provides a way to group shipping methods
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 14.0.1.0.0 | Allow group attributes in shop by categories
 [website_sale_product_description](website_sale_product_description/) | 14.0.1.0.0 | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 14.0.1.0.0 | Display attributes images in shop product detail
