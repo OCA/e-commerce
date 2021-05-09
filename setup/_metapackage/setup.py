@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_b2x_alt_price',
         'odoo12-addon-website_sale_cart_selectable',
         'odoo12-addon-website_sale_category_description',
+        'odoo12-addon-website_sale_charge_payment_fee',
         'odoo12-addon-website_sale_checkout_country_vat',
         'odoo12-addon-website_sale_checkout_skip_payment',
         'odoo12-addon-website_sale_exception',
