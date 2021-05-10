@@ -1,16 +1,27 @@
-.attrib-category-radio {
-    margin: 0 20px;
-}
+.website_sale_attribute_filter_category {
+    .attrib-category-radio {
+        margin: 0 20px;
+    }
 
-/* Display ">" icon for collapsed elements */
-[data-toggle="collapse"] .fas:before {
-    content: "\f105";
-}
+    ul ul {
+        margin-left: 0;
+        margin-top: 0;
 
-[aria-expanded="true"] .fas:before {
-    content: "\f107";
-}
+        .mt16 {
+            margin-top: 8px !important;
+        }
+    }
 
-[data-toggle="collapse"].collapsed .fas:before {
-    content: "\f105";
+    /* Display ">" icon for collapsed elements */
+    [data-toggle="collapse"] .fas:before {
+        content: "\f105";
+    }
+
+    [aria-expanded="true"] .fas:before {
+        content: "\f107";
+    }
+
+    [data-toggle="collapse"].collapsed .fas:before {
+        content: "\f105";
+    }
 }

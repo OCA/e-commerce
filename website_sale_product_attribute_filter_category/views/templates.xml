@@ -39,6 +39,7 @@
                                 <a
                                     data-toggle="collapse"
                                     t-attf-href="#collapse{{attr_category_index}}"
+                                    t-attf-class="#{'collapsed' if folded else none}"
                                 >
                                     <i class="fa fas" />
                                     <span t-esc="attr_category[1]" />
@@ -89,7 +90,7 @@
             <div
                 t-attf-id="collapse_v_{{a.id}}"
                 data-type="select"
-                t-attf-class="#{'collapse in show' if (values_selected or not folded) else 'collapse'}"
+                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
             />
         </xpath>
         <xpath
@@ -109,7 +110,7 @@
             <div
                 t-attf-id="collapse_v_{{a.id}}"
                 data-type="radio"
-                t-attf-class="#{'collapse in show' if (values_selected or not folded) else 'collapse'}"
+                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
             />
         </xpath>
         <xpath
@@ -129,7 +130,7 @@
             <div
                 t-attf-id="collapse_v_{{a.id}}"
                 data-type="color"
-                t-attf-class="#{'collapse in show' if (values_selected or not folded) else 'collapse'}"
+                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
             />
         </xpath>
         <xpath
