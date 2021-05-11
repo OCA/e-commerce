@@ -10,10 +10,6 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "maintainers": ["Yajo"],
     "license": "AGPL-3",
-    "external_dependencies": {
-        "python": [],
-        "bin": [],
-    },
     "depends": ["sale_resource_booking", "website_sale"],
     "data": [
         "data/ir_cron_data.xml",
