@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo12-addon-website_sale_attribute_filter_category',
+        'odoo12-addon-website_sale_attribute_filter_form_submit',
         'odoo12-addon-website_sale_attribute_filter_order',
         'odoo12-addon-website_sale_attribute_filter_price',
         'odoo12-addon-website_sale_b2x_alt_price',
