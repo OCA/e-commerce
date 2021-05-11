@@ -27,21 +27,6 @@ class ResourceBooking(models.Model):
             self.access_url = "/shop/booking/%d" % index
         return result
 
-    def _update_expiration(self):
-        """Update booking expiration."""
-        # Only update if booking is altered from the website
-        if not self.env.context.get("website_id"):
-            return
-        now = fields.Datetime.now()
-        for one in self:
-            # Only affects bookings related to sales
-            if not one.sale_order_line_id:
-                continue
-            delta = timedelta(
-                hours=one.sale_order_line_id.product_id.resource_booking_timeout
-            )
-            one.expiration = now + delta
-
     def _confirm_prereservation(self):
         """Convert prereservation data to actual partners, and confirm booking."""
         affected = self.with_context(dont_notify=True).filtered(
@@ -63,9 +48,10 @@ class ResourceBooking(models.Model):
                 )
         affected.write(
             {
+                "expiration": False,
                 # Partners are already created, so this data is irrelevant now
-                "prereserved_name": False,
                 "prereserved_email": False,
+                "prereserved_name": False,
                 # Anti-smartypants safety belt: rotate security token now
                 "access_token": False,
             }
@@ -101,26 +87,14 @@ class ResourceBooking(models.Model):
             + domain
         )
         expired.action_cancel()
-        # Cleaning personal data that you will never need again
-        expired.write({"prereserved_name": False, "prereserved_email": False})
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        """Autosave default expiration date."""
-        to_update_indexes = []
-        for index, vals in enumerate(vals_list):
-            if vals.get("start") and not vals.get("expiration"):
-                to_update_indexes.append(index)
-        result = super().create(vals_list)
-        to_update_records = self.browse(prefetch=self._prefetch)
-        for index in to_update_indexes:
-            to_update_records |= result[index]
-        to_update_records._update_expiration()
-        return result
+    def action_cancel(self):
+        """Clean personal/cron data that you will never need again.
 
-    def write(self, vals):
-        """Autoupdate expiration date."""
-        result = super().write(vals)
-        if vals.get("start") and not vals.get("expiration"):
-            self._update_expiration()
-        return result
+        Keeping this information without a clear purpose would incur into legal
+        obligations in some countries, so it's better to just dump it.
+        """
+        self.write(
+            {"prereserved_name": False, "prereserved_email": False, "expiration": False}
+        )
+        return super().action_cancel()
