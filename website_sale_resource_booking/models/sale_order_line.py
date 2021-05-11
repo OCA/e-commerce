@@ -21,10 +21,15 @@ class SaleOrderLine(models.Model):
             if order.state == "sale":
                 bookings._confirm_prereservation()
                 continue
-            # If it is still a cart, create pending bookings
-            if order.state != "draft":
+            # Continue if it is not an eCommerce cart
+            if (
+                order.state != "draft"
+                and order.env.context.get("website_id") == order.website_id.id
+            ):
                 continue
+            # It is still a cart, so let's create pending bookings
             values = {
+                "expiration": line.product_id.resource_booking_expiration,
                 "sale_order_line_id": line.id,
                 "type_id": line.product_id.resource_booking_type_id.id,
             }
