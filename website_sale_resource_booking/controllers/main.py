@@ -105,8 +105,10 @@ class WebsiteSale(main.WebsiteSale):
         # Store partner info to autocreate and autoconfirm later
         booking_sudo.write(
             {
-                "prereserved_name": partner_name,
+                "expiration": booking_sudo.sale_order_line_id
+                    .product_id.resource_booking_expiration,
                 "prereserved_email": partner_email,
+                "prereserved_name": partner_name,
             }
         )
         return request.redirect("/shop/booking/{}/schedule".format(index + 1))
