@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright 2021 Manuel Calero <https://xtendoo.es/>
+License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <template
+        inherit_id="website_sale.products_categories"
+        id="hide_all_products_category"
+        name="Hide All Products Category"
+    >
+        <xpath expr="//li[hasclass('nav-item')]" position="attributes">
+            <attribute name="t-if">not website.init_category_id</attribute>
+        </xpath>
+    </template>
+</odoo>

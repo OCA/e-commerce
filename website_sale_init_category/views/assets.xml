@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright 2021 Manuel Calero <https://xtendoo.es/>
+License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr=".">
+            <script
+                type="text/javascript"
+                src="/website_sale_init_category/static/src/js/tour.js"
+            />
+        </xpath>
+    </template>
+</odoo>
