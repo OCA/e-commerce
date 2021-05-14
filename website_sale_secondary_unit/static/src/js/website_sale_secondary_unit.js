@@ -1,9 +1,10 @@
 odoo.define("website_sale_secondary_unit.animation", function(require) {
     "use strict";
 
+    const VariantMixin = require("sale.VariantMixin");
     const sAnimation = require("website.content.snippets.animation");
 
-    sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend({
+    sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend(VariantMixin, {
         selector: ".secondary-unit",
         // eslint-disable-next-line no-unused-vars
         init: function(parent, editableMode) {
@@ -17,6 +18,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.product_qty = null;
         },
         start: function() {
+            const _this = this;
             this.$secondary_uom = $("#secondary_uom");
             this.$secondary_uom_qty = $(".secondary-quantity");
             this.$product_qty = $(".quantity");
@@ -32,9 +34,9 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
                 this._onChangeSecondaryUom.bind(this)
             );
             this.$product_qty.on("change", null, this._onChangeProductQty.bind(this));
-            if (this.secondary_uom_qty) {
-                this._onChangeSecondaryUom();
-            }
+            return this._super.apply(this, arguments).then(function() {
+                _this._onChangeSecondaryUom();
+            });
         },
         _setValues: function() {
             this.secondary_uom_qty = Number(
@@ -49,10 +51,17 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.product_qty = Number($(".quantity").val());
         },
 
-        _onChangeSecondaryUom: function() {
+        _onChangeSecondaryUom: function(ev) {
+            if (!ev) {
+                // HACK: Create a fake event to locate the form on "onChangeAddQuantity"
+                // odoo method
+                ev = jQuery.Event("fakeEvent");
+                ev.currentTarget = $(".form-control.quantity");
+            }
             this._setValues();
             const factor = this.secondary_uom_factor * this.product_uom_factor;
             this.$product_qty.val(this.secondary_uom_qty * factor);
+            this.onChangeAddQuantity(ev);
         },
         _onChangeProductQty: function() {
             this._setValues();
