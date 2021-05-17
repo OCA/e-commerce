@@ -4,8 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-17 14:53+0000\n"
+"PO-Revision-Date: 2021-05-17 14:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +20,13 @@ msgstr ""
 #: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
 #, python-format
 msgid "From"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#. openerp-web
+#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_price_scale.xml:0
+#, python-format
+msgid "Prices per quantity ("
 msgstr ""
 
 #. module: website_sale_product_minimal_price
