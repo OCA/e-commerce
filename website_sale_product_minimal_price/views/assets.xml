@@ -10,6 +10,10 @@
                 type="text/javascript"
                 src="/website_sale_product_minimal_price/static/src/js/website_sale_product_minimal_price.js"
             />
+            <script
+                type="text/javascript"
+                src="/website_sale_product_minimal_price/static/src/js/website_sale_product_price_scale.js"
+            />
         </xpath>
     </template>
 </odoo>
