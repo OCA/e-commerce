@@ -27,7 +27,7 @@
                         t-att-value="request.csrf_token()"
                     />
                     <a role="button" class="btn btn-primary a-submit" href="#">
-                        <span>Confirm Order <span class="fa fa-chevron-right" /></span>
+                        <span>Confirm <span class="fa fa-chevron-right" /></span>
                     </a>
                 </form>
             </div>
@@ -75,5 +75,23 @@
     <template id="order_state_message">
         <p>Your order is waiting manual confirmation.</p>
         <br />
+    </template>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//a[@href='/shop/checkout?express=1']/span" position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop/checkout?express=1']/span" position="after">
+            <span t-if="website.checkout_skip_payment">Confirm</span>
+        </xpath>
+    </template>
+    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+        <xpath expr="//a[@href='/shop/checkout?express=1']/span" position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop/checkout?express=1']/span" position="after">
+            <span t-if="website.checkout_skip_payment">Confirm <span
+                    class="fa fa-chevron-right"
+                /></span>
+        </xpath>
     </template>
 </odoo>
