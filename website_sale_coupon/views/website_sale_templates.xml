@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="assets_tests" name="Website Sale Coupon Assets Tests" inherit_id="web.assets_tests">
+<template id="assets_tests" name="Website Sale Coupon Assets Tests" inherit_id="web.assets_frontend">
     <xpath expr="." position="inside">
         <script type="text/javascript" src="/website_sale_coupon/static/tests/tours/website_sale_coupon.js"></script>
     </xpath>
 </template>
-<template id="website_sale_coupon_cart_summary_show_img" inherit_id="website_sale.cart_summary">
-    <xpath expr="//td[hasclass('td-img')]/span" position="attributes">
-        <attribute name="t-if">not line.is_reward_line or not line.sudo().product_id.image_128</attribute>
-    </xpath>
-    <xpath expr="//td[hasclass('td-img')]/span" position="after">
-        <span t-if="line.is_reward_line and line.sudo().product_id.image_128">
-            <img t-att-src="image_data_uri(line.sudo().product_id.image_128)" class="img o_image_64_max rounded"/>
-        </span>
-    </xpath>
-</template>
 <template id="website_sale_coupon_cart_hide_qty" inherit_id="website_sale.cart_lines">
     <xpath expr="//td[hasclass('td-img')]/span" position="replace">
-        <t t-if="line.is_reward_line and line.sudo().product_id.image_128">
+        <t t-if="line.is_reward_line and line.sudo().product_id.image_small">
             <span>
-                <img t-att-src="image_data_uri(line.sudo().product_id.image_128)" class="img o_image_64_max rounded" t-att-alt="line.name_short"/>
+                <img t-att-src="image_data_uri(line.sudo().product_id.image_small)" class="img o_image_64_max rounded" t-att-alt="line.name_short"/>
             </span>
         </t>
         <t t-else="">
@@ -46,9 +36,9 @@
 </template>
 <template id="cart_popover" inherit_id="website_sale.cart_popover" name="Cart Popover">
     <xpath expr="//div[hasclass('cart_line')]/div[1]/span" position="replace">
-        <t t-if="line.is_reward_line and line.sudo().product_id.image_128">
+        <t t-if="line.is_reward_line and line.sudo().product_id.image_small">
             <span>
-                <img t-att-src="image_data_uri(line.sudo().product_id.image_128)" class="img o_image_64_max rounded" t-att-alt="line.name_short"/>
+                <img t-att-src="image_data_uri(line.sudo().product_id.image_small)" class="img o_image_64_max rounded" t-att-alt="line.name_short"/>
             </span>
         </t>
         <t t-else="">
