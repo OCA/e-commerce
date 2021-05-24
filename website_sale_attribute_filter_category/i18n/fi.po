@@ -18,13 +18,10 @@ msgstr ""
 
 #. module: website_sale_attribute_filter_category
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_category.products_attributes
-#, fuzzy
 msgid ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
-"                <span>Filters by category</span>"
+"                    <span>Filters by category</span>"
 msgstr ""
-"<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filtterit "
-"kategorioittain</span>"
 
 #. module: website_sale_attribute_filter_category
 #: model:ir.model,name:website_sale_attribute_filter_category.model_product_attribute_category
@@ -41,6 +38,14 @@ msgstr "Määrittelemätön"
 #: model:ir.model.fields,field_description:website_sale_attribute_filter_category.field_product_attribute_category__website_folded
 msgid "Website folded"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
+#~ "                <span>Filters by category</span>"
+#~ msgstr ""
+#~ "<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filtterit "
+#~ "kategorioittain</span>"
 
 #~ msgid "Test"
 #~ msgstr "Testi"

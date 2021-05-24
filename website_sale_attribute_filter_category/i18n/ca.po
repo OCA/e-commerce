@@ -20,10 +20,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_category.products_attributes
 msgid ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
-"                <span>Filters by category</span>"
+"                    <span>Filters by category</span>"
 msgstr ""
-"<i class = \"fa fa-filter\" aria-hidden = \"true\" />\n"
-"                <span> Filtres per categoria </span>"
 
 #. module: website_sale_attribute_filter_category
 #: model:ir.model,name:website_sale_attribute_filter_category.model_product_attribute_category
@@ -40,3 +38,10 @@ msgstr "Indefinit"
 #: model:ir.model.fields,field_description:website_sale_attribute_filter_category.field_product_attribute_category__website_folded
 msgid "Website folded"
 msgstr "Lloc web plegat"
+
+#~ msgid ""
+#~ "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
+#~ "                <span>Filters by category</span>"
+#~ msgstr ""
+#~ "<i class = \"fa fa-filter\" aria-hidden = \"true\" />\n"
+#~ "                <span> Filtres per categoria </span>"
