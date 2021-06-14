@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <template
+        id="address_fiscal_position_type"
+        inherit_id="website_sale.address_b2b"
+        name="Show Fiscal Position Type"
+        customize_show="True"
+    >
+        <xpath expr="//input[@name='company_name']/.." position="before">
+            <div class="form-group col-lg-6" id="fiscal_position_type">
+                <label
+                    class="col-form-label"
+                    for="fiscal_position_type"
+                >Partner Type</label>
+                <select
+                    id="fiscal_position_type"
+                    name="fiscal_position_type"
+                    class="form-control"
+                >
+                    <t t-foreach="fiscpostypevalues" t-as="fptv">
+                        <option
+                            t-att-value="fptv"
+                            t-att-selected="fptv  == (def_fiscpostype)"
+                        >
+                            <t t-esc="fiscpostypevalues[fptv]" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>
