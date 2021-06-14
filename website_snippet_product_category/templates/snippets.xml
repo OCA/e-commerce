@@ -19,14 +19,13 @@
     </template>
     <template id="s_product_category_items_recursive">
         <t
-            t-foreach="categories"
+            t-foreach="categories.filtered('website_published')"
             t-as="category"
             t-if="categories and cur_level &lt;= 4"
         >
             <div
                 t-attf-class="categ_tree_level {{'pb-2 main_tree_level text-primary text-uppercase' if cur_level == 1 else ''}} {{cur_level &gt; 2 and 'pl-'+str(min((cur_level-2)*2, 5))}}"
                 t-att-data-tree-level="cur_level"
-                t-if="category.website_published"
             >
                 <div class="d-flex d-flex-row">
                     <div
