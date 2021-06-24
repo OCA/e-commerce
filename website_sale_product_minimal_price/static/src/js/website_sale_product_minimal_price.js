@@ -44,16 +44,18 @@ odoo.define("website_sale_product_minimal_price.load", function (require) {
                     );
                     // We define a limit of displayed columns as 4
                     var limit_col = 4;
-                    var $div = undefined;
+                    var $div;
                     for (var i in unit_prices) {
                         if (unit_prices[i].price === 0) {
                             continue;
                         }
                         if (i % limit_col === 0) {
                             var id = i/limit_col;
+                            var first = '<div id="row_';
+                            var end = '" class="row temporal"></div>';
                             $form.append(
-                                '<div id="row_'+ id +'" class="row temporal"></div>');
-                            $div = $('#row_' + id); // eslint-disable-line no-undef-init
+                                first + id + end);
+                            $div = $('#row_' + id);
                         }
                         var monetary_u = field_utils.format.monetary(
                             unit_prices[i].price,
