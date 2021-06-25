@@ -1,7 +1,7 @@
 /* Copyright 2019 Sergio Teruel
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-odoo.define("website_sale_product_attribute_value_filter_existing.tour", function(
+odoo.define("website_sale_product_attribute_value_filter_existing.tour", function (
     require
 ) {
     "use strict";
