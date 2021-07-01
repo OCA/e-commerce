@@ -7,8 +7,9 @@
     'category': 'e-commerce',
     'author': "Serpent Consulting Services Pvt. Ltd.,"
               "Odoo Community Association (OCA)",
-    'website': 'http://www.serpentcs.com',
-    'version': '9.0.1.1.1',
+    'website': 'https://github.com/OCA/e-commerce/tree/'
+               '10.0/website_sale_product_brand',
+    'version': '10.0.1.0.0',
     'license': 'AGPL-3',
     'depends': [
         'product_brand',
@@ -19,7 +20,4 @@
         "security/ir.model.access.csv",
         "views/product_brand.xml",
     ],
-    'application': False,
-    'installable': False,
-    'auto_install': False,
 }

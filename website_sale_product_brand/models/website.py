@@ -2,7 +2,7 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd. (http://www.serpentcs.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api
+from odoo import models, api
 
 
 class WebSite(models.Model):

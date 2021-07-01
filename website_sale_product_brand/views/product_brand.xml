@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-
+<odoo>
     <!-- Page template for displaying Brands -->
     <template id="product_brands" name="Brands">
         <t t-call="website.layout">
@@ -10,6 +8,7 @@
                 <div class="container">
                     <div class="row">
                         <form action="/shop/brands" class="form-horizontal mt32 col-md-8" method="post" >
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <div class="input-group" style="margin-left:60%;">
                                 <div class='col-md-6'>
                                     <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value='search'/>
@@ -57,5 +56,4 @@
         </li>
     </template>
 
-    </data>
-</openerp>
+</odoo>
