@@ -1,6 +1,6 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # Copyright 2020 Tecnativa - Carlos Roca
-# Copyright 2020 Tecnativa - Pedro M. Baeza
+# Copyright 2020-2021 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import models
 
@@ -128,5 +128,9 @@ class ProductTemplate(models.Model):
             product_id = self._get_cheapest_info(pricelist)[0]
             product = self.env["product.product"].browse(product_id)
             ptavs = product.product_template_attribute_value_ids
-            res = ptavs
+            variant_attributes = ptavs.mapped("attribute_id")
+            # remove returned values that are variant specific
+            res = res.filtered(lambda x: x.attribute_id not in variant_attributes)
+            # and inject cheapest variant ones
+            res += ptavs
         return res
