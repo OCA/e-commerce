@@ -2,10 +2,11 @@ odoo.define('website_sale_secondary_unit.animation', function (require) {
 'use strict';
 
 var core = require('web.core');
+var ProductConfiguratorMixin = require('sale.ProductConfiguratorMixin');
 var sAnimation = require('website.content.snippets.animation');
 
 
-sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend({
+sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend(ProductConfiguratorMixin, {
     selector: ".secondary-unit",
     init: function (parent, editableMode) {
         this._super.apply(this, arguments);
@@ -23,18 +24,18 @@ sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend({
         self.$secondary_uom_qty = $('.secondary-quantity');
         self.$product_qty = $('.quantity');
         self._setValues();
-        this.$target.on('change', '.secondary-quantity', function () {
-            self._onChangeSecondaryUom();
+        this.$target.on('change', '.secondary-quantity', function (ev) {
+            self._onChangeSecondaryUom(ev);
         });
-        this.$target.on('change', '#secondary_uom', function () {
-            self._onChangeSecondaryUom();
+        this.$target.on('change', '#secondary_uom', function (ev) {
+            self._onChangeSecondaryUom(ev);
         });
         this.$product_qty.on('change', null, function () {
             self._onChangeProductQty();
         });
-        if(self.secondary_uom_qty){
+        return this._super.apply(this, arguments).then(function () {
             self._onChangeSecondaryUom();
-        };
+        });
     },
     _setValues: function(){
         this.secondary_uom_qty = parseFloat(this.$target.find('.secondary-quantity').val());
@@ -43,10 +44,17 @@ sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend({
         this.product_qty = parseFloat($('.quantity').val());
     },
 
-    _onChangeSecondaryUom: function(){
+    _onChangeSecondaryUom: function(ev){
+        if (!ev) {
+            // HACK: Create a fake event to locate the form on "onChangeAddQuantity"
+            // odoo method
+            ev = jQuery.Event("fakeEvent");
+            ev.currentTarget = $(".form-control.quantity");
+        }
         this._setValues()
         var factor = this.secondary_uom_factor * this.product_uom_factor;
         this.$product_qty.val(this.secondary_uom_qty * factor)
+        this.onChangeAddQuantity(ev)
     },
     _onChangeProductQty: function(){
         this._setValues();
