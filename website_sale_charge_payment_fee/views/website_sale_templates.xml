@@ -27,7 +27,7 @@
             >(acq == selected_acquirer if selected_acquirer else acquirers[0] == acq) and not checked_pm_id
             </attribute>
         </xpath>
-        <xpath expr="//span[@class='payment_option_name']" position="after">
+        <xpath expr="//span[hasclass('payment_option_name')]" position="after">
             <t t-if="acq.charge_fee">
                 <span>(Fee:
                     <t t-if="acq.charge_fee_type == 'fixed'">
