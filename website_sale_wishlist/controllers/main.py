@@ -19,7 +19,7 @@ class Wishlist(WebsiteSale):
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         """Let the view know we only want wishlisted products."""
         result = super(Wishlist, self).shop(
-            page, category, search, ppg, **post)
+            page=page, category=category, search=search, ppg=ppg, **post)
         result.qcontext.update({
             "wishlist_only": bool(post.get("wishlist_only")),
             "keep": QueryURL(
