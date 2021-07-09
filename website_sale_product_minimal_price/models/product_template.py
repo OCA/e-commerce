@@ -127,10 +127,13 @@ class ProductTemplate(models.Model):
                 context["pricelist"])
             product_id = self._get_cheapest_info(pricelist)[0]
             product = self.env["product.product"].browse(product_id)
-            ptavs = product.product_template_attribute_value_ids
-            variant_attributes = ptavs.mapped("attribute_id")
-            # remove returned values that are variant specific
-            res = res.filtered(lambda x: x.attribute_id not in variant_attributes)
-            # and inject cheapest variant ones
-            res += ptavs
+            # Rebuild the combination in the expected order
+            res = self.env["product.template.attribute.value"]
+            for line in product.valid_product_template_attribute_line_ids:
+                value = product.product_template_attribute_value_ids.filtered(
+                    lambda x: x in line.product_template_value_ids
+                )
+                if not value:
+                    value = line.product_template_value_ids[:1]
+                res += value
         return res
