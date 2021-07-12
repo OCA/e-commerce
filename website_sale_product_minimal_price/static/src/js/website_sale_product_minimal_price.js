@@ -41,24 +41,44 @@ odoo.define("website_sale_product_minimal_price.shop_min_price", function(requir
                                 )
                             ).get(0)
                         );
-                    $(product_dic[product.id])
-                        .find(".product_price .oe_currency_value")
-                        .replaceWith(
+                    const $price = $(product_dic[product.id]).find(
+                        ".product_price span .oe_currency_value"
+                    );
+                    if ($price.length) {
+                        $price.replaceWith(
                             $(
                                 core.qweb.render(
                                     "website_sale_product_minimal_price.product_minimal_price",
                                     {
-                                        price: this.widgetMonetary(product.price),
+                                        price: this.widgetMonetary(product.price, {}),
                                     }
                                 )
                             ).get(0)
                         );
+                    } else {
+                        let price = this.widgetMonetary(product.price, {
+                            currency: product.currency,
+                        });
+                        price = price.replace("&nbsp;", " ");
+                        $(product_dic[product.id])
+                            .find(".product_price")
+                            .append(
+                                $(
+                                    core.qweb.render(
+                                        "website_sale_product_minimal_price.product_minimal_price",
+                                        {
+                                            price: price,
+                                        }
+                                    )
+                                ).get(0)
+                            );
+                    }
                 }
                 return products_min_price;
             });
         },
-        widgetMonetary: function(value) {
-            return field_utils.format.monetary(value);
+        widgetMonetary: function(amount, format_options) {
+            return field_utils.format.monetary(amount, {}, format_options);
         },
     });
 });
