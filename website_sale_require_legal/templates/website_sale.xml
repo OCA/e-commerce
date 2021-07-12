@@ -17,7 +17,13 @@
             </label>
         </div>
     </template>
-    <template id="address" inherit_id="website_sale.address">
+    <template
+        id="address_require_legal"
+        inherit_id="website_sale.address"
+        name="Require Legal Terms Acceptance"
+        customize_show="True"
+        active="False"
+    >
         <xpath expr="//div[hasclass('w-100')][last()]" position="after">
             <t t-call="website_sale_require_legal.accept_input" />
         </xpath>

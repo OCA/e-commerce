@@ -25,9 +25,12 @@ Require accepting legal terms to checkout
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module was written to extend the functionality of your website shop to
-support forcing the user to accept your legal advice, terms of use and privacy
-policy, and allow you to comply with some countries' laws.
+This module extends your e-commerce legal compliance options:
+
+#. Require accepting legal terms before submitting a new address.
+#. Log a note in the partner when such terms are accepted.
+#. Log a note in the sale order when terms are accepted before payment
+   (done for every online payment, it is an upstream feature).
 
 **Table of contents**
 
@@ -39,14 +42,34 @@ Installation
 
 To install this module, you need to:
 
-* Install repository `OCA/website <https://github.com/OCA/website>`_.
+* Install ``website_legal_page`` from repository `OCA/website <https://github.com/OCA/website>`_.
 
 Configuration
 =============
 
 To configure this module, you need to:
 
-* Set up your legal pages.
+#. Install it.
+
+#. Set up `your legal pages </legal>`__.
+
+#. Go to your e-commerce and make a sample checkout.
+
+#. Visit `/shop/address </shop/address>`__ and enable *Customize > Require
+   Legal Terms Acceptance*.
+
+   .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_require_legal/static/description/address-enable.png
+
+   This will require acceptance before recording a new address, and log visitor's
+   acceptance.
+
+#. Visit `/shop/payment </shop/payment>`__ and enable *Customize > Accept Terms
+   & Conditions* (upstream Odoo feature).
+
+   .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_require_legal/static/description/payment-enable.png
+
+   This will require acceptance before paying the sale order, and log visitor's
+   acceptance.
 
 Usage
 =====
@@ -63,6 +86,9 @@ Known issues / Roadmap
   notification should be made. An implicit acceptance could be printed in the
   payment screen to solve this. Maybe that could be a work to develop in
   another module.
+* If you enable both acceptance views as explained in the configuration section,
+  first-time buyers will have to accept the legal terms between 2 and 3 times
+  to buy.
 
 Bug Tracker
 ===========
