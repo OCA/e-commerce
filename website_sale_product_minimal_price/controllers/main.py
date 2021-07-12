@@ -34,6 +34,10 @@ class WebsiteSaleVariantController(VariantController):
                     "id": template.id,
                     "price": combination.get("price"),
                     "distinct_prices": has_distinct_price,
+                    "currency": {
+                        "position": template.currency_id.position,
+                        "symbol": template.currency_id.symbol,
+                    },
                 }
             )
         return res
