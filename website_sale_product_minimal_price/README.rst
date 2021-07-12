@@ -34,6 +34,12 @@ price and set order by minimal price in product's view.
 .. contents::
    :local:
 
+Configuration
+=============
+
+#. Go to *Settings > General Settings > Website* and active the option *Multiple Sales
+   Prices per Product* with the second option, for use the pricelists.
+
 Usage
 =====
 
@@ -69,6 +75,7 @@ Contributors
 
     * Sergio Teruel
     * Carlos Roca
+    * Pedro M. Baeza
 
 Maintainers
 ~~~~~~~~~~~
