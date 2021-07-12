@@ -14,5 +14,4 @@
     "installable": True,
     "depends": ["website_sale"],
     "data": ["views/assets.xml", "views/templates.xml"],
-    "demo": ["demo/assets.xml"],
 }
