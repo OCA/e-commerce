@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend">
+        <xpath expr="//link[last()]" position="after">
+            <!-- Custom empty file for user custom bootstrap override -->
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/website_sale_coupon_page/static/src/scss/styles.scss"
+            />
+        </xpath>
+    </template>
+    <template id="assets_tests" inherit_id="website.assets_tests">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_coupon_page/static/src/js/website_sale_coupon_page_admin.js"
+            />
+            <script
+                type="text/javascript"
+                src="/website_sale_coupon_page/static/src/js/website_sale_coupon_page_portal.js"
+            />
+        </xpath>
+    </template>
+</odoo>

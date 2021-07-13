@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="sale_coupon_program_view_form_common_website">
+        <field name="model">sale.coupon.program</field>
+        <field
+            name="inherit_id"
+            ref="website_sale_coupon.sale_coupon_program_view_form_common_website"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button
+                    name="website_publish_button"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-globe"
+                >
+                    <field name="is_published" widget="website_publish_button" />
+                </button>
+            </xpath>
+            <xpath expr="//group[@name='reward']/.." position="after">
+                <group name="website" string="Website">
+                    <field name="public_name" />
+                    <field name="image_1920" widget="image" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
