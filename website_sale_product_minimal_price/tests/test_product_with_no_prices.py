@@ -4,9 +4,9 @@ from odoo.tests.common import HttpCase
 
 
 class TestProductWithNoPrices(HttpCase):
-    """ With this test we are checking that the minimal price is set
-        when the product has not a price defined and the price of
-        variants depend on a subpricelist.
+    """With this test we are checking that the minimal price is set
+    when the product has not a price defined and the price of
+    variants depend on a subpricelist.
     """
 
     def setUp(self):
