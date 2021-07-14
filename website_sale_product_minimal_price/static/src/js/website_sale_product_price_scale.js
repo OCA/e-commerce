@@ -1,4 +1,4 @@
-odoo.define("website_sale_product_minimal_price.load", function(require) {
+odoo.define("website_sale_product_minimal_price.load", function (require) {
     "use strict";
     const ajax = require("web.ajax");
     const core = require("web.core");
@@ -12,18 +12,18 @@ odoo.define("website_sale_product_minimal_price.load", function(require) {
         QWeb
     );
 
-    VariantMixin._onChangeQtyWebsiteSale = function(ev, $parent, combination) {
+    VariantMixin._onChangeQtyWebsiteSale = function (ev, $parent, combination) {
         if (!this.isWebsite) {
             return;
         }
         ajax.jsonRpc("/sale/get_combination_info_pricelist_atributes", "call", {
             product_id: combination.product_id,
-        }).then(function(vals) {
+        }).then(function (vals) {
             const unit_prices = vals[0];
             const uom_name = vals[1];
             $(".temporal").remove();
             if (unit_prices.length > 0) {
-                load_xml.then(function() {
+                load_xml.then(function () {
                     const $form = $('form[action*="/shop/cart/update"]');
                     $form.append('<hr class="temporal"/>');
                     $form.append(
@@ -75,7 +75,7 @@ odoo.define("website_sale_product_minimal_price.load", function(require) {
          *
          * @override
          */
-        _onChangeCombination: function() {
+        _onChangeCombination: function () {
             VariantMixin._onChangeQtyWebsiteSale.apply(this, arguments);
             return this._super.apply(this, arguments);
         },
