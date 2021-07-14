@@ -16,6 +16,7 @@
         'sale_order_secondary_unit',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'security/website_sale_secondary_unit.xml',
         'views/assets.xml',
         'views/product_template_views.xml',
