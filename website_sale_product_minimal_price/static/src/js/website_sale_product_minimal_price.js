@@ -1,4 +1,4 @@
-odoo.define("website_sale_product_minimal_price.shop_min_price", function(require) {
+odoo.define("website_sale_product_minimal_price.shop_min_price", function (require) {
     "use strict";
 
     const publicWidget = require("web.public.widget");
@@ -11,23 +11,23 @@ odoo.define("website_sale_product_minimal_price.shop_min_price", function(requir
             "/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml",
         ],
 
-        start: function() {
+        start: function () {
             return Promise.all([
                 this._super.apply(this, arguments),
                 this.render_price(),
             ]);
         },
-        render_price: function() {
+        render_price: function () {
             const $products = $(".o_wsale_product_grid_wrapper");
             const product_dic = {};
-            $products.each(function() {
+            $products.each(function () {
                 product_dic[this.querySelector("a img").src.split("/")[6]] = this;
             });
             const product_ids = Object.keys(product_dic).map(Number);
             return this._rpc({
                 route: "/sale/get_combination_info_minimal_price/",
                 params: {product_template_ids: product_ids},
-            }).then(products_min_price => {
+            }).then((products_min_price) => {
                 for (const product of products_min_price) {
                     if (!product.distinct_prices) {
                         continue;
@@ -77,7 +77,7 @@ odoo.define("website_sale_product_minimal_price.shop_min_price", function(requir
                 return products_min_price;
             });
         },
-        widgetMonetary: function(amount, format_options) {
+        widgetMonetary: function (amount, format_options) {
             return field_utils.format.monetary(amount, {}, format_options);
         },
     });
