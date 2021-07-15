@@ -2,10 +2,6 @@
 <!-- Copyright 2019 Tecnativa - Sergio Teruel
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <!--
-    Get secondary uom and product uom as sudo to avoid create new ACL's for
-    portal and public users for security reasons
-    -->
     <template id="secondary_qty">
         <div
             class="css_quantity input-group oe_website_spinner"
@@ -41,13 +37,12 @@
         </div>
     </template>
     <template id="second_qty_description">
-        <t t-set="secondary_uom_sudo" t-value="secondary_uom.sudo()" />
         <t
             t-set="factor"
-            t-value="int(secondary_uom_sudo.factor) == secondary_uom_sudo.factor and int(secondary_uom_sudo.factor) or secondary_uom_sudo.factor"
+            t-value="int(secondary_uom.factor) == secondary_uom.factor and int(secondary_uom.factor) or secondary_uom.factor"
         />
         <span
-            t-esc="'{} {} {}'.format(secondary_uom_sudo.name, factor, secondary_uom_sudo.product_tmpl_id.uom_id.name)"
+            t-esc="'{} {} {}'.format(secondary_uom.name, factor, secondary_uom.product_tmpl_id.sudo().uom_id.name)"
         />
     </template>
     <template
@@ -59,11 +54,7 @@
             expr="//div[@id='product_details']//t[@t-call='website_sale.product_price']"
             position="after"
         >
-            <t
-                t-set="product_secondary_uom_ids_sudo"
-                t-value="product.sudo().secondary_uom_ids"
-            />
-            <t t-if="product_secondary_uom_ids_sudo">
+            <t t-if="product.secondary_uom_ids">
                 <div class="mb8 secondary-unit">
                     <t t-call="website_sale_secondary_unit.secondary_qty" />
                     <select
@@ -72,7 +63,7 @@
                         name="secondary_uom_id"
                     >
                         <option
-                            t-if="product_secondary_uom_ids_sudo and product.allow_uom_sell"
+                            t-if="product.secondary_uom_ids and product.allow_uom_sell"
                             value="0"
                             t-att-selected="'selected' if not product.sale_secondary_uom_id else None"
                             t-att-data-secondary-uom-factor="1.0"
@@ -80,10 +71,7 @@
                         >
                             <span t-esc="product.uom_id.sudo().name" />
                         </option>
-                        <t
-                            t-foreach="product_secondary_uom_ids_sudo"
-                            t-as="secondary_uom"
-                        >
+                        <t t-foreach="product.secondary_uom_ids" t-as="secondary_uom">
                             <option
                                 t-att-value="secondary_uom.id"
                                 t-att-selected="'selected' if product.sudo().sale_secondary_uom_id.id == secondary_uom.id else None"
@@ -102,7 +90,7 @@
     </template>
     <template id="product_price" inherit_id="website_sale.product_price">
         <xpath expr="//b[hasclass('oe_price')]" position="after">
-            <t t-if="product.sudo().secondary_uom_ids">
+            <t t-if="product.secondary_uom_ids">
                 / <span
                     class="css_editable_mode_hidden price_uom"
                     t-field="product.uom_id"
@@ -114,12 +102,12 @@
         <xpath expr="//input[@name='add_qty']/.." position="attributes">
             <attribute
                 name="t-attf-class"
-            >css_quantity input-group oe_website_spinner #{'d-none' if product.sudo().secondary_uom_ids else None}</attribute>
+            >css_quantity input-group oe_website_spinner #{'d-none' if product.secondary_uom_ids else None}</attribute>
         </xpath>
     </template>
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
         <xpath expr="//td[hasclass('td-qty')]/div" position="before">
-            <t t-if="line.sudo().secondary_uom_id">
+            <t t-if="line.secondary_uom_id">
                 <div
                     class="css_secondary_quantity input-group mx-auto oe_website_spinner"
                 >
@@ -133,17 +121,13 @@
                             <i class="fa fa-minus" />
                         </a>
                     </div>
-                    <t
-                        t-set="line_secondary_uom_sudo"
-                        t-value="line.sudo().secondary_uom_id"
-                    />
                     <input
                         type="text"
                         class="js_secondary_quantity form-control secondary-quantity"
                         t-att-data-line-id="line.id"
                         t-att-data-product-id="line.product_id.id"
-                        t-att-data-secondary-uom-id="line_secondary_uom_sudo.id"
-                        t-att-data-secondary-uom-factor="line_secondary_uom_sudo.factor"
+                        t-att-data-secondary-uom-id="line.secondary_uom_id.id"
+                        t-att-data-secondary-uom-factor="line.secondary_uom_id.factor"
                         t-att-data-product-uom-factor="line.product_uom.sudo().factor"
                         t-att-value="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
                     />
@@ -194,7 +178,7 @@
         </xpath>
         <!-- Display product uom to price column to clarify that price is per product unit -->
         <xpath expr="//td[@name='price']" position="inside">
-            <t t-if="line.product_id.secondary_uom_ids.sudo()">
+            <t t-if="line.product_id.secondary_uom_ids">
                 / <span
                     class="css_editable_mode_hidden price_uom"
                     t-field="line.product_id.uom_id"
@@ -236,7 +220,7 @@
         </xpath>
         <!-- Display product uom to price column to clarify that price is per product unit -->
         <xpath expr="//td[hasclass('td-price')]" position="inside">
-            <t t-if="line.product_id.secondary_uom_ids.sudo()">
+            <t t-if="line.product_id.secondary_uom_ids">
                 / <span
                     class="css_editable_mode_hidden price_uom"
                     t-field="line.product_id.uom_id"
@@ -246,7 +230,7 @@
     </template>
     <template id="cart_popover" inherit_id="website_sale.cart_popover">
         <xpath expr="//div[hasclass('col-9')]" position="inside">
-            <div t-if="line.secondary_uom_id.sudo()">
+            <div t-if="line.secondary_uom_id">
                 Qty: <t
                     t-esc="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
                 />
