@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_secondary_unit_user_public,access_product_second_unit_user_public,model_product_secondary_unit,base.group_public,1,0,0,0
+access_product_secondary_unit_user_portal,access_product_second_unit_user_portal,model_product_secondary_unit,base.group_portal,1,0,0,0

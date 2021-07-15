@@ -13,6 +13,7 @@
     "installable": True,
     "depends": ["website_sale", "sale_order_secondary_unit"],
     "data": [
+        "security/ir.model.access.csv",
         "security/website_sale_secondary_unit.xml",
         "views/assets.xml",
         "templates/assets.xml",
