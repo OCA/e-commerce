@@ -20,6 +20,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [product_template_multi_link](product_template_multi_link/) | 14.0.1.0.0 | Product Multi Links (Template)
+[product_variant_multi_link](product_variant_multi_link/) | 14.0.1.0.0 | Product Multi Links (Variant)
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | A price filter for website sale
 [website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.0 | Provides a way to group shipping methods
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 14.0.1.0.0 | Allow group attributes in shop by categories
