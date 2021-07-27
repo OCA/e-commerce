@@ -1,6 +1,6 @@
 /* Copyright 2020 Tecnativa - Ernesto Tejeda
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
-odoo.define("website_sale_stock_provisioning_date.tour", function(require) {
+odoo.define("website_sale_stock_provisioning_date.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
