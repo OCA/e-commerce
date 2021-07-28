@@ -20,6 +20,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route()
     def address(self, **kw):
+        submitted = "submitted" in kw
         res = super(WebsiteSale, self).address(**kw)
         if res.qcontext:
             mode = res.qcontext.get("mode", False)
@@ -48,4 +49,8 @@ class WebsiteSale(WebsiteSale):
                         ),
                     }
                 )
+        if submitted:
+            order = request.website.sale_get_order()
+            if order:
+                order.onchange_partner_shipping_id()
         return res
