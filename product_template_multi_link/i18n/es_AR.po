@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
 "PO-Revision-Date: 2021-06-09 22:49+0000\n"
 "Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
-"Language-Team: Spanish (Argentina) (https://www.transifex.com/oca/teams/"
-"23907/es_AR/)\n"
+"Language-Team: Spanish (Argentina) (https://www.transifex.com/oca/"
+"teams/23907/es_AR/)\n"
 "Language: es_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +41,7 @@ msgid "Cross Selling"
 msgstr "Venta Cruzada"
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__display_name
 msgid "Display Name"
@@ -52,6 +53,7 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__id
 msgid "ID"
@@ -64,11 +66,17 @@ msgid "Inverse Name"
 msgstr "Nombre Inverso"
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__is_link_active
+msgid "Is Link Active"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__is_symmetric
 msgid "Is Symmetric"
 msgstr "Es Simétrico"
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type____last_update
 msgid "Last Modified on"
