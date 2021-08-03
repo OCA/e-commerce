@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_template_link_type_tree_view" model="ir.ui.view">
+        <field name="name">product.template.link.type.tree.date.span</field>
+        <field name="model">product.template.link.type</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_type_tree_view"
+        />
+        <field name="arch" type="xml">
+            <field name="inverse_code" position="after">
+                <field name="limited_by_dates" />
+                <field name="mandatory_date_start" />
+            </field>
+        </field>
+    </record>
+</odoo>

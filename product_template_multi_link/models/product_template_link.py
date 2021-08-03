@@ -36,6 +36,12 @@ class ProductTemplateLink(models.Model):
     link_type_inverse_name = fields.Char(
         related="type_id.inverse_name"
     )  # right to left
+    is_link_active = fields.Boolean(compute="_compute_is_link_active")
+
+    def _compute_is_link_active(self):
+        # Hook here to define your own logic
+        for record in self:
+            record.is_link_active = True
 
     @api.constrains("left_product_tmpl_id", "right_product_tmpl_id", "type_id")
     def _check_products(self):

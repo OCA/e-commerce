@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_template_link_tree" model="ir.ui.view">
+        <field name="name">product.template.link.tree.date.span</field>
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="right_product_tmpl_id" position="after">
+                <field name="mandatory_date_start" invisible="1" />
+                <field
+                    name="date_start"
+                    attrs="{'required': [('mandatory_date_start', '=', True)]}"
+                />
+                <field name="date_end" />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_link_form" model="ir.ui.view">
+        <field name="name">product.template.link.form.date.span</field>
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_form"
+        />
+        <field name="arch" type="xml">
+            <group name="main" position="inside">
+                <field name="limited_by_dates" invisible="1" />
+                <group
+                    name="dates"
+                    attrs="{'invisible': [('limited_by_dates', '=', False)]}"
+                >
+                    <field name="mandatory_date_start" />
+                    <field
+                        name="date_start"
+                        attrs="{'required': [('mandatory_date_start', '=', True)]}"
+                    />
+                    <field name="date_end" />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
