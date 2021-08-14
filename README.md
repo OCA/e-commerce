@@ -11,29 +11,29 @@ Modules aiming to support e-commerce specific needs. This includes all the new w
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[product_links](product_links/) | 8.0.1.0.1 | Product Links
-[website_product_share](website_product_share/) | 8.0.1.0.0 | Product Share
-[website_product_show_uom](website_product_show_uom/) | 8.0.1.0.0 | Display Product UoM in e-commerce website
-[website_sale_cart_preview](website_sale_cart_preview/) | 8.0.1.0.0 | Preview your cart on mouseover
-[website_sale_cart_selectable](website_sale_cart_selectable/) | 8.0.1.0.0 | Enables to controlling button add to cart per product
-[website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 | A megamenu to display product categories in the online shop
-[website_sale_checkout_comment](website_sale_checkout_comment/) | 8.0.1.0.0 | Write comments in checkout process
-[website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 8.0.1.0.0 | Autocomplete VAT in checkout process
-[website_sale_default_country](website_sale_default_country/) | 8.0.1.0.0 | Give a default value for country at checkout
-[website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 | Product Brand Filtering in Website
-[website_sale_product_legal](website_sale_product_legal/) | 8.0.2.0.0 | Make buyers to accept legal terms per product
-[website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 | Let the users keep track of the products they saw on the ecommerce
-[website_sale_require_legal](website_sale_require_legal/) | 8.0.1.1.0 | Force the user to accept legal tems to buy in the web shop
-[website_sale_require_login](website_sale_require_login/) | 8.0.1.0.0 | Force users to login for buying
-[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 8.0.1.0.0 | Suggest users to create an account when buying in the website
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[product_links](product_links/) | 8.0.1.0.1 |  | Product Links
+[website_product_share](website_product_share/) | 8.0.1.0.0 |  | Product Share
+[website_product_show_uom](website_product_show_uom/) | 8.0.1.0.0 |  | Display Product UoM in e-commerce website
+[website_sale_cart_preview](website_sale_cart_preview/) | 8.0.1.0.0 |  | Preview your cart on mouseover
+[website_sale_cart_selectable](website_sale_cart_selectable/) | 8.0.1.0.0 |  | Enables to controlling button add to cart per product
+[website_sale_category_megamenu](website_sale_category_megamenu/) | 8.0.1.0.1 |  | A megamenu to display product categories in the online shop
+[website_sale_checkout_comment](website_sale_checkout_comment/) | 8.0.1.0.0 |  | Write comments in checkout process
+[website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 8.0.1.0.0 |  | Autocomplete VAT in checkout process
+[website_sale_default_country](website_sale_default_country/) | 8.0.1.0.0 |  | Give a default value for country at checkout
+[website_sale_product_brand](website_sale_product_brand/) | 8.0.1.0.0 |  | Product Brand Filtering in Website
+[website_sale_product_legal](website_sale_product_legal/) | 8.0.2.0.0 |  | Make buyers to accept legal terms per product
+[website_sale_recently_viewed_products](website_sale_recently_viewed_products/) | 8.0.1.0.0 |  | Let the users keep track of the products they saw on the ecommerce
+[website_sale_require_legal](website_sale_require_legal/) | 8.0.1.1.0 |  | Force the user to accept legal tems to buy in the web shop
+[website_sale_require_login](website_sale_require_login/) | 8.0.1.0.0 |  | Force users to login for buying
+[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 8.0.1.0.0 |  | Suggest users to create an account when buying in the website
 
 
 Unported addons
 ---------------
-addon | version | summary
---- | --- | ---
-[product_links_goodies](product_links_goodies/) | 6.1.0 (unported) | product_links_goodies
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[product_links_goodies](product_links_goodies/) | 6.1.0 (unported) |  | product_links_goodies
 
 [//]: # (end addons)
