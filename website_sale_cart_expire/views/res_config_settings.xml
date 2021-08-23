@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Camptocamp (http://www.camptocamp.com).
+    @author Iván Todorovich <ivan.todorovich@gmail.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="abandoned_carts_setting" position="after">
+                <div
+                    class="col-xs-12 col-lg-6 o_setting_box"
+                    id="cart_expire_settings"
+                    title="Automatically cancel carts without activity after a period of time"
+                >
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Expire Carts</span>
+                        <span
+                            class="fa fa-lg fa-globe"
+                            title="Values set here are website-specific."
+                            groups="website.group_multi_website"
+                        />
+                        <div class="text-muted">
+                            Automatically cancel carts without activity after a period of time
+                        </div>
+                        <div
+                            class="content-group"
+                            title="Carts are cancelled after this delay."
+                        >
+                            <div class="row mt16">
+                                <div class="col-12">
+                                    <label
+                                        for="cart_expire_delay"
+                                        string="Cart is cancelled after"
+                                        class="o_light_label"
+                                    />
+                                    <field
+                                        class="col-2"
+                                        name="cart_expire_delay"
+                                        widget="float_time"
+                                    />
+                                    <span>hours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
