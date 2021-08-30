@@ -11,9 +11,6 @@ class WebsiteSaleHttpCase(HttpCase):
         self.partner.with_context({"res_partner_search_mode": "customer"}).write(
             {"skip_website_checkout_payment": True}
         )
-        # Delete optional products for avoid popup window
-        product = self.env.ref("product.product_product_4_product_template")
-        product.optional_product_ids = [(6, 0, [])]
 
     def test_ui_website(self):
         """Test frontend tour."""
