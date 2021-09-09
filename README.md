@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [product_variant_multi_link](product_variant_multi_link/) | 14.0.1.0.0 |  | Product Multi Links (Variant)
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
 [website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Provides a way to group shipping methods
+[website_sale_hide_price](website_sale_hide_price/) | 14.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Allow group attributes in shop by categories
 [website_sale_product_description](website_sale_product_description/) | 14.0.1.0.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 14.0.1.0.0 |  | Display attributes images in shop product detail
