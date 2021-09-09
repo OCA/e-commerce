@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                    website.website_show_price
+                </attribute>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                    product.product_variant_ids and website.website_show_price
+                </attribute>
+        </xpath>
+    </template>
+    <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-if">
+                    website.website_show_price
+                </attribute>
+        </xpath>
+    </template>
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
+        <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+            <attribute name="t-if">
+                    website.website_show_price
+                </attribute>
+        </xpath>
+    </template>
+    <template id="website_search_box" inherit_id="website.website_search_box">
+        <xpath expr="//input[@name='search']" position="attributes">
+            <attribute
+                name="t-att-data-display-price"
+            >website and website.website_show_price</attribute>
+        </xpath>
+    </template>
+</odoo>
