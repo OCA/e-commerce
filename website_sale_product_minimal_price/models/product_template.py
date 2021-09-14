@@ -125,7 +125,13 @@ class ProductTemplate(models.Model):
             # more than one variants and we know the pricelist
             pricelist = self.env["product.pricelist"].browse(
                 context["pricelist"])
-            product_id = self._get_cheapest_info(pricelist)[0]
+            product_id, add_qty, has_distinct_price = (
+                self._get_cheapest_info(pricelist)
+            )
+            # When all the variants have the same price, we want to rely on the
+            # default attribute value order.
+            if not has_distinct_price:
+                return res
             product = self.env["product.product"].browse(product_id)
             # Rebuild the combination in the expected order
             res = self.env["product.template.attribute.value"]
