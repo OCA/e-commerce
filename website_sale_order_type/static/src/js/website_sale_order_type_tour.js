@@ -9,13 +9,13 @@ odoo.define("website_sale_order_type.tour", function(require) {
 
     var steps = [
         {
-            trigger: "a:contains('Chair floor protection')",
+            trigger: ".oe_product_cart a:contains('Customizable')",
         },
         {
-            trigger: "a:contains('Add to Cart')",
+            trigger: "#add_to_cart",
         },
         {
-            trigger: ".btn-primary:contains('Process Checkout')",
+            trigger: ".btn:contains('Process Checkout')",
         },
     ];
     tour.register(
