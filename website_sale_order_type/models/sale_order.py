@@ -1,13 +1,12 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import models
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.multi
     def _cart_update(
         self,
         product_id=None,
@@ -18,7 +17,7 @@ class SaleOrder(models.Model):
         **kwargs
     ):
         self.ensure_one()
-        res = super(SaleOrder, self)._cart_update(
+        res = super()._cart_update(
             product_id=product_id,
             line_id=line_id,
             add_qty=add_qty,
