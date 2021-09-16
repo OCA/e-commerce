@@ -11,12 +11,7 @@
     "maintainers": ["joao-p-marques"],
     "author": "Agile Business Group, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": [
-        "website_sale",
-        "sale_order_type"
-    ],
-    "demo": [
-        "demo/assets.xml"
-    ],
-    "auto_install": True
+    "depends": ["website_sale", "sale_order_type"],
+    "demo": ["demo/assets.xml"],
+    "auto_install": True,
 }
