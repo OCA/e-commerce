@@ -23,7 +23,7 @@ class TestFrontend(HttpCase):
         self.journal = self.env["account.journal"].search(
             [("type", "=", "sale")], limit=1
         )
-        self.warehouse = self.env.ref("stock.stock_warehouse_shop0")
+        self.warehouse = self.env.ref("stock.warehouse0")
         self.immediate_payment = self.env.ref("account.account_payment_term_immediate")
         self.sale_pricelist = self.env.ref("product.list0")
         self.free_carrier = self.env.ref("account.incoterm_FCA")
@@ -44,13 +44,7 @@ class TestFrontend(HttpCase):
         self.partner.sale_type = self.sale_type
         existing_orders = self.env["sale.order"].search([])
         # In frontend, create an order
-        tour_prefix = "odoo.__DEBUG__.services['web_tour.tour']"
-        self.phantom_js(
-            "/shop",
-            tour_prefix + ".run('website_sale_order_type_tour')",
-            tour_prefix + ".tours.website_sale_order_type_tour.ready",
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_order_type_tour", login="admin")
         created_order = self.env["sale.order"].search(
             [("id", "not in", existing_orders.ids)]
         )
