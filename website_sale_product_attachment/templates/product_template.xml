@@ -40,7 +40,7 @@
                     >
                         <ul class="list-group list-group-flush">
                             <t
-                                t-foreach="product.website_attachment_ids"
+                                t-foreach="product.website_attachment_ids.sudo()"
                                 t-as="attachment"
                             >
                                 <li class="list-group-item">
