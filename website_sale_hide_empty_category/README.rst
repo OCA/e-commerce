@@ -26,7 +26,7 @@ Website Sale - Hide Empty Categories
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
 Removes any category links from the Shop which have no products associated
-to them.
+to them. Also allows displaying number of products in individual categories.
 
 **Table of contents**
 

@@ -9,6 +9,13 @@
         id="hide_categories_recursive"
         name="Hide Empty Category list"
     >
+        <xpath expr="//li/a/span" position="after">
+            <t
+                t-set="product_count"
+                t-value="'  ({})'.format(c.count_product_recursive)"
+            />
+            <span t-if="show_product_count" t-esc="product_count" />
+        </xpath>
         <xpath
             expr="//t[@t-name='website_sale.categories_recursive']"
             position="attributes"
@@ -23,6 +30,17 @@
         id="hide_categories_collapse_recursive"
         name="Hide Empty Category Collapsible list"
     >
+        <xpath expr="//li/a" position="attributes">
+            <attribute name="t-field" />
+        </xpath>
+        <xpath expr="//li/a" position="inside">
+            <t
+                t-set="product_count"
+                t-value="'  ({})'.format(c.count_product_recursive)"
+            />
+            <span t-field="c.name" />
+            <span t-if="show_product_count" t-esc="product_count" />
+        </xpath>
         <xpath
             expr="//t[@t-name='website_sale.option_collapse_categories_recursive']"
             position="attributes"
@@ -41,6 +59,17 @@
     >
         <xpath expr="//t[@t-foreach='categories']" position="before">
             <t t-set="hide_empty_category" t-value="True" />
+        </xpath>
+    </template>
+    <template
+        inherit_id="website_sale.products_categories"
+        id="show_product_count_helper"
+        name="Show Product count in Category"
+        customize_show="True"
+        active="True"
+    >
+        <xpath expr="//t[@t-foreach='categories']" position="before">
+            <t t-set="show_product_count" t-value="True" />
         </xpath>
     </template>
 </odoo>

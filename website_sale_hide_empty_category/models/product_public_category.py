@@ -12,10 +12,16 @@ class ProductPublicCategory(models.Model):
         compute="_compute_has_product_recursive",
     )
 
+    count_product_recursive = fields.Integer(
+        string="Number of products in this category or one of its children",
+        compute="_compute_has_product_recursive",
+    )
+
     @api.depends("product_tmpl_ids", "child_id.has_product_recursive")
     def _compute_has_product_recursive(self):
         for category in self:
-            category.has_product_recursive = bool(
-                category.product_tmpl_ids
-                or any(child.has_product_recursive for child in category.child_id)
+            product_count = len(category.product_tmpl_ids) + sum(
+                child.has_product_recursive for child in category.child_id
             )
+            category.count_product_recursive = product_count
+            category.has_product_recursive = bool(product_count)
