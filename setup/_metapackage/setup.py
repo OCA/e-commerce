@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_attribute_filter_price',
         'odoo14-addon-website_sale_delivery_group',
         'odoo14-addon-website_sale_hide_price',
+        'odoo14-addon-website_sale_order_type',
         'odoo14-addon-website_sale_product_attribute_filter_category',
         'odoo14-addon-website_sale_product_description',
         'odoo14-addon-website_sale_product_detail_attribute_image',
