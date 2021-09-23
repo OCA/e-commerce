@@ -1,0 +1,121 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_snippet_carousel_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "10s"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "12"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "1s"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "24"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "2s"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "3s"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "5s"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
+msgid "<i class=\"fa fa-2x fa-chevron-left text-black-50\"/>\n"
+"                    <span class=\"sr-only\">Previous</span>"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
+msgid "<i class=\"fa fa-2x fa-chevron-right text-black-50\"/>\n"
+"                    <span class=\"sr-only\">Next</span>"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel
+msgid "<i class=\"fa fa-circle-o-notch fa-spin fa-3x fa-fwg\"/>\n"
+"                        <span>Loading Product Carousel</span>"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-bars\"/> Set Domain"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-clock-o\"/>Slideshow Speed"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-list-ol\"/> Show"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-stop-circle-o\"/> Limit"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/snippet.options.js:14
+#, python-format
+msgid "Add a products carousel"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:87
+#, python-format
+msgid "An error occured with this product carousel block. If the problem persists, please consider deleting it and adding a new one"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "Disable autoplay"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/snippet.options.js:107
+#, python-format
+msgid "Domain (can be empty)"
+msgstr ""
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:60
+#, python-format
+msgid "No products was found. Make sure you have products published on the website."
+msgstr ""
+

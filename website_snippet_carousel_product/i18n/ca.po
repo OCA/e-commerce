@@ -1,0 +1,134 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_snippet_carousel_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-01-20 20:45+0000\n"
+"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "10s"
+msgstr "10s"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "12"
+msgstr "12"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "1s"
+msgstr "1s"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "24"
+msgstr "24"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "2s"
+msgstr "2s"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "3s"
+msgstr "3s"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "5s"
+msgstr "5s"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
+msgid "<i class=\"fa fa-2x fa-chevron-left text-black-50\"/>\n"
+"                    <span class=\"sr-only\">Previous</span>"
+msgstr ""
+"<i class=\"fa fa-2x fa-chevron-left text-black-50\"/>\n"
+"                    <span class=\"sr-only\">Anterior</span>"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_items
+msgid "<i class=\"fa fa-2x fa-chevron-right text-black-50\"/>\n"
+"                    <span class=\"sr-only\">Next</span>"
+msgstr ""
+"<i class=\"fa fa-2x fa-chevron-right text-black-50\"/>\n"
+"                    <span class=\"sr-only\">Següent</span>"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel
+msgid "<i class=\"fa fa-circle-o-notch fa-spin fa-3x fa-fwg\"/>\n"
+"                        <span>Loading Product Carousel</span>"
+msgstr ""
+"<i class=\"fa fa-circle-o-notch fa-spin fa-3x fa-fwg\"/>\n"
+"                        <span>Carregant productes carrussel</span>"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-bars\"/> Set Domain"
+msgstr "<i class=\"fa fa-fw fa-bars\"/> Establir domini"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-clock-o\"/>Slideshow Speed"
+msgstr ""
+"<i class=\"fa fa-fw fa-clock-o\"/>Velocitat de presentació d'iniciatives"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-list-ol\"/> Show"
+msgstr "<i class=\"fa fa-fw fa-list-ol\"/> Mostrar"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "<i class=\"fa fa-fw fa-stop-circle-o\"/> Limit"
+msgstr "<i class=\"fa fa-fw fa-stop-circle-o\"/> Limitar"
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/snippet.options.js:14
+#, python-format
+msgid "Add a products carousel"
+msgstr "Afegueix carrusel de productes"
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:87
+#, python-format
+msgid "An error occured with this product carousel block. If the problem persists, please consider deleting it and adding a new one"
+msgstr ""
+"S'ha produït un error amb aquest bloc de carrusel de producte. Si el "
+"problema continua, penseu en suprimir-lo i afegir-ne un de nou"
+
+#. module: website_snippet_carousel_product
+#: model_terms:ir.ui.view,arch_db:website_snippet_carousel_product.s_product_carousel_options
+msgid "Disable autoplay"
+msgstr "Desactivar reproducció automàtica"
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/snippet.options.js:107
+#, python-format
+msgid "Domain (can be empty)"
+msgstr "Domini ( pot estar buit)"
+
+#. module: website_snippet_carousel_product
+#. openerp-web
+#: code:addons/website_snippet_carousel_product/static/src/js/s_product_carousel_frontend.js:60
+#, python-format
+msgid "No products was found. Make sure you have products published on the website."
+msgstr ""
+"No s'ha trobat cap producte. Assegureu-vos que teniu productes publicats al "
+"lloc web."
