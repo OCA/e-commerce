@@ -89,6 +89,12 @@ Once you set up the product attachments, public users will be able to download t
 .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_product_attachment/static/description/frontend-download.gif
    :alt: Attachments view in backend
 
+Known issues / Roadmap
+======================
+
+- Make translatable the name of the attachment in the e-commerce. This will
+  mean to deal with the sorting of the translated terms.
+
 Bug Tracker
 ===========
 
