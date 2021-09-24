@@ -40,7 +40,7 @@
                     >
                         <ul class="list-group list-group-flush">
                             <t
-                                t-foreach="product.website_attachment_ids.sudo()"
+                                t-foreach="product.website_attachment_ids.sudo().sorted(lambda x: x.website_name or x.name)"
                                 t-as="attachment"
                             >
                                 <li class="list-group-item">
@@ -49,7 +49,9 @@
                                         target="_new"
                                         t-att-href="attachment.local_url"
                                     >
-                                        <span t-field="attachment.name" />
+                                        <span
+                                            t-esc="attachment.website_name or attachment.name"
+                                        />
                                     </a>
                                 </li>
                             </t>
@@ -65,7 +67,10 @@
         name="Download icons"
         customize_show="True"
     >
-        <xpath expr="//*[@t-field='attachment.name']" position="before">
+        <xpath
+            expr="//*[@t-esc='attachment.website_name or attachment.name']"
+            position="before"
+        >
             <span
                 class="o_image mr8 flex-shrink-0"
                 t-att-data-mimetype="attachment.mimetype"
