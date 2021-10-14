@@ -17,7 +17,9 @@ class WebsiteSale(WebsiteSale):
     @route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):
         """Transfer custom sort order to QWeb templates."""
-        response = super().shop(page=page, category=category, search=search, **post)
+        response = super().shop(
+            page=page, category=category, search=search, ppg=ppg, **post
+        )
         response.qcontext["order"] = (
             post.get("order") or request.website.default_product_sort_criteria
         )
