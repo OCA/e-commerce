@@ -16,7 +16,7 @@ class WebsiteSale(WebsiteSale):
     def shop(self, page=0, category=None, search="", ppg=False, **post):
         """We can configure default sort criteria for every website"""
         response = super().shop(
-            page=page, category=category, search=search, **post
+            page=page, category=category, search=search, ppg=ppg, **post
         )
         response.qcontext["order"] = post.get(
             "order", request.website.default_product_sort_criteria)
