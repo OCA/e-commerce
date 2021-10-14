@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Sort",
     "summary": "Allow to define default sort criteria for e-commerce",
-    "version": "13.0.1.0.1",
+    "version": "13.0.1.0.2",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
