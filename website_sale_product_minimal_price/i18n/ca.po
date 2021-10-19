@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_minimal_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-17 14:53+0000\n"
+"PO-Revision-Date: 2021-05-17 16:54+0200\n"
+"Last-Translator: Carlos <carlos.roca@tecnativa.com>\n"
+"Language-Team: none\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: website_sale_product_minimal_price
+#. openerp-web
+#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
+#, python-format
+msgid "From"
+msgstr "De"
+
+#. module: website_sale_product_minimal_price
+#. openerp-web
+#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_price_scale.xml:0
+#, python-format
+msgid "Prices per quantity ("
+msgstr "Preus per quantitat ("
+
+#. module: website_sale_product_minimal_price
+#: model:ir.model,name:website_sale_product_minimal_price.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producte"
