@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 Tecnativa - Jairo Llopis
+     Copyright 2021 Tecnativa - Pedro M. Baeza
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <data>
     <record id="product_template_form_view" model="ir.ui.view">
@@ -16,8 +17,9 @@
                         or unpublish it from your database.
                     </div>
                     <field name="website_attachment_ids" nolabel="1">
-                        <tree>
-                            <field name="name" />
+                        <tree default_order="website_name,name,id">
+                            <field name="website_name" />
+                            <field name="name" string="File Name" />
                             <field
                                 name="website_id"
                                 groups="website.group_multi_website"
