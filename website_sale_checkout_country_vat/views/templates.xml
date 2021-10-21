@@ -18,7 +18,7 @@
                 />
                 <t
                     t-set="default_country"
-                    t-value="countries.search([('code', '=', default_value[:2])]) or countries.search([('id', '=', country_id and int(country_id) or False)])"
+                    t-value="countries.search(['|', ('code', '=', default_value[:2]), ('id', '=', country_id and int(country_id) or False)], limit=1)"
                 />
                 <t
                     t-set="no_country_field_extra_classes"
