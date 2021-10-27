@@ -47,3 +47,21 @@ class ProductTemplate(models.Model):
             return (['!'] if value is False else []) + expression.AND([is_published, on_current_website])
         else:  # should be in the backend, return things that are published anywhere
             return is_published
+
+
+# # TODO KZ If it works move it to new file
+# class ProductPublicCategory(models.Model):
+#     # _inherit = ["product.public.category", "website.published.mixin"]
+#     # _name = "product.public.category"
+#     _inherit = "product.public.category"
+#     website_ids = fields.Many2many("website", string="Websites")
+
+# class Website(models.Model):
+
+#     _inherit = "website"
+
+#     @api.model
+#     def website_domain(self, website_id=False):
+#         res = ['|'] + [('website_ids', 'ilike', item) for item in (False, website_id or self.id)]
+#         print(" --- website_domain %s" % res)
+#         return res
