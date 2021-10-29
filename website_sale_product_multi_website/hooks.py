@@ -5,3 +5,10 @@ def post_init_hook(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
     for rec in env["product.template"].with_context(active_test=False).search([]):
         rec.website_ids += rec.website_id
+        rec.website_id = False
+
+
+def uninstall_hook(cr, registry):
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    for rec in env["product.template"].with_context(active_test=False).search([]):
+        rec.website_id = rec.website_ids[0]
