@@ -19,7 +19,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[product_template_multi_link](product_template_multi_link/) | 14.0.1.1.0 |  | Product Multi Links (Template)
+[product_template_multi_link](product_template_multi_link/) | 14.0.1.2.0 |  | Product Multi Links (Template)
 [product_template_multi_link_date_span](product_template_multi_link_date_span/) | 14.0.1.1.0 |  | Add an optional date span for when a link is active.
 [product_variant_multi_link](product_variant_multi_link/) | 14.0.1.0.0 |  | Product Multi Links (Variant)
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
