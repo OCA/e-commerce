@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2021 Tecnativa - David Vidal
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_website_config_settings" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="website_google_tag_manager.view_website_config_settings"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='google_tag_manager_key']/../.."
+                position="after"
+            >
+                <div class="content-group">
+                    <div class="row mt16">
+                        <label
+                            class="col-lg-4 o_light_label"
+                            for="google_tag_manager_enhanced_conversions"
+                        />
+                        <field name="google_tag_manager_enhanced_conversions" />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
