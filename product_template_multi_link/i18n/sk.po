@@ -20,14 +20,31 @@ msgstr ""
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: product_template_multi_link
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Create links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Create links?"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__create_uid
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__create_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__create_uid
 msgid "Created by"
 msgstr "Vytvoril"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__create_date
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__create_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__create_date
 msgid "Created on"
 msgstr "Vytvorené"
 
@@ -43,6 +60,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__display_name
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__display_name
 msgid "Display Name"
 msgstr "Zobraziť meno"
 
@@ -55,6 +73,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__id
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__id
 msgid "ID"
 msgstr "ID"
 
@@ -78,18 +97,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type____last_update
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker____last_update
 msgid "Last Modified on"
 msgstr "Posledná modifikácia"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__write_uid
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__write_uid
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__write_uid
 msgid "Last Updated by"
 msgstr "Naposledy upravoval"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__write_date
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__write_date
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__write_date
 msgid "Last Updated on"
 msgstr "Naposledy upravované"
 
@@ -104,7 +126,13 @@ msgid "Link inverse code already exists !"
 msgstr ""
 
 #. module: product_template_multi_link
+#: model:ir.model.fields.selection,name:product_template_multi_link.selection__product_template_linker__operation_type__link
+msgid "Link these products"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__type_id
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__type_id
 msgid "Link type"
 msgstr ""
 
@@ -129,6 +157,21 @@ msgid "Lower Range"
 msgstr ""
 
 #. module: product_template_multi_link
+#: model:ir.actions.act_window,name:product_template_multi_link.product_template_linker_action
+msgid "Manage Product Links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__manual_inverse_code
+msgid "Manual Inverse Code"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__manual_inverse_name
+msgid "Manual Inverse Name"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__link_type_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__name
 msgid "Name"
@@ -140,6 +183,11 @@ msgstr ""
 msgid ""
 "Only one link with the same type is allowed between 2 products. \n"
 " %s"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__operation_type
+msgid "Operation"
 msgstr ""
 
 #. module: product_template_multi_link
@@ -189,8 +237,41 @@ msgid "Product links"
 msgstr ""
 
 #. module: product_template_multi_link
+#: model:ir.model,name:product_template_multi_link.model_product_template_linker
+msgid "Product template linker wizard"
+msgstr ""
+
+#. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 msgid "Product template links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__product_ids
+msgid "Products"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields.selection,name:product_template_multi_link.selection__product_template_linker__operation_type__unlink
+msgid "Remove existing links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,help:product_template_multi_link.field_product_template_linker__operation_type
+msgid ""
+"Remove existing links: will remove every existing link on each selected "
+"products;\n"
+"Link these products: will link all selected products together."
+msgstr ""
+
+#. module: product_template_multi_link
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Remove links"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
+msgid "Remove links?"
 msgstr ""
 
 #. module: product_template_multi_link
