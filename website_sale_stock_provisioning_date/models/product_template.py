@@ -1,6 +1,7 @@
 # Copyright 2019 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
+from odoo.tools.misc import format_date
 
 
 class ProductTemplate(models.Model):
@@ -49,5 +50,6 @@ class ProductTemplate(models.Model):
             website_id = self.env.context.get("website_id")
             company = self.env["website"].browse(website_id).company_id
             provisioning_date = product._get_next_provisioning_date(company)
+            provisioning_date = format_date(self.env, provisioning_date)
         combination_info.update(provisioning_date=provisioning_date)
         return combination_info
