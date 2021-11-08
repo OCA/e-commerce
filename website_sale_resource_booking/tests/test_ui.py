@@ -36,12 +36,10 @@ class UICase(HttpCase):
 
     def test_checkout(self):
         """Booking checkout tour."""
-        tour = "website_sale_resource_booking_checkout"
         # A visitor called Mr. A buys 3 booking products
-        self.browser_js(
-            url_path="/shop?search=test not bookable product",
-            code="odoo.__DEBUG__.services['web_tour.tour'].run('%s')" % tour,
-            ready="odoo.__DEBUG__.services['web_tour.tour'].tours.%s.ready" % tour,
+        self.start_tour(
+            "/shop?search=test not bookable product",
+            "website_sale_resource_booking_checkout",
         )
         # Find Mr. A's cart
         so = self.env["sale.order"].search([("partner_id", "=", "Mr. A")])
@@ -74,11 +72,11 @@ class UICase(HttpCase):
                 "Invitation to Mr. C - Test resource booking type",
                 # Portal invitations with tokenized link
                 "You are invited to access Mr. A - Test resource booking type "
-                "- March-01-2021 at (08-00 AM To 08-30 AM) (UTC)",
+                "- 03/01/2021 at (09:00:00 To 09:30:00) (UTC)",
                 "You are invited to access Mr. B - Test resource booking type "
-                "- March-01-2021 at (08-00 AM To 08-30 AM) (UTC)",
+                "- 03/01/2021 at (09:00:00 To 09:30:00) (UTC)",
                 "You are invited to access Mr. C - Test resource booking type "
-                "- March-01-2021 at (08-30 AM To 09-00 AM) (UTC)",
+                "- 03/01/2021 at (09:30:00 To 10:00:00) (UTC)",
             },
         )
 
