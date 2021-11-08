@@ -3,7 +3,7 @@
 
 from datetime import timedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
@@ -21,8 +21,10 @@ class ProductTemplate(models.Model):
         compute="_compute_resource_booking_expiration"
     )
 
+    @api.depends("resource_booking_type_id", "resource_booking_timeout")
     def _compute_resource_booking_expiration(self):
         """When would the booking expire if placed right now."""
+        self.resource_booking_expiration = False
         now = fields.Datetime.now()
         for one in self:
             if not one.resource_booking_type_id:
