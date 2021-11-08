@@ -5,14 +5,12 @@ odoo.define("website_sale_resource_booking.tour_checkout", function(require) {
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     tour.register(
         "website_sale_resource_booking_checkout",
         {
             url: "/shop?search=test not bookable product",
             test: true,
-            wait_for: base.ready(),
         },
         [
             // Add non-bookable product, to make sure we don't interfere
