@@ -3,7 +3,7 @@
 {
     "name": "Sell resource booking products in your eCommerce",
     "summary": "Let customers book resources temporarily before buying",
-    "version": "12.0.1.0.1",
+    "version": "13.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -17,5 +17,5 @@
         "templates/website_sale.xml",
         "views/product_template_view.xml",
     ],
-    "demo": ["demo/assets.xml",],
+    "demo": ["demo/assets.xml"],
 }
