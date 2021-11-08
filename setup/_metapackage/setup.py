@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_checkout_country_vat',
         'odoo13-addon-website_sale_checkout_skip_payment',
         'odoo13-addon-website_sale_free_qty',
+        'odoo13-addon-website_sale_google_tag_manager',
         'odoo13-addon-website_sale_hide_empty_category',
         'odoo13-addon-website_sale_hide_price',
         'odoo13-addon-website_sale_order_type',
