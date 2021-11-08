@@ -1,0 +1,66 @@
+<!-- Copyright 2021 Tecnativa - David Vidal
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <template
+        id="confirmation"
+        name="Tag Manager Enhanced Conversions"
+        inherit_id="website_sale.confirmation"
+    >
+        <xpath expr="//div[hasclass('oe_website_sale')]" position="inside">
+            <t
+                t-if="website and website.google_tag_manager_key and website.google_tag_manager_enhanced_conversions"
+            >
+                <div
+                    id="gtm_enhanced_conversion_data"
+                    class="d-none"
+                    itemprop="address"
+                >
+                    <t t-set="customer" t-value="order.partner_id" />
+                    <t t-set="shipping" t-value="order.partner_shipping_id" />
+                    <span
+                        name="customer_email"
+                        t-esc="customer.email"
+                        itemprop="email"
+                    />
+                    <span name="customer_name" t-esc="customer.name" itemprop="name" />
+                    <!-- Only available if partner_firstname is installed, otherwise you
+                         should figure out in your js tag code -->
+                    <span
+                        name="customer_firstname"
+                        t-esc="'firstname' in customer._fields and customer.firstname or ''"
+                    />
+                    <span
+                        name="customer_lastname"
+                        t-esc="'lastname' in customer._fields and customer.lastname or ''"
+                    />
+                    <!-- Shipping address -->
+                    <span
+                        name="shipping_street"
+                        t-esc="shipping.street"
+                        itemprop="streetAddress"
+                    />
+                    <span
+                        name="shipping_city"
+                        t-esc="shipping.city"
+                        itemprop="addressLocality"
+                    />
+                    <span
+                        name="shipping_zip"
+                        t-esc="shipping.zip"
+                        itemprop="postalCode"
+                    />
+                    <span
+                        name="shipping_region"
+                        t-esc="shipping.state_id and shipping.state_id.name or ''"
+                        itemprop="addressRegion"
+                    />
+                    <span
+                        name="shipping_country"
+                        t-esc="shipping.country_id and shipping.country_id.code or ''"
+                        itemprop="addressCountry"
+                    />
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
