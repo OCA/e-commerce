@@ -2,20 +2,23 @@
 <!-- Copyright 2018-2019 Tecnativa
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <template id="payment" inherit_id="website_sale.payment">
         <!--Show user company info at the payment cart address-->
         <xpath expr="//span[@t-esc='order.partner_id']" position="before">
-            <span t-raw='order.partner_id.commercial_company_name' />
-            <span t-raw='order.partner_invoice_id.vat' />
+            <div>
+                <span t-raw='order.partner_id.commercial_company_name' />
+                <span t-raw='order.partner_invoice_id.vat' />
+            </div>
         </xpath>
     </template>
 
     <template id="confirmation" inherit_id="website_sale.confirmation">
         <!--Show user company info at the confimed cart address-->
         <xpath expr="//span[@t-esc='order.partner_id']" position="before">
-            <span t-raw='order.partner_id.commercial_company_name' />
-            <span t-raw='order.partner_invoice_id.vat' />
+            <div>
+                <span t-raw='order.partner_id.commercial_company_name' />
+                <span t-raw='order.partner_invoice_id.vat' />
+            </div>
         </xpath>
     </template>
 
