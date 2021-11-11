@@ -1,6 +1,6 @@
 // Copyright 2021 Tecnativa - David Vidal
 // License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-odoo.define("website_sale_attribute_filter_form_submit.website_sale", function (
+odoo.define("website_sale_attribute_filter_form_submit.website_sale", function(
     require
 ) {
     "use strict";
@@ -21,9 +21,10 @@ odoo.define("website_sale_attribute_filter_form_submit.website_sale", function (
          * @private
          * @param {MouseEvent} ev
          */
-        _onChangeColorAttribute: function (ev) {
+        _onChangeColorAttribute: function(ev) {
             var $parent = $(ev.target).closest(".js_attributes");
-            $parent.find(".css_attribute_color")
+            $parent
+                .find(".css_attribute_color")
                 .removeClass("active")
                 .filter(":has(input:checked)")
                 .addClass("active");
@@ -34,7 +35,7 @@ odoo.define("website_sale_attribute_filter_form_submit.website_sale", function (
          * @private
          * @param {MouseEvent} ev
          */
-        _onChangeAttribute: function (ev) {
+        _onChangeAttribute: function(ev) {
             var manual = $(ev.target).closest(".js_attributes_manual");
             if (manual.length) {
                 return true;

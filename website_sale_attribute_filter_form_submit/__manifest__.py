@@ -8,10 +8,7 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["website_sale"],
-    "data": [
-        "templates/assets.xml",
-        "templates/website_sale.xml",
-    ],
+    "data": ["templates/assets.xml", "templates/website_sale.xml"],
     "author": "Studio73, Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
     "installable": True,

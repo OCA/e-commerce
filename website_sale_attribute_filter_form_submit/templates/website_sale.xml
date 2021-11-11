@@ -15,14 +15,11 @@
         name="Manual filters"
         inherit_id="website_sale.products_attributes"
         active="False"
-        customize_show="True" 
+        customize_show="True"
     >
         <xpath expr="//form[hasclass('js_attributes')]" position="inside">
             <div class='py-2'>
-                <button
-                    id="btn-attribute-filter"
-                    class="btn btn-primary"
-                >
+                <button id="btn-attribute-filter" class="btn btn-primary">
                     Apply
                 </button>
             </div>
