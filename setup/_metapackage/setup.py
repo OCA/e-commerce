@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_product_description',
         'odoo14-addon-website_sale_product_detail_attribute_image',
         'odoo14-addon-website_sale_product_minimal_price',
+        'odoo14-addon-website_sale_show_company_data',
         'odoo14-addon-website_sale_stock_available',
     ],
     classifiers=[
