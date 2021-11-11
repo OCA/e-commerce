@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo14-addon-product_template_multi_link',
         'odoo14-addon-product_template_multi_link_date_span',
         'odoo14-addon-product_variant_multi_link',
+        'odoo14-addon-website_sale_attribute_filter_form_submit',
         'odoo14-addon-website_sale_attribute_filter_price',
         'odoo14-addon-website_sale_checkout_skip_payment',
         'odoo14-addon-website_sale_delivery_group',
