@@ -8,16 +8,16 @@
     "Tecnativa, "
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
-    "version": "13.0.1.1.1",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["product_brand", "website_sale"],
     "data": [
         "security/ir.model.access.csv",
         "data/website_menu.xml",
         "views/product_brand.xml",
+        "views/assets.xml",
     ],
     "demo": [
-        "demo/assets.xml",
         "demo/product_brand_demo.xml",
         "demo/product_product_demo.xml",
     ],
