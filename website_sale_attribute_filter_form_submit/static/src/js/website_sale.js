@@ -5,14 +5,14 @@ odoo.define("website_sale_attribute_filter_form_submit.website_sale", function(
 ) {
     "use strict";
 
-    var sAnimations = require("website.content.snippets.animation");
+    var publicWidget = require("web.public.widget");
 
-    sAnimations.registry.WebsiteSale.include({
+    publicWidget.registry.WebsiteSale.include({
         read_events: _.extend(
             {
                 "change .css_attribute_color input": "_onChangeColorAttribute",
             },
-            sAnimations.registry.WebsiteSale.prototype.read_events
+            publicWidget.registry.WebsiteSale.prototype.read_events
         ),
         /**
          * Highlight selected color as we prevent form submit we need to have
@@ -36,7 +36,7 @@ odoo.define("website_sale_attribute_filter_form_submit.website_sale", function(
          * @param {MouseEvent} ev
          */
         _onChangeAttribute: function(ev) {
-            var manual = $(ev.target).closest(".js_attributes_manual");
+            const manual = $(ev.target).closest(".js_attributes_manual");
             if (manual.length) {
                 return true;
             }

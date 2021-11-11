@@ -5,7 +5,7 @@
     "name": "Website manual attribute filters",
     "category": "E-Commerce",
     "summary": "Allow to apply manually the filters on the e-commerce",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["website_sale"],
     "data": ["templates/assets.xml", "templates/website_sale.xml"],
