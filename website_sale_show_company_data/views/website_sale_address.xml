@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 Tecnativa
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="payment" inherit_id="website_sale.payment">
+        <!--Show user company info at the payment cart address-->
+        <xpath expr="//span[@t-esc='order.partner_id']" position="before">
+            <div>
+                <span t-raw='order.partner_id.commercial_company_name' />
+                <span t-raw='order.partner_invoice_id.vat' />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <!--Show user company info at the confimed cart address-->
+        <xpath expr="//span[@t-esc='order.partner_id']" position="before">
+            <div>
+                <span t-raw='order.partner_id.commercial_company_name' />
+                <span t-raw='order.partner_invoice_id.vat' />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="address_kanban" inherit_id="website_sale.address_kanban">
+        <!--Show user company info at the address kanban-->
+        <xpath expr="//t[@t-esc='contact']" position="after">
+            <t
+                t-if="contact.commercial_partner_id and contact.commercial_partner_id.vat"
+            >
+                <t t-raw="contact.commercial_partner_id.vat" />
+            </t>
+        </xpath>
+    </template>
+
+    <template
+        id="sale_order_portal_content"
+        inherit_id="sale.sale_order_portal_content"
+    >
+        <!--Show company VAT -->
+        <xpath
+            expr="//address[@t-field='sale_order.partner_invoice_id']"
+            position="after"
+        >
+            <t
+                t-if="sale_order.partner_invoice_id.vat"
+                t-raw="sale_order.partner_invoice_id.vat"
+            />
+        </xpath>
+    </template>
+
+</odoo>
