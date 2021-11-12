@@ -5,9 +5,10 @@ from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    inventory_availability = fields.Selection(selection_add=[
-        ('custom_block',
-         'Block sales on website and display a message custom'),
-    ])
+    inventory_availability = fields.Selection(
+        selection_add=[
+            ("custom_block", "Block sales on website and display a message custom"),
+        ]
+    )

@@ -5,9 +5,10 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
-    inventory_availability = fields.Selection(selection_add=[
-        ('custom_block',
-         'Block sales on website and display a message custom'),
-    ])
+    inventory_availability = fields.Selection(
+        selection_add=[
+            ("custom_block", "Block sales on website and display a message custom"),
+        ]
+    )

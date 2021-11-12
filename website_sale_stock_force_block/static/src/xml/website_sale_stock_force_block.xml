@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates>
-
     <t t-extend="website_sale_stock.product_availability">
         <t t-jquery="t:eq(0)" t-operation="after">
-            <t t-if="product_type == 'product' and inventory_availability == 'custom_block'">
+            <t
+                t-if="product_type == 'product' and inventory_availability == 'custom_block'"
+            >
                 <!-- Re-use this core field -->
                 <div class="row mt8">
                     <div class="col-12">
@@ -13,5 +14,4 @@
             </t>
         </t>
     </t>
-
 </templates>
