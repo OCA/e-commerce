@@ -1,7 +1,7 @@
 /* Copyright 2020 Alexandre D. Díaz
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_product_item_cart_custom_qty.tour", function(require) {
+odoo.define("website_sale_product_item_cart_custom_qty.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
