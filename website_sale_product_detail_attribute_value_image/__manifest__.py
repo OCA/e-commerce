@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Detail Attribute Value Image",
     "summary": "Display attributes values images in shop product detail",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
