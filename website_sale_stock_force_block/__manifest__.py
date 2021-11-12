@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Stock Force Block",
     "summary": "Block sales for a product",
-    "version": "12.0.1.0.1",
+    "version": "13.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -17,6 +17,5 @@
         "views/product_template_views.xml",
         "views/templates.xml",
     ],
-    "demo"
     "uninstall_hook": "uninstall_hook",
 }

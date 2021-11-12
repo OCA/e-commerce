@@ -1,9 +1,10 @@
 # Copyright 2020 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase
+from odoo.tests import common, tagged
 
 
-class WebsiteSaleStockForceBlock(HttpCase):
+@tagged("post_install", "-at_install")
+class WebsiteSaleStockForceBlock(common.HttpCase):
     def setUp(self):
         super().setUp()
         # Active "Add to cart" option in main products view
@@ -23,7 +24,7 @@ class WebsiteSaleStockForceBlock(HttpCase):
             "type": "product",
             "website_published": True,
             "inventory_availability": "custom_block",
-            "website_sequence": 5000,
+            "website_sequence": 1,
             "list_price": 0.0,
         }
         vals = common_vals.copy()
@@ -37,13 +38,4 @@ class WebsiteSaleStockForceBlock(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_stock_force_block",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_stock_force_block", login="admin")
