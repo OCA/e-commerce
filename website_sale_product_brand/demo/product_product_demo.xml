@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product.product_product_7" model="product.product">
+        <field name="product_brand_id" ref="product_brand_apple_demo" />
+    </record>
+    <record id="product.product_product_9" model="product.product">
+        <field name="product_brand_id" ref="product_brand_apple_demo" />
+    </record>
+</odoo>
