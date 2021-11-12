@@ -1,9 +1,10 @@
 # Copyright 2020 Tecnativa - Alexandre D. Díaz
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase
+import odoo.tests
 
 
-class WebsiteSaleHttpCase(HttpCase):
+@odoo.tests.tagged("post_install", "-at_install")
+class WebsiteSaleHttpCase(odoo.tests.HttpCase):
     def setUp(self):
         super().setUp()
         self.ProductAttribute = self.env["product.attribute"]
@@ -84,13 +85,6 @@ class WebsiteSaleHttpCase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_product_detail_attribute_value_image",
-        )
-        self.browser_js(
-            url_path="/",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
+        self.start_tour(
+            "/shop", "website_sale_product_detail_attribute_value_image", login="admin"
         )
