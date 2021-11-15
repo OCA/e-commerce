@@ -41,6 +41,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_secondary_unit',
         'odoo13-addon-website_sale_stock_available',
         'odoo13-addon-website_sale_stock_available_display',
+        'odoo13-addon-website_sale_stock_force_block',
         'odoo13-addon-website_sale_stock_list_preview',
         'odoo13-addon-website_sale_stock_provisioning_date',
         'odoo13-addon-website_sale_suggest_create_account',
