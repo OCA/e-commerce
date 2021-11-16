@@ -24,8 +24,8 @@ msgstr ""
 "Afegeix un estat de disponibilitat d’inventari a la pàgina del producte web."
 
 #. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
+#: model:ir.model.fields.selection,name:website_sale_stock_force_block.selection__product_template__inventory_availability__custom_block
+#: model:ir.model.fields.selection,name:website_sale_stock_force_block.selection__res_config_settings__inventory_availability__custom_block
 msgid "Block sales on website and display a message custom"
 msgstr "Bloqueja les vendes al lloc web i mostra un missatge personalitzat"
 
@@ -48,47 +48,11 @@ msgstr "Plantilla de producte"
 
 #. module: website_sale_stock_force_block
 #: model:ir.model,name:website_sale_stock_force_block.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Sell regardless of inventory"
-msgstr "Vendre independenment del inventari"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory below a threshold and prevent sales if not enough stock"
-msgstr ""
-"Mostra l'inventari per sota d'un llindar i evita les vendes si no hi ha prou "
-"existències"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and allow sales if not enough stock"
-msgstr ""
-"Mostra l'inventari al lloc web i permet les vendes si no hi ha prou "
-"existències"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and prevent sales if not enough stock"
-msgstr ""
-"Mostra l'inventari al lloc web i evita les vendes si no hi ha prou "
-"existències"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show product-specific notifications"
-msgstr "Mostra les notificacions específiques del producte"
-
-#. module: website_sale_stock_force_block
-#: code:addons/website_sale_stock_force_block/models/sale_order.py:44
+#: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid ""
 "Some products became unavailable and your cart has been updated. We're sorry "
@@ -96,7 +60,29 @@ msgid ""
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: code:addons/website_sale_stock_force_block/models/sale_order.py:39
+#: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid "You ask for %s products but only %s is available"
 msgstr ""
+
+#~ msgid "Sell regardless of inventory"
+#~ msgstr "Vendre independenment del inventari"
+
+#~ msgid ""
+#~ "Show inventory below a threshold and prevent sales if not enough stock"
+#~ msgstr ""
+#~ "Mostra l'inventari per sota d'un llindar i evita les vendes si no hi ha "
+#~ "prou existències"
+
+#~ msgid "Show inventory on website and allow sales if not enough stock"
+#~ msgstr ""
+#~ "Mostra l'inventari al lloc web i permet les vendes si no hi ha prou "
+#~ "existències"
+
+#~ msgid "Show inventory on website and prevent sales if not enough stock"
+#~ msgstr ""
+#~ "Mostra l'inventari al lloc web i evita les vendes si no hi ha prou "
+#~ "existències"
+
+#~ msgid "Show product-specific notifications"
+#~ msgstr "Mostra les notificacions específiques del producte"
