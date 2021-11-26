@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 LasLabs Inc.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+
+<odoo>
+    <template id="product_hide_price" inherit_id="website_sale.product">
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="replace">
+            <t t-if="product.availability != 'unavailable'">
+                <t t-call="website_sale.product_price" />
+            </t>
+        </xpath>
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-if">product.availability != 'unavailable'</attribute>
+        </xpath>
+        <xpath expr="//a[@id='add_to_cart']" position="after">
+            <t t-if="product.availability == 'unavailable'">
+                <br/>
+                <span class="btn btn-danger disabled">Unavailable</span>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="products_item_hide_price" inherit_id="website_sale.products_item">
+        <xpath expr="//div[@class='product_price']" position="attributes">
+            <attribute name="t-if">product.product_variant_ids and product.availability != 'unavailable'</attribute>
+        </xpath>
+        <xpath expr="//section/h5" position="after">
+            <t t-if="product.availability == 'unavailable'">
+                <div class="product_price"><span class="btn btn-danger btn-xs disabled">Unavailable</span></div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
