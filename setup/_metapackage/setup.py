@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo10-addon-website_sale_hide_price',
         'odoo10-addon-website_sale_order_type',
         'odoo10-addon-website_sale_price_tier',
+        'odoo10-addon-website_sale_product_unavailable',
         'odoo10-addon-website_sale_require_legal',
         'odoo10-addon-website_sale_require_login',
         'odoo10-addon-website_sale_search_fuzzy',
