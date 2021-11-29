@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2021 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<templates>
+    <t t-name="website_sale_product_assortment.product_availability">
+        <div
+            t-if="message_unavailable"
+            class="text-danger mt-3"
+            t-attf-id="message_unavailable_#{product_template_id}"
+        >
+            <i
+                class="fa fa-exclamation-triangle"
+                role="img"
+                aria-label="Warning"
+                title="Warning"
+            />
+            <t t-esc="message_unavailable" />
+        </div>
+    </t>
+</templates>

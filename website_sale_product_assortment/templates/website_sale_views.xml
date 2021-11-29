@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- Copyright 2021 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@t-field='product.website_description']" position="before">
+            <t t-if="combination_info.get('assortment_information')">
+                <div
+                    itemprop="assortment_information"
+                    t-esc="combination_info.get('assortment_information')"
+                    class="oe_structure mt16"
+                    id="product_full_description"
+                />
+            </t>
+        </xpath>
+    </template>
+</odoo>
