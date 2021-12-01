@@ -13,9 +13,11 @@ class ProductProduct(models.Model):
             ("state", "not in", ["draft", "done", "cancel"]),
             ("location_id.usage", "=", "supplier"),
             ("location_dest_id.usage", "=", "internal"),
-            ("date_expected", ">=", fields.Datetime.now()),
+            ("date_provisioning", ">=", fields.Datetime.today()),
         ]
         move = (
-            self.env["stock.move"].sudo().search(domain, order="date_expected", limit=1)
+            self.env["stock.move"]
+            .sudo()
+            .search(domain, order="date_provisioning", limit=1)
         )
-        return move and move.date_expected.date() or False
+        return move and move.date_provisioning or False

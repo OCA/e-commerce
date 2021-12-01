@@ -13,4 +13,5 @@
     "installable": True,
     "depends": ["website_sale_stock"],
     "data": ["views/assets.xml", "views/product_template_views.xml"],
+    "pre_init_hook": "pre_init_hook",
 }
