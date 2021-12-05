@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-11 19:33+0000\n"
+"PO-Revision-Date: 2021-12-05 21:37+0000\n"
 "Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es_AR\n"
@@ -47,7 +47,7 @@ msgstr "Producto"
 #. module: product_variant_multi_link
 #: model_terms:ir.ui.view,arch_db:product_variant_multi_link.product_product_form_inherit_multilinks
 msgid "Product Links"
-msgstr ""
+msgstr "Vínculos de Producto"
 
 #. module: product_variant_multi_link
 #: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product__product_variant_link_ids
@@ -64,7 +64,7 @@ msgstr "Enlace de producto"
 #: model_terms:ir.ui.view,arch_db:product_variant_multi_link.product_product_form_inherit_multilinks
 #, python-format
 msgid "Product links"
-msgstr ""
+msgstr "Vínculos de producto"
 
 #. module: product_variant_multi_link
 #: model:ir.model.fields,field_description:product_variant_multi_link.field_product_template_link__left_product_id
@@ -85,4 +85,4 @@ msgstr "Variante"
 #. module: product_variant_multi_link
 #: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product__product_product_link_count
 msgid "Variants Links Count"
-msgstr ""
+msgstr "Cuenta de los Vínculos de Variantes"
