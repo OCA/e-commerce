@@ -33,15 +33,22 @@ class ResourceBooking(models.Model):
             lambda booking: booking.prereserved_name and booking.prereserved_email
         )
         for booking in affected:
-            booking.partner_id = (
-                self.env["res.partner"]
-                .with_context(force_email=True)
-                .find_or_create(
-                    "{} <{}>".format(
-                        booking.prereserved_name, booking.prereserved_email
-                    )
-                )
+            company_id = self.env.context.get(
+                "force_company", self.env.user.company_id.id,
             )
+            partner = self.env["res.partner"].search([
+                ("email", "=ilike", booking.prereserved_email),
+                ("|"),
+                ("company_id", "=", False),
+                ("company_id", "=", company_id),
+            ], limit=1)
+            if not partner:
+                partner = self.env["res.partner"].create({
+                    "name": booking.prereserved_name,
+                    "email": booking.prereserved_email,
+                    "company_id": company_id,
+                })
+            booking.partner_id = partner.id
             if booking.meeting_id:
                 booking.meeting_id.name = booking._get_name_formatted(
                     booking.partner_id, booking.type_id
