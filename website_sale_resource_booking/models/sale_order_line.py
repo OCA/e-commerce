@@ -19,7 +19,9 @@ class SaleOrderLine(models.Model):
             bookings = line.resource_booking_ids
             # If paid, create missing partners
             if order.state == "sale":
-                bookings._confirm_prereservation()
+                bookings.with_context(
+                    force_company=order.company_id.id
+                )._confirm_prereservation()
                 continue
             # Continue if it is not an eCommerce cart
             if (
