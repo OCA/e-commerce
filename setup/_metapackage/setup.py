@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo13-addon-product_variant_multi_link',
         'odoo13-addon-website_account_fiscal_position_partner_type',
         'odoo13-addon-website_sale_attribute_filter_category',
+        'odoo13-addon-website_sale_attribute_filter_form_submit',
         'odoo13-addon-website_sale_attribute_filter_order',
         'odoo13-addon-website_sale_attribute_filter_price',
         'odoo13-addon-website_sale_b2x_alt_price',
