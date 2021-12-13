@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: website_sale_stock_provisioning_date
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_stock_move__date_provisioning
+msgid "Date expected"
+msgstr ""
+
+#. module: website_sale_stock_provisioning_date
 #. openerp-web
 #: code:addons/website_sale_stock_provisioning_date/static/src/xml/website_sale_stock_product_availability.xml:0
 #, python-format
@@ -44,4 +49,9 @@ msgid ""
 "of stock. This option may not make sense if you don't select an "
 "'Availability' option that shows the inventory of the product in the website"
 " shop."
+msgstr ""
+
+#. module: website_sale_stock_provisioning_date
+#: model:ir.model,name:website_sale_stock_provisioning_date.model_stock_move
+msgid "Stock Move"
 msgstr ""
