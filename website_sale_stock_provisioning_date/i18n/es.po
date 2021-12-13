@@ -18,6 +18,11 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_stock_provisioning_date
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_stock_move__date_provisioning
+msgid "Date expected"
+msgstr ""
+
+#. module: website_sale_stock_provisioning_date
 #. openerp-web
 #: code:addons/website_sale_stock_provisioning_date/static/src/xml/website_sale_stock_product_availability.xml:0
 #, python-format
@@ -53,3 +58,8 @@ msgstr ""
 "producto está sin existencias. Esta opción puede no tener sentido si usted "
 "no selecciona una opción de disponibilidad que muestre el inventario del "
 "producto en la tienda online."
+
+#. module: website_sale_stock_provisioning_date
+#: model:ir.model,name:website_sale_stock_provisioning_date.model_stock_move
+msgid "Stock Move"
+msgstr ""
