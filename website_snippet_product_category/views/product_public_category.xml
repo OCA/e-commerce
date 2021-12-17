@@ -9,20 +9,27 @@
                 ref="website_sale.product_public_category_form_view"
             />
             <field name="arch" type="xml">
-                <field name="image_1920" position="before">
-                    <div class="oe_button_box" name="button_box">
-                        <button
-                            class="oe_stat_button"
-                            name="website_publish_button"
-                            type="object"
-                            icon="fa-globe"
-                        >
-                            <field
-                                name="is_published"
-                                widget="website_publish_button"
-                            />
-                        </button>
-                    </div>
+                <field name="sequence" position="after">
+                    <field
+                        name="published_in_product_category_snippet"
+                        widget="boolean_toggle"
+                    />
+                </field>
+            </field>
+        </record>
+        <record id="product_public_category_tree_view" model="ir.ui.view">
+            <field name="name">product.public.category.tree</field>
+            <field name="model">product.public.category</field>
+            <field
+                name="inherit_id"
+                ref="website_sale.product_public_category_tree_view"
+            />
+            <field name="arch" type="xml">
+                <field name="website_id" position="after">
+                    <field
+                        name="published_in_product_category_snippet"
+                        widget="boolean_toggle"
+                    />
                 </field>
             </field>
         </record>

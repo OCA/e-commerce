@@ -26,7 +26,7 @@
             <div
                 t-attf-class="categ_tree_level {{'pb-2 main_tree_level text-primary text-uppercase' if cur_level == 1 else ''}} {{cur_level &gt; 2 and 'pl-'+str(min((cur_level-2)*2, 5))}}"
                 t-att-data-tree-level="cur_level"
-                t-if="category.is_published"
+                t-if="category.published_in_product_category_snippet"
             >
                 <div class="d-flex d-flex-row">
                     <div
