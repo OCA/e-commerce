@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_snippet_product_category
+# 	* website_snippet_product_category
 #
 msgid ""
 msgstr ""
@@ -18,19 +18,16 @@ msgstr ""
 
 #. module: website_snippet_product_category
 #. openerp-web
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:64
+#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
-msgid "An error occured with this product categories block. If the problem persists, please consider deleting it and adding a new one"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal
-msgid "Metal Box"
+msgid ""
+"An error occured with this product categories block. If the problem "
+"persists, please consider deleting it and adding a new one"
 msgstr ""
 
 #. module: website_snippet_product_category
 #. openerp-web
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:46
+#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
 msgid "No categories were found. Make sure you have categories defined."
 msgstr ""
@@ -38,31 +35,11 @@ msgstr ""
 "aangemaakt."
 
 #. module: website_snippet_product_category
-#: model:website.menu,name:website_snippet_product_category.snippet_product_category_demo_page_link
-msgid "Snippet Product Category Demo"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_spec_a
-msgid "Spec A"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_spec_b
-msgid "Spec B"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_subspec_b_a
-msgid "SubSpec B - A"
+#: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__published_in_product_category_snippet
+msgid "Published in product category snippet"
 msgstr ""
 
 #. module: website_snippet_product_category
 #: model:ir.model,name:website_snippet_product_category.model_product_public_category
 msgid "Website Product Category"
 msgstr "Website Product Categorie"
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
-msgid "Wooden Box"
-msgstr ""
