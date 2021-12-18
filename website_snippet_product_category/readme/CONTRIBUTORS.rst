@@ -3,3 +3,4 @@
   * Alexandre D. Díaz
   * Pedro M. Baeza
   * Carlos Roca
+  * Sergio Teruel
