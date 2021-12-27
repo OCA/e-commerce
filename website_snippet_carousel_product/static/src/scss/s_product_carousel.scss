@@ -3,14 +3,19 @@
 .s_product_carousel {
     .oe_product {
         border-width: 0;
+        height: 100%;
 
         .oe_product_cart {
-            height: 300px;
-        }
+            height: 100%;
 
-        .oe_product_image,
-        .oe_product_image img {
-            position: unset;
+            .oe_product_image {
+                height: unset;
+            }
+
+            .oe_product_image,
+            .oe_product_image img {
+                position: unset;
+            }
         }
     }
 }
