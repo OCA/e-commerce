@@ -30,9 +30,9 @@ class WebsiteSaleVariantController(VariantController):
                 res.append(
                     {
                         "id": template.id,
-                        "message_unavailable": not_allowed_product_dict[variant_ids[0]][
-                            0
-                        ].message_unavailable
+                        "message_unavailable": not_allowed_product_dict[
+                            variant_ids.pop()
+                        ][0].message_unavailable
                         or _("Not available"),
                     }
                 )
