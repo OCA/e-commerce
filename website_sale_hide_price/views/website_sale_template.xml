@@ -14,13 +14,16 @@
                 </attribute>
             </xpath>
         </template>
-        <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
+        <!-- Hide Add To Cart Button if not website_show_price -->
         <template id="product" inherit_id="website_sale.product">
             <xpath expr="//a[@id='add_to_cart']" position="attributes">
                 <attribute name="t-if">
                     website.website_show_price
                 </attribute>
             </xpath>
+        </template>
+        <!-- Hide quantity selector if not website_show_price -->
+        <template id="product_quantity" inherit_id="website_sale.product_quantity">
             <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
                 <attribute name="t-if">
                     website.website_show_price
