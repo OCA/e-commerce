@@ -5,7 +5,7 @@
 
 <!-- /!\ do not modify above this line -->
 
-# e-commerce
+# e-commerce web site for open source
 
 TODO: add repo description.
 
