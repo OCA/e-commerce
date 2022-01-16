@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="breadcrumb" inherit_id="website_sale.product">
+        <xpath
+            expr="//ol[hasclass('breadcrumb')]/li[@t-if='category']"
+            position="replace"
+        >
+            <t
+                t-if="category"
+                t-call="website_sale_category_breadcrumb.breadcrumb_recursive"
+            />
+        </xpath>
+    </template>
+    <template id="breadcrumb_recursive">
+        <t t-if="category.parent_id">
+            <t t-call="website_sale_category_breadcrumb.breadcrumb_recursive">
+                <t t-set="category" t-value="category.parent_id" />
+            </t>
+        </t>
+        <li class="breadcrumb-item">
+            <a
+                t-att-href="keep('/shop/category/%s' % slug(category), category=0)"
+                t-field="category.name"
+            />
+        </li>
+    </template>
+    <template
+        id="additional_breadcrumbs"
+        inherit_id="website_sale.product"
+        name="Show breadcrumbs for additional categories"
+        customize_show="True"
+        active="True"
+    >
+        <xpath
+            expr="//section[@id='product_detail']/div[hasclass('row')]"
+            position="inside"
+        >
+            <div class="col-md-12">
+                <t
+                    t-if="product.public_categ_ids and ((not category) or (not category in product.public_categ_ids) or (category in product.public_categ_ids and len(product.public_categ_ids) &gt; 1))"
+                >
+                    <p
+                        class="info"
+                    >This product is also present in these categories:</p>
+                    <t t-set="selected_category" t-value="category" />
+                    <t t-foreach="product.public_categ_ids" t-as="category">
+                        <ol t-if="category != selected_category" class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a t-att-href="keep(category=0)">Products</a>
+                            </li>
+                            <t
+                                t-call="website_sale_category_breadcrumb.breadcrumb_recursive"
+                            />
+                        </ol>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
