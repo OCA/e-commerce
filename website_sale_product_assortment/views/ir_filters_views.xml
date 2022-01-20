@@ -10,8 +10,12 @@
                 ref="product_assortment.product_assortment_view_form"
             />
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_domain']" position="after">
+                    <field name="apply_on_public_user" />
+                </xpath>
                 <xpath expr="//field[@name='partner_ids']/../.." position="after">
                     <group string="Website Availability">
+                        <field name="website_ids" widget="many2many_tags" />
                         <field name="website_availability" />
                         <field
                             name="message_unavailable"

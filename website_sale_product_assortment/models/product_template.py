@@ -9,6 +9,7 @@ class ProductTemplate(models.Model):
     @api.model
     def get_product_assortment_restriction_info(self, product_ids):
         partner = self.env.user.partner_id
+        website = self.env["website"].get_current_website()
         assortments = (
             self.env["ir.filters"]
             .sudo()
@@ -16,6 +17,9 @@ class ProductTemplate(models.Model):
                 [
                     ("is_assortment", "=", True),
                     ("website_availability", "in", ["no_purchase", "no_show"]),
+                    "|",
+                    ("website_ids", "=", website.id),
+                    ("website_ids", "=", False),
                 ]
             )
         )
