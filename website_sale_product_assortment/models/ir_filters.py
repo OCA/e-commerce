@@ -14,6 +14,7 @@ class IrFilters(models.Model):
         ],
         string="Availability on Website",
         default="no_restriction",
+        required=True,
         help="""
         Each point is used to:\n
         \t- Don't apply restriction: Show all products available for sale on website.\n
@@ -29,6 +30,10 @@ class IrFilters(models.Model):
         'Avoid selling not available products' is selected.
         """,
     )
+    website_ids = fields.Many2many(
+        comodel_name="website", ondelete="cascade", string="Websites"
+    )
+    apply_on_public_user = fields.Boolean()
     assortment_information = fields.Html()
     all_product_ids = fields.Many2many(
         comodel_name="product.product",
@@ -44,3 +49,10 @@ class IrFilters(models.Model):
                 record.all_product_ids = record.env["product.product"].search(
                     record._get_eval_domain()
                 )
+
+    @api.depends("apply_on_public_user")
+    def _compute_all_partner_ids(self):
+        super()._compute_all_partner_ids()
+        for ir_filter in self:
+            if ir_filter.apply_on_public_user:
+                ir_filter.all_partner_ids += self.env.ref("base.public_user").partner_id
