@@ -11,6 +11,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 class WebsiteSale(WebsiteSale):
     def _get_products_allowed(self):
         partner = request.env.user.partner_id
+        website_id = request.website.id
         assortments = (
             request.env["ir.filters"]
             .sudo()
@@ -18,6 +19,9 @@ class WebsiteSale(WebsiteSale):
                 [
                     ("is_assortment", "=", True),
                     ("website_availability", "=", "no_show"),
+                    "|",
+                    ("website_ids", "=", False),
+                    ("website_ids", "=", website_id),
                 ]
             )
         )

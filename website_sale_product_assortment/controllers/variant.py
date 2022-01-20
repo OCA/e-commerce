@@ -26,7 +26,10 @@ class WebsiteSaleVariantController(VariantController):
         )
         for template in templates:
             variant_ids = set(template.product_variant_ids.ids)
-            if variant_ids & set(not_allowed_product_dict.keys()) == variant_ids:
+            if (
+                variant_ids
+                and variant_ids & set(not_allowed_product_dict.keys()) == variant_ids
+            ):
                 res.append(
                     {
                         "id": template.id,
