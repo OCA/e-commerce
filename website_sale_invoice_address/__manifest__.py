@@ -10,10 +10,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "website_sale",
-    ],
-    "data": [
-        "views/assets.xml",
-    ]
+    "depends": ["website_sale"],
+    "data": ["views/assets.xml"],
 }
