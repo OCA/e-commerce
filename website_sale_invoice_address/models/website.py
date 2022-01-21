@@ -30,9 +30,5 @@ class Website(models.Model):
         vals = super()._prepare_sale_order_values(partner, pricelist)
         # Recover v11 partner invoice behavior
         partner_invoice_id = partner.address_get(["invoice"]).get("invoice")
-        vals.update(
-            {
-                "partner_invoice_id": partner_invoice_id,
-            }
-        )
+        vals.update({"partner_invoice_id": partner_invoice_id})
         return vals
