@@ -5,11 +5,10 @@ odoo.define("website_sale_invoice_address.tour", function(require) {
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
-            trigger: "a:contains('Chair floor protection')",
+            trigger: "a:contains('Large Meeting Table')",
         },
         {
             trigger: "a:contains('Add to Cart')",
@@ -23,7 +22,6 @@ odoo.define("website_sale_invoice_address.tour", function(require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
