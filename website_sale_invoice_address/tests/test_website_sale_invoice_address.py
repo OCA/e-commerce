@@ -23,16 +23,7 @@ class WebsiteSaleHttpCase(common.HttpCase):
     def test_website_sale_invoice_partner(self):
         """Make an order from the frontend and check that the invoice address
         is the right one"""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_invoice_address_tour",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours.%s.ready" % tour,
-            login="portal",
-        )
+        self.start_tour("/shop", "website_sale_invoice_address_tour", login="portal")
         order = self.env["sale.order"].search(
             [("partner_id", "=", self.partner.id)], limit=1
         )
