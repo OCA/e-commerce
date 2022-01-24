@@ -24,6 +24,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_google_tag_manager',
         'odoo13-addon-website_sale_hide_empty_category',
         'odoo13-addon-website_sale_hide_price',
+        'odoo13-addon-website_sale_invoice_address',
         'odoo13-addon-website_sale_order_type',
         'odoo13-addon-website_sale_product_attachment',
         'odoo13-addon-website_sale_product_attribute_filter_visibility',
