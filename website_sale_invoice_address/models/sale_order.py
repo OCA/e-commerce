@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def write(self, vals):
-        """ Catch the context from the website write so we ensure the correct
+        """Catch the context from the website write so we ensure the correct
         invoice partner as we would do in backend"""
         override_invoice_partner = self.env.context.get("override_partner_invoice_id")
         partner_obj = self.env["res.partner"]
