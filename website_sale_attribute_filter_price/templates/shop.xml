@@ -13,7 +13,7 @@
                 <div>
                     <strong>Price Filter</strong>
                 </div>
-                <div class="form_class price_filter_main">
+                <div class="form_class price_filter_main js_attribute_filter_price">
                     <div class="row">
                         <div class="col-12">
                             <input

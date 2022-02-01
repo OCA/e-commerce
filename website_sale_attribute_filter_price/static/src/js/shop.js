@@ -3,49 +3,95 @@
 odoo.define("website_sale_attribute_filter_price.Shop", function(require) {
     "use strict";
 
-    require("web.dom_ready");
+    const publicWidget = require("web.public.widget");
 
-    $(function() {
-        // Price Filter
-        const $price_slider = $("#filter_price_slider");
-        const $min_value_input = $("#price_range_min_value");
-        const $max_value_input = $("#price_range_max_value");
-        const $clean_btn = $("#clear_price_filter");
-        $price_slider.on("change", ev => ev.stopPropagation());
-        $price_slider.ionRangeSlider({
-            hide_min_max: true,
-            keyboard: true,
-            min: 0,
-            max: $price_slider.data("max_price"),
-            from: $price_slider.data("custom_min_price"),
-            to: $price_slider.data("custom_max_price"),
-            prefix: $price_slider.data("symbol"),
-            type: "double",
-            step: 1,
-            grid: false,
+    publicWidget.registry.WebsiteSaleAttributeFilterPrice = publicWidget.Widget.extend({
+        selector: ".js_attribute_filter_price",
 
-            onChange: function(data) {
-                $min_value_input.val(data.from);
-                $max_value_input.val(data.to);
-            },
-        });
-        $min_value_input.on("change", function(ev) {
+        /**
+         * @override
+         */
+        start: function() {
+            this.$price_slider = this.$target.find("#filter_price_slider");
+            this.$min_value_input = this.$target.find("#price_range_min_value");
+            this.$max_value_input = this.$target.find("#price_range_max_value");
+            this.$clean_btn = this.$target.find("#clear_price_filter");
+            this.$price_slider.on("change", this._onChangeSlider.bind(this));
+            this._createSlider();
+            this.$min_value_input.on("change", this._onChangeMinValue.bind(this));
+            this.$max_value_input.on("change", this._onChangeMaxValue.bind(this));
+            this.$clean_btn.on("click", this._onClickClear.bind(this));
+            return this._super.apply(this, arguments);
+        },
+        /**
+         * @override
+         */
+        destroy: function() {
+            this.$clean_btn.off("click");
+            this.$min_value_input.off("change");
+            this.$max_value_input.off("change");
+            this.$price_slider.off("change");
+            this.$price_slider.destroy();
+            this._super.apply(this, arguments);
+        },
+
+        _getSliderOptions: function() {
+            const options = this.$price_slider.data("options") || {};
+            return _.extend(
+                {
+                    hide_min_max: true,
+                    keyboard: true,
+                    min: 0,
+                    max: this.$price_slider.data("max_price"),
+                    from: this.$price_slider.data("custom_min_price"),
+                    to: this.$price_slider.data("custom_max_price"),
+                    prefix: this.$price_slider.data("symbol"),
+                    type: "double",
+                    step: 1,
+                    grid: false,
+
+                    onChange: this._onChangeCustomSlider.bind(this),
+                },
+                options
+            );
+        },
+
+        _createSlider: function() {
+            this.$price_slider.ionRangeSlider(this._getSliderOptions());
+        },
+
+        // Handle Events
+        /**
+         * Native event
+         * @param {ChangeEvent} ev
+         */
+        _onChangeSlider: function(ev) {
             ev.stopPropagation();
-            const ionRange = $price_slider.data("ionRangeSlider");
-            ionRange.update({from: $(this).val() || 0});
-        });
-        $max_value_input.on("change", function(ev) {
+        },
+        /**
+         * Library event
+         * @param {Object} data
+         */
+        _onChangeCustomSlider: function(data) {
+            this.$min_value_input.val(data.from);
+            this.$max_value_input.val(data.to);
+        },
+        _onChangeMinValue: function(ev) {
             ev.stopPropagation();
-            const ionRange = $price_slider.data("ionRangeSlider");
+            const ionRange = this.$price_slider.data("ionRangeSlider");
+            ionRange.update({from: $(ev.target).val() || 0});
+        },
+        _onChangeMaxValue: function(ev) {
+            ev.stopPropagation();
+            const ionRange = this.$price_slider.data("ionRangeSlider");
             ionRange.update({
-                to: $(this).val() || $price_slider.data("max_price"),
+                to: $(ev.target).val() || this.$price_slider.data("max_price"),
             });
-        });
-
-        $clean_btn.on("click", function() {
-            $min_value_input.val("").trigger("change");
-            $max_value_input.val("").trigger("change");
-            $price_slider.closest("form").submit();
-        });
+        },
+        _onClickClear: function() {
+            this.$min_value_input.val("").trigger("change");
+            this.$max_value_input.val("").trigger("change");
+            this.$price_slider.closest("form").submit();
+        },
     });
 });
