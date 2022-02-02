@@ -17,7 +17,5 @@
         "templates/website_sale.xml",
         "views/product_template_view.xml",
     ],
-    "demo": [
-        "demo/assets.xml",
-    ],
+    "demo": ["demo/assets.xml",],
 }
