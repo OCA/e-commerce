@@ -36,18 +36,23 @@ class ResourceBooking(models.Model):
             company_id = self.env.context.get(
                 "force_company", self.env.user.company_id.id,
             )
-            partner = self.env["res.partner"].search([
-                ("email", "=ilike", booking.prereserved_email),
-                ("|"),
-                ("company_id", "=", False),
-                ("company_id", "=", company_id),
-            ], limit=1)
+            partner = self.env["res.partner"].search(
+                [
+                    ("email", "=ilike", booking.prereserved_email),
+                    ("|"),
+                    ("company_id", "=", False),
+                    ("company_id", "=", company_id),
+                ],
+                limit=1,
+            )
             if not partner:
-                partner = self.env["res.partner"].create({
-                    "name": booking.prereserved_name,
-                    "email": booking.prereserved_email,
-                    "company_id": company_id,
-                })
+                partner = self.env["res.partner"].create(
+                    {
+                        "name": booking.prereserved_name,
+                        "email": booking.prereserved_email,
+                        "company_id": company_id,
+                    }
+                )
             booking.partner_id = partner.id
             if booking.meeting_id:
                 booking.meeting_id.name = booking._get_name_formatted(

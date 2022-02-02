@@ -37,9 +37,7 @@ class SaleOrderLine(models.Model):
             }
             context = {
                 "default_partner_id": line.order_id.partner_id.id,
-                "default_combination_id":
-                    line.product_id
-                    .resource_booking_type_combination_rel_id.combination_id.id,
+                "default_combination_id": line.product_id.resource_booking_type_combination_rel_id.combination_id.id,
             }
             # Assign prereservation data if user is logged in
             prereserved_partner = order.partner_id - order.website_id.user_id.partner_id
