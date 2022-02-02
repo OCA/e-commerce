@@ -2,11 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import time
-
 from datetime import datetime
+
 from freezegun import freeze_time
 
-from odoo.tests.common import HttpCase, Form
+from odoo.tests.common import Form, HttpCase
+
 from ...resource_booking.tests.common import create_test_data
 
 

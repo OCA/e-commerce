@@ -1,15 +1,16 @@
 # Copyright 2021 Tecnativa - Jairo Llopis
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from datetime import datetime
-from dateutil.parser import isoparse
 from urllib.parse import quote_plus
 
-from ...website_sale.controllers import main
+from dateutil.parser import isoparse
 
 from odoo import _
-from odoo.http import route, request
-from odoo.tests.common import Form
 from odoo.exceptions import ValidationError
+from odoo.http import request, route
+from odoo.tests.common import Form
+
+from ...website_sale.controllers import main
 
 
 class WebsiteSale(main.WebsiteSale):
@@ -105,8 +106,7 @@ class WebsiteSale(main.WebsiteSale):
         # Store partner info to autocreate and autoconfirm later
         booking_sudo.write(
             {
-                "expiration": booking_sudo.sale_order_line_id
-                    .product_id.resource_booking_expiration,
+                "expiration": booking_sudo.sale_order_line_id.product_id.resource_booking_expiration,
                 "prereserved_email": partner_email,
                 "prereserved_name": partner_name,
             }
