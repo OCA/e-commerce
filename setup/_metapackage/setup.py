@@ -41,6 +41,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_product_style_badge',
         'odoo13-addon-website_sale_require_legal',
         'odoo13-addon-website_sale_require_login',
+        'odoo13-addon-website_sale_resource_booking',
         'odoo13-addon-website_sale_secondary_unit',
         'odoo13-addon-website_sale_stock_available',
         'odoo13-addon-website_sale_stock_available_display',
