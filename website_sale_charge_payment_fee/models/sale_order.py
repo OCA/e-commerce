@@ -19,7 +19,6 @@ class SaleOrder(models.Model):
         track_visibility="always",
     )
 
-    @api.one
     def _compute_website_order_line(self):
         super(SaleOrder, self)._compute_website_order_line()
         self.website_order_line = self.website_order_line.filtered(
