@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-08-16 17:49+0000\n"
+"PO-Revision-Date: 2022-02-08 12:59+0000\n"
 "Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
 "Language-Team: none\n"
 "Language: pt\n"
@@ -36,7 +36,7 @@ msgstr "Exibir imagem de atributo em detalhe do produto da loja online"
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__id
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
