@@ -29,17 +29,21 @@ class WebsiteSaleVariantController(VariantController):
             combination = template._get_combination_info(
                 product_id=product_id, add_qty=add_qty, pricelist=pricelist
             )
-            res.append(
-                {
-                    "id": template.id,
-                    "price": combination.get("price"),
-                    "distinct_prices": has_distinct_price,
-                    "currency": {
-                        "position": template.currency_id.position,
-                        "symbol": template.currency_id.symbol,
-                    },
-                }
-            )
+            vals = {
+                "id": template.id,
+                "price": combination.get("price"),
+                "distinct_prices": has_distinct_price,
+                "currency": {
+                    "position": template.currency_id.position,
+                    "symbol": template.currency_id.symbol,
+                },
+            }
+            # As now the minimum price is set asynchronously, we need to set the second
+            # price value given by the website_sale_b2x_alt_price module and avoid the
+            # same value in both prices.
+            if combination.get("alt_price"):
+                vals["alt_price"] = combination["alt_price"]
+            res.append(vals)
         return res
 
     @http.route(

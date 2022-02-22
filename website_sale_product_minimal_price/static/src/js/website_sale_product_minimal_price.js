@@ -73,6 +73,18 @@ odoo.define("website_sale_product_minimal_price.shop_min_price", function(requir
                                 ).get(0)
                             );
                     }
+                    /* As now the minimum price is set asynchronously, we need to set the
+                    second price value given by the website_sale_b2x_alt_price module
+                    and avoid the same value in both prices. */
+                    if (product.alt_price) {
+                        let price = this.widgetMonetary(product.alt_price, {});
+                        price = price.replace("&nbsp;", " ");
+                        $(product_dic[product.id])
+                            .find(".js_alt_price span")
+                            .replaceWith(
+                                "<span class='oe_currency_value'>" + price + "</span>"
+                            );
+                    }
                 }
                 return products_min_price;
             });
