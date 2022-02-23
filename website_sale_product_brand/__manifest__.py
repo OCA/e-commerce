@@ -21,6 +21,9 @@
         "demo/product_product_demo.xml",
     ],
     "assets": {
+        "web.assets_frontend": [
+            "/website_sale_product_brand/static/src/scss/website_sale_product_brand.scss"
+        ],
         "web.assets_tests": [
             "/website_sale_product_brand/static/src/js/tour.js",
         ],
