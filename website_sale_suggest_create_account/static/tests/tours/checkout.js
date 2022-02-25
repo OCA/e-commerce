@@ -7,31 +7,26 @@ odoo.define("wbesite_sale_suggest_create_account.shop_buy", function (require) {
         "shop_buy_checkout_suggest_account_website",
         {
             test: true,
-            url: "/shop",
+            url: "/shop?search=Acoustic Bloc Screens",
         },
         [
-            // Shop Page
             {
-                trigger: 'a[href^="/shop/product/"]:first',
-                run: "click",
-            },
-            // Product Page
-            {
-                trigger: "#add_to_cart",
-                run: "click",
+                content: "select Acoustic Bloc Screens",
+                trigger: '.oe_product_cart a:containsExact("Acoustic Bloc Screens")',
             },
             {
-                trigger: 'a.btn-secondary[href^="/web/login"]:first',
+                content: "click add to cart",
+                trigger: "#product_details #add_to_cart",
+            },
+            {
+                content: "check product is in cart, get cart id, logout, go to login",
+                trigger: 'td.td-product_name:contains("Acoustic Bloc Screens")',
                 run: function () {
-                    // Check: do nothing
+                    window.location.href = "/web/login";
                 },
             },
-            {
-                trigger: 'a.btn-primary[href^="/web/login"]:first',
-                run: "click",
-            },
             // TODO: Add a step to check that "checkout" button doesn't exists
-            // Odoo 13.0 initial config doesn't have b2c actived for the website
+            // Odoo 14.0 initial config doesn't have b2c actived for the website
             // Login Page
             {
                 trigger: "#login",
@@ -45,16 +40,6 @@ odoo.define("wbesite_sale_suggest_create_account.shop_buy", function (require) {
                 trigger: "button.btn-primary:first",
                 run: "click",
             },
-            // Checkout Page
-            {
-                trigger: "#o_payment_form_pay",
-                run: "click",
-            },
-            {
-                trigger: "span",
-                content: "Order",
-            },
-            // The End
         ]
     );
 });
