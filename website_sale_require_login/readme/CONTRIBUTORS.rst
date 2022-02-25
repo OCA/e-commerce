@@ -7,3 +7,5 @@
   * Rafael Blasco
   * Jairo Llopis
   * Alexandre Diaz
+
+* Reinier Quevedo <reinier@mykubux.com>
