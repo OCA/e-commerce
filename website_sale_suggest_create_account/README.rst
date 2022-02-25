@@ -23,7 +23,7 @@ Suggest to create user account when buying
     :target: https://runbot.odoo-community.org/runbot/113/13.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module extends the functionality of e-Commerce to suggest
 the buyer to log in or create an account, but without forcing him to do it.
@@ -78,6 +78,8 @@ Contributors
 * Oscar Alcala <oscar@vauxoo.com>
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 * Alexandre Díaz <alexandre.diaz@tecnativa.com>
+* Dhara Solanki <dhara.solanki@initos.com> (http://www.initos.com)
+* Reinier Quevedo <reinier@mykubux.com> (http://www.mykubux.com)
 
 Maintainers
 ~~~~~~~~~~~
