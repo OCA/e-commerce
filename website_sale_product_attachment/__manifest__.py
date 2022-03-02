@@ -5,7 +5,7 @@
 {
     "name": "eCommerce product attachments",
     "summary": "Let visitors download attachments from a product page",
-    "version": "13.0.2.0.0",
+    "version": "15.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -19,5 +19,9 @@
         "views/ir_attachment.xml",
         "views/product_template.xml",
     ],
-    "demo": ["demo/assets.xml"],
+    "assets": {
+        "web.assets_tests": [
+            "website_sale_product_attachment/static/tests/tours/website_tour.js",
+        ]
+    },
 }
