@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-01-20 20:45+0000\n"
-"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"PO-Revision-Date: 2022-03-02 12:17+0000\n"
+"Last-Translator: Noel estudillo <noelestudilloviera@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Plantilla de producte"
 #. module: website_sale_stock_force_block
 #: model:ir.model,name:website_sale_stock_force_block.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Comanda de venda"
 
 #. module: website_sale_stock_force_block
 #: code:addons/website_sale_stock_force_block/models/sale_order.py:0
@@ -58,12 +58,14 @@ msgid ""
 "Some products became unavailable and your cart has been updated. We're sorry "
 "for the inconvenience."
 msgstr ""
+"Alguns productes no estan disponibles i el vostre carretó s'ha actualitzat. "
+"Lamentem les molèsties."
 
 #. module: website_sale_stock_force_block
 #: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid "You ask for %s products but only %s is available"
-msgstr ""
+msgstr "Demaneu %s productes, però només %s si estan disponibles"
 
 #~ msgid "Sell regardless of inventory"
 #~ msgstr "Vendre independenment del inventari"
