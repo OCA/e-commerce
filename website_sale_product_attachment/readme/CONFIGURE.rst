@@ -12,9 +12,12 @@ Instead of configuring attachments per product, to configure products per attach
 
 To be able to filter attachments per website:
 
-#. Go to *Website > Configuration > Settings > Website > Features*.
-#. Enable *Multi-Websites*.
-#. Save.
+#. Go to *Website > Configuration > Settings > Website*.
+#. Create more than one.
+#. Go to *Settings > Technical > Database Structure > Attachments*
+#. Pick or create one.
+#. Select a website.
+#. Save
 
 To toggle attachment icons in the website:
 
