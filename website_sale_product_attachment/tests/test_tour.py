@@ -12,4 +12,4 @@ class TestWebsiteSaleProductAttachmentTourl(common.HttpCase):
         product.website_attachment_ids = [(6, 0, [attachment.id])]
 
     def test_tour(self):
-        self.start_tour("/", "website_sale_product_attachment_tour", login="demo")
+        self.start_tour("/shop", "website_sale_product_attachment_tour", login="demo")
