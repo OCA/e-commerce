@@ -6,4 +6,7 @@ from odoo import fields, models
 class ProductAttributeCategory(models.Model):
     _inherit = "product.attribute.category"
 
-    website_folded = fields.Boolean(string="Website folded", default=True,)
+    website_folded = fields.Boolean(
+        string="Website folded",
+        default=True,
+    )
