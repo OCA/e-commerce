@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="product" inherit_id="website_sale.product">
-        <xpath expr="//div[@id='product_details']/.." position="after">
+    <template
+        id="shop_product_carousel"
+        inherit_id="website_sale.shop_product_carousel"
+    >
+        <xpath expr="//div[@id='o-carousel-product']" position="inside">
             <div class="o_not_editable">
                 <p
                     t-field="product.public_description"
