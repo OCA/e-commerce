@@ -2,7 +2,7 @@
 <odoo>
     <template id="product" inherit_id="website_sale.product">
         <xpath
-            expr="//div[@id='product_details']/../div[hasclass('col-md-6', 'col-xl-4')]"
+            expr="//div[@id='product_details']/../div[hasclass('col-md-6', 'col-xl-8')]/t"
             position="after"
         >
             <div class="o_not_editable">
