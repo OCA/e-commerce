@@ -15,6 +15,10 @@ class Product(models.Model):
         )
         if self.env.context.get("website_sale_stock_available"):
             for product in self.with_context(website_sale_stock_available=False):
-                immediately = product.immediately_usable_qty
+                stock_field = (
+                    product.stock_available_website_based_on.name
+                    or "immediately_usable_qty"
+                )
+                immediately = getattr(product, stock_field, 0.0)
                 res[product.id]["virtual_available"] = immediately
         return res

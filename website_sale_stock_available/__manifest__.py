@@ -13,6 +13,8 @@
         "stock_available",
         "website_sale_stock",
     ],
-    "data": [],
+    "data": [
+        "views/product_views.xml",
+    ],
     "installable": True,
 }
