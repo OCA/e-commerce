@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="compare_page_hide_price"
+        inherit_id="website_sale_comparison.product_compare"
+    >
+        <xpath expr="//del[contains(@t-esc,'list_price')]/.." position="attributes">
+            <attribute name="t-if">
+                website.website_show_price
+            </attribute>
+        </xpath>
+    </template>
+    <template
+        id="compare_popover_hide_price"
+        inherit_id="website_sale_comparison.product_product"
+    >
+        <xpath expr="//del[contains(@t-esc,'list_price')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price
+            </attribute>
+        </xpath>
+        <xpath expr="//span[contains(@t-esc,'price')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price
+            </attribute>
+        </xpath>
+    </template>
+</odoo>
