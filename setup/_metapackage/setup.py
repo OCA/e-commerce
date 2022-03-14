@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo13-addon-website_sale_cart_no_redirect',
         'odoo13-addon-website_sale_checkout_country_vat',
         'odoo13-addon-website_sale_checkout_skip_payment',
+        'odoo13-addon-website_sale_comparison_hide_price',
         'odoo13-addon-website_sale_free_qty',
         'odoo13-addon-website_sale_google_tag_manager',
         'odoo13-addon-website_sale_hide_empty_category',
