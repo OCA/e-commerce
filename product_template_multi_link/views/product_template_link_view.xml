@@ -21,19 +21,14 @@
             </search>
         </field>
     </record>
-    <!-- Technical Note: domain=[('id', '!=', 0)] is set on both template fields
-    to enable research by name for product templates. Otherwise, the search will
-    be done on product.product table, that is not the attempted behaviour
-    See odoo/addons/product/models/product_template.py // def name_search()
-    -->
     <record id="product_template_link_tree" model="ir.ui.view">
         <field name="name">Product.template.link.tree</field>
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
             <tree editable="top">
-                <field name="left_product_tmpl_id" domain="[('id', '!=', 0)]" />
+                <field name="left_product_tmpl_id" />
                 <field name="type_id" />
-                <field name="right_product_tmpl_id" domain="[('id', '!=', 0)]" />
+                <field name="right_product_tmpl_id" />
             </tree>
         </field>
     </record>
