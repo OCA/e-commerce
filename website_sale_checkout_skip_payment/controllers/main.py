@@ -33,7 +33,7 @@ class CheckoutSkipPayment(WebsiteSale):
         )
         order.action_confirm()
         try:
-            order._send_order_confirmation_mail()
+            order.with_context(mark_so_as_sent=True)._send_order_confirmation_mail()
         except Exception:
             return request.render(
                 "website_sale_checkout_skip_payment.confirmation_order_error"
