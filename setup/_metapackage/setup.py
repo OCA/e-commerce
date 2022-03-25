@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo14-addon-product_variant_multi_link',
         'odoo14-addon-website_sale_attribute_filter_form_submit',
         'odoo14-addon-website_sale_attribute_filter_price',
+        'odoo14-addon-website_sale_cart_expire',
         'odoo14-addon-website_sale_checkout_country_vat',
         'odoo14-addon-website_sale_checkout_skip_payment',
         'odoo14-addon-website_sale_delivery_group',
