@@ -12,5 +12,6 @@ this:
 
     @api.model
     def _get_product_sort_criterias(self):
-      res = super()._get_product_sort_criterias()
-      return res.append(("default_code asc", _("Reference - A to Z")))
+        res = super()._get_product_sort_criterias()
+        res.append(("default_code asc", _("Reference - A to Z")))
+        return res
