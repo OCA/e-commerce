@@ -402,8 +402,9 @@ this:</p>
 <pre class="code python literal-block">
 <span class="nd">&#64;api</span><span class="o">.</span><span class="n">model</span>
 <span class="k">def</span> <span class="nf">_get_product_sort_criterias</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-  <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_product_sort_criterias</span><span class="p">()</span>
-  <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;default_code asc&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Reference - A to Z&quot;</span><span class="p">)))</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_product_sort_criterias</span><span class="p">()</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;default_code asc&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Reference - A to Z&quot;</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">res</span>
 </pre>
 </blockquote>
 </div>
