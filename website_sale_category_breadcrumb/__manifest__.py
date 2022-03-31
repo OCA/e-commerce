@@ -6,7 +6,7 @@
     "version": "13.0.1.0.0",
     "author": "Radovan Skolnik, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "website": "https://www.github.com/OCA/e-commerce",
+    "website": "https://github.com/OCA/e-commerce",
     "depends": ["website_sale"],
     "data": ["views/templates.xml"],
     "installable": True,
