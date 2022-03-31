@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo12-addon-website_sale_attribute_filter_order',
         'odoo12-addon-website_sale_attribute_filter_price',
         'odoo12-addon-website_sale_b2x_alt_price',
+        'odoo12-addon-website_sale_cart_expire',
         'odoo12-addon-website_sale_cart_selectable',
         'odoo12-addon-website_sale_category_description',
         'odoo12-addon-website_sale_charge_payment_fee',
