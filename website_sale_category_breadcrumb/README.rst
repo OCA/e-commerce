@@ -37,7 +37,7 @@ product.
 Usage
 =====
 
-Simply install the module and refresh your view. 
+Simply install the module and refresh your view.
 
 Bug Tracker
 ===========
