@@ -8,7 +8,7 @@ class WebsiteSaleHttpCase(HttpCase):
         super().setUp()
         # Active skip payment for Mitchel Admin
         self.partner = self.env.ref("base.partner_admin")
-        self.partner.with_context({"res_partner_search_mode": "customer"}).write(
+        self.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
             {"skip_website_checkout_payment": True}
         )
 
