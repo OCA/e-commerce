@@ -5,16 +5,17 @@
 from odoo import http
 from odoo.http import request
 
+from odoo.addons.payment.controllers.portal import PaymentPortal
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class CheckoutSkipPayment(WebsiteSale):
+class CheckoutSkipPaymentWebsite(WebsiteSale):
     @http.route()
-    def payment_get_status(self, sale_order_id, **post):
+    def shop_payment_get_status(self, sale_order_id, **post):
         # When skip payment step, the transaction not exists so only render
         # the waiting message in ajax json call
         if not request.website.checkout_skip_payment:
-            return super().payment_get_status(sale_order_id, **post)
+            return super().shop_payment_get_status(sale_order_id, **post)
         return {
             "recall": True,
             "message": request.website._render(
@@ -22,10 +23,12 @@ class CheckoutSkipPayment(WebsiteSale):
             ),
         }
 
+
+class CheckoutSkipPayment(PaymentPortal):
     @http.route()
-    def payment_confirmation(self, **post):
+    def payment_confirm(self, tx_id, access_token, **kwargs):
         if not request.website.checkout_skip_payment:
-            return super().payment_confirmation(**post)
+            return super().payment_confirm(tx_id, access_token, **kwargs)
         order = (
             request.env["sale.order"]
             .sudo()
