@@ -15,6 +15,8 @@
         "security/ir.model.access.csv",
         "data/website_menu.xml",
         "views/product_brand.xml",
+        "views/assets.xml",
+        "views/product_brand_views.xml",
     ],
     "demo": [
         "demo/assets.xml",
