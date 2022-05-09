@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="address_inherit" inherit_id="website_sale.address" priority="110">
+        <xpath
+            expr="//form[hasclass('checkout_autoformat')]/div/div[1]"
+            position="replace"
+        >
+            <div
+                t-attf-class="form-group #{error.get('name') and 'o_has_error' or ''} col-lg-6 div_name"
+            >
+                <label class="col-form-label" for="name">First Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    t-attf-class="form-control #{error.get('name') and 'is-invalid' or ''}"
+                    t-att-value="'name' in checkout and ' '.join(checkout['name'].split(' ')[:1])"
+                />
+            </div>
+            <div
+                t-attf-class="form-group #{error.get('last_name') and 'o_has_error' or ''} col-lg-6 div_last_name"
+            >
+                <label class="col-form-label" for="last_name">Last Name</label>
+                <input
+                    type="text"
+                    name="last_name"
+                    t-attf-class="form-control #{error.get('last_name') and 'is-invalid' or ''}"
+                    t-att-value="'last_name' in checkout and checkout['last_name']"
+                />
+            </div>
+
+            <div t-attf-class="form-group col-lg-6">
+                <input
+                    type="radio"
+                    t-att-checked="('company_type' in checkout and checkout['company_type']!='company') or 'company_type' not in checkout"
+                    id='company_type_individual'
+                    name="company_type"
+                    class="individual"
+                    value="person"
+                />
+                <label
+                    for="company_type_individual"
+                    class="oe_label"
+                    style="display: inline;"
+                >
+                    Private Customer
+                </label>
+                <span style="margin-right: 20px;" />
+                <input
+                    type="radio"
+                    t-att-checked="'company_type' in checkout and checkout['company_type']=='company'"
+                    id='company_type_company'
+                    name="company_type"
+                    class="company"
+                    value="company"
+                />
+                <label
+                    for="company_type_company"
+                    class="oe_label"
+                    style="display: inline;"
+                >
+                    Business Customer
+                </label>
+            </div>
+            <div class="w-100" />
+            <div
+                t-attf-class="form-group #{error.get('company_name') and 'o_has_error' or ''} col-lg-6"
+                id="address_company_name"
+                t-att-style="('company_type' not in checkout or checkout['company_type'] != 'company') and 'display: none'"
+            >
+                <label class="col-form-label" for="company_name">Company Name
+                </label>
+                <t
+                    t-set="company_name_not_editable_message"
+                >Changing company name is not allowed once document(s) have been issued for your account. Please contact
+                    us directly for this operation.
+                </t>
+                <input
+                    type="text"
+                    name="company_name"
+                    t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}"
+                    t-att-value="'commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name' in checkout and checkout['company_name']"
+                    t-att-readonly="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"
+                    t-att-title="company_name_not_editable_message if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"
+                />
+            </div>
+            <t
+                t-if="mode == ('new', 'billing') or (mode == ('edit', 'billing') and (can_edit_vat or 'vat' in checkout and checkout['vat']))"
+            >
+                <div
+                    t-attf-class="form-group #{error.get('vat') and 'o_has_error' or ''} col-lg-6 div_vat"
+                    id="address_tin_vat"
+                    t-att-style="('company_type' not in checkout or checkout['company_type'] != 'company') and 'display: none'"
+                >
+                    <label
+                        class="col-form-label font-weight-normal label-optional"
+                        for="vat"
+                    >TIN / VAT
+                    </label>
+                    <t
+                        t-set="vat_not_editable_message"
+                    >Changing VAT number is not allowed once document(s) have been issued for your account. Please
+                        contact us directly for this operation.
+                    </t>
+                    <input
+                        type="text"
+                        name="vat"
+                        t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}"
+                        t-att-value="'vat' in checkout and checkout['vat']"
+                        t-att-readonly="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"
+                        t-att-title="vat_not_editable_message if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"
+                    />
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template
+        id="address_b2b_ecommerce_first_last_name"
+        inherit_id="website_sale.address_b2b"
+        name="Show b2b fields"
+        priority="100"
+    >
+        <xpath
+            expr="//t[@t-if=&quot;mode == ('new', 'billing') or (mode == ('edit', 'billing') and (can_edit_vat or 'vat' in checkout and checkout['vat']))&quot;]"
+            position="replace"
+        >
+        </xpath>
+    </template>
+
+</odoo>

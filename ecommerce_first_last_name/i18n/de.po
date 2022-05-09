@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* ecommerce_first_last_name
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-07 05:16+0000\n"
+"PO-Revision-Date: 2021-06-07 05:16+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "Business customer"
+msgstr "Geschäftskunde"
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "Changing VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation."
+msgstr "Das Ändern der Umsatzsteuer-Identifikationsnummer ist nicht zulässig, sobald Dokumente für Ihr Konto ausgestellt wurden. Bitte kontaktieren Sie uns direkt für diesen Vorgang."
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "Changing company name is not allowed once document(s) have been issued for your account. Please contact us directly for this operation."
+msgstr ""
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "Company Name"
+msgstr "Unternehmensname"
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "First Name"
+msgstr "Vorname"
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "Last Name"
+msgstr "Nachname"
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "Private Customer"
+msgstr "Privatkunde"
+
+#. module: ecommerce_first_last_name
+#: model_terms:ir.ui.view,arch_db:ecommerce_first_last_name.address_inherit
+msgid "TIN / VAT"
+msgstr "USt-IdNr."
+
