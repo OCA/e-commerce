@@ -1,7 +1,7 @@
 /* Copyright 2021 Carlos Roca
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_wishlist_keep.tour", function(require) {
+odoo.define("website_sale_wishlist_keep.tour", function (require) {
     "use strict";
 
     const tour = require("web_tour.tour");
