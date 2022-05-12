@@ -62,7 +62,9 @@ class WebsiteSale(main.WebsiteSale):
         except IndexError:
             return request.redirect("/shop/checkout")
         count = len(bookings)
-        values = booking._get_calendar_context(year, month)
+        values = booking.with_context(
+            tz=booking.type_id.resource_calendar_id.tz
+        )._get_calendar_context(year, month)
         values.update(
             {
                 "booking_index": index,
