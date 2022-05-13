@@ -1,11 +1,8 @@
-[ This file must be present and contains the usage instructions
-  for end-users. As all other rst files included in the README,
-  it MUST NOT contain reStructuredText sections
-  only body text (paragraphs, lists, tables, etc). Should you need
-  a more elaborate structure to explain the addon, please create a
-  Sphinx documentation (which may include this file as a "quick start"
-  section). ]
+After configuring the module go to the website store and check your expected results:
 
-To use this module, you need to:
+#. On the search box writing the name of a product.
+#. On the product list (/shop).
+#. On the product page.
+#. On the recently viewed products.
 
-#. Go to ...
+You shouldn't be able to either see the prices or buy any of the forbidden items if any.
