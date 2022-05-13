@@ -9,6 +9,13 @@
     "license": "AGPL-3",
     "summary": "Hide product prices on the shop",
     "depends": ["website_sale"],
-    "data": ["views/partner_view.xml", "views/website_sale_template.xml"],
+    "data": [
+        "views/assets.xml",
+        "views/partner_view.xml",
+        "views/product_template_views.xml",
+        "views/res_config_settings_views.xml",
+        "views/website_sale_template.xml",
+    ],
+    "qweb": ["static/src/xml/website_sale_templates.xml"],
     "installable": True,
 }

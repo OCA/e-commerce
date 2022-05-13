@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+<!-- We can't rely on the general setting when specific product have hidden prices-->
+<t t-extend="website_sale.productsSearchBar.autocomplete">
+    <t t-jquery="div[t-if='widget.displayPrice']" t-operation="attributes">
+        <attribute
+                name="t-if"
+                value="widget.displayPrice &amp; !product.website_hide_price"
+            />
+    </t>
+</t>
+<t t-extend="website_sale.productsRecentlyViewed">
+    <t t-jquery="div[t-raw='product.price']" t-operation="attributes">
+        <attribute name="t-if" value="!product.website_hide_price" />
+    </t>
+    <t t-jquery="button.js_add_cart" t-operation="attributes">
+        <attribute name="t-if" value="!product.website_hide_price" />
+    </t>
+</t>
+
+</templates>
