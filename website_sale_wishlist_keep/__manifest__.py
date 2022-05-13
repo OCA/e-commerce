@@ -8,6 +8,7 @@
     "version": "13.0.1.0.0",
     "license": "LGPL-3",
     "depends": ["website_sale_wishlist"],
+    "website": "https://github.com/OCA/e-commerce",
     "data": ["templates/assets.xml", "views/website_sale_wishlist_template.xml"],
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "installable": True,
