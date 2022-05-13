@@ -1,6 +1,8 @@
 // This styles has been added from addons/website/static/src/scss/web_editor.ui.scss
 // to apply styles for public user too.
 // INPUTS
+$o-we-md-ease: cubic-bezier(0.19, 1, 0.22, 1) !default;
+$o-we-bg-color: #f7f7f7 !default;
 .o_switch {
     display: flex;
     align-items: center;
