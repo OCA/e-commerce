@@ -1,4 +1,4 @@
-odoo.define("wbesite_sale_suggest_create_account.shop_buy", function(require) {
+odoo.define("wbesite_sale_suggest_create_account.shop_buy", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -22,7 +22,7 @@ odoo.define("wbesite_sale_suggest_create_account.shop_buy", function(require) {
             },
             {
                 trigger: 'a.btn-secondary[href^="/web/login"]:first',
-                run: function() {
+                run: function () {
                     // Check: do nothing
                 },
             },
