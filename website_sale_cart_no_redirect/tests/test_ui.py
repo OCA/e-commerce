@@ -14,9 +14,7 @@ class UICase(HttpCase):
     def test_01_add_to_cart_no_redirect(self):
         self.website.cart_add_on_page = True
         self.start_tour("/shop", "add_to_cart_no_redirect", login="admin")
-        pass
 
     def test_02_add_to_cart_redirect(self):
         self.website.cart_add_on_page = False
         self.start_tour("/shop", "add_to_cart_redirect", login="admin")
-        pass
