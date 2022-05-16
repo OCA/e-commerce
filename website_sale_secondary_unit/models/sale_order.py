@@ -64,7 +64,7 @@ class SaleOrder(models.Model):
                     secondary_uom_id = secondary_uom.id
         if secondary_uom_id:
             ctx["secondary_uom_id"] = secondary_uom_id
-        return super(SaleOrder, self.with_context(ctx))._cart_update(
+        res = super(SaleOrder, self.with_context(ctx))._cart_update(
             product_id=product_id,
             line_id=line_id,
             add_qty=add_qty,
@@ -72,6 +72,12 @@ class SaleOrder(models.Model):
             attributes=attributes,
             **kwargs
         )
+        # If the line is not an integer the add_qty will be rounded and we could not use
+        # secondary units with decimal values.
+        # You can check:
+        # https://github.com/odoo/odoo/blob/cafd8699ff8ec8eb93aa283a4cac57317ce40708/addons/website_sale/models/sale_order.py#L171  # noqa: B950
+        res["quantity"] = add_qty
+        return res
 
     def _compute_cart_info(self):
         super()._compute_cart_info()
