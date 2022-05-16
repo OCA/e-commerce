@@ -1,4 +1,4 @@
-odoo.define("website_sale_stock_list_preview.shop_stock", function(require) {
+odoo.define("website_sale_stock_list_preview.shop_stock", function (require) {
     "use strict";
 
     var publicWidget = require("web.public.widget");
@@ -10,23 +10,23 @@ odoo.define("website_sale_stock_list_preview.shop_stock", function(require) {
             "/website_sale_stock/static/src/xml/website_sale_stock_product_availability.xml",
         ],
 
-        start: function() {
+        start: function () {
             return $.when.apply($, [
                 this._super.apply(this, arguments),
                 this.render_stock(),
             ]);
         },
-        render_stock: function() {
+        render_stock: function () {
             const $products = $(".o_wsale_product_grid_wrapper");
             const product_dic = {};
-            $products.each(function() {
+            $products.each(function () {
                 product_dic[this.querySelector("a img").src.split("/")[6]] = this;
             });
             const product_ids = Object.keys(product_dic).map(Number);
             return this._rpc({
                 route: "/sale/get_combination_info_stock_preview/",
                 params: {product_template_ids: product_ids},
-            }).then(products_qty => {
+            }).then((products_qty) => {
                 for (const product of products_qty) {
                     $(product_dic[product.id])
                         .find(".product_price")
