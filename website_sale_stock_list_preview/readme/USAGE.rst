@@ -1,5 +1,6 @@
 To use this module, you need to:
 
-* Edit some products on the option Availability of e-commerce
-* Go to the shop on the website and active Add to Cart view on Customize menu.
-* You can see on your products the results of the options that you had choose.
+* Edit the 'Availability' option under 'eCommerce' tab in your selected product.
+* Go to the website's shop and activate the 'Add to Cart' view under 'Customize' menu.
+
+You can see, on your products, the options you have chosen.
