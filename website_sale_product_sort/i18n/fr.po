@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_product_sort
+# 	* website_sale_product_sort
 #
 msgid ""
 msgstr ""
@@ -17,13 +17,13 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:14
+#: code:addons/website_sale_product_sort/models/website.py:0
 #, python-format
 msgid "Catalog price: High to Low"
 msgstr "Prix catalogue : décroissant"
 
 #. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:15
+#: code:addons/website_sale_product_sort/models/website.py:0
 #, python-format
 msgid "Catalog price: Low to High"
 msgstr "Prix catalogue : croissant"
@@ -45,19 +45,19 @@ msgid "Default criteria for sorting products in the shop"
 msgstr "Critère par défaut pour trier les articles de la boutique"
 
 #. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:16
+#: code:addons/website_sale_product_sort/models/website.py:0
 #, python-format
 msgid "Name - A to Z"
 msgstr "Nom : de A à Z"
 
 #. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:17
+#: code:addons/website_sale_product_sort/models/website.py:0
 #, python-format
 msgid "Name - Z to A"
 msgstr "Nom : de Z à A"
 
 #. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:13
+#: code:addons/website_sale_product_sort/models/website.py:0
 #, python-format
 msgid "Relevance"
 msgstr "Pertinence"
