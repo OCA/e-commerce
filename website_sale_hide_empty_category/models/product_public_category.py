@@ -10,6 +10,7 @@ class ProductPublicCategory(models.Model):
     has_product_recursive = fields.Boolean(
         string="This category or one of its children has products",
         compute="_compute_has_product_recursive",
+        recursive=True,
     )
 
     @api.depends("product_tmpl_ids", "child_id.has_product_recursive")

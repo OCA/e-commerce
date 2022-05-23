@@ -8,9 +8,9 @@ odoo.define("website_sale_hide_empty_category.tour", function (require) {
 
     var steps = [
         {
-            trigger: "#products_grid_before a:contains('Category Test Posted')",
+            trigger: "#products_grid_before label:contains('Category Test Posted')",
             extra_trigger:
-                "#products_grid_before:not(:has(a:contains('Category Test Not Posted')))",
+                "#products_grid_before:not(:has(label:contains('Category Test Not Posted')))",
         },
     ];
 
