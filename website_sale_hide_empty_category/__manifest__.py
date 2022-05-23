@@ -3,7 +3,7 @@
 {
     "name": "Website Sale - Hide Empty Categories",
     "summary": "Hide any Product Categories that are empty",
-    "version": "13.0.1.1.0",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "LasLabs, Odoo Community Association (OCA)",
@@ -11,5 +11,8 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/assets.xml", "views/website_sale_templates.xml"],
+    "data": ["views/website_sale_templates.xml"],
+    "assets": {
+        "web.assets_tests": ["/website_sale_hide_empty_category/static/src/js/tour.js"],
+    },
 }
