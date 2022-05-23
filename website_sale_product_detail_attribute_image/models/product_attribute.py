@@ -15,7 +15,7 @@ class ProductAttribute(models.Model):
         string="Publish in website",
         help="Display attribute image in shop online product detail",
     )
-    website_name = fields.Char(string="Website name", translate=True)
+    website_name = fields.Char(translate=True)
 
 
 class ProductAttributevalue(models.Model):
