@@ -23,7 +23,7 @@
         name="Taxes toggle"
         priority="999"
     >
-        <xpath expr="//div[hasclass('products_pager')]" position="after">
+        <xpath expr="//div[hasclass('products_header')]" position="after">
             <div class="row mt16 mb0">
                 <div class="col">
                     <div class="pull-right">
