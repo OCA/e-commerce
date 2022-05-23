@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_tax_toggle
+# 	* website_sale_tax_toggle
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,8 @@ msgstr ""
 
 #. module: website_sale_tax_toggle
 #: model_terms:ir.ui.view,arch_db:website_sale_tax_toggle.tax_toggle_template
-msgid "<span/>\n"
+msgid ""
+"<span/>\n"
 "                <span>Show prices with taxes included</span>"
 msgstr ""
 "<span/>\n"

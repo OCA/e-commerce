@@ -3,6 +3,8 @@
 // INPUTS
 $o-we-md-ease: cubic-bezier(0.19, 1, 0.22, 1) !default;
 $o-we-bg-color: #f7f7f7 !default;
+$o-we-switch-size: 2ex !default;
+$o-we-switch-inactive-color: #f7f7f7 !default;
 .o_switch {
     display: flex;
     align-items: center;
