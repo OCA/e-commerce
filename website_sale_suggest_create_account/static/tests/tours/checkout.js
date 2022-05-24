@@ -7,26 +7,27 @@ odoo.define("wbesite_sale_suggest_create_account.shop_buy", function (require) {
         "shop_buy_checkout_suggest_account_website",
         {
             test: true,
-            url: "/shop?search=Acoustic Bloc Screens",
+            url: "/shop",
         },
         [
+            // Shop Page
             {
-                content: "select Acoustic Bloc Screens",
-                trigger: '.oe_product_cart a:containsExact("Acoustic Bloc Screens")',
+                trigger: "a.o_product_link:first",
+            },
+            // Product Page
+            {
+                trigger: "#add_to_cart",
+            },
+            // Go to cart
+            {
+                trigger: 'a[href="/shop/cart"]',
+                extra_trigger: "sup.my_cart_quantity:contains('1')",
             },
             {
-                content: "click add to cart",
-                trigger: "#product_details #add_to_cart",
-            },
-            {
-                content: "check product is in cart, get cart id, logout, go to login",
-                trigger: 'td.td-product_name:contains("Acoustic Bloc Screens")',
-                run: function () {
-                    window.location.href = "/web/login";
-                },
+                trigger: 'a.btn-secondary[href^="/web/login"]:first',
             },
             // TODO: Add a step to check that "checkout" button doesn't exists
-            // Odoo 14.0 initial config doesn't have b2c actived for the website
+            // Odoo 13.0 initial config doesn't have b2c actived for the website
             // Login Page
             {
                 trigger: "#login",
@@ -38,8 +39,16 @@ odoo.define("wbesite_sale_suggest_create_account.shop_buy", function (require) {
             },
             {
                 trigger: "button.btn-primary:first",
-                run: "click",
             },
+            // Checkout Page
+            {
+                trigger: "button[name='o_payment_submit_button']",
+            },
+            {
+                trigger: "span",
+                content: "Order",
+            },
+            // The End
         ]
     );
 });
