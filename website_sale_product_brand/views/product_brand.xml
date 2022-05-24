@@ -73,10 +73,10 @@
             </div>
         </t>
     </template>
-    <template id="categories_recursive" inherit_id="website_sale.categories_recursive">
-        <xpath expr="//span[@t-field='c.name']/.." position="attributes">
+    <template id="categorie_link" inherit_id="website_sale.categorie_link">
+        <xpath expr="//label[@t-field='c.name']/.." position="attributes">
             <attribute
-                name="t-att-href"
+                name="t-att-data-link-href"
             >keep('/shop/category/' + slug(c), category=0, brand=brand)</attribute>
         </xpath>
     </template>
