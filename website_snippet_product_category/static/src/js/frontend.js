@@ -1,6 +1,6 @@
 // Copyright 2020 Tecnativa - Alexandre Díaz
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-odoo.define("website_snippet_product_category.s_product_category", function(require) {
+odoo.define("website_snippet_product_category.s_product_category", function (require) {
     "use strict";
 
     const core = require("web.core");
@@ -16,7 +16,7 @@ odoo.define("website_snippet_product_category.s_product_category", function(requ
          * Asynchronous server side template rendering
          * @override
          */
-        start: function() {
+        start: function () {
             const _this = this;
             const template =
                 this.$target.data("template") ||
@@ -30,7 +30,7 @@ odoo.define("website_snippet_product_category.s_product_category", function(requ
                     template: template,
                 },
             }).then(
-                function(object_html) {
+                function (object_html) {
                     const $object_html = $(object_html);
                     const count = $object_html.find("input[name='object_count']").val();
                     if (!count) {
@@ -53,7 +53,7 @@ odoo.define("website_snippet_product_category.s_product_category", function(requ
 
                     _this.$target.html($object_html);
                 },
-                function() {
+                function () {
                     if (_this.editableMode) {
                         _this.$target.append(
                             $("<p/>", {
@@ -75,7 +75,7 @@ odoo.define("website_snippet_product_category.s_product_category", function(requ
         /**
          * @override
          */
-        destroy: function() {
+        destroy: function () {
             this.$target.empty();
             this._super.apply(this, arguments);
         },
