@@ -12,13 +12,15 @@ odoo.define("wbesite_sale_require_login.shop_buy", function (require) {
         [
             // Shop Page
             {
-                trigger: 'a[href^="/shop/product/"]:first',
-                run: "click",
+                trigger: "a.o_product_link:first",
             },
             // Product Page
             {
                 trigger: "#add_to_cart",
-                run: "click",
+            },
+            {
+                trigger: 'a[href="/shop/cart"]',
+                extra_trigger: "sup.my_cart_quantity:contains('1')",
             },
             {
                 trigger: '.oe_website_sale:not(a.btn-primary[href^="/shop/checkout"])',
