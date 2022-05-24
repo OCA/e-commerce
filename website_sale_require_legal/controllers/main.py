@@ -52,7 +52,11 @@ class WebsiteSale(main.WebsiteSale):
         message = _("Website legal terms acceptance metadata: %s")
         metadata = "<br/>".join(
             "{}: {}".format(val, environ.get(val))
-            for val in ("REMOTE_ADDR", "HTTP_USER_AGENT", "HTTP_ACCEPT_LANGUAGE",)
+            for val in (
+                "REMOTE_ADDR",
+                "HTTP_USER_AGENT",
+                "HTTP_ACCEPT_LANGUAGE",
+            )
         )
         record.sudo().message_post(body=message % metadata, message_type="notification")
 
