@@ -1,6 +1,6 @@
 // Copyright 2020 Tecnativa - Alexandre Díaz
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-odoo.define("website_snippet_product_category.snippet_options", function(require) {
+odoo.define("website_snippet_product_category.snippet_options", function (require) {
     "use strict";
 
     const options = require("web_editor.snippets.options");
@@ -9,7 +9,7 @@ odoo.define("website_snippet_product_category.snippet_options", function(require
         /**
          * @override
          */
-        cleanForSave: function() {
+        cleanForSave: function () {
             this._super.apply(this, arguments);
             this.$target.empty();
         },
