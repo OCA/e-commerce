@@ -14,7 +14,7 @@ class WebsiteSale(WebsiteSale):
         domain = super()._get_search_domain(
             search, category, attrib_values, search_in_description=search_in_description
         )
-        if "brand_id" in request.env.context:
+        if "brand_id" in request.context:
             domain.append(("product_brand_id", "=", request.env.context["brand_id"]))
         return domain
 
@@ -31,13 +31,30 @@ class WebsiteSale(WebsiteSale):
         auth="public",
         website=True,
     )
-    def shop(self, page=0, category=None, brand=None, search="", **post):
+    def shop(
+        self,
+        page=0,
+        category=None,
+        search="",
+        min_price=0.0,
+        max_price=0.0,
+        ppg=False,
+        brand=None,
+        **post
+    ):
         if brand:
-            context = dict(request.env.context)
+            context = dict(request.context)
             context.setdefault("brand_id", int(brand))
-            request.env.context = context
+            request.context = context
         return super().shop(
-            page=page, category=category, brand=brand, search=search, **post
+            page=page,
+            category=category,
+            search=search,
+            min_price=min_price,
+            max_price=max_price,
+            ppg=ppg,
+            brand=brand,
+            **post
         )
 
     # Method to get the brands.
