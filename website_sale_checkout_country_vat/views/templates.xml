@@ -5,7 +5,10 @@
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
 <odoo>
     <template id="address" inherit_id="website_sale.address_b2b">
-        <xpath expr="//input[@name='vat']" position="replace">
+        <xpath expr="//input[@name='vat']" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath expr="//input[@name='vat']" position="after">
             <t t-call="website_snippet_country_dropdown.country_dropdown">
                 <t t-set="complete_field" t-value="'vat'" />
                 <t
