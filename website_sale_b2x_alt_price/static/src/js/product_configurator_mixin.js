@@ -1,7 +1,7 @@
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
 
-odoo.define("website_sale_b2x_alt_price", function(require) {
+odoo.define("website_sale_b2x_alt_price", function (require) {
     "use strict";
 
     const VariantMixin = require("sale.VariantMixin");
@@ -22,7 +22,7 @@ odoo.define("website_sale_b2x_alt_price", function(require) {
      * @param {$.Element} $parent
      * @param {Object} combination
      */
-    VariantMixin._onChangeCombinationAltPrices = function(_ev, $parent, combination) {
+    VariantMixin._onChangeCombinationAltPrices = function (_ev, $parent, combination) {
         // Write new alt prices
         $parent
             .find(".js_alt_price .oe_currency_value")
@@ -40,7 +40,7 @@ odoo.define("website_sale_b2x_alt_price", function(require) {
          *
          * @override
          */
-        _onChangeCombination: function() {
+        _onChangeCombination: function () {
             VariantMixin._onChangeCombinationAltPrices.apply(this, arguments);
             return this._super.apply(this, arguments);
         },
