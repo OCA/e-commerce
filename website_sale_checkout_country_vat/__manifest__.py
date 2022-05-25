@@ -5,13 +5,18 @@
 {
     "name": "Website Sale Checkout Country VAT",
     "summary": "Autocomplete VAT in checkout process",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "Tecnativa, " "Odoo Community Association (OCA)",
+    "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
     "installable": True,
     "depends": ["base_vat", "website_sale", "website_snippet_country_dropdown"],
-    "data": ["views/assets.xml", "views/templates.xml"],
+    "data": ["views/templates.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            "/website_sale_checkout_country_vat/static/src/js/dropdown.js"
+        ]
+    },
 }
