@@ -1,7 +1,7 @@
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
 
-odoo.define("website_sale_b2x_alt_price.tour_b2c", function(require) {
+odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
     "use strict";
 
     const tour = require("web_tour.tour");
