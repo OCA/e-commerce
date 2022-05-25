@@ -44,9 +44,7 @@ class ProductTemplate(models.Model):
         )
         # Obtain taxes that apply to the product and context
         taxes = partner.property_account_position_id.map_tax(
-            product.sudo().taxes_id.filtered(lambda x: x.company_id == company_id),
-            product,
-            partner,
+            product.sudo().taxes_id.filtered(lambda x: x.company_id == company_id)
         ).with_context(force_price_include=alt_field == "total_excluded")
         # Obtain alt prices
         # TODO Cache upstream calls to compute_all() and get results from there
