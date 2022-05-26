@@ -1,4 +1,4 @@
-odoo.define("website_sale_secondary_unit.animation", function(require) {
+odoo.define("website_sale_secondary_unit.animation", function (require) {
     "use strict";
 
     const VariantMixin = require("sale.VariantMixin");
@@ -7,7 +7,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
     sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend(VariantMixin, {
         selector: ".secondary-unit",
         // eslint-disable-next-line no-unused-vars
-        init: function(parent, editableMode) {
+        init: function (parent, editableMode) {
             this._super.apply(this, arguments);
             this.$secondary_uom = null;
             this.$secondary_uom_qty = null;
@@ -17,7 +17,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.product_uom_factor = null;
             this.product_qty = null;
         },
-        start: function() {
+        start: function () {
             const _this = this;
             this.$secondary_uom = $("#secondary_uom");
             this.$secondary_uom_qty = $(".secondary-quantity");
@@ -34,11 +34,11 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
                 this._onChangeSecondaryUom.bind(this)
             );
             this.$product_qty.on("change", null, this._onChangeProductQty.bind(this));
-            return this._super.apply(this, arguments).then(function() {
+            return this._super.apply(this, arguments).then(function () {
                 _this._onChangeSecondaryUom();
             });
         },
-        _setValues: function() {
+        _setValues: function () {
             this.secondary_uom_qty = Number(
                 this.$target.find(".secondary-quantity").val()
             );
@@ -51,7 +51,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.product_qty = Number($(".quantity").val());
         },
 
-        _onChangeSecondaryUom: function(ev) {
+        _onChangeSecondaryUom: function (ev) {
             if (!ev) {
                 // HACK: Create a fake event to locate the form on "onChangeAddQuantity"
                 // odoo method
@@ -63,7 +63,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.$product_qty.val(this.secondary_uom_qty * factor);
             this.onChangeAddQuantity(ev);
         },
-        _onChangeProductQty: function() {
+        _onChangeProductQty: function () {
             this._setValues();
             const factor = this.secondary_uom_factor * this.product_uom_factor;
             this.$secondary_uom_qty.val(this.product_qty / factor);
@@ -73,7 +73,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
     sAnimation.registry.sale_secondary_unit_cart = sAnimation.Class.extend({
         selector: ".oe_cart",
         // eslint-disable-next-line no-unused-vars
-        init: function(parent, editableMode) {
+        init: function (parent, editableMode) {
             this._super.apply(this, arguments);
             this.$product_qty = null;
             this.secondary_uom_qty = null;
@@ -81,17 +81,17 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.product_uom_factor = null;
             this.product_qty = null;
         },
-        start: function() {
+        start: function () {
             var _this = this;
             this.$target.on(
                 "change",
                 "input.js_secondary_quantity[data-line-id]",
-                function() {
+                function () {
                     _this._onChangeSecondaryUom(this);
                 }
             );
         },
-        _setValues: function(order_line) {
+        _setValues: function (order_line) {
             this.$product_qty = this.$target.find(
                 ".quantity[data-line-id=" + order_line.dataset.lineId + "]"
             );
@@ -99,7 +99,7 @@ odoo.define("website_sale_secondary_unit.animation", function(require) {
             this.secondary_uom_factor = Number(order_line.dataset.secondaryUomFactor);
             this.product_uom_factor = Number(order_line.dataset.productUomFactor);
         },
-        _onChangeSecondaryUom: function(order_line) {
+        _onChangeSecondaryUom: function (order_line) {
             this._setValues(order_line);
             const factor = this.secondary_uom_factor * this.product_uom_factor;
             this.$product_qty.val(this.secondary_uom_qty * factor);
