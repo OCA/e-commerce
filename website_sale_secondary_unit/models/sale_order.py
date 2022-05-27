@@ -26,8 +26,10 @@ class SaleOrder(models.Model):
             )
         return so_lines
 
-    def _website_product_id_change(self, order_id, product_id, qty=0):
-        res = super()._website_product_id_change(order_id, product_id, qty=qty)
+    def _website_product_id_change(self, order_id, product_id, qty=0, **kwargs):
+        res = super()._website_product_id_change(
+            order_id, product_id, qty=qty, **kwargs
+        )
         secondary_uom_id = self.env.context.get("secondary_uom_id", False)
         res["secondary_uom_id"] = secondary_uom_id
         return res
@@ -46,7 +48,7 @@ class SaleOrder(models.Model):
             secondary_uom_id = sol.secondary_uom_id.id
         else:
             secondary_uom_id = request.session.get("secondary_uom_id", False)
-        ctx = self.env.context.copy()
+        self.env.context.copy()
         if not secondary_uom_id:
             # Check the default value for secondary uom or is a product can
             # not allow to sell in base unit, so the default secondary uom
@@ -62,9 +64,9 @@ class SaleOrder(models.Model):
                         precision_rounding=secondary_uom.uom_id.rounding,
                     )
                     secondary_uom_id = secondary_uom.id
-        if secondary_uom_id:
-            ctx["secondary_uom_id"] = secondary_uom_id
-        return super(SaleOrder, self.with_context(ctx))._cart_update(
+        return super(
+            SaleOrder, self.with_context(secondary_uom_id=secondary_uom_id)
+        )._cart_update(
             product_id=product_id,
             line_id=line_id,
             add_qty=add_qty,
@@ -74,7 +76,7 @@ class SaleOrder(models.Model):
         )
 
     def _compute_cart_info(self):
-        super()._compute_cart_info()
+        res = super()._compute_cart_info()
         for order in self:
             secondary_unit_lines = order.website_order_line.filtered("secondary_uom_id")
             if secondary_unit_lines:
@@ -84,6 +86,7 @@ class SaleOrder(models.Model):
                 so_lines = order.website_order_line - secondary_unit_lines
                 cart_quantity = int(sum(so_lines.mapped("product_uom_qty")))
                 order.cart_quantity = cart_quantity + cart_secondary_quantity
+        return res
 
 
 class SaleOrderLine(models.Model):
@@ -118,7 +121,11 @@ class SaleOrderLine(models.Model):
                 and Uom.browse(vals["product_uom"])
                 or line.product_uom
             )
-            if "product_uom_qty" in vals and secondary_uom:
+            if (
+                "product_uom_qty" in vals
+                and secondary_uom
+                and secondary_uom.dependency_type == "dependent"
+            ):
                 factor = secondary_uom.factor * uom.factor
                 vals["secondary_uom_qty"] = float_round(
                     vals["product_uom_qty"] / (factor or 1.0),

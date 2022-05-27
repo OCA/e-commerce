@@ -54,7 +54,7 @@
             expr="//div[@id='product_details']//t[@t-call='website_sale.product_price']"
             position="after"
         >
-            <t t-if="product.secondary_uom_ids">
+            <t t-if="secondary_uom_ids">
                 <div class="mb8 secondary-unit">
                     <t t-call="website_sale_secondary_unit.secondary_qty" />
                     <select
@@ -63,7 +63,7 @@
                         name="secondary_uom_id"
                     >
                         <option
-                            t-if="product.secondary_uom_ids and product.allow_uom_sell"
+                            t-if="secondary_uom_ids and product.allow_uom_sell"
                             value="0"
                             t-att-selected="'selected' if not product.sale_secondary_uom_id else None"
                             t-att-data-secondary-uom-factor="1.0"
@@ -71,7 +71,7 @@
                         >
                             <span t-esc="product.uom_id.sudo().name" />
                         </option>
-                        <t t-foreach="product.secondary_uom_ids" t-as="secondary_uom">
+                        <t t-foreach="secondary_uom_ids" t-as="secondary_uom">
                             <option
                                 t-att-value="secondary_uom.id"
                                 t-att-selected="'selected' if product.sudo().sale_secondary_uom_id.id == secondary_uom.id else None"
@@ -89,8 +89,8 @@
         </xpath>
     </template>
     <template id="product_price" inherit_id="website_sale.product_price">
-        <xpath expr="//b[hasclass('oe_price')]" position="after">
-            <t t-if="product.secondary_uom_ids">
+        <xpath expr="//span[hasclass('oe_price')]" position="after">
+            <t t-if="secondary_uom_ids">
                 / <span
                     class="css_editable_mode_hidden price_uom"
                     t-field="product.uom_id"
@@ -102,7 +102,7 @@
         <xpath expr="//input[@name='add_qty']/.." position="attributes">
             <attribute
                 name="t-attf-class"
-            >css_quantity input-group oe_website_spinner #{'d-none' if product.secondary_uom_ids else None}</attribute>
+            >css_quantity input-group oe_website_spinner #{'d-none' if secondary_uom_ids else None}</attribute>
         </xpath>
     </template>
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
