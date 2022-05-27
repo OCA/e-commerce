@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [product_variant_multi_link](product_variant_multi_link/) | 14.0.1.1.0 |  | Product Multi Links (Variant)
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 14.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
+[website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 14.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
 [website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 14.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 14.0.1.0.0 |  | Autocomplete VAT in checkout process
