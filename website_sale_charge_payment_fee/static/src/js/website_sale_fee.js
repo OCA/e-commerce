@@ -1,14 +1,14 @@
-odoo.define("website_sale_change_payment_fee.website_sale_fee", function(require) {
+odoo.define("website_sale_change_payment_fee.website_sale_fee", function (require) {
     "use strict";
 
     require("web.dom_ready");
     require("web.ajax");
     require("web.core");
 
-    $(".o_payment_form").each(function() {
+    $(".o_payment_form").each(function () {
         var selected_acquirer = $('input[name="pm_id"][checked="True"]')[0].value;
 
-        $(this).on("click", 'input[name="pm_id"]', function() {
+        $(this).on("click", 'input[name="pm_id"]', function () {
             var clicked_acquirer = $(this).prop("value");
             // Check whether saved token / payment method is being selected.
             if (clicked_acquirer.includes("_") === true) {
