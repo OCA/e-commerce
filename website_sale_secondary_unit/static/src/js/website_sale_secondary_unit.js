@@ -107,3 +107,28 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
         },
     });
 });
+
+odoo.define("website_sale_secondary_unit.website_sale", function (require) {
+    "use strict";
+
+    var publicWidget = require("web.public.widget");
+    require("website_sale.website_sale");
+
+    publicWidget.registry.WebsiteSale.include({
+        _submitForm: function () {
+            if (
+                !("secondary_uom_id" in this.rootProduct) &&
+                $(this.$target).find("#secondary_uom").length
+            ) {
+                this.rootProduct.secondary_uom_id = $(this.$target)
+                    .find("#secondary_uom")
+                    .val();
+                this.rootProduct.secondary_uom_qty = $(this.$target)
+                    .find(".secondary-quantity")
+                    .val();
+            }
+
+            this._super.apply(this, arguments);
+        },
+    });
+});
