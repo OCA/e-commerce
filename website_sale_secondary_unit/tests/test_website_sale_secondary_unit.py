@@ -45,4 +45,4 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/", "website_sale_secondary_unit", login="admin")
+        self.start_tour("/shop", "website_sale_secondary_unit", login="admin")
