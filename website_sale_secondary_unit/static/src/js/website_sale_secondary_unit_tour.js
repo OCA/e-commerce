@@ -21,6 +21,9 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
                 ".js_product:has(input[name='add_qty']:propValueContains(5)):has(.price_uom)",
         },
         {
+            trigger: "a[href='/shop/cart']",
+        },
+        {
             trigger: "a[href='/shop']",
             extra_trigger: "span:contains(Box 5 Units)",
         },
@@ -33,11 +36,14 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
                 ".js_product:has(input[name='add_qty']:propValueContains(1))",
         },
         {
+            trigger: "a[href='/shop/cart']",
+        },
+        {
             trigger: "a[href='/shop/checkout?express=1']",
             extra_trigger: "span:containsExact(Units)",
         },
         {
-            trigger: "#o_payment_form_pay",
+            trigger: "button[name='o_payment_submit_button']",
             extra_trigger:
                 "table:has(span:contains(Box 5 Units)):has(span:contains(Units))",
         },
