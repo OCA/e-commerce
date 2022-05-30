@@ -33,3 +33,10 @@ class WebsiteSaleSecondaryUnit(WebsiteSale):
             set_qty=set_qty,
             display=display,
         )
+
+    def _prepare_product_values(self, product, category, search, **kwargs):
+        res = super()._prepare_product_values(product, category, search, **kwargs)
+        res["secondary_uom_ids"] = product.secondary_uom_ids.filtered(
+            lambda su: su.active and su.is_published
+        )
+        return res
