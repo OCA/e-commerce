@@ -1,6 +1,6 @@
 # Copyright 2018 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import mock
+from unittest.mock import Mock, patch
 
 from odoo.tests.common import HttpCase
 
@@ -16,8 +16,9 @@ class WebsiteSaleHttpCase(HttpCase):
 
     def test_checkout_skip_payment(self):
         website = self.env.ref("website.website2")
-        with mock.patch(
-            "odoo.addons.website_sale_checkout_skip_payment.models.website.request"
+        with patch(
+            "odoo.addons.website_sale_checkout_skip_payment.models.website.request",
+            new=Mock(),
         ) as request:
             request.session.uid = False
             self.assertFalse(website.checkout_skip_payment)
