@@ -10,13 +10,5 @@
             />
     </t>
 </t>
-<t t-extend="website_sale.productsRecentlyViewed">
-    <t t-jquery="div[t-raw='product.price']" t-operation="attributes">
-        <attribute name="t-if" value="!product.website_hide_price" />
-    </t>
-    <t t-jquery="button.js_add_cart" t-operation="attributes">
-        <attribute name="t-if" value="!product.website_hide_price" />
-    </t>
-</t>
 
 </templates>
