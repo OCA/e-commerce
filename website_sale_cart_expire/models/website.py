@@ -32,14 +32,11 @@ class Website(models.Model):
         websites = self.search([("cart_expire_delay", ">", 0)])
         if not websites:
             return True
-        # Get all carts to expire
-        carts_to_expire_domains = [
-            website._get_cart_expire_delay_domain() for website in websites
-        ]
         carts_to_expire = self.env["sale.order"].search(
-            expression.OR(carts_to_expire_domains)
+            expression.OR(
+                [website._get_cart_expire_delay_domain() for website in websites]
+            )
         )
-        # Expire carts
         for cart in carts_to_expire:
             cart.message_post(body=_("Cart expired"))
         carts_to_expire.action_cancel()
