@@ -4,12 +4,12 @@
 
 from datetime import datetime, timedelta
 
-import mock
+from freezegun import freeze_time
 
-from odoo.tests import common
+from odoo.tests import TransactionCase
 
 
-class TestWebsiteSaleCartExpire(common.SavepointCase):
+class TestWebsiteSaleCartExpire(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -41,8 +41,7 @@ class TestWebsiteSaleCartExpire(common.SavepointCase):
         for order in self.orders:
             self.assertEqual(order.state, "draft")
         # Case 2: We have reached website 2 expire date
-        with mock.patch("odoo.fields.Datetime.now") as mock_now:
-            mock_now.return_value = datetime.now() + timedelta(hours=3)
+        with freeze_time(datetime.now() + timedelta(hours=3)):
             self.env["website"]._scheduler_website_expire_cart()
         for order in self.orders:
             self.assertEqual(order.state, "cancel")
@@ -50,8 +49,7 @@ class TestWebsiteSaleCartExpire(common.SavepointCase):
     def test_expire_scheduler_multi_website(self):
         # For this test, we split the orders among the 2 websites
         (self.order_1 + self.order_2).write({"website_id": self.website_1.id})
-        with mock.patch("odoo.fields.Datetime.now") as mock_now:
-            mock_now.return_value = datetime.now() + timedelta(hours=3)
+        with freeze_time(datetime.now() + timedelta(hours=3)):
             self.env["website"]._scheduler_website_expire_cart()
         self.assertEqual(self.order_1.state, "draft", "No expire delay on website 1")
         self.assertEqual(self.order_2.state, "draft", "No expire delay on website 1")
