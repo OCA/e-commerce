@@ -5,8 +5,8 @@
     "category": "Website",
     "license": "AGPL-3",
     # Author
-    "author": "Nitrokey GmbH",
-    "website": "http://www.nitrokey.com",
+    "author": "Nitrokey GmbH," "Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/e-commerce",
     "depends": ["website_sale", "product"],
     "data": [
         "views/product_template_view.xml",

@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <template id="product_website_sale_privious" name="product_sale" inherit_id="website_sale.product">
+    <template
+        id="product_website_sale_privious"
+        name="product_sale"
+        inherit_id="website_sale.product"
+    >
         <xpath expr="//a[@id='add_to_cart']" position="after">
             <div class="add_atribute" style="margin-top:10px;">
                 <t t-if="product.provisioning_time_in_workdays">
                     <span>Provisioning time until shipment:</span>
-                    <span t-esc="product.provisioning_time_in_workdays"/>
+                    <span t-esc="product.provisioning_time_in_workdays" />
                     Work days
                 </t>
             </div>
