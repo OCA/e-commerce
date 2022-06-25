@@ -2,10 +2,13 @@
 # @author Iván Todorovich <ivan.todorovich@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import logging
 from datetime import timedelta
 
-from odoo import _, api, fields, models
+from odoo import _, api, exceptions, fields, models
 from odoo.osv import expression
+
+_logger = logging.getLogger(__name__)
 
 
 class Website(models.Model):
@@ -37,9 +40,12 @@ class Website(models.Model):
             website._get_cart_expire_delay_domain() for website in websites
         ]
         carts_to_expire = self.env["sale.order"].search(
-            expression.OR(carts_to_expire_domains)
+            expression.OR(carts_to_expire_domains), order="id ASC",
         )
         # Expire carts
         for cart in carts_to_expire:
-            cart.message_post(body=_("Cart expired"))
-        carts_to_expire.action_cancel()
+            try:
+                cart.action_cancel()
+                cart.message_post(body=_("Cart expired"))
+            except exceptions.except_orm:
+                _logger.exception("Unable to cancel expired cart id %s", cart.id)
