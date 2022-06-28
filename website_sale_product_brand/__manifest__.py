@@ -16,6 +16,7 @@
         "data/website_menu.xml",
         "views/product_brand.xml",
         "views/assets.xml",
+        "views/product_brand_views.xml",
     ],
     "demo": [
         "demo/product_brand_demo.xml",
