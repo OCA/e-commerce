@@ -42,6 +42,7 @@ addon | version | maintainers | summary
 [website_sale_hide_price](website_sale_hide_price/) | 13.0.1.1.0 |  | Hide product prices on the shop
 [website_sale_invoice_address](website_sale_invoice_address/) | 13.0.1.0.0 |  | Set e-Commerce sale orders invoice address as in backend
 [website_sale_order_type](website_sale_order_type/) | 13.0.1.0.0 | [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | This module allows sale_order_type to work with website_sale.
+[website_sale_product_assortment](website_sale_product_assortment/) | 13.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Use product assortments to display products available on e-commerce.
 [website_sale_product_attachment](website_sale_product_attachment/) | 13.0.2.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let visitors download attachments from a product page
 [website_sale_product_attribute_filter_visibility](website_sale_product_attribute_filter_visibility/) | 13.0.1.0.0 |  | Allow hide any attributes in shop attributes filter
 [website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 13.0.1.0.0 |  | Allow hide attributes values not used in variants
