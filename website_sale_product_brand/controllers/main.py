@@ -9,6 +9,28 @@ from odoo.addons.website_sale.controllers.main import QueryURL, WebsiteSale
 
 
 class WebsiteSale(WebsiteSale):
+    def _get_search_options(
+        self,
+        category=None,
+        attrib_values=None,
+        pricelist=None,
+        min_price=0.0,
+        max_price=0.0,
+        conversion_rate=1,
+        **post
+    ):
+        res = super()._get_search_options(
+            category=category,
+            attrib_values=attrib_values,
+            pricelist=pricelist,
+            min_price=min_price,
+            max_price=max_price,
+            conversion_rate=conversion_rate,
+            **post
+        )
+        res["brand"] = request.context.get("brand_id")
+        return res
+
     def _get_search_domain(
         self, search, category, attrib_values, search_in_description=True
     ):
