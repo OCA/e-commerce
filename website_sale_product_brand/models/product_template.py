@@ -1,7 +1,6 @@
 # Copyright 2022 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, models
-from odoo.http import request
 
 
 class ProductTemplate(models.Model):
@@ -11,15 +10,7 @@ class ProductTemplate(models.Model):
     def _search_get_detail(self, website, order, options):
         res = super()._search_get_detail(website, order, options)
         domain = res["base_domain"]
-        # Need to get the context from request because if we get it from 'env' we will
-        # loose the brand_id key.
-        # TODO: Change this context by extending the options when odoo makes it
-        #  inheritable.
-        brand_id = (
-            int(request.context["brand_id"])
-            if request and request.context.get("brand_id")
-            else None
-        )
+        brand_id = options.get("brand")
         if brand_id:
             domain.append([("product_brand_id", "=", brand_id)])
         res["base_domain"] = domain
