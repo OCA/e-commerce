@@ -1,6 +1,6 @@
 // Copyright 2021 Tecnativa - Carlos Roca
 // License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-odoo.define("website_sale_product_assortment.VariantMixin", function(require) {
+odoo.define("website_sale_product_assortment.VariantMixin", function (require) {
     "use strict";
 
     var VariantMixin = require("sale.VariantMixin");
@@ -13,7 +13,7 @@ odoo.define("website_sale_product_assortment.VariantMixin", function(require) {
         QWeb
     );
 
-    VariantMixin._onChangeCombinationAssortment = function(ev, $parent, combination) {
+    VariantMixin._onChangeCombinationAssortment = function (ev, $parent, combination) {
         let product_id = 0;
         if ($parent.find("input.product_id:checked").length) {
             product_id = $parent.find("input.product_id:checked").val();
@@ -36,7 +36,7 @@ odoo.define("website_sale_product_assortment.VariantMixin", function(require) {
         }
         $parent.find("#add_to_cart").addClass("disabled");
         $parent.find("#buy_now").addClass("disabled");
-        xml_load.then(function() {
+        xml_load.then(function () {
             $(".oe_website_sale")
                 .find("#product_option_block")
                 .prepend(
@@ -60,7 +60,7 @@ odoo.define("website_sale_product_assortment.VariantMixin", function(require) {
          * Adds the stock checking to the regular _onChangeCombination method
          * @override
          */
-        _onChangeCombination: function() {
+        _onChangeCombination: function () {
             this._super.apply(this, arguments);
             VariantMixin._onChangeCombinationAssortment.apply(this, arguments);
         },
