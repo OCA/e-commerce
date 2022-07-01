@@ -3,9 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
+import threading
 from datetime import timedelta
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models, registry
 from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ class Website(models.Model):
 
     @api.model
     def _scheduler_website_expire_cart(self):
+        autocommit = not getattr(threading.currentThread(), "testing", False)
         websites = self.search([("cart_expire_delay", ">", 0)])
         if not websites:
             return True
@@ -43,10 +45,22 @@ class Website(models.Model):
             expression.OR(carts_to_expire_domains), order="id ASC",
         )
         # Expire carts
-        for cart in carts_to_expire:
-            try:
-                with self.env.cr.savepoint():
-                    cart.action_cancel()
-                    cart.message_post(body=_("Cart expired"))
-            except Exception:
-                _logger.exception("Unable to cancel expired cart id %s", cart.id)
+        with api.Environment.manage():
+            for cart in carts_to_expire:
+                if autocommit:
+                    with registry(self.env.cr.dbname).cursor() as new_cr:
+                        new_env = api.Environment(
+                            new_cr, self.env.uid, self.env.context
+                        )
+                        cart = new_env[cart._name].browse(cart.id)
+                        self._do_scheduler_website_expire_carts(cart)
+                else:
+                    self._do_scheduler_website_expire_carts(cart)
+
+    def _do_scheduler_website_expire_carts(self, cart):
+        try:
+            with self.env.cr.savepoint():
+                cart.action_cancel()
+                cart.message_post(body=_("Cart expired"))
+        except Exception:
+            _logger.exception("Unable to cancel expired cart id %s", cart.id)
