@@ -1,6 +1,6 @@
 /* Copyright 2021 Tecnativa - Carlos Roca
    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
-odoo.define("website_sale_product_assortment.tour_no_purchase", function(require) {
+odoo.define("website_sale_product_assortment.tour_no_purchase", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
