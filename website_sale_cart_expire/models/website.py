@@ -45,7 +45,8 @@ class Website(models.Model):
         # Expire carts
         for cart in carts_to_expire:
             try:
-                cart.action_cancel()
-                cart.message_post(body=_("Cart expired"))
-            except exceptions.except_orm:
+                with self.env.cr.savepoint():
+                    cart.action_cancel()
+                    cart.message_post(body=_("Cart expired"))
+            except Exception:
                 _logger.exception("Unable to cancel expired cart id %s", cart.id)
