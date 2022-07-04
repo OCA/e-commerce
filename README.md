@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [website_sale_hide_price](website_sale_hide_price/) | 15.0.1.0.0 |  | Hide product prices on the shop
+[website_sale_product_brand](website_sale_product_brand/) | 15.0.1.0.0 |  | Product Brand Filtering in Website
 
 [//]: # (end addons)
 
