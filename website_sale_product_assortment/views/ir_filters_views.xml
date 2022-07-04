@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+        <record id="product_assortment_view_form" model="ir.ui.view">
+            <field name="model">ir.filters</field>
+            <field
+                name="inherit_id"
+                ref="product_assortment.product_assortment_view_form"
+            />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_domain']" position="after">
+                    <field name="apply_on_public_user" />
+                </xpath>
+                <xpath expr="//field[@name='partner_ids']/../.." position="after">
+                    <group string="Website Availability">
+                        <field name="website_ids" widget="many2many_tags" />
+                        <field name="website_availability" />
+                        <field
+                            name="message_unavailable"
+                            attrs="{'invisible': [('website_availability', '!=', 'no_purchase')]}"
+                        />
+                        <field
+                            name="assortment_information"
+                            attrs="{'invisible': [('website_availability', '!=', 'no_purchase')]}"
+                        />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
