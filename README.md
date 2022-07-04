@@ -33,6 +33,7 @@ addon | version | maintainers | summary
 [website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Provides a way to group shipping methods
 [website_sale_hide_price](website_sale_hide_price/) | 14.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_order_type](website_sale_order_type/) | 14.0.1.0.0 | [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | This module allows sale_order_type to work with website_sale.
+[website_sale_product_assortment](website_sale_product_assortment/) | 14.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Use product assortments to display products available on e-commerce.
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Allow group attributes in shop by categories
 [website_sale_product_attribute_filter_visibility](website_sale_product_attribute_filter_visibility/) | 14.0.1.0.0 |  | Allow hide any attributes in shop attributes filter
 [website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 14.0.1.0.0 |  | Allow hide attributes values not used in variants
