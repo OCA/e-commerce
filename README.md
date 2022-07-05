@@ -58,7 +58,7 @@ addon | version | maintainers | summary
 [website_sale_require_legal](website_sale_require_legal/) | 13.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 13.0.1.0.0 |  | Force users to login for buying
 [website_sale_resource_booking](website_sale_resource_booking/) | 13.0.1.0.2 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let customers book resources temporarily before buying
-[website_sale_secondary_unit](website_sale_secondary_unit/) | 13.0.1.1.3 |  | Allow manage secondary units in website shop
+[website_sale_secondary_unit](website_sale_secondary_unit/) | 13.0.1.2.0 |  | Allow manage secondary units in website shop
 [website_sale_stock_available](website_sale_stock_available/) | 13.0.1.0.0 |  | Display 'Available to promise' in shop online instead 'Quantity On Hand'
 [website_sale_stock_available_display](website_sale_stock_available_display/) | 13.0.1.1.0 |  | Display stock in shop online and allow to sell with no stock available
 [website_sale_stock_force_block](website_sale_stock_force_block/) | 13.0.1.0.0 |  | Block sales for a product
