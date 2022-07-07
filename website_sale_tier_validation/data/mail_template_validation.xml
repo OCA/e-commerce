@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_tier_validation" model="mail.template">
+            <field name="name">Sales Order: Request Validation</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field
+                name="subject"
+            >${object.company_id.name} (Ref ${object.name or 'n/a' }): Validation Requested</field>
+            <field
+                name="email_from"
+            >${(object.user_id.email_formatted or user.email_formatted) | safe}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+        Your order <b>${object.name}</b> has been requested for review.
+    </p>
+    <br />
+    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+        A sales manager will review your purchase.
+    </p>
+    <br />
+    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+        You will receive an email with the result of this revision.
+    </p>
+</div>
+            </field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False" />
+            <field name="auto_delete" eval="True" />
+        </record>
+    </data>
+    <data>
+        <template
+            id="mail_notification_tier_validation"
+            name="Mail: Notify validation requested"
+            inherit_id="mail.mail_notification_paynow"
+            primary="True"
+        >
+            <xpath expr="//a[@t-att-href='access_url']/../.." position="attributes">
+                <attribute name="style" add="display: none" separator=";" />
+            </xpath>
+            <xpath expr="//a[@t-att-href='access_url']/../.." position="after">
+                <td style="padding: 0">
+                    <t t-raw="message.body" />
+                </td>
+            </xpath>
+        </template>
+    </data>
+</odoo>
