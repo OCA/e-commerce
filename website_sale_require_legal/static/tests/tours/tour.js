@@ -39,8 +39,16 @@ odoo.define("website_sale_require_legal.tour", function (require) {
             trigger: ".checkout_autoformat input[name=city]",
         },
         {
+            run: "text 12345",
+            trigger: ".checkout_autoformat input[name=zip]",
+        },
+        {
             run: "text Japan",
             trigger: ".checkout_autoformat select[name=country_id]",
+        },
+        {
+            run: "text Yamagata",
+            trigger: ".checkout_autoformat select[name=state_id]",
         },
         // Submit, to check the lack of acceptance is a failure
         {
