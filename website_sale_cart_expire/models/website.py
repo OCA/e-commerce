@@ -2,10 +2,13 @@
 # @author Iván Todorovich <ivan.todorovich@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import logging
 from datetime import timedelta
 
 from odoo import _, api, fields, models
 from odoo.osv import expression
+
+_logger = logging.getLogger(__name__)
 
 
 class Website(models.Model):
@@ -33,7 +36,7 @@ class Website(models.Model):
         ]
 
     @api.model
-    def _scheduler_website_expire_cart(self):
+    def _scheduler_website_expire_cart(self, autocommit=False):
         websites = self.search([("cart_expire_delay", ">", 0)])
         if not websites:
             return True
@@ -46,5 +49,13 @@ class Website(models.Model):
         for cart in carts:
             if not cart.cart_expire_date or cart.cart_expire_date > now:
                 continue
-            cart.message_post(body=_("Cart expired"))
-            cart.action_cancel()
+            try:
+                with self.env.cr.savepoint():
+                    cart.message_post(body=_("Cart expired"))
+                    cart.action_cancel()
+            except Exception as e:
+                _logger.exception("Unable to cancel expired cart %s: %s", cart, e)
+            else:
+                if autocommit:
+                    self.env.cr.commit()  # pylint: disable=invalid-commit
+        return True
