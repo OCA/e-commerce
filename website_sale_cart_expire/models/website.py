@@ -23,7 +23,7 @@ class Website(models.Model):
         expire_date = fields.Datetime.now() - timedelta(hours=self.cart_expire_delay)
         return [
             ("website_id", "=", self.id),
-            ("state", "in", ["draft", "sent"]),
+            ("state", "=", "draft"),
             ("write_date", "<=", expire_date),
         ]
 
