@@ -9,7 +9,7 @@
         <field name="name">Website: Expire Carts</field>
         <field name="model_id" ref="website.model_website" />
         <field name="state">code</field>
-        <field name="code">model._scheduler_website_expire_cart()</field>
+        <field name="code">model._scheduler_website_expire_cart(autocommit=True)</field>
         <field name="interval_number">5</field>
         <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
