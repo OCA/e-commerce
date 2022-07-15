@@ -55,3 +55,14 @@ class TestWebsiteSaleCartExpire(TransactionCase):
         self.assertEqual(self.order_2.state, "draft", "No expire delay on website 1")
         self.assertEqual(self.order_3.state, "cancel", "Should've been cancelled")
         self.assertEqual(self.order_4.state, "cancel", "Should've been cancelled")
+
+    @freeze_time(datetime.now() + timedelta(hours=3))
+    def test_expire_scheduler_ignore_sent_quotation(self):
+        """Test that sent quotations aren't cancelled
+
+        Quotations can be sent manually or automatically when using
+        wire transfer as payment. They shouldn't be cancelled.
+        """
+        self.order_1.action_quotation_sent()
+        self.env["website"]._scheduler_website_expire_cart()
+        self.assertNotEqual(self.order_1.state, "cancel")
