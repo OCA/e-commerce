@@ -25,6 +25,11 @@ class Website(models.Model):
             ("website_id", "=", self.id),
             ("state", "=", "draft"),
             ("write_date", "<=", expire_date),
+            # We don't want to cancel carts that are already in payment.
+            "|",
+            ("transaction_ids", "=", False),
+            "!",
+            ("transaction_ids.state", "in", ["pending", "authorized", "done"]),
         ]
 
     @api.model
@@ -32,11 +37,14 @@ class Website(models.Model):
         websites = self.search([("cart_expire_delay", ">", 0)])
         if not websites:
             return True
-        carts_to_expire = self.env["sale.order"].search(
+        carts = self.env["sale.order"].search(
             expression.OR(
                 [website._get_cart_expire_delay_domain() for website in websites]
             )
         )
-        for cart in carts_to_expire:
+        now = fields.Datetime.now()
+        for cart in carts:
+            if not cart.cart_expire_date or cart.cart_expire_date > now:
+                continue
             cart.message_post(body=_("Cart expired"))
-        carts_to_expire.action_cancel()
+            cart.action_cancel()
