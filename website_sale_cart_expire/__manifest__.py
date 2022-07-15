@@ -12,5 +12,14 @@
     "license": "AGPL-3",
     "category": "Website",
     "depends": ["website_sale"],
-    "data": ["data/ir_cron.xml", "views/res_config_settings.xml"],
+    "data": [
+        "data/ir_cron.xml",
+        "views/res_config_settings.xml",
+        "views/templates.xml",
+    ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_cart_expire/static/src/js/website_sale_cart_expire.js",
+        ],
+    },
 }
