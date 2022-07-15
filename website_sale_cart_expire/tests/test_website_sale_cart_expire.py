@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 
 from freezegun import freeze_time
 
+from odoo import fields
 from odoo.tests import TransactionCase
 
 
@@ -13,6 +14,7 @@ class TestWebsiteSaleCartExpire(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.tx_counter = 0
         # Websites
         cls.website_1 = cls.env.ref("website.default_website")
         cls.website_2 = cls.env.ref("website.website2")
@@ -27,6 +29,21 @@ class TestWebsiteSaleCartExpire(TransactionCase):
         # Set to draft and assign all to website_2
         # (this also updates write_date to now())
         cls.orders.write({"state": "draft", "website_id": cls.website_2.id})
+
+    def _create_payment_transaction(self, order):
+        self.tx_counter += 1
+        acquirer = self.env.ref("payment.payment_acquirer_test")
+        return self.env["payment.transaction"].create(
+            {
+                "acquirer_id": acquirer.id,
+                "reference": f"{order.name}-{self.tx_counter}",
+                "amount": order.amount_total,
+                "currency_id": order.currency_id.id,
+                "partner_id": order.partner_id.id,
+                "operation": "online_direct",
+                "sale_order_ids": [fields.Command.set([order.id])],
+            }
+        )
 
     def test_expire_dates(self):
         # Expire Date is set in the future
@@ -66,3 +83,29 @@ class TestWebsiteSaleCartExpire(TransactionCase):
         self.order_1.action_quotation_sent()
         self.env["website"]._scheduler_website_expire_cart()
         self.assertNotEqual(self.order_1.state, "cancel")
+
+    @freeze_time(datetime.now() + timedelta(hours=3))
+    def test_expire_scheduler_ignore_in_payment(self):
+        """Carts with a payment transaction in progress shouldn't expire"""
+        self._create_payment_transaction(self.order_1)
+        tx_2 = self._create_payment_transaction(self.order_2)
+        tx_2._set_pending()
+        tx_3 = self._create_payment_transaction(self.order_3)
+        tx_3._set_canceled()
+        tx_4 = self._create_payment_transaction(self.order_4)
+        tx_4._set_error("Something went wrong")
+        # Carts with transactions in progress are not canceled
+        # Even those with 'draft' or 'error' transactions, because
+        # the timer is reseted whenever a tx state changes.
+        self.env["website"]._scheduler_website_expire_cart()
+        self.assertNotEqual(self.order_1.state, "cancel")
+        self.assertNotEqual(self.order_2.state, "cancel")
+        self.assertNotEqual(self.order_3.state, "cancel")
+        self.assertNotEqual(self.order_4.state, "cancel")
+        # In case of error, another transaction can be initialized
+        # However for order_1, no more activity was detected, so it's canceled
+        with freeze_time(datetime.now() + timedelta(hours=3)):
+            self._create_payment_transaction(self.order_4)
+            self.env["website"]._scheduler_website_expire_cart()
+        self.assertEqual(self.order_1.state, "cancel")
+        self.assertNotEqual(self.order_4.state, "cancel")
