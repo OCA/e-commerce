@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2022 Camptocamp SA (https://www.camptocamp.com).
+    @author Iván Todorovich <ivan.todorovich@camptocamp.com>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <template
+        id="header_cart_link"
+        inherit_id="website_sale.header_cart_link"
+        name="Cart Expiration Timer"
+        active="False"
+        customize_show="True"
+    >
+        <xpath expr="//sup[hasclass('my_cart_quantity')]" position="after">
+            <sup
+                class="my_cart_expiration badge badge-warning"
+                t-if="website.cart_expire_delay"
+                t-att-data-order-expire-date="website_sale_order and website_sale_order.cart_expire_date"
+            />
+        </xpath>
+    </template>
+
+</odoo>
