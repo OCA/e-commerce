@@ -85,14 +85,14 @@ class SlimpayControllersTC(HttpCase):
         product = self.env['product.product'].search([])[0]
         self.post('/shop/cart/update', data={"product_id": product.id})
 
-    def pay_cart(self):
+    def pay_cart(self, **params):
         """ Simulate a clik on Slimpay "Pay" button.
         `SlimpayClient.approval_url` mock returns the transaction
         reference instead of a Slimpay URL, so we can use it later to
         check the transaction.
         """
         return self.jsonrpc(
-            '/payment/slimpay_transaction/%s' % self.slimpay.id)
+            '/payment/slimpay_transaction/%s' % self.slimpay.id, params=params)
 
     def simulate_feedback(self, tx_ref, state='closed.completed'):
         """ Simulate a (by default OK) Slimpay feedback.
@@ -135,6 +135,41 @@ class SlimpayControllersTC(HttpCase):
         self.assertEqual('IBAN my-iban (my-bank)', tx['payment_token_id'][1])
         self.assertEqual(1, len(tx['sale_order_ids']))
         self.check_so(tx['sale_order_ids'][0], 'sale')
+
+    def test_slimpay_portal_sale_ok_with_token(self):
+        ref = self.env.ref
+        partner = ref("base.partner_demo_portal")
+        acquirer = ref("account_payment_slimpay.payment_acquirer_slimpay")
+
+        token = self.env["payment.token"].create({
+            "name": "Test token",
+            "partner_id": partner.id,
+            "acquirer_id": acquirer.id,
+            "acquirer_ref": "test slimpay ref",
+        })
+
+        self.authenticate('portal', 'portal')
+        self.add_product_to_user_cart()
+
+        def action_mock(action, short_method_name, *args, **kwargs):
+            return {
+                ("GET", "get-mandates"): {"reference": "test mandate ref"},
+                ("POST", "create-payins"): {
+                    "executionStatus": "toprocess",
+                    "state": "accepted",
+                    "reference": "payment reference",
+                },
+            }[(action, short_method_name)]
+
+        with patch.object(
+                SlimpayClient, 'action', side_effect=action_mock) as mocked_act:
+            result = self.pay_cart(token=token.id)
+
+        self.assertEqual(result, "/shop/payment/validate")
+        calls = mocked_act.call_args_list
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[0][0], ("GET", "get-mandates"))
+        self.assertEqual(calls[1][0], ("POST", "create-payins"))
 
     def test_slimpay_portal_sale_ok_with_two_transaction(self):
         """ Perform a successful portal sale in two steps:

@@ -34,7 +34,8 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
             request.session['sale_order_id'])
         validated_payment_url = '/shop/payment/validate'
         if token:
-            self._pay_with_token(transaction.sudo())
+            transaction._set_transaction_done()
+            transaction.sudo()._post_process_after_done()
             return validated_payment_url
         else:
             return self._approval_url(
@@ -52,17 +53,6 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
             transaction.reference, so.id, locale, so.amount_total,
             so.currency_id.name, so.currency_id.decimal_places,
             subscriber, return_url)
-
-    def _pay_with_token(self, tx):
-        """Use Slimpay s2s API to create a payment with transaction's token,
-        then confirm the sale as usual.
-        """
-        if tx.slimpay_s2s_do_transaction():
-            tx._set_transaction_done()
-            tx._post_process_after_done()
-        else:
-            raise UserError(
-                _('Transaction error: take a screenshot and contact us'))
 
     def _get_mandatory_billing_fields(self):
         ''' Replace "name" by "firstname" and "lastname" '''
