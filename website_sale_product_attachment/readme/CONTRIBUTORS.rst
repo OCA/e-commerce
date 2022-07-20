@@ -2,3 +2,7 @@
 
   * Jairo Llopis
   * Víctor Martínez
+
+* `Archeti <https://www.archeti,com>`_:
+
+  * Sulivan Lominchar
