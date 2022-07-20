@@ -22,20 +22,10 @@ msgid "Attribute Value"
 msgstr "Valor do Atributo"
 
 #. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__display_name
-msgid "Display Name"
-msgstr "Nome a Exibir"
-
-#. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image_published
 msgid "Display attribute value image in shop online product detail"
 msgstr ""
 "Exibir imagem do valor do atributo em detalhes do produto da loja online"
-
-#. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__id
-msgid "ID"
-msgstr "ID"
 
 #. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
@@ -43,21 +33,28 @@ msgid "Image of the attribute value for shop online product detail."
 msgstr "Imagem do valor do atributo para o detalhe do produto da loja online."
 
 #. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value____last_update
-msgid "Last Modified on"
-msgstr "Última Modificação Em"
-
-#. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image_published
 msgid "Publish detail image in website"
 msgstr "Publicar imagem do detalhe no website"
+
+#. module: website_sale_product_detail_attribute_value_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
+msgid "Website Name"
+msgstr ""
 
 #. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
 msgid "Website detail image"
 msgstr "Imagem do detalhe no website"
 
-#. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
-msgid "Website name"
-msgstr "Nome do Website"
+#~ msgid "Display Name"
+#~ msgstr "Nome a Exibir"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificação Em"
+
+#~ msgid "Website name"
+#~ msgstr "Nome do Website"

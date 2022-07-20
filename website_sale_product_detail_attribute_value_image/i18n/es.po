@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_product_detail_attribute_value_image
+# 	* website_sale_product_detail_attribute_value_image
 #
 msgid ""
 msgstr ""
@@ -41,11 +41,14 @@ msgid "Publish detail image in website"
 msgstr "Publicar imagen detallada en el sitio web"
 
 #. module: website_sale_product_detail_attribute_value_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
+msgid "Website Name"
+msgstr ""
+
+#. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
 msgid "Website detail image"
 msgstr "Imagen de detalle del sitio web"
 
-#. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
-msgid "Website name"
-msgstr "Nombre de la página web"
+#~ msgid "Website name"
+#~ msgstr "Nombre de la página web"
