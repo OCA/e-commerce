@@ -25,11 +25,6 @@
                 website.website_show_price and not product.website_hide_price
             </attribute>
         </xpath>
-        <xpath expr="//form[@action='/shop/cart/update']" position="attributes">
-            <attribute name="t-if">
-                website.website_show_price
-            </attribute>
-        </xpath>
     </template>
     <template
         id="compare_popover_hide_price"
