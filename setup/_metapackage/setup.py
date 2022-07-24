@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-website_sale_hide_price>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_brand>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_detail_attribute_value_image>=15.0dev,<15.1dev',
+        'odoo-addon-website_sale_product_reference_displayed>=15.0dev,<15.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
