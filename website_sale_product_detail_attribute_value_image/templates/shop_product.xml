@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Alexandre D. Díaz
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="product_detail_attribute_value_image"
+        inherit_id="website_sale.product"
+        active="True"
+        customize_show="True"
+        name="Attributes Values Images"
+        priority="10"
+    >
+        <!-- Create a new zone to avoid be hidden by customize option -->
+        <xpath expr="//div[@id='product_attributes_simple']" position="after">
+            <div id="attr_value_detail_images" />
+        </xpath>
+        <!-- Move the attributes loop to the new zone -->
+        <xpath expr="//div[@id='attr_value_detail_images']" position="inside">
+            <t
+                t-foreach="product.valid_product_template_attribute_line_ids"
+                t-as="variant_id"
+            />
+        </xpath>
+        <!-- Disable default Odoo behaviour -->
+        <xpath expr="//div[@id='product_attributes_simple']" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath expr="//t[@t-as='attribute']" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <!-- Add the attribute value images -->
+        <xpath expr="//div[@id='product_attributes_simple']" position="after">
+            <hr t-if="attrs_published" id="attr_value_image_separator" />
+        </xpath>
+        <xpath expr="//t[@t-as='variant_id']" position="inside">
+            <t
+                t-set="attrs_published"
+                t-value="variant_id.value_ids.filtered(lambda x: x.website_product_detail_image_published)"
+            />
+            <div
+                t-if="any(attrs_published)"
+                class="d-inline-flex flex-wrap mb-0 product-detail-attributes-values"
+            >
+                <t t-foreach="attrs_published" t-as="attr_value">
+                    <div class="flex-fill px-1">
+                        <div class="text-center">
+                            <img
+                                class="img"
+                                t-attf-src="/web/image?model=product.attribute.value&amp;field=website_product_detail_image&amp;id=#{attr_value.id}"
+                                t-att-title="attr_value.website_name or attr_value.name"
+                                t-att-alt="attr_value.website_name or attr_value.name"
+                            />
+                        </div>
+                        <div class="text-center">
+                            <span t-esc="attr_value.website_name or attr_value.name" />
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
