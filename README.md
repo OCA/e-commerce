@@ -35,11 +35,11 @@ addon | version | maintainers | summary
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 13.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 13.0.1.0.0 |  | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 13.0.1.1.1 |  | Skip payment for logged users in checkout process
-[website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 13.0.1.1.0 |  | Hide product prices on the shop
+[website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 13.0.2.0.0 |  | Hide product prices on the shop
 [website_sale_free_qty](website_sale_free_qty/) | 13.0.1.0.3 |  | Display 'Free qty' in shop online instead 'Quantity On Hand'
 [website_sale_google_tag_manager](website_sale_google_tag_manager/) | 13.0.1.0.0 |  | Add support for Google Tag Manager Enhanced Conversions
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 13.0.1.1.0 |  | Hide any Product Categories that are empty
-[website_sale_hide_price](website_sale_hide_price/) | 13.0.1.1.0 |  | Hide product prices on the shop
+[website_sale_hide_price](website_sale_hide_price/) | 13.0.2.0.0 |  | Hide product prices on the shop
 [website_sale_invoice_address](website_sale_invoice_address/) | 13.0.1.0.0 |  | Set e-Commerce sale orders invoice address as in backend
 [website_sale_order_type](website_sale_order_type/) | 13.0.1.0.0 | [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | This module allows sale_order_type to work with website_sale.
 [website_sale_product_assortment](website_sale_product_assortment/) | 13.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Use product assortments to display products available on e-commerce.
