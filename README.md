@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [website_sale_product_brand](website_sale_product_brand/) | 15.0.1.0.0 |  | Product Brand Filtering in Website
 [website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 15.0.1.0.0 |  | Display attributes values images in shop product detail
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 15.0.1.0.0 |  | Display product reference in e-commerce
+[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 15.0.1.0.0 |  | Suggest users to create an account when buying in the website
 
 [//]: # (end addons)
 
