@@ -7,3 +7,5 @@
   * Rafael Blasco
   * Jairo Llopis
   * Alexandre Diaz
+
+* Alejandro Padrón Gil <alejandro.padron@braintec.com>
