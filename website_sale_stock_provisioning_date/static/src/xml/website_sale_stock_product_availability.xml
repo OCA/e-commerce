@@ -14,7 +14,7 @@
                 t-attf-class="availability_message_#{product_template} text-success mt16"
             >
                 <span>
-                    Next provisioning date: <t t-esc="provisioning_date" />
+                    Next provisioning date: <t t-esc="provisioning_date_formatted" />
                 </span>
             </div>
         </t>

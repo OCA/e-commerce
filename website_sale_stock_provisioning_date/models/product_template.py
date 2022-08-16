@@ -43,6 +43,7 @@ class ProductTemplate(models.Model):
         else:
             product = self.sudo()
         provisioning_date = False
+        provisioning_date_formatted = False
         website = self.env["website"].browse(self.env.context.get("website_id"))
         product = product.with_context(warehouse=website._get_warehouse_available())
         if (
@@ -51,5 +52,11 @@ class ProductTemplate(models.Model):
         ):
             company = website.company_id
             provisioning_date = product._get_next_provisioning_date(company)
-        combination_info.update(provisioning_date=provisioning_date)
+            provisioning_date_formatted = self.env["ir.qweb.field.date"].value_to_html(
+                provisioning_date, {}
+            )
+        combination_info.update(
+            provisioning_date=provisioning_date,
+            provisioning_date_formatted=provisioning_date_formatted,
+        )
         return combination_info
