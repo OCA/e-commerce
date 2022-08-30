@@ -26,11 +26,13 @@ class WebsiteSaleVariantController(VariantController):
         templates = (
             request.env["product.template"]
             .sudo()
-            .with_context(warehouse=current_website.warehouse_id.id)
+            .with_context(
+                warehouse=current_website.warehouse_id.id,
+                website_sale_stock_available=True,
+            )
             .browse(product_template_ids)
         )
         for template in templates.filtered(lambda t: t.is_published):
-
             res.append(
                 {
                     "id": template.id,
