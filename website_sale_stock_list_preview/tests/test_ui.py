@@ -31,6 +31,7 @@ class UICase(HttpCase):
                 "website_sequence": 1,
                 "type": "product",
                 "inventory_availability": "threshold",
+                "available_threshold": 5,
             }
         )
         self.env["product.template"].create(
