@@ -1,17 +1,24 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.5.2
+_commit: v1.8.0
 _src_path: gh:oca/oca-addons-repo-template
-ci: Travis
+ci: GitHub
 dependency_installation_mode: PIP
 generate_requirements_txt: true
+github_check_license: true
+github_enable_codecov: true
+github_enable_makepot: true
+github_enable_stale_action: true
+github_enforce_dev_status_compatibility: true
 include_wkhtmltopdf: false
 odoo_version: 14.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups: []
-repo_description: 'TODO: add repo description.'
-repo_name: e-commerce
+repo_description: Modules aiming to support e-commerce specific needs. This includes
+    all the new website_sale related modules.
+repo_name: Odoo E-Commerce Modules
 repo_slug: e-commerce
 repo_website: https://github.com/OCA/e-commerce
 travis_apt_packages: []
 travis_apt_sources: []
+

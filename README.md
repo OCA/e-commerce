@@ -1,14 +1,15 @@
 
 [![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=14.0)
-[![Build Status](https://travis-ci.com/OCA/e-commerce.svg?branch=14.0)](https://travis-ci.com/OCA/e-commerce)
+[![Pre-commit Status](https://github.com/OCA/e-commerce/actions/workflows/pre-commit.yml/badge.svg?branch=14.0)](https://github.com/OCA/e-commerce/actions/workflows/pre-commit.yml?query=branch%3A14.0)
+[![Build Status](https://github.com/OCA/e-commerce/actions/workflows/test.yml/badge.svg?branch=14.0)](https://github.com/OCA/e-commerce/actions/workflows/test.yml?query=branch%3A14.0)
 [![codecov](https://codecov.io/gh/OCA/e-commerce/branch/14.0/graph/badge.svg)](https://codecov.io/gh/OCA/e-commerce)
 [![Translation Status](https://translation.odoo-community.org/widgets/e-commerce-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/e-commerce-14-0/?utm_source=widget)
 
 <!-- /!\ do not modify above this line -->
 
-# e-commerce
+# Odoo E-Commerce Modules
 
-TODO: add repo description.
+Modules aiming to support e-commerce specific needs. This includes all the new website_sale related modules.
 
 <!-- /!\ do not modify below this line -->
 
