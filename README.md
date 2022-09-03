@@ -42,6 +42,7 @@ addon | version | maintainers | summary
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 14.0.1.0.0 |  | Display attributes images in shop product detail
 [website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 14.0.1.0.0 |  | Display attributes values images in shop product detail
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 14.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Display minimal price for products that has variants
+[website_sale_require_legal](website_sale_require_legal/) | 14.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_show_company_data](website_sale_show_company_data/) | 14.0.1.0.0 |  | Show commercial partner data if any
 [website_sale_stock_available](website_sale_stock_available/) | 14.0.1.0.0 |  | Display 'Available to promise' in shop online instead 'Quantity On Hand'
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 14.0.1.0.0 |  | Display provisioning date for a product in shop online
