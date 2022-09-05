@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [product_template_multi_link_date_span](product_template_multi_link_date_span/) | 14.0.1.1.0 |  | Add an optional date span for when a link is active.
 [product_variant_multi_link](product_variant_multi_link/) | 14.0.1.1.0 |  | Product Multi Links (Variant)
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 14.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
+[website_sale_attribute_filter_multiselect](website_sale_attribute_filter_multiselect/) | 14.0.1.0.0 |  | Add multiselect display type for product and new filter for it
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
 [website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 14.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
 [website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
