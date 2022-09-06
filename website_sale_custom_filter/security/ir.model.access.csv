@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_website_filter_public,website.filter.public,model_website_sale_custom_filter,,1,0,0,0
+access_website_filter_values_public,website.filter.values.public,model_website_sale_custom_filter_value,,1,0,0,0
+access_website_filter_designer,website.filter.designer,model_website_sale_custom_filter,website.group_website_designer,1,1,1,1
+access_website_filter_values_designer,website.filter.values.designer,model_website_sale_custom_filter_value,website.group_website_designer,1,1,1,1

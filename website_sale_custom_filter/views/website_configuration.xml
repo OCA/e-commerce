@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+
+    <record id="view_website_sale_custom_filter_form" model="ir.ui.view">
+        <field name="name">website.sale.custom.filter.form</field>
+        <field name="model">website.sale.custom.filter</field>
+        <field name="arch" type="xml">
+            <form string="Filters">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="website_category_ids" />
+                        <field name="filter_collapsed" />
+                        <field name="filter_type" />
+                        <field
+                            name="numerical_filter_field_id"
+                            attrs="{'invisible': [('filter_type','not in',('numerical'))],'required':[('filter_type','in',('numerical'))]}"
+                        />
+                        <field
+                            name="custom_filter_value_ids"
+                            attrs="{'invisible': [('filter_type','not in',('value','color'))],'required':[('filter_type','in',('value','color'))]}"
+                        >
+                            <tree>
+                                <field name="name" />
+                                <!-- <field name="display" /> -->
+                                <field
+                                    name="html_color"
+                                    widget="color"
+                                    attrs="{'invisible': [('parent.filter_type','not in',('color'))]}"
+                                />
+                                <field name="value_filter_id" />
+                                <field name="selected_product_tmpl_ids" />
+                            </tree>
+                        </field>
+                        <field name="website_ids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="view_website_sale_custom_filter_value_form" model="ir.ui.view">
+        <field name="name">website.sale.custom.filter.value.form</field>
+        <field name="model">website.sale.custom.filter.value</field>
+        <field name="arch" type="xml">
+            <form string="Filter values">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="sequence" />
+                        <!-- <field name="display" attrs="{'invisible': [('parent.filter_type','in',('color'))]}" /> -->
+                        <field
+                            name="html_color"
+                            widget="color"
+                            attrs="{'invisible': [('parent.filter_type','not in',('color'))]}"
+                        />
+                        <field name="value_filter_id" />
+                        <field name="selected_product_tmpl_ids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_website_sale_custom_filter_tree" model="ir.ui.view">
+        <field name="name">website.sale.custom.filter.tree</field>
+        <field name="model">website.sale.custom.filter</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="website_category_ids" />
+                <field name="filter_collapsed" />
+                <field name="filter_type" />
+                <field name="numerical_filter_field_id" />
+                <field name="custom_filter_value_ids" />
+                <field name="website_ids" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_website_sale_custom_filter_search" model="ir.ui.view">
+        <field name="name">website.sale.custom.filter.search</field>
+        <field name="model">website.sale.custom.filter</field>
+        <field name="arch" type="xml">
+            <search string="Filters">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+
+    <!-- actions -->
+    <record id="menu_website_product_filter_action" model="ir.actions.act_window">
+        <field name="name">Product Filters</field>
+        <field name="res_model">website.sale.custom.filter</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_website_sale_custom_filter_tree" />
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new product filter
+            </p>
+        </field>
+    </record>
+
+    <record id="action_product_filter_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_website_sale_custom_filter_tree" />
+        <field name="act_window_id" ref="menu_website_product_filter_action" />
+    </record>
+
+    <record id="action_product_filter_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_website_sale_custom_filter_form" />
+        <field name="act_window_id" ref="menu_website_product_filter_action" />
+    </record>
+
+    <!-- menus -->
+    <menuitem
+        id="menu_website_product_filter"
+        name="Products"
+        parent="website.menu_website_global_configuration"
+        action="menu_website_product_filter_action"
+    />
+
+</odoo>

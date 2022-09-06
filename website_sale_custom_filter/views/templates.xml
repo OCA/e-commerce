@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_filters"
+        inherit_id="website_sale.products"
+        active="False"
+        customize_show="True"
+        name="Product custom filters"
+    >
+        <xpath expr="//div[@id='products_grid_before']" position="before">
+            <t t-set="enable_left_column" t-value="True" />
+            <t t-set="category" t-value="category" />
+            <t
+                t-set="filters"
+                t-value="website.get_website_sale_custom_filters(category)"
+            />
+        </xpath>
+        <xpath expr="//div[hasclass('products_attributes_filters')]" position="after">
+            <div class="products_custom_filters">
+                <button
+                    type="button"
+                    class="btn btn-light d-lg-none mb-2 w-100 p-0"
+                    data-target="#wsale_products_custom_filters"
+                    data-toggle="collapse"
+                >
+                    Show custom filters
+                </button>
+            </div>
+            <div class="collapse d-lg-block" id="wsale_products_custom_filters">
+                    <input type="hidden" name="search" t-att-value="search" />
+                    <a
+                    t-if="custom_val_filter_changed"
+                    t-att-href="keep('/shop'+ ('/category/'+slug(category)) if category else None, attrib=0)"
+                    class="btn btn-link p-0"
+                >
+                        <i class="fa fa-eraser mr-1" /><u>Clear custom filters</u>
+                    </a>
+                    <ul class="nav flex-column collapsible_filters">
+                        <t t-foreach="filters" t-as="f">
+                            <li
+                            id="o_shop_collapse_filter"
+                            t-attf-class="mb-2 #{f.filter_collapsed and 'o_shop_collapse_filter' or ''}"
+                        >
+                                <div
+                                class="d-flex flex-wrap justify-content-between align-items-center"
+                            >
+                                    <strong
+                                    t-field="f.name"
+                                    class="o_filter_name text-uppercase d-block my-2"
+                                />
+                                    <i
+                                    id="fold_arrow"
+                                    role="img"
+                                    t-attf-class="fa #{ 'fa-chevron-right ' if f.filter_collapsed else 'fa-chevron-down'}"
+                                    title="Fold"
+                                    aria-label="Fold"
+                                />
+                                </div>
+                                <!-- checkboxes -->
+                                <t
+                                t-if="f.filter_type == 'value' and f.custom_filter_value_ids"
+                            >
+                                    <div
+                                    class="o_custom_filter flex-column"
+                                    t-attf-style="#{'display:None' if f.filter_collapsed else 'display: inline-block'}"
+                                    id="custom_filter_widget"
+                                >
+                                        <t
+                                        t-set="checkbox_filter_values"
+                                        t-value="custom_checkbox_filters.get(f.id,False)"
+                                    />
+                                        <t
+                                        t-foreach="f.custom_filter_value_ids"
+                                        t-as="v"
+                                    >
+                                            <div
+                                            class="custom-control custom-checkbox mb-1"
+                                        >
+                                                <input
+                                                type="checkbox"
+                                                name="cust_filter"
+                                                class="custom-control-input"
+                                                t-att-id="'%s-%s' % (f.id,v.id)"
+                                                t-att-value="'%s-%s' % (f.id,v.id)"
+                                                t-att-checked="'checked' if checkbox_filter_values and v.id in checkbox_filter_values else None"
+                                            />
+                                                <label
+                                                class="custom-control-label font-weight-normal"
+                                                t-att-for="'%s-%s' % (f.id,v.id)"
+                                                t-field="v.name"
+                                            />
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                                <!-- color filter -->
+                                <t
+                                t-if="f.filter_type == 'color' and f.custom_filter_value_ids"
+                            >
+                                <div id="custom_filter_widget">
+                                        <t
+                                        t-set="checkbox_filter_values"
+                                        t-value="custom_checkbox_filters.get(f.id,False)"
+                                    />
+                                        <t
+                                        t-foreach="f.custom_filter_value_ids"
+                                        t-as="v"
+                                    >
+                                            <div class="mb-1">
+                                                <input
+                                                type="checkbox"
+                                                t-att-id="'%s-%s' % (f.id,v.id)"
+                                                t-att-value="'%s-%s' % (f.id,v.id)"
+                                                t-att-checked="'checked' if checkbox_filter_values and v.id in checkbox_filter_values else None"
+                                            />
+                                                <span
+                                                class="color-span"
+                                                t-att-style="'background-color: %s;' % v.html_color"
+                                            />
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                                <t
+                                t-if="f.filter_type == 'numerical'"
+                            > <!-- slider, to use with numerical_filter_field_id as 'unit'?-->
+                                    <t
+                                    t-set="filter_dict"
+                                    t-value="filter_vals.get(f.id,False)"
+                                />
+                                    <t t-if="filter_dict">
+                                        <t
+                                        t-set="filter_min"
+                                        t-value="filter_dict.get('min_value')"
+                                    />
+                                        <t
+                                        t-set="filter_max"
+                                        t-value="filter_dict.get('max_value')"
+                                    />
+                                        <t
+                                        t-set="available_min_value"
+                                        t-value="filter_dict.get('available_min_value')"
+                                    />
+                                        <t
+                                        t-set="available_max_value"
+                                        t-value="filter_dict.get('available_max_value')"
+                                    />
+                                        <div
+                                        class="o_custom_filter_value_range o_custom_filter"
+                                        t-attf-style="#{'display:None' if f.filter_collapsed else 'display: inline-block'}"
+                                        id="custom_filter_widget"
+                                    >
+                                            <input
+                                            type="range"
+                                            multiple="multiple"
+                                            class="custom-range range-with-input"
+                                            t-att-id="'%s' % (f.id)"
+                                            t-att-min="'%f' % (available_min_value)"
+                                            t-att-max="'%f' % (available_max_value)"
+                                            t-att-value="'%f,%f' % (filter_min, filter_max)"
+                                        />
+                                        </div>
+                                    </t>
+                                </t>
+                            </li>
+                        </t>
+                    </ul>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
