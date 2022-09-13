@@ -3,13 +3,13 @@
   <template id="address" inherit_id="website_sale.address">
     <xpath expr="//form//input[@name='name']/ancestor::div[1]" position="replace">
       <!-- Replace name by firstname + lastname (slimpay requires them) -->
-      <div t-attf-class="form-group #{error.get('firstname') and 'has-error' or ''} col-md-6 div_firstname">
-        <label class="control-label" for="firstname">First name</label>
-        <input type="text" name="firstname" class="form-control" t-att-value="'firstname' in checkout and checkout['firstname']" />
+      <div t-attf-class="form-group #{error.get('firstname') and 'o_has_error' or ''} col-lg-6 div_firstname">
+        <label class="col-form-label" for="firstname">First name</label>
+        <input type="text" name="firstname" class="form-control" t-attf-class="form-control #{error.get('firstname') and 'is-invalid' or ''}" t-att-value="'firstname' in checkout and checkout['firstname']" />
       </div>
-      <div t-attf-class="form-group #{error.get('lastname') and 'has-error' or ''} col-md-6 div_lastname">
-        <label class="control-label" for="lastname">Last name</label>
-        <input type="text" name="lastname" class="form-control" t-att-value="'lastname' in checkout and checkout['lastname']" />
+      <div t-attf-class="form-group #{error.get('lastname') and 'o_has_error' or ''} col-lg-6 div_lastname">
+        <label class="col-form-label" for="lastname">Last name</label>
+        <input type="text" name="lastname" class="form-control" t-attf-class="form-control #{error.get('lastname') and 'is-invalid' or ''}" t-att-value="'lastname' in checkout and checkout['lastname']" />
       </div>
     </xpath>
     <xpath expr="//form//input[@name='field_required']" position="replace">
