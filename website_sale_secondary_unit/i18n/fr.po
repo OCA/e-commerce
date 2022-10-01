@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_secondary_unit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-11-23 15:36+0000\n"
+"Last-Translator: Yann Papouin <y.papouin@dec-industrie.com>\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: website_sale_secondary_unit
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.secondary_qty
+msgid "Add one"
+msgstr "Ajouter"
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_product__allow_uom_sell
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_template__allow_uom_sell
+msgid "Allow to sell in unit of measure"
+msgstr "Autorise la vente dans l'unité de mesure par défaut"
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit__is_published
+msgid "Is published"
+msgstr "Est publié"
+
+#. module: website_sale_secondary_unit
+#: model:ir.model,name:website_sale_secondary_unit.model_product_secondary_unit
+msgid "Product Secondary Unit"
+msgstr "Unité de mesure secondaire"
+
+#. module: website_sale_secondary_unit
+#: model:ir.model,name:website_sale_secondary_unit.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: website_sale_secondary_unit
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_popover
+msgid "Qty:"
+msgstr "Qté :"
+
+#. module: website_sale_secondary_unit
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_summary
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: website_sale_secondary_unit
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.secondary_qty
+msgid "Remove one"
+msgstr "Supprimer"
+
+#. module: website_sale_secondary_unit
+#: model:ir.model,name:website_sale_secondary_unit.model_sale_order
+msgid "Sale Order"
+msgstr "Commande client"
+
+#. module: website_sale_secondary_unit
+#: model:ir.model,name:website_sale_secondary_unit.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de commande de vente"
