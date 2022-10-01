@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,6 +29,11 @@ msgstr ""
 #: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_10
 #: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_5
 msgid "Box"
+msgstr ""
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit__can_publish
+msgid "Can Publish"
 msgstr ""
 
 #. module: website_sale_secondary_unit
@@ -71,4 +76,19 @@ msgstr ""
 #. module: website_sale_secondary_unit
 #: model:ir.model,name:website_sale_secondary_unit.model_sale_order_line
 msgid "Sales Order Line"
+msgstr ""
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,help:website_sale_secondary_unit.field_product_secondary_unit__website_url
+msgid "The full URL to access the document through the website."
+msgstr ""
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit__website_published
+msgid "Visible on current website"
+msgstr ""
+
+#. module: website_sale_secondary_unit
+#: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit__website_url
+msgid "Website URL"
 msgstr ""
