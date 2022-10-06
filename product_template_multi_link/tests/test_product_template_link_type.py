@@ -3,11 +3,11 @@
 
 from psycopg2 import IntegrityError
 
-from odoo.tests import SavepointCase
+from odoo.tests import TransactionCase
 from odoo.tools import mute_logger
 
 
-class TestProductTemplateLinkType(SavepointCase):
+class TestProductTemplateLinkType(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
