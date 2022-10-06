@@ -1,9 +1,9 @@
 # Copyright 2020 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestProductTemplateLinker(SavepointCase):
+class TestProductTemplateLinker(TransactionCase):
     """
     Tests for product.template.linker
     """
