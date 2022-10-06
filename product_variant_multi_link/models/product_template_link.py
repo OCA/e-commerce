@@ -39,7 +39,7 @@ class ProductTemplateLink(models.Model):
                     raise exceptions.ValidationError(
                         _("Source and target variants are required!")
                     )
-        super()._check_products()
+        return super()._check_products()
 
     def _check_product_not_different(self):
         res = super()._check_product_not_different()
@@ -68,3 +68,4 @@ class ProductTemplateLink(models.Model):
     def _invalidate_links(self):
         super()._invalidate_links()
         self.env["product.product"].invalidate_cache(["product_variant_link_ids"])
+        return True
