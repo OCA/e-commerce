@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="acquirer_form_fee_inherit" model="ir.ui.view">
+        <field name="name">acquirer.form.fee.inherit</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Charge payment fee">
+                    <group>
+                        <group>
+                            <field name="charge_fee" />
+                            <field
+                                name="charge_fee_product_id"
+                                attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"
+                            />
+                            <field
+                                name="charge_fee_description"
+                                attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"
+                            />
+                            <field
+                                name="charge_fee_type"
+                                attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"
+                            />
+                            <label
+                                for="charge_fee_fixed_price"
+                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'fixed')]}"
+                            />
+                            <div
+                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'fixed')]}"
+                            >
+                                <field
+                                    name="charge_fee_currency_id"
+                                    class="oe_inline"
+                                    attrs="{'required': [('charge_fee_type', '=', 'fixed'), ('charge_fee', '=', True)]}"
+                                />
+                                <field
+                                    name="charge_fee_fixed_price"
+                                    class="oe_inline"
+                                    options="{'currency_field': 'charge_fee_currency_id'}"
+                                />
+                            </div>
+                            <label
+                                for="charge_fee_percentage"
+                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}"
+                            />
+                            <div
+                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}"
+                            >
+                                <field
+                                    name="charge_fee_percentage"
+                                    class="oe_inline"
+                                />%
+                            </div>
+                        </group>
+                        <group />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
