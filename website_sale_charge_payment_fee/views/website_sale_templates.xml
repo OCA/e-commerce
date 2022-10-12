@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_charge_payment_fee/static/src/js/website_sale_fee.js"
+            />
+        </xpath>
+    </template>
+    <template id="payment_tokens_list_fee" inherit_id="payment.payment_tokens_list">
+        <xpath
+            expr="//t[@t-if=&quot;acq.payment_flow == 'form'&quot;]//input[@t-att-data-acquirer-id='acq.id']"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-checked"
+            >(acq == selected_acquirer if selected_acquirer else acquirers[0] == acq) and not checked_pm_id
+            </attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-else=&quot;acq.payment_flow == 's2s'&quot;]//input[@t-att-data-acquirer-id='acq.id']"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-checked"
+            >(acq == selected_acquirer if selected_acquirer else acquirers[0] == acq) and not checked_pm_id
+            </attribute>
+        </xpath>
+        <xpath expr="//span[hasclass('payment_option_name')]" position="after">
+            <t t-if="acq.charge_fee">
+                <span>(Fee:
+                    <t t-if="acq.charge_fee_type == 'fixed'">
+                        <span
+                            id="charge_fee_fixed_price"
+                            t-field="acq.charge_fee_fixed_price"
+                            t-options="{'widget': 'monetary', 'display_currency': acq.charge_fee_currency_id}"
+                        />
+                    </t>
+                    <t t-if="acq.charge_fee_type == 'percentage'">
+                        <span
+                            id="charge_fee_percentage"
+                            t-field="acq.charge_fee_percentage"
+                        />
+                        %
+                    </t>
+                    )
+                </span>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment_fee" name="Payment Fee" inherit_id="website_sale.total">
+        <xpath expr="//tr[@id='order_total_untaxed']" position="before">
+            <tr
+                id="order_payment_fee"
+                t-if="website_sale_order and website_sale_order.order_line.filtered(lambda l: l.payment_fee_line)"
+            >
+                <td class="text-right noborder">Payment Fee:</td>
+                <td class="text-xl-right noborder">
+                    <span
+                        t-field="website_sale_order.amount_payment_fee"
+                        style="white-space: nowrap;"
+                        t-options='{
+                      "widget": "monetary",
+                      "display_currency": website_sale_order.currency_id,
+                  }'
+                    />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>
