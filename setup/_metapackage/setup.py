@@ -35,6 +35,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_show_company_data',
         'odoo14-addon-website_sale_stock_available',
         'odoo14-addon-website_sale_stock_provisioning_date',
+        'odoo14-addon-website_sale_suggest_create_account',
         'odoo14-addon-website_sale_tax_toggle',
     ],
     classifiers=[
