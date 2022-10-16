@@ -48,6 +48,7 @@ addon | version | maintainers | summary
 [website_sale_show_company_data](website_sale_show_company_data/) | 14.0.1.0.0 |  | Show commercial partner data if any
 [website_sale_stock_available](website_sale_stock_available/) | 14.0.1.0.0 |  | Display 'Available to promise' in shop online instead 'Quantity On Hand'
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 14.0.1.0.0 |  | Display provisioning date for a product in shop online
+[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 14.0.1.0.1 |  | Suggest users to create an account when buying in the website
 [website_sale_tax_toggle](website_sale_tax_toggle/) | 14.0.1.0.0 |  | Allow display price in Shop with or without taxes
 
 [//]: # (end addons)
