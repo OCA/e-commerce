@@ -1,11 +1,17 @@
 <odoo>
     <template id="cart" inherit_id="website_sale.cart">
-        <xpath expr="//div[hasclass('oe_website_sale')]/div[hasclass('row')][1]" position="before">
-            <t t-set="credit_point_limit_error" t-value="request.session.pop('credit_point_limit_error', None)"/>
+        <xpath
+            expr="//div[hasclass('oe_website_sale')]/div[hasclass('row')][1]"
+            position="before"
+        >
+            <t
+                t-set="credit_point_limit_error"
+                t-value="request.session.pop('credit_point_limit_error', None)"
+            />
             <div class="row">
                 <div class="col-md-12">
                     <div class="alert alert-danger" t-if="credit_point_limit_error">
-                        <t t-esc="credit_point_limit_error"/>
+                        <t t-esc="credit_point_limit_error" />
                     </div>
                 </div>
             </div>
