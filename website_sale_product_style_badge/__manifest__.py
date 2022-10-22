@@ -7,7 +7,7 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
     "license": "AGPL-3",
-    "summary": "Highlight the cetegory when diplay the product",
+    "summary": "Define custom badges for your e-commerce products",
     "depends": ["website_sale"],
     "data": [
         "security/ir.model.access.csv",
