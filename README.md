@@ -54,7 +54,7 @@ addon | version | maintainers | summary
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 13.0.1.1.1 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Display minimal price for products that has variants
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 13.0.1.0.0 |  | Display product reference in e-commerce
 [website_sale_product_sort](website_sale_product_sort/) | 13.0.1.0.2 |  | Allow to define default sort criteria for e-commerce
-[website_sale_product_style_badge](website_sale_product_style_badge/) | 13.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Highlight the cetegory when diplay the product
+[website_sale_product_style_badge](website_sale_product_style_badge/) | 13.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Define custom badges for your e-commerce products
 [website_sale_require_legal](website_sale_require_legal/) | 13.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 13.0.1.0.0 |  | Force users to login for buying
 [website_sale_resource_booking](website_sale_resource_booking/) | 13.0.1.0.2 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let customers book resources temporarily before buying
