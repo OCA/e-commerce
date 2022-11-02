@@ -10,7 +10,7 @@
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
         <xpath
-            expr="//t[@t-if=&quot;a.display_type == 'radio'&quot;]//t[@t-foreach='a.value_ids']/li"
+            expr="//t[@t-if=&quot;a.display_type == 'radio' or a.display_type == 'pills'&quot;]//t[@t-foreach='a.value_ids']/div"
             position="attributes"
         >
             <attribute name="t-if">attr_values_used &amp; v</attribute>
