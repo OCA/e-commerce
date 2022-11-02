@@ -11,7 +11,7 @@
         active="False"
     >
         <xpath expr="//input[@id='b2b_wish']" position="attributes">
-            <attribute name="checked" add="checked" />
+            <attribute name="checked">true</attribute>
         </xpath>
     </template>
 </odoo>
