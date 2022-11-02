@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [website_sale_require_login](website_sale_require_login/) | 15.0.1.0.0 |  | Force users to login for buying
 [website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.0.0 |  | Allow manage secondary units in website shop
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 15.0.1.0.0 |  | Suggest users to create an account when buying in the website
+[website_sale_wishlist_keep](website_sale_wishlist_keep/) | 15.0.1.0.0 |  | Allows to add products to my cart but keep it in my wishlist"
 
 [//]: # (end addons)
 
