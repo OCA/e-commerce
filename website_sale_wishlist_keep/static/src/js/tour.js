@@ -25,6 +25,9 @@ odoo.define("website_sale_wishlist_keep.tour", function (require) {
             trigger: ".o_wish_add",
         },
         {
+            trigger: "a[href='/shop/cart']",
+        },
+        {
             trigger: "a:contains('Test Product')",
             extra_trigger: "span:contains('Process Checkout')",
         },
