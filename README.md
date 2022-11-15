@@ -17,7 +17,24 @@ TODO: add repo description.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[website_sale_cart_expire](website_sale_cart_expire/) | 15.0.1.1.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Cancel carts without activity after a configurable time
+[website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 15.0.1.0.0 |  | Autocomplete VAT in checkout process
+[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 15.0.1.0.0 |  | Skip payment for logged users in checkout process
+[website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 15.0.1.0.0 |  | Hide product prices on the shop
+[website_sale_hide_empty_category](website_sale_hide_empty_category/) | 15.0.1.0.0 |  | Hide any Product Categories that are empty
+[website_sale_hide_price](website_sale_hide_price/) | 15.0.1.0.0 |  | Hide product prices on the shop
+[website_sale_product_brand](website_sale_product_brand/) | 15.0.1.0.0 |  | Product Brand Filtering in Website
+[website_sale_product_description](website_sale_product_description/) | 15.0.1.0.0 |  | Shows custom e-Commerce description for products
+[website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 15.0.1.0.0 |  | Display attributes values images in shop product detail
+[website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 15.0.1.0.0 |  | Display product reference in e-commerce
+[website_sale_require_login](website_sale_require_login/) | 15.0.1.0.0 |  | Force users to login for buying
+[website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.0.0 |  | Allow manage secondary units in website shop
+[website_sale_suggest_create_account](website_sale_suggest_create_account/) | 15.0.1.0.0 |  | Suggest users to create an account when buying in the website
+[website_sale_wishlist_keep](website_sale_wishlist_keep/) | 15.0.1.0.0 |  | Allows to add products to my cart but keep it in my wishlist"
 
 [//]: # (end addons)
 
