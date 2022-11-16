@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products" inherit_id="website_sale.products">
+        <xpath expr="//t[@t-set='additional_title']" position="after">
+            <t t-if="category">
+                <t t-set='additional_title' t-value="category.display_name" />
+            </t>
+        </xpath>
+    </template>
+</odoo>
