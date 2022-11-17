@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Exception",
     "summary": "Support for sale exceptions on website",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Generic Modules/Sale",
     "author": "ADHOC, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
