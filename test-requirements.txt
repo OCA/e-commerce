@@ -1,0 +1,2 @@
+odoo-addon-base-exception @ git+https://github.com/OCA/server-tools.git@refs/pull/2463/head#subdirectory=setup/base_exception
+odoo-addon-sale-exception @ git+https://github.com/OCA/sale-workflow.git@refs/pull/2266/head#subdirectory=setup/sale_exception
