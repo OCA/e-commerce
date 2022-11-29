@@ -14,9 +14,6 @@ def post_init_hook(cr, registry):
     # For CI/CD avoids problems testing modules that removes/positioning elements
     # that other modules uses in their tests.
     if config["test_enable"] or config["test_file"]:
-        with api.Environment.manage():
-            env = api.Environment(cr, SUPERUSER_ID, {})
-            env.ref("website_sale_suggest_create_account.cart").active = False
-            env.ref(
-                "website_sale_suggest_create_account.short_cart_summary"
-            ).active = False
+        env = api.Environment(cr, SUPERUSER_ID, {})
+        env.ref("website_sale_suggest_create_account.cart").active = False
+        env.ref("website_sale_suggest_create_account.short_cart_summary").active = False
