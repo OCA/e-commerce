@@ -1,4 +1,4 @@
-odoo.define("website_sale_product_attachment.tour", function(require) {
+odoo.define("website_sale_product_attachment.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
