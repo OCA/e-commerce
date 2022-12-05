@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright 2022 Coop IT Easy SC
+License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath
+            expr="//div[@itemscope='itemscope']//div[hasclass('product_price')]//b"
+            position="after"
+        >
+            <span t-if="product.inventory_availability == 'always'">
+                <!--
+                    FIXME: This doesn't seem like good i18n practice to me. What
+                    if another language says e.g. 'available $qty $uom'?
+
+                    However, it's also done like this in
+                    website_sale_stock.product_availability, so it's probably
+                    fine.
+                -->
+                <t t-esc="product.sudo().virtual_available" /> <t t-esc="product.uom_name" /> available
+            </span>
+            <span t-if="product.inventory_availability == 'threshold'">
+                <t t-if="product.sudo().virtual_available &lt;= product.available_threshold">
+                        <i class="fa fa-exclamation-triangle" title="Warning" role="img" aria-label="Warning"/>
+                        <t t-esc="product.sudo().virtual_available" /> <t t-esc="product.uom_name" /> available
+                </t>
+                <t t-if="product.sudo().virtual_available &gt; product.available_threshold">In stock</t>
+            </span>
+        </xpath>
+    </template>
+</odoo>
