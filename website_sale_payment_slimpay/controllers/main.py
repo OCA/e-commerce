@@ -38,8 +38,12 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
             transaction.sudo()._post_process_after_done()
             return validated_payment_url
         else:
+            if request.website.domain:
+                base_url = 'https://' + request.website.domain
+            else:
+                base_url = env['ir.config_parameter'].get_param('web.base.url')
             return self._approval_url(
-                so, transaction, acquirer_id, validated_payment_url)
+                so, transaction, acquirer_id, base_url + validated_payment_url)
 
     def _approval_url(self, so, transaction, acquirer_id, return_url):
         """ Helper to be used with website_sale to get a Slimpay URL for the
