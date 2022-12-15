@@ -15,6 +15,10 @@ odoo.define("website_sale_order_type.tour", function (require) {
             trigger: "#add_to_cart",
         },
         {
+            trigger: "a[href='/shop/cart']",
+            extra_trigger: "sup.my_cart_quantity:contains('1')",
+        },
+        {
             trigger: ".btn:contains('Process Checkout')",
         },
     ];
