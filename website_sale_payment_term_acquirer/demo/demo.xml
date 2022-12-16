@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+
+    <record id="payment_acquirer_partners_pt" model="payment.acquirer">
+        <field name="name">Partner's PT</field>
+        <field name="sequence">3</field>
+        <field name="state">enabled</field>
+        <field name="view_template_id" ref="payment.default_acquirer_button" />
+        <field name="display_main_payment_term" eval="True" />
+    </record>
+
+    <record id="base.user_admin" model="res.users">
+        <field
+            name="property_payment_term_id"
+            ref="account.account_payment_term_end_following_month"
+        />
+    </record>
+
+</odoo>

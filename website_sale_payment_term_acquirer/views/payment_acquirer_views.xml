@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="acquirer_view_form" model="ir.ui.view">
+        <field name="name">payment.acquirer.inherit.form</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="arch" type="xml">
+            <group name="payment_form" position="inside">
+                <field name="display_main_payment_term" />
+                <field
+                    name="payment_term_id"
+                    attrs="{'invisible': [('display_main_payment_term', '=', True)]}"
+                />
+            </group>
+        </field>
+    </record>
+
+</odoo>
