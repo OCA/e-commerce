@@ -34,7 +34,10 @@
         </xpath>
     </template>
     <template id="product_quantity" inherit_id="website_sale.product_quantity">
-        <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+        <xpath
+            expr="//div[contains(@t-attf-class, 'css_quantity')]"
+            position="attributes"
+        >
             <attribute name="t-if">
                     website.website_show_price and not product.website_hide_price
                 </attribute>
@@ -51,10 +54,17 @@
         id="price_dynamic_filter_template_product_product"
         inherit_id="website_sale.price_dynamic_filter_template_product_product"
     >
-        <xpath expr="//span[hasclass('font-weight-bold')]" position="attributes">
+        <xpath expr="//span[hasclass('fw-bold')]" position="attributes">
             <attribute
                 name="t-if"
             >user_id.partner_id.website_show_price and not data['website_hide_price']</attribute>
+        </xpath>
+    </template>
+    <template id="badge_extra_price" inherit_id="sale.badge_extra_price">
+        <xpath expr="//t[@t-name='sale.badge_extra_price']" position="attributes">
+            <attribute
+                name="t-if"
+            >website.website_show_price and not product.website_hide_price</attribute>
         </xpath>
     </template>
 </odoo>
