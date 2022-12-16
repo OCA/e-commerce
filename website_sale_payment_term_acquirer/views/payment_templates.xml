@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="payment_tokens_list_custom"
+        inherit_id="payment.payment_tokens_list"
+        name="Payment Trace"
+        priority="100"
+    >
+        <span class="payment_option_name" position="replace">
+            <t
+                t-if="acq.display_main_payment_term"
+                t-esc="user_id.partner_id.property_payment_term_id.display_name"
+            />
+            <t t-else="" t-esc="acq.display_as or acq.name" />
+            <div
+                t-if="acq.state == 'test'"
+                class="badge-pill badge-warning float-right"
+                style="margin-left:5px"
+            >
+                Test Mode
+            </div>
+        </span>
+    </template>
+
+</odoo>
