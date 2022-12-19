@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_detail_attribute_image
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2022-02-08 12:59+0000\n"
+"Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
+"Language-Team: none\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute_value
+msgid "Attribute Value"
+msgstr "Valor do Atributo"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__display_name
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__display_name
+msgid "Display Name"
+msgstr "Nome a Exibir"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
+msgid "Display attribute image in shop online product detail"
+msgstr "Exibir imagem de atributo em detalhe do produto da loja online"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__id
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
+msgid "Image of the attribute for shop online product detail."
+msgstr "Imagem do atributo para o detalhe do produto da loja online."
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute____last_update
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value____last_update
+msgid "Last Modified on"
+msgstr "Última Modificação em"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute
+msgid "Product Attribute"
+msgstr "Atributo de Produto"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
+msgid "Publish in website"
+msgstr "Publicar no website"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
+msgid "Website detail image"
+msgstr "Imagem de detalhe do website"
+
+#. module: website_sale_product_detail_attribute_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_name
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__website_name
+msgid "Website name"
+msgstr "Nome no Website"
+
+#. module: website_sale_product_detail_attribute_image
+#: model_terms:ir.ui.view,arch_db:website_sale_product_detail_attribute_image.product_attribute_view_form
+msgid "Website product image detail"
+msgstr "Detalhe da imagem do produto do website"
+
+#~ msgid "Website value"
+#~ msgstr "Valor no website"
