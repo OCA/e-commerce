@@ -34,11 +34,11 @@ msgid "Publish detail image in website"
 msgstr ""
 
 #. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
-msgid "Website Name"
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
+msgid "Website detail image"
 msgstr ""
 
 #. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
-msgid "Website detail image"
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
+msgid "Website value"
 msgstr ""
