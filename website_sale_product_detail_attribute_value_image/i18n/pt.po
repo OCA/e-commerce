@@ -38,14 +38,14 @@ msgid "Publish detail image in website"
 msgstr "Publicar imagem do detalhe no website"
 
 #. module: website_sale_product_detail_attribute_value_image
-#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
-msgid "Website Name"
-msgstr ""
-
-#. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
 msgid "Website detail image"
 msgstr "Imagem do detalhe no website"
+
+#. module: website_sale_product_detail_attribute_value_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_name
+msgid "Website value"
+msgstr ""
 
 #~ msgid "Display Name"
 #~ msgstr "Nome a Exibir"
