@@ -16,5 +16,5 @@ class Product(models.Model):
         if self.env.context.get("website_sale_stock_available"):
             for product in self.with_context(website_sale_stock_available=False):
                 immediately = product.immediately_usable_qty
-                res[product.id]["virtual_available"] = immediately
+                res[product.id]["free_qty"] = immediately
         return res

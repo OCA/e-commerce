@@ -1,10 +1,10 @@
 # Copyright 2020 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class SaleStockAvailableInfoPopup(SavepointCase):
+class SaleStockAvailableInfoPopup(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(SaleStockAvailableInfoPopup, cls).setUpClass()
@@ -78,7 +78,7 @@ class SaleStockAvailableInfoPopup(SavepointCase):
             website_sale_stock_get_quantity=True,
         )._get_combination_info()
         self.assertEqual(
-            combination_info["virtual_available"],
+            combination_info["free_qty"],
             40,
         )
         self.picking_out.action_confirm()
@@ -87,5 +87,5 @@ class SaleStockAvailableInfoPopup(SavepointCase):
             website_sale_stock_get_quantity=True,
         )._get_combination_info()
         self.assertEqual(
-            combination_info["virtual_available"], self.product.immediately_usable_qty
+            combination_info["free_qty"], self.product.immediately_usable_qty
         )
