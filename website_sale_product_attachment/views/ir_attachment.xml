@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Jairo Llopis
+     Copyright 2021 Tecnativa - Pedro M. Baeza
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<data>
+    <record id="view_attachment_form_inherit_website" model="ir.ui.view">
+        <field
+            name="name"
+        >ir.attachment.form.inherit.website - Attached to product templates</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="website.view_attachment_form_inherit_website" />
+        <field name="arch" type="xml">
+            <field name="public" position="after">
+                <field
+                    name="attached_in_product_tmpl_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    invisible="context.get('hide_attachment_products', False)"
+                    attrs="{'invisible': [('public', '=', False)]}"
+                />
+            </field>
+            <field name="website_id" position="after">
+                <field name="website_name" />
+            </field>
+        </field>
+    </record>
+</data>
