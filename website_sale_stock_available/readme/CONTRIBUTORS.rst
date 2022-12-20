@@ -2,5 +2,6 @@
 
   * Ernesto Tejeda
   * Pedro M. Baeza
+  * David Vidal
 
 * Iván Todorovich

@@ -1,19 +1,12 @@
-This module extends the functionality of 'Product Availability' module
-(Technical name: website_sale_stock) so that for the 'Website shop' the
-'Available' quantity of a product is taken into account instead of
-'Forecasted' quantity.
+This module extends the functionality of the *Product Availability* module
+(technical name: ``website_sale_stock``) so that for the eCommerce the *Available*
+quantity of a product is taken into account instead of the *free* quantity.
 
-This image shows where you can see those quantities:
+Note that in the past the eCommerce availability was based in *Forecasted quantity*. This
+isn't true anymore from version 15.0.
 
-.. image:: ../static/description/product_quantities.png
-    :width: 600 px
-    :alt: Product quantities
-
-|
-
-If a product is configured to 'prevent sales if not enough stock'
+If a product is configured to *prevent sales if not enough stock*
 (see configuration section) and its page is accessed in the Website Shop,
-the availability messages will be based on the 'Available' quantity instead of
-'Forecasted' quantity. And also, the Website shop wont allow you to buy more
-products than 'Available' quantity (not 'Forecasted' quantity is taken
-into account).
+the availability messages will be based on the *Available* quantity instead of
+*Free* quantity. And also, the eCommerce won't allow you to buy more products than
+*Available* quantity (not *Free* quantity isn't taken into account).

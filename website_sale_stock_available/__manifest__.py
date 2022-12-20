@@ -2,9 +2,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Stock Available",
-    "summary": "Display 'Available to promise' in shop online "
-    "instead 'Quantity On Hand'",
-    "version": "14.0.1.0.0",
+    "summary": "Display 'Available to promise' in shop online instead "
+    "of 'Free To Use Quantity'",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
