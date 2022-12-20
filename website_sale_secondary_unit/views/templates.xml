@@ -166,10 +166,10 @@
             </t>
         </xpath>
         <xpath expr="//th[hasclass('td-qty')]" position="after">
-            <th class="text-center td-qty">Quantity</th>
+            <th class="text-center td-qty d-none d-md-table-cell">Quantity</th>
         </xpath>
         <xpath expr="//td[hasclass('td-qty')]" position="after">
-            <td class="text-center td-qty">
+            <td class="text-center td-qty d-none d-md-table-cell">
                 <span
                     t-esc="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
                 />
