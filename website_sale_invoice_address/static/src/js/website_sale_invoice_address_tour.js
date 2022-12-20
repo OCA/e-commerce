@@ -11,7 +11,11 @@ odoo.define("website_sale_invoice_address.tour", function (require) {
             trigger: "a:contains('Large Meeting Table')",
         },
         {
-            trigger: "a:contains('Add to Cart')",
+            trigger: "#add_to_cart",
+        },
+        {
+            trigger: "a[href='/shop/cart']",
+            extra_trigger: "sup.my_cart_quantity:contains('1')",
         },
         {
             trigger: ".btn-primary:contains('Process Checkout')",
