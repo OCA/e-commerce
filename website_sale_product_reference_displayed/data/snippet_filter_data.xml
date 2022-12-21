@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="website_sale.dynamic_snippet_newest_products_filter" model="ir.filters">
+        <field
+            name="context"
+        >{'display_default_code': True, 'add2cart_rerender': False}</field>
+    </record>
+</odoo>
