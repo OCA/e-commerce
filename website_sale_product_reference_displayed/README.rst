@@ -23,7 +23,7 @@ Display product reference in e-commerce
     :target: https://runbot.odoo-community.org/runbot/113/16.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module extends the ``website_sale`` views to display the product's full
 display name, with its product reference included.
