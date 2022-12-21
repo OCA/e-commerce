@@ -12,3 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: website_sale_product_reference_displayed
+#: model:ir.model,name:website_sale_product_reference_displayed.model_website_snippet_filter
+msgid "Website Snippet Filter"
+msgstr ""
