@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2017 LasLabs Inc.
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
-
 <odoo>
     <record id="sale_affiliate_request_view_form" model="ir.ui.view">
         <field name="name">Affiliate Request</field>
@@ -10,20 +9,20 @@
             <form string="Affiliate Request" create="false">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="affiliate_id"/>
-                        <field name="date"/>
+                        <field name="name" />
+                        <field name="affiliate_id" />
+                        <field name="date" />
                     </group>
                     <notebook>
                         <page string="Sales">
-                            <field name="sale_ids"/>
+                            <field name="sale_ids" />
                         </page>
                         <page string="Details">
                             <group>
-                                <field name="ip"/>
-                                <field name="referrer"/>
-                                <field name="user_agent"/>
-                                <field name="accept_language"/>
+                                <field name="ip" />
+                                <field name="referrer" />
+                                <field name="user_agent" />
+                                <field name="accept_language" />
                             </group>
                         </page>
                     </notebook>
@@ -36,11 +35,11 @@
         <field name="name">Affiliate Requests</field>
         <field name="model">sale.affiliate.request</field>
         <field name="arch" type="xml">
-            <tree string="Affiliate Requests" create="false">
-                <field name="affiliate_id"/>
-                <field name="name"/>
-                <field name="date"/>
-                <field name="sale_ids"/>
+            <tree create="false">
+                <field name="affiliate_id" />
+                <field name="name" />
+                <field name="date" />
+                <field name="sale_ids" />
             </tree>
         </field>
     </record>
@@ -50,14 +49,14 @@
         <field name="model">sale.affiliate.request</field>
         <field name="arch" type="xml">
             <search string="Affiliates">
-                <field name="name"/>
-                <field name="affiliate_id"/>
-                <field name="date"/>
-                <field name="ip"/>
-                <field name="referrer"/>
-                <field name="user_agent"/>
-                <field name="accept_language"/>
-                <field name="sale_ids"/>
+                <field name="name" />
+                <field name="affiliate_id" />
+                <field name="date" />
+                <field name="ip" />
+                <field name="referrer" />
+                <field name="user_agent" />
+                <field name="accept_language" />
+                <field name="sale_ids" />
             </search>
         </field>
     </record>
@@ -67,12 +66,14 @@
         <field name="res_model">sale.affiliate.request</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="sale_affiliate_request_view_search"/>
+        <field name="search_view_id" ref="sale_affiliate_request_view_search" />
     </record>
 
-    <menuitem id="sale_affiliate_request_menu"
-              name="Affiliate Requests"
-              sequence="5"
-              parent="sale_affiliate_category"
-              action="sale_affiliate_request_action"/>
+    <menuitem
+        id="sale_affiliate_request_menu"
+        name="Affiliate Requests"
+        sequence="5"
+        parent="sale_affiliate_category"
+        action="sale_affiliate_request_action"
+    />
 </odoo>
