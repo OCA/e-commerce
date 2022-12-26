@@ -16,12 +16,12 @@ class WebsiteSaleCase(HttpCase, SaleCase):
     def setUp(self):
         super(WebsiteSaleCase, self).setUp()
         self.controller = WebsiteSale()
-        self.opener.addheaders.extend(
-            [
-                ("Accept-Language", "test_language"),
-                ("Referer", "test_referrer"),
-            ]
-        )
+        # self.opener.addheaders.extend(
+        #     [
+        #         ("Accept-Language", "test_language"),
+        #         ("Referer", "test_referrer"),
+        #     ]
+        # )
         self.Affiliate = self.env["sale.affiliate"]
         self.find_from_kwargs_mock = mock.MagicMock()
         self.get_request_mock = mock.MagicMock()
@@ -35,12 +35,20 @@ class WebsiteSaleCase(HttpCase, SaleCase):
                 "url": "/shop",
                 "aff_ref": str(self.demo_affiliate.id),
             }
-            self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
-            session = http.root.session_store.get(self.session_id)
-            self.assertEqual(
-                session.get("affiliate_request"),
-                self.demo_request.id,
-            )
+            req = self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
+            session = [
+                i.strip()
+                for i in req.headers["Set-Cookie"].split(",")
+                if "session_id" in i
+            ]
+            if session:
+                session = session[0]
+                session_id = session[session.index("=") + 1 : session.index(";")]
+                session = http.root.session_store.get(session_id)
+                self.assertEqual(
+                    session.get("affiliate_request"),
+                    self.demo_request.id,
+                )
         finally:
             self.demo_affiliate._revert_method("get_request")
 
@@ -51,14 +59,22 @@ class WebsiteSaleCase(HttpCase, SaleCase):
         try:
             data = {
                 "url": self.demo_product.website_url,
-                "aff_ref": self.demo_affiliate.id,
+                "aff_ref": str(self.demo_affiliate.id),
             }
-            self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
-            session = http.root.session_store.get(self.session_id)
-            self.assertEqual(
-                session.get("affiliate_request"),
-                self.demo_request.id,
-            )
+            req = self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
+            session = [
+                i.strip()
+                for i in req.headers["Set-Cookie"].split(",")
+                if "session_id" in i
+            ]
+            if session:
+                session = session[0]
+                session_id = session[session.index("=") + 1 : session.index(";")]
+                session = http.root.session_store.get(session_id)
+                self.assertEqual(
+                    session.get("affiliate_request", 1),
+                    self.demo_request.id,
+                )
         finally:
             self.demo_affiliate._revert_method("get_request")
 

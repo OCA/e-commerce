@@ -20,15 +20,32 @@ class WebsiteSale(Base):
             _logger.info(err)
 
     @route()
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super(WebsiteSale, self).shop(page, category, search, ppg, **post)
+    def shop(
+        self,
+        page=0,
+        category=None,
+        search="",
+        min_price=0.0,
+        max_price=0.0,
+        ppg=False,
+        **post
+    ):
+        res = super(WebsiteSale, self).shop(
+            page=page,
+            category=category,
+            search=search,
+            min_price=min_price,
+            max_price=max_price,
+            ppg=ppg,
+            **post
+        )
         self._store_affiliate_info(**post)
         return res
 
     @route()
     def product(self, product, category="", search="", **kwargs):
         res = super(WebsiteSale, self).product(
-            product, category="", search="", **kwargs
+            product=product, category=category, search=search, **kwargs
         )
         self._store_affiliate_info(**kwargs)
         return res
