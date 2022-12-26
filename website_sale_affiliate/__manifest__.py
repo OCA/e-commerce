@@ -8,13 +8,11 @@
     "version": "15.0.1.0.0",
     "category": "E-Commerce",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "LasLabs, Odoo Community Association (OCA)",
+    "author": "Nitrokey GmbH, LasLabs, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "website_sale",
-    ],
+    "depends": ["website_sale"],
     "data": [
         "data/sale_affiliate_data.xml",
         "security/ir.model.access.csv",

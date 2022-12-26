@@ -79,7 +79,6 @@
     <record id="sale_affiliate_action" model="ir.actions.act_window">
         <field name="name">Affiliates</field>
         <field name="res_model">sale.affiliate</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="sale_affiliate_view_search" />
     </record>
@@ -87,8 +86,8 @@
     <menuitem
         id="sale_affiliate_category"
         name="Affiliate Program"
-        parent="sales_team.menu_base_partner"
-        sequence="10"
+        parent="sale.sale_menu_root"
+        sequence="5"
     />
 
     <menuitem

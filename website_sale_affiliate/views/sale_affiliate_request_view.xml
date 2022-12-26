@@ -15,7 +15,30 @@
                     </group>
                     <notebook>
                         <page string="Sales">
-                            <field name="sale_ids" />
+                            <field name="sale_ids">
+                                <tree
+                                    decoration-bf="message_needaction==True"
+                                    decoration-muted="state=='cancel'"
+                                >
+                                    <field name="message_needaction" invisible="1" />
+                                    <field name="name" string="Order Number" />
+                                    <field
+                                        name="date_order"
+                                        string="Confirmation Date"
+                                    />
+                                    <field name="commitment_date" />
+                                    <field name="expected_date" />
+                                    <field name="partner_id" />
+                                    <field name="user_id" />
+                                    <field
+                                        name="amount_total"
+                                        sum="Total Tax Included"
+                                        widget="monetary"
+                                    />
+                                    <field name="currency_id" invisible="1" />
+                                    <field name="state" />
+                                </tree>
+                            </field>
                         </page>
                         <page string="Details">
                             <group>
@@ -39,7 +62,6 @@
                 <field name="affiliate_id" />
                 <field name="name" />
                 <field name="date" />
-                <field name="sale_ids" />
             </tree>
         </field>
     </record>
@@ -56,7 +78,6 @@
                 <field name="referrer" />
                 <field name="user_agent" />
                 <field name="accept_language" />
-                <field name="sale_ids" />
             </search>
         </field>
     </record>
@@ -64,7 +85,6 @@
     <record id="sale_affiliate_request_action" model="ir.actions.act_window">
         <field name="name">Affiliate Requests</field>
         <field name="res_model">sale.affiliate.request</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="sale_affiliate_request_view_search" />
     </record>
