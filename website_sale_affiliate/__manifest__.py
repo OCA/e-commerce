@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
 {
     "name": "Affiliate Program",
     "summary": "Create an e-commerce affiliate program for the tracking of "
-               "referrals and conversions.",
-    "version": "10.0.1.0.1",
+    "referrals and conversions.",
+    "version": "15.0.1.0.0",
     "category": "E-Commerce",
-    "website": "https://laslabs.com",
+    "website": "https://github.com/OCA/e-commerce",
     "author": "LasLabs, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "application": False,
