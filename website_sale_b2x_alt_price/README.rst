@@ -7,20 +7,20 @@ Alternative (un)taxed prices display on eCommerce
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Production%2FStable-green.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+    :alt: Production/Stable
 .. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/13.0/website_sale_b2x_alt_price
+    :target: https://github.com/OCA/e-commerce/tree/15.0/website_sale_b2x_alt_price
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-13-0/e-commerce-13-0-website_sale_b2x_alt_price
+    :target: https://translation.odoo-community.org/projects/e-commerce-15-0/e-commerce-15-0-website_sale_b2x_alt_price
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/113/13.0
+    :target: https://runbot.odoo-community.org/runbot/113/15.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -31,19 +31,19 @@ displays the alternative pricing next to the main one.
 For example, if your website is B2B (main price is without taxes), you would
 see it similar to this:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_b2x_alt_price/static/description/b2b-features.png
+.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/b2b-features.png
    :alt: B2B features showcase
 
 If your website is B2C (main price is with taxes), then it looks like this:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_b2x_alt_price/static/description/b2c-features.png
+.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/b2c-features.png
    :alt: B2C features showcase
 
 It also displays the alternative price, including discounts, updated
 automatically when the user is choosing alternatives in the product detail
 page:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_b2x_alt_price/static/description/details-features.gif
+.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/details-features.gif
    :alt: Product details page features showcase
 
 **Table of contents**
@@ -58,13 +58,13 @@ To choose if you want to display or not the alternative price in the website
 products list, just enable or disable the feature from the "Customize" menu.
 This can be done independently per website:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_b2x_alt_price/static/description/toggle-list.gif
+.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/toggle-list.gif
    :alt: How to disable and enable the feature in products list
 
 You can also toggle the behavior similarly in the product details page.
 This can also be done independently per website:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/13.0/website_sale_b2x_alt_price/static/description/toggle-detail.gif
+.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/toggle-detail.gif
    :alt: How to disable and enable the feature in product details
 
 Usage
@@ -93,7 +93,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_b2x_alt_price%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_b2x_alt_price%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -134,6 +134,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-Yajo| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/13.0/website_sale_b2x_alt_price>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/15.0/website_sale_b2x_alt_price>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
