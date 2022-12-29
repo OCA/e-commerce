@@ -59,8 +59,9 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         validated_payment_url = '/shop/payment/validate'
 
         if token:
+            transaction = transaction.sudo()
             transaction._set_transaction_done()
-            transaction.sudo()._post_process_after_done()
+            transaction._post_process_after_done()
             return validated_payment_url
         else:
             if request.website.domain:
