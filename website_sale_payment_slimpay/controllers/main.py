@@ -17,21 +17,39 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
     @http.route(['/payment/slimpay_transaction/<int:acquirer_id>'],
                 type='json', auth="public", website=True)
     def payment_slimpay_transaction(
-            self, acquirer_id, tx_type='form', token=None, **kwargs):
+        self,
+        acquirer_id,
+        save_token=False,
+        so_id=None,
+        access_token=None,
+        token=None,
+        **kwargs
+    ):
         """ Slimpay specific payment transaction creation. Uses the standard
         website_sale method, but creates the slimpay order and respond with
         slimpay's redirect URL instead of a form to be submitted.
         """
+
+        so_id = so_id or request.session["sale_order_id"]
+
         # When a previous error occured, the tx id may stay in the
         # session and generate an error here after
         if 'sale_transaction_id' in request.session:
             del request.session['sale_transaction_id']
+
         self.payment_transaction(
-            acquirer_id, tx_type='form', token=token, **kwargs)
+            acquirer_id,
+            save_token=save_token,
+            so_id=so_id,
+            access_token=access_token,
+            token=token,
+            **kwargs,
+        )
+
         transaction_id = request.session['__website_sale_last_tx_id']
         transaction = request.env['payment.transaction'].browse(transaction_id)
-        so = request.env['sale.order'].sudo().browse(
-            request.session['sale_order_id'])
+
+        so = request.env['sale.order'].sudo().browse(so_id)
         validated_payment_url = '/shop/payment/validate'
         if token:
             transaction._set_transaction_done()
