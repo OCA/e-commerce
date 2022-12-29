@@ -68,7 +68,7 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         end-user to sign a mandate and create a first payment online."
         """
         acquirer = request.env['payment.acquirer'].sudo().browse(acquirer_id)
-        locale = request.env.context.get('lang', 'fr_FR').split('_')[0]
+        locale = (so.partner_id.lang or 'en_US').split('_')[0]
         # May emit a direct debit only if a mandate exists; unsupported for now
         subscriber = slimpay_utils.subscriber_from_partner(so.partner_id)
         return acquirer.slimpay_client.approval_url(
