@@ -30,7 +30,12 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         slimpay's redirect URL instead of a form to be submitted.
         """
 
-        so_id = so_id or request.session["sale_order_id"]
+        # Put the sale id in the session so that the payment validate page
+        # cleans things up properly (basket, ...)
+        if so_id:
+            request.session['sale_order_id'] = so_id
+        else:
+            so_id = request.session["sale_order_id"]
 
         # When a previous error occured, the tx id may stay in the
         # session and generate an error here after
@@ -50,7 +55,9 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         transaction = request.env['payment.transaction'].browse(transaction_id)
 
         so = request.env['sale.order'].sudo().browse(so_id)
+        request.session['sale_last_order_id'] = so.id
         validated_payment_url = '/shop/payment/validate'
+
         if token:
             transaction._set_transaction_done()
             transaction.sudo()._post_process_after_done()
