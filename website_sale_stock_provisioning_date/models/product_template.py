@@ -1,4 +1,5 @@
 # Copyright 2019 Tecnativa - Ernesto Tejeda
+# Copyright 2022 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
 
@@ -42,12 +43,20 @@ class ProductTemplate(models.Model):
         else:
             product = self.sudo()
         provisioning_date = False
+        provisioning_date_formatted = False
+        website = self.env["website"].browse(self.env.context.get("website_id"))
+        product = product.with_context(warehouse=website._get_warehouse_available())
         if (
             product.show_next_provisioning_date
             and product.qty_available - product.outgoing_qty <= 0
         ):
-            website_id = self.env.context.get("website_id")
-            company = self.env["website"].browse(website_id).company_id
+            company = website.company_id
             provisioning_date = product._get_next_provisioning_date(company)
-        combination_info.update(provisioning_date=provisioning_date)
+            provisioning_date_formatted = self.env["ir.qweb.field.date"].value_to_html(
+                provisioning_date, {}
+            )
+        combination_info.update(
+            provisioning_date=provisioning_date,
+            provisioning_date_formatted=provisioning_date_formatted,
+        )
         return combination_info
