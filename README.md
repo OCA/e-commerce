@@ -63,7 +63,7 @@ addon | version | maintainers | summary
 [website_sale_stock_available_display](website_sale_stock_available_display/) | 13.0.1.1.0 |  | Display stock in shop online and allow to sell with no stock available
 [website_sale_stock_force_block](website_sale_stock_force_block/) | 13.0.1.0.0 |  | Block sales for a product
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 13.0.1.1.2 |  | Show the stock of products on the product previews
-[website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 13.0.1.1.0 |  | Display provisioning date for a product in shop online
+[website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 13.0.1.1.1 |  | Display provisioning date for a product in shop online
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 13.0.1.0.1 |  | Suggest users to create an account when buying in the website
 [website_sale_tax_toggle](website_sale_tax_toggle/) | 13.0.1.0.1 |  | Allow display price in Shop with or without taxes
 [website_sale_vat_required](website_sale_vat_required/) | 13.0.1.0.0 |  | VAT number required in checkout form
