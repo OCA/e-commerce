@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_attribute_filter_multiselect',
         'odoo14-addon-website_sale_attribute_filter_price',
         'odoo14-addon-website_sale_b2x_alt_price',
+        'odoo14-addon-website_sale_barcode_search',
         'odoo14-addon-website_sale_cart_expire',
         'odoo14-addon-website_sale_category_breadcrumb',
         'odoo14-addon-website_sale_checkout_country_vat',
