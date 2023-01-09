@@ -4,6 +4,7 @@
 import logging
 
 from odoo import api, fields, models
+from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -118,10 +119,24 @@ class Affiliate(models.Model):
             name = self.sequence_id.next_by_id()
             matching_request = None
         if not matching_request:
+            accept_language = request.httprequest.headers.environ.get(
+                "HTTP_ACCEPT_LANGUAGE",
+            )
+            if not accept_language:
+                accept_language = "en_US"
+            else:
+                accept_language = accept_language.split(";q=")[:1]
+                accept_language = (
+                    accept_language and accept_language[0].split(",") or []
+                )
+                accept_language = (
+                    accept_language and accept_language[0].replace("-", "_") or "en_US"
+                )
             matching_request = Request.create(
                 {
                     "affiliate_id": self.id,
                     "name": name,
+                    "accept_language": accept_language,
                 }
             )
         return matching_request
