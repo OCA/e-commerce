@@ -17,6 +17,10 @@ odoo.define("website_sale_product_item_cart_custom_qty.tour", function (require)
                 ".o_wsale_product_information:has(a:contains('Test Product')) a[title='Shopping cart']",
         },
         {
+            trigger: 'a[href="/shop/cart"]',
+            extra_trigger: "sup.my_cart_quantity:contains('2')",
+        },
+        {
             trigger: ".js_delete_product",
             extra_trigger:
                 "tr:has(a:has(strong:contains('Test Product'))) .js_quantity[value='2']",
