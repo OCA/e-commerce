@@ -1,8 +1,9 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests import HttpCase
+from odoo.tests import HttpCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestWebsiteSaleProductItemCartCustomQty(HttpCase):
     def setUp(self):
         super().setUp()
