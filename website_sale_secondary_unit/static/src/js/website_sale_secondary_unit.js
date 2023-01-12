@@ -41,7 +41,7 @@ sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend(ProductConfigu
         this.secondary_uom_qty = parseFloat(this.$target.find('.secondary-quantity').val());
         this.secondary_uom_factor = parseFloat($('option:selected', this.$secondary_uom).data('secondary-uom-factor'));
         this.product_uom_factor = parseFloat($('option:selected', this.$secondary_uom).data('product-uom-factor'));
-        this.product_qty = parseFloat($('.quantity').val());
+        this.product_qty = parseFloat(this.$product_qty.val());
     },
 
     _onChangeSecondaryUom: function(ev){
