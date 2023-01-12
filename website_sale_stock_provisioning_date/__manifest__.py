@@ -3,8 +3,8 @@
 {
     "name": "Website Sale Stock Provisioning Date",
     "summary": "Display provisioning date for a product in shop online",
-    "version": "14.0.1.0.0",
-    "development_status": "Beta",
+    "version": "15.0.1.0.0",
+    "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -12,5 +12,15 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale_stock"],
-    "data": ["views/assets.xml", "views/product_template_views.xml"],
+    "data": ["views/product_template_views.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            "/website_sale_stock_provisioning_date/static/src/js/"
+            "website_sale_stock_provisioning_date.js",
+        ],
+        "web.assets_tests": [
+            "/website_sale_stock_provisioning_date/static/src/js/"
+            "website_sale_stock_provisioning_date_tour.js",
+        ],
+    },
 }

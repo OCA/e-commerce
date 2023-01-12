@@ -4,7 +4,7 @@
 <templates>
     <t t-extend="website_sale_stock.product_availability">
         <t
-            t-jquery="div[t-if*='inventory_availability == \'custom\'']"
+            t-jquery="div[t-if='!allow_out_of_stock_order and show_availability and cart_qty']"
             t-operation="after"
         >
             <!-- If qty_available - outgoing_qty > 0 or show_next_provisioning_date
