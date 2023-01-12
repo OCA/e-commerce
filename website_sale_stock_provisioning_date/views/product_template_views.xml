@@ -9,7 +9,7 @@
             ref="website_sale_stock.product_template_form_view_inherit_website_sale_stock"
         />
         <field name="arch" type="xml">
-            <field name="custom_message" position="after">
+            <field name="out_of_stock_message" position="after">
                 <field name="show_next_provisioning_date" />
             </field>
         </field>
