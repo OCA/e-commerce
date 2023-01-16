@@ -1,8 +1,10 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 
+@tagged("post_install", "-at_install")
 class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
@@ -59,7 +61,7 @@ class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
         """Test frontend tour."""
         tour = (
             "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_attribute_filter_category",
+            "website_sale_product_attribute_filter_category",
         )
         self.browser_js(
             url_path="/",
