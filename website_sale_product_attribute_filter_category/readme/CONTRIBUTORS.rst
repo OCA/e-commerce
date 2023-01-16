@@ -2,3 +2,4 @@
 
     * Sergio Teruel
     * Carlos Roca
+    * Pilar Vargas
