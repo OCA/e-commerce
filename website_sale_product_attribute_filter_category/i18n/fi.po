@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_sale_attribute_filter_category
+# 	* website_sale_product_attribute_filter_category
 #
 msgid ""
 msgstr ""
@@ -16,26 +16,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.10\n"
 
-#. module: website_sale_attribute_filter_category
-#: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_category.products_attributes
+#. module: website_sale_product_attribute_filter_category
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attribute_filter_category.products_attributes
 msgid ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
 "                    <span>Filters by category</span>"
 msgstr ""
 
-#. module: website_sale_attribute_filter_category
-#: model:ir.model,name:website_sale_attribute_filter_category.model_product_attribute_category
+#. module: website_sale_product_attribute_filter_category
+#: model:ir.model,name:website_sale_product_attribute_filter_category.model_product_attribute_category
 msgid "Product Attribute Category"
 msgstr ""
 
-#. module: website_sale_attribute_filter_category
-#: code:addons/website_sale_attribute_filter_category/controllers/main.py:0
+#. module: website_sale_product_attribute_filter_category
+#: code:addons/website_sale_product_attribute_filter_category/controllers/main.py:0
 #, python-format
 msgid "Undefined"
 msgstr "Määrittelemätön"
 
-#. module: website_sale_attribute_filter_category
-#: model:ir.model.fields,field_description:website_sale_attribute_filter_category.field_product_attribute_category__website_folded
+#. module: website_sale_product_attribute_filter_category
+#: model:ir.model.fields,field_description:website_sale_product_attribute_filter_category.field_product_attribute_category__website_folded
 msgid "Website folded"
 msgstr ""
 
