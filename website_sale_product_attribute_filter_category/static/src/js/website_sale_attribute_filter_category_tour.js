@@ -1,7 +1,7 @@
 /* Copyright 2019 Sergio Teruel
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_attribute_filter_category.tour", function (require) {
+odoo.define("website_sale_product_attribute_filter_category.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -25,7 +25,7 @@ odoo.define("website_sale_attribute_filter_category.tour", function (require) {
         },
     ];
     tour.register(
-        "website_sale_attribute_filter_category",
+        "website_sale_product_attribute_filter_category",
         {
             url: "/shop",
             test: true,
