@@ -9,7 +9,7 @@
         priority="9999"
     >
         <xpath expr="//form/ul" position="replace">
-            <div class="website_sale_attribute_filter_category">
+            <div class="website_sale_product_attribute_filter_category">
                 <h4>
                     <i class="fa fa-filter" aria-hidden="true" />
                     <span>Filters by category</span>
@@ -42,7 +42,7 @@
                                     t-attf-class="#{'collapsed' if folded else none}"
                                 >
                                     <i class="fa fas" />
-                                    <span t-esc="attr_category[1]" />
+                                    <span t-out="attr_category[1]" />
                                 </a>
                                 <ul
                                     t-attf-id="collapse{{attr_category_index}}"
