@@ -5,7 +5,7 @@
     "author": "ERP Harbor Consulting Services,"
     "Nitrokey GmbH,"
     "Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/website",
+    "website": "https://github.com/OCA/e-commerce",
     "summary": """
     Website Attribute Description
     This module adds the information icon next to the attribute name in the
