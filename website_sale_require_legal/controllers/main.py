@@ -2,19 +2,19 @@
 # Copyright 2016 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _
-from odoo.http import request, route
+from odoo import _, http
+from odoo.http import request
 
 from odoo.addons.website_sale.controllers import main
 
 
 class WebsiteSale(main.WebsiteSale):
-    def _get_mandatory_billing_fields(self):
-        result = super()._get_mandatory_billing_fields()
+    def _get_mandatory_fields_billing(self, country_id=False):
+        result = super()._get_mandatory_fields_billing(country_id)
         return result + self._mandatory_legal_terms()
 
-    def _get_mandatory_shipping_fields(self):
-        result = super()._get_mandatory_shipping_fields()
+    def _get_mandatory_fields_shipping(self, country_id=False):
+        result = super()._get_mandatory_fields_shipping(country_id)
         return result + self._mandatory_legal_terms()
 
     def _mandatory_legal_terms(self):
@@ -60,31 +60,23 @@ class WebsiteSale(main.WebsiteSale):
         )
         record.sudo().message_post(body=message % metadata, message_type="notification")
 
-    @route()
-    def payment_transaction(
-        self,
-        acquirer_id,
-        save_token=False,
-        so_id=None,
-        access_token=None,
-        token=None,
-        **kwargs
-    ):
+
+class PaymentPortal(main.PaymentPortal):
+    @http.route()
+    def shop_payment_transaction(self, order_id, access_token, **kwargs):
         """Record sale order payment legal terms acceptance.
 
         If the "Accept Terms & Conditions" upstream view is enabled in the
         website, to get here, user must have accepted legal terms.
         """
-        result = super().payment_transaction(
-            acquirer_id, save_token, so_id, access_token, token, **kwargs
-        )
+        result = super().shop_payment_transaction(order_id, access_token, **kwargs)
         # If the "Accept Terms & Conditions" view is disabled, we log nothing
         if not request.website.viewref("website_sale.payment_sale_note").active:
             return result
         # Retrieve the sale order
-        if so_id:
+        if order_id:
             env = request.env["sale.order"]
-            domain = [("id", "=", so_id)]
+            domain = [("id", "=", order_id)]
             if access_token:
                 env = env.sudo()
                 domain.append(("access_token", "=", access_token))
@@ -93,5 +85,5 @@ class WebsiteSale(main.WebsiteSale):
             order = request.website.sale_get_order()
         # Log metadata in the sale order
         if order:
-            self._log_acceptance_metadata(order)
+            WebsiteSale._log_acceptance_metadata(self, order)
         return result
