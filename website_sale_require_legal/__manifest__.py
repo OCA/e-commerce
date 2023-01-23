@@ -5,7 +5,7 @@
 {
     "name": "Require accepting legal terms to checkout",
     "summary": "Force the user to accept legal tems to buy in the web shop",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -13,5 +13,13 @@
     "application": False,
     "installable": True,
     "depends": ["website_legal_page", "website_sale"],
-    "data": ["templates/website_sale.xml", "templates/assets.xml"],
+    "data": ["templates/website_sale.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            "//website_sale_require_legal/static/src/scss/website_sale_require_legal.scss",
+        ],
+        "web.assets_tests": [
+            "/website_sale_require_legal/static/tests/tours/tour.js",
+        ],
+    },
 }
