@@ -1,9 +1,10 @@
 # Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 
+@tagged("post_install", "-at_install")
 class UICase(HttpCase):
     """Test checkout flow with legal terms acceptance required.
 
@@ -30,15 +31,16 @@ class UICase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = "website_sale_require_legal"
-        self.browser_js(
-            url_path="/shop",
-            code="odoo.__DEBUG__.services['web_tour.tour'].run('%s')" % tour,
-            ready="odoo.__DEBUG__.services['web_tour.tour'].tours.%s.ready" % tour,
+        self.start_tour("/shop", "website_sale_require_legal", login="portal")
+        order = self.env["sale.order"].search(
+            [
+                ("partner_id", "=", "YourCompany, Joel Willis"),
+                ("website_id", "!=", "False"),
+                ("note", "!=", ""),
+            ]
         )
-        # Assert that the sale order and partner have metadata logs
-        order = self.env["sale.order"].search([("partner_id", "=", "Super Mario")])
         partner = order.partner_id
+        # Assert that the sale order and partner have metadata logs
         self.assertTrue(
             order.message_ids.filtered(
                 lambda one: "Website legal terms acceptance metadata" in one.body
