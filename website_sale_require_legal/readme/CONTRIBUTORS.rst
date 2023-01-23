@@ -6,3 +6,4 @@
     * David Vidal
     * Ernesto Tejeda
     * Cristina Martin R.
+    * Pilar Vargas
