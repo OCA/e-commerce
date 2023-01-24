@@ -1,3 +1,5 @@
-#. Go to shop
-#. Active one or more attributes
-#. You can see that all enabled attributes are moved to the first position of the list
+#. Go to the eCommerce
+#. Set one or more attributes on
+#. You can see that all enabled attribute values are bubbled up to the first position in the list.
+
+  .. figure:: ../static/description/attributes00.png
