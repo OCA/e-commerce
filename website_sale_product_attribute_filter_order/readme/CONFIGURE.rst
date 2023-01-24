@@ -1,3 +1,3 @@
-#. Go to website (frontend)
+#. Go to the eCommerce (/shop)
 #. Drop down the 'Customize' menu
-#. Enable 'Product Attribute's Filters Marked First' option
+#. Enable the 'Product Attribute's Filters Marked First' option
