@@ -14,16 +14,16 @@ Website Sale - Hide Empty Categories
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/13.0/website_sale_hide_empty_category
+    :target: https://github.com/OCA/e-commerce/tree/14.0/website_sale_hide_empty_category
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/e-commerce-13-0/e-commerce-13-0-website_sale_hide_empty_category
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/113/13.0
+    :target: https://runbot.odoo-community.org/runbot/113/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 Removes any category links from the Shop which have no products associated
 to them.
@@ -79,6 +79,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/13.0/website_sale_hide_empty_category>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/14.0/website_sale_hide_empty_category>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
