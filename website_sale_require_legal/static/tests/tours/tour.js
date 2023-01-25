@@ -21,22 +21,22 @@ odoo.define("website_sale_require_legal.tour", function (require) {
         {
             trigger: 'a:contains("Process Checkout")',
         },
-        // {
-        //     trigger: "a[href='/shop/address']",
-        // },
-        // // Fill all required fields except legal terms acceptance
-        // {
-        //     trigger: 'select[name="country_id"]',
-        //     run: function () {
-        //         $('input[name="name"]').val("Super Mario");
-        //         $('input[name="phone"]').val("99999999");
-        //         $('input[name="street"]').val("Castle St., 1");
-        //         $('input[name="city"]').val("Mushroom Kingdom");
-        //         $('input[name="zip"]').val("10000");
-        //         $("#country_id option:eq(113)").attr("selected", true);
-        //         $("#country_id option:eq(245)").attr("selected", true);
-        //     },
-        // },
+        {
+            trigger: "a[href='/shop/address']",
+        },
+        // Fill all required fields except legal terms acceptance
+        {
+            trigger: 'select[name="country_id"]',
+            run: function () {
+                $('input[name="name"]').val("Super Mario");
+                $('input[name="phone"]').val("99999999");
+                $('input[name="street"]').val("Castle St., 1");
+                $('input[name="city"]').val("Mushroom Kingdom");
+                $('input[name="zip"]').val("10000");
+                $("#country_id option:eq(113)").attr("selected", true);
+                $("#country_id option:eq(245)").attr("selected", true);
+            },
+        },
         // Submit, to prove that it is not possible to continue without accepting the legal terms
         {
             trigger: ".btn-primary:contains('Next')",
@@ -57,6 +57,10 @@ odoo.define("website_sale_require_legal.tour", function (require) {
         },
         {
             trigger: ".btn-primary:contains('Pay Now')",
+        },
+        {
+            content: "Confirmation page should be shown",
+            trigger: "#oe_structure_website_sale_confirmation_1",
         },
     ];
 
