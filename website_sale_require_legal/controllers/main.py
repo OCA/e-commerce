@@ -75,12 +75,12 @@ class PaymentPortal(main.PaymentPortal):
             return result
         # Retrieve the sale order
         if order_id:
-            env = request.env["sale.order"]
+            sale_obj = request.env["sale.order"]
             domain = [("id", "=", order_id)]
             if access_token:
-                env = env.sudo()
+                sale_obj = sale_obj.sudo()
                 domain.append(("access_token", "=", access_token))
-            order = env.search(domain, limit=1)
+            order = sale_obj.search(domain, limit=1)
         else:
             order = request.website.sale_get_order()
         # Log metadata in the sale order

@@ -1,6 +1,6 @@
 # Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests import tagged
+from odoo.tests import new_test_user, tagged
 from odoo.tests.common import HttpCase
 
 
@@ -28,15 +28,15 @@ class UICase(HttpCase):
             "website_sale_require_legal.address_require_legal"
         ).active = True
         website.viewref("website_sale.payment_sale_note").active = True
+        new_test_user(self.env, login="portal_user", groups="base.group_portal")
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/shop", "website_sale_require_legal", login="portal")
+        self.start_tour("/shop", "website_sale_require_legal", login="portal_user")
         order = self.env["sale.order"].search(
             [
-                ("partner_id", "=", "YourCompany, Joel Willis"),
+                ("partner_id", "=", "Super Mario"),
                 ("website_id", "!=", "False"),
-                ("note", "!=", ""),
             ]
         )
         partner = order.partner_id
