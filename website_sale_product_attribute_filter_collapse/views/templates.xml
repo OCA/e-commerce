@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="products_attributes_collapsible"
+        inherit_id="website_sale.products_attributes"
+        name="Collapsible attribute filters"
+        active="False"
+        customize_show="True"
+        priority="999"
+    >
+        <!-- Add collapsible link for attribute -->
+        <xpath expr="//ul[hasclass('flex-column')]/t/li/div" position="before">
+            <a
+                data-toggle="collapse"
+                class="pl-0 collapsed"
+                t-attf-href="#collapse_v_{{a.id}}"
+            >
+                <i
+                    class="fa fa-angle-right"
+                    id="icon_attribute_collapsed"
+                    aria-hidden="true"
+                />
+                <i
+                    class="fa fa-angle-down"
+                    id="icon_attribute_expanded"
+                    aria-hidden="true"
+                />
+            </a>
+        </xpath>
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/div/strong"
+            position="attributes"
+        >
+            <attribute name="class">o_shop_collapse_attribute_filter</attribute>
+        </xpath>
+        <!-- Move attribute name to the collapsible link added-->
+        <xpath expr="//ul[hasclass('flex-column')]/t/li/a" position="inside">
+            <xpath
+                expr="//ul[hasclass('flex-column')]/t/li/div/strong"
+                position="move"
+            />
+        </xpath>
+        <!-- Hide empty div -->
+        <xpath expr="//ul[hasclass('flex-column')]/t/li/div" position="attributes">
+            <attribute name="class" add="d-none" separator=" " />
+        </xpath>
+        <!-- Move 'select' type to a new collapsible zone -->
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'select')]/select"
+            position="before"
+        >
+            <div
+                t-attf-id="collapse_v_{{a.id}}"
+                data-type="select"
+                class="pl-4"
+                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
+            />
+        </xpath>
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'select')]/div[1]"
+            position="inside"
+        >
+            <xpath
+                expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'select')]/select"
+                position="move"
+            />
+        </xpath>
+        <!-- Move 'radio' type to a new collapsible zone -->
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'radio')]/div"
+            position="before"
+        >
+            <div
+                t-attf-id="collapse_v_{{a.id}}"
+                data-type="radio"
+                class="pl-4"
+                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
+            />
+        </xpath>
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'radio')]/div[1]"
+            position="inside"
+        >
+            <xpath
+                expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'radio')]/div[2]"
+                position="move"
+            />
+        </xpath>
+        <!-- Move 'color' type to a new collapsible zone -->
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'color')]/t"
+            position="before"
+        >
+            <div
+                t-attf-id="collapse_v_{{a.id}}"
+                data-type="color"
+                class="pl-4"
+                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
+            />
+        </xpath>
+        <xpath
+            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'color')]/div"
+            position="inside"
+        >
+            <xpath
+                expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'color')]/t"
+                position="move"
+            />
+        </xpath>
+    </template>
+
+</odoo>

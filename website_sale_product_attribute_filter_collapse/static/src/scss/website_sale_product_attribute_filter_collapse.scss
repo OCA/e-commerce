@@ -1,0 +1,16 @@
+a[data-toggle="collapse"].collapsed {
+    #icon_attribute_expanded {
+        display: none;
+    }
+    #icon_attribute_collapsed {
+        display: inline-block;
+    }
+}
+a[data-toggle="collapse"] {
+    #icon_attribute_expanded {
+        display: inline-block;
+    }
+    #icon_attribute_collapsed {
+        display: none;
+    }
+}
