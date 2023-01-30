@@ -29,6 +29,6 @@
         name="Product Brands"
         id="menu_product_brand"
         action="product_brand.action_product_brand"
-        parent="website_sale.menu_product_settings"
+        parent="website_sale.menu_catalog"
     />
 </odoo>

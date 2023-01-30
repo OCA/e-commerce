@@ -23,7 +23,7 @@ Product Brand Filtering in Website
     :target: https://runbot.odoo-community.org/runbot/113/15.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module was written to extend the functionality of product filtering on website.
 It will allow you to filter product based on its brand.
@@ -99,6 +99,9 @@ Contributors
     * Sergio Teruel <sergio.teruel@tecnativa.com>
     * Alexandre Díaz
     * David Vidal
+* `Studio73 <https://www.studio73.es>`_:
+
+    * Miguel Gandia <miguel@studio73.es>
 
 Maintainers
 ~~~~~~~~~~~
