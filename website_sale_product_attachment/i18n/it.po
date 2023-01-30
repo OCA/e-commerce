@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-01-30 19:44+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_attachments
@@ -20,6 +22,8 @@ msgid ""
 "<i class=\"fa fa-download\"/>\n"
 "                                    Product downloads"
 msgstr ""
+"<i class=\"fa fa-download\"/>\n"
+"                                    Allegati prodotto"
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
@@ -29,16 +33,22 @@ msgid ""
 "                        Removing one attachment from this list does not delete\n"
 "                        or unpublish it from your database."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                        Solo allegati pubblici possono essere usati o creati "
+"qui.\n"
+"                        Rimuovendo un allegato dalla lista non verrà "
+"cancellato\n"
+"                        o tolto dalla pubblicazione nel tuo database."
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
 msgid "Attached in products"
-msgstr ""
+msgstr "Allegato nei prodotti"
 
 #. module: website_sale_product_attachment
 #: model:ir.model,name:website_sale_product_attachment.model_ir_attachment
 msgid "Attachment"
-msgstr ""
+msgstr "Allegato"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
@@ -46,45 +56,47 @@ msgid ""
 "Attachment publicly downladable from eCommerce pages in these product "
 "templates."
 msgstr ""
+"Allegato pubblicamente scaricabile dalle pagine di eCommerce in questi "
+"modelli prodotto."
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__display_name
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
 msgid "File Name"
-msgstr ""
+msgstr "Nome file"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_product_product__website_attachment_ids
 #: model:ir.model.fields,help:website_sale_product_attachment.field_product_template__website_attachment_ids
 msgid "Files publicly downloadable from the product eCommerce page."
-msgstr ""
+msgstr "Files pubblicamente scaricabili dalla pagina prodotto eCommerce."
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__id
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment____last_update
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__website_name
 msgid "Name in e-commerce"
-msgstr ""
+msgstr "Nome in e-commerce"
 
 #. module: website_sale_product_attachment
 #: model:ir.model,name:website_sale_product_attachment.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Modello prodotto"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_ir_attachment__website_name
@@ -92,14 +104,16 @@ msgid ""
 "The name of the download that will be displayed on the e-commerce product "
 "page. If not filled, the filename will be shown by default."
 msgstr ""
+"Il nome del file che verrà mostrato nella pagina ecommerce del prodotto. Se "
+"non compilato, verrà mostrato come predefinito il nome file."
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
 msgid "Website Attachments"
-msgstr ""
+msgstr "Allegati sito web"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_product__website_attachment_ids
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__website_attachment_ids
 msgid "Website attachments"
-msgstr ""
+msgstr "Allegati sito web"
