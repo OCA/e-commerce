@@ -70,7 +70,7 @@ class WebsiteSale(WebsiteSale):
         if brand:
             context = dict(request.context)
             context.setdefault("brand_id", int(brand))
-            request.context = context
+            request.update_context(**context)
         return super().shop(
             page=page,
             category=category,
