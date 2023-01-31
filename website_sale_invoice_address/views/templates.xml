@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="website_sale_invoice_address.confirmation"
+        inherit_id="website_sale.confirmation"
+        priority="100"
+    >
+
+
+        <xpath expr="//span[hasclass('address-inline')]" position="attributes">
+            <attribute name="t-esc">
+                order.partner_invoice_id
+            </attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-set='same_shipping']" position="attributes">
+            <attribute name="t-value">
+                bool(order.partner_shipping_id==order.partner_invoice_id or only_services)
+            </attribute>
+        </xpath>
+
+
+    </template>
+
+    <template
+        id="website_sale_invoice_address.payment"
+        inherit_id="website_sale.payment"
+        priority="100"
+    >
+
+
+        <xpath expr="//span[hasclass('address-inline')]" position="attributes">
+            <attribute name="t-esc">
+                order.partner_invoice_id
+            </attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='same_shipping']" position="attributes">
+            <attribute name="t-value">
+                bool(order.partner_shipping_id==order.partner_invoice_id or only_services)
+            </attribute>
+        </xpath>
+
+
+
+    </template>
+
+
+    <template
+        id="website_sale_invoice_address.checkout"
+        inherit_id="website_sale.checkout"
+        priority="100"
+    >
+
+
+        <xpath
+            expr="//div[hasclass('col-lg-6', 'one_kanban')]//t//t[@t-set='contact']"
+            position="attributes"
+        >
+            <attribute name="t-value">
+                order.partner_invoice_id
+            </attribute>
+        </xpath>
+
+
+
+    </template>
+
+
+
+</odoo>
