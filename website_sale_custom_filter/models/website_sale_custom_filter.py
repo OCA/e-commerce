@@ -36,7 +36,7 @@ class WebsiteSaleCustomFilter(models.Model):
         values["max_value"] = available_max_value
         return values
 
-    name = fields.Char(required=True, string="Filter name")
+    name = fields.Char(required=True, string="Filter name", translate=True)
     sequence = fields.Integer(default=10)
     website_category_ids = fields.Many2many(
         "product.public.category", required=True, string="Website category"

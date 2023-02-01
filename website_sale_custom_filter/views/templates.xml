@@ -106,7 +106,7 @@
                                         t-foreach="f.custom_filter_value_ids"
                                         t-as="v"
                                     >
-                                            <div class="mb-1">
+                                            <!-- <div class="mb-1">
                                                 <input
                                                 type="checkbox"
                                                 t-att-id="'%s-%s' % (f.id,v.id)"
@@ -117,7 +117,16 @@
                                                 class="color-span"
                                                 t-att-style="'background-color: %s;' % v.html_color"
                                             />
-                                            </div>
+                                            </div> -->
+                                            <label
+                                            t-attf-style="background-color:#{v.html_color}"
+                                            t-attf-class="css_attribute_color"
+                                        >
+                                            <input
+                                                type="radio"
+                                                t-att-id="'%s-%s' % (f.id,v.id)"
+                                            />
+                                            </label>
                                         </t>
                                     </div>
                                 </t>

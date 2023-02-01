@@ -63,6 +63,35 @@ odoo.define("website_sale_custom_filter.price_range_option", function (require) 
         },
     });
 
+    publicWidget.registry.CheckboxCustomRadioSelector = publicWidget.Widget.extend({
+        selector: "#wsale_products_custom_filters",
+        events: {
+            'change input[type="radio"]': "_onChangeCustomColorAttribute",
+        },
+
+        /**
+         * @private
+         * @param {Event} ev
+         */
+        _onChangeCustomColorAttribute(ev) {
+            const search = $.deparam(window.location.search.substring(1));
+
+            if (ev.currentTarget.checked) {
+                if (search.cust_filter) {
+                    search.cust_filter += "&" + ev.currentTarget.id;
+                } else {
+                    search.cust_filter = ev.currentTarget.id;
+                }
+            } else {
+                search.cust_filter = search.cust_filter.replace(
+                    ev.currentTarget.id,
+                    ""
+                );
+            }
+            window.location.search = $.param(search);
+        },
+    });
+
     publicWidget.registry.multirangCustomFilterSelector = publicWidget.Widget.extend({
         selector: "#wsale_products_custom_filters",
         events: {

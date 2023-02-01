@@ -11,6 +11,7 @@
                         <field name="name" />
                         <field name="website_category_ids" />
                         <field name="filter_collapsed" />
+                        <field name="sequence" />
                         <field name="filter_type" />
                         <field
                             name="numerical_filter_field_id"

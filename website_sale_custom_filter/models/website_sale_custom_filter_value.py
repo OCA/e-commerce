@@ -19,7 +19,7 @@ class WebsiteSaleCustomFilterValue(models.Model):
                     res.value_filter_id._get_eval_domain()
                 )
 
-    name = fields.Char(required=True, string="Value name")
+    name = fields.Char(required=True, string="Value name", translate=True)
     sequence = fields.Integer(required=True, default=10)
     custom_filter_id = fields.Many2one(
         "website.sale.custom.filter",
