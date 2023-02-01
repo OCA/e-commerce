@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_checkout_skip_payment',
         'odoo14-addon-website_sale_delivery_group',
         'odoo14-addon-website_sale_hide_price',
+        'odoo14-addon-website_sale_invoice_address',
         'odoo14-addon-website_sale_order_type',
         'odoo14-addon-website_sale_payment_term_acquirer',
         'odoo14-addon-website_sale_product_assortment',
