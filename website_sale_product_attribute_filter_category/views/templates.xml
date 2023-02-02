@@ -4,9 +4,12 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template
-        id="products_attributes"
+        id="products_attributes_categories"
         inherit_id="website_sale.products_attributes"
-        priority="9999"
+        name="Attributes categories filters"
+        active="False"
+        customize_show="True"
+        priority="990"
     >
         <xpath expr="//form/ul" position="replace">
             <div class="website_sale_product_attribute_filter_category">
