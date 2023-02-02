@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Attribute Filter Category",
     "summary": "Allow group attributes in shop by categories",
-    "version": "15.0.2.0.0",
+    "version": "15.0.2.1.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
