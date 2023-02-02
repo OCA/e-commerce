@@ -19,9 +19,9 @@ Website Sale Attribute Filter Category
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/e-commerce-15-0/e-commerce-15-0-website_sale_product_attribute_filter_category
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/113/15.0
-    :alt: Try me on Runbot
+.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
+    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/e-commerce&target_branch=15.0
+    :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
@@ -51,7 +51,8 @@ Usage
 =====
 
 #. Go to Website Shop.
-#. Active filter by attributes in "Customize" option in top menu.
+#. Activate filter by attributes in "Customize" option in top menu.
+#. Activate attributes categories filters in "Customize" option in top menu.
 #. Now you can see product attributes filter grouped by categories.
 
 Bug Tracker
