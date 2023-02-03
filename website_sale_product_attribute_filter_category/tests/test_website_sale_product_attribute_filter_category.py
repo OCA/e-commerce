@@ -54,8 +54,11 @@ class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
                 "is_published": True,
             }
         )
-        # Active attribute's filter in /shop. By default it's disabled.
+        # Active filter in /shop.
         self.env.ref("website_sale.products_attributes").active = True
+        self.env.ref(
+            "website_sale_product_attribute_filter_category.products_attributes_categories"
+        ).active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
