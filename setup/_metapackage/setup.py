@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo-addon-website_sale_order_type>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_attachment>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_attribute_filter_category>=15.0dev,<15.1dev',
+        'odoo-addon-website_sale_product_attribute_filter_order>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_brand>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_description>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_product_detail_attribute_image>=15.0dev,<15.1dev',
