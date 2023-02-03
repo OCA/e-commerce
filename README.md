@@ -31,7 +31,7 @@ addon | version | maintainers | summary
 [website_sale_invoice_address](website_sale_invoice_address/) | 15.0.1.0.0 |  | Set e-Commerce sale orders invoice address as in backend
 [website_sale_order_type](website_sale_order_type/) | 15.0.1.0.0 | [![stefan-tecnativa](https://github.com/stefan-tecnativa.png?size=30px)](https://github.com/stefan-tecnativa) [![pilarvargas-tecnativa](https://github.com/pilarvargas-tecnativa.png?size=30px)](https://github.com/pilarvargas-tecnativa) | This module allows sale_order_type to work with website_sale.
 [website_sale_product_attachment](website_sale_product_attachment/) | 15.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let visitors download attachments from a product page
-[website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 15.0.2.0.0 |  | Allow group attributes in shop by categories
+[website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 15.0.2.1.0 |  | Allow group attributes in shop by categories
 [website_sale_product_attribute_filter_order](website_sale_product_attribute_filter_order/) | 15.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Move active checkbox options to the first place of the list
 [website_sale_product_brand](website_sale_product_brand/) | 15.0.1.0.0 |  | Product Brand Filtering in Website
 [website_sale_product_description](website_sale_product_description/) | 15.0.1.0.0 |  | Shows custom e-Commerce description for products
