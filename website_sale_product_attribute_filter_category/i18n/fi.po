@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_product_attribute_filter_category
-#: model_terms:ir.ui.view,arch_db:website_sale_product_attribute_filter_category.products_attributes
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attribute_filter_category.products_attributes_categories
 msgid ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
 "                    <span>Filters by category</span>"
