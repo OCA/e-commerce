@@ -1,0 +1,1 @@
+odoo-addon-website_analytics_matomo @ git+https://github.com/OCA/website.git@refs/pull/951/head#subdirectory=setup/website_analytics_matomo
