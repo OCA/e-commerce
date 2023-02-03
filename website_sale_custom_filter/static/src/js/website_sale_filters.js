@@ -108,7 +108,7 @@ odoo.define("website_sale_custom_filter.price_range_option", function (require) 
         _onCustomFilterRangeSelected(ev) {
             const range = ev.currentTarget;
             const search = $.deparam(window.location.search.substring(1));
-            const re = new RegExp(`${range.id}` + "_\\d+");
+            const re = new RegExp(`${range.id}` + "_\\d+(.\\d+)?");
 
             if (parseFloat(range.min) !== range.valueLow) {
                 if (search.min_cust_filter) {
@@ -124,6 +124,8 @@ odoo.define("website_sale_custom_filter.price_range_option", function (require) 
                 } else {
                     search.min_cust_filter = range.id + "_" + range.valueLow;
                 }
+            } else if (search.min_cust_filter) {
+                search.min_cust_filter = search.min_cust_filter.replace(re, "");
             }
             if (parseFloat(range.max) !== range.valueHigh) {
                 if (search.max_cust_filter) {
@@ -140,6 +142,8 @@ odoo.define("website_sale_custom_filter.price_range_option", function (require) 
                 } else {
                     search.max_cust_filter = range.id + "_" + range.valueHigh;
                 }
+            } else if (search.max_cust_filter) {
+                search.max_cust_filter = search.max_cust_filter.replace(re, "");
             }
             window.location.search = $.param(search);
         },

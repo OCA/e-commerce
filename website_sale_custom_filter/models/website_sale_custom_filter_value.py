@@ -8,6 +8,7 @@ from odoo import api, fields, models
 class WebsiteSaleCustomFilterValue(models.Model):
     _name = "website.sale.custom.filter.value"
     _description = "website.sale.custom.filter.value"
+    _order = "sequence"
 
     @api.depends("value_filter_id.domain")
     def _compute_selected_product_templates(self):
@@ -33,6 +34,7 @@ class WebsiteSaleCustomFilterValue(models.Model):
         string="Selected product template",
         readonly=True,
         compute="_compute_selected_product_templates",
+        compute_sudo=True,
     )
 
     html_color = fields.Char(

@@ -8,6 +8,7 @@ class WebsiteSaleCustomFilter(models.Model):
     _name = "website.sale.custom.filter"
     _description = "website.sale.custom.filter"
     _inherit = "mail.thread"
+    _order = "sequence"
 
     def _default_website(self):
         return self.env["website"].search(
@@ -15,9 +16,12 @@ class WebsiteSaleCustomFilter(models.Model):
         )
 
     def _prepare_filter_default_website_values(self):
+        """get filter initial values based on available max/min values for
+        products published on website"""
         self.ensure_one()
         values = {}
         col_name = self.numerical_filter_field_id.name
+        col_type = self.numerical_filter_field_id.ttype
         model_name = self.numerical_filter_field_id.model
         if model_name == "product.product":
             # there are fields related to product.template sometimes
@@ -25,7 +29,7 @@ class WebsiteSaleCustomFilter(models.Model):
         query = f"""
             SELECT MIN({col_name}),
             MAX({col_name})
-            FROM {self.env[model_name]._table}
+            FROM {self.env[model_name]._table} where is_published=True
         """
         # pylint: disable=E8103
         self.env.cr.execute(query)
@@ -34,6 +38,9 @@ class WebsiteSaleCustomFilter(models.Model):
         values["available_max_value"] = available_max_value
         values["min_value"] = available_min_value
         values["max_value"] = available_max_value
+        values["step"] = 1
+        if col_type == "float":
+            values["step"] = 0.01
         return values
 
     name = fields.Char(required=True, string="Filter name", translate=True)

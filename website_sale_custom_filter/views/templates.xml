@@ -154,6 +154,10 @@
                                         t-set="available_max_value"
                                         t-value="filter_dict.get('available_max_value')"
                                     />
+                                        <t
+                                        t-set="step"
+                                        t-value="filter_dict.get('step')"
+                                    />
                                         <div
                                         class="o_custom_filter_value_range o_custom_filter"
                                         t-attf-style="#{'display:None' if f.filter_collapsed else 'display: inline-block'}"
@@ -167,6 +171,7 @@
                                             t-att-min="'%f' % (available_min_value)"
                                             t-att-max="'%f' % (available_max_value)"
                                             t-att-value="'%f,%f' % (filter_min, filter_max)"
+                                            t-att-step="'%f' % (step)"
                                         />
                                         </div>
                                     </t>

@@ -8,7 +8,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSale(WebsiteSale):
 
-    # get min & max from url params for range widgets only
+    # get min & max from url params for range widgets only, consider int and float type
     def get_min_max_custom_filters(self):
         req = dict(request.httprequest.args)
         min_max_filter_vals = {}
@@ -16,7 +16,7 @@ class WebsiteSale(WebsiteSale):
             if vals:
                 f_id, f_min_val = vals.split("_")
                 f_id = int(f_id)
-                f_min_val = int(f_min_val)
+                f_min_val = int(f_min_val) if "." not in f_min_val else float(f_min_val)
                 if not min_max_filter_vals.get(f_id, False):
                     min_max_filter_vals[f_id] = {"min": f_min_val}
                 else:
@@ -24,7 +24,8 @@ class WebsiteSale(WebsiteSale):
         for vals in req.get("max_cust_filter", "").split(","):
             if vals:
                 f_id, f_max_val = vals.split("_")
-                f_max_val = int(f_max_val)
+                f_id = int(f_id)
+                f_max_val = int(f_max_val) if "." not in f_max_val else float(f_max_val)
                 if not min_max_filter_vals.get(f_id, False):
                     min_max_filter_vals[f_id] = {"max": f_max_val}
                 else:
@@ -37,6 +38,7 @@ class WebsiteSale(WebsiteSale):
         for data in req.get("cust_filter", "").split("&"):
             if data:
                 f_id, val = data.split("-")
+                f_id = int(f_id)
                 if f_id in value_filter_data.keys():
                     value_filter_data[f_id].append(int(val))
                 else:
@@ -45,9 +47,9 @@ class WebsiteSale(WebsiteSale):
 
     def _prepare_filter_actual_website_values(self, min_max_values):
         values = {}
-        if min_max_values.get("min"):
+        if min_max_values and min_max_values.get("min", False):
             values["min_value"] = min_max_values["min"]
-        if min_max_values.get("max"):
+        if min_max_values and min_max_values.get("max", False):
             values["max_value"] = min_max_values["max"]
         return values
 
