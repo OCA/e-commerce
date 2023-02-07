@@ -3,7 +3,6 @@
 from werkzeug.exceptions import NotFound
 
 from odoo.http import request, route
-from odoo.osv import expression
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
@@ -51,18 +50,30 @@ class WebsiteSale(WebsiteSale):
                 raise NotFound()
         return super().product(product, category=category, search=search, **kwargs)
 
-    def _get_search_domain(
-        self, search, category, attrib_values, search_in_description=True
+    def _get_search_options(
+        self,
+        category=None,
+        attrib_values=None,
+        pricelist=None,
+        min_price=0.0,
+        max_price=0.0,
+        conversion_rate=1,
+        **post
     ):
-        """Overriding _get_search_domain method to avoid show product templates that
-        has all their variants not allowed to be shown.
-        """
-        res = super()._get_search_domain(
-            search, category, attrib_values, search_in_description=search_in_description
+        """Overriding _get_search_options method to avoid show product templates that
+        has all their variants not allowed to be shown."""
+        res = super()._get_search_options(
+            category=category,
+            attrib_values=attrib_values,
+            pricelist=pricelist,
+            min_price=min_price,
+            max_price=max_price,
+            conversion_rate=conversion_rate,
+            **post
         )
         allowed_product_ids, assortment_restriction = self._get_products_allowed()
         if assortment_restriction:
-            return expression.AND(
-                [res, [("product_variant_ids", "in", list(allowed_product_ids))]]
-            )
+            res["allowed_product_domain"] = [
+                ("product_variant_ids", "in", list(allowed_product_ids))
+            ]
         return res
