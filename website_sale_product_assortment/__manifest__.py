@@ -3,7 +3,7 @@
 {
     "name": "eCommerce product assortment",
     "summary": "Use product assortments to display products available on e-commerce.",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "development_status": "Beta",
     "license": "AGPL-3",
     "category": "Website",
@@ -12,5 +12,16 @@
     "maintainers": ["CarlosRoca13"],
     "installable": True,
     "depends": ["product_assortment", "website_sale"],
-    "data": ["templates/assets.xml", "views/ir_filters_views.xml"],
+    "data": ["views/ir_filters_views.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_product_assortment/static/src/js/variant_mixin.js",
+            "website_sale_product_assortment/static/src/js/assortment_list_preview.js",
+        ],
+        "web.assets_tests": [
+            "website_sale_product_assortment/static/src/js/no_purchase_tour.js",
+            "website_sale_product_assortment/static/src/js/no_restriction_tour.js",
+            "website_sale_product_assortment/static/src/js/no_show_tour.js",
+        ],
+    },
 }
