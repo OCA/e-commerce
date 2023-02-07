@@ -14,6 +14,10 @@ odoo.define("website_sale_product_assortment.tour_no_restriction", function (req
             trigger: "a#add_to_cart",
         },
         {
+            trigger: "a[href='/shop/cart']",
+            extra_trigger: "sup.my_cart_quantity:contains('1')",
+        },
+        {
             trigger: "a:contains('Test Product 1')",
             extra_trigger: "input.js_quantity[value='1']",
         },
