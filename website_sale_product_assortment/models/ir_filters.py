@@ -52,7 +52,8 @@ class IrFilters(models.Model):
 
     @api.depends("apply_on_public_user")
     def _compute_all_partner_ids(self):
-        super()._compute_all_partner_ids()
+        res = super()._compute_all_partner_ids()
         for ir_filter in self:
             if ir_filter.apply_on_public_user:
                 ir_filter.all_partner_ids += self.env.ref("base.public_user").partner_id
+        return res

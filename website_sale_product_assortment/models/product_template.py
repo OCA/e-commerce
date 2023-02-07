@@ -70,3 +70,13 @@ class ProductTemplate(models.Model):
             else:
                 res["product_avoid_purchase"] = False
         return res
+
+    @api.model
+    def _search_get_detail(self, website, order, options):
+        res = super()._search_get_detail(website, order, options)
+        domain = res["base_domain"]
+        allowed_product_domain = options.get("allowed_product_domain")
+        if allowed_product_domain:
+            domain.append(allowed_product_domain)
+        res["base_domain"] = domain
+        return res
