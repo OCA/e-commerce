@@ -7,7 +7,7 @@
             <t t-if="combination_info.get('assortment_information')">
                 <div
                     itemprop="assortment_information"
-                    t-esc="combination_info.get('assortment_information')"
+                    t-out="combination_info.get('assortment_information')"
                     class="oe_structure mt16"
                     id="product_full_description"
                 />

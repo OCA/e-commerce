@@ -14,7 +14,7 @@
                 aria-label="Warning"
                 title="Warning"
             />
-            <t t-esc="message_unavailable" />
+            <t t-out="message_unavailable" />
         </div>
     </t>
 </templates>
