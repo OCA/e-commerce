@@ -50,6 +50,7 @@ addon | version | maintainers | summary
 [website_sale_tax_toggle](website_sale_tax_toggle/) | 15.0.1.0.0 |  | Allow display price in Shop with or without taxes
 [website_sale_vat_required](website_sale_vat_required/) | 15.0.1.0.0 |  | VAT number required in checkout form
 [website_sale_wishlist_keep](website_sale_wishlist_keep/) | 15.0.1.0.0 |  | Allows to add products to my cart but keep it in my wishlist"
+[website_snippet_product_category](website_snippet_product_category/) | 15.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Adds a new snippet to show e-commerce categories
 
 [//]: # (end addons)
 
