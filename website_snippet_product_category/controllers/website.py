@@ -21,6 +21,6 @@ class Website(http.Controller):
             ]
         )
         keep = QueryURL("/shop", category=0)
-        return request.website.viewref(template).render(
+        return request.website.viewref(template)._render(
             {"object": categories, "keep": keep}
         )
