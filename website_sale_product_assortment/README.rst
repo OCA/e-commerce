@@ -19,11 +19,11 @@ eCommerce product assortment
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/e-commerce-15-0/e-commerce-15-0-website_sale_product_assortment
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/e-commerce&target_branch=15.0
-    :alt: Try me on Runboat
+.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
+    :target: https://runbot.odoo-community.org/runbot/113/15.0
+    :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module allows to set e-commerce restrictions on product assortments.
 
@@ -99,7 +99,7 @@ promote its widespread use.
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-CarlosRoca13|
+|maintainer-CarlosRoca13| 
 
 This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/15.0/website_sale_product_assortment>`_ project on GitHub.
 
