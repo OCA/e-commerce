@@ -58,9 +58,9 @@ msgid "All Product"
 msgstr "Todos los productos"
 
 #. module: website_sale_product_assortment
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__aplly_on_public_user
-msgid "Aplly On Public User"
-msgstr "Aplicar en usuario público"
+#: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__apply_on_public_user
+msgid "Apply On Public User"
+msgstr ""
 
 #. module: website_sale_product_assortment
 #: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__assortment_information
@@ -130,3 +130,11 @@ msgstr "Advertencia"
 #: model_terms:ir.ui.view,arch_db:website_sale_product_assortment.product_assortment_view_form
 msgid "Website Availability"
 msgstr "Disponibilidad en sitio web"
+
+#. module: website_sale_product_assortment
+#: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__website_ids
+msgid "Websites"
+msgstr ""
+
+#~ msgid "Aplly On Public User"
+#~ msgstr "Aplicar en usuario público"
