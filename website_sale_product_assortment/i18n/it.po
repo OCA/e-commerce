@@ -22,12 +22,15 @@ msgid ""
 "\n"
 "        Each point is used to:\n"
 "\n"
-"        \t- Don't apply restriction: Show all products available for sale on website.\n"
+"        \t- Don't apply restriction: Show all products available for sale on "
+"website.\n"
 "\n"
-"        \t- Avoid to show non available products: Show only products available for sale\n"
+"        \t- Avoid to show non available products: Show only products "
+"available for sale\n"
 "        on website.\n"
 "\n"
-"        \t- Avoid selling not available products: Show all products, but avoid\n"
+"        \t- Avoid selling not available products: Show all products, but "
+"avoid\n"
 "        purchase on website.\n"
 "\n"
 "        "
@@ -79,12 +82,6 @@ msgid "Avoid to show non available products"
 msgstr "Non mostrare prodotti non disponibili"
 
 #. module: website_sale_product_assortment
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__display_name
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_product_template__display_name
-msgid "Display Name"
-msgstr "Nome da visualizzare"
-
-#. module: website_sale_product_assortment
 #: model:ir.model.fields.selection,name:website_sale_product_assortment.selection__ir_filters__website_availability__no_restriction
 msgid "Don't apply restriction"
 msgstr "Non applicare restrizioni"
@@ -93,18 +90,6 @@ msgstr "Non applicare restrizioni"
 #: model:ir.model,name:website_sale_product_assortment.model_ir_filters
 msgid "Filters"
 msgstr "Filtri"
-
-#. module: website_sale_product_assortment
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__id
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_product_template__id
-msgid "ID"
-msgstr "ID"
-
-#. module: website_sale_product_assortment
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters____last_update
-#: model:ir.model.fields,field_description:website_sale_product_assortment.field_product_template____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
 
 #. module: website_sale_product_assortment
 #: model:ir.model.fields,help:website_sale_product_assortment.field_ir_filters__message_unavailable
@@ -136,7 +121,6 @@ msgstr "Modello prodotto"
 #. module: website_sale_product_assortment
 #. openerp-web
 #: code:addons/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml:0
-#: code:addons/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml:0
 #, python-format
 msgid "Warning"
 msgstr "Avviso"
@@ -150,3 +134,12 @@ msgstr "Disponibilità sito web"
 #: model:ir.model.fields,field_description:website_sale_product_assortment.field_ir_filters__website_ids
 msgid "Websites"
 msgstr "Siti web"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome da visualizzare"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
