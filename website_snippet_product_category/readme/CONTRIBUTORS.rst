@@ -4,3 +4,4 @@
   * Pedro M. Baeza
   * Carlos Roca
   * Sergio Teruel
+  * Pilar Vargas
