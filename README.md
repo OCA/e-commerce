@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [website_sale_product_attribute_filter_collapse](website_sale_product_attribute_filter_collapse/) | 15.0.1.0.0 |  | Allows the attributes of the categories to be folded
 [website_sale_product_attribute_filter_order](website_sale_product_attribute_filter_order/) | 15.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Move active checkbox options to the first place of the list
 [website_sale_product_brand](website_sale_product_brand/) | 15.0.1.0.0 |  | Product Brand Filtering in Website
-[website_sale_product_description](website_sale_product_description/) | 15.0.1.0.0 |  | Shows custom e-Commerce description for products
+[website_sale_product_description](website_sale_product_description/) | 15.0.1.1.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 15.0.1.0.0 |  | Display attributes images in shop product detail
 [website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 15.0.1.0.0 |  | Display attributes values images in shop product detail
 [website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 15.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
