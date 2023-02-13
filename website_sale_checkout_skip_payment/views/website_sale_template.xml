@@ -13,7 +13,7 @@
             <div class="js_skip_payment mt-3" t-if="website.checkout_skip_payment" id="skip_payment_method">
                 <form target="_self" action="/shop/confirmation" method="post" class="float-right">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                    <a role="button" class="btn btn-primary a-submit" href="#">
+                    <a role="button" id="o_payment_form_pay" class="btn btn-primary a-submit" href="#">
                         <span>Confirm Order <span class="fa fa-chevron-right"></span></span>
                     </a>
                 </form>
