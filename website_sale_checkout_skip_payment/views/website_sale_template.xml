@@ -32,10 +32,15 @@
                 </form>
             </div>
         </xpath>
-        <xpath expr="//div[@id='payment_method']" position="attributes">
-            <attribute
+        <xpath
+            expr="//t[@t-if='website_sale_order.amount_total']"
+            position="attributes"
+        >
+          <attribute
                 name="t-if"
-            >(acquirers or tokens) and website_sale_order.amount_total and not website.checkout_skip_payment</attribute>
+                separator=" "
+                add="and not website.checkout_skip_payment"
+            />
         </xpath>
         <xpath expr="//div[hasclass('js_payment')]" position="attributes">
             <attribute
