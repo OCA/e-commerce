@@ -18,6 +18,21 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: website_sale_hide_empty_category
+#: model:ir.model.fields,field_description:website_sale_hide_empty_category.field_product_public_category__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_hide_empty_category
+#: model:ir.model.fields,field_description:website_sale_hide_empty_category.field_product_public_category__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_hide_empty_category
+#: model:ir.model.fields,field_description:website_sale_hide_empty_category.field_product_public_category____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_sale_hide_empty_category
 #: model:ir.model.fields,field_description:website_sale_hide_empty_category.field_product_public_category__has_product_recursive
 msgid "This category or one of its children has products"
 msgstr "Aquesta categoria o un dels seus fills té productes"
