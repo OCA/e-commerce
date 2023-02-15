@@ -32,7 +32,7 @@ addon | version | maintainers | summary
 [website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 14.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 14.0.1.0.0 |  | Autocomplete VAT in checkout process
-[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 14.0.1.1.0 |  | Skip payment for logged users in checkout process
+[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 14.0.1.2.0 |  | Skip payment for logged users in checkout process
 [website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Provides a way to group shipping methods
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 14.0.1.0.0 |  | Hide any Product Categories that are empty
 [website_sale_hide_price](website_sale_hide_price/) | 14.0.1.0.0 |  | Hide product prices on the shop
