@@ -42,6 +42,13 @@
                 name="t-if"
             >not website_sale_order.amount_total and not website.checkout_skip_payment</attribute>
         </xpath>
+        <xpath expr="//div[@t-if='not (acquirers or tokens)']" position="attributes">
+            <attribute
+                name="t-if"
+                separator=" "
+                add="and not website.checkout_skip_payment"
+            />
+        </xpath>
     </template>
     <template id="confirmation" inherit_id="website_sale.confirmation">
         <xpath
