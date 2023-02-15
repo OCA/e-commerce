@@ -6,7 +6,7 @@
     "summary": "Suggest users to create an account when buying in the website",
     "version": "12.0.1.0.1",
     "category": "Website",
-    "website": "https://www.tecnativa.com",
+    "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, "
               "LasLabs, "
               "Odoo Community Association (OCA)",

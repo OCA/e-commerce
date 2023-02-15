@@ -9,6 +9,7 @@
     'maintainers': ['CarlosRoca13'],
     "category": "Website",
     "depends": ["website_sale", "sale_stock_picking_note"],
+    'website': 'https://github.com/OCA/e-commerce',
     "data": [
         "views/assets.xml",
         "data/data.xml",

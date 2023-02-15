@@ -22,6 +22,8 @@
     'demo': [
         'demo/demo_assets.xml',
     ],
+    # both modules replace the vat in website_sale.address_b2b
+    "excludes": ["website_sale_checkout_country_vat"],
     'installable': True,
     'auto_install': False,
 }

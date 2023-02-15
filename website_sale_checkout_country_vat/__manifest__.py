@@ -8,7 +8,7 @@
     "summary": "Autocomplete VAT in checkout process",
     "version": "12.0.1.2.0",
     "category": "Website",
-    'website': 'https://www.tecnativa.com',
+    'website': 'https://github.com/OCA/e-commerce',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
     'license': 'LGPL-3',
@@ -19,6 +19,9 @@
         "website_sale",
         "website_snippet_country_dropdown",
     ],
+    # both modules replace the vat in website_sale.address_b2b
+    "excludes": ["website_sale_vat_required"],
+
     "data": [
         "views/assets.xml",
         "views/templates.xml",

@@ -7,7 +7,7 @@
     'summary': 'Skip payment for logged users in checkout process',
     'version': '12.0.1.1.0',
     'category': 'Website',
-    'website': 'https://www.tecnativa.com',
+    'website': 'https://github.com/OCA/e-commerce',
     'author': 'Tecnativa, Odoo Community Association (OCA)',
     'license': 'LGPL-3',
     'application': False,

@@ -4,7 +4,7 @@
     "name": "Sell resource booking products in your eCommerce",
     "summary": "Let customers book resources temporarily before buying",
     "version": "12.0.1.0.1",
-    "development_status": "Production/Stable",
+    "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",

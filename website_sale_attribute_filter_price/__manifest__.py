@@ -6,6 +6,7 @@
     "summary": "A price filter for website sale",
     "version": "12.0.1.3.2",
     "license": "LGPL-3",
+    'website': 'https://github.com/OCA/e-commerce',
     "depends": ["website_sale"],
     "data": ["templates/assets.xml", "templates/shop.xml"],
     "author": "Tecnativa, Odoo Community Association (OCA)",
