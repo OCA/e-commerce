@@ -42,4 +42,4 @@ class Website(models.Model):
         # Expire carts
         for cart in carts_to_expire:
             cart.message_post(body=_("Cart expired"))
-        carts_to_expire.action_cancel()
+        carts_to_expire._action_cancel()
