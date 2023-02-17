@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
 [website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 14.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
 [website_sale_barcode_search](website_sale_barcode_search/) | 14.0.1.0.0 |  | It improve website product search adding search by barcode
-[website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
+[website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.1 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 14.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 14.0.1.0.0 |  | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 14.0.1.2.0 |  | Skip payment for logged users in checkout process
