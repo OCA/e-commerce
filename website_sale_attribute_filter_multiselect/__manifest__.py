@@ -4,7 +4,7 @@
     "name": "Website Sale Attribute Filter Multiselect",
     "category": "E-Commerce",
     "summary": "Add multiselect display type for product and new filter for it",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["website_sale"],
     "data": [

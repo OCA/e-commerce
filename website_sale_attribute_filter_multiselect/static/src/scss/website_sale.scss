@@ -5,6 +5,9 @@
         &:focus {
             outline: none;
         }
+        span.placeholder {
+            background: inherit;
+        }
     }
     .ms-drop {
         left: 0;
