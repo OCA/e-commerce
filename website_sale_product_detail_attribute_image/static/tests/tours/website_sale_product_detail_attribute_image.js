@@ -5,7 +5,6 @@ odoo.define("website_sale_product_detail_attribute_image.tour", function (requir
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
@@ -22,7 +21,6 @@ odoo.define("website_sale_product_detail_attribute_image.tour", function (requir
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
