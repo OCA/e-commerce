@@ -10,7 +10,7 @@
         name="Attribute's Images"
     >
         <xpath
-            expr="//div[@id='product_details']/../div[hasclass('col-md-6', 'mt-md-4')]"
+            expr="//div[@t-attf-class='col-lg-#{image_cols[0]} mt-lg-4 o_wsale_product_images position-relative']"
             position="inside"
         >
             <div class="row mt16 mb0 product-detail-attributes">
