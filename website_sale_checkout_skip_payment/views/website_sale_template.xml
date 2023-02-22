@@ -2,7 +2,7 @@
 <odoo>
     <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
-    <template id="payment" inherit_id="website_sale.payment">
+    <template id="payment" inherit_id="website_sale.payment" priority="25">
         <xpath expr="//div[hasclass('js_payment')]" position="after">
             <div class="float-left mt-2" t-if="website.checkout_skip_payment">
                 <a role="button" href="/shop/cart" class="btn btn-secondary">
