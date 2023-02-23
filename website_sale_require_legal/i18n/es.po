@@ -20,10 +20,20 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: website_sale_require_legal
+#: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
+msgid "I agree to the"
+msgstr ""
+
+#. module: website_sale_require_legal
 #: code:addons/website_sale_require_legal/controllers/main.py:0
 #, python-format
 msgid "Website legal terms acceptance metadata: %s"
 msgstr "Metadatos de aceptación de los términos legales del sitio web: %s"
+
+#. module: website_sale_require_legal
+#: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
+msgid "terms &amp; conditions"
+msgstr ""
 
 #~ msgid ""
 #~ "Confirm\n"

@@ -20,5 +20,21 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+#. module: website_sale_require_legal
+#: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
+msgid "I agree to the"
+msgstr ""
+
+#. module: website_sale_require_legal
+#: code:addons/website_sale_require_legal/controllers/main.py:0
+#, python-format
+msgid "Website legal terms acceptance metadata: %s"
+msgstr ""
+
+#. module: website_sale_require_legal
+#: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
+msgid "terms &amp; conditions"
+msgstr ""
+
 #~ msgid "Confirm"
 #~ msgstr "Potrjujem"

@@ -4,7 +4,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template id="accept_input">
-        <div class="col-lg-12">
+        <div class="col-lg-12 mb-2">
             <input
                 t-attf-class="form-check-input position-relative ml-0 mr-1 #{'is-invalid' if error and error.get('accepted_legal_terms') else ''}"
                 type="checkbox"
@@ -13,7 +13,10 @@
                 required="required"
             />
             <label for="accepted_legal_terms" class="control-label form-check-label">
-                <t t-call="website_legal_page.acceptance_full" />
+                I agree to the <a
+                    target="_BLANK"
+                    href="/terms"
+                >terms &amp; conditions</a>
             </label>
         </div>
     </template>
