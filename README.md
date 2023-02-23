@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 15.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 15.0.1.0.0 |  | Display product reference in e-commerce
 [website_sale_product_sort](website_sale_product_sort/) | 15.0.1.0.0 |  | Allow to define default sort criteria for e-commerce
-[website_sale_require_legal](website_sale_require_legal/) | 15.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
+[website_sale_require_legal](website_sale_require_legal/) | 15.0.2.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 15.0.1.0.1 |  | Force users to login for buying
 [website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.0.0 |  | Allow manage secondary units in website shop
 [website_sale_stock_available](website_sale_stock_available/) | 15.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
