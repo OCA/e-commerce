@@ -5,7 +5,6 @@ odoo.define("test_product_with_no_prices.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
@@ -26,7 +25,6 @@ odoo.define("test_product_with_no_prices.tour", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );

@@ -17,26 +17,11 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: website_sale_product_minimal_price
-#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__display_name
-msgid "Display Name"
-msgstr "Nome a Exibir"
-
-#. module: website_sale_product_minimal_price
 #. openerp-web
 #: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
 #, python-format
 msgid "From"
 msgstr "A partir de"
-
-#. module: website_sale_product_minimal_price
-#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__id
-msgid "ID"
-msgstr "ID"
-
-#. module: website_sale_product_minimal_price
-#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template____last_update
-msgid "Last Modified on"
-msgstr "Modific. pela última vez em"
 
 #. module: website_sale_product_minimal_price
 #. openerp-web
@@ -49,3 +34,12 @@ msgstr "Preços por quantidade ("
 #: model:ir.model,name:website_sale_product_minimal_price.model_product_template
 msgid "Product Template"
 msgstr "Modelo de Produto"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome a Exibir"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Modific. pela última vez em"

@@ -52,8 +52,12 @@ class WebsiteSaleVariantController(VariantController):
         """Special route to use website logic in get_combination_info override.
         This route is called in JS by appending _website to the base route.
         """
-        product = request.env["product.product"].browse(product_id)
         pricelist = request.env["website"].get_current_website().get_current_pricelist()
+        product = (
+            request.env["product.product"]
+            .browse(product_id)
+            .with_context(pricelist=pricelist.id)
+        )
         # Getting all min_quantity of the current product to compute the possible
         # price scale.
         qty_list = request.env["product.pricelist.item"].search(
@@ -72,11 +76,9 @@ class WebsiteSaleVariantController(VariantController):
         )
         qty_list = sorted(set(qty_list.mapped("min_quantity")))
         res = []
-        ctx = dict(request.env.context, pricelist=pricelist.id, quantity=0)
-        last_price = product.with_context(ctx).price
+        last_price = product.with_context(quantity=0).price
         for min_qty in qty_list:
-            ctx["quantity"] = min_qty
-            new_price = product.with_context(ctx).price
+            new_price = product.with_context(quantity=min_qty).price
             if new_price != last_price:
                 res.append(
                     {
