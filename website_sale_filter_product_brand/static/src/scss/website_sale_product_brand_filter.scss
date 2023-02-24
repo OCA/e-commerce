@@ -1,0 +1,11 @@
+.website_sale_filter_brand_tags {
+    &.scroll {
+        max-height: 210px;
+        overflow-y: auto;
+    }
+
+    .website_sale_filter_brand_tag_show_more,
+    .website_sale_filter_brand_tag_show_less {
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_frontend"
+        inherit_id="web.assets_frontend"
+        name="eCommerce Brand Filter :: Website Assets"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_filter_product_brand/static/src/js/website_sale_product_brand_filter.js"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/website_sale_filter_product_brand/static/src/scss/website_sale_product_brand_filter.scss"
+            />
+        </xpath>
+    </template>
+    <template id="assets_tests" inherit_id="web.assets_tests">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_filter_product_brand/static/src/tests/tours/test_website_sale_filter_brand.js"
+            />
+        </xpath>
+    </template>
+</odoo>
