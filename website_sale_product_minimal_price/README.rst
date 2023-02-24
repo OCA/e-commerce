@@ -14,14 +14,14 @@ Website Sale Product Minimal Price
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/14.0/website_sale_product_minimal_price
+    :target: https://github.com/OCA/e-commerce/tree/15.0/website_sale_product_minimal_price
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-14-0/e-commerce-14-0-website_sale_product_minimal_price
+    :target: https://translation.odoo-community.org/projects/e-commerce-15-0/e-commerce-15-0-website_sale_product_minimal_price
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/113/14.0
-    :alt: Try me on Runbot
+.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
+    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/e-commerce&target_branch=15.0
+    :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
@@ -37,8 +37,8 @@ price and set order by minimal price in product's view.
 Configuration
 =============
 
-#. Go to *Settings > General Settings > Website* and active the option *Multiple Sales
-   Prices per Product* with the second option, for use the pricelists.
+#. Go to *Website > Configuration > Settings > Pricing > Pricelist* and active the option *Multiple
+   Prices per Product*, for use the pricelists.
 
 Usage
 =====
@@ -56,7 +56,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_minimal_price%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_minimal_price%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -76,6 +76,7 @@ Contributors
     * Sergio Teruel
     * Carlos Roca
     * Pedro M. Baeza
+    * Pilar Vargas
 
 Maintainers
 ~~~~~~~~~~~
@@ -98,6 +99,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-sergio-teruel| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/14.0/website_sale_product_minimal_price>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/15.0/website_sale_product_minimal_price>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
