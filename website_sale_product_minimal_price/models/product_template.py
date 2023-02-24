@@ -50,7 +50,6 @@ class ProductTemplate(models.Model):
         """Helper method for getting the variant with lowest price."""
         # TODO: Cache this method for getting better performance
         self.ensure_one()
-        context = dict(self.env.context, pricelist=pricelist.id)
         min_price = 99999999
         product_id = False
         add_qty = 0
@@ -72,8 +71,9 @@ class ProductTemplate(models.Model):
         products |= variants_extra_price
         for product in products:
             for qty in [1, 99999999]:
-                context = dict(context, quantity=qty)
-                product_price = product.with_context(context).price
+                product_price = product.with_context(
+                    quantity=qty, pricelist=pricelist.id
+                ).price
                 if product_price != min_price and min_price != 99999999:
                     # Mark if there are different prices iterating over
                     # variants and comparing qty 1 and maximum qty
