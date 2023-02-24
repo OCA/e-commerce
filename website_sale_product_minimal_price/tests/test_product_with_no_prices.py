@@ -1,8 +1,10 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 
+@tagged("post_install", "-at_install")
 class TestProductWithNoPrices(HttpCase):
     """With this test we are checking that the minimal price is set
     when the product has not a price defined and the price of
