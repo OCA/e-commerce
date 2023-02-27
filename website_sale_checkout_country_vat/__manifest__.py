@@ -19,9 +19,6 @@
         "website_sale",
         "website_snippet_country_dropdown",
     ],
-    # both modules replace the vat in website_sale.address_b2b
-    "excludes": ["website_sale_vat_required"],
-
     "data": [
         "views/assets.xml",
         "views/templates.xml",
