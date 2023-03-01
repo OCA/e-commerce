@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.15.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils: http://docutils.sourceforge.net/" />
 <title>Website Sale Hide Price</title>
 <style type="text/css">
 
@@ -427,6 +427,8 @@ hidden.</li>
 along every website. It could be modified the boolean field on the partner to a many2many
 relation between res_partner and website_website, so that this price-hiding feature might
 be made website-dependant.</li>
+<li>This module is incompatible with the website_sale_stock_force_block module because it
+makes changes to the same attributes in the website_sale.products_add_to_cart template.</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
@@ -450,6 +452,7 @@ If you spotted it first, help us smashing it by providing a detailed and welcome
 <ul class="simple">
 <li><a class="reference external" href="https://www.tecnativa.com">Tecnativa</a>:<ul>
 <li>David Vidal</li>
+<li>Pilar Vargas</li>
 </ul>
 </li>
 <li>Abraham González &lt;<a class="reference external" href="mailto:abraham&#64;trey.es">abraham&#64;trey.es</a>&gt;</li>
