@@ -43,6 +43,22 @@
                 </attribute>
         </xpath>
     </template>
+    <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
+    <template id="product_buy_now" inherit_id="website_sale.product_buy_now">
+        <xpath expr="//a[hasclass('o_we_buy_now')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <!-- Hide add to cart button if "Add to cart" option is enabled and not website_show_price -->
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
     <template id="website_search_box" inherit_id="website.website_search_box">
         <xpath expr="//input[@name='search']" position="attributes">
             <attribute
