@@ -7,7 +7,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSale(WebsiteSale):
     def _get_products_recently_viewed(self):
-        """When the prices are hidden globally we should force to hide everyone"""
+        """When the prices are hidden globally we should force to hide everywhere."""
         res = super()._get_products_recently_viewed()
         if request.website.website_show_price:
             return res
