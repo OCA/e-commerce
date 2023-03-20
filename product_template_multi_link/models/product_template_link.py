@@ -56,7 +56,7 @@ class ProductTemplateLink(models.Model):
 
         :raise: ValidationError if not ok
         """
-        self.flush()  # flush required since the method uses plain sql
+        self.flush_recordset()  # flush required since the method uses plain sql
         if any(rec._check_product_not_different() for rec in self):
             raise ValidationError(
                 _("You can only create a link between 2 different products")
@@ -162,7 +162,7 @@ class ProductTemplateLink(models.Model):
         self._invalidate_links()
 
     def _invalidate_links(self):
-        self.env["product.template"].invalidate_cache(["product_template_link_ids"])
+        self.env["product.template"].invalidate_model(["product_template_link_ids"])
 
     @api.model_create_multi
     def create(self, vals_list):

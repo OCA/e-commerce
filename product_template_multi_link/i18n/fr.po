@@ -225,7 +225,7 @@ msgstr "Modèle d'article"
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
 #, fuzzy
 msgid "Product Template Link Type"
-msgstr "Modèle d'article"
+msgstr "Type de lien pour les modèles d'articles"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
