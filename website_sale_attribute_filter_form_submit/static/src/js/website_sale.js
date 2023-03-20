@@ -5,6 +5,7 @@ odoo.define(
     function (require) {
         "use strict";
 
+        require("website_sale.website_sale");
         var sAnimations = require("website.content.snippets.animation");
 
         sAnimations.registry.WebsiteSale.include({
