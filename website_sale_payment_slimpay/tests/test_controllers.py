@@ -3,6 +3,7 @@ import urllib.request, urllib.error, urllib.parse
 from json import dumps as json_dumps
 from datetime import datetime
 
+import lxml.html
 from mock import patch
 
 from odoo.addons.account_payment_slimpay.models.payment import SlimpayClient
@@ -81,16 +82,26 @@ class SlimpayControllersTC(HttpCase):
             'model': model, 'method': 'search_read', 'args': args,
             'kwargs': kwargs or {}})
 
+    def csrf_token(self, html_text):
+        doc = lxml.html.fromstring(html_text)
+        return doc.xpath("//input[@name='csrf_token']")[0].get("value")
+
     def add_product_to_user_cart(self):
         product = self.env['product.product'].search([])[0]
         self.post('/shop/cart/update', data={"product_id": product.id})
+        csrf_token = self.csrf_token(self.url_open('/shop/checkout').text)
+        self.post('/shop/confirm_order', data={"csrf_token": csrf_token})
 
     def pay_cart(self, **params):
-        """ Simulate a clik on Slimpay "Pay" button.
+        """ Simulate a click on Slimpay "Pay" button.
         `SlimpayClient.approval_url` mock returns the transaction
         reference instead of a Slimpay URL, so we can use it later to
         check the transaction.
         """
+        self.jsonrpc(
+            '/shop/payment/transaction',
+            params={"acquirer_id": self.slimpay.id}
+        )
         return self.jsonrpc(
             '/payment/slimpay_transaction/%s' % self.slimpay.id, params=params)
 

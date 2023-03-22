@@ -25,49 +25,46 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
         token=None,
         **kwargs
     ):
-        """ Slimpay specific payment transaction creation. Uses the standard
-        website_sale method, but creates the slimpay order and respond with
-        slimpay's redirect URL instead of a form to be submitted.
+        """Handle Slimpay specific transaction online payment.
+
+        This controller is called after the standard website_sale
+        method that creates the transaction. It fetches this
+        transaction to either generate a Slimpay payment URL (when
+        token is falsy) and return it, or pay it directly using given
+        token (through a server-to-server http call) and return the
+        shop validation page URL.
         """
-
-        # Put the sale id in the session so that the payment validate page
-        # cleans things up properly (basket, ...)
-        if so_id:
-            request.session['sale_order_id'] = so_id
-        else:
-            so_id = request.session["sale_order_id"]
-
-        # When a previous error occured, the tx id may stay in the
-        # session and generate an error here after
-        if 'sale_transaction_id' in request.session:
-            del request.session['sale_transaction_id']
-
-        self.payment_transaction(
-            acquirer_id,
-            save_token=save_token,
-            so_id=so_id,
-            access_token=access_token,
-            token=token,
-            **kwargs,
-        )
 
         transaction_id = request.session['__website_sale_last_tx_id']
         transaction = request.env['payment.transaction'].browse(transaction_id)
+        assert transaction.partner_id == request.env.user.partner_id, _(
+            "Incoherent transaction/user"
+        )
 
+        so_id = int(so_id or request.session['sale_last_order_id'])
         so = request.env['sale.order'].sudo().browse(so_id)
+
         request.session['sale_last_order_id'] = so.id
         validated_payment_url = '/shop/payment/validate'
 
         if token:
+            token_obj = request.env["payment.token"].browse(token)
+            assert (
+                not transaction.payment_token_id
+                and token_obj.partner_id == transaction.partner_id
+            ), _("Incoherent transaction/token partners")
             transaction = transaction.sudo()
-            transaction._set_transaction_done()
+            transaction.payment_token_id = token
+            transaction.slimpay_s2s_do_transaction()
             transaction._post_process_after_done()
             return validated_payment_url
         else:
             if request.website.domain:
                 base_url = 'https://' + request.website.domain
             else:
-                base_url = env['ir.config_parameter'].get_param('web.base.url')
+                base_url = (
+                    request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+                )
             return self._approval_url(
                 so, transaction, acquirer_id, base_url + validated_payment_url)
 
