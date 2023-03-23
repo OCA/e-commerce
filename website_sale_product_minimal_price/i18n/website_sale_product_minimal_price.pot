@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_minimal_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_product_minimal_price
+#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#. openerp-web
+#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
+#, python-format
+msgid "From"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#. openerp-web
+#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_price_scale.xml:0
+#, python-format
+msgid "Prices per quantity ("
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#: model:ir.model,name:website_sale_product_minimal_price.model_product_template
+msgid "Product Template"
+msgstr ""
