@@ -23,7 +23,7 @@ Website Sale Attribute Value Existing
     :target: https://runbot.odoo-community.org/runbot/113/15.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module extends the functionality of website sale module to allow hide
 product attributes values which exist but not used on any variants.
