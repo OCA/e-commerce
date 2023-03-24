@@ -6,7 +6,8 @@ odoo.define(
         "use strict";
 
         require("website_sale.website_sale");
-        var sAnimations = require("website.content.snippets.animation");
+        const sAnimations = require("website.content.snippets.animation");
+        const publicWidget = require("web.public.widget");
 
         sAnimations.registry.WebsiteSale.include({
             read_events: _.extend(
@@ -23,7 +24,7 @@ odoo.define(
              * @param {MouseEvent} ev
              */
             _onChangeColorAttribute: function (ev) {
-                var $parent = $(ev.target).closest(".js_attributes");
+                const $parent = $(ev.target).closest(".js_attributes");
                 $parent
                     .find(".css_attribute_color")
                     .removeClass("active")
@@ -37,11 +38,23 @@ odoo.define(
              * @param {MouseEvent} ev
              */
             _onChangeAttribute: function (ev) {
-                var manual = $(ev.target).closest(".js_attributes_manual");
-                if (manual.length) {
-                    return true;
+                const manual = $(ev.target).closest(".js_attributes_manual");
+                if (!manual.length) {
+                    this._super.apply(this, arguments);
                 }
-                this._super.apply(this, arguments);
+            },
+        });
+
+        publicWidget.registry.websiteSaleOffcanvas.include({
+            events: _.extend(
+                {
+                    "click button[name='btn_submit_filters_mobile']":
+                        "_clickBtnSubmitFiltersMobile",
+                },
+                publicWidget.registry.websiteSaleOffcanvas.prototype.events
+            ),
+            _clickBtnSubmitFiltersMobile: function () {
+                this.$el.find("form").submit();
             },
         });
     }
