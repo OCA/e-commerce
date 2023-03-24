@@ -2,32 +2,24 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from odoo import http
 from odoo.http import request
+from odoo.tools import lazy
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class ProductAttributeValues(WebsiteSale):
-    def _get_search_domain(
-        self, search, category, attrib_values, search_in_description=True
-    ):
-        # Store used domain in context to be reused after
-        domain = super()._get_search_domain(
-            search, category, attrib_values, search_in_description=search_in_description
-        )
-        new_context = dict(request.env.context, shop_search_domain=domain)
-        request.context = new_context
-        return domain
-
     @http.route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):
         res = super().shop(page=page, category=category, search=search, ppg=ppg, **post)
-        domain = request.env.context.get("shop_search_domain", [])
-        # Load all products without limit for the filter check on
-        # attribute values
-        templates = request.env["product.template"].search(domain, limit=False)
+
+        # getting existing templates by "search_product" in qcontext
+        # without searching again
+        templates = res.qcontext["search_product"]
         ProductTemplateAttributeLine = request.env["product.template.attribute.line"]
-        attribute_values = ProductTemplateAttributeLine.search(
-            [("product_tmpl_id", "in", templates.ids)]
+        attribute_values = lazy(
+            lambda: ProductTemplateAttributeLine.search(
+                [("product_tmpl_id", "in", templates.ids)]
+            )
         )
         res.qcontext["attr_values_used"] = attribute_values.mapped("value_ids")
         return res

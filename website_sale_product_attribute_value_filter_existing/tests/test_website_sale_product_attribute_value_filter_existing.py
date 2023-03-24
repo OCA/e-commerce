@@ -1,8 +1,9 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-from odoo.tests.common import HttpCase
+from odoo.tests.common import HttpCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class WebsiteSaleHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
@@ -71,13 +72,11 @@ class WebsiteSaleHttpCase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
+
+        self.start_tour(
+            "/",
             "website_sale_product_attribute_value_filter_existing",
-        )
-        self.browser_js(
-            url_path="/",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
             login="admin",
+            # deplay step here to ensure the tests pass
+            step_delay=100,
         )
