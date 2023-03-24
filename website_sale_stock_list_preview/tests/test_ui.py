@@ -1,8 +1,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import HttpCase
+from odoo.tests.common import HttpCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class UICase(HttpCase):
     def setUp(self):
         super().setUp()
@@ -12,7 +13,9 @@ class UICase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "product",
-                "inventory_availability": "always",
+                "allow_out_of_stock_order": True,
+                "show_availability": True,
+                "available_threshold": 99999,
             }
         )
         product2 = self.env["product.template"].create(
@@ -21,7 +24,8 @@ class UICase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "product",
-                "inventory_availability": "threshold",
+                "allow_out_of_stock_order": False,
+                "show_availability": True,
             }
         )
         product3 = self.env["product.template"].create(
@@ -30,7 +34,8 @@ class UICase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "product",
-                "inventory_availability": "threshold",
+                "allow_out_of_stock_order": False,
+                "show_availability": True,
                 "available_threshold": 5,
             }
         )
@@ -40,8 +45,7 @@ class UICase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "product",
-                "inventory_availability": "custom",
-                "custom_message": "test message",
+                "out_of_stock_message": "test message",
             }
         )
         self.env["product.template"].create(
@@ -58,7 +62,9 @@ class UICase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "product",
-                "inventory_availability": "always",
+                "allow_out_of_stock_order": True,
+                "show_availability": True,
+                "out_of_stock_message": "Out of stock",
             }
         )
         self.env["product.template"].create(
@@ -67,7 +73,8 @@ class UICase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "product",
-                "inventory_availability": "threshold",
+                "allow_out_of_stock_order": False,
+                "show_availability": True,
             }
         )
         self.env["stock.quant"].create(
