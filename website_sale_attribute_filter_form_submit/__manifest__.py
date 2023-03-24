@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Website manual attribute filters",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "E-Commerce",
     "summary": "Allow to apply manually the filters on the e-commerce",
     "license": "AGPL-3",
