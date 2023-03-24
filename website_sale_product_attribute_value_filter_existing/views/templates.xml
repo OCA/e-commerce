@@ -16,7 +16,7 @@
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
         <xpath
-            expr="//t[@t-if=&quot;a.display_type == 'color'&quot;]//t[@t-foreach='a.value_ids']/label"
+            expr="//div[@t-if=&quot;a.display_type == 'color'&quot;]//t[@t-foreach='a.value_ids']/label"
             position="attributes"
         >
             <attribute name="t-if">attr_values_used &amp; v</attribute>
