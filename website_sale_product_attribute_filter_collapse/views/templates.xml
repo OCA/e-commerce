@@ -12,22 +12,24 @@
     >
         <!-- Add collapsible link for attribute -->
         <xpath expr="//ul[hasclass('flex-column')]/t/li/div" position="before">
-            <a
-                data-toggle="collapse"
-                class="pl-0 collapsed"
-                t-attf-href="#collapse_v_{{a.id}}"
-            >
-                <i
-                    class="fa fa-angle-right"
-                    id="icon_attribute_collapsed"
-                    aria-hidden="true"
-                />
-                <i
-                    class="fa fa-angle-down"
-                    id="icon_attribute_expanded"
-                    aria-hidden="true"
-                />
-            </a>
+            <div>
+                <a
+                    data-toggle="collapse"
+                    class="collapsed w-100 d-flex justify-content-between"
+                    t-attf-href="#collapse_v_{{a.id}}"
+                >
+                    <i
+                        class="fa fa-chevron-right"
+                        id="icon_attribute_collapsed"
+                        aria-hidden="true"
+                    />
+                    <i
+                        class="fa fa-chevron-down"
+                        id="icon_attribute_expanded"
+                        aria-hidden="true"
+                    />
+                </a>
+            </div>
         </xpath>
         <xpath
             expr="//ul[hasclass('flex-column')]/t/li/div/strong"
@@ -36,14 +38,14 @@
             <attribute name="class">o_shop_collapse_attribute_filter</attribute>
         </xpath>
         <!-- Move attribute name to the collapsible link added-->
-        <xpath expr="//ul[hasclass('flex-column')]/t/li/a" position="inside">
+        <xpath expr="//ul[hasclass('flex-column')]/t/li/div/a/i" position="before">
             <xpath
-                expr="//ul[hasclass('flex-column')]/t/li/div/strong"
+                expr="//ul[hasclass('flex-column')]/t/li/div[2]/strong"
                 position="move"
             />
         </xpath>
         <!-- Hide empty div -->
-        <xpath expr="//ul[hasclass('flex-column')]/t/li/div" position="attributes">
+        <xpath expr="//ul[hasclass('flex-column')]/t/li/div[2]" position="attributes">
             <attribute name="class" add="d-none" separator=" " />
         </xpath>
         <!-- Move 'select' type to a new collapsible zone -->

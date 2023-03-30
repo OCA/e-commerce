@@ -4,13 +4,18 @@ a[data-toggle="collapse"].collapsed {
     }
     #icon_attribute_collapsed {
         display: inline-block;
+        color: $gray-500;
     }
 }
 a[data-toggle="collapse"] {
     #icon_attribute_expanded {
         display: inline-block;
+        color: $gray-500;
     }
     #icon_attribute_collapsed {
         display: none;
     }
+}
+a:hover {
+    text-decoration: none;
 }
