@@ -35,7 +35,7 @@ addon | version | maintainers | summary
 [website_sale_product_assortment](website_sale_product_assortment/) | 15.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Use product assortments to display products available on e-commerce.
 [website_sale_product_attachment](website_sale_product_attachment/) | 15.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let visitors download attachments from a product page
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 15.0.2.1.0 |  | Allow group attributes in shop by categories
-[website_sale_product_attribute_filter_collapse](website_sale_product_attribute_filter_collapse/) | 15.0.1.0.0 |  | Allows the attributes of the categories to be folded
+[website_sale_product_attribute_filter_collapse](website_sale_product_attribute_filter_collapse/) | 15.0.1.1.0 |  | Allows the attributes of the categories to be folded
 [website_sale_product_attribute_filter_order](website_sale_product_attribute_filter_order/) | 15.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Move active checkbox options to the first place of the list
 [website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 15.0.1.0.0 |  | Allow hide attributes values not used in variants
 [website_sale_product_brand](website_sale_product_brand/) | 15.0.1.0.0 |  | Product Brand Filtering in Website
