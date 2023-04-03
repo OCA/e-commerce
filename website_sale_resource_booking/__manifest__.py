@@ -3,7 +3,7 @@
 {
     "name": "Sell resource booking products in your eCommerce",
     "summary": "Let customers book resources temporarily before buying",
-    "version": "13.0.1.0.2",
+    "version": "15.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -13,9 +13,15 @@
     "depends": ["sale_resource_booking", "website_sale"],
     "data": [
         "data/ir_cron_data.xml",
-        "templates/assets.xml",
         "templates/website_sale.xml",
         "views/product_template_view.xml",
     ],
-    "demo": ["demo/assets.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            "/website_sale_resource_booking/static/src/css/website_sale_resource_booking.scss"
+        ],
+        "web.assets_tests": [
+            "/website_sale_resource_booking/static/src/js/tour_checkout.js",
+        ],
+    },
 }
