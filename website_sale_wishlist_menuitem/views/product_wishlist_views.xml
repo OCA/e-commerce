@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_wishlist_tree" model="ir.ui.view">
+        <field name="name">product.wishlist.tree</field>
+        <field name="model">product.wishlist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id" />
+                <field name="partner_id" string="Customer" />
+                <field name="create_date" string="Added Date" />
+            </tree>
+        </field>
+    </record>
+    <record id="product_wishlist_search" model="ir.ui.view">
+        <field name="name">product.wishlist.search</field>
+        <field name="model">product.wishlist</field>
+        <field name="arch" type="xml">
+            <search string="Product Wishlist">
+                <field name="product_id" />
+                <field name="partner_id" />
+                <field name="create_date" />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Product"
+                        name="product"
+                        domain=""
+                        context="{'group_by':'product_id'}"
+                    />
+                    <filter
+                        string="Customer"
+                        name="customer"
+                        domain=""
+                        context="{'group_by':'partner_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_product_wishlist" model="ir.actions.act_window">
+        <field name="name">Product Wishlist</field>
+        <field name="res_model">product.wishlist</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="product_wishlist_search" />
+    </record>
+    <menuitem
+        id="menu_product_wishlist"
+        name="Product Wishlist"
+        parent="website_sale.menu_orders"
+        action="action_product_wishlist"
+        sequence="10"
+    />
+</odoo>
