@@ -5,10 +5,11 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSale(WebsiteSale):
-
-    def _get_search_domain(self, search, category, attrib_values):
+    def _get_search_domain(
+        self, search, category, attrib_values, search_in_description=True
+    ):
         domain = super(WebsiteSale, self)._get_search_domain(
-            search, category, attrib_values
+            search, category, attrib_values, search_in_description=search_in_description
         )
         for i, v in enumerate(domain):
             if not isinstance(v, tuple):
@@ -17,7 +18,7 @@ class WebsiteSale(WebsiteSale):
             if not len(v) == 3:
                 continue
 
-            if v[0] == 'name' and v[1] == 'ilike':
-                domain[i] = (v[0], '%', v[2])
+            if v[0] == "name" and v[1] == "ilike":
+                domain[i] = (v[0], "%", v[2])
 
         return domain

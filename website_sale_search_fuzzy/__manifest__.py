@@ -6,7 +6,7 @@
     "summary": "Extends eCommerce with fuzzy searches for product names",
     "version": "14.0.1.0.0",
     "category": "Website",
-    "website": "https://laslabs.com",
+    "website": "https://github.com/OCA/e-commerce",
     "author": "LasLabs, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
