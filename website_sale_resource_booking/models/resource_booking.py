@@ -34,7 +34,8 @@ class ResourceBooking(models.Model):
         )
         for booking in affected:
             company_id = self.env.context.get(
-                "force_company", self.env.user.company_id.id,
+                "force_company",
+                self.env.user.company_id.id,
             )
             partner = self.env["res.partner"].search(
                 [
