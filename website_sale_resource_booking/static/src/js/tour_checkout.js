@@ -21,9 +21,6 @@ odoo.define("website_sale_resource_booking.tour_checkout", function (require) {
                 trigger: "#add_to_cart",
             },
             {
-                trigger: ".btn:contains('Continue Shopping')",
-            },
-            {
                 trigger: ".oe_search_box",
                 run: "text test bookable product",
             },
@@ -50,6 +47,9 @@ odoo.define("website_sale_resource_booking.tour_checkout", function (require) {
             {
                 extra_trigger: ".css_quantity .quantity:propValue('3')",
                 trigger: "#add_to_cart",
+            },
+            {
+                trigger: "a[href='/shop/cart']",
             },
             {
                 // Check there's a booking step advertised in the checkout wizard
@@ -185,19 +185,6 @@ odoo.define("website_sale_resource_booking.tour_checkout", function (require) {
             },
             // Fill buyer address
             {
-                extra_trigger: [
-                    ".oe_website_sale",
-                    ":has(.progress-wizard-step.complete:contains('Schedule bookings'))",
-                    ":has(.progress-wizard-step.active:contains('Address'))",
-                ].join(""),
-                trigger: ".oe_website_sale input[name=name]",
-                run: "text Mr. A",
-            },
-            {
-                trigger: ".oe_website_sale input[name=email]",
-                run: "text mr.a@example.com",
-            },
-            {
                 trigger: ".oe_website_sale input[name=phone]",
                 run: "text +32 485 118.218",
             },
@@ -208,6 +195,10 @@ odoo.define("website_sale_resource_booking.tour_checkout", function (require) {
             {
                 trigger: ".oe_website_sale input[name=city]",
                 run: "text City A",
+            },
+            {
+                trigger: ".oe_website_sale input[name=zip]",
+                run: "text 18503",
             },
             {
                 trigger: ".oe_website_sale select[name=country_id]",
@@ -229,13 +220,20 @@ odoo.define("website_sale_resource_booking.tour_checkout", function (require) {
                 trigger: ".oe_website_sale .btn:contains('Next')",
             },
             {
+                trigger: "a[href='/shop/confirm_order']",
+            },
+            {
+                trigger: ".oe_website_sale .btn:contains('Pay Now')",
+            },
+            {
                 trigger: '#payment_method label:contains("Wire Transfer")',
             },
             // No need to wait for payment for this test case; that's tested elsewhere
             {
                 extra_trigger:
                     '#payment_method label:contains("Wire Transfer") input:checked,#payment_method:not(:has("input:radio:visible"))',
-                trigger: 'button[id="o_payment_form_pay"]:visible:not(:disabled)',
+                trigger:
+                    'button[name="o_payment_submit_button"]:visible:not(:disabled)',
             },
         ]
     );
