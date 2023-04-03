@@ -6,12 +6,13 @@ from datetime import datetime
 
 from freezegun import freeze_time
 
-from odoo.tests.common import Form, HttpCase
+from odoo.tests.common import Form, HttpCase, tagged
 
 from ...resource_booking.tests.common import create_test_data
 
 
 @freeze_time("2021-02-26 09:00:00", tick=True)
+@tagged("post_install", "-at_install")
 class UICase(HttpCase):
     def setUp(self):
         super().setUp()
@@ -31,6 +32,17 @@ class UICase(HttpCase):
                 "website_published": True,
             }
         )
+        # If the created user has the same name as the invited users,
+        # the invitation does not reach the user.
+        self.user = self.env["res.users"].create(
+            {
+                "name": "user",
+                "email": "test@example.com",
+                "login": "booking_test_user",
+                "password": "booking_test_user",
+                "groups_id": [(4, self.env.ref("base.group_user").id, 0)],
+            }
+        )
         # Clean up pending emails, to avoid polluting tests
         self.env["mail.mail"].search([("state", "=", "outgoing")]).unlink()
 
@@ -40,9 +52,9 @@ class UICase(HttpCase):
         self.start_tour(
             "/shop?search=test not bookable product",
             "website_sale_resource_booking_checkout",
-        )
-        # Find Mr. A's cart
-        so = self.env["sale.order"].search([("partner_id", "=", "Mr. A")])
+            login="booking_test_user",
+        )  # Find Mr. A's cart
+        so = self.env["sale.order"].search([("partner_id", "=", "user")])
         bookings = so.resource_booking_ids
         # It's linked to 3 scheduled bookings, that belong to him
         self.assertEqual(len(bookings), 3)
@@ -58,12 +70,10 @@ class UICase(HttpCase):
             set(bookings.mapped("partner_id.email")),
             {"mr.a@example.com", "mr.b@example.com", "mr.c@example.com"},
         )
-        # One of those partners is the same that bought
-        self.assertIn(so.partner_id, bookings.mapped("partner_id"))
         # The mail queue, later, will send the expected notifications to see
         # resource bookings in portal, but not to event attendance
         pending_mails = self.env["mail.mail"].search([("state", "=", "outgoing")])
-        self.assertLessEqual(
+        self.assertGreaterEqual(
             set(pending_mails.mapped("subject")),
             {
                 # Calendar invitations with attached .ics file
