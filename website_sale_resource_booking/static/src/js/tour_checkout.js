@@ -1,7 +1,7 @@
 /* Copyright 2021 Tecnativa - Jairo Llopis
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_resource_booking.tour_checkout", function(require) {
+odoo.define("website_sale_resource_booking.tour_checkout", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -215,7 +215,7 @@ odoo.define("website_sale_resource_booking.tour_checkout", function(require) {
             },
             {
                 trigger: ".oe_website_sale",
-                run: function() {
+                run: function () {
                     // Integration with website_sale_vat_required
                     $(".oe_website_sale input[name=vat]").val("US01234567891");
                     // Integration with website_sale_require_legal
