@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Attribute Filter Collapse",
     "summary": "Allows the attributes of the categories to be folded",
-    "version": "15.0.1.1.0",
+    "version": "15.0.1.1.1",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
