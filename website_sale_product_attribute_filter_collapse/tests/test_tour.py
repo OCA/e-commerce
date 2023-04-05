@@ -9,7 +9,7 @@ class WebsiteSaleProductAttributeFilterCollapseHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
         self.attribute_category = self.env["product.attribute.category"].create(
-            {"name": "Test category", "website_folded": False}
+            {"name": "Test category"}
         )
         self.product_attribute = self.env["product.attribute"].create(
             {
