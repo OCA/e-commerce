@@ -14,7 +14,7 @@ Website Sale Comparison Hide Price
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/15.0/website_sale_comparison_hide_price
+    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_comparison_hide_price
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/e-commerce-15-0/e-commerce-15-0-website_sale_comparison_hide_price
@@ -58,6 +58,10 @@ Contributors
 
   * David Vidal
 
+* `InitOS <https://www.initos.com>`_:
+
+   * Dhara Solanki <dhara.solanki@initos.com>
+
 Maintainers
 ~~~~~~~~~~~
 
@@ -71,6 +75,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/15.0/website_sale_comparison_hide_price>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_comparison_hide_price>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
