@@ -6,14 +6,20 @@
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='shop']" position="after">
-                <group name="public_description" string="Description for e-Commerce">
-                    <field
-                        name="public_description"
-                        nolabel="1"
-                        widget="html"
-                        placeholder="This description will be shown on e-commerce frontend"
+                <div
+                    class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+                >
+                    <label
+                        for="public_description"
+                        class="o_form_label font-weight-bold"
                     />
-                </group>
+                </div>
+                <field
+                    name="public_description"
+                    nolabel="1"
+                    widget="html"
+                    placeholder="This description will be shown on e-commerce frontend"
+                />
             </xpath>
         </field>
     </record>

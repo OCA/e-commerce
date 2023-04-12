@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 16.0.1.0.0 |  | Allow hide attributes values not used in variants
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 16.0.1.0.2 |  | Display product reference in e-commerce
 [website_sale_stock_available](website_sale_stock_available/) | 16.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
+[website_sale_product_description](website_sale_product_description/) | 16.0.1.0.0 |  | Shows custom e-Commerce description for products
 
 [//]: # (end addons)
 
