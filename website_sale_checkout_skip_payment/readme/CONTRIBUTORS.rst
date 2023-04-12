@@ -8,3 +8,7 @@
 * `Studio73 <https://www.studio73.es>`_:
 
   * Miguel Gandia <miguel@studio73.es>
+
+* `InitOS <https://www.initos.com>`_:
+
+  * Dhara Solanki <dhara.solanki@initos.com>
