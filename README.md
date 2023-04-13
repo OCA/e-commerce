@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [website_sale_product_description](website_sale_product_description/) | 16.0.1.0.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 16.0.1.0.2 |  | Display product reference in e-commerce
 [website_sale_stock_available](website_sale_stock_available/) | 16.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
+[website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 16.0.1.0.0 |  | Display attributes values images in shop product detail
 
 [//]: # (end addons)
 
