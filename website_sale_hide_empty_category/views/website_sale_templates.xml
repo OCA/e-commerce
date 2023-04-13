@@ -13,9 +13,7 @@
             expr="//t[@t-name='website_sale.categories_recursive']"
             position="attributes"
         >
-            <attribute
-                name="t-if"
-            >not hide_empty_category or c.has_product_recursive</attribute>
+            <attribute name="t-if">c.has_product_recursive</attribute>
         </xpath>
     </template>
     <template
@@ -27,20 +25,21 @@
             expr="//t[@t-name='website_sale.option_collapse_categories_recursive']"
             position="attributes"
         >
-            <attribute
-                name="t-if"
-            >not hide_empty_category or c.has_product_recursive</attribute>
+            <attribute name="t-if">c.has_product_recursive</attribute>
         </xpath>
     </template>
     <template
-        inherit_id="website_sale.products_categories"
-        id="hide_categories_recursive_helper"
-        name="Hide Empty Category list"
+        inherit_id="website_sale.filmstrip_categories"
+        id="hide_top_categories_helper"
+        name="Hide Top Empty Category list"
         customize_show="True"
         active="True"
     >
-        <xpath expr="//t[@t-foreach='categories']" position="before">
-            <t t-set="hide_empty_category" t-value="True" />
+        <xpath
+            expr="//div[hasclass('o_wsale_filmstip_wrapper')]//li"
+            position="attributes"
+        >
+            <attribute name="t-if">c.has_product_recursive</attribute>
         </xpath>
     </template>
 </odoo>

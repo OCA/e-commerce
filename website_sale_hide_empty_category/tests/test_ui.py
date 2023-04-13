@@ -1,8 +1,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 
+@tagged("post_install", "-at_install")
 class UICase(HttpCase):
     def setUp(self):
         super().setUp()
@@ -23,13 +25,8 @@ class UICase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
+        self.start_tour(
+            "/shop",
             "website_sale_hide_empty_category",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
             login="admin",
         )

@@ -3,3 +3,4 @@
 
   * Carlos Roca
 * Radovan Skolnik <radovan@skolnik.info>
+* Dhara Solanki <dhara.solanki@initos.com>

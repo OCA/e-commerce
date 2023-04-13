@@ -13,6 +13,6 @@
     "depends": ["website_sale"],
     "data": ["views/website_sale_templates.xml"],
     "assets": {
-        "web.assets_tests": ["/website_sale_hide_empty_category/static/src/js/tour.js"],
+        "web.assets_tests": ["website_sale_hide_empty_category/static/tests/**/*"],
     },
 }
