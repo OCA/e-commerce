@@ -16,7 +16,7 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
 
     @http.route(['/payment/slimpay_transaction/<int:acquirer_id>'],
                 type='json', auth="public", website=True)
-    def payment_slimpay_transaction(self, acquirer_id):
+    def payment_slimpay_transaction(self, acquirer_id, tx_ref=None):
         """Handle Slimpay specific transaction online payment.
 
         This controller is called after the standard website_sale
@@ -32,11 +32,9 @@ class SlimpayControllerWebsiteSale(WebsiteSale):
 
         validate_payment_url = _url + '/shop/payment/validate'
 
-        tx_id = request.session['__website_sale_last_tx_id']
-        tx = env['payment.transaction'].browse(tx_id)
-
-        so_id = request.session['sale_last_order_id']
-        so = env['sale.order'].sudo().browse(so_id)
+        tx = env['payment.transaction'].search([("reference", "=", tx_ref)])
+        so = tx.sudo().sale_order_ids[0]
+        assert env.user.partner_id.commercial_partner_id == so.partner_id.commercial_partner_id
 
         return self._approval_url(so, tx, acquirer_id, validate_payment_url)
 
