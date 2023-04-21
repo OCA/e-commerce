@@ -2,6 +2,7 @@ from json import dumps as json_dumps
 from datetime import datetime
 
 import lxml.html
+from lxml.etree import fromstring
 from mock import patch
 
 from odoo.addons.account_payment_slimpay.models.payment import SlimpayClient
@@ -96,12 +97,16 @@ class SlimpayControllersTC(HttpCase):
         reference instead of a Slimpay URL, so we can use it later to
         check the transaction.
         """
-        self.jsonrpc(
+        result = self.jsonrpc(
             '/shop/payment/transaction',
             params={"acquirer_id": self.slimpay.id}
         )
+        doc = fromstring("<div>" + result + "</div>")
+        tx_ref = doc.xpath("//input[@name='tx_ref']/@value")[0]
         return self.jsonrpc(
-            '/payment/slimpay_transaction/%s' % self.slimpay.id)
+            '/payment/slimpay_transaction/%s' % self.slimpay.id,
+            {"tx_ref": tx_ref}
+        )
 
     def simulate_feedback(self, tx_ref, state='closed.completed'):
         """ Simulate a (by default OK) Slimpay feedback.
