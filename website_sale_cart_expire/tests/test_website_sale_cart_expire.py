@@ -32,10 +32,10 @@ class TestWebsiteSaleCartExpire(TransactionCase):
 
     def _create_payment_transaction(self, order):
         self.tx_counter += 1
-        acquirer = self.env.ref("payment.payment_acquirer_test")
+        provider = self.env.ref("payment.payment_provider_demo")
         return self.env["payment.transaction"].create(
             {
-                "acquirer_id": acquirer.id,
+                "provider_id": provider.id,
                 "reference": f"{order.name}-{self.tx_counter}",
                 "amount": order.amount_total,
                 "currency_id": order.currency_id.id,
