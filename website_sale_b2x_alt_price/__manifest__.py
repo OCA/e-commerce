@@ -3,7 +3,7 @@
 {
     "name": "Alternative (un)taxed prices display on eCommerce",
     "summary": "Display prices with(out) taxes in eCommerce, complementing normal mode",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.1.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
