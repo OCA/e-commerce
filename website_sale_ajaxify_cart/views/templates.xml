@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <template
+        id="products_add_to_cart_dynamic"
+        inherit_id="website_sale.products_add_to_cart"
+        customize_show="True"
+        name="Dynamically Add to Cart"
+        priority="21"
+        active="False"
+    >
+        <xpath expr="//a[hasclass('a-submit')]" position="attributes">
+            <attribute name="data-is-dynamic">true</attribute>
+            <attribute name="data-page-type">products</attribute>
+        </xpath>
+    </template>
+
+    <template
+        id="add_ajaxify_detail_cart"
+        inherit_id="website_sale.product"
+        customize_show="True"
+        name="Dynamically Add to Cart"
+        priority="20"
+        active="False"
+    >
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="data-is-dynamic">true</attribute>
+            <attribute name="data-page-type">product</attribute>
+        </xpath>
+    </template>
+
+</odoo>
