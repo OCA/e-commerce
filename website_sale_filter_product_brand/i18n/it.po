@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_filter_product_brand
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-04-26 11:28+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
+
+#. module: website_sale_filter_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_filter_product_brand.website_sale_filter_brand_products_brands
+msgid "<strong>Brand</strong>"
+msgstr "<strong>Marca</strong>"
+
+#. module: website_sale_filter_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_filter_product_brand.products_brands_collapsed
+msgid "Show less"
+msgstr "Mostra meno"
+
+#. module: website_sale_filter_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_filter_product_brand.products_brands_collapsed
+msgid "Show more"
+msgstr "Mostra altri"
