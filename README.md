@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 13.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_attribute_filter_order](website_sale_attribute_filter_order/) | 13.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Move active checkbox options to the first place of the list
 [website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 13.0.1.0.1 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
-[website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 13.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
+[website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 13.0.1.1.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
 [website_sale_cart_expire](website_sale_cart_expire/) | 13.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
 [website_sale_cart_no_redirect](website_sale_cart_no_redirect/) | 13.0.1.0.0 |  | Avoid redirection to the cart page when adding a product to cart
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 13.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
