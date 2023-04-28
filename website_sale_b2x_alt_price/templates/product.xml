@@ -42,4 +42,34 @@
             <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price" />
         </xpath>
     </template>
+    <template
+        id="sale_order_portal_template"
+        inherit_id="sale.sale_order_portal_template"
+    >
+        <xpath expr="//t[@t-set='title']">
+            <t
+                t-if="env.user.has_group('account.group_show_line_subtotals_tax_included')"
+            >
+                <span
+                    id="b2c_alt_amount"
+                    t-field="sale_order.amount_untaxed"
+                    data-id="untaxed_amount"
+                /><small> (without taxes)</small>
+            </t>
+            <t t-else="">
+                 <h2 class="mb-0"><b
+                        t-field="sale_order.amount_untaxed"
+                        data-id="untaxed_amount"
+                    /> </h2>
+                 <span
+                    id="b2b_alt_amount"
+                    t-field="sale_order.amount_total"
+                    data-id="total_amount"
+                /><small> (with taxes)</small>
+            </t>
+        </xpath>
+        <xpath expr="//span[@id='b2c_alt_amount']" position="before">
+            <xpath expr="//t[@t-set='title']/h2" position="move" />
+        </xpath>
+    </template>
 </data>
