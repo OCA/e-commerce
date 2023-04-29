@@ -18,6 +18,16 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_b2x_alt_price
+#: model_terms:ir.ui.view,arch_db:website_sale_b2x_alt_price.sale_order_portal_template
+msgid "<small> (with taxes)</small>"
+msgstr ""
+
+#. module: website_sale_b2x_alt_price
+#: model_terms:ir.ui.view,arch_db:website_sale_b2x_alt_price.sale_order_portal_template
+msgid "<small> (without taxes)</small>"
+msgstr ""
+
+#. module: website_sale_b2x_alt_price
 #: model:ir.model,name:website_sale_b2x_alt_price.model_product_template
 msgid "Product Template"
 msgstr "Plantilla de producto"
