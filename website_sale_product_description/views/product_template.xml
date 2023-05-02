@@ -10,6 +10,7 @@
                     <field
                         name="public_description"
                         nolabel="1"
+                        colspan="2"
                         widget="html"
                         placeholder="This description will be shown on e-commerce frontend"
                     />
