@@ -19,7 +19,7 @@ class TestWebsiteSale(SavepointCase):
         cls.website = cls.env["website"].browse(1)
         cls.WebsiteSaleController = WebsiteSale()
         cls.demo_user = cls.env.ref("base.user_demo")
-        PaymentAcquirer.search([]).unlink()
+        PaymentAcquirer.search([]).state = "disabled"
         cls.acquirer_transfer_test_1 = PaymentAcquirer.create(
             {
                 "name": "Test Transfer #1",
