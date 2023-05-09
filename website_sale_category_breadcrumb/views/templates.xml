@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="breadcrumb" inherit_id="website_sale.product">
+    <template id="breadcrumb" inherit_id="website_sale.product" priority="999">
         <xpath
             expr="//ol[hasclass('breadcrumb')]/li[@t-if='category']"
             position="replace"
