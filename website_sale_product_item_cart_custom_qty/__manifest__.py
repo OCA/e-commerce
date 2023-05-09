@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Cart Quantity",
     "summary": "Allows to add to cart from product items a custom quantity.",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
