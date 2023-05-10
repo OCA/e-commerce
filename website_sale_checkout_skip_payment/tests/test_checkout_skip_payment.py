@@ -2,13 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from unittest.mock import Mock, patch
 
-from odoo.tests.common import tagged
-
-from odoo.addons.website_slides.tests.test_ui_wslides import TestUICommon
-
+from odoo.tests.common import HttpCaseWithUserDemo, tagged
 
 @tagged("post_install", "-at_install")
-class WebsiteSaleHttpCase(TestUICommon):
+class WebsiteSaleHttpCase(HttpCaseWithUserDemo):
     def setUp(self):
         super().setUp()
         # Active skip payment for Mitchel Admin
