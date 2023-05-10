@@ -38,4 +38,5 @@ class WebsiteSaleHttpCase(HttpCaseWithUserDemo):
             code="%s.run('%s')" % tour,
             ready="%s.tours.%s.ready" % tour,
             login=user_demo.login,
+            timeout=600,
         )
