@@ -9,8 +9,25 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class ProductAttributeValues(WebsiteSale):
     @http.route()
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super().shop(page=page, category=category, search=search, ppg=ppg, **post)
+    def shop(
+        self,
+        page=0,
+        category=None,
+        search="",
+        min_price=0.0,
+        max_price=0.0,
+        ppg=False,
+        **post
+    ):
+        res = super().shop(
+            page=page,
+            category=category,
+            search=search,
+            min_price=min_price,
+            max_price=max_price,
+            ppg=ppg,
+            **post
+        )
 
         # getting existing templates by "search_product" in qcontext
         # without searching again
