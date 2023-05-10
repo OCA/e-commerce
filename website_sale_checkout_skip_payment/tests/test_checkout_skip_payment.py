@@ -2,7 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from unittest.mock import Mock, patch
 
-from odoo.tests.common import HttpCaseWithUserDemo, tagged
+from odoo.tests.common import tagged
+
+from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+
 
 @tagged("post_install", "-at_install")
 class WebsiteSaleHttpCase(HttpCaseWithUserDemo):
