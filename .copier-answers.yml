@@ -15,6 +15,7 @@ odoo_version: 12.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups:
+- website_sale_checkout_country_vat
 - website_sale_vat_required
 repo_description: Modules aiming to support e-commerce specific needs. This includes
     all the new website_sale related modules.

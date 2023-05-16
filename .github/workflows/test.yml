@@ -36,6 +36,13 @@ jobs:
       matrix:
         include:
           - container: ghcr.io/oca/oca-ci/py3.6-odoo12.0:latest
+            include: "website_sale_checkout_country_vat"
+            makepot: "true"
+            name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+            include: "website_sale_checkout_country_vat"
+            name: test with OCB
+          - container: ghcr.io/oca/oca-ci/py3.6-odoo12.0:latest
             include: "website_sale_vat_required"
             makepot: "true"
             name: test with Odoo
@@ -43,11 +50,11 @@ jobs:
             include: "website_sale_vat_required"
             name: test with OCB
           - container: ghcr.io/oca/oca-ci/py3.6-odoo12.0:latest
-            exclude: "website_sale_vat_required"
+            exclude: "website_sale_checkout_country_vat,website_sale_vat_required"
             makepot: "true"
             name: test with Odoo
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
-            exclude: "website_sale_vat_required"
+            exclude: "website_sale_checkout_country_vat,website_sale_vat_required"
             name: test with OCB
     services:
       postgres:
