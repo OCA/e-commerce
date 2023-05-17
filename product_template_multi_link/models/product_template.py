@@ -6,6 +6,7 @@ from collections import defaultdict
 
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError
+from odoo.osv import expression
 
 
 class ProductTemplate(models.Model):
@@ -102,4 +103,39 @@ class ProductTemplate(models.Model):
         self.ensure_one()
         return self.product_template_link_ids.filtered(
             lambda r: r.type_id.code == code and r.is_link_active
+        )
+
+    @api.model
+    def _name_search(
+        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
+    ):
+        # NOTE: Odoo limits the search on the name of templates as soon as
+        # the 'id' field is present in 'args' domain, and this 'id' criteria is
+        # set by the view on purpose to avoid a search on variants.
+        # Improve this search by looking also on template's default_code
+        # if there is only a domain on 'id'.
+        search_default_code = self.env.context.get("name_search_default_code")
+        if name and len(args or []) == 1 and args[0][0] == "id" and search_default_code:
+            args = expression.AND(
+                [
+                    args,
+                    expression.OR(
+                        [
+                            [("default_code", operator, name)],
+                            [("product_variant_ids.default_code", operator, name)],
+                            [(self._rec_name, operator, name)],
+                        ]
+                    ),
+                ]
+            )
+            # Reset 'name' so base '_name_search' won't add '_rec_name'
+            # to 'args' (already added above).
+            # See 'odoo.models.BaseModel._name_search'.
+            name = ""
+        return super()._name_search(
+            name=name,
+            args=args,
+            operator=operator,
+            limit=limit,
+            name_get_uid=name_get_uid,
         )
