@@ -2,10 +2,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from unittest.mock import Mock, patch
 
-from odoo.tests.common import HttpCase
+import odoo.tests
 
 
-class WebsiteSaleHttpCase(HttpCase):
+@odoo.tests.tagged("post_install", "-at_install")
+class WebsiteSaleHttpCase(odoo.tests.HttpCase):
     def setUp(self):
         super().setUp()
         # Active skip payment for Mitchel Admin
@@ -25,13 +26,4 @@ class WebsiteSaleHttpCase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_checkout_skip_payment",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_checkout_skip_payment", login="admin")
