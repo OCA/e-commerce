@@ -20,8 +20,8 @@
         "views/res_config_settings_views.xml",
     ],
     "assets": {
-        "web.assets_frontend": [
-            "website_sale_checkout_skip_payment/static/src/js/*.js",
+        "web.assets_tests": [
+            "website_sale_checkout_skip_payment/static/tests/**/*",
         ],
     },
 }
