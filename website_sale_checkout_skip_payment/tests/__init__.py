@@ -1,1 +1,1 @@
-from . import test_ui
+from . import test_checkout_skip_payment
