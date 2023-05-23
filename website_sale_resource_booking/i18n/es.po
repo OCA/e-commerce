@@ -76,7 +76,7 @@ msgid "Pre-booking timeout"
 msgstr "Validez de las prereservas"
 
 #. module: website_sale_resource_booking
-#: code:addons/website_sale_resource_booking/controllers/main.py:73
+#: code:addons/website_sale_resource_booking/controllers/main.py:71
 #, python-format
 msgid "Pre-schedule your booking (%(index)d of %(total)d)"
 msgstr "Agende su prereserva (%(index)d de %(total)d)"
