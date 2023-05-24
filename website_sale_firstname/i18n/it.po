@@ -18,9 +18,9 @@ msgstr ""
 #. module: website_sale_firstname
 #: model_terms:ir.ui.view,arch_db:website_sale_firstname.website_sale_address_firstname
 msgid "First Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: website_sale_firstname
 #: model_terms:ir.ui.view,arch_db:website_sale_firstname.website_sale_address_firstname
 msgid "Last Name"
-msgstr ""
+msgstr "Cognome"
