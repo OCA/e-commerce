@@ -13,11 +13,11 @@
     "category": "Extra Tools",
     "website": "https://github.com/OCA/e-commerce",
     "depends": [
-        "website_sale",
         "partner_firstname",
+        "website_sale",
     ],
     "data": [
-        "data/data.xml",
+        "data/formbuilder_whitelist.xml",
     ],
     "installable": True,
 }
