@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Alessandro Uffreduzzi - PyTech SRL -->
+<odoo>
+    <template id="website_sale_address_firstname" inherit_id="website_sale.address">
+        <xpath expr="//input[@name='name']" position="attributes">
+            <attribute name="disabled">disabled</attribute>
+        </xpath>
+        <xpath expr="//div[input[@name='name']]" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+        <xpath expr="//div[input[@name='name']]" position="after">
+            <div
+                t-attf-class="mb-3 #{error.get('firstname') and 'o_has_error' or ''} col-lg-6"
+                id="div_firstname"
+            >
+                <label t-attf-class="col-form-label" for="firstname">First Name</label>
+                <input
+                    type="text"
+                    name="firstname"
+                    t-attf-class="form-control #{error.get('firstname') and 'is-invalid' or ''}"
+                    t-att-value="'firstname' in checkout and checkout['firstname']"
+                />
+            </div>
+            <div
+                t-attf-class="mb-3 #{error.get('lastname') and 'o_has_error' or ''} col-lg-6"
+                id="div_lastname"
+            >
+                <label class="col-form-label" for="lastname">Last Name</label>
+                <input
+                    type="text"
+                    name="lastname"
+                    t-attf-class="form-control #{error.get('lastname') and 'is-invalid' or ''}"
+                    t-att-value="'lastname' in checkout and checkout['lastname']"
+                />
+            </div>
+        </xpath>
+    </template>
+</odoo>

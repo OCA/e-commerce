@@ -7,7 +7,7 @@
             Allow to change name field in form to first name and last name
     """,
     "version": "16.0.1.0.0",
-    "author": "IT-Projects LLC, " "Odoo Community Association (OCA)",
+    "author": "IT-Projects LLC, PyTech SRL, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "maintainer": "IT-Projects LLC",
     "category": "Extra Tools",
@@ -18,6 +18,7 @@
     ],
     "data": [
         "data/formbuilder_whitelist.xml",
+        "views/templates.xml",
     ],
     "installable": True,
 }
