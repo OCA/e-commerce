@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Hide Price",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.2.0",
     "category": "Website",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
@@ -10,6 +10,7 @@
     "summary": "Hide product prices on the shop",
     "depends": ["website_sale"],
     "data": [
+        "data/product_snippet_template_data.xml",
         "views/partner_view.xml",
         "views/product_template_views.xml",
         "views/res_config_settings_views.xml",
