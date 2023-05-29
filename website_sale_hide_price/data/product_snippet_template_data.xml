@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Hide add to cart button and prices from dynamic product snippet templates if not
+        website_show_price -->
+    <template
+        id="price_dynamic_filter_template_product_product"
+        inherit_id="website_sale.price_dynamic_filter_template_product_product"
+    >
+        <xpath expr="//span[hasclass('font-weight-bold')]" position="before">
+            <div
+                id="website_hide_price"
+                t-if="user_id.partner_id.website_show_price and not data.get('website_hide_price')"
+            />
+        </xpath>
+        <xpath expr="//div[@id='website_hide_price']" position="inside">
+            <xpath expr="//span[hasclass('font-weight-bold')]" position="move" />
+            <xpath expr="//del" position="move" />
+        </xpath>
+    </template>
+    <!-- The id of the templates is changed so that they do not appear in the selector
+        repeatedly. The change is from "dynamic_filter_template_%" to "filter_template_dynamic_%". -->
+    <template
+        id="filter_template_dynamic_product_product_borderless_2"
+        inherit_id="website_sale.dynamic_filter_template_product_product_borderless_2"
+    >
+        <xpath expr="//button[hasclass('js_add_cart')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not record.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <template
+        id="filter_template_dynamic_product_product_add_to_cart"
+        inherit_id="website_sale.dynamic_filter_template_product_product_add_to_cart"
+    >
+        <xpath
+            expr="//div[hasclass('o_carousel_product_card_footer')]"
+            position="attributes"
+        >
+            <attribute name="t-if">
+                website.website_show_price and not record.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <template
+        id="filter_template_dynamic_product_product_horizontal_card"
+        inherit_id="website_sale.dynamic_filter_template_product_product_horizontal_card"
+    >
+        <xpath
+            expr="//div[hasclass('o_dynamic_snippet_btn_wrapper')]"
+            position="attributes"
+        >
+            <attribute name="t-if">
+                website.website_show_price and not record.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <template
+        id="filter_template_dynamic_product_product_mini_price"
+        inherit_id="website_sale.dynamic_filter_template_product_product_mini_price"
+    >
+        <xpath expr="//div[hasclass('rounded-pill')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not record.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <template
+        id="filter_template_dynamic_product_product_banner"
+        inherit_id="website_sale.dynamic_filter_template_product_product_banner"
+    >
+        <xpath expr="//button[hasclass('js_add_cart')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not record.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+</odoo>

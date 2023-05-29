@@ -63,14 +63,4 @@
             >website and website.website_show_price</attribute>
         </xpath>
     </template>
-    <template
-        id="price_dynamic_filter_template_product_product"
-        inherit_id="website_sale.price_dynamic_filter_template_product_product"
-    >
-        <xpath expr="//span[hasclass('font-weight-bold')]" position="attributes">
-            <attribute
-                name="t-if"
-            >user_id.partner_id.website_show_price and not data['website_hide_price']</attribute>
-        </xpath>
-    </template>
 </odoo>
