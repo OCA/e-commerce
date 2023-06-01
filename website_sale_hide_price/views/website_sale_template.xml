@@ -3,7 +3,7 @@
     <template id="product_price" inherit_id="website_sale.product_price">
         <xpath expr="//div[@itemprop='offers']" position="attributes">
             <attribute name="t-if">
-                    website.website_show_price and not product.website_hide_price
+                    website and website.website_show_price and not product.website_hide_price
                 </attribute>
         </xpath>
     </template>
@@ -29,7 +29,7 @@
         </xpath>
         <xpath expr="//a[@id='add_to_cart']" position="attributes">
             <attribute name="t-if">
-                    website.website_show_price and not product.website_hide_price
+                    website and website.website_show_price and not product.website_hide_price
                 </attribute>
         </xpath>
     </template>
@@ -39,7 +39,7 @@
             position="attributes"
         >
             <attribute name="t-if">
-                    website.website_show_price and not product.website_hide_price
+                    website and website.website_show_price and not product.website_hide_price
                 </attribute>
         </xpath>
     </template>
@@ -64,7 +64,7 @@
         <xpath expr="//t[@t-name='sale.badge_extra_price']" position="attributes">
             <attribute
                 name="t-if"
-            >website.website_show_price and not product.website_hide_price</attribute>
+            >website and website.website_show_price and not product.website_hide_price</attribute>
         </xpath>
     </template>
 </odoo>
