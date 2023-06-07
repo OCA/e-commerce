@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_attributes" inherit_id="website_sale.products_attributes">
+        <xpath
+            expr="//t[@t-foreach='attributes']//div[@t-attf-id='o_products_attributes_{{a.id}}']"
+            position="inside"
+        >
+            <t t-if="a.display_type == 'multiselect'">
+                <select
+                    class="form-control mb-1 multiple-select"
+                    multiple="multiple"
+                    name="attrib"
+                >
+                    <t
+                        t-foreach="a.value_ids.sorted(key=lambda av: av.sequence)"
+                        t-as="v"
+                    >
+                        <option
+                            t-att-value="'%s-%s' % (a.id, v.id)"
+                            t-esc="v.name"
+                            t-att-selected="v.id in attrib_set"
+                        />
+                    </t>
+                </select>
+                <div class="row mb-4">
+                    <div class="col-auto ml-auto">
+                        <div class="btn-group" role="group">
+                            <input
+                                type="submit"
+                                class="btn btn-sm btn-default"
+                                value="Apply"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="o_wsale_offcanvas_multiselect_filter"
+        name="Mutiselect Filter"
+        inherit_id="website_sale.o_wsale_offcanvas"
+    >
+        <xpath
+            expr="//div[@t-attf-id='o_wsale_offcanvas_attribute_{{a.id}}']/div[hasclass('accordion-body')]"
+            position="inside"
+        >
+            <div
+                class="list-group list-group-flush"
+                t-if="a.display_type == 'multiselect'"
+            >
+                <select
+                    class="form-control mb-1 multiple-select"
+                    multiple="multiple"
+                    name="attrib"
+                >
+                    <t
+                        t-foreach="a.value_ids.sorted(key=lambda av: av.sequence)"
+                        t-as="v"
+                    >
+                        <option
+                            t-att-value="'%s-%s' % (a.id, v.id)"
+                            t-esc="v.name"
+                            t-att-selected="v.id in attrib_set"
+                        />
+                    </t>
+                </select>
+                <div class="row mb-4">
+                    <div class="col-auto ml-auto">
+                        <div class="btn-group" role="group">
+                            <input
+                                type="submit"
+                                class="btn btn-sm btn-default"
+                                value="Apply"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
