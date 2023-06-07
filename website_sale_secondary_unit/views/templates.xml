@@ -89,7 +89,7 @@
         </xpath>
     </template>
     <template id="product_price" inherit_id="website_sale.product_price">
-        <xpath expr="//span[hasclass('oe_price')]" position="after">
+        <xpath expr="//h4[hasclass('oe_price_h4')]" position="after">
             <t t-if="secondary_uom_ids">
                 / <span
                     class="css_editable_mode_hidden price_uom"

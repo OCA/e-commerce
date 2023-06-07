@@ -64,7 +64,4 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
         steps
     );
 
-    return {
-        steps: steps,
-    };
 });
