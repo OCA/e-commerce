@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="products" model="ir.ui.view">
+        <field name="inherit_id" ref="website_sale.products" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@id='products_grid']/div[hasclass('alert', 'alert-warning', 'mt8')]"
+                position="attributes"
+            >
+                <attribute name="t-if">original_search and not products</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
