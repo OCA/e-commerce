@@ -2,7 +2,7 @@
     "name": "eCommerce Payment Term Acquirer",
     "summary": "eCommerce Payment Term Acquirer",
     "author": "Ooops, Cetmix, Odoo Community Association (OCA)",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "maintainers": ["geomer198", "CetmixGitDrone"],

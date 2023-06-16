@@ -7,10 +7,22 @@
         name="Payment Trace"
         priority="100"
     >
+        <form position="before">
+            <t
+                t-set="payment_term_id"
+                t-value="env['sale.order'].get_payment_term_by_order_id(order_id)"
+            />
+            <t t-if="not payment_term_id">
+                <t
+                    t-set="acquirers"
+                    t-value="list(filter(lambda acq: not acq.display_main_payment_term, acquirers))"
+                />
+            </t>
+        </form>
         <span class="payment_option_name" position="replace">
             <t
-                t-if="acq.display_main_payment_term"
-                t-esc="user_id.partner_id.property_payment_term_id.display_name"
+                t-if="acq.display_main_payment_term and payment_term_id"
+                t-esc="payment_term_id.display_name"
             />
             <t t-else="" t-esc="acq.display_as or acq.name" />
             <div
