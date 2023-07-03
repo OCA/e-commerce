@@ -42,6 +42,7 @@ setuptools.setup(
         'odoo-addon-website_sale_suggest_create_account>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_tax_toggle>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_vat_required>=15.0dev,<15.1dev',
+        'odoo-addon-website_sale_wishlist_archive_cron>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_wishlist_keep>=15.0dev,<15.1dev',
         'odoo-addon-website_snippet_product_category>=15.0dev,<15.1dev',
     ],
