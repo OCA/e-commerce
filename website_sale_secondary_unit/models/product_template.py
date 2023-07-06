@@ -7,5 +7,6 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     allow_uom_sell = fields.Boolean(
-        string="Allow to sell in unit of measure", default=True,
+        string="Allow to sell in unit of measure",
+        default=True,
     )
