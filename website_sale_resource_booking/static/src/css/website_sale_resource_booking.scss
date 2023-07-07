@@ -1,0 +1,15 @@
+/* Copyright 2021 Tecnativa - Jairo Llopis
+ * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
+
+.o_wizard_has_bookings + .progress-wizard {
+    .progress-wizard-step {
+        @include media-breakpoint-up(md) {
+            // 4 steps to buy
+            width: percentage(1/4);
+
+            .o_wizard_has_extra_step + & {
+                width: percentage(1/5);
+            }
+        }
+    }
+}
