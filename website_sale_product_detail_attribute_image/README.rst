@@ -51,7 +51,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_detail_attribute_image%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_detail_attribute_image%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -62,7 +62,6 @@ Authors
 ~~~~~~~
 
 * Tecnativa
-* Studio73
 
 Contributors
 ~~~~~~~~~~~~
@@ -75,8 +74,8 @@ Contributors
 * Studio73 <studio73.es>:
 * `Studio73 <https://studio73.es>`_:
 
-  * Miguel Gandia
-  * Óscar Seguí
+    * Miguel Gandia
+    * Óscar Seguí
 
 Other credits
 ~~~~~~~~~~~~~
