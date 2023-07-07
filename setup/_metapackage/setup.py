@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo-addon-website_sale_hide_price>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_attribute_value_filter_existing>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_description>=16.0dev,<16.1dev',
+        'odoo-addon-website_sale_product_detail_attribute_image>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_reference_displayed>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_stock_available>=16.0dev,<16.1dev',
     ],
