@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <template id="products" inherit_id="website_sale.products">
+        <!-- adding website and website.website_show_price to t-cache in order to update cache if parameter modified
+             this is needed if you connect with a different user that should not see the prices
+             see https://github.com/OCA/e-commerce/issues/818 -->
+        <xpath
+            expr="//div[hasclass('o_wsale_products_grid_table_wrapper')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-cache"
+            >pricelist,products,website,website.website_show_price</attribute>
+        </xpath>
+    </template>
     <template id="product_price" inherit_id="website_sale.product_price">
         <xpath expr="//div[@itemprop='offers']" position="attributes">
             <attribute name="t-if">
@@ -16,6 +29,14 @@
     </template>
     <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
     <template id="product" inherit_id="website_sale.product">
+        <!-- adding website, website.website_show_price and product.website_hide_price to t-cache in order to update cache if parameter modified
+             this is needed if you connect with a different user that should not see the prices
+             see https://github.com/OCA/e-commerce/issues/818 -->
+        <xpath expr="t[@t-cache='pricelist,product']" position="attributes">
+          <attribute
+                name="t-cache"
+            >pricelist,product,website,website.website_show_price,product.website_hide_price</attribute>
+        </xpath>
         <xpath expr="//a[@id='add_to_cart']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
