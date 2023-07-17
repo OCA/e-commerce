@@ -23,15 +23,19 @@ class ProductTemplate(models.Model):
                 ]
             )
         )
-        assortment_dict = {}
-        for assortment in assortments:
-            if partner & assortment.with_context(active_test=False).all_partner_ids:
-                allowed_product_ids = assortment.all_product_ids.ids
-                for product in product_ids:
-                    if product not in allowed_product_ids:
-                        assortment_dict.setdefault(product, self.env["ir.filters"])
-                        assortment_dict[product] |= assortment
-        return assortment_dict
+        assortments = assortments.filtered(
+            lambda x: partner & x.with_context(active_test=False).all_partner_ids
+        )
+        if not assortments:
+            return assortments, []
+        # if there are multiple assortments for the same partner
+        # the allowed products are all the products present in
+        # at least one assortment (OR logic)
+        allowed_product_ids = assortments.all_product_ids.ids
+        restricted_product_ids = {
+            x for x in product_ids if x not in allowed_product_ids
+        }
+        return assortments, restricted_product_ids
 
     def _get_combination_info(
         self,
@@ -52,21 +56,22 @@ class ProductTemplate(models.Model):
         )
         product_res_id = res["product_id"]
         if self.env.context.get("website_id") and not only_template and product_res_id:
-            not_allowed_product_dict = self.get_product_assortment_restriction_info(
-                [product_res_id]
-            )
-            if not_allowed_product_dict and product_res_id in not_allowed_product_dict:
+            (
+                assortments,
+                restricted_product_ids,
+            ) = self.get_product_assortment_restriction_info([product_res_id])
+            if restricted_product_ids and product_res_id in restricted_product_ids:
                 res["product_avoid_purchase"] = True
-                res["product_assortment_type"] = "no_purchase"
-                assortments = not_allowed_product_dict[product_res_id]
-                for assortment in assortments:
-                    if assortment.website_availability == "no_show":
-                        res["product_assortment_type"] = "no_show"
-                        break
-                if res["product_assortment_type"] != "no_show":
-                    assortment = assortments[0]
-                    res["message_unavailable"] = assortment.message_unavailable
-                    res["assortment_information"] = assortment.assortment_information
+                if any(a.website_availability == "no_show" for a in assortments):
+                    res["product_assortment_type"] = "no_show"
+                else:
+                    res["product_assortment_type"] = "no_purchase"
+                    asrtm = assortments.filtered("message_unavailable")
+                    if asrtm:
+                        res["message_unavailable"] = asrtm[0].message_unavailable
+                    asrtm = assortments.filtered("assortment_information")
+                    if asrtm:
+                        res["assortment_information"] = asrtm[0].assortment_information
             else:
                 res["product_avoid_purchase"] = False
         return res

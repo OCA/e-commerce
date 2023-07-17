@@ -21,21 +21,21 @@ class WebsiteSaleVariantController(VariantController):
         """
         res = []
         templates = request.env["product.template"].sudo().browse(product_template_ids)
-        not_allowed_product_dict = templates.get_product_assortment_restriction_info(
-            templates.mapped("product_variant_ids.id")
+        (
+            assortments,
+            restricted_product_ids,
+        ) = templates.get_product_assortment_restriction_info(
+            templates.product_variant_ids.ids
         )
+        if not assortments:
+            return res
         for template in templates:
             variant_ids = set(template.product_variant_ids.ids)
-            if (
-                variant_ids
-                and variant_ids & set(not_allowed_product_dict.keys()) == variant_ids
-            ):
+            if variant_ids and variant_ids & restricted_product_ids == variant_ids:
                 res.append(
                     {
                         "id": template.id,
-                        "message_unavailable": not_allowed_product_dict[
-                            variant_ids.pop()
-                        ][0].message_unavailable
+                        "message_unavailable": assortments[0].message_unavailable
                         or _("Not available"),
                     }
                 )
