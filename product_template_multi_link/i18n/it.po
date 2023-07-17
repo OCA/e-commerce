@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
-"PO-Revision-Date: 2023-03-30 14:25+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2023-07-17 17:13+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__create_uid
@@ -165,34 +165,31 @@ msgstr ""
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template
 msgid "Product Template"
-msgstr "Template Prodotto"
+msgstr "Modello prodotto"
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_link_type_act_window
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
-#, fuzzy
 msgid "Product Template Link Type"
-msgstr "Template Prodotto"
+msgstr "Tipo collegamento modello prodotto"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
-#, fuzzy
 msgid "Product link"
-msgstr "Template Prodotto"
+msgstr "Collegamento prodotto"
 
 #. module: product_template_multi_link
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
-#, fuzzy, python-format
+#, python-format
 msgid "Product links"
-msgstr "Template Prodotto"
+msgstr "Collegamenti prodotto"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
-#, fuzzy
 msgid "Product template links"
-msgstr "Template Prodotto"
+msgstr "Collegamenti modello prodotto"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__left_product_tmpl_id
