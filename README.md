@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[product_template_multi_link](product_template_multi_link/) | 14.0.1.2.0 |  | Product Multi Links (Template)
+[product_template_multi_link](product_template_multi_link/) | 14.0.1.3.0 |  | Product Multi Links (Template)
 [product_template_multi_link_date_span](product_template_multi_link_date_span/) | 14.0.1.1.0 |  | Add an optional date span for when a link is active.
 [product_variant_multi_link](product_variant_multi_link/) | 14.0.1.1.0 |  | Product Multi Links (Variant)
 [website_sale_ajaxify_cart](website_sale_ajaxify_cart/) | 14.0.1.0.1 | [![geomer198](https://github.com/geomer198.png?size=30px)](https://github.com/geomer198) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Ajaxify cartr
