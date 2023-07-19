@@ -23,7 +23,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid ""
 "<i class=\"fa fa-chevron-left\"/>\n"
-"                    Return to Cart"
+"                        Return to Cart"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
@@ -57,12 +57,8 @@ msgstr ""
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.cart
-msgid "Confirm"
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.short_cart_summary
-msgid "Confirm <span class=\"fa fa-chevron-right\"/>"
+msgid "Confirm"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
