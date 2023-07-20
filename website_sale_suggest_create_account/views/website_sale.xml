@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="cart" inherit_id="website_sale.cart" customize_show="True">
+    <template id="cart" inherit_id="website_sale.cart">
         <xpath expr="//div[@id='wrap']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <t
                 t-set="signup_allowed"
-                t-value="user_id._get_signup_invitation_scope() == 'b2c'"
+                t-value="website.auth_signup_uninvited == 'b2c'"
+            />
+            <t
+                t-set="account_on_checkout_optional"
+                t-value="website.account_on_checkout == 'optional'"
             />
             <t
                 t-set="can_checkout"
-                t-value="website_sale_order and
-                                             website_sale_order.website_order_line"
+                t-value="website_sale_order and website_sale_order.website_order_line"
             />
             <t
                 t-set="suggest_create_account"
-                t-value="not user_authenticated and signup_allowed and can_checkout"
+                t-value="not user_authenticated and signup_allowed and can_checkout and account_on_checkout_optional"
             />
             <t
                 t-set="suggest_login"
-                t-value="not user_authenticated and not signup_allowed and can_checkout"
+                t-value="not user_authenticated and not signup_allowed and can_checkout and account_on_checkout_optional"
             />
         </xpath>
         <!-- Show normal "Checkout" button if user is logged in or external login
              is disabled -->
-        <xpath
-            expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']"
+        <!-- <xpath
+            expr="//a[hasclass('btn-primary')]"
             position="attributes"
         >
             <attribute name="class" />
             <attribute
                 name="t-attf-class"
             >#{'btn btn-primary float-right d-none d-xl-inline-block' if user_authenticated else 'btn btn-default float-right d-none d-xl-inline-block'}</attribute>
-        </xpath>
+        </xpath> -->
+
         <!-- Show choice in other cases -->
-        <xpath
-            expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']"
-            position="after"
-        >
+        <xpath expr="//a[hasclass('btn-primary')]" position="after">
             <a
                 t-if="suggest_login"
                 role="button"
@@ -57,20 +58,15 @@
                 </a>
             </t>
         </xpath>
+
         <!-- Buttons for small screens, same modifications as above -->
-        <xpath
-            expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']"
-            position="attributes"
-        >
+        <xpath expr="//a[hasclass('btn-primary')]" position="attributes">
             <attribute name="class" />
             <attribute
                 name="t-attf-class"
             >#{'btn btn-primary float-right' if user_authenticated else 'btn btn-default float-right'}</attribute>
         </xpath>
-        <xpath
-            expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']"
-            position="after"
-        >
+        <xpath expr="//a[hasclass('btn-primary')]" position="after">
             <a
                 t-if="suggest_login"
                 role="button"
@@ -92,19 +88,20 @@
             </t>
         </xpath>
     </template>
+
     <!-- Cart summary -->
     <template
         id="short_cart_summary"
         inherit_id="website_sale.short_cart_summary"
         customize_show="True"
     >
-        <xpath expr="//a[@href='/shop/checkout?express=1']" position="attributes">
+        <xpath expr="//a" position="attributes">
             <attribute name="class" />
             <attribute
                 name="t-attf-class"
             >#{'btn btn-secondary float-right d-none d-xl-inline-block' if user_authenticated else 'btn btn-default float-right d-none d-xl-inline-block'}</attribute>
         </xpath>
-        <xpath expr="//a[@href='/shop/checkout?express=1']" position="after">
+        <xpath expr="//a" position="after">
             <a
                 t-if="suggest_login"
                 role="button"
