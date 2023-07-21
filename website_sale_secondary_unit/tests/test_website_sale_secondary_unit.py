@@ -46,3 +46,13 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
     def test_ui_website(self):
         """Test frontend tour."""
         self.start_tour("/", "website_sale_secondary_unit", login="admin")
+
+    def test_add_product_not_allowed_uom(self):
+        self.product_template.write({"allow_uom_sell": False})
+        order = self.env["sale.order"].create(
+            {"partner_id": self.env.ref("base.res_partner_1").id}
+        )
+        order._cart_update(
+            product_id=self.product_template.product_variant_id.id, add_qty=1
+        )
+        self.assertEqual(order.cart_quantity, 1)

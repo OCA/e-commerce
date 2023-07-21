@@ -3,6 +3,28 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
 
     const VariantMixin = require("sale.VariantMixin");
     const sAnimation = require("website.content.snippets.animation");
+    var publicWidget = require("web.public.widget");
+    require("website_sale.website_sale");
+
+    publicWidget.registry.WebsiteSale.include({
+        _submitForm: function () {
+            if (
+                this.$form.find('input[name="add_secondary_qty"]').val() !== undefined
+            ) {
+                this.rootProduct.add_secondary_qty = parseFloat(
+                    this.$form.find('input[name="add_secondary_qty"]').val()
+                );
+            }
+            if (
+                this.$form.find('select[name="secondary_uom_id"]').val() !== undefined
+            ) {
+                this.rootProduct.secondary_uom_id = parseFloat(
+                    this.$form.find('select[name="secondary_uom_id"]').val()
+                );
+            }
+            return this._super();
+        },
+    });
 
     sAnimation.registry.sale_secondary_unit = sAnimation.Class.extend(VariantMixin, {
         selector: ".secondary-unit",
