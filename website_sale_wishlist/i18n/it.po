@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-27 02:43+0000\n"
-"PO-Revision-Date: 2023-07-17 17:13+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2023-07-21 10:09+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr "Utenti"
 #: model:ir.model,name:website_sale_wishlist.model_website
 #: model:ir.model.fields,field_description:website_sale_wishlist.field_product_wishlist_website_id
 msgid "Website"
-msgstr "Sito"
+msgstr "Sito web"
 
 #. module: website_sale_wishlist
 #: model:ir.model.fields,help:website_sale_wishlist.field_product_wishlist_session
