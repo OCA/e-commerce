@@ -45,10 +45,10 @@
     </template>
     <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
     <template id="product_buy_now" inherit_id="website_sale.product_buy_now">
-        <a 
-            role="button" 
-            t-attf-class="btn btn-outline-primary o_we_buy_now ms-1 #{'btn-lg' if ctaSizeBig else ''}" 
-            href="#" 
+        <a
++            role="button"
++            t-attf-class="btn btn-outline-primary o_we_buy_now ms-1 #{'btn-lg' if ctaSizeBig else ''}"
++            href="#"
             position="attributes"
         >
             <attribute name="t-if">
