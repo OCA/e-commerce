@@ -45,16 +45,14 @@
     </template>
     <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
     <template id="product_buy_now" inherit_id="website_sale.product_buy_now">
-        <a
-+            role="button"
-+            t-attf-class="btn btn-outline-primary o_we_buy_now ms-1 #{'btn-lg' if ctaSizeBig else ''}"
-+            href="#"
+        <xpath
++           expr="//a[hasclass('btn')]"
             position="attributes"
         >
             <attribute name="t-if">
                 website.website_show_price and not product.website_hide_price
             </attribute>
-        </a>
+        </xpath>
     </template>
     <!-- Hide add to cart button if "Add to cart" option is enabled and not website_show_price -->
     <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
