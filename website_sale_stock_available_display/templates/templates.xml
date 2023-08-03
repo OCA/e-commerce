@@ -12,6 +12,11 @@
                 t-set="virtual_available"
                 t-value="line.product_id.with_context(website_sale_stock_available=True).virtual_available"
             />
+            <!-- We don't want to show negative values -->
+            <t
+                t-set="virtual_available"
+                t-value="virtual_available if virtual_available > 0.0 else 0.0"
+            />
             <t
                 t-set="virtual_available_formatted"
                 t-value="env['ir.qweb.field.float'].value_to_html(virtual_available, {'decimal_precision': 'Product Unit of Measure'})"
@@ -19,10 +24,6 @@
             <div
                 t-attf-class="availability_messages text-#{virtual_available &gt; 0.0 and 'success' or 'danger'}"
             >
-                <t
-                    t-set="virtual_available"
-                    t-value="virtual_available if virtual_available > 0.0 else 0.0"
-                />
                 <span><t t-esc="virtual_available_formatted" /> <t
                         t-esc="line.product_uom.name"
                     /> in stock</span>
