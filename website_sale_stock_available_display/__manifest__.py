@@ -4,7 +4,7 @@
     "name": "Website Sale Stock Available Display",
     "summary": "Display stock in shop online and allow to sell with no stock "
     "available",
-    "version": "13.0.1.1.0",
+    "version": "13.0.1.1.1",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
