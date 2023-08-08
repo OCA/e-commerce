@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_country_form" model="ir.ui.view">
+        <field name="name">res.country.form</field>
+        <field name="model">res.country</field>
+        <field name="inherit_id" ref="base.view_country_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='div_address_format']" position="after">
+                <field
+                    name="online_address_format"
+                    placeholder="eCommerce address format..."
+                />
+                <div
+                    colspan="2"
+                    name="div_online_address_format"
+                    class="text-muted"
+                >Change the way addresses are displayed in eCommerce address forms</div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
