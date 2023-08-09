@@ -7,110 +7,60 @@
         inherit_id="website_sale.products_attributes"
         name="Collapsible attribute filters"
         active="False"
-        customize_show="True"
         priority="999"
     >
-        <!-- Add collapsible link for attribute -->
-        <xpath expr="//ul[hasclass('flex-column')]/t/li/div" position="before">
-            <div>
-                <a
-                    data-toggle="collapse"
-                    class="collapsed w-100 d-flex justify-content-between"
-                    t-attf-href="#collapse_v_{{a.id}}"
-                >
-                    <i
-                        class="fa fa-chevron-right"
-                        id="icon_attribute_collapsed"
-                        aria-hidden="true"
-                    />
-                    <i
-                        class="fa fa-chevron-down"
-                        id="icon_attribute_expanded"
-                        aria-hidden="true"
-                    />
-                </a>
-            </div>
+        <!-- Add accordion -->
+        <xpath expr="//t[@t-foreach='attributes']" position="before">
+            <div class="accordion" id="attributes_accordion" />
         </xpath>
-        <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/div/strong"
-            position="attributes"
-        >
-            <attribute name="class">o_shop_collapse_attribute_filter</attribute>
+        <xpath expr="//div[@id='attributes_accordion']" position="inside">
+            <xpath expr="//t[@t-foreach='attributes']" position="move" />
+        </xpath>
+        <xpath expr="//div[hasclass('accordion-item')]/h6" position="attributes">
+            <attribute name="class" separator=" " add="accordion-header" />
+            <attribute name="t-attf-id">heading_v_{{a.id}}</attribute>
+        </xpath>
+        <!-- Add collapsible link for attribute -->
+        <xpath expr="//div[hasclass('accordion-item')]/h6" position="inside">
+            <a
+                class="collapsed w-100 text-body d-inline-flex"
+                data-bs-toggle="collapse"
+                t-attf-data-bs-target="#collapse_v_{{a.id}}"
+                aria-expanded="false"
+                t-attf-aria-controls="collapse_v_{{a.id}}"
+            >
+                <i
+                    class="fa fa-chevron-left w-100"
+                    id="icon_attribute_collapsed"
+                    aria-hidden="true"
+                />
+                <i
+                    class="fa fa-chevron-down w-100"
+                    id="icon_attribute_expanded"
+                    aria-hidden="true"
+                />
+            </a>
         </xpath>
         <!-- Move attribute name to the collapsible link added-->
-        <xpath expr="//ul[hasclass('flex-column')]/t/li/div/a/i" position="before">
+        <xpath expr="//div[hasclass('accordion-item')]/h6/a/i" position="before">
             <xpath
-                expr="//ul[hasclass('flex-column')]/t/li/div[2]/strong"
+                expr="//b[hasclass('o_products_attributes_title')]"
                 position="move"
             />
         </xpath>
-        <!-- Hide empty div -->
-        <xpath expr="//ul[hasclass('flex-column')]/t/li/div[2]" position="attributes">
-            <attribute name="class" add="d-none" separator=" " />
-        </xpath>
-        <!-- Move 'select' type to a new collapsible zone -->
+        <!-- Move attributes to a new collapsible zone -->
         <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'select')]/select"
-            position="before"
+            expr="//div[@t-attf-id='o_products_attributes_{{a.id}}']"
+            position="replace"
         >
             <div
                 t-attf-id="collapse_v_{{a.id}}"
-                data-type="select"
-                class="pl-4"
-                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
-            />
-        </xpath>
-        <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'select')]/div[1]"
-            position="inside"
-        >
-            <xpath
-                expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'select')]/select"
-                position="move"
-            />
-        </xpath>
-        <!-- Move 'radio' type to a new collapsible zone -->
-        <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'radio')]/div"
-            position="before"
-        >
-            <div
-                t-attf-id="collapse_v_{{a.id}}"
-                data-type="radio"
-                class="pl-4"
-                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
-            />
-        </xpath>
-        <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'radio')]/div[1]"
-            position="inside"
-        >
-            <xpath
-                expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'radio')]/div[2]"
-                position="move"
-            />
-        </xpath>
-        <!-- Move 'color' type to a new collapsible zone -->
-        <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'color')]/t"
-            position="before"
-        >
-            <div
-                t-attf-id="collapse_v_{{a.id}}"
-                data-type="color"
-                class="pl-4"
-                t-attf-class="#{'collapse in show' if any(set(a.value_ids.ids) &amp; attrib_set) else 'collapse'}"
-            />
-        </xpath>
-        <xpath
-            expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'color')]/div"
-            position="inside"
-        >
-            <xpath
-                expr="//ul[hasclass('flex-column')]/t/li/t[contains(@t-if,'color')]/t"
-                position="move"
-            />
+                class="accordion-collapse collapse"
+                t-attf-aria-labelledby="heading_v_{{a.id}}"
+                data-bs-parent="#attributes_accordion"
+            >
+                <div class="accordion-body">$0</div>
+            </div>
         </xpath>
     </template>
-
 </odoo>

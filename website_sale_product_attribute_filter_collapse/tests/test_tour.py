@@ -8,14 +8,9 @@ from odoo.tests.common import HttpCase
 class WebsiteSaleProductAttributeFilterCollapseHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
-        self.attribute_category = self.env["product.attribute.category"].create(
-            {"name": "Test category"}
-        )
         self.product_attribute = self.env["product.attribute"].create(
             {
                 "name": "Test a1",
-                "create_variant": "no_variant",
-                "category_id": self.attribute_category.id,
             }
         )
         self.product_attribute_value_1 = self.env["product.attribute.value"].create(
@@ -52,7 +47,6 @@ class WebsiteSaleProductAttributeFilterCollapseHttpCase(HttpCase):
             }
         )
         # Active filter in /shop.
-        self.env.ref("website_sale.products_attributes").active = True
         self.env.ref(
             "website_sale_product_attribute_filter_collapse.products_attributes_collapsible"
         ).active = True

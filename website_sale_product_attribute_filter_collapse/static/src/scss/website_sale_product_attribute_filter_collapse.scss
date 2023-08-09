@@ -1,16 +1,16 @@
-a[data-toggle="collapse"].collapsed {
+a[data-bs-toggle="collapse"].collapsed {
     #icon_attribute_expanded {
         display: none;
     }
     #icon_attribute_collapsed {
-        display: inline-block;
-        color: $gray-500;
+        display: flex;
+        justify-content: flex-end;
     }
 }
-a[data-toggle="collapse"] {
+a[data-bs-toggle="collapse"] {
     #icon_attribute_expanded {
-        display: inline-block;
-        color: $gray-500;
+        display: flex;
+        justify-content: flex-end;
     }
     #icon_attribute_collapsed {
         display: none;
