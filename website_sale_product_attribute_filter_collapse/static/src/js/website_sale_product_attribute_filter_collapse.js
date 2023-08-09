@@ -20,8 +20,7 @@ odoo.define("website_sale_product_attribute_filter_collapse.tour", function (req
             trigger: "#add_to_cart",
         },
         {
-            trigger: "a[href='/shop/cart']",
-            extra_trigger: "sup.my_cart_quantity:contains('1')",
+            trigger: "button:contains('Proceed to Checkout')",
         },
         {
             trigger: ".btn-primary:contains('Process Checkout')",
