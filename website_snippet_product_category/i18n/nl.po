@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: website_snippet_product_category
-#. openerp-web
+#. odoo-javascript
 #: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
 msgid ""
@@ -31,7 +31,7 @@ msgid "Metal Box"
 msgstr ""
 
 #. module: website_snippet_product_category
-#. openerp-web
+#. odoo-javascript
 #: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
 msgid "No categories were found. Make sure you have categories defined."
