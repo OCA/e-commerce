@@ -1,8 +1,9 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo.tests import HttpCase
+from odoo.tests import HttpCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestFrontend(HttpCase):
     def setUp(self):
         super(TestFrontend, self).setUp()
