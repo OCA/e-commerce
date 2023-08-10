@@ -5,7 +5,6 @@ odoo.define("website_sale_order_type.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
@@ -15,8 +14,7 @@ odoo.define("website_sale_order_type.tour", function (require) {
             trigger: "#add_to_cart",
         },
         {
-            trigger: "a[href='/shop/cart']",
-            extra_trigger: "sup.my_cart_quantity:contains('1')",
+            trigger: "button:contains('Proceed to Checkout')",
         },
         {
             trigger: ".btn:contains('Process Checkout')",
@@ -27,7 +25,6 @@ odoo.define("website_sale_order_type.tour", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
