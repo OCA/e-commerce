@@ -21,11 +21,6 @@ msgid ""
 msgstr ""
 
 #. module: website_sale_cart_expire
-#: model:ir.model,name:website_sale_cart_expire.model_sale_order
-msgid "Allowing sale_order_type to work with website_sale."
-msgstr ""
-
-#. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid "Automatically cancel carts without activity after a period of time"
 msgstr ""
@@ -68,6 +63,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_cart_expire.field_res_config_settings__cart_expire_delay
 #: model:ir.model.fields,field_description:website_sale_cart_expire.field_website__cart_expire_delay
 msgid "Expire Delay"
+msgstr ""
+
+#. module: website_sale_cart_expire
+#: model:ir.model,name:website_sale_cart_expire.model_sale_order
+msgid "Sales Order"
 msgstr ""
 
 #. module: website_sale_cart_expire
