@@ -17,11 +17,6 @@ msgstr ""
 "X-Generator: Weblate 4.14.1\n"
 
 #. module: website_sale_stock_available
-#: model:ir.model,name:website_sale_stock_available.model_sale_order
-msgid "Allowing sale_order_type to work with website_sale."
-msgstr "Permite a sale_order_type trabajar con website_sale."
-
-#. module: website_sale_stock_available
 #: model:ir.model,name:website_sale_stock_available.model_product_product
 msgid "Product"
 msgstr "Producto"
@@ -31,6 +26,14 @@ msgstr "Producto"
 msgid "Product Template"
 msgstr "Plantilla de Producto"
 
+#. module: website_sale_stock_available
+#: model:ir.model,name:website_sale_stock_available.model_sale_order
+msgid "Sales Order"
+msgstr "Pedidos de Ventas"
+
+#~ msgid "Allowing sale_order_type to work with website_sale."
+#~ msgstr "Permite a sale_order_type trabajar con website_sale."
+
 #~ msgid "Display Name"
 #~ msgstr "Mostrar Nombre"
 
@@ -39,6 +42,3 @@ msgstr "Plantilla de Producto"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Última modificación en"
-
-#~ msgid "Sales Order"
-#~ msgstr "Pedidos de Ventas"
