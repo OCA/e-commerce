@@ -20,17 +20,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid ""
 "<span class=\"o_form_label\">Expire Carts</span>\n"
-"                        <span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-specific.\" groups=\"website.group_multi_website\"/>"
+"                        <span class=\"fa fa-lg fa-globe\" title=\"Values set "
+"here are website-specific.\" groups=\"website.group_multi_website\"/>"
 msgstr ""
 "<span class=\"o_form_label\">lotes caducados</span>\n"
 "                                                       <span class=\"fa fa-"
 "lg fa-globe\" title=\"Values set here are website-specific.\" groups="
 "\"website.group_multi_website\"/>"
-
-#. module: website_sale_cart_expire
-#: model:ir.model,name:website_sale_cart_expire.model_sale_order
-msgid "Allowing sale_order_type to work with website_sale."
-msgstr "Permitir que sale_order_type funcione con website_sale."
 
 #. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
@@ -82,6 +78,11 @@ msgid "Expire Delay"
 msgstr "Expiración retardada"
 
 #. module: website_sale_cart_expire
+#: model:ir.model,name:website_sale_cart_expire.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_cart_expire
 #: model:ir.model.fields,help:website_sale_cart_expire.field_sale_order__cart_expire_date
 msgid "Technical field: The date this cart will automatically expire"
 msgstr "Campo técnico: La fecha en que este lote caducará automáticamente"
@@ -102,3 +103,6 @@ msgstr "Página web: lotes caducados"
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid "hours."
 msgstr "horas."
+
+#~ msgid "Allowing sale_order_type to work with website_sale."
+#~ msgstr "Permitir que sale_order_type funcione con website_sale."
