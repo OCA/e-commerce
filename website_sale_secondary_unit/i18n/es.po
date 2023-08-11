@@ -30,11 +30,6 @@ msgid "Allow to sell in unit of measure"
 msgstr "Permitir vender en la unidad de medida"
 
 #. module: website_sale_secondary_unit
-#: model:ir.model,name:website_sale_secondary_unit.model_sale_order
-msgid "Allowing sale_order_type to work with website_sale."
-msgstr "Permitir que sale_order_type funcione con website_sale."
-
-#. module: website_sale_secondary_unit
 #: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_10
 #: model:product.secondary.unit,name:website_sale_secondary_unit.secondary_unit_box_5
 msgid "Box"
@@ -78,6 +73,11 @@ msgid "Remove one"
 msgstr "Quitar uno"
 
 #. module: website_sale_secondary_unit
+#: model:ir.model,name:website_sale_secondary_unit.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_secondary_unit
 #: model:ir.model,name:website_sale_secondary_unit.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido"
@@ -96,6 +96,9 @@ msgstr "Visible en la página web actual"
 #: model:ir.model.fields,field_description:website_sale_secondary_unit.field_product_secondary_unit__website_url
 msgid "Website URL"
 msgstr "URL de la página web"
+
+#~ msgid "Allowing sale_order_type to work with website_sale."
+#~ msgstr "Permitir que sale_order_type funcione con website_sale."
 
 #~ msgid "Is published"
 #~ msgstr "Está publicado"
