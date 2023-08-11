@@ -18,7 +18,7 @@ msgstr ""
 
 #. module: website_sale_order_type
 #: model:ir.model,name:website_sale_order_type.model_sale_order
-msgid "Allowing sale_order_type to work with website_sale."
+msgid "Sales Order"
 msgstr ""
 
 #~ msgid "Sale Order"
