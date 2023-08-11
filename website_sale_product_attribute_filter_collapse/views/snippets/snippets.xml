@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="snippet_options" inherit_id="website_sale.snippet_options">
+        <xpath
+            expr="//we-checkbox[@data-customize-website-views='website_sale.filter_products_price']"
+            position="after"
+        >
+            <we-checkbox
+                string="Collapsible attribute filters"
+                data-customize-website-views="website_sale_product_attribute_filter_collapse.products_attributes_collapsible"
+                data-reload="/"
+            />
+        </xpath>
+    </template>
+</odoo>

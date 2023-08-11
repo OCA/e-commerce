@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="products_attributes_collapsible"
+        inherit_id="website_sale.products_attributes"
+        name="Collapsible attribute filters"
+        active="False"
+        priority="999"
+    >
+        <!-- Add accordion -->
+        <xpath expr="//t[@t-foreach='attributes']" position="before">
+            <div class="accordion" id="attributes_accordion" />
+        </xpath>
+        <xpath expr="//div[@id='attributes_accordion']" position="inside">
+            <xpath expr="//t[@t-foreach='attributes']" position="move" />
+        </xpath>
+        <xpath expr="//div[hasclass('accordion-item')]/h6" position="attributes">
+            <attribute name="class" separator=" " add="accordion-header" />
+            <attribute name="t-attf-id">heading_v_{{a.id}}</attribute>
+        </xpath>
+        <!-- Add collapsible link for attribute -->
+        <xpath expr="//div[hasclass('accordion-item')]/h6" position="inside">
+            <a
+                class="collapsed w-100 text-body d-inline-flex"
+                data-bs-toggle="collapse"
+                t-attf-data-bs-target="#collapse_v_{{a.id}}"
+                aria-expanded="false"
+                t-attf-aria-controls="collapse_v_{{a.id}}"
+            >
+                <i
+                    class="fa fa-chevron-left w-100"
+                    id="icon_attribute_collapsed"
+                    aria-hidden="true"
+                />
+                <i
+                    class="fa fa-chevron-down w-100"
+                    id="icon_attribute_expanded"
+                    aria-hidden="true"
+                />
+            </a>
+        </xpath>
+        <!-- Move attribute name to the collapsible link added-->
+        <xpath expr="//div[hasclass('accordion-item')]/h6/a/i" position="before">
+            <xpath
+                expr="//b[hasclass('o_products_attributes_title')]"
+                position="move"
+            />
+        </xpath>
+        <!-- Move attributes to a new collapsible zone -->
+        <xpath
+            expr="//div[@t-attf-id='o_products_attributes_{{a.id}}']"
+            position="replace"
+        >
+            <div
+                t-attf-id="collapse_v_{{a.id}}"
+                class="accordion-collapse collapse"
+                t-attf-aria-labelledby="heading_v_{{a.id}}"
+                data-bs-parent="#attributes_accordion"
+            >
+                <div class="accordion-body">$0</div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

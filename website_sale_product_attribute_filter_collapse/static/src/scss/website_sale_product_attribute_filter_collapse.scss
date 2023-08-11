@@ -1,0 +1,21 @@
+a[data-bs-toggle="collapse"].collapsed {
+    #icon_attribute_expanded {
+        display: none;
+    }
+    #icon_attribute_collapsed {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+a[data-bs-toggle="collapse"] {
+    #icon_attribute_expanded {
+        display: flex;
+        justify-content: flex-end;
+    }
+    #icon_attribute_collapsed {
+        display: none;
+    }
+}
+a:hover {
+    text-decoration: none;
+}
