@@ -1,9 +1,10 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* website_sale_product_attribute_filter_collapse
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,3 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: website_sale_product_attribute_filter_collapse
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attribute_filter_collapse.snippet_options
+msgid "Collapsible attribute filters"
+msgstr ""
