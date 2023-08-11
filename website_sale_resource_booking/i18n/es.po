@@ -76,7 +76,7 @@ msgid "Pre-booking timeout"
 msgstr "Validez de las prereservas"
 
 #. module: website_sale_resource_booking
-#: code:addons/website_sale_resource_booking/controllers/main.py:73
+#: code:addons/website_sale_resource_booking/controllers/main.py:0
 #, python-format
 msgid "Pre-schedule your booking (%(index)d of %(total)d)"
 msgstr "Agende su prereserva (%(index)d de %(total)d)"
@@ -109,8 +109,8 @@ msgstr "Expiración de reservas/citas de recursos"
 
 #. module: website_sale_resource_booking
 #: model:ir.model,name:website_sale_resource_booking.model_sale_order
-msgid "Sale Order"
-msgstr "Pedido de venta"
+msgid "Sales Order"
+msgstr ""
 
 #. module: website_sale_resource_booking
 #: model:ir.model,name:website_sale_resource_booking.model_sale_order_line
@@ -145,3 +145,6 @@ msgid ""
 msgstr ""
 "¿Cuándo expirará esta reserva/cita, si su presupuesto vinculado no se "
 "confirma a tiempo?"
+
+#~ msgid "Sale Order"
+#~ msgstr "Pedido de venta"
