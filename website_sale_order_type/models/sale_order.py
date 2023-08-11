@@ -6,7 +6,6 @@ from odoo import models
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
-    _description = "Allowing sale_order_type to work with website_sale."
 
     def _cart_update(
         self,
