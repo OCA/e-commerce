@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: website_sale_invoice_address
 #: model:ir.model,name:website_sale_invoice_address.model_sale_order
-msgid "Allowing sale_order_type to work with website_sale."
+msgid "Sales Order"
 msgstr ""
 
 #. module: website_sale_invoice_address
