@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_attributes_filter_manual"
+        name="Manual filters"
+        inherit_id="website_sale.products_attributes"
+        active="False"
+        customize_show="True"
+    >
+        <xpath expr="//form[hasclass('js_attributes')]" position="inside">
+            <div class='py-2'>
+                <button id="btn-attribute-filter" class="btn btn-primary">
+                    Apply
+                </button>
+            </div>
+        </xpath>
+        <xpath expr="//form[hasclass('js_attributes')]" position="attributes">
+            <attribute name="class" separator=" " add="js_attributes_manual" />
+        </xpath>
+    </template>
+    <template
+        id="o_wsale_offcanvas"
+        name="Manual filters Manual Filters"
+        inherit_id="website_sale.o_wsale_offcanvas"
+    >
+        <xpath expr="//form" position="attributes">
+            <attribute name="t-attf-class" separator=" " add="js_attributes_manual" />
+        </xpath>
+        <xpath
+            expr="//div[hasclass('offcanvas-body')]/a[contains(@t-attf-class, 'isFilteringByPrice')]"
+            position="after"
+        >
+            <button
+                name="btn_submit_filters_mobile"
+                class="btn btn-primary d-flex py-1 mb-2"
+                title="Clear Filters"
+            >
+                Apply
+            </button>
+        </xpath>
+        <xpath
+            expr="//div[contains(@t-if,&quot;a.display_type == 'select'&quot;)]"
+            position="after"
+        >
+            <div class="list-group list-group-flush" t-if="a.display_type == 'select'">
+                <select
+                    name="attrib"
+                    t-att-id="'%s-%s' % (a.id,v.id)"
+                    t-att-value="'%s-%s' % (a.id,v.id)"
+                    t-attf-class="form-control"
+                >
+                    <t t-foreach="a.value_ids" t-as="v">
+                        <option t-att-value="'%s-%s' % (a.id,v.id)">
+                            <span t-field="v.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </xpath>
+        <xpath
+            expr="//div[contains(@t-if,&quot;a.display_type == 'select'&quot;)]"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >a.display_type == 'radio' or a.display_type == 'pills'</attribute>
+        </xpath>
+    </template>
+</odoo>
