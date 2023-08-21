@@ -5,7 +5,7 @@
 {
     "name": "eCommerce product attachments",
     "summary": "Let visitors download attachments from a product page",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
