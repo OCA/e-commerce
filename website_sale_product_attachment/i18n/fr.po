@@ -81,8 +81,8 @@ msgstr ""
 
 #. module: website_sale_product_attachment
 #: model:ir.model,name:website_sale_product_attachment.model_product_template
-msgid "Product Template"
-msgstr "Modèle d'article"
+msgid "Product"
+msgstr ""
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_ir_attachment__website_name
@@ -101,3 +101,6 @@ msgstr "Pièces jointes de site Web"
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__website_attachment_ids
 msgid "Website attachments"
 msgstr "Pièces jointes de site Web"
+
+#~ msgid "Product Template"
+#~ msgstr "Modèle d'article"
