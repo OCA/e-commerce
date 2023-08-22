@@ -10,16 +10,19 @@ class ProductAlias(models.Model):
 
     product_tmpl_id = fields.Many2one(
         "product.template",
+        required=True,
     )
 
     name = fields.Char(
         string="Name",
+        required=True,
     )
 
     attribute_value_ids = fields.Many2many(
         "product.attribute.value",
         string="Attribute Values",
         domain="[('id', 'in', available_attribute_value_ids)]",
+        required=True,
     )
 
     available_attribute_value_ids = fields.Many2many(
