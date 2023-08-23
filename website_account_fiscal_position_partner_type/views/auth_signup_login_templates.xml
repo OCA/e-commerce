@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Copyright 2021 Valentin Vinagre <valentin.vinagre@sygel.es>
+    Copyright 2023 Manuel Regidor <manuel.regidor@sygel.es>
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
     <template
-        id="address_fiscal_position_type"
-        inherit_id="website_sale.address_b2b"
-        name="Show Fiscal Position Type"
-        customize_show="True"
+        id="website_account_fiscal_position_partner_type_auth_signup"
+        inherit_id="auth_signup.fields"
     >
-        <xpath expr="//input[@name='company_name']/.." position="before">
-            <div class="form-group col-lg-6" id="fiscal_position_type">
+        <xpath expr="//div[hasclass('field-password')]" position="before">
+            <div class="form-group field-fiscalpositiontype">
                 <label
                     class="col-form-label"
                     for="fiscal_position_type"
@@ -20,13 +18,12 @@
                     id="fiscal_position_type"
                     name="fiscal_position_type"
                     class="form-control"
-                    t-att-disabled="'1' if not can_edit_vat else None"
-                    t-attf-class="form-control #{error.get('fiscal_position_type') and 'is-invalid' or ''}"
+                    t-att-disabled="'1' if only_passwords else None"
                 >
                     <t t-foreach="fiscpostypevalues" t-as="fptv">
                         <option
+                            t-att-selected="fiscal_position_type_selected == fptv"
                             t-att-value="fptv"
-                            t-att-selected="fptv  == (def_fiscpostype)"
                         >
                             <t t-esc="fiscpostypevalues[fptv]" />
                         </option>
