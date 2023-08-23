@@ -5,11 +5,12 @@ odoo.define("website_sale_wishlist_keep.tour", function (require) {
     "use strict";
 
     const tour = require("web_tour.tour");
-    const base = require("web_editor.base");
 
     const steps = [
         {
-            trigger: ".card-body:has(a:contains('Test Product')) .o_add_wishlist",
+            content: "Add Test Product to wishlist from /shop",
+            extra_trigger: '.oe_product_cart:contains("Test Product")',
+            trigger: '.oe_product_cart:contains("Test Product") .o_add_wishlist',
         },
         {
             trigger: "a[href='/shop/wishlist']",
@@ -37,7 +38,6 @@ odoo.define("website_sale_wishlist_keep.tour", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
