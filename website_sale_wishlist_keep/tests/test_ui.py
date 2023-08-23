@@ -1,8 +1,10 @@
 # Copyright 2020 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 
+@tagged("-at_install", "post_install")
 class TestUi(HttpCase):
     def setUp(self):
         super().setUp()
