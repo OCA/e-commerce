@@ -37,7 +37,9 @@ class WebsiteSaleVariantController(VariantController):
                     "product_template": template.id,
                     "product_type": template.type,
                     "free_qty": sum(variants.mapped("free_qty")),
-                    "cart_qty": sum(variants.mapped("cart_qty")),
+                    "cart_qty": sum(
+                        [product._get_cart_qty(current_website) for product in variants]
+                    ),
                     "out_of_stock_message": template.out_of_stock_message,
                     "allow_out_of_stock_order": template.allow_out_of_stock_order,
                     "show_availability": template.show_availability,
