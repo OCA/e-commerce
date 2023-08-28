@@ -1,0 +1,6 @@
+// Bootstrap button disabled style has been broke at
+// https://github.com/odoo/odoo/blob/6177fac863a29c86ed4e5ede8d48aa31da3a8508/addons/website_sale/static/src/scss/website_sale.scss#L210-L223
+// Recovering it to difference between disabled and enabled
+.oe_product_cart .o_wsale_product_btn .btn.disabled {
+    opacity: 0.65;
+}
