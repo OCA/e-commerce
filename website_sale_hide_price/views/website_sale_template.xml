@@ -38,10 +38,10 @@
             >pricelist,product,website,website.website_show_price,product.website_hide_price</attribute>
         </xpath>
         <xpath expr="//a[@id='add_to_cart']" position="before">
-            <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
                 class="alert alert-info"
-                t-if="product.website_hide_price and (product.website_hide_price_message or website.website_hide_price_default_message) and user_authenticated"
+                t-if="(product.website_hide_price_message or website.website_hide_price_default_message)
+                 and not (website and website.website_show_price and not product.website_hide_price)"
             >
                 <i class="fa fa-info-circle" /> <span
                     t-esc="product.website_hide_price_message or website.website_hide_price_default_message"
