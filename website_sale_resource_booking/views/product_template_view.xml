@@ -9,13 +9,13 @@
             name="inherit_id"
             ref="sale_resource_booking.product_template_form_view"
         />
-        <field name="groups_id" eval="[(4, ref('resource_booking.group_user'), 0)]" />
         <field name="arch" type="xml">
             <group name='booking' position='inside'>
                 <field
                     name="resource_booking_timeout"
                     widget="float_time"
                     attrs="{'invisible': [('resource_booking_type_id', '=', False)]}"
+                    groups_id="[(4, ref('resource_booking.group_user'), 0)]"
                 />
             </group>
         </field>
