@@ -12,19 +12,18 @@ odoo.define("wbesite_sale_suggest_create_account.shop_buy", function (require) {
         [
             // Shop Page
             {
-                trigger: "a.o_product_link:first",
+                trigger: "a:contains('Customizable')",
             },
-            // Product Page
             {
                 trigger: "#add_to_cart",
             },
-            // Go to cart
             {
-                trigger: 'a[href="/shop/cart"]',
-                extra_trigger: "sup.my_cart_quantity:contains('1')",
+                trigger: "button:contains('Proceed to Checkout')",
             },
+            // Cart page
             {
-                trigger: 'a.btn-secondary[href^="/web/login"]:first',
+                trigger:
+                    "a.btn-primary[href='/web/login?redirect=/shop/checkout?express=1']",
             },
             // TODO: Add a step to check that "checkout" button doesn't exists
             // Odoo 13.0 initial config doesn't have b2c actived for the website
