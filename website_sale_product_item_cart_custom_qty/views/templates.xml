@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+    <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
+        <!-- Add quantity selector -->
+        <xpath expr="//span[hasclass('fa-shopping-cart')]/.." position="before">
+            <div
+                class="css_quantity input-group"
+                style="display: inline-flex;"
+                t-if="product.visible_qty_configurator"
+            >
+                <div class="input-group-prepend">
+                    <a
+                        href=""
+                        class="btn btn-primary js_add_cart_json d-none d-md-inline-block"
+                        aria-label="Remove one"
+                        title="Remove one"
+                    >
+                        <i class="fa fa-minus" />
+                    </a>
+                </div>
+                <input
+                    type="text"
+                    class="js_quantity form-control quantity"
+                    data-min="1"
+                    name="add_qty"
+                    t-att-value="add_qty or 1"
+                />
+                <div class="input-group-append">
+                    <a
+                        href=""
+                        class="btn btn-primary float_left js_add_cart_json d-none d-md-inline-block"
+                        aria-label="Add one"
+                        title="Add one"
+                    >
+                        <i class="fa fa-plus" />
+                    </a>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
