@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-website_sale_attribute_filter_form_submit>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_attribute_filter_multiselect>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_cart_expire>=16.0dev,<16.1dev',
+        'odoo-addon-website_sale_checkout_skip_payment>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_comparison_hide_price>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_hide_price>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_order_type>=16.0dev,<16.1dev',
