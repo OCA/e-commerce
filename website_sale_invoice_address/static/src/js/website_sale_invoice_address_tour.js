@@ -8,7 +8,7 @@ odoo.define("website_sale_invoice_address.tour", function (require) {
 
     var steps = [
         {
-            trigger: "a:contains('Large Meeting Table')",
+            trigger: "a:contains('Chair floor protection')",
         },
         {
             trigger: "#add_to_cart",
