@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_filter_product_brand',
         'odoo14-addon-website_sale_hide_empty_category',
         'odoo14-addon-website_sale_hide_price',
+        'odoo14-addon-website_sale_infinite_scroll',
         'odoo14-addon-website_sale_invoice_address',
         'odoo14-addon-website_sale_order_type',
         'odoo14-addon-website_sale_payment_term_acquirer',
