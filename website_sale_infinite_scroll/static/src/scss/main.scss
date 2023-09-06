@@ -1,0 +1,44 @@
+.website_sale_infinite_scroll-spinner {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    background: url(/infinite_scroll_preloader) center top no-repeat;
+    padding-top: 115px;
+    margin-top: 30px;
+}
+
+#scrollUp {
+    color: rgba(0, 0, 0, 0.7) !important;
+    mix-blend-mode: unset !important;
+}
+
+.website_sale_infinite_scroll_custom {
+    > form {
+        height: 100%;
+        height: -moz-available; /* WebKit-based browsers will ignore this. */
+        height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+        height: fill-available;
+    }
+}
+
+/* Safari only */
+
+@media not all and (min-resolution: 0.001dpcm) {
+    /* Styles only for Safari 6 and earlier versions */
+    .only-safari {
+        padding-bottom: 0.75rem !important;
+    }
+}
+
+/* Styles only for Safari 7 and later */
+_::-webkit-full-page-media,
+_:future,
+:root .only-safari {
+    padding-bottom: 0.75rem !important;
+}
+
+@media not all and (min-resolution: 0.001dpcm) and (-webkit-min-device-pixel-ratio: 0) and (min-color-index: 0) {
+    .only-safari {
+        padding-bottom: 0.75rem !important;
+    }
+}
