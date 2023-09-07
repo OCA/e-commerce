@@ -6,102 +6,108 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-09-07 13:37+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "\" category."
-msgstr ""
+msgstr "\"."
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid ""
 "Click <i>'New'</i> in the top-right corner to create your first product."
 msgstr ""
+"Fai clic su <i>'Nuovo'</i> nell'angolo in alto a destra per creare un "
+"prodotto."
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model,name:website_sale_infinite_scroll.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Impostazioni configurazione"
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_website__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "Drag building blocks here to customize the header for \""
 msgstr ""
+"Trascina qui i componenti per personalizzare l'intestazione della categoria "
+"\""
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_res_config_settings__id
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_website__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_website__infinite_scroll_ppg
 msgid "Infinite Scroll Ppg"
-msgstr ""
+msgstr "Ppg infinite scroll"
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_website____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: website_sale_infinite_scroll
 #. openerp-web
 #: code:addons/website_sale_infinite_scroll/static/src/js/main.js:0
 #, python-format
 msgid "Loading more products..."
-msgstr ""
+msgstr "Carico altri prodotti..."
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "No product defined"
-msgstr ""
+msgstr "Nessun prodotto definito"
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "No product defined in category \""
-msgstr ""
+msgstr "Nessun prodotto definito nella categoria \""
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "No results"
-msgstr ""
+msgstr "Nessun risultato"
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "No results for \""
-msgstr ""
+msgstr "Nessun risultato per \""
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model,name:website_sale_infinite_scroll.model_website
 msgid "Website"
-msgstr ""
+msgstr "Sito web"
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.res_config_settings_view_form
 msgid "Website sale infinite scroll preloader"
-msgstr ""
+msgstr "Immagine caricamento infinite scroll"
 
 #. module: website_sale_infinite_scroll
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_res_config_settings__website_sale_infinite_scroll_preloader
 #: model:ir.model.fields,field_description:website_sale_infinite_scroll.field_website__infinite_scroll_preloader
 msgid "eCommerce Infinite Scroll"
-msgstr ""
+msgstr "Infinite scroll eCommerce"
 
 #. module: website_sale_infinite_scroll
 #: model_terms:ir.ui.view,arch_db:website_sale_infinite_scroll.scroll_products
 msgid "in category \""
-msgstr ""
+msgstr "nella categoria \""
