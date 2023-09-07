@@ -44,8 +44,10 @@ odoo.define("website_sale_cart_expire", (require) => {
          * @param {String|Date} expireDate
          */
         _setExpirationDate: function (expireDate) {
-            if (typeof expireDate === "string") {
+            if (typeof expireDate === "string" && !isNaN(Date.parse(expireDate))) {
                 expireDate = time.str_to_datetime(expireDate);
+            } else {
+                expireDate = undefined;
             }
             this.expireDate = expireDate ? moment(expireDate) : false;
         },
