@@ -1,8 +1,9 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase
+from odoo.tests import HttpCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestUI(HttpCase):
     def setUp(self):
         super().setUp()
@@ -12,6 +13,14 @@ class TestUI(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "consu",
+            }
+        )
+        self.product_service = self.env["product.template"].create(
+            {
+                "name": "Test Product 2",
+                "is_published": True,
+                "website_sequence": 1,
+                "type": "service",
             }
         )
 
@@ -60,3 +69,30 @@ class TestUI(HttpCase):
             }
         )
         self.start_tour("/shop", "test_assortment_with_no_purchase", login="admin")
+
+    def test_04_ui_no_show_multifilter(self):
+        self.env["ir.filters"].create(
+            {
+                "name": "Assortment Service",
+                "model_id": "product.product",
+                "is_assortment": True,
+                "domain": [("type", "=", "service")],
+                "partner_domain": "[('id', '=', %s)]"
+                % self.env.ref("base.partner_admin").id,
+                "website_availability": "no_show",
+            }
+        )
+        self.env["ir.filters"].create(
+            {
+                "name": "Assortment Consu",
+                "model_id": "product.product",
+                "is_assortment": True,
+                "domain": [("type", "=", "consu")],
+                "partner_domain": "[('id', '=', %s)]"
+                % self.env.ref("base.partner_admin").id,
+                "website_availability": "no_show",
+            }
+        )
+        self.start_tour(
+            "/shop", "test_assortment_with_no_show_multifilter", login="admin"
+        )
