@@ -11,6 +11,8 @@ class WebsiteSaleHttpCase(odoo.tests.HttpCase):
         super().setUp()
         # Active skip payment for Mitchel Admin
         self.partner = self.env.ref("base.partner_admin")
+        # VAT required by the module website_sale_vat_required
+        self.partner.vat = "US01234567891"
         self.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
             {"skip_website_checkout_payment": True}
         )
