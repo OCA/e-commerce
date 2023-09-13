@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-product_template_multi_link>=15.0dev,<15.1dev',
+        'odoo-addon-website_account_fiscal_position_partner_type>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_address_format>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_attribute_filter_form_submit>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_b2x_alt_price>=15.0dev,<15.1dev',
