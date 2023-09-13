@@ -24,7 +24,7 @@ odoo.define("website_sale_invoice_address.tour", function (require) {
     tour.register(
         "website_sale_invoice_address_tour",
         {
-            url: "/shop",
+            url: "/shop?search=Large%20Meeting%20Table",
             test: true,
         },
         steps
