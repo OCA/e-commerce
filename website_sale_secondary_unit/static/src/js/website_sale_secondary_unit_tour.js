@@ -44,13 +44,11 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
         },
         {
             trigger: "button[name='o_payment_submit_button']",
-            extra_trigger:
-                "table:has(span:contains(Box 5 Units)):has(span:contains(Units))",
+            extra_trigger: "table:has(span:contains(Box 5)):has(span:contains(Units))",
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger:
-                "table:has(span:contains(Box 5 Units)):has(span:contains(Units))",
+            extra_trigger: "table:has(span:contains(Box 5)):has(span:contains(Units))",
         },
     ];
 
