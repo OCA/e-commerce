@@ -41,9 +41,12 @@
             t-set="factor"
             t-value="int(secondary_uom.factor) == secondary_uom.factor and int(secondary_uom.factor) or secondary_uom.factor"
         />
+        <!-- Show/hide unit of measure: In case the secondary unit of measure matches the unit of measure of the product it can be omitted so that it is not redundant depending on where this template is called from. -->
         <span
-            t-esc="'{} {} {}'.format(secondary_uom.name, factor, secondary_uom.product_tmpl_id.sudo().uom_id.name)"
+            t-if="not hide_uom_name"
+            t-out="'{} {} {}'.format(secondary_uom.name, factor, secondary_uom.product_tmpl_id.sudo().uom_id.name)"
         />
+        <span t-else="" t-out="'{} {}'.format(secondary_uom.name, factor)" />
     </template>
     <template
         id="product"
@@ -69,7 +72,7 @@
                             t-att-data-secondary-uom-factor="1.0"
                             t-att-data-product-uom-factor="1.0"
                         >
-                            <span t-esc="product.uom_id.sudo().name" />
+                            <span t-out="product.uom_id.sudo().name" />
                         </option>
                         <t t-foreach="secondary_uom_ids" t-as="secondary_uom">
                             <option
@@ -162,7 +165,7 @@
             position="after"
         >
             <t t-if="not line.secondary_uom_id">
-                <span t-esc="line.product_uom.sudo().name" />
+                <span t-out="line.product_uom.sudo().name" />
             </t>
         </xpath>
         <xpath expr="//th[hasclass('td-qty')]" position="after">
@@ -171,9 +174,9 @@
         <xpath expr="//td[hasclass('td-qty')]" position="after">
             <td class="text-center td-qty d-none d-md-table-cell">
                 <span
-                    t-esc="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
+                    t-out="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
                 />
-                <span t-esc="line.product_uom.sudo().name" />
+                <span t-out="line.product_uom.sudo().name" />
             </td>
         </xpath>
         <!-- Display product uom to price column to clarify that price is per product unit -->
@@ -189,12 +192,25 @@
     <template id="cart_summary" inherit_id="website_sale.cart_summary">
         <xpath expr="//td[hasclass('td-qty')]" position="inside">
             <t t-if="line.secondary_uom_id">
-                <div
-                    t-esc="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
-                />
-                <t t-call="website_sale_secondary_unit.second_qty_description">
-                    <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
-                </t>
+                <div>
+                    <span
+                        t-out="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
+                    />
+                    <span t-out="line.product_uom.sudo().name" />
+                </div>
+                <div class="font-weight-light">
+                    <t
+                        t-out="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
+                    />
+                    <t t-call="website_sale_secondary_unit.second_qty_description">
+                        <t
+                            t-if="line.product_uom.sudo().name == line.secondary_uom_id.product_tmpl_id.sudo().uom_id.name"
+                            t-set="hide_uom_name"
+                            t-value="True"
+                        />
+                        <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
+                    </t>
+                </div>
             </t>
         </xpath>
         <xpath expr="//td[hasclass('td-qty')]/div" position="attributes">
@@ -204,19 +220,8 @@
         </xpath>
         <xpath expr="//td[hasclass('td-qty')]/div" position="after">
             <t t-if="not line.secondary_uom_id">
-                <span t-esc="line.product_uom.sudo().name" />
+                <span t-out="line.product_uom.sudo().name" />
             </t>
-        </xpath>
-        <xpath expr="//th[hasclass('td-qty')]" position="after">
-            <th class="text-center td-qty">Quantity</th>
-        </xpath>
-        <xpath expr="//td[hasclass('td-qty')]" position="after">
-            <td class="text-center td-qty">
-                <span
-                    t-esc="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
-                />
-                <span t-esc="line.product_uom.sudo().name" />
-            </td>
         </xpath>
         <!-- Display product uom to price column to clarify that price is per product unit -->
         <xpath expr="//td[hasclass('td-price')]" position="inside">
@@ -232,7 +237,7 @@
         <xpath expr="//div[hasclass('col-9')]" position="inside">
             <div t-if="line.secondary_uom_id">
                 Qty: <t
-                    t-esc="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
+                    t-out="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
                 />
                 <t t-call="website_sale_secondary_unit.second_qty_description">
                     <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
