@@ -52,7 +52,7 @@ addon | version | maintainers | summary
 [website_sale_require_legal](website_sale_require_legal/) | 15.0.2.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 15.0.1.0.1 |  | Force users to login for buying
 [website_sale_resource_booking](website_sale_resource_booking/) | 15.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let customers book resources temporarily before buying
-[website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.1.0 |  | Allow manage secondary units in website shop
+[website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.2.0 |  | Allow manage secondary units in website shop
 [website_sale_stock_available](website_sale_stock_available/) | 15.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 15.0.1.0.0 |  | Show the stock of products on the product previews
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 15.0.1.0.0 |  | Display provisioning date for a product in shop online
