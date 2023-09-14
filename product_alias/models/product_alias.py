@@ -39,6 +39,8 @@ class ProductAlias(models.Model):
                     [("id", "=", self.env.context.get("default_product_tmpl_id"))],
                     limit=1,
                 )
-                rec.available_attribute_value_ids = [
-                    (6, 0, tmpl.attribute_line_ids.value_ids._origin.ids)
-                ]
+            else:
+                tmpl = self.product_tmpl_id
+            rec.available_attribute_value_ids = [
+                (6, 0, tmpl.attribute_line_ids.value_ids._origin.ids)
+            ]
