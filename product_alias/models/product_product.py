@@ -19,7 +19,7 @@ class ProductProduct(models.Model):
         for alias in self.product_alias_ids:
             attrs = alias.attribute_value_ids.attribute_id
             variant_values = values.filtered(lambda s: s.attribute_id in attrs)
-            if not (variant_values - alias.attribute_value_ids):
+            if variant_values and not (variant_values - alias.attribute_value_ids):
                 match |= alias
         if len(match) > 1:
             raise UserError(
