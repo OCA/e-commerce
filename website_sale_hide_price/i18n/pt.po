@@ -76,8 +76,8 @@ msgstr "Mostrar Preços Website"
 #: model:ir.model.fields,help:website_sale_hide_price.field_res_config_settings__website_hide_price_default_message
 #: model:ir.model.fields,help:website_sale_hide_price.field_website__website_hide_price_default_message
 msgid ""
-"When the price is hidden on the website we can give the customersome tips on"
-" how to find it out."
+"When the price is hidden on the website we can give the customersome tips on "
+"how to find it out."
 msgstr ""
 "Quando o preço estiver oculto no website, podemos dar ao cliente algumas "
 "dicas sobre como o descobrir."
