@@ -4,7 +4,6 @@ odoo.define("website_sale_stock_provisioning_date.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
@@ -31,7 +30,6 @@ odoo.define("website_sale_stock_provisioning_date.tour", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
