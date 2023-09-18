@@ -6,7 +6,7 @@
 <odoo>
 
 <template id="address" inherit_id="website_sale.address_b2b">
-    <xpath expr="//input[@name='vat']" position="replace">
+    <xpath expr="//input[@name='vat']" position="before">
         <t t-call="website_snippet_country_dropdown.country_dropdown">
             <t t-set="complete_field" t-value="'vat'"/>
             <t t-set="default_value" t-value="'vat' in checkout and checkout['vat'] or ''"/>
@@ -16,6 +16,41 @@
             <t t-set="no_country_field_extra_classes" t-value="error.get('vat') and 'is-invalid' or ''"/>
             <t t-set="readonly" t-value="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"/>
         </t>
+    </xpath>
+    <!--
+    The below code makes this module (website_sale_checkout_country_vat)
+    simultaneously installable with website_sale_vat_required, which is needed
+    for runboat to function.
+
+    The problem: They both edit/replace the 'vat' element in the address
+    form in the e-commerce. website_sale_checkout_country_vat replaces it
+    with a country dropdown thing, and website_sale_vat_required replaces it
+    with a near-identical element that is mandatory to fill in instead of
+    optional.
+
+    _Technically_ both modules eventually end up with a <input ...
+    name="vat"/> element which they are both replacing, which means that the
+    modules would be replacing the same element, theoretically making them
+    both simultaneously installable. However,
+    website_sale_checkout_country_vat calls a template to create that
+    element, and Odoo isn't quite smart enough to do a replace on an element
+    created by a template call.
+
+    The solution to the problem is to make the existing vat element
+    invisible in website_sale_checkout_country_vat. This means that
+    website_sale_vat_required can easily find an element to replace.
+
+    In any case, these modules are _not_ compatible with one another without
+    spending some effort.
+
+    One downside of this fix is that there are now two 'vat' elements on the
+    page: one visible created by the template call and one marked invisible.
+    The former one is listed first, and therefore used when getting the
+    data. However, there may be a scenario where this could break stuff,
+    maybe. I just haven't found it.
+    -->
+    <xpath expr="//input[@name='vat']" position="attributes">
+        <attribute name="t-attf-class">o_hidden</attribute>
     </xpath>
 </template>
 
