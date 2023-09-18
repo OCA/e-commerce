@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Stock Provisioning Date",
     "summary": "Display provisioning date for a product in shop online",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -15,8 +15,8 @@
     "data": ["views/product_template_views.xml"],
     "assets": {
         "web.assets_frontend": [
-            "/website_sale_stock_provisioning_date/static/src/js/"
-            "website_sale_stock_provisioning_date.js",
+            "website_sale_stock_provisioning_date/static/src/xml/"
+            "website_sale_stock_product_availability.xml",
         ],
         "web.assets_tests": [
             "/website_sale_stock_provisioning_date/static/src/js/"
