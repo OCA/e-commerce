@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_image_sample
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_product_image_sample
+#: model:ir.model.fields,field_description:website_sale_product_image_sample.field_product_attribute__display_type
+msgid "Display Type"
+msgstr ""
+
+#. module: website_sale_product_image_sample
+#: model:ir.model,name:website_sale_product_image_sample.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: website_sale_product_image_sample
+#: model:ir.model,name:website_sale_product_image_sample.model_product_attribute
+msgid "Product Attribute"
+msgstr ""
+
+#. module: website_sale_product_image_sample
+#: model:ir.model.fields.selection,name:website_sale_product_image_sample.selection__product_attribute__display_type__image
+msgid "Product image"
+msgstr ""
+
+#. module: website_sale_product_image_sample
+#: model:ir.model.fields,help:website_sale_product_image_sample.field_product_attribute__display_type
+msgid "The display type used in the Product Configurator."
+msgstr ""
