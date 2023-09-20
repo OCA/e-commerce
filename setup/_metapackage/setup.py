@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo-addon-website_sale_product_brand>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_description>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_detail_attribute_image>=16.0dev,<16.1dev',
+        'odoo-addon-website_sale_product_image_sample>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_item_cart_custom_qty>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_product_reference_displayed>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_stock_available>=16.0dev,<16.1dev',
