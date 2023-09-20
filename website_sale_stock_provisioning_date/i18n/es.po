@@ -18,21 +18,21 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_stock_provisioning_date
-#. openerp-web
+#. odoo-javascript
 #: code:addons/website_sale_stock_provisioning_date/static/src/xml/website_sale_stock_product_availability.xml:0
 #, python-format
 msgid "Next provisioning date:"
 msgstr "Fecha de aprovisionamiento:"
 
 #. module: website_sale_stock_provisioning_date
-#: model:ir.model,name:website_sale_stock_provisioning_date.model_product_product
+#: model:ir.model,name:website_sale_stock_provisioning_date.model_product_template
 msgid "Product"
 msgstr "Producto"
 
 #. module: website_sale_stock_provisioning_date
-#: model:ir.model,name:website_sale_stock_provisioning_date.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+#: model:ir.model,name:website_sale_stock_provisioning_date.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: website_sale_stock_provisioning_date
 #: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_product__show_next_provisioning_date
@@ -53,3 +53,6 @@ msgstr ""
 "producto está sin existencias. Esta opción puede no tener sentido si usted "
 "no selecciona una opción de disponibilidad que muestre el inventario del "
 "producto en la tienda online."
+
+#~ msgid "Product Template"
+#~ msgstr "Plantilla de producto"
