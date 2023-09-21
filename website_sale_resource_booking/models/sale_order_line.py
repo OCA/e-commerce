@@ -32,6 +32,7 @@ class SaleOrderLine(models.Model):
                 "expiration": line.product_id.resource_booking_expiration,
                 "sale_order_line_id": line.id,
                 "type_id": line.product_id.resource_booking_type_id.id,
+                "product_id": line.product_id.id,
             }
             rbc_rel = line.product_id.resource_booking_type_combination_rel_id
             context = {
