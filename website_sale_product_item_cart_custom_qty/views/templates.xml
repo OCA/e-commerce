@@ -11,7 +11,7 @@
                 <div class="input-group-prepend">
                     <a
                         href=""
-                        class="btn btn-primary js_add_cart_json d-none d-md-inline-block"
+                        class="btn btn-primary js_add_cart_json d-none d-inline-block"
                         aria-label="Remove one"
                         title="Remove one"
                     >
@@ -28,7 +28,7 @@
                 <div class="input-group-append">
                     <a
                         href=""
-                        class="btn btn-primary float_left js_add_cart_json d-none d-md-inline-block"
+                        class="btn btn-primary float_left js_add_cart_json d-none d-inline-block"
                         aria-label="Add one"
                         title="Add one"
                     >
