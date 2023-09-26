@@ -1,16 +1,8 @@
 .oe_product_cart {
     .o_wsale_product_btn {
         input {
-            transform: scale(0);
+            transform: scale(1);
             transition: transform ease 200ms 0s;
-        }
-    }
-
-    &:hover {
-        .o_wsale_product_btn {
-            input {
-                transform: scale(1);
-            }
         }
     }
 }
