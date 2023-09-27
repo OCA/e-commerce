@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [website_sale_product_description](website_sale_product_description/) | 16.0.1.0.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 16.0.1.0.0 |  | Display attributes images in shop product detail
 [website_sale_product_image_sample](website_sale_product_image_sample/) | 16.0.1.0.0 |  | Display product image sample to select product variant on website
-[website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 16.0.1.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
+[website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 16.0.1.1.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 16.0.1.0.2 |  | Display product reference in e-commerce
 [website_sale_stock_available](website_sale_stock_available/) | 16.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 16.0.1.0.0 |  | Show the stock of products on the product previews
