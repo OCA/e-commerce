@@ -2,17 +2,20 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from unittest.mock import Mock, patch
 
-from odoo.tests.common import HttpCase
+from odoo.tests import HttpCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class WebsiteSaleHttpCase(HttpCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         # Active skip payment for Mitchel Admin
-        self.partner = self.env.ref("base.partner_admin")
-        self.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
-            {"skip_website_checkout_payment": True}
-        )
+        cls.partner = cls.env.ref("base.partner_demo_portal")
+        # Ensure compatibility with `website_sale_vat_required`
+        cls.partner.vat = "F4K3V47"
+        cls.partner.skip_website_checkout_payment = True
+        cls.partner_orders = cls.partner.sale_order_ids
 
     def test_checkout_skip_payment(self):
         website = self.env.ref("website.website2")
@@ -25,13 +28,7 @@ class WebsiteSaleHttpCase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_checkout_skip_payment",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_checkout_skip_payment", login="portal")
+        # Get the order created on the tour
+        sale = self.partner.sale_order_ids - self.partner_orders
+        self.assertEqual(sale.state, "sale")
