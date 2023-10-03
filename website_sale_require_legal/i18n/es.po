@@ -25,6 +25,7 @@ msgid "I agree to the"
 msgstr "Estoy de acuerdo con el/la"
 
 #. module: website_sale_require_legal
+#. odoo-python
 #: code:addons/website_sale_require_legal/controllers/main.py:0
 #, python-format
 msgid "Website legal terms acceptance metadata: %s"
