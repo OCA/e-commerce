@@ -19,7 +19,13 @@ class UICase(HttpCase):
         """Ensure website lang is en_US."""
         super().setUp()
         website = self.env["website"].get_current_website()
-        wiz = self.env["base.language.install"].create({"lang": "en_US"})
+        en_US = (
+            self.env["res.lang"]
+            .with_context(active_test=False)
+            .search([("code", "=", "en_US")])
+        )
+        wiz = self.env["base.language.install"].create({"lang_ids": en_US.ids})
+        self.env.flush_all()
         wiz.website_ids = website
         wiz.lang_install()
         website.default_lang_id = self.env.ref("base.lang_en")
@@ -28,14 +34,39 @@ class UICase(HttpCase):
             "website_sale_require_legal.address_require_legal"
         ).active = True
         website.viewref("website_sale.payment_sale_note").active = True
-        new_test_user(self.env, login="portal_user", groups="base.group_portal")
+        new_test_user(self.env, login="super_mario", groups="base.group_portal")
+        # Create a dummy payment provider to ensure that the tour has at least one
+        # available to it.
+        arch = """
+        <form action="dummy" method="post">
+            <input type="hidden" name="view_id" t-att-value="viewid"/>
+            <input type="hidden" name="user_id" t-att-value="user_id.id"/>
+        </form>
+        """
+        redirect_form = self.env["ir.ui.view"].create(
+            {
+                "name": "Dummy Redirect Form",
+                "type": "qweb",
+                "arch": arch,
+            }
+        )
+        self.dummy_provider = self.env["payment.provider"].create(
+            {
+                "name": "Dummy Provider",
+                "code": "none",
+                "state": "test",
+                "is_published": True,
+                "allow_tokenization": True,
+                "redirect_form_view_id": redirect_form.id,
+            }
+        )
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/shop", "website_sale_require_legal", login="portal_user")
+        self.start_tour("/shop", "website_sale_require_legal", login="super_mario")
         order = self.env["sale.order"].search(
             [
-                ("partner_id", "=", "Super Mario"),
+                ("partner_id", "ilike", "super_mario"),
                 ("website_id", "!=", "False"),
             ]
         )

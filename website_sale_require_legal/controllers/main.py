@@ -28,15 +28,14 @@ class WebsiteSale(main.WebsiteSale):
         """Require accepting legal terms to validate form."""
         # Patch context
         old_context = request.context
-        request.context = dict(
-            request.context,
+        request.update_context(
             needs_legal=request.website.viewref(
                 "website_sale_require_legal.address_require_legal"
-            ).active,
+            ).active
         )
         result = super().checkout_form_validate(mode, all_form_values, data)
         # Unpatch context
-        request.context = old_context
+        request.update_env(context=old_context)
         return result
 
     def _checkout_form_save(self, mode, checkout, all_values):
