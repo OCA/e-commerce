@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_product_detail_attribute_value_image
+# 	* website_sale_product_detail_attribute_value_image
 #
 msgid ""
 msgstr ""
@@ -22,6 +22,11 @@ msgid "Attribute Value"
 msgstr "Valeur de la caractéristique"
 
 #. module: website_sale_product_detail_attribute_value_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image_published
 msgid "Display attribute value image in shop online product detail"
 msgstr ""
@@ -29,11 +34,21 @@ msgstr ""
 "l'article sur la boutique en ligne"
 
 #. module: website_sale_product_detail_attribute_value_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image
 msgid "Image of the attribute value for shop online product detail."
 msgstr ""
 "Image de la valeur de la caractéristique pour la vue détaillée de l'article "
 "sur la boutique en ligne."
+
+#. module: website_sale_product_detail_attribute_value_image
+#: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: website_sale_product_detail_attribute_value_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_value_image.field_product_attribute_value__website_product_detail_image_published
