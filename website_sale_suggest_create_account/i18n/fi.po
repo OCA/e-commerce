@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_suggest_create_account
+# 	* website_sale_suggest_create_account
 #
 msgid ""
 msgstr ""
@@ -23,7 +23,8 @@ msgstr "<span>Kirjaudu sisään ja siirry maksamaan</span>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid "<span>Log in and checkout</span>\n"
+msgid ""
+"<span>Log in and checkout</span>\n"
 "                <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 "<span>Kirjaudu sisään ja siirry maksamaan</span>\n"
@@ -36,7 +37,8 @@ msgstr "<span>Rekisteröidy ja siirry maksamaan</span>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid "<span>Sign up and checkout</span>\n"
+msgid ""
+"<span>Sign up and checkout</span>\n"
 "                    <span class=\"fa fa-long-arrow-right\"/>"
 msgstr ""
 "<span>Rekisteröidy ja siirry maksamaan</span>\n"
