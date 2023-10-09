@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_product_description
+# 	* website_sale_product_description
 #
 msgid ""
 msgstr ""
@@ -25,10 +25,13 @@ msgstr "Beschrijving voor E-Commerce"
 
 #. module: website_sale_product_description
 #: model:ir.model,name:website_sale_product_description.model_product_template
-msgid "Product Template"
-msgstr "Product Sjabloon"
+msgid "Product"
+msgstr ""
 
 #. module: website_sale_product_description
 #: model_terms:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
 msgid "This description will be shown on e-commerce frontend"
 msgstr "Deze omschrijving zal worden weergegeven op de E-comerce productpagina"
+
+#~ msgid "Product Template"
+#~ msgstr "Product Sjabloon"
