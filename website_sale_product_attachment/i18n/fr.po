@@ -62,6 +62,12 @@ msgstr ""
 "ces modèles d'articles."
 
 #. module: website_sale_product_attachment
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
 msgid "File Name"
 msgstr ""
@@ -73,6 +79,18 @@ msgid "Files publicly downloadable from the product eCommerce page."
 msgstr ""
 "Fichiers téléchargeables publiquement à partir de la page e-commerce de "
 "l'article."
+
+#. module: website_sale_product_attachment
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__id
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_product_attachment
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment____last_update
+#: model:ir.model.fields,field_description:website_sale_product_attachment.field_product_template____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,field_description:website_sale_product_attachment.field_ir_attachment__website_name
