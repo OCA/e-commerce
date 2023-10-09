@@ -19,5 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#. module: website_sale_require_legal
+#: code:addons/website_sale_require_legal/controllers/main.py:0
+#, python-format
+msgid "Website legal terms acceptance metadata: %s"
+msgstr ""
+
 #~ msgid "Confirm"
 #~ msgstr "Potvrdi"
