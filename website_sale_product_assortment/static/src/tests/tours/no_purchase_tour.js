@@ -4,12 +4,11 @@ odoo.define("website_sale_product_assortment.tour_no_purchase", function (requir
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
             trigger:
-                ".o_wsale_product_information_text:has(.text-danger:has(.fa-exclamation-triangle)) a:contains('Test Product 1')",
+                ".o_wsale_product_information:has(.text-danger:has(.fa-exclamation-triangle)) a:contains('Test Product 1')",
         },
         {
             trigger: "a#add_to_cart.disabled",
@@ -26,7 +25,6 @@ odoo.define("website_sale_product_assortment.tour_no_purchase", function (requir
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );

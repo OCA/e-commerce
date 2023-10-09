@@ -6,9 +6,6 @@ odoo.define("website_sale_product_assortment.assortment_preview", function (requ
 
     publicWidget.registry.WebsiteSaleProductAssortment = publicWidget.Widget.extend({
         selector: "#products_grid",
-        xmlDependencies: [
-            "/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml",
-        ],
 
         start: function () {
             return $.when.apply($, [
@@ -20,7 +17,8 @@ odoo.define("website_sale_product_assortment.assortment_preview", function (requ
             const $products = $(".o_wsale_product_grid_wrapper");
             const product_dic = {};
             $products.each(function () {
-                product_dic[this.querySelector("a img").src.split("/")[6]] = this;
+                product_dic[this.querySelector("a span").getAttribute("data-oe-id")] =
+                    this;
             });
             const product_ids = Object.keys(product_dic).map(Number);
             return this._rpc({
