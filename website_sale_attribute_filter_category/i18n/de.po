@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_attribute_filter_category
+# 	* website_sale_attribute_filter_category
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,9 @@ msgstr ""
 
 #. module: website_sale_attribute_filter_category
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_category.products_attributes
-msgid "<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filters by category</span>"
+msgid ""
+"<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filters by category</"
+"span>"
 msgstr ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/> <span>Filter nach "
 "Kategorien</span>"
