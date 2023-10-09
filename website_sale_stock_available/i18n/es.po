@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_stock_available
+# 	* website_sale_stock_available
 #
 msgid ""
 msgstr ""
@@ -28,5 +28,8 @@ msgstr "Plantilla de producto"
 
 #. module: website_sale_stock_available
 #: model:ir.model,name:website_sale_stock_available.model_sale_order
-msgid "Sale Order"
-msgstr "Orden de venta"
+msgid "Sales Order"
+msgstr ""
+
+#~ msgid "Sale Order"
+#~ msgstr "Orden de venta"
