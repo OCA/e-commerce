@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_hide_empty_category
+# 	* website_sale_hide_empty_category
 #
 msgid ""
 msgstr ""
