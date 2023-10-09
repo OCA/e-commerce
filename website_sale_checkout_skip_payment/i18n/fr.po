@@ -75,6 +75,27 @@ msgid "Contact"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__display_name
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__id
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner____last_update
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Message shown to the user when the purchase is finished"
 msgstr ""
