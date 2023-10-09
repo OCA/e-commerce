@@ -24,8 +24,8 @@ msgid ""
 "                    <span>Filters by category</span>"
 msgstr ""
 "<i class=\"fa fa-filter\" aria-hidden=\"true\"/>\n"
-"                                            <span>Filtros por "
-"categoría</span>"
+"                                            <span>Filtros por categoría</"
+"span>"
 
 #. module: website_sale_product_attribute_filter_category
 #: model:ir.model,name:website_sale_product_attribute_filter_category.model_product_attribute_category
