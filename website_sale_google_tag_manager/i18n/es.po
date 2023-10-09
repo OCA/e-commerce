@@ -31,9 +31,9 @@ msgstr "Conversiones mejoradas"
 #: model:ir.model.fields,help:website_sale_google_tag_manager.field_res_config_settings__google_tag_manager_enhanced_conversions
 #: model:ir.model.fields,help:website_sale_google_tag_manager.field_website__google_tag_manager_enhanced_conversions
 msgid ""
-"This will provide the necessary data in the confirmation page that GTM needs"
-" to gather in order to be able to use Enhanced Conversions. The template can"
-" be edited if more info is needed in the future."
+"This will provide the necessary data in the confirmation page that GTM needs "
+"to gather in order to be able to use Enhanced Conversions. The template can "
+"be edited if more info is needed in the future."
 msgstr ""
 "Esto proporcionará los datos necesarios en la página de confirmación que GTM "
 "necesita recopilar para poder utilizar Conversiones Mejoradas. La plantilla "
