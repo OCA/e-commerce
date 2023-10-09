@@ -24,26 +24,23 @@ msgid "Description for e-Commerce"
 msgstr "Descripción para el e-Commerce"
 
 #. module: website_sale_product_description
-#: model:ir.model.fields,field_description:website_sale_product_description.field_product_template__display_name
-msgid "Display Name"
-msgstr "Mostrar Nombre"
-
-#. module: website_sale_product_description
-#: model:ir.model.fields,field_description:website_sale_product_description.field_product_template__id
-msgid "ID"
-msgstr "ID"
-
-#. module: website_sale_product_description
-#: model:ir.model.fields,field_description:website_sale_product_description.field_product_template____last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
-
-#. module: website_sale_product_description
 #: model:ir.model,name:website_sale_product_description.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de Producto"
+msgid "Product"
+msgstr ""
 
 #. module: website_sale_product_description
 #: model_terms:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
 msgid "This description will be shown on e-commerce frontend"
 msgstr "Esta descripción se mostrará en la interfaz de comercio electrónico"
+
+#~ msgid "Display Name"
+#~ msgstr "Mostrar Nombre"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación en"
+
+#~ msgid "Product Template"
+#~ msgstr "Plantilla de Producto"
