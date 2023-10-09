@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_snippet_product_category
+# 	* website_snippet_product_category
 #
 msgid ""
 msgstr ""
@@ -20,7 +20,9 @@ msgstr ""
 #. openerp-web
 #: code:addons/website_snippet_product_category/static/src/js/frontend.js:64
 #, python-format
-msgid "An error occured with this product categories block. If the problem persists, please consider deleting it and adding a new one"
+msgid ""
+"An error occured with this product categories block. If the problem "
+"persists, please consider deleting it and adding a new one"
 msgstr ""
 "Une erreur est survenue avec ce bloc de catégories d'articles. Si le "
 "problème persiste, merci de considérer la suppression de ce bloc et l'ajout "
