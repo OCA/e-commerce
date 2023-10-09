@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_product_model_viewer
+# 	* website_sale_product_model_viewer
 #
 msgid ""
 msgstr ""
@@ -23,7 +23,9 @@ msgstr "Model 3D"
 
 #. module: website_sale_product_model_viewer
 #: model_terms:ir.ui.view,arch_db:website_sale_product_model_viewer.product_3d_model
-msgid "<span id=\"product-3d-model-viewer-fullscreen\" title=\"View fullscreen\" role=\"img\" aria-label=\"Fullscreen\">\n"
+msgid ""
+"<span id=\"product-3d-model-viewer-fullscreen\" title=\"View fullscreen\" "
+"role=\"img\" aria-label=\"Fullscreen\">\n"
 "                            <i class=\"fa fa-arrows-alt fa-2x\"/>\n"
 "                        </span>"
 msgstr ""
