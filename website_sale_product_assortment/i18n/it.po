@@ -22,12 +22,15 @@ msgid ""
 "\n"
 "        Each point is used to:\n"
 "\n"
-"        \t- Don't apply restriction: Show all products available for sale on website.\n"
+"        \t- Don't apply restriction: Show all products available for sale on "
+"website.\n"
 "\n"
-"        \t- Avoid to show non available products: Show only products available for sale\n"
+"        \t- Avoid to show non available products: Show only products "
+"available for sale\n"
 "        on website.\n"
 "\n"
-"        \t- Avoid selling not available products: Show all products, but avoid\n"
+"        \t- Avoid selling not available products: Show all products, but "
+"avoid\n"
 "        purchase on website.\n"
 "\n"
 "        "
@@ -135,7 +138,6 @@ msgstr "Modello prodotto"
 
 #. module: website_sale_product_assortment
 #. openerp-web
-#: code:addons/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml:0
 #: code:addons/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml:0
 #, python-format
 msgid "Warning"
