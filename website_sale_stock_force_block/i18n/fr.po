@@ -23,8 +23,8 @@ msgid "Adds an inventory availability status on the web product page."
 msgstr "Ajoute une information de disponibilité sur la page Web du produit."
 
 #. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
+#: model:ir.model.fields.selection,name:website_sale_stock_force_block.selection__product_template__inventory_availability__custom_block
+#: model:ir.model.fields.selection,name:website_sale_stock_force_block.selection__res_config_settings__inventory_availability__custom_block
 msgid "Block sales on website and display a message custom"
 msgstr "Bloquer les ventes sur le site Web et afficher un message personnalisé"
 
@@ -47,48 +47,11 @@ msgstr "Modèle d'article"
 
 #. module: website_sale_stock_force_block
 #: model:ir.model,name:website_sale_stock_force_block.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Sell regardless of inventory"
-msgstr "Vente sans tenir compte du stock"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory below a threshold and prevent sales if not enough stock"
-msgstr ""
-"Indiquer si l'inventaire est inférieur à un certain seuil et bloquer les "
-"ventes en cas de stock insuffisant"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and allow sales if not enough stock"
-msgstr ""
-"Afficher l'inventaire sur le site Web et autoriser les ventes en cas de "
-"stock insuffisant"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and prevent sales if not enough stock"
-msgstr ""
-"Afficher l'inventaire sur le site Web et bloquer les ventes en cas de stock "
-"insuffisant"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show product-specific notifications"
-msgstr ""
-"Afficher un message de disponibilité personnalisé et spécique au produit"
-
-#. module: website_sale_stock_force_block
-#: code:addons/website_sale_stock_force_block/models/sale_order.py:44
+#: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid ""
 "Some products became unavailable and your cart has been updated. We're sorry "
@@ -96,7 +59,30 @@ msgid ""
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: code:addons/website_sale_stock_force_block/models/sale_order.py:39
+#: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid "You ask for %s products but only %s is available"
 msgstr ""
+
+#~ msgid "Sell regardless of inventory"
+#~ msgstr "Vente sans tenir compte du stock"
+
+#~ msgid ""
+#~ "Show inventory below a threshold and prevent sales if not enough stock"
+#~ msgstr ""
+#~ "Indiquer si l'inventaire est inférieur à un certain seuil et bloquer les "
+#~ "ventes en cas de stock insuffisant"
+
+#~ msgid "Show inventory on website and allow sales if not enough stock"
+#~ msgstr ""
+#~ "Afficher l'inventaire sur le site Web et autoriser les ventes en cas de "
+#~ "stock insuffisant"
+
+#~ msgid "Show inventory on website and prevent sales if not enough stock"
+#~ msgstr ""
+#~ "Afficher l'inventaire sur le site Web et bloquer les ventes en cas de "
+#~ "stock insuffisant"
+
+#~ msgid "Show product-specific notifications"
+#~ msgstr ""
+#~ "Afficher un message de disponibilité personnalisé et spécique au produit"

@@ -23,8 +23,8 @@ msgid "Adds an inventory availability status on the web product page."
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
+#: model:ir.model.fields.selection,name:website_sale_stock_force_block.selection__product_template__inventory_availability__custom_block
+#: model:ir.model.fields.selection,name:website_sale_stock_force_block.selection__res_config_settings__inventory_availability__custom_block
 msgid "Block sales on website and display a message custom"
 msgstr ""
 
@@ -47,41 +47,11 @@ msgstr "Product sjabloon"
 
 #. module: website_sale_stock_force_block
 #: model:ir.model,name:website_sale_stock_force_block.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Sell regardless of inventory"
-msgstr "Verkoop ongeacht de beschikbare voorraad"
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory below a threshold and prevent sales if not enough stock"
-msgstr ""
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and allow sales if not enough stock"
-msgstr ""
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show inventory on website and prevent sales if not enough stock"
-msgstr ""
-
-#. module: website_sale_stock_force_block
-#: selection:product.template,inventory_availability:0
-#: selection:res.config.settings,inventory_availability:0
-msgid "Show product-specific notifications"
-msgstr ""
-
-#. module: website_sale_stock_force_block
-#: code:addons/website_sale_stock_force_block/models/sale_order.py:44
+#: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid ""
 "Some products became unavailable and your cart has been updated. We're sorry "
@@ -89,7 +59,10 @@ msgid ""
 msgstr ""
 
 #. module: website_sale_stock_force_block
-#: code:addons/website_sale_stock_force_block/models/sale_order.py:39
+#: code:addons/website_sale_stock_force_block/models/sale_order.py:0
 #, python-format
 msgid "You ask for %s products but only %s is available"
 msgstr ""
+
+#~ msgid "Sell regardless of inventory"
+#~ msgstr "Verkoop ongeacht de beschikbare voorraad"
