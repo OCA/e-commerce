@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_stock_provisioning_date
+# 	* website_sale_stock_provisioning_date
 #
 msgid ""
 msgstr ""
@@ -42,7 +42,11 @@ msgstr "Afficher la prochaine date d'approvisionnement"
 #. module: website_sale_stock_provisioning_date
 #: model:ir.model.fields,help:website_sale_stock_provisioning_date.field_product_product__show_next_provisioning_date
 #: model:ir.model.fields,help:website_sale_stock_provisioning_date.field_product_template__show_next_provisioning_date
-msgid "Shows the next provisioning date in the website shop if the product is out of stock. This option may not make sense if you don't select an 'Availability' option that shows the inventory of the product in the website shop."
+msgid ""
+"Shows the next provisioning date in the website shop if the product is out "
+"of stock. This option may not make sense if you don't select an "
+"'Availability' option that shows the inventory of the product in the website "
+"shop."
 msgstr ""
 "Affiche la prochaine date d'approvisionnement dans la boutique du site Web "
 "si le produit est en rupture de stock. Cette option peut ne pas avoir de "
