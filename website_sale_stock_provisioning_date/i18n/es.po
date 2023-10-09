@@ -18,6 +18,24 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_stock_provisioning_date
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_product__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_stock_provisioning_date
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_product__id
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_stock_provisioning_date
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_product____last_update
+#: model:ir.model.fields,field_description:website_sale_stock_provisioning_date.field_product_template____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_sale_stock_provisioning_date
 #. openerp-web
 #: code:addons/website_sale_stock_provisioning_date/static/src/xml/website_sale_stock_product_availability.xml:0
 #, python-format
