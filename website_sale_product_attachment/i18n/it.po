@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_sale_product_attachment
+# 	* website_sale_product_attachment
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,8 @@ msgstr ""
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_attachments
-msgid "<i class=\"fa fa-download\"/>\n"
+msgid ""
+"<i class=\"fa fa-download\"/>\n"
 "                                    Product downloads"
 msgstr ""
 "<i class=\"fa fa-download\"/>\n"
@@ -26,9 +27,12 @@ msgstr ""
 
 #. module: website_sale_product_attachment
 #: model_terms:ir.ui.view,arch_db:website_sale_product_attachment.product_template_form_view
-msgid "<i class=\"fa fa-info-circle\"/>\n"
-"                        Only public attachments can be used or created here.\n"
-"                        Removing one attachment from this list does not delete\n"
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                        Only public attachments can be used or created "
+"here.\n"
+"                        Removing one attachment from this list does not "
+"delete\n"
 "                        or unpublish it from your database."
 msgstr ""
 "<i class=\"fa fa-info-circle\"/>\n"
@@ -50,7 +54,9 @@ msgstr "Allegato"
 
 #. module: website_sale_product_attachment
 #: model:ir.model.fields,help:website_sale_product_attachment.field_ir_attachment__attached_in_product_tmpl_ids
-msgid "Attachment publicly downladable from eCommerce pages in these product templates."
+msgid ""
+"Attachment publicly downladable from eCommerce pages in these product "
+"templates."
 msgstr ""
 "Allegato pubblicamente scaricabile dalle pagine di eCommerce in questi "
 "modelli di prodotto."
