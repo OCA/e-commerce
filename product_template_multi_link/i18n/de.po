@@ -56,7 +56,6 @@ msgid "Cross Selling"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__display_name
@@ -69,7 +68,6 @@ msgid "Group By"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__id
@@ -93,7 +91,6 @@ msgid "Is Symmetric"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type____last_update
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker____last_update
