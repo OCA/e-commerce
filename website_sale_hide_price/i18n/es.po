@@ -9,20 +9,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 01:57+0000\n"
-"PO-Revision-Date: 2021-02-25 17:46+0000\n"
-"Last-Translator: claudiagn <claudia.gargallo@qubiq.es>\n"
+"PO-Revision-Date: 2023-10-12 11:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Ajustes Configuración"
 
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_res_partner
@@ -33,29 +33,29 @@ msgstr "Contacto"
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_config_settings__website_hide_price_default_message
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_website__website_hide_price_default_message
 msgid "Default Hidden price message"
-msgstr ""
+msgstr "Mensaje de precio oculto predeterminado"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_product__website_hide_price_message
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_template__website_hide_price_message
 msgid "Hidden price message"
-msgstr ""
+msgstr "Precio oculto predeterminado"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_product__website_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_template__website_hide_price
 msgid "Hide prices on website"
-msgstr ""
+msgstr "Ocultar precios en página web"
 
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Plantilla del Producto"
 
 #. module: website_sale_hide_price
 #: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
 msgid "Set a default text when hiding prices"
-msgstr ""
+msgstr "Establecer un texto por defecto al ocultar precios"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
@@ -82,3 +82,5 @@ msgid ""
 "When the price is hidden on the website we can give the customersome tips on "
 "how to find it out."
 msgstr ""
+"Cuando el precio está oculto en el sitio web, podemos dar al cliente algunos "
+"consejos sobre cómo averiguarlo."
