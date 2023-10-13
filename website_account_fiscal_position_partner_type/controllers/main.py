@@ -78,7 +78,9 @@ class WebsiteSale(WebsiteSale):
                     {
                         "def_fiscpostype": def_fiscpostype,
                         "fiscpostypevalues": dict(
-                            afp_obj._fields["fiscal_position_type"].selection
+                            afp_obj._fields[
+                                "fiscal_position_type"
+                            ]._description_selection(request.env)
                         ),
                     }
                 )
@@ -93,7 +95,7 @@ class AuthSignupHome(AuthSignupHome):
         )
         afp_obj = request.env["account.fiscal.position"].sudo()
         qcontext["fiscpostypevalues"] = dict(
-            afp_obj._fields["fiscal_position_type"].selection
+            afp_obj._fields["fiscal_position_type"]._description_selection(request.env)
         )
         if not qcontext.get("fiscal_position_type_selected"):
             def_fiscpostype = (
