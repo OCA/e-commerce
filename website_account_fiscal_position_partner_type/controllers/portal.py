@@ -36,7 +36,9 @@ class CustomerPortal(CustomerPortal):
         vals.update(
             {
                 "fiscpostypevalues": dict(
-                    afp_obj._fields["fiscal_position_type"].selection
+                    afp_obj._fields["fiscal_position_type"]._description_selection(
+                        request.env
+                    )
                 ),
                 "fiscal_position_type_selected": partner.fiscal_position_type,
             }
