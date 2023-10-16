@@ -76,9 +76,9 @@ class WebsiteSaleVariantController(VariantController):
         )
         qty_list = sorted(set(qty_list.mapped("min_quantity")))
         res = []
-        last_price = product.with_context(quantity=0).price
+        last_price = product.with_context(quantity=0)._get_contextual_price()
         for min_qty in qty_list:
-            new_price = product.with_context(quantity=min_qty).price
+            new_price = product.with_context(quantity=min_qty)._get_contextual_price()
             if new_price != last_price:
                 res.append(
                     {
