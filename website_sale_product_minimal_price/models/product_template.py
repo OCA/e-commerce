@@ -73,7 +73,7 @@ class ProductTemplate(models.Model):
             for qty in [1, 99999999]:
                 product_price = product.with_context(
                     quantity=qty, pricelist=pricelist.id
-                ).price
+                )._get_contextual_price()
                 if product_price != min_price and min_price != 99999999:
                     # Mark if there are different prices iterating over
                     # variants and comparing qty 1 and maximum qty

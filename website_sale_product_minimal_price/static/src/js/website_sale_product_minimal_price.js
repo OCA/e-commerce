@@ -7,9 +7,6 @@ odoo.define("website_sale_product_minimal_price.shop_min_price", function (requi
 
     publicWidget.registry.WebsiteSaleProductMinimalPrice = publicWidget.Widget.extend({
         selector: "#products_grid",
-        xmlDependencies: [
-            "/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml",
-        ],
 
         start: function () {
             return Promise.all([
