@@ -18,14 +18,14 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: website_sale_product_minimal_price
-#. openerp-web
+#. odoo-javascript
 #: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
 #, python-format
 msgid "From"
 msgstr "Desde"
 
 #. module: website_sale_product_minimal_price
-#. openerp-web
+#. odoo-javascript
 #: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_price_scale.xml:0
 #, python-format
 msgid "Prices per quantity ("
@@ -33,5 +33,8 @@ msgstr "Precios por cantidad ("
 
 #. module: website_sale_product_minimal_price
 #: model:ir.model,name:website_sale_product_minimal_price.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+msgid "Product"
+msgstr ""
+
+#~ msgid "Product Template"
+#~ msgstr "Plantilla de producto"
