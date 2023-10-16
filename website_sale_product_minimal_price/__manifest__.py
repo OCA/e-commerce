@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Minimal Price",
     "summary": "Display minimal price for products that has variants",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "development_status": "Production/Stable",
     "maintainers": ["sergio-teruel"],
     "category": "Website",
@@ -17,15 +17,11 @@
     "assets": {
         "web.assets_frontend": [
             "/web/static/src/legacy/js/fields/field_utils.js",
-            "/website_sale_product_minimal_price/static/src/js"
-            "/website_sale_product_minimal_price.js",
-            "/website_sale_product_minimal_price/static/src/js"
-            "/website_sale_product_price_scale.js",
+            "/website_sale_product_minimal_price/static/src/xml/*.xml",
+            "/website_sale_product_minimal_price/static/src/js/*.js",
         ],
         "web.assets_tests": [
-            "/website_sale_product_minimal_price/static/src/js/tour.js",
-            "/website_sale_product_minimal_price/static/src/js"
-            "/test_product_with_no_prices_tour.js",
+            "/website_sale_product_minimal_price/static/src/js/tours/*.js"
         ],
     },
 }
