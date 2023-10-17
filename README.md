@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[product_template_multi_link](product_template_multi_link/) | 16.0.1.0.0 |  | Product Multi Links (Template)
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 16.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_attribute_filter_multiselect](website_sale_attribute_filter_multiselect/) | 16.0.1.0.0 |  | Add multiselect display type for product and new filter for it
 [website_sale_cart_expire](website_sale_cart_expire/) | 16.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Cancel carts without activity after a configurable time

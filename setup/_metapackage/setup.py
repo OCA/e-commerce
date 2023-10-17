@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-e-commerce Odoo addons",
     version=version,
     install_requires=[
+        'odoo-addon-product_template_multi_link>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_attribute_filter_form_submit>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_attribute_filter_multiselect>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_cart_expire>=16.0dev,<16.1dev',
