@@ -21,30 +21,46 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_suggest_create_account
-#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
-#, fuzzy
-msgid "<span>Log in and checkout</span>"
-msgstr "Accedi e vai alla Cassa"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+msgid ""
+"<span>Sign In and Checkout</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+msgstr ""
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 msgid ""
-"<span>Log in and checkout</span>\n"
-"                <span class=\"fa fa-long-arrow-right\"/>"
+"<span>Sign In/Up and Checkout</span>\n"
+"                        <span class=\"fa fa-sign-in\"/>"
 msgstr ""
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
-#, fuzzy
-msgid "<span>Sign up and checkout</span>"
-msgstr "Registrati e vai alla Cassa"
+msgid ""
+"<span>Sign In/Up and Checkout</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+msgstr ""
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid ""
-"<span>Sign up and checkout</span>\n"
-"                    <span class=\"fa fa-long-arrow-right\"/>"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Sign In/Up</span>"
 msgstr ""
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid ""
+"<span>Sign in and Checkout</span>\n"
+"                <span class=\"fa fa-sign-in\"/>"
+msgstr ""
+
+#, fuzzy
+#~ msgid "<span>Log in and checkout</span>"
+#~ msgstr "Accedi e vai alla Cassa"
+
+#, fuzzy
+#~ msgid "<span>Sign up and checkout</span>"
+#~ msgstr "Registrati e vai alla Cassa"
 
 #, fuzzy
 #~ msgid "<span>Checkout without sign up</span>"
