@@ -4,12 +4,23 @@ from odoo.tests.common import HttpCase
 
 
 class WebsiteSaleTaxesToggleHttpCase(HttpCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Remove this variable in v16 and put instead:
+        # from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+        DISABLED_MAIL_CONTEXT = {
+            "tracking_disable": True,
+            "mail_create_nolog": True,
+            "mail_create_nosubscribe": True,
+            "mail_notrack": True,
+            "no_reset_password": True,
+        }
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         # Get company for Mitchel Admin user
-        self.user_admin = self.env.ref("base.user_admin")
-        user_company = self.user_admin.company_id
-        self.tax = self.env["account.tax"].create(
+        cls.user_admin = cls.env.ref("base.user_admin")
+        user_company = cls.user_admin.company_id
+        cls.tax = cls.env["account.tax"].create(
             {
                 "name": "Taxes toggle test tax",
                 "amount_type": "percent",
@@ -18,21 +29,21 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
                 "company_id": user_company.id,
             }
         )
-        self.product_template = self.env["product.template"].create(
+        cls.product_template = cls.env["product.template"].create(
             {
                 "name": "Product test tax toggle",
                 "list_price": 750.00,
-                "taxes_id": [(6, 0, self.tax.ids)],
+                "taxes_id": [(6, 0, cls.tax.ids)],
                 "website_published": True,
                 "website_sequence": 9999,
             }
         )
-        pricelist = self.env["product.pricelist"].create(
+        pricelist = cls.env["product.pricelist"].create(
             {"name": "Price list for tests", "currency_id": user_company.currency_id.id}
         )
-        self.env.user.partner_id.property_product_pricelist = pricelist
+        cls.env.user.partner_id.property_product_pricelist = pricelist
         # To avoid currency converter
-        self.env["res.currency.rate"].search([]).write({"rate": 1})
+        cls.env["res.currency.rate"].search([]).write({"rate": 1})
 
     def test_ui_website(self):
         """Test frontend tour."""
