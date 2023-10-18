@@ -2,76 +2,76 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from odoo.tests.common import HttpCase, tagged
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 @tagged("post_install", "-at_install")
 class WebsiteSaleHttpCase(HttpCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         # Models
-        ProductAttribute = self.env["product.attribute"]
-        ProductAttributeValue = self.env["product.attribute.value"]
-        ProductAttributeLine = self.env["product.template.attribute.line"]
-        self.product_attribute = ProductAttribute.create(
+        ProductAttribute = cls.env["product.attribute"]
+        ProductAttributeValue = cls.env["product.attribute.value"]
+        ProductAttributeLine = cls.env["product.template.attribute.line"]
+        cls.product_attribute = ProductAttribute.create(
             {"name": "Test Special Color", "create_variant": "no_variant"}
         )
-        self.product_attribute_value_red = ProductAttributeValue.create(
-            {"name": "Test red", "attribute_id": self.product_attribute.id}
+        cls.product_attribute_value_red = ProductAttributeValue.create(
+            {"name": "Test red", "attribute_id": cls.product_attribute.id}
         )
-        self.product_attribute_value_green = ProductAttributeValue.create(
-            {"name": "Test green", "attribute_id": self.product_attribute.id}
+        cls.product_attribute_value_green = ProductAttributeValue.create(
+            {"name": "Test green", "attribute_id": cls.product_attribute.id}
         )
-        self.product_attribute_value_blue = ProductAttributeValue.create(
-            {"name": "Test blue", "attribute_id": self.product_attribute.id}
+        cls.product_attribute_value_blue = ProductAttributeValue.create(
+            {"name": "Test blue", "attribute_id": cls.product_attribute.id}
         )
-        self.product_attribute_value_yelow = ProductAttributeValue.create(
-            {"name": "Test yellow", "attribute_id": self.product_attribute.id}
-        )
-        self.product_template = self.env.ref(
-            "product.product_product_4_product_template"
-        )
-        self.product_attribute_line = ProductAttributeLine.create(
+        cls.product_template = cls.env.ref("product.product_product_4_product_template")
+        cls.product_attribute_line = ProductAttributeLine.create(
             {
-                "product_tmpl_id": self.product_template.id,
-                "attribute_id": self.product_attribute.id,
+                "product_tmpl_id": cls.product_template.id,
+                "attribute_id": cls.product_attribute.id,
                 "value_ids": [
                     (
                         6,
                         0,
                         [
-                            self.product_attribute_value_red.id,
-                            self.product_attribute_value_green.id,
+                            cls.product_attribute_value_red.id,
+                            cls.product_attribute_value_green.id,
                         ],
                     )
                 ],
             }
         )
-        self.product_template.write(
-            {"attribute_line_ids": [(4, self.product_attribute_line.id)]}
+        cls.product_template.write(
+            {"attribute_line_ids": [(4, cls.product_attribute_line.id)]}
         )
-        self.product_template_27 = self.env.ref(
+        cls.product_template_27 = cls.env.ref(
             "product.product_product_27_product_template"
         )
-        self.product_attribute_line_27 = ProductAttributeLine.create(
+        cls.product_attribute_line_27 = ProductAttributeLine.create(
             {
-                "product_tmpl_id": self.product_template_27.id,
-                "attribute_id": self.product_attribute.id,
+                "product_tmpl_id": cls.product_template_27.id,
+                "attribute_id": cls.product_attribute.id,
                 "value_ids": [
                     (
                         6,
                         0,
                         [
-                            self.product_attribute_value_red.id,
-                            self.product_attribute_value_blue.id,
+                            cls.product_attribute_value_red.id,
+                            cls.product_attribute_value_blue.id,
                         ],
                     )
                 ],
             }
         )
-        self.product_template_27.write(
-            {"attribute_line_ids": [(4, self.product_attribute_line_27.id)]}
+        cls.product_template_27.write(
+            {"attribute_line_ids": [(4, cls.product_attribute_line_27.id)]}
         )
         # Active attribute's filter in /shop. By default it's disabled.
-        self.env.ref("website_sale.products_attributes").active = True
+        cls.env.ref("website_sale.products_attributes").active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
