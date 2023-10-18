@@ -4,16 +4,20 @@ from unittest.mock import Mock, patch
 
 import odoo.tests
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 @odoo.tests.tagged("post_install", "-at_install")
 class WebsiteSaleHttpCase(odoo.tests.HttpCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         # Active skip payment for Mitchel Admin
-        self.partner = self.env.ref("base.partner_admin")
+        cls.partner = cls.env.ref("base.partner_admin")
         # VAT required by the module website_sale_vat_required
-        self.partner.vat = "US01234567891"
-        self.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
+        cls.partner.vat = "US01234567891"
+        cls.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
             {"skip_website_checkout_payment": True}
         )
 
