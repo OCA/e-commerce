@@ -40,8 +40,8 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
             }
         )
         # Add group "Manage Multiple Units of Measure" to admin
-        admin = self.env.ref("base.user_admin")
-        admin.groups_id |= self.browse_ref("uom.group_uom")
+        admin = cls.env.ref("base.user_admin")
+        admin.groups_id |= cls.browse_ref("uom.group_uom")
 
     def test_ui_website(self):
         """Test frontend tour."""
