@@ -4,13 +4,24 @@ from odoo.tests.common import HttpCase
 
 
 class UICase(HttpCase):
-    def setUp(self):
-        super().setUp()
-        category_posted = self.env["product.public.category"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Remove this variable in v16 and put instead:
+        # from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+        DISABLED_MAIL_CONTEXT = {
+            "tracking_disable": True,
+            "mail_create_nolog": True,
+            "mail_create_nosubscribe": True,
+            "mail_notrack": True,
+            "no_reset_password": True,
+        }
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+        category_posted = cls.env["product.public.category"].create(
             {"name": "Category Test Posted"}
         )
-        self.env["product.public.category"].create({"name": "Category Test Not Posted"})
-        self.env["product.template"].create(
+        cls.env["product.public.category"].create({"name": "Category Test Not Posted"})
+        cls.env["product.template"].create(
             {
                 "name": "Test Product 1",
                 "is_published": True,
@@ -19,7 +30,7 @@ class UICase(HttpCase):
                 "public_categ_ids": [category_posted.id],
             }
         )
-        self.env.ref("website_sale.products_categories").active = True
+        cls.env.ref("website_sale.products_categories").active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
