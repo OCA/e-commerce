@@ -2,9 +2,16 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import odoo.tests
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 @odoo.tests.tagged("post_install", "-at_install")
 class TestUi(odoo.tests.HttpCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+
     def test_01_shop_buy(self):
         # Ensure that 'vat' is not empty for compatibility with
         # website_sale_vat_required module
