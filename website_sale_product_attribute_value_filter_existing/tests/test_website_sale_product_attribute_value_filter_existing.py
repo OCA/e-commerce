@@ -1,8 +1,10 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 
+@tagged("-at_install", "post_install")
 class WebsiteSaleHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
