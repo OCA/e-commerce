@@ -4,8 +4,7 @@
 odoo.define("website_sale_checkout_skip_payment.tour", function (require) {
     "use strict";
 
-    var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+    const tour = require("web_tour.tour");
 
     var steps = [
         {
@@ -35,7 +34,6 @@ odoo.define("website_sale_checkout_skip_payment.tour", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
