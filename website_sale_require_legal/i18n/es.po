@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale_require_legal
+#
+# Translators:
+# Pedro M. Baeza <pedro.baeza@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-07 02:00+0000\n"
+"PO-Revision-Date: 2023-07-05 14:08+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: website_sale_require_legal
+#: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
+msgid "I agree to the"
+msgstr "Estoy de acuerdo con el/la"
+
+#. module: website_sale_require_legal
+#: code:addons/website_sale_require_legal/controllers/main.py:0
+#, python-format
+msgid "Website legal terms acceptance metadata: %s"
+msgstr "Metadatos de aceptación de los términos legales del sitio web: %s"
+
+#. module: website_sale_require_legal
+#: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
+msgid "terms &amp; conditions"
+msgstr "términos y plazos; condiciones"
+
+#~ msgid ""
+#~ "Confirm\n"
+#~ "            <span class=\"fa fa-long-arrow-right\"/>"
+#~ msgstr ""
+#~ "Confirmar\n"
+#~ "            <span class=\"fa fa-long-arrow-right\"/>"

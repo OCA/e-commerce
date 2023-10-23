@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017 Tecnativa - Jairo Llopis <jairo.llopis@tecnativa.com>
+     Copyright 2019 Tecnativa - Cristina Martin R
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="accept_input">
+        <div class="col-lg-12 mb-2">
+            <input
+                t-attf-class="form-check-input position-relative ml-0 mr-1 #{'is-invalid' if error and error.get('accepted_legal_terms') else ''}"
+                type="checkbox"
+                name="accepted_legal_terms"
+                id="accepted_legal_terms"
+                required="required"
+            />
+            <label for="accepted_legal_terms" class="control-label form-check-label">
+                I agree to the <a
+                    target="_BLANK"
+                    href="/terms"
+                >terms &amp; conditions</a>
+            </label>
+        </div>
+    </template>
+    <template
+        id="address_require_legal"
+        inherit_id="website_sale.address"
+        name="Require Legal Terms Acceptance"
+        customize_show="True"
+        active="False"
+    >
+        <xpath expr="//form/div[hasclass('row')]" position="inside">
+            <div class="col-lg-12">
+                <t t-call="website_sale_require_legal.accept_input" />
+            </div>
+        </xpath>
+    </template>
+</odoo>
