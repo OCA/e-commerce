@@ -39,6 +39,7 @@ addon | version | maintainers | summary
 [website_sale_product_image_sample](website_sale_product_image_sample/) | 16.0.1.0.0 |  | Display product image sample to select product variant on website
 [website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 16.0.1.1.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 16.0.1.0.2 |  | Display product reference in e-commerce
+[website_sale_require_legal](website_sale_require_legal/) | 16.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_stock_available](website_sale_stock_available/) | 16.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 16.0.1.0.0 |  | Show the stock of products on the product previews
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 16.0.1.0.0 |  | Display provisioning date for a product in shop online
