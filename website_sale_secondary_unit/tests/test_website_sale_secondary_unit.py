@@ -4,12 +4,23 @@ from odoo.tests.common import HttpCase
 
 
 class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Remove this variable in v16 and put instead:
+        # from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+        DISABLED_MAIL_CONTEXT = {
+            "tracking_disable": True,
+            "mail_create_nolog": True,
+            "mail_create_nosubscribe": True,
+            "mail_notrack": True,
+            "no_reset_password": True,
+        }
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         # Models
-        ProductSecondaryUnit = self.env["product.secondary.unit"]
-        product_uom_unit = self.env.ref("uom.product_uom_unit")
-        self.product_template = self.env["product.template"].create(
+        ProductSecondaryUnit = cls.env["product.secondary.unit"]
+        product_uom_unit = cls.env.ref("uom.product_uom_unit")
+        cls.product_template = cls.env["product.template"].create(
             {
                 "name": "Test product",
                 "is_published": True,
@@ -21,27 +32,25 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
             "name": "Box",
             "uom_id": product_uom_unit.id,
             "factor": 5.0,
-            "product_tmpl_id": self.product_template.id,
+            "product_tmpl_id": cls.product_template.id,
             "website_published": True,
         }
-        self.secondary_unit_box_5 = ProductSecondaryUnit.create(vals)
-        self.secondary_unit_box_10 = ProductSecondaryUnit.create(
-            dict(vals, factor=10.0)
-        )
-        self.product_template.write(
+        cls.secondary_unit_box_5 = ProductSecondaryUnit.create(vals)
+        cls.secondary_unit_box_10 = ProductSecondaryUnit.create(dict(vals, factor=10.0))
+        cls.product_template.write(
             {
                 "secondary_uom_ids": [
                     (
                         6,
                         0,
-                        [self.secondary_unit_box_5.id, self.secondary_unit_box_10.id],
+                        [cls.secondary_unit_box_5.id, cls.secondary_unit_box_10.id],
                     ),
                 ],
             }
         )
         # Add group "Manage Multiple Units of Measure" to admin
-        admin = self.env.ref("base.user_admin")
-        admin.groups_id |= self.browse_ref("uom.group_uom")
+        admin = cls.env.ref("base.user_admin")
+        admin.groups_id |= cls.env.ref("uom.group_uom")
 
     def test_ui_website(self):
         """Test frontend tour."""
