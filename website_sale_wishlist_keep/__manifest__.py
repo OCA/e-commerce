@@ -5,7 +5,7 @@
     "category": "Website",
     "summary": 'Allows to add products to my cart but keep it in my wishlist"',
     "development_status": "Production/Stable",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.0.1",
     "license": "LGPL-3",
     "depends": ["website_sale_wishlist"],
     "website": "https://github.com/OCA/e-commerce",
