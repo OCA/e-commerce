@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-11 19:33+0000\n"
+"PO-Revision-Date: 2023-10-29 08:27+0000\n"
 "Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es_AR\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_product_description
 #: model:ir.model.fields,field_description:website_sale_product_description.field_product_product__public_description
@@ -26,7 +26,7 @@ msgstr "Descripción para el e-Commerce"
 #. module: website_sale_product_description
 #: model:ir.model,name:website_sale_product_description.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: website_sale_product_description
 #: model_terms:ir.ui.view,arch_db:website_sale_product_description.product_template_form_view
