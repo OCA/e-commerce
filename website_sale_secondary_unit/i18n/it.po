@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-09 07:59+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2023-10-29 17:41+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Modello prodotto"
 #. module: website_sale_secondary_unit
 #: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_popover
 msgid "Qty:"
-msgstr "Qtà:"
+msgstr "Q.tà:"
 
 #. module: website_sale_secondary_unit
 #: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit.cart_lines
