@@ -20,32 +20,58 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: website_sale_suggest_create_account
-#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
-msgid "<span>Log in and checkout</span>"
-msgstr "<span>Iniciar sesión y comprar</span>"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+msgid ""
+"<span>Sign In and Checkout</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+msgstr ""
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 msgid ""
-"<span>Log in and checkout</span>\n"
-"                <span class=\"fa fa-long-arrow-right\"/>"
+"<span>Sign In/Up and Checkout</span>\n"
+"                        <span class=\"fa fa-sign-in\"/>"
 msgstr ""
-"<span>Acceder a su cuenta y comprar</span>\n"
-"<span class=\"fa fa-long-arrow-right\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
-msgid "<span>Sign up and checkout</span>"
-msgstr "<span>Registrarse y comprar</span>"
+msgid ""
+"<span>Sign In/Up and Checkout</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+msgstr ""
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
-msgid ""
-"<span>Sign up and checkout</span>\n"
-"                    <span class=\"fa fa-long-arrow-right\"/>"
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Sign In/Up</span>"
 msgstr ""
-"<span>Registrarse y comprar</span>\n"
-"<span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid ""
+"<span>Sign in and Checkout</span>\n"
+"                <span class=\"fa fa-sign-in\"/>"
+msgstr ""
+
+#~ msgid "<span>Log in and checkout</span>"
+#~ msgstr "<span>Iniciar sesión y comprar</span>"
+
+#~ msgid ""
+#~ "<span>Log in and checkout</span>\n"
+#~ "                <span class=\"fa fa-long-arrow-right\"/>"
+#~ msgstr ""
+#~ "<span>Acceder a su cuenta y comprar</span>\n"
+#~ "<span class=\"fa fa-long-arrow-right\"/>"
+
+#~ msgid "<span>Sign up and checkout</span>"
+#~ msgstr "<span>Registrarse y comprar</span>"
+
+#~ msgid ""
+#~ "<span>Sign up and checkout</span>\n"
+#~ "                    <span class=\"fa fa-long-arrow-right\"/>"
+#~ msgstr ""
+#~ "<span>Registrarse y comprar</span>\n"
+#~ "<span class=\"fa fa-long-arrow-right\"/>"
 
 #~ msgid "<span>Checkout without sign up</span>"
 #~ msgstr "<span>Comprar sin registrarse</span>"
