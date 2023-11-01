@@ -10,3 +10,7 @@ class RequireLoginToCheckout(WebsiteSale):
     @http.route(auth="user")
     def checkout(self, **post):
         return super().checkout(**post)
+
+    @http.route(auth="user")
+    def address(self, **post):
+        return super().address(**post)
