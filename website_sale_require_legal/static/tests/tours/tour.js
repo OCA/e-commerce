@@ -32,6 +32,8 @@ odoo.define("website_sale_require_legal.tour", function (require) {
             trigger: 'select[name="country_id"]',
             run: function () {
                 $('input[name="phone"]').val("99999999");
+                // Required for test compatibility with the website_sale_vat_required module
+                $('input[name="vat"]').val("00000000X");
                 $('input[name="street"]').val("Castle St., 1");
                 $('input[name="city"]').val("Mushroom Kingdom");
                 $('input[name="zip"]').val("10000");
