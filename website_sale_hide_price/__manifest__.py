@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Hide Price",
-    "version": "16.0.1.3.0",
+    "version": "16.0.1.4.0",
     "category": "Website",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
