@@ -6,6 +6,7 @@
         name="Brands Filter"
         active="True"
         customize_show="True"
+        priority="999"
     >
         <xpath expr="//form[hasclass('js_attributes')]" position="inside">
             <ul t-if="len(brands)" class="nav nav-pills flex-column mt16">

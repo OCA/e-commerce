@@ -4,7 +4,7 @@
      Copyright 2019 Alexandre Díaz <alexandre.diaz@tecnativa.com>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3). -->
 <odoo>
-    <template id="address" inherit_id="website_sale.address_b2b">
+    <template id="address" inherit_id="website_sale.address_b2b" priority="999">
         <xpath expr="//input[@name='vat']" position="replace">
             <t t-call="website_snippet_country_dropdown.country_dropdown">
                 <t t-set="complete_field" t-value="'vat'" />

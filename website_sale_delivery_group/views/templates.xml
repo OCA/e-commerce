@@ -5,6 +5,7 @@
         inherit_id="website_sale_delivery.payment_delivery"
         customize_show="True"
         name="Group shipping methods"
+        priority="999"
     >
         <xpath
             expr="//div[@id='delivery_method']/ul[hasclass('list-group')]"

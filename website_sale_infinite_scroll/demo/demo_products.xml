@@ -1,11 +1,9 @@
 <?xml version="1.0" ?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
         <function model="product.template" name="create">
             <value
-                model="product.template"
-                eval="[{'name': 'product {num}'.format(num=x), 'website_published': True} for x in range(300)]"
-            />
+            model="product.template"
+            eval="[{'name': 'product {num}'.format(num=x), 'website_published': True} for x in range(300)]"
+        />
         </function>
-    </data>
 </odoo>
