@@ -1,7 +1,7 @@
 {
     "name": "Website Sale Filter Product Brand",
     "author": "Advitus MB, Ooops, Cetmix, Odoo Community Association (OCA)",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "website": "https://github.com/OCA/e-commerce",
     "category": "Website/Website",
     "depends": ["product_brand", "website_sale"],

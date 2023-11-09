@@ -4,7 +4,7 @@
 {
     "name": "eCommerce Infinite Scroll",
     "category": "Website",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "author": "Advitus MB, Ooops, Cetmix, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
     "license": "LGPL-3",

@@ -27,22 +27,22 @@ addon | version | maintainers | summary
 [website_sale_ajaxify_cart](website_sale_ajaxify_cart/) | 14.0.1.0.1 | [![geomer198](https://github.com/geomer198.png?size=30px)](https://github.com/geomer198) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Ajaxify cartr
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 14.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_attribute_filter_multiselect](website_sale_attribute_filter_multiselect/) | 14.0.1.0.0 |  | Add multiselect display type for product and new filter for it
-[website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
+[website_sale_attribute_filter_price](website_sale_attribute_filter_price/) | 14.0.1.0.1 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | A price filter for website sale
 [website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 14.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
 [website_sale_barcode_search](website_sale_barcode_search/) | 14.0.1.0.0 |  | It improve website product search adding search by barcode
-[website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.1 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
-[website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 14.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
-[website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 14.0.1.0.0 |  | Autocomplete VAT in checkout process
+[website_sale_cart_expire](website_sale_cart_expire/) | 14.0.1.0.2 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Expire abandoned carts
+[website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 14.0.1.0.1 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
+[website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 14.0.1.0.1 |  | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 14.0.1.2.0 |  | Skip payment for logged users in checkout process
-[website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Provides a way to group shipping methods
-[website_sale_filter_product_brand](website_sale_filter_product_brand/) | 14.0.1.0.0 |  | Website Sale Filter Product Brand
+[website_sale_delivery_group](website_sale_delivery_group/) | 14.0.1.0.1 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Provides a way to group shipping methods
+[website_sale_filter_product_brand](website_sale_filter_product_brand/) | 14.0.1.0.1 |  | Website Sale Filter Product Brand
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 14.0.1.0.0 |  | Hide any Product Categories that are empty
 [website_sale_hide_price](website_sale_hide_price/) | 14.0.1.1.0 |  | Hide product prices on the shop
-[website_sale_infinite_scroll](website_sale_infinite_scroll/) | 14.0.1.0.0 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Infinite Scroll
+[website_sale_infinite_scroll](website_sale_infinite_scroll/) | 14.0.1.0.1 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Infinite Scroll
 [website_sale_invoice_address](website_sale_invoice_address/) | 14.0.1.0.1 |  | Set e-Commerce sale orders invoice address as in backend
 [website_sale_order_type](website_sale_order_type/) | 14.0.1.0.0 | [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | This module allows sale_order_type to work with website_sale.
 [website_sale_payment_term_acquirer](website_sale_payment_term_acquirer/) | 14.0.1.0.1 | [![geomer198](https://github.com/geomer198.png?size=30px)](https://github.com/geomer198) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Payment Term Acquirer
-[website_sale_product_assortment](website_sale_product_assortment/) | 14.0.1.0.1 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Use product assortments to display products available on e-commerce.
+[website_sale_product_assortment](website_sale_product_assortment/) | 14.0.1.0.2 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Use product assortments to display products available on e-commerce.
 [website_sale_product_attachment](website_sale_product_attachment/) | 14.0.1.0.0 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Let visitors download attachments from a product page
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Allow group attributes in shop by categories
 [website_sale_product_attribute_filter_visibility](website_sale_product_attribute_filter_visibility/) | 14.0.1.0.0 |  | Allow hide any attributes in shop attributes filter

@@ -1,7 +1,7 @@
 {
     "name": "Website Delivery Group",
     "summary": "Provides a way to group shipping methods",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",

@@ -4,7 +4,7 @@
     "name": "Website Sale Attribute Filter Price",
     "category": "Website",
     "summary": "A price filter for website sale",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "LGPL-3",
     "depends": ["website_sale"],
     "data": ["templates/assets.xml", "templates/shop.xml"],
