@@ -6,9 +6,6 @@ odoo.define("website_sale_product_assortment.assortment_preview", function (requ
 
     publicWidget.registry.WebsiteSaleProductAssortment = publicWidget.Widget.extend({
         selector: "#products_grid",
-        xmlDependencies: [
-            "/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml",
-        ],
 
         start: function () {
             return $.when.apply($, [

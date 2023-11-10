@@ -5,16 +5,8 @@ odoo.define("website_sale_product_assortment.VariantMixin", function (require) {
 
     var VariantMixin = require("sale.VariantMixin");
     var publicWidget = require("web.public.widget");
-    var ajax = require("web.ajax");
     var core = require("web.core");
     var QWeb = core.qweb;
-
-    const xml_load = async () => {
-        return ajax.loadXML(
-            "/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml",
-            QWeb
-        );
-    };
 
     require("website_sale.website_sale");
 
@@ -41,23 +33,21 @@ odoo.define("website_sale_product_assortment.VariantMixin", function (require) {
         }
         $parent.find("#add_to_cart").addClass("disabled");
         $parent.find("#buy_now").addClass("disabled");
-        xml_load().then(function () {
-            $(".oe_website_sale")
-                .find("#product_option_block")
-                .prepend(
-                    QWeb.render(
-                        "website_sale_product_assortment.product_availability",
-                        combination
-                    )
-                );
-            if (combination.assortment_information) {
-                $("#product_detail").after(
-                    "<div id='product_full_assortment_description'>" +
-                        combination.assortment_information +
-                        "</div>"
-                );
-            }
-        });
+        $(".oe_website_sale")
+            .find("#product_option_block")
+            .prepend(
+                QWeb.render(
+                    "website_sale_product_assortment.product_availability",
+                    combination
+                )
+            );
+        if (combination.assortment_information) {
+            $("#product_detail").after(
+                "<div id='product_full_assortment_description'>" +
+                    combination.assortment_information +
+                    "</div>"
+            );
+        }
     };
 
     publicWidget.registry.WebsiteSale.include({

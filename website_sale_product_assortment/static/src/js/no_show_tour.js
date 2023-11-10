@@ -4,7 +4,6 @@ odoo.define("website_sale_product_assortment.tour_no_show", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
 
     var steps = [
         {
@@ -19,7 +18,6 @@ odoo.define("website_sale_product_assortment.tour_no_show", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
