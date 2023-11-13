@@ -10,11 +10,14 @@ class WebsiteSale(Base):
     def _store_affiliate_info(self, **kwargs):
         Affiliate = request.env["sale.affiliate"]
         affiliate = Affiliate.sudo().find_from_kwargs(**kwargs)
-        try:
-            affiliate_request = affiliate.get_request(**kwargs)
-            request.session["affiliate_request"] = affiliate_request.id
-        except (AttributeError, ValueError):
-            pass
+        if not affiliate:
+            return
+
+        affiliate_request = affiliate.get_request(**kwargs)
+        if not affiliate_request:
+            return  # pragma: no cover
+
+        request.session["affiliate_request"] = affiliate_request.id
 
     @route()
     def shop(self, *args, **post):

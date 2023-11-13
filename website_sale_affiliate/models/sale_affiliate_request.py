@@ -80,13 +80,18 @@ class AffiliateRequest(models.Model):
         return qualified_sales and qualified_time
 
     def current_qualified(self):
+        if not request:
+            return
+
         try:
             current_id = request.session["affiliate_request"]
-            current = self.search([("id", "=", current_id)], limit=1)
-        except (KeyError, RuntimeError):
-            # KeyError if session exists, but no request
-            # RuntimeError if session is non-existent (XML record creations)
+        except KeyError:
             return
+
+        current = self.search([("id", "=", current_id)], limit=1)
+        if not current:
+            return
+
         if current._conversions_qualify():
             return current
         return
