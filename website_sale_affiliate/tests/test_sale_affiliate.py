@@ -1,7 +1,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
-from mock import patch
+from unittest.mock import patch
 
 from .common import SaleCase
 

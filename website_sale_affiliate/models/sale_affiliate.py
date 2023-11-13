@@ -11,6 +11,7 @@ _logger = logging.getLogger(__name__)
 class Affiliate(models.Model):
     _name = "sale.affiliate"
     _order = "create_date desc"
+    _description = "Sale Affiliate"
 
     name = fields.Char(required=True)
     partner_id = fields.Many2one(
@@ -72,7 +73,7 @@ class Affiliate(models.Model):
             try:
                 record.sales_per_request = float(sales_count) / float(len(requests))
             except ZeroDivisionError:
-                pass
+                record.sales_per_request = 0
 
     @api.depends("request_ids", "request_ids.sale_ids")
     def _compute_conversion_rate(self):
@@ -82,7 +83,7 @@ class Affiliate(models.Model):
             try:
                 record.conversion_rate = float(len(conversions)) / float(len(requests))
             except ZeroDivisionError:
-                pass
+                record.conversion_rate = 0
 
     @api.model
     def _default_sequence_id(self):
@@ -91,7 +92,6 @@ class Affiliate(models.Model):
             raise_if_not_found=False,
         )
 
-    @api.model_cr_context
     def find_from_kwargs(self, **kwargs):
         """Find affiliate record based on kwargs"""
         try:
@@ -103,7 +103,6 @@ class Affiliate(models.Model):
             _logger.debug("Invalid affiliate ID value")
         return
 
-    @api.multi
     def get_request(self, **kwargs):
         self.ensure_one()
         Request = self.env["sale.affiliate.request"]

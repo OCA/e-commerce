@@ -1,7 +1,9 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
-import mock
+from unittest import mock
+
+from werkzeug.urls import url_join
 
 from odoo import http
 from odoo.tests.common import HttpCase
@@ -16,12 +18,8 @@ class WebsiteSaleCase(HttpCase, SaleCase):
     def setUp(self):
         super(WebsiteSaleCase, self).setUp()
         self.controller = WebsiteSale()
-        self.opener.addheaders.extend(
-            [
-                ("Accept-Language", "test_language"),
-                ("Referer", "test_referrer"),
-            ]
-        )
+        self.opener.headers["Accept-Language"] = "test_language"
+        self.opener.headers["Referer"] = "test_referrer"
         self.Affiliate = self.env["sale.affiliate"]
         self.find_from_kwargs_mock = mock.MagicMock()
         self.get_request_mock = mock.MagicMock()
@@ -31,12 +29,9 @@ class WebsiteSaleCase(HttpCase, SaleCase):
         self.get_request_mock.return_value = self.demo_request
         self.demo_affiliate._patch_method("get_request", self.get_request_mock)
         try:
-            data = {
-                "url": "/shop",
-                "aff_ref": str(self.demo_affiliate.id),
-            }
-            self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
-            session = http.root.session_store.get(self.session_id)
+            self.authenticate(None, None)
+            self.url_open("/shop?aff_ref=" + str(self.demo_affiliate.id))
+            session = http.root.session_store.get(self.session.sid)
             self.assertEqual(
                 session.get("affiliate_request"),
                 self.demo_request.id,
@@ -49,12 +44,14 @@ class WebsiteSaleCase(HttpCase, SaleCase):
         self.get_request_mock.return_value = self.demo_request
         self.demo_affiliate._patch_method("get_request", self.get_request_mock)
         try:
-            data = {
-                "url": self.demo_product.website_url,
-                "aff_ref": self.demo_affiliate.id,
-            }
-            self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
-            session = http.root.session_store.get(self.session_id)
+            self.authenticate(None, None)
+            self.url_open(
+                url_join(
+                    self.demo_product.website_url,
+                    "?aff_ref=" + str(self.demo_affiliate.id),
+                )
+            )
+            session = http.root.session_store.get(self.session.sid)
             self.assertEqual(
                 session.get("affiliate_request"),
                 self.demo_request.id,

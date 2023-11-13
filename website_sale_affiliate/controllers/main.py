@@ -17,15 +17,13 @@ class WebsiteSale(Base):
             pass
 
     @route()
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super(WebsiteSale, self).shop(page, category, search, ppg, **post)
+    def shop(self, *args, **post):
+        res = super(WebsiteSale, self).shop(*args, **post)
         self._store_affiliate_info(**post)
         return res
 
     @route()
-    def product(self, product, category="", search="", **kwargs):
-        res = super(WebsiteSale, self).product(
-            product, category="", search="", **kwargs
-        )
+    def product(self, *args, **kwargs):
+        res = super(WebsiteSale, self).product(*args, **kwargs)
         self._store_affiliate_info(**kwargs)
         return res

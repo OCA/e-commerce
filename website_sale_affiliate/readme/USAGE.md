@@ -1,5 +1,5 @@
 To use this module, you must first create at least one affiliate (found
-in Sales/Affiliate Program).
+in Website/Affiliate Program).
 
 Once an affiliate has been created, append one of the following to a
 compatible shop or product url (see below) to track the affiliate's

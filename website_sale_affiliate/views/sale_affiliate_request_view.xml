@@ -35,7 +35,7 @@
         <field name="name">Affiliate Requests</field>
         <field name="model">sale.affiliate.request</field>
         <field name="arch" type="xml">
-            <tree string="Affiliate Requests" create="false">
+            <tree create="false">
                 <field name="affiliate_id" />
                 <field name="name" />
                 <field name="date" />
@@ -64,7 +64,6 @@
     <record id="sale_affiliate_request_action" model="ir.actions.act_window">
         <field name="name">Affiliate Requests</field>
         <field name="res_model">sale.affiliate.request</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="sale_affiliate_request_view_search" />
     </record>
