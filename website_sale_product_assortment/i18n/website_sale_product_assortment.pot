@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -84,6 +84,7 @@ msgid "Message when unavailable"
 msgstr ""
 
 #. module: website_sale_product_assortment
+#. odoo-python
 #: code:addons/website_sale_product_assortment/controllers/variant.py:0
 #, python-format
 msgid "Not available"
@@ -91,11 +92,11 @@ msgstr ""
 
 #. module: website_sale_product_assortment
 #: model:ir.model,name:website_sale_product_assortment.model_product_template
-msgid "Product Template"
+msgid "Product"
 msgstr ""
 
 #. module: website_sale_product_assortment
-#. openerp-web
+#. odoo-javascript
 #: code:addons/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml:0
 #: code:addons/website_sale_product_assortment/static/src/xml/website_sale_product_assortment.xml:0
 #, python-format
