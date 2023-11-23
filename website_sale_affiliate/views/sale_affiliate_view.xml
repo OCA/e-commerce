@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <form string="Affiliate">
                 <sheet>
+                    <div class="oe_button_box" name="button_box" />
                     <group>
                         <field name="name" />
                         <field name="id" />
