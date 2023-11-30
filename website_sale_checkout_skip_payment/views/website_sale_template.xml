@@ -32,10 +32,7 @@
                 </form>
             </div>
         </xpath>
-        <xpath
-            expr="//t[@t-if='website_sale_order.amount_total']"
-            position="attributes"
-        >
+        <xpath expr="//t[@name='website_sale_non_free_cart']" position="attributes">
           <attribute
                 name="t-if"
                 separator=" "
@@ -45,7 +42,9 @@
         <xpath expr="//div[hasclass('js_payment')]" position="attributes">
             <attribute
                 name="t-if"
-            >not website_sale_order.amount_total and not website.checkout_skip_payment</attribute>
+                separator=" "
+                add="and not website.checkout_skip_payment"
+            />
         </xpath>
     </template>
     <template id="confirmation" inherit_id="website_sale.confirmation">
