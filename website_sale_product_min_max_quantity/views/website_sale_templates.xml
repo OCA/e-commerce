@@ -1,0 +1,25 @@
+<odoo>
+    <template id="product_quantity_custom" inherit_id="website_sale.product_quantity">
+        <xpath
+            expr="//input[@class='form-control quantity text-center']"
+            position="attributes"
+        >
+            <attribute name="t-att-value">product.website_sale_min_qty or 1</attribute>
+            <attribute name="t-att-min">product.website_sale_min_qty or 1</attribute>
+            <attribute name="t-att-max">product.website_sale_max_qty or 100</attribute>
+        </xpath>
+    </template>
+    <template id="cart_quantity_custom" inherit_id="website_sale.cart_lines">
+        <xpath
+            expr="//input[@class='js_quantity form-control quantity']"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-min"
+            >line.product_id.website_sale_min_qty or 0</attribute>
+            <attribute
+                name="t-att-max"
+            >line.product_id.website_sale_max_qty or 100</attribute>
+        </xpath>
+    </template>
+</odoo>
