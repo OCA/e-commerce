@@ -8,10 +8,25 @@
                 <div
                     class="col-12 col-lg-6 o_setting_box"
                     id="website_sale_hide_price"
+                    title="Hide prices at website level"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="website_hide_price" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="website_hide_price" />
+                        <div class="text-muted">
+                            Hide the product prices for everyone only on this website
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="website_sale_hide_price_message"
                     title="Set a default text when hiding prices"
                 >
                     <div class="o_setting_left_pane">
-
                     </div>
                     <div class="o_setting_right_pane">
                         <label for="website_hide_price_default_message" />
