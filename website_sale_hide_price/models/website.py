@@ -8,6 +8,11 @@ from odoo.http import request
 class Website(models.Model):
     _inherit = "website"
 
+    website_hide_price = fields.Boolean(
+        string="Hide prices on website",
+        copy=False,
+        help="Hide price at website level",
+    )
     website_show_price = fields.Boolean(compute="_compute_website_show_price")
     website_hide_price_default_message = fields.Char(
         string="Default Hidden price message",
@@ -18,4 +23,7 @@ class Website(models.Model):
 
     def _compute_website_show_price(self):
         for rec in self:
-            rec.website_show_price = request.env.user.partner_id.website_show_price
+            rec.website_show_price = (
+                not rec.website_hide_price
+                and request.env.user.partner_id.website_show_price
+            )
