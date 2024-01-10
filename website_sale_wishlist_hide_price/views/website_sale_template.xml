@@ -4,10 +4,7 @@
         id="wishlist_page_hide_price"
         inherit_id="website_sale_wishlist.product_wishlist"
     >
-        <xpath
-            expr="//small[@t-if='wish.product_id.base_unit_price']/.."
-            position="attributes"
-        >
+        <xpath expr="//td[hasclass('o_wish_price')]" position="attributes">
             <attribute name="t-if">
                 website.website_show_price and not wish.product_id.website_hide_price
             </attribute>
