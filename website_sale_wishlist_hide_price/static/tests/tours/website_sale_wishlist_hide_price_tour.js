@@ -11,7 +11,7 @@ odoo.define("website_sale_wishlist_hide_price.tour", function (require) {
         },
         [
             {
-                trigger: ".card-body:has(a:contains('Customizable')) .o_add_wishlist",
+                trigger: ".oe_product_cart:contains('Customizable') .o_add_wishlist",
             },
             {
                 trigger: "a[href='/shop/wishlist']",
