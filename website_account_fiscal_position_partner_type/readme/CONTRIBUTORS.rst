@@ -2,3 +2,4 @@
 
     * Harald Panten
     * Valentin Vinagre
+    * Manuel Regidor

@@ -16,5 +16,11 @@
         "views/website_sale.xml",
         "views/portal_templates.xml",
         "views/auth_signup_login_templates.xml",
+        "views/website_views.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_account_fiscal_position_partner_type/static/src/js/signup.js",
+        ],
+    },
 }

@@ -8,7 +8,7 @@
         id="website_account_fiscal_position_partner_type_auth_signup"
         inherit_id="auth_signup.fields"
     >
-        <xpath expr="//div[hasclass('field-password')]" position="before">
+        <xpath expr="//div[hasclass('field-login')]" position="after">
             <div class="form-group field-fiscalpositiontype">
                 <label
                     class="col-form-label"
@@ -29,6 +29,14 @@
                         </option>
                     </t>
                 </select>
+                <div
+                    t-att-style="'display: none;' if fiscal_position_type_selected != 'b2b' else null"
+                    id="b2b_name_instructions"
+                ><t t-out="website.b2b_information" /></div>
+                <div
+                    t-att-style="'display: none;' if fiscal_position_type_selected != 'b2c' else null"
+                    id="b2c_name_instructions"
+                ><t t-out="website.b2c_information" /></div>
             </div>
         </xpath>
     </template>
