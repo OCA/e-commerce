@@ -51,7 +51,7 @@ addon | version | maintainers | summary
 [website_sale_product_description](website_sale_product_description/) | 14.0.1.1.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 14.0.1.0.0 |  | Display attributes images in shop product detail
 [website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 14.0.1.0.0 |  | Display attributes values images in shop product detail
-[website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 14.0.1.0.1 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
+[website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 14.0.1.0.2 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Allows to add to cart from product items a custom quantity.
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 14.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Display minimal price for products that has variants
 [website_sale_require_legal](website_sale_require_legal/) | 14.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 14.0.1.0.0 |  | Force users to login for buying
