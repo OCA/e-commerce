@@ -75,6 +75,11 @@ Contributors
     * Carlos Roca
     * Pilar Vargas
 
+-  ``Cetmix <https://www.cetmix.com>``\ \_:
+
+      -  Ivan Sokolov
+      -  Dessan Hemrayev
+
 Maintainers
 ~~~~~~~~~~~
 
