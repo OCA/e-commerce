@@ -38,6 +38,20 @@
             </div>
         </xpath>
     </template>
+
+    <template
+        id="always_display_qty_buttons"
+        inherit_id="website_sale.products_item"
+        name="Always display qty buttons"
+        customize_show="True"
+        priority="100"
+        active="False"
+    >
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="class" add="o_wsale_product_btn_custom" separator=" " />
+        </xpath>
+    </template>
+
     <template id="products_item" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="attributes">
             <attribute
