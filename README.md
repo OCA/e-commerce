@@ -22,7 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [product_template_multi_link](product_template_multi_link/) | 15.0.1.0.0 |  | Product Multi Links (Template)
-[website_account_fiscal_position_partner_type](website_account_fiscal_position_partner_type/) | 15.0.1.0.1 |  | Website Account Fiscal Position Partner Type
+[website_account_fiscal_position_partner_type](website_account_fiscal_position_partner_type/) | 15.0.1.0.2 |  | Website Account Fiscal Position Partner Type
 [website_sale_address_format](website_sale_address_format/) | 15.0.1.0.0 |  | Website Sale Address Format
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 15.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 15.0.1.1.1 | [![Yajo](https://github.com/Yajo.png?size=30px)](https://github.com/Yajo) | Display prices with(out) taxes in eCommerce, complementing normal mode
