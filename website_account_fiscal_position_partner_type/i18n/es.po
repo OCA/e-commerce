@@ -17,6 +17,21 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: website_account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:website_account_fiscal_position_partner_type.field_website__b2b_information
+msgid "B2B Information"
+msgstr ""
+
+#. module: website_account_fiscal_position_partner_type
+#: model_terms:ir.ui.view,arch_db:website_account_fiscal_position_partner_type.website_account_fiscal_position_partner_type_view_website_form
+msgid "B2B/B2C Website Info"
+msgstr ""
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:website_account_fiscal_position_partner_type.field_website__b2c_information
+msgid "B2C Information"
+msgstr ""
+
+#. module: website_account_fiscal_position_partner_type
 #: code:addons/website_account_fiscal_position_partner_type/controllers/portal.py:0
 #, python-format
 msgid ""
@@ -54,3 +69,8 @@ msgstr "Tipo de cliente"
 #: model:ir.model,name:website_account_fiscal_position_partner_type.model_res_users
 msgid "Users"
 msgstr "Usuarios"
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model,name:website_account_fiscal_position_partner_type.model_website
+msgid "Website"
+msgstr ""
