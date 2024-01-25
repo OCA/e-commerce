@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  ~ Copyright 2024 Simone Rubino - Aion Tech
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  -->
+<odoo>
+    <template
+        id="cart_lines"
+        inherit_id="website_sale.cart_lines"
+        name="Button to empty the cart"
+        active="False"
+        customize_show="True"
+    >
+        <xpath
+            expr="//table[@id='cart_products']//thead//th[hasclass('td-action')]"
+            position="inside"
+        >
+            <button
+                class="btn btn-sm btn-danger js_clear_cart"
+                aria-label="Remove all products"
+                title="Remove all products"
+            >
+                <i class="fa fa-trash" />
+            </button>
+        </xpath>
+    </template>
+</odoo>
