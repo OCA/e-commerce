@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <odoo>
+
     <template id="products_add_to_cart" inherit_id="website_sale.products_add_to_cart">
         <!-- Add quantity selector -->
         <xpath expr="//span[hasclass('fa-shopping-cart')]/.." position="before">
@@ -36,6 +37,20 @@
                     </a>
                 </div>
             </div>
+        </xpath>
+    </template>
+
+
+    <template
+        id="always_display_qty_buttons"
+        inherit_id="website_sale.products_item"
+        name="Always display qty buttons"
+        customize_show="True"
+        priority="100"
+        active="False"
+    >
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="class" add="o_wsale_product_btn_custom" separator=" " />
         </xpath>
     </template>
 </odoo>
