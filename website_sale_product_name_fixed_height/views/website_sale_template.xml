@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item" priority="99">
+        <xpath
+            expr="//*[hasclass('o_wsale_products_item_title')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-attf-style"
+                separator=" "
+                add="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: #{website.row_count};overflow: hidden; height: #{website.row_count}lh;"
+            />
+        </xpath>
+    </template>
+</odoo>
