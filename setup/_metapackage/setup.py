@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_barcode_search',
         'odoo14-addon-website_sale_cart_expire',
         'odoo14-addon-website_sale_category_breadcrumb',
+        'odoo14-addon-website_sale_charge_payment_fee',
         'odoo14-addon-website_sale_checkout_country_vat',
         'odoo14-addon-website_sale_checkout_skip_payment',
         'odoo14-addon-website_sale_delivery_group',
