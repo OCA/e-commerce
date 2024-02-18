@@ -7,20 +7,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-17 14:53+0000\n"
-"PO-Revision-Date: 2021-05-17 16:54+0200\n"
-"Last-Translator: Carlos <carlos.roca@tecnativa.com>\n"
+"PO-Revision-Date: 2024-02-18 17:34+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_product_minimal_price
 #: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar Nombre"
 
 #. module: website_sale_product_minimal_price
 #. openerp-web
@@ -32,12 +32,12 @@ msgstr "Desde"
 #. module: website_sale_product_minimal_price
 #: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_product_minimal_price
 #: model:ir.model.fields,field_description:website_sale_product_minimal_price.field_product_template____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: website_sale_product_minimal_price
 #. openerp-web
