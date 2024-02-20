@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="cart" inherit_id="website_sale.cart" customize_show="True">
+    <template
+        id="cart"
+        inherit_id="website_sale.cart"
+        customize_show="True"
+        priority="18"
+    >
         <xpath expr="//div[@id='wrap']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <t
@@ -61,6 +66,7 @@
         id="short_cart_summary"
         inherit_id="website_sale.short_cart_summary"
         customize_show="True"
+        priority="18"
     >
         <xpath expr="//a[@t-attf-href='{{redirect_url}}']" position="attributes">
             <attribute name="class" />
