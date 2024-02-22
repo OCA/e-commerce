@@ -8,7 +8,7 @@ class Website(models.Model):
 
     @api.model
     def _get_product_sort_criterias(self):
-        """Extend to add more sort criterias"""
+        """Extend to add more sort criteria"""
         return [
             ("website_sequence asc", _("Relevance")),
             ("list_price desc", _("Catalog price: High to Low")),
