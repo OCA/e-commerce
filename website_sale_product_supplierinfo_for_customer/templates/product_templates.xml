@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//h1[@t-field='product.name']" position="attributes">
+            <attribute name="t-field" />
+            <attribute name="t-esc">combination_info["display_name"]</attribute>
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//a[@t-field='product.name']" position="attributes">
+            <attribute name="t-field" />
+            <attribute name="t-esc">combination_info["display_name"]</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_summary" inherit_id="website_sale.cart_summary">
+        <xpath expr="//strong[@t-field='line.name_short']" position="before">
+            <t
+                t-set="combination_info"
+                t-value="line.product_template_id._get_combination_info()"
+            />
+        </xpath>
+        <xpath expr="//strong[@t-field='line.name_short']" position="attributes">
+            <attribute name="t-field" />
+            <attribute name="t-esc">combination_info["display_name"]</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//strong[@t-field='line.name_short']" position="before">
+            <t
+                t-set="combination_info"
+                t-value="line.product_template_id._get_combination_info()"
+            />
+        </xpath>
+        <xpath expr="//strong[@t-field='line.name_short']" position="attributes">
+            <attribute name="t-field" />
+            <attribute name="t-esc">combination_info["display_name"]</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//span[@t-esc='line.name_short']" position="before">
+            <t
+                t-set="combination_info"
+                t-value="line.product_template_id._get_combination_info()"
+            />
+        </xpath>
+        <xpath expr="//span[@t-esc='line.name_short']" position="attributes">
+            <attribute name="t-esc">combination_info["display_name"]</attribute>
+        </xpath>
+    </template>
+
+    <template
+        id="sale_order_portal_content"
+        inherit_id="sale.sale_order_portal_content"
+    >
+        <xpath expr="//span[@t-field='line.name']" position="before">
+            <t
+                t-set="combination_info"
+                t-value="line.product_template_id.with_context({'partner': sale_order.partner_id.id, 'testtesttest': False})._get_combination_info()"
+            />
+        </xpath>
+        <xpath expr="//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-field" />
+            <attribute name="t-esc">combination_info["display_name"]</attribute>
+        </xpath>
+    </template>
+</odoo>
