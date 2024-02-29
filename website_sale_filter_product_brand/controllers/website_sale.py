@@ -90,6 +90,24 @@ class Website(WebsiteSale):
         )
         brands = self._remove_extra_brands(brands, search_products, attrib_values)
 
+        # use search() domain instead of mapped() for better performance:
+        # will basically search for product's related attribute values
+        attrib_valid_ids = (
+            request.env["product.attribute.value"]
+            .search(
+                [
+                    "&",
+                    (
+                        "pav_attribute_line_ids.product_tmpl_id",
+                        "in",
+                        search_products._ids,
+                    ),
+                    ("pav_attribute_line_ids.value_ids", "!=", False),
+                ]
+            )
+            .ids
+        )
+
         # keep selected brands in URL
         keep = QueryURL(
             "/shop",
@@ -105,9 +123,7 @@ class Website(WebsiteSale):
             {
                 "brands": brands,
                 "selected_brand_ids": selected_brand_ids,
-                "attr_valid": search_products.mapped(
-                    "attribute_line_ids.value_ids"
-                ).ids,
+                "attr_valid": attrib_valid_ids,
                 "keep": keep,
             }
         )
