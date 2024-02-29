@@ -10,12 +10,18 @@ odoo.define("website_sale_ajaxify_cart.website_sale", function (require) {
         /**
          * @private
          * @param {MouseEvent} ev
+         * @returns {Promise} resolved
          */
         _onClickAdd: function (ev) {
             this.isDynamic = Boolean($(ev.currentTarget).data("is-dynamic"));
             this.pageType = $(ev.currentTarget).data("page-type");
             this.targetEl = $(ev.currentTarget);
-            return this._super.apply(this, arguments);
+            var _super = this._super;
+            var args = arguments;
+            var self = this;
+            return Promise.resolve().then(function () {
+                _super.apply(self, args);
+            });
         },
         /**
          * Add custom variant values and attribute values that do not generate variants
