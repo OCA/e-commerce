@@ -24,10 +24,10 @@ class ProductAttributeValues(WebsiteSale):
         domain = request.env.context.get("shop_search_domain", [])
         # Load all products without limit for the filter check on
         # attribute values
-        templates = request.env["product.template"].search(domain, limit=False)
+        templates = request.env["product.template"]._search(domain)
         ProductTemplateAttributeLine = request.env["product.template.attribute.line"]
         attribute_values = ProductTemplateAttributeLine.search(
-            [("product_tmpl_id", "in", templates.ids)]
+            [("product_tmpl_id", "in", templates)]
         )
         res.qcontext["attr_values_used"] = attribute_values.mapped("value_ids")
         return res
