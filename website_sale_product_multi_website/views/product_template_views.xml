@@ -1,0 +1,56 @@
+<data>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.inherit.view.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="website_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="website_id" position="after">
+                <field
+                    name="website_ids"
+                    options="{'no_create': True}"
+                    groups="website.group_multi_website"
+                    widget="many2many_tags"
+                />
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_product_website_tree_view">
+        <field name="name">product.product.website.inherit.view.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="website_sale.product_product_website_tree_view" />
+        <field name="arch" type="xml">
+            <field name="website_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="website_id" position="after">
+                <field
+                    name="website_ids"
+                    groups="website.group_multi_website"
+                    widget="many2many_tags"
+                    optional="show"
+                />
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_template_view_tree">
+        <field name="name">product_template_view_tree.view.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_view_tree" />
+        <field name="arch" type="xml">
+            <field name="website_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="website_id" position="after">
+                <field
+                    name="website_ids"
+                    groups="website.group_multi_website"
+                    widget="many2many_tags"
+                    optional="show"
+                />
+            </field>
+        </field>
+    </record>
+</data>
