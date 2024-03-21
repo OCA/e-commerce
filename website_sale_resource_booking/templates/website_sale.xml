@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Tecnativa - Jairo Llopis
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<data>
+    <!-- Inform buyer about the upcoming reservation step -->
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//a[@id='add_to_cart']" position="before">
+            <div
+                t-if="product.resource_booking_type_id"
+                role="alert"
+                class="alert alert-info mt8 mb0"
+            >
+                <i class="fa fa-calendar-check-o" />
+                From the cart, you will be able to make a pre-reservation, which will expire
+                <strong
+                    t-field="product.resource_booking_expiration"
+                    t-options='{"widget": "relative"}'
+                />
+            </div>
+        </xpath>
+    </template>
+    <template
+        id="wizard_checkout"
+        inherit_id="website_sale.wizard_checkout"
+        priority="50"
+    >
+        <!-- Add a "flag element" to trigger style variation -->
+        <xpath expr="//div[hasclass('wizard')]/div" position="before">
+            <span
+                class="o_wizard_has_bookings d-none"
+                t-if="website_sale_order.mapped('order_line.product_id.resource_booking_type_id')"
+            />
+        </xpath>
+        <xpath expr="//div[@id='wizard-step10']" position="after">
+            <t
+                t-if="website_sale_order.mapped('order_line.product_id.resource_booking_type_id')"
+            >
+                <a
+                    class="no-decoration"
+                    t-att-href="step &gt; 15 and '/shop/booking/1/schedule'"
+                >
+                    <div
+                        id="wizard-step15"
+                        t-attf-class="progress-wizard-step #{'active' if step == 15 else 'complete' if step &gt; 15 else 'disabled'}"
+                    >
+                        <div class="progress-wizard-bar d-none d-md-block" />
+                        <span class="progress-wizard-dot d-none d-md-inline-block" />
+                        <div
+                            class="text-center progress-wizard-steplabel"
+                        >Schedule bookings</div>
+                    </div>
+                </a>
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="scheduling_calendar"
+        name="Resource Booking Calendar for Checkout"
+        primary="True"
+        inherit_id="resource_booking.scheduling_calendar"
+    >
+        <!-- Ask partner data before confirmation -->
+        <xpath expr="//div[hasclass('modal-body')]//p" position="before">
+            <p>Please indicate the <strong>attendee</strong> details:</p>
+            <div class="form-group row">
+                <label
+                    class="col-sm-2 col-form-label"
+                    t-attf-for="partner-name-#{int(slot.timestamp())}"
+                >Name</label>
+                <div class="col-sm-10">
+                    <input
+                        type="text"
+                        class="form-control"
+                        t-attf-id="partner-name-#{int(slot.timestamp())}"
+                        required="required"
+                        name="partner_name"
+                        t-att-value="booking.prereserved_name"
+                    />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label
+                    class="col-sm-2 col-form-label"
+                    t-attf-for="partner-email-#{int(slot.timestamp())}"
+                >E-mail</label>
+                <div class="col-sm-10">
+                    <input
+                        type="email"
+                        class="form-control"
+                        t-attf-id="partner-email-#{int(slot.timestamp())}"
+                        required="required"
+                        name="partner_email"
+                        t-att-value="booking.prereserved_email"
+                    />
+                </div>
+            </div>
+        </xpath>
+        <!-- Inform about checkout timeout -->
+        <xpath expr="//ul" position="after">
+            <div class="alert alert-warning">
+                If unpaid, this pre-reservation will expire
+                <strong
+                    t-field="booking.sale_order_line_id.product_id.resource_booking_expiration"
+                    t-options='{"widget": "relative"}'
+                />
+            </div>
+        </xpath>
+    </template>
+    <template id="scheduling" name="Schedule Bookings">
+        <t t-call="website.layout">
+            <t t-set="no_footer">1</t>
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <t t-call="website_sale.wizard_checkout">
+                                <t t-set="step" t-value="15" />
+                            </t>
+                        </div>
+                        <div class="col-12 col-xl-auto order-xl-2 d-none d-xl-block">
+                            <t t-call="website_sale.cart_summary">
+                                <t t-set="hide_coupon">True</t>
+                                <t t-set="redirect" t-valuef="/shop/cart" />
+                            </t>
+                        </div>
+                        <div class="col-12 col-xl order-xl-1 oe_cart">
+                            <h3 t-esc="wizard_title" />
+                            <div
+                                class="oe_structure"
+                                id="oe_structure_website_sale_resource_booking_10"
+                            />
+                            <!-- Error alert -->
+                            <t t-if="error">
+                                <t t-call="resource_booking.alert_availability_lost" />
+                            </t>
+                            <!-- Scheduling calendar -->
+                            <t
+                                t-call="website_sale_resource_booking.scheduling_calendar"
+                            />
+                            <div class="d-flex justify-content-between mt-3">
+                                <a
+                                    role="button"
+                                    href="/shop/cart"
+                                    class="btn btn-secondary mb32"
+                                >
+                                    <i class="fa fa-chevron-left" />
+                                    <span>Return to Cart</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="oe_structure"
+                id="oe_structure_website_sale_resource_booking_20"
+            />
+        </t>
+    </template>
+</data>
