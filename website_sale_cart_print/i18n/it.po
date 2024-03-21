@@ -1,0 +1,30 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_cart_print
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-15 11:27+0000\n"
+"PO-Revision-Date: 2024-02-15 11:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_cart_print
+#: model_terms:ir.ui.view,arch_db:website_sale_cart_print.payment
+msgid ""
+"<i class=\"fa fa-print\"/>\n"
+"                    Print"
+msgstr ""
+"<i class=\"fa fa-print\"/>\n"
+"                    Stampa"
+
+#. module: website_sale_cart_print
+#: model_terms:ir.ui.view,arch_db:website_sale_cart_print.payment
+msgid "Print"
+msgstr "Stampa"
