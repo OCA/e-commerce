@@ -39,7 +39,13 @@ class SaleOrder(models.Model):
                 from_date = rec.write_date or fields.Datetime.now()
                 # In case or records with transactions, consider last tx date
                 if rec.transaction_ids:
-                    last_tx_date = max(rec.transaction_ids.mapped("last_state_change"))
+                    last_state_changes = list(
+                        filter(None, rec.transaction_ids.mapped("last_state_change"))
+                    )
+                    if last_state_changes:
+                        last_tx_date = max(last_state_changes)
+                    else:
+                        last_tx_date = max(rec.transaction_ids.mapped("write_date"))
                     from_date = max(from_date, last_tx_date)
                 expire_delta = timedelta(hours=rec.website_id.cart_expire_delay)
                 rec.cart_expire_date = from_date + expire_delta
