@@ -47,7 +47,10 @@ class WebsiteSale(WebsiteSale):
     @http.route(["/page/product_brands"], type="http", auth="public", website=True)
     def product_brands(self, **post):
         b_obj = request.env["product.brand"]
-        domain = [("website_published", "=", True)]
+        domain = [
+            ("website_published", "=", True),
+            ("product_ids.is_published", "=", True),
+        ]
         if post.get("search"):
             domain += [("name", "ilike", post.get("search"))]
         brand_rec = b_obj.sudo().search(domain)
