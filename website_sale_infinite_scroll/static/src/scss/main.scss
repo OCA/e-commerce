@@ -48,18 +48,19 @@ _:future,
 }
 
 .btn-back-to-top {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
-    width: 36px;
-    height: 36px;
-    bottom: 50px;
-    right: 100px;
+    width: 2.5rem;
+    height: 2.5rem;
+    bottom: 3rem;
+    right: 5rem;
     background-color: #ddd;
     color: #4c5f9b;
     border: 1px solid #f4f5f7;
-    border-radius: 10px;
-    font-size: 13px;
+    border-radius: 0.75rem;
+    font-size: 1rem;
     text-decoration: none;
-    text-align: center;
     cursor: pointer;
 }
