@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_attributes" inherit_id="website_sale.products_attributes">
+        <xpath expr="//t[@t-foreach='attributes']/div" position="inside">
+            <t t-if="a.display_type == 'range'">
+                <t
+                    t-set="range_values"
+                    t-value="a.value_ids.sorted(key=lambda av: int(av.name))"
+                />
+                <div class="nav-item mb-4">
+                    <div class="form_class range_filter_main">
+                        <div class="row">
+                            <div class="col-12">
+                                <input
+                                    class="filter_range_slider"
+                                    t-att-data-id="a.id"
+                                    t-att-data-custom_min_range="range_values[0]['name']"
+                                    t-att-data-custom_max_range="range_values[-1]['name']"
+                                    t-att-data-min_range="range_values[0]['name']"
+                                    t-att-data-max_range="range_values[-1]['name']"
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex d-flex-row mt-1">
+                            <div class="input-group input-group-sm mr-2">
+                                <input
+                                    type="text"
+                                    name="min_range"
+                                    t-att-value="range_values[0]['name']"
+                                    placeholder="Min"
+                                    t-att-id="'{}-range_range_min_value'.format(a.id)"
+                                    onpaste="return false"
+                                    class="form-control"
+                                    data-lpignore="true"
+                                />
+                            </div>
+                            <div class="input-group input-group-sm ml-2">
+                                <input
+                                    type="text"
+                                    name="max_range"
+                                    t-att-value="range_values[-1]['name']"
+                                    placeholder="Max"
+                                    t-att-id="'{}-range_range_max_value'.format(a.id)"
+                                    onpaste="return false"
+                                    class="form-control"
+                                    data-lpignore="true"
+                                />
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-auto ml-auto">
+                                <div class="btn-group" role="group">
+                                    <input
+                                        type="submit"
+                                        class="btn btn-sm btn-default"
+                                        value="Apply"
+                                    />
+                                    <button
+                                        t-att-id="'{}-clear_range_filter'.format(a.id)"
+                                        type="button"
+                                        class="btn btn-sm btn-default"
+                                        title="Reset Filter"
+                                    >
+                                        <i class="fa fa-eraser" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            t-att-id="'{}-input-attr-values-filter'.format(a.id)"
+                            class="d-none"
+                        >
+                            <t t-foreach="range_values" t-as="v">
+                                <input
+                                    type="checkbox"
+                                    name="attrib"
+                                    t-att-data-value-attr="v.name"
+                                    t-att-value="'%s-%s' % (a.id,v.id)"
+                                    t-att-checked="'checked' if v.id in attrib_set else None"
+                                />
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
