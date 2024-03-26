@@ -43,12 +43,12 @@ odoo.define("website_sale_infinite_scroll.main", function (require) {
                 var self = this;
                 const container = this.el;
                 let lastScrollTop = 0;
-                const btn_back_to_top = document.querySelector(".btn-back-to-top");
+                const btnBackToTop = document.querySelector(".btn-back-to-top");
                 container.addEventListener("scroll", () => {
                     const scrollTop = container.scrollTop;
                     if (self._check_pagination() && scrollTop > lastScrollTop) {
-                        if (btn_back_to_top && self.flag) {
-                            btn_back_to_top.classList.remove("d-none");
+                        if (btnBackToTop && self.flag) {
+                            btnBackToTop.classList.remove("d-none");
                         }
                         self._onScroll();
                     }
