@@ -61,11 +61,6 @@ msgid "Hide prices on website"
 msgstr ""
 
 #. module: website_sale_hide_price
-#: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
-msgid "Hide the product prices for everyone only on this website"
-msgstr ""
-
-#. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_product_template
 msgid "Product"
 msgstr ""
