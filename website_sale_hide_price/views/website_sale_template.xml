@@ -97,8 +97,11 @@
             >website and website.website_show_price</attribute>
         </xpath>
     </template>
-    <template id="badge_extra_price" inherit_id="sale.badge_extra_price">
-        <xpath expr="//t[@t-name='sale.badge_extra_price']" position="attributes">
+    <template id="badge_extra_price" inherit_id="website_sale.badge_extra_price">
+        <xpath
+            expr="//t[@t-name='website_sale.badge_extra_price']"
+            position="attributes"
+        >
             <attribute
                 name="t-if"
             >website and website.website_show_price and not product.website_hide_price</attribute>
@@ -114,6 +117,17 @@
                 separator=" and "
                 add="website.website_show_price and not combination_info['website_hide_price']"
             />
+        </xpath>
+    </template>
+
+    <template
+        id="filter_products_price"
+        inherit_id="website_sale.filter_products_price"
+    >
+        <xpath expr="//div[@id='o_wsale_price_range_option']" position="attributes">
+                <attribute
+                name="t-if"
+            >website and website.website_show_price</attribute>
         </xpath>
     </template>
 

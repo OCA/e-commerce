@@ -17,13 +17,13 @@ Website Sale Hide Price
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_hide_price
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_hide_price
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_hide_price
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_hide_price
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -40,48 +40,54 @@ Configuration
 
 If you want to hide prices at customer level:
 
-#. Go to *Customers* and choose one.
-#. Go to *Sales and Purchases* tab.
-#. In *Sales* group set *Show prices on website* on or off so this customer can
-   see them or not. The default value is `True`, so every partner website user
-   can see the prices.
+1. Go to *Customers* and choose one.
+2. Go to *Sales and Purchases* tab.
+3. In *Sales* group set *Show prices on website* on or off so this
+   customer can see them or not. The default value is True, so every
+   partner website user can see the prices.
 
 For not logged in customers:
 
-#. If you want to have the prices hidden by default when no user is logged
-   in you should go to Public User's partner and set *Show prices on website*
-   off. (Remember that the Public User's user and partner use to be archived).
+1. If you want to have the prices hidden by default when no user is
+   logged in you should go to Public User's partner and set *Show prices
+   on website* off. (Remember that the Public User's user and partner
+   use to be archived).
 
 Hide prices at product level:
 
-#. Go to *Website > Catalog > Products* and choose one.
-#. Go to *eCommerce* tab.
-#. In the *Shop* section you have the option *Hide prices on website*.
-#. You can optionally set a message that will be displayed when the prices are
-   hidden.
+1. Go to *Website > Catalog > Products* and choose one.
+2. Go to *eCommerce* tab.
+3. In the *Shop* section you have the option *Hide prices on website*.
+4. You can optionally set a message that will be displayed when the
+   prices are hidden.
 
 If you want to hide prices at website level
 
-#. Go to *Website > Configuration > Settings* and choose the website to hide the prices.
-#. In the *Shop - Products* section you have the option *Hide prices on website*
+1. Go to *Website > Configuration > Settings* and choose the website to
+   hide the prices.
+2. In the *Shop - Products* section you have the option *Hide prices on
+   website*
 
 Usage
 =====
 
-After configuring the module go to the website store and check your expected results:
+After configuring the module go to the website store and check your
+expected results:
 
-#. On the search box writing the name of a product.
-#. On the product list (/shop).
-#. On the product page.
-#. On the recently viewed products.
+1. On the search box writing the name of a product.
+2. On the product list (/shop).
+3. On the product page.
+4. On the recently viewed products.
 
-You shouldn't be able to either see the prices or buy any of the forbidden items if any.
+You shouldn't be able to either see the prices or buy any of the
+forbidden items if any.
 
 Known issues / Roadmap
 ======================
 
-- This module is incompatible with the website_sale_stock_force_block module because it
-  makes changes to the same attributes in the website_sale.products_add_to_cart template.
+-  This module is incompatible with the website_sale_stock_force_block
+   module because it makes changes to the same attributes in the
+   website_sale.products_add_to_cart template.
 
 Bug Tracker
 ===========
@@ -89,7 +95,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_hide_price%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_hide_price%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -97,31 +103,34 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  * David Vidal
-  * Pilar Vargas
+   -  David Vidal
+   -  Pilar Vargas
 
-* Abraham González <abraham@trey.es>
-* Juanjo Algaz  <jalgaz@gmail.com>
+-  Abraham González <abraham@trey.es>
+-  Juanjo Algaz <jalgaz@gmail.com>
+-  \`Factor Libre <https://factorlibre.com>\`:
 
-* `Factor Libre <https://factorlibre.com>`:
+   -  Pablo De Andrés <pablo.deandres@factorlibre.com>
 
-  * Pablo De Andrés <pablo.deandres@factorlibre.com>
+-  \`Sodexis <https://sodexis.com>\`:
 
-* `Sodexis <https://sodexis.com>`:
+   -  Karthik <karthik@sodexis.com>
 
-  * Karthik <karthik@sodexis.com>
+-  `Idealis Consulting <https://idealisconsulting.com>`__:
+
+   -  Sylvain Van Hoof
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -133,6 +142,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_hide_price>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_hide_price>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

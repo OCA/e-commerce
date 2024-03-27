@@ -19,7 +19,6 @@ class ProductTemplate(models.Model):
         combination=False,
         product_id=False,
         add_qty=1,
-        pricelist=False,
         parent_combination=False,
         only_template=False,
     ):
@@ -27,7 +26,6 @@ class ProductTemplate(models.Model):
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            pricelist=pricelist,
             parent_combination=parent_combination,
             only_template=only_template,
         )
@@ -47,7 +45,7 @@ class ProductTemplate(models.Model):
         website_show_price = (
             self.env["website"].get_current_website().website_show_price
         )
-        for product, data in zip(self, results_data):
+        for product, data in zip(self, results_data, strict=True):
             if product.website_hide_price or not website_show_price:
                 data.update(
                     {
