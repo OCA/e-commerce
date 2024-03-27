@@ -4,39 +4,20 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <div id="sale_product_catalog_settings" position="inside">
-                <div
-                    class="col-12 col-lg-6 o_setting_box"
+            <block id="sale_product_catalog_settings" position="inside">
+                <setting
                     id="website_sale_hide_price"
                     title="Hide prices at website level"
                 >
-                    <div class="o_setting_left_pane">
-                        <field name="website_hide_price" />
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="website_hide_price" />
-                        <div class="text-muted">
-                            Hide the product prices for everyone only on this website
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="col-12 col-lg-6 o_setting_box"
+                    <field name="website_hide_price" />
+                </setting>
+                <setting
                     id="website_sale_hide_price_message"
                     title="Set a default text when hiding prices"
                 >
-                    <div class="o_setting_left_pane">
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="website_hide_price_default_message" />
-                        <div class="text-muted">
-                            Set a default text when hiding prices
-                        </div>
-                        <field name="website_hide_price_default_message" />
-                    </div>
-                </div>
-            </div>
+                    <field name="website_hide_price_default_message" />
+                </setting>
+            </block>
         </field>
     </record>
 </odoo>
