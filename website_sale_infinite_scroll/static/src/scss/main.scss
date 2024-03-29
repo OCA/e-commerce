@@ -42,3 +42,29 @@ _:future,
         padding-bottom: 0.75rem !important;
     }
 }
+
+#html {
+    scroll-behavior: smooth;
+}
+
+.btn-back-to-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 2.5rem;
+    height: 2.5rem;
+    bottom: 3rem;
+    right: 5rem;
+    background-color: #ddd;
+    color: #4c5f9b;
+    border: 1px solid #f4f5f7;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-back-to-top:hover {
+    color: #133a39;
+    text-decoration: none;
+}

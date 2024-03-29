@@ -12,6 +12,7 @@
             <style>.products_pager .pagination {display:none;}</style>
         </xpath>
         <xpath expr="//div[@id='products_grid']" position="replace">
+            <p><a name="top" /></p>
             <div
                 id="products_grid"
                 t-attf-class="col infinite-scroll #{'o_wsale_layout_list' if layout_mode == 'list' else ''}"
@@ -71,6 +72,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <a href="#top" class="btn-back-to-top d-none"><i
+                            class="fa fa-arrow-up"
+                        /></a>
                 </div>
                 <t t-else="">
                     <div class="text-center text-muted">

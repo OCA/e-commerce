@@ -16,6 +16,10 @@
             />
             <script
                 type="text/javascript"
+                src="/website_sale_infinite_scroll/static/src/js/widget_back_to_top.js"
+            />
+            <script
+                type="text/javascript"
                 src="/website_sale_infinite_scroll/static/src/js/toors/toor.js"
             />
             <link
