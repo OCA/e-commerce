@@ -39,7 +39,7 @@ addon | version | maintainers | summary
 [website_sale_filter_product_brand](website_sale_filter_product_brand/) | 14.0.1.0.2 |  | Website Sale Filter Product Brand
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 14.0.1.0.0 |  | Hide any Product Categories that are empty
 [website_sale_hide_price](website_sale_hide_price/) | 14.0.1.1.0 |  | Hide product prices on the shop
-[website_sale_infinite_scroll](website_sale_infinite_scroll/) | 14.0.1.0.1 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Infinite Scroll
+[website_sale_infinite_scroll](website_sale_infinite_scroll/) | 14.0.1.0.2 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Infinite Scroll
 [website_sale_invoice_address](website_sale_invoice_address/) | 14.0.1.0.1 |  | Set e-Commerce sale orders invoice address as in backend
 [website_sale_order_type](website_sale_order_type/) | 14.0.1.0.0 | [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | This module allows sale_order_type to work with website_sale.
 [website_sale_payment_term_acquirer](website_sale_payment_term_acquirer/) | 14.0.1.0.1 | [![geomer198](https://github.com/geomer198.png?size=30px)](https://github.com/geomer198) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | eCommerce Payment Term Acquirer
