@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_name_fixed_height
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-05 09:15+0000\n"
+"PO-Revision-Date: 2024-04-05 09:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_product_name_fixed_height
+#: model:ir.model,name:website_sale_product_name_fixed_height.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: website_sale_product_name_fixed_height
+#: model:ir.model.fields,help:website_sale_product_name_fixed_height.field_res_config_settings__row_count
+#: model:ir.model.fields,help:website_sale_product_name_fixed_height.field_website__row_count
+#: model_terms:ir.ui.view,arch_db:website_sale_product_name_fixed_height.res_config_settings_view_form
+msgid "Number of rows to display in description"
+msgstr "Número de filas a mostrar en la descripción"
+
+#. module: website_sale_product_name_fixed_height
+#: model:ir.model.fields,field_description:website_sale_product_name_fixed_height.field_res_config_settings__row_count
+#: model:ir.model.fields,field_description:website_sale_product_name_fixed_height.field_website__row_count
+msgid "Row count in description"
+msgstr "Número de filas en la descripción"
+
+#. module: website_sale_product_name_fixed_height
+#. odoo-python
+#: code:addons/website_sale_product_name_fixed_height/models/website.py:0
+#, python-format
+msgid "Row count must be greater than 0"
+msgstr "El número de filas debe ser superior a 0"
+
+#. module: website_sale_product_name_fixed_height
+#: model:ir.model,name:website_sale_product_name_fixed_height.model_website
+msgid "Website"
+msgstr "Sitio web"
