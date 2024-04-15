@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addons-oca-e-commerce"
+version = "17.0.20240415.0"
+dependencies = [
+    "odoo-addon-website_sale_hide_price>=17.0dev,<17.1dev",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 17.0",
+]
