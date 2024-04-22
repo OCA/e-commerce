@@ -2,11 +2,7 @@
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * Copyright 2022 Carlos Roca - Tecnativa
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
-
-import publicWidget from "web.public.widget";
-// If next dependency is not declared publicWidget.registry.WebsiteSale will be
-// undefined
-import "website_sale.website_sale";
+import publicWidget from "@web/legacy/js/public/public_widget";
 
 publicWidget.registry.WebsiteSale.include({
     /**

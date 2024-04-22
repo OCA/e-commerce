@@ -12,7 +12,6 @@ class ProductTemplate(models.Model):
         combination=False,
         product_id=False,
         add_qty=1,
-        pricelist=False,
         parent_combination=False,
         only_template=False,
     ):
@@ -21,7 +20,6 @@ class ProductTemplate(models.Model):
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            pricelist=pricelist,
             parent_combination=parent_combination,
             only_template=only_template,
         )
@@ -30,7 +28,7 @@ class ProductTemplate(models.Model):
             return combination_info
         partner = self.env.user.partner_id
         company_id = website.company_id
-        pricelist = pricelist or website.get_current_pricelist()
+        pricelist = website._get_current_pricelist()
         product = (
             self.env["product.product"].browse(combination_info["product_id"]) or self
         )
@@ -38,9 +36,9 @@ class ProductTemplate(models.Model):
         quantity_1 = 1
         # Obtain the inverse field of the normal b2b/b2c behavior
         alt_field = (
-            "total_included"
-            if self.env.user.has_group("account.group_show_line_subtotals_tax_excluded")
-            else "total_excluded"
+            "total_excluded"
+            if website.show_line_subtotals_tax_selection == "tax_included"
+            else "total_included"
         )
         # Obtain taxes that apply to the product and context
         taxes = partner.property_account_position_id.map_tax(
@@ -67,3 +65,45 @@ class ProductTemplate(models.Model):
             alt_price=alt_price, alt_list_price=alt_list_price, alt_field=alt_field
         )
         return combination_info
+
+    def _get_sales_prices(self, pricelist, fiscal_position):
+        prices = super()._get_sales_prices(pricelist, fiscal_position)
+        for template in self:
+            website = self.env["website"].get_current_website(fallback=False)
+            company_id = website.company_id
+            pricelist = website.pricelist_id
+            partner = self.env.user.partner_id
+            combination_info = template._get_combination_info()
+            quantity_1 = 1
+            alt_field = (
+                "total_excluded"
+                if website.show_line_subtotals_tax_selection == "tax_included"
+                else "total_included"
+            )
+            taxes = partner.property_account_position_id.map_tax(
+                template.sudo().taxes_id.filtered(
+                    lambda x, company_id=company_id: x.company_id == company_id
+                )
+            ).with_context(force_price_include=alt_field == "total_excluded")
+
+            alt_list_price = alt_price = taxes.compute_all(
+                combination_info["price"],
+                pricelist.currency_id,
+                quantity_1,
+                template,
+                partner,
+            )[alt_field]
+            if combination_info.get("has_discounted_price"):
+                alt_list_price = taxes.compute_all(
+                    combination_info["list_price"],
+                    pricelist.currency_id,
+                    quantity_1,
+                    template,
+                    partner,
+                )[alt_field]
+            combination_info.update(
+                alt_price=alt_price, alt_list_price=alt_list_price, alt_field=alt_field
+            )
+            combination_info = {"combination_info": combination_info}
+            prices[template.id].update(combination_info)
+        return prices
