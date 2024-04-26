@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-26 13:03+0000\n"
+"PO-Revision-Date: 2024-04-26 15:36+0000\n"
 "Last-Translator: \"Augusto D. Lisbôa\" <augusto.diniz.l@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -82,48 +82,48 @@ msgstr "Pré-agende sua reserva (%(index)d de %(total)d)"
 #. module: website_sale_resource_booking
 #: model:ir.model.fields,field_description:website_sale_resource_booking.field_resource_booking__prereserved_email
 msgid "Prereserved Email"
-msgstr ""
+msgstr "Email da pré-reserva"
 
 #. module: website_sale_resource_booking
 #: model:ir.model.fields,field_description:website_sale_resource_booking.field_resource_booking__prereserved_name
 msgid "Prereserved Name"
-msgstr ""
+msgstr "Nome da pré-reserva"
 
 #. module: website_sale_resource_booking
 #: model:ir.model,name:website_sale_resource_booking.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Template do Produto"
 
 #. module: website_sale_resource_booking
 #: model:ir.model,name:website_sale_resource_booking.model_resource_booking
 msgid "Resource Booking"
-msgstr ""
+msgstr "Agendamento do Recurso"
 
 #. module: website_sale_resource_booking
 #: model:ir.model.fields,field_description:website_sale_resource_booking.field_product_product__resource_booking_expiration
 #: model:ir.model.fields,field_description:website_sale_resource_booking.field_product_template__resource_booking_expiration
 msgid "Resource Booking Expiration"
-msgstr ""
+msgstr "Expiração do agendamento"
 
 #. module: website_sale_resource_booking
 #: model:ir.model,name:website_sale_resource_booking.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Pedido de Venda"
 
 #. module: website_sale_resource_booking
 #: model:ir.model,name:website_sale_resource_booking.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Linha do Pedido de Venda"
 
 #. module: website_sale_resource_booking
 #: model_terms:ir.ui.view,arch_db:website_sale_resource_booking.wizard_checkout
 msgid "Schedule bookings"
-msgstr ""
+msgstr "Agendar reservas"
 
 #. module: website_sale_resource_booking
 #: model_terms:ir.ui.view,arch_db:website_sale_resource_booking.scheduling
 msgid "True"
-msgstr ""
+msgstr "Verdadeiro"
 
 #. module: website_sale_resource_booking
 #: model:ir.model.fields,help:website_sale_resource_booking.field_product_product__resource_booking_timeout
@@ -132,6 +132,8 @@ msgid ""
 "When resources are pre-booked, the booking will expire after this timeout if"
 " the quotation is not confirmed in time."
 msgstr ""
+"O agendamento da pré-reserva expirará após este tempo caso o orçamento não "
+"seja confirmado."
 
 #. module: website_sale_resource_booking
 #: model:ir.model.fields,help:website_sale_resource_booking.field_resource_booking__expiration
@@ -139,3 +141,5 @@ msgid ""
 "When will this booking expire if its related quotation is not confirmed in "
 "time?"
 msgstr ""
+"Quando esta reserva expirará se a cotação relacionada não for confirmada a "
+"tempo?"
