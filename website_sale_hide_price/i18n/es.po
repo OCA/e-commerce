@@ -84,3 +84,10 @@ msgid ""
 msgstr ""
 "Cuando el precio está oculto en el sitio web, podemos dar al cliente algunos "
 "consejos sobre cómo averiguarlo."
+
+#. module: website_sale_hide_price
+#. openerp-web
+#: code:addons/website_sale_hide_price/static/src/xml/website_sale_templates.xml:0
+#, python-format
+msgid "widget.displayPrice & !product.website_hide_price"
+msgstr ""
