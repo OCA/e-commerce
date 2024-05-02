@@ -14,7 +14,8 @@
                         <field name="operation_type" />
                         <field
                             name="type_id"
-                            attrs="{'invisible': [('operation_type', '!=', 'link')], 'required': [('operation_type', '=', 'link')]}"
+                            invisible="operation_type != 'link'"
+                            required="operation_type == 'link'"
                         />
                     </group>
                 </group>
@@ -38,7 +39,7 @@
                         type="object"
                         class="oe_highlight"
                         help="Create links?"
-                        attrs="{'invisible': [('operation_type', '!=', 'link')]}"
+                        invisible="operation_type != 'link'"
                     />
                    <button
                         name="action_apply"
@@ -46,7 +47,7 @@
                         type="object"
                         class="oe_highlight"
                         help="Remove links?"
-                        attrs="{'invisible': [('operation_type', '!=', 'unlink')]}"
+                        invisible="operation_type != 'unlink'"
                     />
                    <button string="Cancel" class="oe_link" special="cancel" />
                </footer>
