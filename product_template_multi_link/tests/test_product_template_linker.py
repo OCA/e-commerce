@@ -84,7 +84,7 @@ class TestProductTemplateLinker(TransactionCase):
         self._test_link_created(links, link_type)
         # Ensure no duplicates
         link = self.product1.product_template_link_ids.filtered(
-            lambda l: l.right_product_tmpl_id == self.product2
+            lambda r: r.right_product_tmpl_id == self.product2
         )
         self.assertEqual(1, len(link))
 
@@ -104,8 +104,8 @@ class TestProductTemplateLinker(TransactionCase):
         self._test_link_created(links, link_type)
         # Ensure no duplicates
         link = self.product1.product_template_link_ids.filtered(
-            lambda l: l.right_product_tmpl_id == self.product2
-            or l.left_product_tmpl_id == self.product2
+            lambda r: r.right_product_tmpl_id == self.product2
+            or r.left_product_tmpl_id == self.product2
         )
         # 2 because we have up_sell and cross_sell
         self.assertEqual(2, len(link))

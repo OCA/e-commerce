@@ -12,7 +12,7 @@
         <field name="name">Product Links</field>
         <field name="res_model">product.template.link</field>
         <field name="view_mode">tree,kanban</field>
-        <field name="domain">[('product_template_id', '=', active_id)]</field>
-        <field name="context">{'default_product_template_id': active_id}</field>
+        <field name="domain">[('product_template_id', '=', id)]</field>
+        <field name="context">{'default_product_template_id': id}</field>
     </record>
 </odoo>
