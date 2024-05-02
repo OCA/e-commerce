@@ -11,7 +11,7 @@ from odoo.exceptions import ValidationError
 
 class ProductTemplateLink(models.Model):
     _name = "product.template.link"
-    _order = "left_product_tmpl_id, right_product_tmpl_id"
+    _order = "sequence,left_product_tmpl_id, right_product_tmpl_id"
     _description = "Product link"
 
     left_product_tmpl_id = fields.Many2one(
@@ -40,6 +40,8 @@ class ProductTemplateLink(models.Model):
         related="type_id.inverse_name"
     )  # right to left
     is_link_active = fields.Boolean(compute="_compute_is_link_active")
+
+    sequence = fields.Integer(help="Used to order links", default=10)
 
     def _compute_is_link_active(self):
         # Hook here to define your own logic
