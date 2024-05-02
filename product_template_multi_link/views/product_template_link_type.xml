@@ -11,16 +11,9 @@
             <tree editable="top">
                 <field name="is_symmetric" />
                 <field name="name" />
-                <field
-                    name="inverse_name"
-                    required="1"
-                    attrs="{'readonly': [('is_symmetric', '=', True)]}"
-                />
+                <field name="inverse_name" required="1" readonly="is_symmetric" />
                 <field name="code" />
-                <field
-                    name="inverse_code"
-                    attrs="{'readonly': [('is_symmetric', '=', True)]}"
-                />
+                <field name="inverse_code" readonly="is_symmetric" />
             </tree>
         </field>
     </record>

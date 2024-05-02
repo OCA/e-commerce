@@ -76,7 +76,7 @@ class ProductTemplateLinker(models.TransientModel):
         links = self.env["product.template.link"].browse()
         for product in self.product_ids:
             existing_links = product.product_template_link_ids.filtered(
-                lambda l: l.type_id == self.type_id
+                lambda r: r.type_id == self.type_id
             )
             linked_products = existing_links.mapped(
                 "left_product_tmpl_id"

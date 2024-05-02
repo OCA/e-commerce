@@ -120,6 +120,9 @@ Contributors
 ------------
 
 -  Sylvain LE GAL <http://www.twitter.com/legalsylvain>
+-  `Binhex <https://binhex.cloud//com>`__:
+
+   -  David Luis Mora <d.luis@binhex.cloud>
 
 Maintainers
 -----------
