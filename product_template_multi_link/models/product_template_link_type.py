@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class ProductTemplateLinkType(models.Model):
-
     _name = "product.template.link.type"
     _description = "Product Template Link Type"
 
@@ -71,7 +70,7 @@ class ProductTemplateLinkType(models.Model):
         for record in self:
             display_name = record.name
             if not record.is_symmetric:
-                display_name = "{} / {}".format(record.inverse_name, record.name)
+                display_name = f"{record.inverse_name} / {record.name}"
             record.display_name = display_name
 
     @api.depends("name", "is_symmetric")

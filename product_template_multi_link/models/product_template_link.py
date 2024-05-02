@@ -115,9 +115,7 @@ class ProductTemplateLink(models.Model):
                 WHERE
                     {l3_join_where_clause}
             ) l3 ON TRUE
-        """.format(
-            **self._check_products_query_params()
-        )
+        """.format(**self._check_products_query_params())
         query_args = (
             AsIs(self._table),
             tuple(products.ids),
