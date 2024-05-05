@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="products" inherit_id="website_sale.products">
-        <!-- adding website and website.website_show_price to t-cache in order to update cache if parameter modified
-             this is needed if you connect with a different user that should not see the prices
-             see https://github.com/OCA/e-commerce/issues/818 -->
-        <xpath
-            expr="//div[hasclass('o_wsale_products_grid_table_wrapper')]"
-            position="attributes"
-        >
-            <attribute
-                name="t-cache"
-                add="website,website.website_show_price"
-                separator=","
-            />
-        </xpath>
-    </template>
     <template id="product_price" inherit_id="website_sale.product_price">
         <xpath expr="//div[@itemprop='offers']" position="attributes">
             <attribute name="t-if">
