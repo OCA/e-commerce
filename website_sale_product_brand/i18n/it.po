@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-28 02:55+0000\n"
-"PO-Revision-Date: 2023-07-21 09:10+0000\n"
+"PO-Revision-Date: 2024-05-07 14:37+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -48,7 +48,7 @@ msgstr "Ultima modifica il"
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
-msgstr "Nessun brand trovato."
+msgstr "Nessuna marca trovata."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_brand
@@ -74,7 +74,7 @@ msgstr "Cerca..."
 #. module: website_sale_product_brand
 #: model:website.menu,name:website_sale_product_brand.menu_website_sale_brand
 msgid "Shop by Brand"
-msgstr "Brand"
+msgstr "Acquisto per marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_url
