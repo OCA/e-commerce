@@ -17,23 +17,28 @@ Website sale order type
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_order_type
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_order_type
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_order_type
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_order_type
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows `sale_order_type <https://github.com/OCA/sale-workflow/tree/14.0/sale_order_type>`__ to work with website_sale.
+This module allows
+`sale_order_type <https://github.com/OCA/sale-workflow/tree/14.0/sale_order_type>`__
+to work with website_sale.
 
-This module is useful for users having a sale order type defined in their Partner form:
-when these users buy a product in the e-commerce, the sale order generated will have the same sale order type that is defined in their Partner form.
+This module is useful for users having a sale order type defined in
+their Partner form: when these users buy a product in the e-commerce,
+the sale order generated will have the same sale order type that is
+defined in their Partner form.
 
-Note that the sale order type is defined contact by contact and not at Company level.
+Note that the sale order type is defined contact by contact and not at
+Company level.
 
 **Table of contents**
 
@@ -43,9 +48,12 @@ Note that the sale order type is defined contact by contact and not at Company l
 Usage
 =====
 
-#. In the backend (Sales -> Customers) set a sale order type in any contact;
-#. Log in with the associated user in the e-commerce website and buy a product;
-#. Check that the created sale oder has the same sale order type that has been set in the contact.
+1. In the backend (Sales -> Customers) set a sale order type in any
+   contact;
+2. Log in with the associated user in the e-commerce website and buy a
+   product;
+3. Check that the created sale oder has the same sale order type that
+   has been set in the contact.
 
 Bug Tracker
 ===========
@@ -53,7 +61,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_order_type%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_order_type%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -61,24 +69,23 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Agile Business Group
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Simone Rubino <simone.rubino@agilebg.com>
+-  Simone Rubino <simone.rubino@agilebg.com>
 
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-* `Tecnativa <https://www.tecnativa.com>`_:
-
-    * João Marques
-    * Pilar Vargas
-    * Stefan Ungureanu
+      -  João Marques
+      -  Pilar Vargas
+      -  Stefan Ungureanu
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -101,6 +108,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-stefan-tecnativa| |maintainer-pilarvargas-tecnativa| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_order_type>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_order_type>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
