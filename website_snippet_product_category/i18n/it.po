@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-05-08 07:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: website_snippet_product_category
 #. odoo-javascript
@@ -22,50 +24,52 @@ msgid ""
 "An error occured with this product categories block. If the problem "
 "persists, please consider deleting it and adding a new one"
 msgstr ""
+"Si è verificato un errore con il blocco di questa categoria prodotto. Se il "
+"problema continua, provare a cancellarlo e reinserirlo"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal
 msgid "Metal Box"
-msgstr ""
+msgstr "Contenitore di metallo"
 
 #. module: website_snippet_product_category
 #. odoo-javascript
 #: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
 #, python-format
 msgid "No categories were found. Make sure you have categories defined."
-msgstr ""
+msgstr "Nessuna categoria trovata. Assicurarsi di avere definito le categorie."
 
 #. module: website_snippet_product_category
 #: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__published_in_product_category_snippet
 msgid "Published in product category snippet"
-msgstr ""
+msgstr "Pubblicato nell'esempio categoria prodotto"
 
 #. module: website_snippet_product_category
 #: model:website.menu,name:website_snippet_product_category.snippet_product_category_demo_page_link
 msgid "Snippet Product Category Demo"
-msgstr ""
+msgstr "Demo esempio categoria prodotto"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_spec_a
 msgid "Spec A"
-msgstr ""
+msgstr "Specifica A"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_spec_b
 msgid "Spec B"
-msgstr ""
+msgstr "Specifica B"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_subspec_b_a
 msgid "SubSpec B - A"
-msgstr ""
+msgstr "Sotto specifica B - A"
 
 #. module: website_snippet_product_category
 #: model:ir.model,name:website_snippet_product_category.model_product_public_category
 msgid "Website Product Category"
-msgstr ""
+msgstr "Categoria prodotto sito web"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
-msgstr ""
+msgstr "Scatola in legno"
