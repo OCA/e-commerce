@@ -4,7 +4,7 @@
 {
     "name": "Website sale order type",
     "summary": "This module allows sale_order_type to work with website_sale.",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -14,7 +14,7 @@
     "depends": ["website_sale", "sale_order_type"],
     "assets": {
         "web.assets_tests": [
-            "/website_sale_order_type/static/src/js/website_sale_order_type_tour.js"
+            "/website_sale_order_type/static/src/tests/tours/website_sale_order_type_tour.esm.js"
         ]
     },
     "auto_install": True,

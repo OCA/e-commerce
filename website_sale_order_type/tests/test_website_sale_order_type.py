@@ -6,7 +6,7 @@ from odoo.tests import HttpCase, tagged
 @tagged("post_install", "-at_install")
 class TestFrontend(HttpCase):
     def setUp(self):
-        super(TestFrontend, self).setUp()
+        super().setUp()
         self.sale_type_model = self.env["sale.order.type"]
         self.product_template = self.env["product.template"].create(
             {
@@ -33,7 +33,7 @@ class TestFrontend(HttpCase):
         )
         self.warehouse = self.env.ref("stock.warehouse0")
         self.immediate_payment = self.env.ref("account.account_payment_term_immediate")
-        self.sale_pricelist = self.env.ref("product.list0")
+        self.sale_pricelist = self.env.ref("website_sale.list_europe")
         self.free_carrier = self.env.ref("account.incoterm_FCA")
         return self.sale_type_model.create(
             {
@@ -57,3 +57,5 @@ class TestFrontend(HttpCase):
             [("id", "not in", existing_orders.ids)]
         )
         self.assertEqual(created_order.type_id, self.sale_type)
+        self.assertEqual(created_order.payment_term_id, self.sale_type.payment_term_id)
+        self.assertEqual(created_order.pricelist_id, self.sale_type.pricelist_id)
