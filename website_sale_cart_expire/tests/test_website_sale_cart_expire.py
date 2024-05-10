@@ -36,6 +36,7 @@ class TestWebsiteSaleCartExpire(TransactionCase):
         return self.env["payment.transaction"].create(
             {
                 "provider_id": provider.id,
+                "payment_method_id": self.env.ref("payment.payment_method_7eleven").id,
                 "reference": f"{order.name}-{self.tx_counter}",
                 "amount": order.amount_total,
                 "currency_id": order.currency_id.id,
