@@ -45,6 +45,7 @@ class WebsiteSaleVariantController(VariantController):
                     "show_availability": template.show_availability,
                     "available_threshold": template.available_threshold,
                     "uom_name": template.uom_name,
+                    "uom_rounding": template.uom_id.rounding,
                 }
             )
         return res
