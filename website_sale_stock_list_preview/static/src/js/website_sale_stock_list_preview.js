@@ -3,6 +3,7 @@ odoo.define("website_sale_stock_list_preview.shop_stock", function (require) {
 
     var publicWidget = require("web.public.widget");
     var core = require("web.core");
+    const field_utils = require("web.field_utils");
     const {Markup} = require("web.utils");
 
     publicWidget.registry.WebsiteSaleStockListPreview = publicWidget.Widget.extend({
@@ -71,6 +72,20 @@ odoo.define("website_sale_stock_list_preview.shop_stock", function (require) {
                                         available_threshold:
                                             product.available_threshold,
                                         uom_name: product.uom_name,
+                                        formatQuantity: (qty) => {
+                                            if (Number.isInteger(qty)) {
+                                                return qty;
+                                            }
+                                            const decimals = Math.max(
+                                                0,
+                                                Math.ceil(
+                                                    -Math.log10(product.uom_rounding)
+                                                )
+                                            );
+                                            return field_utils.format.float(qty, {
+                                                digits: [false, decimals],
+                                            });
+                                        },
                                     }
                                 )
                             ).get(0)
