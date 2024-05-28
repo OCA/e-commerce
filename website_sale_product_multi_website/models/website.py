@@ -2,7 +2,6 @@ from odoo import api, models
 
 
 class Website(models.Model):
-
     _inherit = "website"
 
     @api.model
