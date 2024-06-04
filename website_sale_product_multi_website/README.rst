@@ -1,6 +1,6 @@
-==================================
-Website sale product multi website
-==================================
+=====================
+Multi-website product
+=====================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -28,16 +28,18 @@ Website sale product multi website
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-By default, Odoo allows to set just one (or all) website for products to be sold on eCommerces, by setting the field product_template.website_ids (a many2one field). This module allows to set more than one value (website) in this field (convert it in a many2many field).
+By default, Odoo allows to set just one (or all) website for products to be
+sold on eCommerces, by setting the field product_template.website_ids (a
+many2one field). This module allows to set more than one value (website) in
+this field (convert it in a many2many field).
+
+When uninstalling this module, if a product is configured for more than a
+website, the product will be configured for all websites.
 
 **Table of contents**
 
 .. contents::
    :local:
-
-Usage
-=====
-#. Just install it.
 
 Bug Tracker
 ===========
@@ -45,7 +47,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_multi_website0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_multi_website%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -55,19 +57,7 @@ Credits
 Authors
 ~~~~~~~
 
-* Agile Business Group
-
-Contributors
-~~~~~~~~~~~~
-
-* Simone Rubino <simone.rubino@agilebg.com>
-
-
-* `Tecnativa <https://www.tecnativa.com>`_:
-
-    * João Marques
-    * Pilar Vargas
-    * Stefan Ungureanu
+* Adhoc S.A.
 
 Maintainers
 ~~~~~~~~~~~
@@ -81,17 +71,6 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
-
-.. |maintainer-stefan-tecnativa| image:: https://github.com/stefan-tecnativa.png?size=40px
-    :target: https://github.com/stefan-tecnativa
-    :alt: stefan-tecnativa
-.. |maintainer-pilarvargas-tecnativa| image:: https://github.com/pilarvargas-tecnativa.png?size=40px
-    :target: https://github.com/pilarvargas-tecnativa
-    :alt: pilarvargas-tecnativa
-
-Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
-
-|maintainer-stefan-tecnativa| |maintainer-pilarvargas-tecnativa|
 
 This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_product_multi_website>`_ project on GitHub.
 

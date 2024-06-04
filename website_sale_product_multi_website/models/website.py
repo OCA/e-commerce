@@ -11,7 +11,7 @@ class Website(models.Model):
             return [
                 "|",
                 ("website_ids", "=", False),
-                ("website_ids", "=", website_id or self.id),
+                ("website_ids", "in", website_id or self.id),
             ]
         return super().website_domain(website_id=website_id)
 
