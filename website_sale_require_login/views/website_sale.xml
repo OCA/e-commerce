@@ -15,13 +15,7 @@
             />
         </xpath>
         <xpath
-            expr="//div[hasclass('oe_cart')]//a[@href='/shop/checkout?express=1']"
-            position="attributes"
-        >
-            <attribute name="t-if">not hide_checkout_button</attribute>
-        </xpath>
-        <xpath
-            expr="//div[hasclass('col-12','col-xl-4')]//a[@href='/shop/checkout?express=1']"
+            expr="//div[hasclass('oe_cart')]//a[@t-attf-href='{{redirect_url}}']"
             position="attributes"
         >
             <attribute name="t-if">not hide_checkout_button</attribute>
@@ -32,7 +26,7 @@
         inherit_id="website_sale.short_cart_summary"
         customize_show="True"
     >
-        <xpath expr="//a[@href='/shop/checkout?express=1']" position="attributes">
+        <xpath expr="//a[@t-attf-href='{{redirect_url}}']" position="attributes">
             <attribute name="t-if">not hide_checkout_button</attribute>
         </xpath>
     </template>

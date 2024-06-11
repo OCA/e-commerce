@@ -10,3 +10,6 @@
   * Carlos Roca
 
 * Reinier Quevedo <reinier@mykubux.com>
+
+* `Domatix <https://domatix.com>`_:
+  * Carolina Ferrer

@@ -93,6 +93,9 @@ Contributors
 
 * Reinier Quevedo <reinier@mykubux.com>
 
+* `Domatix <https://domatix.com>`_:
+  * Carolina Ferrer
+
 Maintainers
 ~~~~~~~~~~~
 
