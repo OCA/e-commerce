@@ -3,7 +3,7 @@
 {
     "name": "Require login to checkout",
     "summary": "Force users to login for buying",
-    "version": "15.0.1.0.1",
+    "version": "16.0.1.0.1",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, " "LasLabs, " "Odoo Community Association (OCA)",
