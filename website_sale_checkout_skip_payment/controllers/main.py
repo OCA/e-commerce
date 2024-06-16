@@ -10,18 +10,13 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class CheckoutSkipPaymentWebsite(WebsiteSale):
-    @http.route()
-    def shop_payment_get_status(self, sale_order_id, **post):
-        # When skip payment step, the transaction not exists so only render
-        # the waiting message in ajax json call
-        if not request.website.checkout_skip_payment:
-            return super().shop_payment_get_status(sale_order_id, **post)
-        return {
-            "recall": True,
-            "message": request.website._render(
-                "website_sale_checkout_skip_payment.order_state_message"
-            ),
-        }
+
+    def _get_shop_payment_values(self, order, **kwargs):
+        res = super()._get_shop_payment_values(order, **kwargs)
+        if order.website_id.checkout_skip_payment:
+            res['submit_button_label'] = "Confirm"
+            res["hide_payment_button"] = True
+        return res
 
 
 class CheckoutSkipPayment(PaymentPortal):

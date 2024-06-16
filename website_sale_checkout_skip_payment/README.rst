@@ -28,9 +28,9 @@ Website Sale Checkout Skip Payment
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows to logged users to checkout with no payment step. At
-the end of the checkout proccess the quotation is sent to the user email
-address and set to *Qoutation Sent* state.
+This module allows to logged users to checkout with no payment step. At the
+end of the checkout proccess the quotation is sent to the user email address
+and set to *Qoutation Sent* state.
 
 **Table of contents**
 
@@ -42,16 +42,16 @@ Configuration
 
 To configure this module, you need to:
 
-1. Go to *Sales > Customers > Sales and Purchases > Sale*
-2. Set on *Skip Website Checkout Payment* so this partner will override
-   the payment step on website sales.
+#. Go to *Sales > Customers > Sales and Purchases > Sale*
+#. Set on *Skip Website Checkout Payment* so this partner will override the
+   payment step on website sales.
 
 Usage
 =====
 
 To use this module, you need to:
 
-1. Go to *Website > shop* and perform a checkout.
+#. Go to *Website > shop* and perform a checkout.
 
 Bug Tracker
 ===========
@@ -67,27 +67,26 @@ Credits
 =======
 
 Authors
--------
+~~~~~~~
 
 * Tecnativa
 
 Contributors
-------------
+~~~~~~~~~~~~
 
--  `Tecnativa <https://www.tecnativa.com>`__
+* `Tecnativa <https://www.tecnativa.com>`_
 
-   -  Sergio Teruel
-   -  David Vidal
-   -  Alexandre Díaz
-   -  Carlos Roca
+  * Sergio Teruel
+  * David Vidal
+  * Alexandre Díaz
+  * Carlos Roca
+* Martin Wilderoth <martin.wilderoth@linserv.se>
+* `Studio73 <https://www.studio73.es>`_:
 
--  Martin Wilderoth <martin.wilderoth@linserv.se>
--  `Studio73 <https://www.studio73.es>`__:
-
-   -  Miguel Gandia <miguel@studio73.es>
+  * Miguel Gandia <miguel@studio73.es>
 
 Maintainers
------------
+~~~~~~~~~~~
 
 This module is maintained by the OCA.
 
