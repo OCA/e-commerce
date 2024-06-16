@@ -44,18 +44,12 @@
     </template>
 
     <template id="confirmation" inherit_id="website_sale.confirmation">
-        <xpath
-            expr="//div[2]"
-            position="attributes"
-        >
+        <xpath expr="//div[2]" position="attributes">
             <attribute
                 name="t-if"
             >tx_sudo.state in ['pending', 'done'] or (website.checkout_skip_payment and order.state == 'sale')</attribute>
         </xpath>
-        <xpath
-            expr="//t/t[8]"
-            position="attributes"
-        >
+        <xpath expr="//t/t[8]" position="attributes">
             <attribute
                 name="t-if"
             >tx_sudo.state in ['pending', 'done'] or website.checkout_skip_payment</attribute>

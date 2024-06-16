@@ -10,11 +10,10 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class CheckoutSkipPaymentWebsite(WebsiteSale):
-
     def _get_shop_payment_values(self, order, **kwargs):
         res = super()._get_shop_payment_values(order, **kwargs)
         if order.website_id.checkout_skip_payment:
-            res['submit_button_label'] = "Confirm"
+            res["submit_button_label"] = "Confirm"
             res["hide_payment_button"] = True
         return res
 
