@@ -8,7 +8,14 @@ class TestFrontend(HttpCase):
     def setUp(self):
         super(TestFrontend, self).setUp()
         self.sale_type_model = self.env["sale.order.type"]
-
+        self.product_template = self.env["product.template"].create(
+            {
+                "name": "Test Product SO Type",
+                "is_published": True,
+                "website_sequence": 1,
+                "type": "consu",
+            }
+        )
         self.partner = self.env.ref("base.partner_admin")
         self.sale_type = self.create_sale_type()
 
