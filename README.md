@@ -46,7 +46,7 @@ addon | version | maintainers | summary
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 16.0.1.0.1 |  | Show the stock of products on the product previews
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 16.0.1.0.0 |  | Display provisioning date for a product in shop online
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 16.0.1.1.0 |  | Suggest users to create an account when buying in the website
-[website_sale_vat_required](website_sale_vat_required/) | 16.0.1.0.0 |  | VAT number required in checkout form
+[website_sale_vat_required](website_sale_vat_required/) | 16.0.1.0.1 |  | VAT number required in checkout form
 [website_sale_wishlist_hide_price](website_sale_wishlist_hide_price/) | 16.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_wishlist_keep](website_sale_wishlist_keep/) | 16.0.1.0.1 |  | Allows to add products to my cart but keep it in my wishlist"
 [website_snippet_product_category](website_snippet_product_category/) | 16.0.1.0.0 | [![Tardo](https://github.com/Tardo.png?size=30px)](https://github.com/Tardo) | Adds a new snippet to show e-commerce categories
