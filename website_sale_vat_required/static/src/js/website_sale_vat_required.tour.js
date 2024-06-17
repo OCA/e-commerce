@@ -7,7 +7,7 @@ odoo.define("website_sale_vat_required.tour", function (require) {
 
     var steps = [
         {
-            trigger: "a:contains('Chair floor protection')",
+            trigger: "a:contains('Test Product Vat Required')",
         },
         {
             trigger: "#add_to_cart",
@@ -17,7 +17,7 @@ odoo.define("website_sale_vat_required.tour", function (require) {
             extra_trigger: "sup.my_cart_quantity:contains('1')",
         },
         {
-            trigger: ".btn-primary:contains('Process Checkout')",
+            trigger: "a:contains('Process Checkout')",
         },
         {
             content: "Next",
