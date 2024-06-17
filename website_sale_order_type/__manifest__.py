@@ -8,7 +8,7 @@
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "maintainers": ["stefan-tecnativa", "pilarvargas-tecnativa"],
+    "maintainers": ["pilarvargas-tecnativa"],
     "author": "Agile Business Group, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["website_sale", "sale_order_type"],

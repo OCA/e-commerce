@@ -8,13 +8,14 @@ odoo.define("website_sale_order_type.tour", function (require) {
 
     var steps = [
         {
-            trigger: ".oe_product_cart a:contains('Customizable')",
+            trigger: ".oe_product_cart a:contains('Test Product SO Type')",
         },
         {
             trigger: "#add_to_cart",
         },
         {
-            trigger: "button:contains('Proceed to Checkout')",
+            trigger: "a[href='/shop/cart']",
+            extra_trigger: "sup.my_cart_quantity:contains('1')",
         },
         {
             trigger: ".btn:contains('Process Checkout')",
