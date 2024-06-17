@@ -14,13 +14,14 @@ odoo.define("website_sale_product_attribute_filter_collapse.tour", function (req
             trigger: "div:contains('Test v1')",
         },
         {
-            trigger: "a:contains('Customizable')",
+            trigger: "a:contains('Test Product Filter Collapse')",
         },
         {
             trigger: "#add_to_cart",
         },
         {
-            trigger: "button:contains('Proceed to Checkout')",
+            trigger: "a[href='/shop/cart']",
+            extra_trigger: "sup.my_cart_quantity:contains('1')",
         },
         {
             trigger: ".btn-primary:contains('Process Checkout')",
