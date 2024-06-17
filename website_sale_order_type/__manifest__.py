@@ -4,11 +4,11 @@
 {
     "name": "Website sale order type",
     "summary": "This module allows sale_order_type to work with website_sale.",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "maintainers": ["stefan-tecnativa", "pilarvargas-tecnativa"],
+    "maintainers": ["pilarvargas-tecnativa"],
     "author": "Agile Business Group, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["website_sale", "sale_order_type"],
