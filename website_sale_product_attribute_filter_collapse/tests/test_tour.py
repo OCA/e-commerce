@@ -19,8 +19,13 @@ class WebsiteSaleProductAttributeFilterCollapseHttpCase(HttpCase):
         self.product_attribute_value_2 = self.env["product.attribute.value"].create(
             {"name": "Test v2", "attribute_id": self.product_attribute.id}
         )
-        self.product_template = self.env.ref(
-            "product.product_product_4_product_template"
+        self.product_template = self.env["product.template"].create(
+            {
+                "name": "Test Product Filter Collapse",
+                "is_published": True,
+                "website_sequence": 1,
+                "type": "consu",
+            }
         )
         self.product_attribute_line = self.env[
             "product.template.attribute.line"
