@@ -17,7 +17,7 @@ class ProductAttributeValues(WebsiteSale):
         min_price=0.0,
         max_price=0.0,
         ppg=False,
-        **post
+        **post,
     ):
         res = super().shop(
             page=page,
@@ -26,7 +26,7 @@ class ProductAttributeValues(WebsiteSale):
             min_price=min_price,
             max_price=max_price,
             ppg=ppg,
-            **post
+            **post,
         )
 
         # getting existing templates by "search_product" in qcontext
