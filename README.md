@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[website_sale_hide_price](website_sale_hide_price/) | 17.0.1.0.0 |  | Hide product prices on the shop
+[website_sale_hide_price](website_sale_hide_price/) | 17.0.1.1.0 |  | Hide product prices on the shop
 
 [//]: # (end addons)
 
