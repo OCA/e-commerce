@@ -17,21 +17,21 @@ eCommerce product attachments
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_product_attachment
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_product_attachment
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_product_attachment
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_product_attachment
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module lets you publish downloadable attachments in a product page.
 
-This is useful if you want to publish firmwares, manuals, specs, warranties,
-or whatever document related to the product.
+This is useful if you want to publish firmwares, manuals, specs,
+warranties, or whatever document related to the product.
 
 **Table of contents**
 
@@ -41,65 +41,70 @@ or whatever document related to the product.
 Configuration
 =============
 
-Instead of configuring attachments per product, to configure products per attachment:
+Instead of configuring attachments per product, to configure products
+per attachment:
 
-#. You need permissions to access system settings.
-#. Go to *Settings > Dashboard > Activate the developer mode*.
-#. Go to *Settings > Technical > Database Structure > Attachments*.
-#. Pick or create one.
-#. Enable *Attached To > Is public document*.
-#. Use the field *Attached in products* to choose the products.
+1. You need permissions to access system settings.
+2. Go to *Settings > Dashboard > Activate the developer mode*.
+3. Go to *Settings > Technical > Database Structure > Attachments*.
+4. Pick or create one.
+5. Enable *Attached To > Is public document*.
+6. Use the field *Attached in products* to choose the products.
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/16.0/website_sale_product_attachment/static/description/backend-attachment.png
-   :alt: Attachments view in backend
+|image1|
 
 To be able to filter attachments per website:
 
-#. Go to *Website > Configuration > Settings > Website*.
-#. Create more than one.
-#. Go to *Settings > Technical > Database Structure > Attachments*
-#. Pick or create one.
-#. Select a website.
-#. Save
+1. Go to *Website > Configuration > Settings > Website*.
+2. Create more than one.
+3. Go to *Settings > Technical > Database Structure > Attachments*
+4. Pick or create one.
+5. Select a website.
+6. Save
 
 To toggle attachment icons in the website:
 
-#. Go to any product in your eCommerce.
-#. Toggle *Customize > Product downloads > Download icons*.
+1. Go to any product in your eCommerce.
+2. Toggle *Customize > Product downloads > Download icons*.
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/16.0/website_sale_product_attachment/static/description/frontend-icons.png
-   :alt: Toggle icons in frontend
+|image2|
+
+.. |image1| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_product_attachment/static/description/backend-attachment.png
+.. |image2| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_product_attachment/static/description/frontend-icons.png
 
 Usage
 =====
 
 To add publicly downloadable attachments to a product template:
 
-#. Go to a *Website > Products > Products* in backend.
-#. Pick or create one.
-#. Go to the *eCommerce* tab > *Website Attachments*.
-#. Add any downloadable attachments you want there. They can exist before or be new.
-   They must be public.
-#. Save.
+1. Go to a *Website > Products > Products* in backend.
+2. Pick or create one.
+3. Go to the *eCommerce* tab > *Website Attachments*.
+4. Add any downloadable attachments you want there. They can exist
+   before or be new. They must be public.
+5. Save.
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/16.0/website_sale_product_attachment/static/description/backend-product.png
-   :alt: Products view in backend
+|image1|
 
-Once you set up the product attachments, public users will be able to download them:
+Once you set up the product attachments, public users will be able to
+download them:
 
-#. Go to the product eCommerce page.
-#. Below the product price and description, you will find a dropdown labeled as *Product downloads*. Click it.
-#. Users will download those attachments from there.
-#. Attachments will appear in name order.
+1. Go to the product eCommerce page.
+2. Below the product price and description, you will find a dropdown
+   labeled as *Product downloads*. Click it.
+3. Users will download those attachments from there.
+4. Attachments will appear in name order.
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/16.0/website_sale_product_attachment/static/description/frontend-download.gif
-   :alt: Attachments view in backend
+|image2|
+
+.. |image1| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_product_attachment/static/description/backend-product.png
+.. |image2| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_product_attachment/static/description/frontend-download.gif
 
 Known issues / Roadmap
 ======================
 
-- Make translatable the name of the attachment in the e-commerce. This will
-  mean to deal with the sorting of the translated terms.
+-  Make translatable the name of the attachment in the e-commerce. This
+   will mean to deal with the sorting of the translated terms.
 
 Bug Tracker
 ===========
@@ -107,7 +112,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_attachment%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_attachment%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -115,25 +120,24 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Jairo Llopis
-  * Víctor Martínez
+   -  Jairo Llopis
+   -  Víctor Martínez
 
+-  `Sygel <https://www.sygel.es>`__:
 
-* `Sygel <https://www.sygel.es>`_:
-
-  * Ángel García de la Chica Herrera
+   -  Ángel García de la Chica Herrera
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -153,6 +157,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-Yajo| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_product_attachment>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_product_attachment>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
