@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
-    <t t-name="website_sale_product_minimal_price.title">
-        <h5 class="temporal">
-            <strong>Prices per quantity ( <span t-esc="uom" /> )</strong>
-        </h5>
+    <t t-name="website_sale_product_minimal_price.pricelist_block">
+        <t t-if="pricelist_title" t-call="{{pricelist_title}}" />
+        <t t-if="pricelist_scale" t-call="{{pricelist_scale}}" />
     </t>
-    <t t-name="website_sale_product_minimal_price.pricelist">
-        <div class="col-3 text-center">
-            <div>
-                <strong>≥<span t-esc="quantity" /></strong>
-            </div>
-            <div>
-                <span t-esc="price" />
+    <t t-name="website_sale_product_minimal_price.pricelist_title">
+        <t t-if="unit_prices.length > 0">
+            <hr class="temporal" />
+            <h5 class="temporal">
+                <strong>Prices per quantity ( <span t-esc="uom" /> )</strong>
+            </h5>
+        </t>
+    </t>
+    <t t-name="website_sale_product_minimal_price.pricelist_scale">
+        <div
+            t-foreach="[...Array(Math.ceil(unit_prices.length / column_limit))].map((_, i) => i * column_limit)"
+            t-as="row"
+            class="row temporal"
+            t-att-class="{'border-bottom': !row_last}"
+            t-key="row_index"
+        >
+            <div
+                t-foreach="unit_prices.slice(row, row + column_limit)"
+                t-as="unit_price"
+                t-key="unit_price_index"
+                class="col-3 text-center"
+            >
+                <div>
+                    <strong t-esc="unit_price.qty_str" />
+                </div>
+                <div>
+                    <span
+                        t-esc="formatMonetary(unit_price.price, {currencyId: unit_price.currency_id})"
+                    />
+                </div>
             </div>
         </div>
     </t>

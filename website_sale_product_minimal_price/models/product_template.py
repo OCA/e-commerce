@@ -8,6 +8,10 @@ from odoo import models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    def _get_cheapest_product_variant_ids(self):
+        """Added for having easier customizations"""
+        return self.product_variant_ids
+
     def _get_product_subpricelists(self, pricelist_id):
         return pricelist_id.item_ids.filtered(
             lambda i: (
@@ -18,7 +22,7 @@ class ProductTemplate(models.Model):
                 or (i.applied_on == "1_product" and i.product_tmpl_id == self)
                 or (
                     i.applied_on == "0_product_variant"
-                    and i.product_id in self.product_variant_ids
+                    and i.product_id in self._get_cheapest_product_variant_ids()
                 )
             )
             and i.compute_price == "formula"
@@ -27,7 +31,7 @@ class ProductTemplate(models.Model):
 
     def _get_variants_from_pricelist(self, pricelist_ids):
         return pricelist_ids.mapped("item_ids").filtered(
-            lambda i: i.product_id in self.product_variant_ids
+            lambda i: i.product_id in self._get_cheapest_product_variant_ids()
         )
 
     def _get_pricelist_variant_items(self, pricelist_id):
@@ -55,8 +59,9 @@ class ProductTemplate(models.Model):
         add_qty = 0
         has_distinct_price = False
         # Variants with extra price
-        variants_extra_price = self.product_variant_ids.filtered("price_extra")
-        variants_without_extra_price = self.product_variant_ids - variants_extra_price
+        product_variant_ids = self._get_cheapest_product_variant_ids()
+        variants_extra_price = product_variant_ids.filtered("price_extra")
+        variants_without_extra_price = product_variant_ids - variants_extra_price
         # Avoid compute prices when pricelist has not item variants defined
         variant_items = self._get_pricelist_variant_items(pricelist)
         if variant_items:
@@ -65,7 +70,7 @@ class ProductTemplate(models.Model):
             # category level. Maybe there is any definition on template that
             # has cheaper price.
             variants = variant_items.mapped("product_id")
-            products = variants + (self.product_variant_ids - variants)[:1]
+            products = variants + (product_variant_ids - variants)[:1]
         else:
             products = variants_without_extra_price[:1]
         products |= variants_extra_price
@@ -91,24 +96,47 @@ class ProductTemplate(models.Model):
         res = super()._get_first_possible_combination(
             parent_combination=parent_combination, necessary_values=necessary_values
         )
-        context = self.env.context
-        if (
-            context.get("website_id")
-            and context.get("pricelist")
-            and self.product_variant_count > 1
-        ):
+        # Copied from _get_combination_info
+        # /odoo/addons/website_sale/models/product_template.py
+        website = (
+            self.env["website"].get_current_website().with_context(**self.env.context)
+        )
+        pricelist = website.pricelist_id
+        if website and pricelist and self.product_variant_count > 1:
             # It only makes sense to change the default one when there are
             # more than one variants and we know the pricelist
-            pricelist = self.env["product.pricelist"].browse(context["pricelist"])
             product_id = self._get_cheapest_info(pricelist)[0]
             product = self.env["product.product"].browse(product_id)
             # Rebuild the combination in the expected order
             res = self.env["product.template.attribute.value"]
             for line in product.valid_product_template_attribute_line_ids:
                 value = product.product_template_attribute_value_ids.filtered(
-                    lambda x: x in line.product_template_value_ids
+                    lambda x, line=line: x in line.product_template_value_ids
                 )
                 if not value:
                     value = line.product_template_value_ids[:1]
                 res += value
+        return res
+
+    def _get_sales_prices(self, pricelist, fiscal_position):
+        res = super()._get_sales_prices(pricelist, fiscal_position)
+        # Copied from _get_combination_info
+        # /odoo/addons/website_sale/models/product_template.py
+        website = (
+            self.env["website"].get_current_website().with_context(**self.env.context)
+        )
+        if website:
+            for template in self.filtered(
+                lambda t: t.is_published and t.id in res and "price_reduce" in res[t.id]
+            ):
+                product_id, add_qty, has_distinct_price = template._get_cheapest_info(
+                    pricelist
+                )
+                if has_distinct_price:
+                    distinct_price = template._get_combination_info(
+                        product_id=product_id,
+                        add_qty=add_qty,
+                    ).get("price")
+                    if distinct_price != res[template.id]["price_reduce"]:
+                        res[template.id]["distinct_price"] = distinct_price
         return res

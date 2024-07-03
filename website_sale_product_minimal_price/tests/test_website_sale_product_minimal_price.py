@@ -84,4 +84,6 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/shop", "website_sale_product_minimal_price", login="admin")
+        self.start_tour(
+            "/shop", "test_website_sale_product_minimal_price", login="admin"
+        )

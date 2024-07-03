@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-05-08 16:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
@@ -17,9 +17,7 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_product_minimal_price
-#. odoo-javascript
-#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
-#, python-format
+#: model_terms:ir.ui.view,arch_db:website_sale_product_minimal_price.products_item
 msgid "From"
 msgstr "Dal"
 
@@ -33,4 +31,9 @@ msgstr "Prezzi per quantità ("
 #. module: website_sale_product_minimal_price
 #: model:ir.model,name:website_sale_product_minimal_price.model_product_template
 msgid "Product"
-msgstr "Prodotto"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#: model:ir.model,name:website_sale_product_minimal_price.model_product_product
+msgid "Product Variant"
+msgstr ""

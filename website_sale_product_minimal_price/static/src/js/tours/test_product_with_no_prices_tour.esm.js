@@ -1,12 +1,14 @@
+/** @odoo-module **/
+
 /* Copyright 2021 Carlos Roca
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("test_product_with_no_prices.tour", function (require) {
-    "use strict";
+import {registry} from "@web/core/registry";
 
-    var tour = require("web_tour.tour");
-
-    var steps = [
+registry.category("web_tour.tours").add("test_product_with_no_prices", {
+    url: "/shop",
+    test: true,
+    steps: () => [
         {
             trigger: "a:contains('My product test with no prices')",
             extra_trigger: ".product_price:has(span:contains('From'))",
@@ -19,16 +21,5 @@ odoo.define("test_product_with_no_prices.tour", function (require) {
             trigger: "a:contains('My product test')",
             extra_trigger: ".product_price:has(span:contains('10.00'))",
         },
-    ];
-    tour.register(
-        "test_product_with_no_prices",
-        {
-            url: "/shop",
-            test: true,
-        },
-        steps
-    );
-    return {
-        steps: steps,
-    };
+    ],
 });

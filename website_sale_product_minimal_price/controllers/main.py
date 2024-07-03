@@ -4,46 +4,12 @@
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.sale.controllers.variant import VariantController
+from odoo.addons.website_sale.controllers.variant import WebsiteSaleVariantController
 
 
-class WebsiteSaleVariantController(VariantController):
+class WebsiteSaleVariantController(WebsiteSaleVariantController):
     @http.route(
-        ["/sale/get_combination_info_minimal_price"],
-        type="json",
-        auth="public",
-        methods=["POST"],
-        website=True,
-    )
-    def get_combination_info_minimal_price(self, product_template_ids, **kw):
-        """Special route to use website logic in get_combination_info override.
-        This route is called in JS by appending _website to the base route.
-        """
-        res = []
-        templates = request.env["product.template"].sudo().browse(product_template_ids)
-        pricelist = request.env["website"].get_current_website().get_current_pricelist()
-        for template in templates.filtered(lambda t: t.is_published):
-            product_id, add_qty, has_distinct_price = template._get_cheapest_info(
-                pricelist
-            )
-            combination = template._get_combination_info(
-                product_id=product_id, add_qty=add_qty, pricelist=pricelist
-            )
-            res.append(
-                {
-                    "id": template.id,
-                    "price": combination.get("price"),
-                    "distinct_prices": has_distinct_price,
-                    "currency": {
-                        "position": template.currency_id.position,
-                        "symbol": template.currency_id.symbol,
-                    },
-                }
-            )
-        return res
-
-    @http.route(
-        ["/sale/get_combination_info_pricelist_atributes"],
+        ["/website_sale/get_combination_info_pricelist_atributes"],
         type="json",
         auth="public",
         website=True,
@@ -52,7 +18,14 @@ class WebsiteSaleVariantController(VariantController):
         """Special route to use website logic in get_combination_info override.
         This route is called in JS by appending _website to the base route.
         """
-        pricelist = request.env["website"].get_current_website().get_current_pricelist()
+        # Copied from _get_combination_info
+        # /odoo/addons/website_sale/models/product_template.py
+        website = (
+            request.env["website"]
+            .get_current_website()
+            .with_context(**request.env.context)
+        )
+        pricelist = website.pricelist_id
         product = (
             request.env["product.product"]
             .browse(product_id)
@@ -61,34 +34,8 @@ class WebsiteSaleVariantController(VariantController):
         # Getting all min_quantity of the current product to compute the possible
         # price scale.
         qty_list = request.env["product.pricelist.item"].search(
-            [
-                "|",
-                ("product_id", "=", product.id),
-                "|",
-                ("product_tmpl_id", "=", product.product_tmpl_id.id),
-                (
-                    "categ_id",
-                    "in",
-                    list(map(int, product.categ_id.parent_path.split("/")[0:-1])),
-                ),
-                ("min_quantity", ">", 0),
-            ]
+            product._get_product_pricelist_item_domain()
         )
         qty_list = sorted(set(qty_list.mapped("min_quantity")))
-        res = []
-        last_price = product.with_context(quantity=0)._get_contextual_price()
-        for min_qty in qty_list:
-            new_price = product.with_context(quantity=min_qty)._get_contextual_price()
-            if new_price != last_price:
-                res.append(
-                    {
-                        "min_qty": min_qty,
-                        "price": new_price,
-                        "currency": {
-                            "position": product.currency_id.position,
-                            "symbol": product.currency_id.symbol,
-                        },
-                    }
-                )
-                last_price = new_price
-        return (res, product.uom_name)
+
+        return product._get_product_price_scale(qty_list)
