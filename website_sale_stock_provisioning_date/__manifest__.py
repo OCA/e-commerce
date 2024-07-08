@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Stock Provisioning Date",
     "summary": "Display provisioning date for a product in shop online",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
