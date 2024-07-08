@@ -17,20 +17,20 @@ Website Sale Stock Provisioning Date
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_stock_provisioning_date
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_stock_provisioning_date
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_stock_provisioning_date
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_stock_provisioning_date
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of website to show you the
-future provisioning date closest to the current date for a product
-in the eCommerce.
+This module extends the functionality of website to show you the future
+provisioning date closest to the current date for a product in the
+eCommerce.
 
 **Table of contents**
 
@@ -42,21 +42,20 @@ Usage
 
 To use this module, you need to:
 
-#. Go to *Sales > Products > Products*, create a new product or edit an
+1. Go to *Sales > Products > Products*, create a new product or edit an
    existing one.
-#. Check 'Show Next Provisioning Date' field under eCommerce tab.
-#. Go to Website Shop.
-#. Click on a product that have 'Show Next Provisioning Date' checked.
-#. If it is true for that product that
-   `'quantity on hand' - 'outgoing quantity' <= 0`,
-   then you will see the future provisioning date closest to
-   the current date for this product under the 'Add to Cart' button
-   (If there is such a date).
+2. Check 'Show Next Provisioning Date' field under eCommerce tab.
+3. Go to Website Shop.
+4. Click on a product that have 'Show Next Provisioning Date' checked.
+5. If it is true for that product that 'quantity on hand' - 'outgoing
+   quantity' <= 0, then you will see the future provisioning date
+   closest to the current date for this product under the 'Add to Cart'
+   button (If there is such a date).
 
 Note: The closest future provisioning date is the date of the future
 stock movement and the closest to the current date. This can be
-generated after confirming a purchase order to receive the product on
-a date after the current date.
+generated after confirming a purchase order to receive the product on a
+date after the current date.
 
 Bug Tracker
 ===========
@@ -64,7 +63,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_provisioning_date%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_provisioning_date%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -72,22 +71,22 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Ernesto Tejeda
-  * Pedro M. Baeza
-  * Sergio Teruel
-  * Carlos Roca
+   -  Ernesto Tejeda
+   -  Pedro M. Baeza
+   -  Sergio Teruel
+   -  Carlos Roca
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -99,6 +98,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_stock_provisioning_date>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_stock_provisioning_date>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
