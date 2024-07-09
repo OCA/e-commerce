@@ -20,7 +20,7 @@
         ],
         "web.assets_tests": [
             "/website_sale_stock_provisioning_date/static/src/js/"
-            "website_sale_stock_provisioning_date_tour.js",
+            "website_sale_stock_provisioning_date_tour.esm.js",
         ],
     },
 }
