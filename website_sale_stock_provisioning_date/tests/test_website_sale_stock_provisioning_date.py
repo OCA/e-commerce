@@ -28,7 +28,7 @@ class WebsiteSaleStockProvisioningDate(HttpCase):
             limit=1,
         )
         picking_form = Form(
-            recordp=cls.env["stock.picking"].with_context(
+            cls.env["stock.picking"].with_context(
                 default_picking_type_id=incoming_picking_type.id
             ),
             view="stock.view_picking_form",
