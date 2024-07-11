@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2017-12-16 01:57+0000\n"
 "PO-Revision-Date: 2024-01-17 02:52+0000\n"
 "Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
-"Language-Team: Spanish (Argentina) (https://www.transifex.com/oca/teams/"
-"23907/es_AR/)\n"
+"Language-Team: Spanish (Argentina) (https://www.transifex.com/oca/"
+"teams/23907/es_AR/)\n"
 "Language: es_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,8 +73,8 @@ msgstr "Producto"
 
 #. module: website_sale_hide_price
 #: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
-msgid "Set a default text when hiding prices"
-msgstr "Configurar un texto predeterminado cuando se oculten los precios"
+msgid "Set a default text when hiding prices at product level"
+msgstr ""
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
@@ -98,8 +98,16 @@ msgstr "Precio a Mostrar en Sitio Web"
 #: model:ir.model.fields,help:website_sale_hide_price.field_res_config_settings__website_hide_price_default_message
 #: model:ir.model.fields,help:website_sale_hide_price.field_website__website_hide_price_default_message
 msgid ""
-"When the price is hidden on the website we can give the customersome tips on "
-"how to find it out."
+"When the price is hidden on the website because of product configuration we "
+"can give the customer some tips on how to find it out."
 msgstr ""
-"Cuando el precio esté oculto en el sitio web, podemos darle al cliente "
-"consejos sobre cómo encontrarlo."
+
+#~ msgid "Set a default text when hiding prices"
+#~ msgstr "Configurar un texto predeterminado cuando se oculten los precios"
+
+#~ msgid ""
+#~ "When the price is hidden on the website we can give the customersome tips "
+#~ "on how to find it out."
+#~ msgstr ""
+#~ "Cuando el precio esté oculto en el sitio web, podemos darle al cliente "
+#~ "consejos sobre cómo encontrarlo."

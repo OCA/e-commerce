@@ -69,8 +69,8 @@ msgstr "Produto"
 
 #. module: website_sale_hide_price
 #: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
-msgid "Set a default text when hiding prices"
-msgstr "Defina um texto padrão ao ocultar preços"
+msgid "Set a default text when hiding prices at product level"
+msgstr ""
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
@@ -94,8 +94,16 @@ msgstr "Mostrar Preços Website"
 #: model:ir.model.fields,help:website_sale_hide_price.field_res_config_settings__website_hide_price_default_message
 #: model:ir.model.fields,help:website_sale_hide_price.field_website__website_hide_price_default_message
 msgid ""
-"When the price is hidden on the website we can give the customersome tips on "
-"how to find it out."
+"When the price is hidden on the website because of product configuration we "
+"can give the customer some tips on how to find it out."
 msgstr ""
-"Quando o preço estiver oculto no website, podemos dar ao cliente algumas "
-"dicas sobre como o descobrir."
+
+#~ msgid "Set a default text when hiding prices"
+#~ msgstr "Defina um texto padrão ao ocultar preços"
+
+#~ msgid ""
+#~ "When the price is hidden on the website we can give the customersome tips "
+#~ "on how to find it out."
+#~ msgstr ""
+#~ "Quando o preço estiver oculto no website, podemos dar ao cliente algumas "
+#~ "dicas sobre como o descobrir."

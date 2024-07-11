@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_res_config_settings
@@ -73,7 +73,7 @@ msgstr ""
 
 #. module: website_sale_hide_price
 #: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
-msgid "Set a default text when hiding prices"
+msgid "Set a default text when hiding prices at product level"
 msgstr ""
 
 #. module: website_sale_hide_price
@@ -98,6 +98,6 @@ msgstr ""
 #: model:ir.model.fields,help:website_sale_hide_price.field_res_config_settings__website_hide_price_default_message
 #: model:ir.model.fields,help:website_sale_hide_price.field_website__website_hide_price_default_message
 msgid ""
-"When the price is hidden on the website we can give the customersome tips on "
-"how to find it out."
+"When the price is hidden on the website because of product configuration we "
+"can give the customer some tips on how to find it out."
 msgstr ""
