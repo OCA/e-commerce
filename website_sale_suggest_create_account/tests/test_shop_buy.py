@@ -20,9 +20,8 @@ class TestUi(odoo.tests.HttpCase):
             portal_user.partner_id.vat = "BE1234567"
         current_website = self.env["website"].get_current_website()
         current_website.account_on_checkout = "disabled"
-        self.env.ref("website_sale_suggest_create_account.cart").active = True
         self.env.ref(
-            "website_sale_suggest_create_account.short_cart_summary"
+            "website_sale_suggest_create_account.navigation_buttons"
         ).active = True
         if self.env["ir.module.module"]._get("payment_custom").state != "installed":
             self.skipTest("Transfer provider is not installed")
