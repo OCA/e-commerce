@@ -1,105 +1,63 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template
-        id="cart"
-        inherit_id="website_sale.cart"
+        id="navigation_buttons"
+        inherit_id="website_sale.navigation_buttons"
         customize_show="True"
         priority="18"
     >
-        <xpath expr="//div[@id='wrap']" position="before">
-            <t t-set="user_authenticated" t-value="user_id != website.user_id" />
-            <t
+    <xpath expr="//a[@name='website_sale_main_button']/../.." position="before">
+        <t t-set="user_authenticated" t-value="user_id != website.user_id" />
+        <t
                 t-set="signup_allowed"
                 t-value="user_id._get_signup_invitation_scope() == 'b2c'"
             />
-            <t
+        <t
                 t-set="can_checkout"
-                t-value="website_sale_order and website_sale_order.website_order_line"
+                t-value="website_sale_order and bool(website_sale_order.website_order_line)"
             />
-            <t
+        <t
                 t-set="suggest_create_account"
                 t-value="not user_authenticated and signup_allowed and can_checkout"
             />
-            <t
+        <t
                 t-set="suggest_login"
                 t-value="not user_authenticated and not signup_allowed and can_checkout"
             />
-        </xpath>
-        <xpath expr="//a[@t-attf-href='{{redirect_url}}']/.." position="attributes">
-            <attribute name="class" />
-        </xpath>
-        <!-- Show normal "Checkout" button if user is logged in or external login
-             is disabled -->
-        <xpath expr="//a[@t-attf-href='{{redirect_url}}']" position="attributes">
+        <t
+                t-set="redirect_to_sign_in"
+                t-value="website.account_on_checkout == 'mandatory' and website.is_public_user()"
+            />
+    </xpath>
+        <xpath expr="//a[@name='website_sale_main_button']" position="attributes">
             <attribute name="class" />
             <attribute
                 name="t-attf-class"
-            >#{'btn btn-primary' if user_authenticated or redirect_to_sign_in else 'btn btn-light'}</attribute>
+            >#{'btn btn-primary' if user_authenticated or redirect_to_sign_in else 'btn btn-secondary'}</attribute>
         </xpath>
-        <!-- Show choice in other cases -->
-        <xpath expr="//a[@t-attf-href='{{redirect_url}}']" position="before">
+
+        <xpath expr="//a[@name='website_sale_main_button']/../.." position="after">
+            <t t-if="xmlid != 'website_sale.payment' ">
                 <a
-                t-if="suggest_login and not redirect_to_sign_in"
-                role="button"
-                class="btn btn-primary"
-                href="/web/login?redirect=/shop/checkout?express=1"
-            >
-                    <span>Sign In and Checkout</span>
+                    t-if="suggest_login and not redirect_to_sign_in"
+                    role="button"
+                    class="btn btn-primary mt-2"
+                    href="/web/login?redirect=/shop/checkout?express=1"
+                >
+                    <span>Sign in and Checkout</span>
                     <span class="fa fa-sign-in" />
                 </a>
                 <t t-if="suggest_create_account and not redirect_to_sign_in">
-                    <a class="btn btn-primary" role="button" href="/web/login">
+                    <a
+                        class="btn btn-primary mt-2"
+                        role="button"
+                        href="/web/login?redirect=/shop/checkout"
+                    >
                         <span>Sign In/Up and Checkout</span>
                         <span class="fa fa-sign-in" />
                     </a>
-                </t>
-        </xpath>
-        <xpath expr="//a/t[@t-if='redirect_to_sign_in']/span[1]" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//a/t[@t-if='redirect_to_sign_in']/span[1]" position="after">
-            <span>Sign In/Up</span>
-        </xpath>
-    </template>
-    <!-- Cart summary -->
-    <template
-        id="short_cart_summary"
-        inherit_id="website_sale.short_cart_summary"
-        customize_show="True"
-        priority="18"
-    >
-        <xpath expr="//a[@t-attf-href='{{redirect_url}}']" position="attributes">
-            <attribute name="class" />
-            <attribute
-                name="t-attf-class"
-            >#{'btn btn-secondary float-end d-none d-xl-inline-block' if user_authenticated or redirect_to_sign_in else 'btn btn-light float-end d-none d-xl-inline-block'}</attribute>
-        </xpath>
-        <xpath expr="//a[@t-attf-href='{{redirect_url}}']" position="after">
-            <a
-                t-if="suggest_login and not redirect_to_sign_in"
-                role="button"
-                class="btn btn-secondary float-end d-none d-xl-inline-block"
-                href="/web/login?redirect=/shop/checkout?express=1"
-            >
-                <span>Sign in and Checkout</span>
-                <span class="fa fa-sign-in" />
-            </a>
-            <t t-if="suggest_create_account and not redirect_to_sign_in">
-                <a
-                    class="btn btn-secondary float-end d-none d-xl-inline-block"
-                    role="button"
-                    href="/web/login"
-                >
-                    <span>Sign In/Up and Checkout</span>
-                    <span class="fa fa-sign-in" />
-                </a>
             </t>
-        </xpath>
-        <xpath expr="//t[@t-if='redirect_to_sign_in']/span[1]" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//t[@t-if='redirect_to_sign_in']/span[1]" position="after">
-            <span>Sign In/Up</span>
+            </t>
         </xpath>
     </template>
 </odoo>
