@@ -33,7 +33,21 @@
         </xpath>
     </template>
     <template
-        inherit_id="website_sale.products_categories"
+        inherit_id="website_sale.filmstrip_categories"
+        id="hide_categories_filmstrip_recursive"
+        name="Hide Empty Category Filmstrip"
+    >
+        <xpath expr="//div[@t-if='entries']" position="before">
+            <t t-set="hide_empty_category" t-value="True" />
+        </xpath>
+        <xpath expr="//li[@t-foreach='entries']" position="attributes">
+            <attribute
+                name="t-if"
+            >not hide_empty_category or c.has_product_recursive</attribute>
+        </xpath>
+    </template>
+    <template
+        inherit_id="website_sale.products_categories_list"
         id="hide_categories_recursive_helper"
         name="Hide Empty Category list"
         customize_show="True"
