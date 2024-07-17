@@ -45,4 +45,38 @@
             <t t-call="website_sale_tax_toggle.tax_toggle_template" />
         </xpath>
     </template>
+
+    <!-- Add the tax_toggle_taxed in the t-cache key after all overrides -->
+    <template
+        id="products_tax_toggle_taxed"
+        inherit_id="website_sale.products"
+        priority="200"
+    >
+        <xpath
+            expr="//div[starts-with(@t-cache, 'pricelist,products')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-cache"
+                add="request.session.get('tax_toggle_taxed')"
+                separator=","
+            />
+        </xpath>
+    </template>
+    <template
+        id="product_tax_toggle_taxed"
+        inherit_id="website_sale.product"
+        priority="200"
+    >
+        <xpath
+            expr="//t[starts-with(@t-cache, 'pricelist,product')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-cache"
+                add="request.session.get('tax_toggle_taxed')"
+                separator=","
+            />
+        </xpath>
+    </template>
 </odoo>
