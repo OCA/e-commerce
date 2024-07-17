@@ -30,7 +30,7 @@
         </xpath>
     </template>
     <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
-    <template id="product" inherit_id="website_sale.product">
+    <template id="product" inherit_id="website_sale.product" priority="18">
         <!-- adding website, website.website_show_price and product.website_hide_price to t-cache in order to update cache if parameter modified
              this is needed if you connect with a different user that should not see the prices
              see https://github.com/OCA/e-commerce/issues/818 -->
