@@ -40,7 +40,7 @@
                     t-if="product.public_categ_ids and ((not category) or (not category in product.public_categ_ids) or (category in product.public_categ_ids and len(product.public_categ_ids) &gt; 1))"
                 >
                     <p
-                        class="info"
+                        class="info mt-3 mb-0"
                     >This product is also present in these categories:</p>
                     <t t-set="selected_category" t-value="category" />
                     <t t-foreach="product.public_categ_ids" t-as="category">
