@@ -30,8 +30,7 @@ class WebsiteSale(WebsiteSale):
             if (
                 # Set active_test to False to allow filtering by partners
                 # that are not active, (for example Public User)
-                partner
-                & assortment.with_context(active_test=False).all_partner_ids
+                partner & assortment.with_context(active_test=False).all_partner_ids
             ):
                 assortment_restriction = True
                 allowed_product_ids = allowed_product_ids.union(
@@ -58,7 +57,7 @@ class WebsiteSale(WebsiteSale):
         min_price=0.0,
         max_price=0.0,
         conversion_rate=1,
-        **post
+        **post,
     ):
         """Overriding _get_search_options method to avoid show product templates that
         has all their variants not allowed to be shown."""
@@ -69,7 +68,7 @@ class WebsiteSale(WebsiteSale):
             min_price=min_price,
             max_price=max_price,
             conversion_rate=conversion_rate,
-            **post
+            **post,
         )
         allowed_product_ids, assortment_restriction = self._get_products_allowed()
         if assortment_restriction:
