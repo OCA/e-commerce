@@ -18,11 +18,11 @@
                         <field name="website_availability" />
                         <field
                         name="message_unavailable"
-                        attrs="{'invisible': [('website_availability', '!=', 'no_purchase')]}"
+                        invisible="website_availability != 'no_purchase'"
                     />
                         <field
                         name="assortment_information"
-                        attrs="{'invisible': [('website_availability', '!=', 'no_purchase')]}"
+                        invisible="website_availability != 'no_purchase'"
                     />
                     </group>
                 </xpath>

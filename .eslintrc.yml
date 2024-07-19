@@ -4,7 +4,8 @@ env:
 
 # See https://github.com/OCA/odoo-community.org/issues/37#issuecomment-470686449
 parserOptions:
-  ecmaVersion: 2022
+  ecmaVersion: 2020
+  sourceType: module
 
 overrides:
   - files:

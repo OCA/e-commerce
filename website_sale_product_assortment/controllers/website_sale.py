@@ -4,10 +4,11 @@ from werkzeug.exceptions import NotFound
 
 from odoo.http import request, route
 
+from odoo.addons.website.controllers.main import Website
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSale(WebsiteSale):
+class WebsiteSaleAssortment(WebsiteSale):
     def _get_products_allowed(self):
         partner = request.env.user.partner_id
         website_id = request.website.id
@@ -76,3 +77,33 @@ class WebsiteSale(WebsiteSale):
                 ("product_variant_ids", "in", list(allowed_product_ids))
             ]
         return res
+
+
+class WebsiteAssortment(Website):
+    @route()
+    def autocomplete(
+        self,
+        search_type=None,
+        term=None,
+        order=None,
+        limit=5,
+        max_nb_chars=999,
+        options=None,
+    ):
+        (
+            allowed_product_ids,
+            assortment_restriction,
+        ) = WebsiteSaleAssortment._get_products_allowed(self)
+        if assortment_restriction:
+            options["allowed_product_domain"] = [
+                ("product_variant_ids", "in", list(allowed_product_ids))
+            ]
+
+        return super().autocomplete(
+            search_type=search_type,
+            term=term,
+            order=order,
+            limit=limit,
+            max_nb_chars=max_nb_chars,
+            options=options,
+        )
