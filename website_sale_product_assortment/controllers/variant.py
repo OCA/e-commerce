@@ -4,10 +4,10 @@
 from odoo import _, http
 from odoo.http import request
 
-from odoo.addons.sale.controllers.variant import VariantController
+from odoo.addons.website_sale.controllers.variant import WebsiteSaleVariantController
 
 
-class WebsiteSaleVariantController(VariantController):
+class WebsiteSaleVariantControllerAssortment(WebsiteSaleVariantController):
     @http.route(
         ["/sale/get_info_assortment_preview"],
         type="json",
