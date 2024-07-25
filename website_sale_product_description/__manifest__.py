@@ -4,7 +4,7 @@
     "name": "Website Sale Product Description",
     "category": "Website",
     "summary": "Shows custom e-Commerce description for products",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Solvos, Odoo Community Association (OCA)",
     "license": "AGPL-3",
