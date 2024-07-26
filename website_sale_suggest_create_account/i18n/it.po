@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale_suggest_create_account
+#
+# Translators:
+# Paolo Valier, 2016
+# Paolo Valier, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: e-commerce (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-06 13:06+0000\n"
+"PO-Revision-Date: 2024-05-07 13:37+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: Italian (http://www.transifex.com/oca/OCA-e-commerce-8-0/"
+"language/it/)\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+msgid ""
+"<span>Sign In and Checkout</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+msgstr ""
+"<span>Accesso e check-out</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+msgid ""
+"<span>Sign In/Up and Checkout</span>\n"
+"                        <span class=\"fa fa-sign-in\"/>"
+msgstr ""
+"<span>Accesso/registrazione e check-out</span>\n"
+"                        <span class=\"fa fa-sign-in\"/>"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid ""
+"<span>Sign In/Up and Checkout</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+msgstr ""
+"<span>Accesso/registrazione e check-out</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid "<span>Sign In/Up</span>"
+msgstr "<span>Accesso/registrazione</span>"
+
+#. module: website_sale_suggest_create_account
+#: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
+msgid ""
+"<span>Sign in and Checkout</span>\n"
+"                <span class=\"fa fa-sign-in\"/>"
+msgstr ""
+"<span>Accesso e check-out</span>\n"
+"                <span class=\"fa fa-sign-in\"/>"
+
+#, fuzzy
+#~ msgid "<span>Log in and checkout</span>"
+#~ msgstr "Accedi e vai alla Cassa"
+
+#, fuzzy
+#~ msgid "<span>Sign up and checkout</span>"
+#~ msgstr "Registrati e vai alla Cassa"
+
+#, fuzzy
+#~ msgid "<span>Checkout without sign up</span>"
+#~ msgstr "Vai alla Cassa senza registrarti"
+
+#~ msgid ""
+#~ "(\n"
+#~ "            user_id != website.user_id or\n"
+#~ "            env['ir.config_parameter'].get_param(\n"
+#~ "                'auth_signup.allow_uninvited') != 'True' and\n"
+#~ "            not optional_products and website_sale_order and\n"
+#~ "            website_sale_order.website_order_line\n"
+#~ "        )"
+#~ msgstr ""
+#~ "(\n"
+#~ "user_id != website.user_id or\n"
+#~ "env['ir.config_parameter'].get_param(\n"
+#~ "'auth_signup.allow_uninvited') != 'True' and\n"
+#~ "not optional_products and website_sale_order and\n"
+#~ "website_sale_order.website_order_line\n"
+#~ ")"
