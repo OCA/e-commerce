@@ -37,6 +37,11 @@ odoo.define("website_sale_checkout_skip_payment.tour", function (require) {
                 trigger: "a[href='/shop']",
                 extra_trigger: "strong:contains('Payment Information:')",
             },
+            {
+                content: "Check confirmation and that the cart has been left empty",
+                trigger: "a:has(.my_cart_quantity:containsExact(0))",
+                extra_trigger: "strong:contains('Payment Information:')",
+            },
         ]
     );
 });
