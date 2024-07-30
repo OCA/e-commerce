@@ -17,37 +17,39 @@ Alternative (un)taxed prices display on eCommerce
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/15.0/website_sale_b2x_alt_price
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_b2x_alt_price
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-15-0/e-commerce-15-0-website_sale_b2x_alt_price
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_b2x_alt_price
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=15.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module takes into account if your eCommerce is in B2B or B2C mode, and
-displays the alternative pricing next to the main one.
+This module takes into account if your eCommerce is in B2B or B2C mode,
+and displays the alternative pricing next to the main one.
 
-For example, if your website is B2B (main price is without taxes), you would
-see it similar to this:
+For example, if your website is B2B (main price is without taxes), you
+would see it similar to this:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/b2b-features.png
-   :alt: B2B features showcase
+|b2b-features|
 
-If your website is B2C (main price is with taxes), then it looks like this:
+If your website is B2C (main price is with taxes), then it looks like
+this:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/b2c-features.png
-   :alt: B2C features showcase
+|b2c-features|
 
 It also displays the alternative price, including discounts, updated
-automatically when the user is choosing alternatives in the product detail
-page:
+automatically when the user is choosing alternatives in the product
+detail page:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/details-features.gif
-   :alt: Product details page features showcase
+|details-features|
+
+.. |b2b-features| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_b2x_alt_price/static/description/b2b-features.png
+.. |b2c-features| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_b2x_alt_price/static/description/b2c-features.png
+.. |details-features| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_b2x_alt_price/static/description/details-features.gif
 
 **Table of contents**
 
@@ -57,38 +59,39 @@ page:
 Configuration
 =============
 
-To choose if you want to display or not the alternative price in the website
-products list, just enable or disable the feature from the "Customize" menu.
-This can be done independently per website:
+To choose if you want to display or not the alternative price in the
+website products list, just enable or disable the feature from the
+"Customize" menu. This can be done independently per website:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/toggle-list.gif
-   :alt: How to disable and enable the feature in products list
+|toggle-list|
 
 You can also toggle the behavior similarly in the product details page.
 This can also be done independently per website:
 
-.. figure:: https://raw.githubusercontent.com/OCA/e-commerce/15.0/website_sale_b2x_alt_price/static/description/toggle-detail.gif
-   :alt: How to disable and enable the feature in product details
+|toggle-detail|
+
+.. |toggle-list| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_b2x_alt_price/static/description/toggle-list.gif
+.. |toggle-detail| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_b2x_alt_price/static/description/toggle-detail.gif
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Create a product.
-#. Set some customer taxes on it.
-#. Publish it.
-#. Go see it on your website. It will display the alternative price.
+1. Create a product.
+2. Set some customer taxes on it.
+3. Publish it.
+4. Go see it on your website. It will display the alternative price.
 
 Known issues / Roadmap
 ======================
 
-* Computing this requires 1 or 2 extra calls to ``taxes.compute_all()`` per
-  product. This could be expensive in terms of performance, but the truth is
-  that it is also not very optimized upstream in Odoo. Maybe optimize this part
-  in Odoo and in this module? Or maybe apply some hack to avoid recomputing
-  this? Maybe cache calls to that method? Is it really a problem in the
-  Real World®?
+-  Computing this requires 1 or 2 extra calls to ``taxes.compute_all()``
+   per product. This could be expensive in terms of performance, but the
+   truth is that it is also not very optimized upstream in Odoo. Maybe
+   optimize this part in Odoo and in this module? Or maybe apply some
+   hack to avoid recomputing this? Maybe cache calls to that method? Is
+   it really a problem in the Real World®?
 
 Bug Tracker
 ===========
@@ -96,7 +99,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_b2x_alt_price%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_b2x_alt_price%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -104,20 +107,20 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com/>`__:
+-  `Tecnativa <https://www.tecnativa.com/>`__:
 
-  * Jairo Llopis
-  * Carlos Roca
+   -  Jairo Llopis
+   -  Carlos Roca
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -137,6 +140,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-Yajo| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/15.0/website_sale_b2x_alt_price>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_b2x_alt_price>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
