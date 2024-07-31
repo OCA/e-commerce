@@ -1,6 +1,6 @@
 To choose if you want to display or not the alternative price in the
 website products list, just enable or disable the feature from the
-"Customize" menu. This can be done independently per website:
+"Customize" tab of the web editor. This can be done independently per website:
 
 ![toggle-list](../static/description/toggle-list.gif)
 
