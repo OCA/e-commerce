@@ -1,14 +1,12 @@
 /** @odoo-module **/
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * Copyright 2022 Carlos Roca - Tecnativa
+ * Copyright 2024 Carlos Lopez - Tecnativa
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
 
-import publicWidget from "web.public.widget";
-// If next dependency is not declared publicWidget.registry.WebsiteSale will be
-// undefined
-import "website_sale.website_sale";
+import {WebsiteSale} from "@website_sale/js/website_sale";
 
-publicWidget.registry.WebsiteSale.include({
+WebsiteSale.include({
     /**
      * Add alt price onchange to the regular _onChangeCombination method.
      *

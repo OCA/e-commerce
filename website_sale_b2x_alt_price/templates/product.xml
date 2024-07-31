@@ -3,23 +3,19 @@
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <data>
     <template id="alt_price" name="Alternative taxes">
-        <span t-if="combination_info.get('alt_price') != combination_info['price']">
+        <span t-if="alt_price != price">
             <del
-                t-attf-class="js_alt_list_price mr8 text-muted text-nowrap #{ '' if combination_info['has_discounted_price'] else 'd-none' }"
-                t-esc="combination_info['alt_list_price']"
+                t-attf-class="js_alt_list_price mr8 text-muted text-nowrap #{ '' if has_discounted_price else 'd-none' }"
+                t-out="alt_list_price"
                 t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
             />
             <span
                 class="js_alt_price"
-                t-esc="combination_info['alt_price']"
+                t-out="alt_price"
                 t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
             />
-            <span
-                t-if="combination_info['alt_field'] == 'total_included'"
-            >with taxes</span>
-            <span
-                t-if="combination_info['alt_field'] == 'total_excluded'"
-            >without taxes</span>
+            <span t-if="alt_field == 'total_included'">with taxes</span>
+            <span t-if="alt_field == 'total_excluded'">without taxes</span>
         </span>
     </template>
     <template
@@ -29,7 +25,19 @@
         customize_show="True"
     >
         <xpath expr="//*[hasclass('product_price')]">
-            <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price" />
+            <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price">
+                <t t-set="price" t-value="template_price_vals['price_reduce']" />
+                <t t-set="alt_price" t-value="template_price_vals['alt_price']" />
+                <t
+                    t-set="alt_list_price"
+                    t-value="template_price_vals['alt_list_price']"
+                />
+                <t
+                    t-set="has_discounted_price"
+                    t-value="template_price_vals['has_discounted_price']"
+                />
+                <t t-set="alt_field" t-value="template_price_vals['alt_field']" />
+            </p>
         </xpath>
     </template>
     <template
@@ -38,8 +46,20 @@
         inherit_id="website_sale.product_price"
         customize_show="True"
     >
-        <xpath expr="//*[hasclass('product_price')]">
-            <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price" />
+        <xpath expr="//div[@itemprop='offers']">
+            <p class="text-muted small" t-call="website_sale_b2x_alt_price.alt_price">
+                <t t-set="price" t-value="combination_info['price']" />
+                <t t-set="alt_price" t-value="combination_info['alt_price']" />
+                <t
+                    t-set="alt_list_price"
+                    t-value="combination_info['alt_list_price']"
+                />
+                <t
+                    t-set="has_discounted_price"
+                    t-value="combination_info['has_discounted_price']"
+                />
+                <t t-set="alt_field" t-value="combination_info['alt_field']" />
+            </p>
         </xpath>
     </template>
     <template
@@ -48,7 +68,7 @@
     >
         <xpath expr="//t[@t-set='title']">
             <t
-                t-if="env.user.has_group('account.group_show_line_subtotals_tax_included')"
+                t-if="request.website.show_line_subtotals_tax_selection == 'tax_included'"
             >
                 <span
                     id="b2c_alt_amount"
@@ -57,10 +77,9 @@
                 /><small> (without taxes)</small>
             </t>
             <t t-else="">
-                 <h2 class="mb-0"><b
-                        t-field="sale_order.amount_untaxed"
-                        data-id="untaxed_amount"
-                    /> </h2>
+                 <h2 class="mb-0">
+                    <b t-field="sale_order.amount_untaxed" data-id="untaxed_amount" />
+                </h2>
                  <span
                     id="b2b_alt_amount"
                     t-field="sale_order.amount_total"
