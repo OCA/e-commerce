@@ -6,3 +6,4 @@
 - Martin Wilderoth \<<martin.wilderoth@linserv.se>\>
 - [Studio73](https://www.studio73.es):
   - Miguel Gandia \<<miguel@studio73.es>\>
+- Alexei Rivera \<<arivera@archeti.com>\>
