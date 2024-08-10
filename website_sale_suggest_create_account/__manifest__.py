@@ -13,7 +13,7 @@
     "data": ["views/website_sale.xml"],
     "assets": {
         "web.assets_tests": [
-            "website_sale_suggest_create_account/static/tests/tours/checkout.js",
+            "website_sale_suggest_create_account/static/tests/tours/checkout.esm.js",
         ],
     },
     "post_init_hook": "post_init_hook",
