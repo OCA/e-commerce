@@ -76,6 +76,13 @@ msgid "Message shown to the user when the purchase is finished"
 msgstr "Mensagem mostrada ao utilizador quando a compra é concluída"
 
 #. module: website_sale_checkout_skip_payment
+#. odoo-python
+#: code:addons/website_sale_checkout_skip_payment/models/website.py:0
+#, python-format
+msgid "Our team will check your order and send you payment information soon."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Sale Checkout Skip Message"
 msgstr "Saltar Mensagem no Checkout de Vendas"
