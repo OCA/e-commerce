@@ -1,0 +1,14 @@
+<odoo>
+    <template
+        id="assets_frontend"
+        name="website_sale_cart_quantity_shop assets"
+        inherit_id="website.assets_frontend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_cart_quantity_shop/static/src/js/recalculate_product_qty.js"
+            />
+        </xpath>
+    </template>
+</odoo>
