@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//t[@t-call='website_sale.product_tags']" position="after">
+            <div id="js_product_price_scale" />
+        </xpath>
+    </template>
+    <template id="variants" inherit_id="website_sale.variants">
+        <!-- Sort product attribute values by minimal price extra -->
+        <xpath
+            expr="//t[@t-if=&quot;ptal.attribute_id.display_type == &apos;select&apos;&quot;]//t[starts-with(@t-foreach, 'ptal.product_template_value_ids._only_active()')]"
+            position="attributes"
+        >
+            <attribute name="t-foreach" add="sorted('price_extra')" separator="." />
+        </xpath>
+        <xpath
+            expr="//t[@t-elif=&quot;ptal.attribute_id.display_type in (&apos;radio&apos;, &apos;multi&apos;)&quot;]//t[starts-with(@t-foreach, 'ptal.product_template_value_ids._only_active()')]"
+            position="attributes"
+        >
+            <attribute name="t-foreach" add="sorted('price_extra')" separator="." />
+        </xpath>
+        <xpath
+            expr="//li[starts-with(@t-foreach, 'ptal.product_template_value_ids._only_active()')]"
+            position="attributes"
+        >
+            <attribute name="t-foreach" add="sorted('price_extra')" separator="." />
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath
+            expr="//div[hasclass('product_price')]/span[starts-with(@t-if, &quot;template_price_vals[&apos;price_reduce&apos;] or not website.prevent_zero_price_sale&quot;)]"
+            position="attributes"
+        >
+            <attribute
+                name="t-esc"
+            >template_price_vals.get('distinct_price', template_price_vals['price_reduce'])</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('product_price')]/span[starts-with(@t-if, &quot;template_price_vals[&apos;price_reduce&apos;] or not website.prevent_zero_price_sale&quot;)]"
+            position="before"
+        >
+            <span t-if="'distinct_price' in template_price_vals">From</span>
+        </xpath>
+        <xpath expr="//span[@itemprop='price']" position="attributes">
+            <attribute
+                name="t-esc"
+            >template_price_vals.get('distinct_price', template_price_vals['price_reduce'])</attribute>
+        </xpath>
+    </template>
+</odoo>
