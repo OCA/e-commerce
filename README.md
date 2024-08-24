@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [website_sale_attribute_filter_multiselect](website_sale_attribute_filter_multiselect/) | 16.0.1.0.0 |  | Add multiselect display type for product and new filter for it
 [website_sale_cart_expire](website_sale_cart_expire/) | 16.0.1.0.1 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Cancel carts without activity after a configurable time
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 16.0.1.0.0 | [![Rad0van](https://github.com/Rad0van.png?size=30px)](https://github.com/Rad0van) | Displays Product Category Breadcrumb(s) in eCommerce
-[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 16.0.1.2.0 |  | Skip payment for logged users in checkout process
+[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 16.0.1.2.1 |  | Skip payment for logged users in checkout process
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 16.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_hide_price](website_sale_hide_price/) | 16.0.2.2.0 |  | Hide product prices on the shop
 [website_sale_invoice_address](website_sale_invoice_address/) | 16.0.1.0.0 |  | Set e-Commerce sale orders invoice address as in backend
