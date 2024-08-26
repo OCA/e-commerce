@@ -70,7 +70,6 @@ msgid "Message shown to the user when the purchase is finished"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
 #, python-format
 msgid "Our team will check your order and send you payment information soon."
