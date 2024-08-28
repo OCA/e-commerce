@@ -1,22 +1,27 @@
-odoo.define("website_sale_product_attachment.tour", function (require) {
-    "use strict";
+odoo.define(
+    "website_sale_product_attachment.tour",
+    ["web_tour.tour"],
+    function (require) {
+        "use strict";
 
-    var tour = require("web_tour.tour");
+        var tour = require("web_tour.tour");
 
-    tour.register(
-        "website_sale_product_attachment_tour",
-        {
-            url: "/shop",
-            test: true,
-        },
-        [
+        tour.register(
+            "website_sale_product_attachment_tour",
             {
-                trigger: "a:contains('Customizable Desk')",
+                test: true,
+                url: "/shop",
+                stepDelay: 500,
             },
-            {
-                trigger: "a:contains('Product downloads')",
-            },
-        ]
-    );
-    return {};
-});
+            [
+                {
+                    trigger: "a:contains('Customizable Desk')",
+                },
+                {
+                    trigger: "a:contains('Product downloads')",
+                },
+            ]
+        );
+        return {};
+    }
+);
