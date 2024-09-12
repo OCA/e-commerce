@@ -23,7 +23,7 @@
         </xpath>
     </template>
     <template id="o_wsale_offcanvas" inherit_id="website_sale.o_wsale_offcanvas">
-        <xpath expr="//div[@t-foreach='a.value_ids']/div" position="attributes">
+        <xpath expr="//div[@t-foreach='a.value_ids']" position="attributes">
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
         <xpath
