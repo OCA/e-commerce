@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017 LasLabs Inc.
+     Copyright 2020 Radovan Skolnik <radovan@skolnik.info>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <template
+        inherit_id="website_sale.categories_recursive"
+        id="hide_categories_recursive"
+        name="Hide Empty Category list"
+    >
+        <xpath
+            expr="//t[@t-name='website_sale.categories_recursive']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not hide_empty_category or c.has_product_recursive</attribute>
+        </xpath>
+    </template>
+    <template
+        inherit_id="website_sale.option_collapse_categories_recursive"
+        id="hide_categories_collapse_recursive"
+        name="Hide Empty Category Collapsible list"
+    >
+        <xpath
+            expr="//t[@t-name='website_sale.option_collapse_categories_recursive']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not hide_empty_category or c.has_product_recursive</attribute>
+        </xpath>
+    </template>
+    <template
+        inherit_id="website_sale.filmstrip_categories"
+        id="hide_categories_filmstrip_recursive"
+        name="Hide Empty Category Filmstrip"
+    >
+        <xpath expr="//div[@t-if='entries']" position="before">
+            <t t-set="hide_empty_category" t-value="True" />
+        </xpath>
+        <xpath expr="//li[@t-foreach='entries']" position="attributes">
+            <attribute
+                name="t-if"
+            >not hide_empty_category or c.has_product_recursive</attribute>
+        </xpath>
+    </template>
+    <template
+        inherit_id="website_sale.products_categories_list"
+        id="hide_categories_recursive_helper"
+        name="Hide Empty Category list"
+        customize_show="True"
+        active="True"
+    >
+        <xpath expr="//t[@t-foreach='categories']" position="before">
+            <t t-set="hide_empty_category" t-value="True" />
+        </xpath>
+    </template>
+</odoo>
