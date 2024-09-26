@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  ~ Copyright 2024 Simone Rubino - Aion Tech
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  -->
+<odoo>
+    <template
+        id="payment"
+        inherit_id="website_sale.payment"
+        name="Button to print the cart"
+        active="False"
+        customize_show="True"
+    >
+        <xpath expr="//div[@id='address_on_payment']" position="after">
+            <div
+                t-if="website_sale_order and website_sale_order.website_order_line"
+                class="mt-3"
+            >
+                <a
+                    class="btn btn-info"
+                    role="button"
+                    href="/shop/print?cart_print=true"
+                    target="_blank"
+                    aria-label="Print"
+                    title="Print"
+                >
+                    <i class="fa fa-print" />
+                    Print
+                </a>
+            </div>
+        </xpath>
+    </template>
+</odoo>
