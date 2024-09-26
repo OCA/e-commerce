@@ -4,7 +4,7 @@
     "name": "Website Sale Barcode Search",
     "category": "E-Commerce",
     "summary": "It improve website product search adding search by barcode",
-    "version": "14.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["website_sale"],
     "author": "Studio73, Odoo Community Association (OCA)",
