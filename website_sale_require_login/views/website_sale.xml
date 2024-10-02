@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2015 Antiun Ingeniería S.L. - Jairo Llopis
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <template
+        id="cart"
+        inherit_id="website_sale.cart"
+        priority="20"
+        customize_show="True"
+    >
+        <xpath expr="//t[@t-set='show_shorter_cart_summary']" position="before">
+            <t
+                t-set="hide_checkout_button"
+                t-value="not (user_authenticated and can_checkout)"
+            />
+        </xpath>
+    </template>
+</odoo>
