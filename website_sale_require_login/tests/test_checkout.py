@@ -9,5 +9,4 @@ class TestUi(odoo.tests.HttpCase):
         current_website = self.env["website"].get_current_website()
         current_website.auth_signup_uninvited = "b2b"
         self.env.ref("website_sale_require_login.cart").active = True
-        self.env.ref("website_sale_require_login.short_cart_summary").active = True
         self.start_tour("/shop", "shop_buy_checkout_required_login_website")
