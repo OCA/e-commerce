@@ -16,4 +16,5 @@
             "/website_sale_invoice_address/static/src/js/website_sale_invoice_address_tour.js"
         ]
     },
+    "data": ["views/templates.xml"],
 }

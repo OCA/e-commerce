@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="website_sale_invoice_address.address_on_payment"
+        inherit_id="website_sale.address_on_payment"
+        priority="100"
+    >
+
+        <xpath expr="//span[@t-esc='order.partner_id']" position="attributes">
+            <attribute name="t-esc">
+                order.partner_invoice_id
+            </attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='same_shipping']" position="attributes">
+            <attribute name="t-value">
+                bool(order.partner_shipping_id==order.partner_invoice_id or only_services)
+            </attribute>
+        </xpath>
+
+    </template>
+
+    <template
+        id="website_sale_invoice_address.checkout"
+        inherit_id="website_sale.checkout"
+        priority="100"
+    >
+
+        <xpath
+            expr="//div[hasclass('col-lg-6', 'one_kanban')]//t//t[@t-set='contact']"
+            position="attributes"
+        >
+            <attribute name="t-value">
+                order.partner_invoice_id
+            </attribute>
+        </xpath>
+
+    </template>
+
+</odoo>
