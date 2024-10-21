@@ -16,19 +16,26 @@ class ProductTemplate(models.Model):
             .search(
                 [
                     ("is_assortment", "=", True),
-                    ("website_availability", "in", ["no_purchase", "no_show"]),
                     "|",
                     ("website_ids", "=", website.id),
                     ("website_ids", "=", False),
                 ]
             )
         )
-        assortment_dict = {}
+        partner_assortments = self.env["ir.filters"].sudo()
+
+        allowed_product_ids = set()
         for assortment in assortments:
             if partner & assortment.with_context(active_test=False).all_partner_ids:
-                allowed_product_ids = assortment.all_product_ids.ids
-                for product in product_ids:
-                    if product not in allowed_product_ids:
+                if assortment.website_availability != "no_restriction":
+                    partner_assortments |= assortment
+                allowed_product_ids.update(assortment.all_product_ids.ids)
+
+        assortment_dict = {}
+        for product in product_ids:
+            if product not in allowed_product_ids:
+                for assortment in partner_assortments:
+                    if product not in assortment.all_product_ids.ids:
                         assortment_dict.setdefault(product, self.env["ir.filters"])
                         assortment_dict[product] |= assortment
         return assortment_dict
