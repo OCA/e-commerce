@@ -28,7 +28,8 @@ class ProductTemplate(models.Model):
         allowed_product_ids = set()
         for assortment in assortments:
             if partner & assortment.with_context(active_test=False).all_partner_ids:
-                partner_assortments |= assortment
+                if assortment.website_availability != "no_restriction":
+                    partner_assortments |= assortment
                 allowed_product_ids.update(assortment.all_product_ids.ids)
 
         assortment_dict = {}
