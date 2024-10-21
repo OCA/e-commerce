@@ -80,6 +80,7 @@ Contributors
    -  David Vidal
    -  Alexandre Díaz
    -  Carlos Roca
+   -  Pilar Vargas
 
 -  Martin Wilderoth <martin.wilderoth@linserv.se>
 -  `Studio73 <https://www.studio73.es>`__:
