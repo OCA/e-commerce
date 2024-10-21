@@ -35,7 +35,7 @@
             </div>
         </xpath>
         <xpath expr="//t[@name='website_sale_non_free_cart']" position="attributes">
-          <attribute
+            <attribute
                 name="t-if"
                 separator=" "
                 add="and not website.checkout_skip_payment"
