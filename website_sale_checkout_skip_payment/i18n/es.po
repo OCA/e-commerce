@@ -121,13 +121,3 @@ msgstr "Mensaje de omisión de venta del sitio web"
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
 msgstr "Su pedido está a la espera de confirmación manual."
-
-#~ msgid ""
-#~ "<i class=\"fa fa-chevron-left\"/>\n"
-#~ "                    Return to Cart"
-#~ msgstr ""
-#~ "<i class=\"fa fa-chevron-left\"/>\n"
-#~ "                    Devolver al carrito"
-
-#~ msgid "Confirm <span class=\"fa fa-chevron-right\"/>"
-#~ msgstr "Confirmar <span class=\"fa fa-chevron-right\"/>"
