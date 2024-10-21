@@ -32,4 +32,4 @@ class WebsiteSaleHttpCase(odoo.tests.HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/shop", "website_sale_checkout_skip_payment", login="admin")
+        self.start_tour("/", "website_sale_checkout_skip_payment", login="admin")
