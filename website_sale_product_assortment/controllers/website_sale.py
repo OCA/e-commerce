@@ -17,15 +17,22 @@ class WebsiteSale(WebsiteSale):
             .search(
                 [
                     ("is_assortment", "=", True),
-                    ("website_availability", "=", "no_show"),
                     "|",
                     ("website_ids", "=", False),
                     ("website_ids", "=", website_id),
                 ]
             )
         )
+        no_restriction_assortments = any(
+            assortment.website_availability == "no_show" for assortment in assortments
+        )
+
         assortment_restriction = False
         allowed_product_ids = set()
+
+        if not no_restriction_assortments:
+            return allowed_product_ids, assortment_restriction
+
         for assortment in assortments:
             if (
                 # Set active_test to False to allow filtering by partners

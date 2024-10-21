@@ -16,7 +16,6 @@ class ProductTemplate(models.Model):
             .search(
                 [
                     ("is_assortment", "=", True),
-                    ("website_availability", "in", ["no_purchase", "no_restriction"]),
                     "|",
                     ("website_ids", "=", website.id),
                     ("website_ids", "=", False),
