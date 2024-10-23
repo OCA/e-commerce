@@ -62,6 +62,7 @@ Contributors
    -  Victor M.M. Torres
    -  Sergio Teruel
    -  Carlos Roca
+   -  Pilar Vargas
 
 -  `Trobz <https://trobz.com>`__:
 
