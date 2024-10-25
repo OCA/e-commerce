@@ -28,6 +28,9 @@ class WebsiteSaleHttpCase(HttpCase):
         cls.product_attribute_value_blue = ProductAttributeValue.create(
             {"name": "Test blue", "attribute_id": cls.product_attribute.id}
         )
+        cls.product_attribute_value_yellow = ProductAttributeValue.create(
+            {"name": "Test yellow", "attribute_id": cls.product_attribute.id}
+        )
         cls.product_template = cls.env.ref("product.product_product_4_product_template")
         cls.product_attribute_line = ProductAttributeLine.create(
             {
