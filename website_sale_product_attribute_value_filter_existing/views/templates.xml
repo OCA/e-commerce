@@ -20,7 +20,7 @@
         <xpath expr="//t[@t-foreach='a.value_ids']" position="attributes">
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
-        <xpath expr="//input[@name='attribute_value']/.." position="attributes">
+        <xpath expr="//input[@name='attribute_value']/../.." position="attributes">
             <attribute name="t-if">attr_values_used &amp; v</attribute>
         </xpath>
     </template>
