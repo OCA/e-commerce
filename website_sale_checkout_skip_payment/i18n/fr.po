@@ -21,27 +21,14 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid ""
-"<i class=\"fa fa-chevron-left\"/>\n"
-"                        Return to Cart"
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
+msgid "<span class=\"px-3\">or</span>"
 msgstr ""
-"<i class=\"fa fa-chevron-left\"/>\n"
-"                        Retourner au panier"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
+msgid "<span>Confirm <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
 msgstr ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont "
-"spécifiques au site.\" groups=\"website.group_multi_website\"/>"
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
-msgstr "<span>Confirmer <span class=\"fa fa-chevron-right\"/></span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -63,8 +50,7 @@ msgid "Config Settings"
 msgstr "Paramètres de configuration"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.cart
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.short_cart_summary
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -81,7 +67,6 @@ msgstr "Message affiché à l'utilisateur à la fin de ses achats"
 #. module: website_sale_checkout_skip_payment
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
-#, python-format
 msgid "Our team will check your order and send you payment information soon."
 msgstr ""
 
@@ -116,7 +101,22 @@ msgstr "Message à afficher quand l'étape de paiement est sautée"
 msgid "Website Sale SKip Message"
 msgstr "Message à afficher quand l'étape de paiement est sautée"
 
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
-msgid "Your order is waiting manual confirmation."
-msgstr "Votre commande est en attente d'une confirmation manuelle."
+#~ msgid ""
+#~ "<i class=\"fa fa-chevron-left\"/>\n"
+#~ "                        Return to Cart"
+#~ msgstr ""
+#~ "<i class=\"fa fa-chevron-left\"/>\n"
+#~ "                        Retourner au panier"
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+#~ "specific.\" groups=\"website.group_multi_website\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont "
+#~ "spécifiques au site.\" groups=\"website.group_multi_website\"/>"
+
+#~ msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
+#~ msgstr "<span>Confirmer <span class=\"fa fa-chevron-right\"/></span>"
+
+#~ msgid "Your order is waiting manual confirmation."
+#~ msgstr "Votre commande est en attente d'une confirmation manuelle."
