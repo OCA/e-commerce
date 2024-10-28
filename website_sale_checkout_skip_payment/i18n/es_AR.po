@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2021-05-18 10:04+0000\n"
 "PO-Revision-Date: 2024-09-17 02:06+0000\n"
 "Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
-"Language-Team: Spanish (Argentina) (https://www.transifex.com/oca/teams/"
-"23907/es_AR/)\n"
+"Language-Team: Spanish (Argentina) (https://www.transifex.com/oca/"
+"teams/23907/es_AR/)\n"
 "Language: es_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,27 +21,14 @@ msgstr ""
 "X-Generator: Weblate 5.6.2\n"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid ""
-"<i class=\"fa fa-chevron-left\"/>\n"
-"                        Return to Cart"
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
+msgid "<span class=\"px-3\">or</span>"
 msgstr ""
-"<i class=\"fa fa-chevron-left\"/>\n"
-"                        Regresar al carrito"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
+msgid "<span>Confirm <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
 msgstr ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Los Valores configurados acá serán "
-"website-specific.\" groups=\"website.group_multi_website\"/>"
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
-msgstr "<span>Confirmar <span class=\"fa fa-chevron-right\"/></span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -63,8 +50,7 @@ msgid "Config Settings"
 msgstr "Configurar Ajustes"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.cart
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.short_cart_summary
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -81,7 +67,6 @@ msgstr "Mensaje mostrado al usuario cuando finaliza la compra"
 #. module: website_sale_checkout_skip_payment
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
-#, python-format
 msgid "Our team will check your order and send you payment information soon."
 msgstr ""
 "Nuestro equipo revisará su pedido y le enviará la información de pago pronto."
@@ -117,10 +102,25 @@ msgstr "Omitir Mensaje del Pago de la Venta por Website"
 msgid "Website Sale SKip Message"
 msgstr "Omitir Mensaje de Venta por Sitio Web"
 
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
-msgid "Your order is waiting manual confirmation."
-msgstr "Tu pedido está esperando confirmación manual."
+#~ msgid ""
+#~ "<i class=\"fa fa-chevron-left\"/>\n"
+#~ "                        Return to Cart"
+#~ msgstr ""
+#~ "<i class=\"fa fa-chevron-left\"/>\n"
+#~ "                        Regresar al carrito"
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+#~ "specific.\" groups=\"website.group_multi_website\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Los Valores configurados acá "
+#~ "serán website-specific.\" groups=\"website.group_multi_website\"/>"
+
+#~ msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
+#~ msgstr "<span>Confirmar <span class=\"fa fa-chevron-right\"/></span>"
+
+#~ msgid "Your order is waiting manual confirmation."
+#~ msgstr "Tu pedido está esperando confirmación manual."
 
 #~ msgid ""
 #~ "<i class=\"fa fa-chevron-left\"/>\n"
