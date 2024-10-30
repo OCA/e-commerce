@@ -11,7 +11,7 @@ odoo.define("website_sale_tour.tour", function (require) {
             url: "/shop?search=Storage Box",
         },
         [
-            // Testing b2c with Tax-Excluded Prices
+            // Testing b2c with Tax-Excluded Prices.
             {
                 content: "Open product page",
                 trigger: '.oe_product_cart a:contains("Storage Box")',
@@ -24,7 +24,7 @@ odoo.define("website_sale_tour.tour", function (require) {
                 content: "Check b2b Tax-Excluded Prices",
                 trigger:
                     ".product_price .oe_price .oe_currency_value:containsExact(79.00)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Click on add to cart",
@@ -40,17 +40,17 @@ odoo.define("website_sale_tour.tour", function (require) {
                 content: "Check Price b2b subtotal",
                 trigger:
                     "tr#order_total_untaxed .oe_currency_value:containsExact(158.00)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Check Price b2b Sale Tax(15%)",
                 trigger: "tr#order_total_taxes .oe_currency_value:containsExact(23.70)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Check Price b2b Total amount",
                 trigger: "tr#order_total .oe_currency_value:containsExact(181.70)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Fulfill billing address form",
@@ -93,14 +93,14 @@ odoo.define("website_sale_tour.tour", function (require) {
                     "Check selected billing address is same as typed in previous step",
                 trigger:
                     "#shipping_and_billing:contains(SO1 Billing Street, 33):contains(SO1BillingCity):contains(Afghanistan)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content:
                     "Check selected shipping address is same as typed in previous step",
                 trigger:
                     "#shipping_and_billing:contains(17, SO1 Shipping Road):contains(SO1ShippingCity):contains(Afghanistan)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Click for edit address",
@@ -134,7 +134,7 @@ odoo.define("website_sale_tour.tour", function (require) {
                     "Check selected billing address is same as typed in previous step",
                 trigger:
                     "#shipping_and_billing:contains(SO1 Billing Street Edited, 33):contains(SO1BillingCityEdited):contains(Afghanistan)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Select `Wire Transfer` payment method",
@@ -214,6 +214,7 @@ odoo.define("website_sale_tour.tour", function (require) {
                         });
                     });
                     def2.then(function () {
+                        // eslint-disable-next-line no-undef
                         window.location.href =
                             "/web/session/logout?redirect=/shop?search=Storage Box";
                     });
@@ -232,7 +233,7 @@ odoo.define("website_sale_tour.tour", function (require) {
                 content: "Check b2c Tax-Included Prices",
                 trigger:
                     ".product_price .oe_price .oe_currency_value:containsExact(90.85)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Click on add to cart",
@@ -248,17 +249,17 @@ odoo.define("website_sale_tour.tour", function (require) {
                 content: "Check Price b2c total",
                 trigger:
                     "tr#order_total_untaxed .oe_currency_value:containsExact(158.00)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Check Price b2c Sale Tax(15%)",
                 trigger: "tr#order_total_taxes .oe_currency_value:containsExact(23.70)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Check Price b2c Total amount",
                 trigger: "tr#order_total .oe_currency_value:containsExact(181.70)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Click on Login Button",
@@ -395,14 +396,14 @@ odoo.define("website_sale_tour.tour", function (require) {
                     "Check selected billing address is same as typed in previous step",
                 trigger:
                     "#shipping_and_billing:contains(SO1 Billing Street Edited, 33):contains(SO1BillingCityEdited):contains(Afghanistan)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content:
                     "Check selected shipping address is same as typed in previous step",
                 trigger:
                     "#shipping_and_billing:contains(SO2New Shipping Street, 5):contains(SO2NewShipping):contains(Afghanistan)",
-                run: function () {}, // It's a check
+                isChecked: true,
             },
             {
                 content: "Select `Wire Transfer` payment method",

@@ -18,7 +18,7 @@
         </field>
     </record>
     <record model="ir.ui.view" id="product_product_website_tree_view">
-        <field name="name">product.product.website.inherit.view.tree</field>
+        <field name="name">product.product.website.inherit.view.list</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="website_sale.product_product_website_tree_view" />
         <field name="arch" type="xml">
@@ -36,7 +36,7 @@
         </field>
     </record>
     <record model="ir.ui.view" id="product_template_view_tree">
-        <field name="name">product_template_view_tree.view.tree</field>
+        <field name="name">product_template_view_tree.view.list</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="website_sale.product_template_view_tree" />
         <field name="arch" type="xml">
