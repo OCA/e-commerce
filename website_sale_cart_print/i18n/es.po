@@ -28,3 +28,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_print.payment
 msgid "Print"
 msgstr "Imprimir"
+
+#. module: website_sale_cart_print
+#: model_terms:ir.ui.view,arch_db:website_sale_cart_print.snippet_options
+msgid "Button to print the cart"
+msgstr "Botón para imprimir el carrito"

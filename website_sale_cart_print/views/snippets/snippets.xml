@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<template
+        id="snippet_options"
+        inherit_id="website_sale.snippet_options"
+        name="e-commerce snippet options print cart"
+    >
+    <xpath
+            expr="//we-checkbox[@data-customize-website-views='website_sale.suggested_products_list']"
+            position="before"
+        >
+            <we-checkbox
+                string="Button to print the cart"
+                data-customize-website-views="website_sale_cart_print.payment"
+                data-no-preview="true"
+                data-reload="/"
+            />
+    </xpath>
+</template>
+
+</odoo>

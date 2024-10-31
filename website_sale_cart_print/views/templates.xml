@@ -9,7 +9,6 @@
         inherit_id="website_sale.payment"
         name="Button to print the cart"
         active="False"
-        customize_show="True"
     >
         <xpath expr="//div[@id='address_on_payment']" position="after">
             <div

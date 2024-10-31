@@ -16,6 +16,7 @@
         "website_sale",
     ],
     "data": [
+        "views/snippets/snippets.xml",
         "views/templates.xml",
     ],
 }
