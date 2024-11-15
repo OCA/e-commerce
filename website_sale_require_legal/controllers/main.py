@@ -50,7 +50,7 @@ class WebsiteSale(main.WebsiteSale):
         environ = request.httprequest.headers.environ
         message = _("Website legal terms acceptance metadata: %s")
         metadata = "<br/>".join(
-            "{}: {}".format(val, environ.get(val))
+            f"{val}: {environ.get(val)}"
             for val in (
                 "REMOTE_ADDR",
                 "HTTP_USER_AGENT",
