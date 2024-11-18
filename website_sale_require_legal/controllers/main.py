@@ -4,6 +4,7 @@
 
 from odoo import _, http
 from odoo.http import request
+from odoo.tools import Markup
 
 from odoo.addons.website_sale.controllers import main
 
@@ -48,7 +49,6 @@ class WebsiteSale(main.WebsiteSale):
     def _log_acceptance_metadata(self, record):
         """Log legal terms acceptance metadata."""
         environ = request.httprequest.headers.environ
-        message = _("Website legal terms acceptance metadata: %s")
         metadata = "<br/>".join(
             f"{val}: {environ.get(val)}"
             for val in (
@@ -57,7 +57,10 @@ class WebsiteSale(main.WebsiteSale):
                 "HTTP_ACCEPT_LANGUAGE",
             )
         )
-        record.sudo().message_post(body=message % metadata, message_type="notification")
+        message = Markup(_("Website legal terms acceptance metadata: %s") % metadata)
+        record.sudo().message_post(
+            body=message, message_type="notification", subtype_xmlid="mail.mt_comment"
+        )
 
 
 class PaymentPortal(main.PaymentPortal):
@@ -70,7 +73,9 @@ class PaymentPortal(main.PaymentPortal):
         """
         result = super().shop_payment_transaction(order_id, access_token, **kwargs)
         # If the "Accept Terms & Conditions" view is disabled, we log nothing
-        if not request.website.viewref("website_sale.payment_sale_note").active:
+        if not request.website.viewref(
+            "website_sale.accept_terms_and_conditions"
+        ).active:
             return result
         # Retrieve the sale order
         if order_id:
