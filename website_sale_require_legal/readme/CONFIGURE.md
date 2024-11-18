@@ -6,7 +6,7 @@ To configure this module, you need to:
 
 3.  Go to your e-commerce and make a sample checkout.
 
-4.  Visit [/shop/address](/shop/address) and enable *Customize \>
+4.  Visit [/shop/address](/shop/address) and enable in the web editor *Customize \>
     Require Legal Terms Acceptance*.
 
     ![](../static/description/address-enable.png)
@@ -14,8 +14,8 @@ To configure this module, you need to:
     This will require acceptance before recording a new address, and log
     visitor's acceptance.
 
-5.  Visit [/shop/payment](/shop/payment) and enable *Customize \> Accept
-    Terms & Conditions* (upstream Odoo feature).
+5.  Visit [/shop/payment](/shop/payment) and enable in the web editor *Customize \>
+    Accept Terms & Conditions* (upstream Odoo feature).
 
     ![](../static/description/payment-enable.png)
 

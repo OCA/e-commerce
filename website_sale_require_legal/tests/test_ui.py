@@ -33,50 +33,53 @@ class UICase(HttpCase):
         website.viewref(
             "website_sale_require_legal.address_require_legal"
         ).active = True
-        website.viewref("website_sale.payment_sale_note").active = True
-        new_test_user(self.env, login="super_mario", groups="base.group_portal")
-        # Create a dummy payment provider to ensure that the tour has at least one
-        # available to it.
-        arch = """
-        <form action="dummy" method="post">
-            <input type="hidden" name="view_id" t-att-value="viewid"/>
-            <input type="hidden" name="user_id" t-att-value="user_id.id"/>
-        </form>
-        """
-        redirect_form = self.env["ir.ui.view"].create(
-            {
-                "name": "Dummy Redirect Form",
-                "type": "qweb",
-                "arch": arch,
-            }
-        )
-        self.dummy_provider = self.env["payment.provider"].create(
-            {
-                "name": "Dummy Provider",
-                "code": "none",
-                "state": "test",
-                "is_published": True,
-                "allow_tokenization": True,
-                "redirect_form_view_id": redirect_form.id,
-            }
+        website.viewref("website_sale.accept_terms_and_conditions").active = True
+        self.user = new_test_user(
+            self.env,
+            login="super_mario",
+            groups="base.group_portal",
+            password="super_mario",
+            name="Super Mario",
         )
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/shop", "website_sale_require_legal", login="super_mario")
-        order = self.env["sale.order"].search(
-            [
-                ("partner_id", "ilike", "super_mario"),
-                ("website_id", "!=", "False"),
-            ]
-        )
-        partner = order.partner_id
-        # Assert that the sale order and partner have metadata logs
-        self.assertTrue(
-            order.message_ids.filtered(
-                lambda one: "Website legal terms acceptance metadata" in one.body
+        if self.env["ir.module.module"]._get("payment_custom").state != "installed":
+            self.start_tour(
+                "/shop",
+                "website_sale_require_legal",
+                stepDelay=100,
+                login="super_mario",
             )
-        )
+        else:
+            transfer_provider = self.env.ref("payment.payment_provider_transfer")
+            transfer_provider.write(
+                {
+                    "state": "enabled",
+                    "is_published": True,
+                }
+            )
+            transfer_provider._transfer_ensure_pending_msg_is_set()
+            self.start_tour(
+                "/shop",
+                "website_sale_require_legal_with_payment",
+                stepDelay=100,
+                login="super_mario",
+            )
+            order = self.env["sale.order"].search(
+                [
+                    ("partner_id", "ilike", "super_mario"),
+                    ("website_id", "!=", "False"),
+                ]
+            )
+            # Assert that the sale order have metadata logs
+            self.assertTrue(
+                order.message_ids.filtered(
+                    lambda one: "Website legal terms acceptance metadata" in one.body
+                )
+            )
+        # Assert that the partner have metadata logs
+        partner = self.user.partner_id
         self.assertTrue(
             partner.message_ids.filtered(
                 lambda one: "Website legal terms acceptance metadata" in one.body
