@@ -55,3 +55,11 @@ class ProductTemplate(models.Model):
                     }
                 )
         return results_data
+
+    def _website_show_quick_add(self):
+        website_show_price = (
+            self.env["website"].get_current_website().website_show_price
+        )
+        return (
+            website_show_price and not self.website_hide_price
+        ) and super()._website_show_quick_add()
