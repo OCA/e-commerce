@@ -147,12 +147,7 @@ class ProductTemplateLink(models.Model):
         )
 
     def _duplicate_link_error_msg(self):
-        return "{} <-> {} / {} <-> {}".format(
-            self.left_product_tmpl_id.name,
-            self.link_type_name,
-            self.link_type_inverse_name,
-            self.right_product_tmpl_id.name,
-        )
+        return f"{self.left_product_tmpl_id.name} <-> {self.link_type_name} / {self.link_type_inverse_name} <-> {self.right_product_tmpl_id.name}"
 
     @contextmanager
     def _invalidate_links_on_product_template(self):

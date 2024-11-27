@@ -33,7 +33,7 @@
                     </field>
                 </group>
                 <footer>
-                   <button
+                    <button
                         name="action_apply"
                         string="Create links"
                         type="object"
@@ -41,7 +41,7 @@
                         help="Create links?"
                         invisible="operation_type != 'link'"
                     />
-                   <button
+                    <button
                         name="action_apply"
                         string="Remove links"
                         type="object"
@@ -49,8 +49,8 @@
                         help="Remove links?"
                         invisible="operation_type != 'unlink'"
                     />
-                   <button string="Cancel" class="oe_link" special="cancel" />
-               </footer>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
             </form>
         </field>
     </record>
