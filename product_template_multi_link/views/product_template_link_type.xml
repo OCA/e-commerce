@@ -5,22 +5,22 @@
     <record model="ir.ui.view" id="product_template_link_type_tree_view">
         <field
             name="name"
-        >product.template.link.type.tree (in product_template_multi_link)</field>
+        >product.template.link.type.list (in product_template_multi_link)</field>
         <field name="model">product.template.link.type</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <field name="is_symmetric" />
                 <field name="name" />
                 <field name="inverse_name" required="1" readonly="is_symmetric" />
                 <field name="code" />
                 <field name="inverse_code" readonly="is_symmetric" />
-            </tree>
+            </list>
         </field>
     </record>
     <record model="ir.actions.act_window" id="product_template_link_type_act_window">
         <field name="name">Product Template Link Type</field>
         <field name="res_model">product.template.link.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>

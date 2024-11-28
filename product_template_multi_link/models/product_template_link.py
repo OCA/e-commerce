@@ -5,7 +5,7 @@ from contextlib import contextmanager
 
 from psycopg2.extensions import AsIs
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -21,12 +21,18 @@ class ProductTemplateLink(models.Model):
         ondelete="cascade",
         index=True,
     )
+    left_product_img = fields.Image(
+        string="Left Product Image", related="left_product_tmpl_id.image_128"
+    )
     right_product_tmpl_id = fields.Many2one(
         string="Linked Product",
         comodel_name="product.template",
         required=True,
         ondelete="cascade",
         index=True,
+    )
+    right_product_img = fields.Image(
+        string="Right Product Image", related="right_product_tmpl_id.image_128"
     )
     type_id = fields.Many2one(
         string="Link type",
@@ -59,7 +65,7 @@ class ProductTemplateLink(models.Model):
         self.flush_recordset()  # flush required since the method uses plain sql
         if any(rec._check_product_not_different() for rec in self):
             raise ValidationError(
-                _("You can only create a link between 2 different products")
+                self.env._("You can only create a link between 2 different products")
             )
 
         products = self.mapped("left_product_tmpl_id") + self.mapped(
@@ -75,7 +81,7 @@ class ProductTemplateLink(models.Model):
                 [link._duplicate_link_error_msg() for link in self.browse(ids)]
             )
             raise ValidationError(
-                _(
+                self.env._(
                     "Only one link with the same type is allowed between 2 "
                     "products. \n %s"
                 )
@@ -147,7 +153,9 @@ class ProductTemplateLink(models.Model):
         )
 
     def _duplicate_link_error_msg(self):
-        return f"{self.left_product_tmpl_id.name} <-> {self.link_type_name} / {self.link_type_inverse_name} <-> {self.right_product_tmpl_id.name}"
+        return f"""(
+            {self.left_product_tmpl_id.name} <-> {self.link_type_name} /
+            {self.link_type_inverse_name} <-> {self.right_product_tmpl_id.name})"""
 
     @contextmanager
     def _invalidate_links_on_product_template(self):

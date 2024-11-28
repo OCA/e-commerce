@@ -1,9 +1,9 @@
 # Copyright 2020 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestProductTemplateLinker(TransactionCase):
+class TestProductTemplateLinker(BaseCommon):
     """
     Tests for product.template.linker
     """
@@ -11,7 +11,6 @@ class TestProductTemplateLinker(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.wizard_obj = cls.env["product.template.linker"]
         cls.product_link_obj = cls.env["product.template.link"]
         cls.cross_sell = cls.env.ref(
