@@ -3,7 +3,7 @@
     <record id="action_product_template_link" model="ir.actions.act_window">
         <field name="name">Product Links</field>
         <field name="res_model">product.template.link</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
     </record>
     <record
         id="action_product_template_link_from_product_template"
@@ -11,7 +11,7 @@
     >
         <field name="name">Product Links</field>
         <field name="res_model">product.template.link</field>
-        <field name="view_mode">tree,kanban</field>
+        <field name="view_mode">list,kanban</field>
         <field name="domain">[('product_template_id', '=', id)]</field>
         <field name="context">{'default_product_template_id': id}</field>
     </record>

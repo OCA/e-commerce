@@ -2,17 +2,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestProductTemplateLink(TransactionCase):
+class TestProductTemplateLink(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(
             context=dict(
                 cls.env.context,
-                tracking_disable=True,
                 # compatibility flag when you run tests on a db
                 # where `product_variant_multi_link` is installed.
                 _product_variant_link_bypass_check=True,
