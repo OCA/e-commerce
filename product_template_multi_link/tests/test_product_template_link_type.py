@@ -3,15 +3,15 @@
 
 from psycopg2 import IntegrityError
 
-from odoo.tests import TransactionCase
 from odoo.tools import mute_logger
 
+from odoo.addons.base.tests.common import BaseCommon
 
-class TestProductTemplateLinkType(TransactionCase):
+
+class TestProductTemplateLinkType(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.LinkType = cls.env["product.template.link.type"]
         cls.link_type_cross_selling = cls.env.ref(
             "product_template_multi_link.product_template_link_type_cross_selling"

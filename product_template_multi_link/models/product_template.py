@@ -4,7 +4,7 @@
 
 from collections import defaultdict
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import AccessError
 
 
@@ -43,7 +43,7 @@ class ProductTemplate(models.Model):
         link_model = self.env["product.template.link"]
         # Set product_template_link_qty to 0 if user has no access on the model
         try:
-            link_model.check_access_rights("read")
+            link_model.check_access("read")
         except AccessError:
             for rec in self:
                 rec.product_template_link_count = 0
@@ -82,9 +82,9 @@ class ProductTemplate(models.Model):
     def show_product_template_links(self):
         self.ensure_one()
         return {
-            "name": _("Product links"),
+            "name": self.env._("Product links"),
             "type": "ir.actions.act_window",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "product.template.link",
             "domain": [
                 "|",

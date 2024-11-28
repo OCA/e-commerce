@@ -27,14 +27,14 @@
     See odoo/addons/product/models/product_template.py // def name_search()
     -->
     <record id="product_template_link_tree" model="ir.ui.view">
-        <field name="name">Product.template.link.tree</field>
+        <field name="name">Product.template.link.list</field>
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
-            <tree editable="top">
-                <field name="left_product_tmpl_id" domain="[('id', '!=', 0)]" />
+            <list editable="top">
+                <field name="left_product_tmpl_id" />
                 <field name="type_id" />
-                <field name="right_product_tmpl_id" domain="[('id', '!=', 0)]" />
-            </tree>
+                <field name="right_product_tmpl_id" />
+            </list>
         </field>
     </record>
     <record id="product_template_link_kanban" model="ir.ui.view">
@@ -42,41 +42,45 @@
         <field name="model">product.template.link</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="left_product_tmpl_id" />
-                <field name="right_product_tmpl_id" />
-                <field name="type_id" />
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <div style="height: 64px; width: 45%; float:left;">
-                                <div class="o_kanban_image">
-                                    <img
-                                        t-att-src="kanban_image('product.template', 'image_128', record.left_product_tmpl_id.raw_value)"
+                    <t t-name="card" class="row g-0">
+                        <div class="d-flex">
+                            <div class="d-flex w-50" style="height: 64px;">
+                                <aside class="p-0">
+                                    <field
+                                        name="left_product_img"
+                                        widget="image"
                                         alt="Product"
-                                        class="o_image_64_contain"
                                     />
-                                </div>
-                                <div class="oe_kanban_details" style="font-size: 10px;">
+                                </aside>
+                                <main
+                                    class="col-8 d-flex flex-column overflow-hidden"
+                                    style="font-size: 10px;"
+                                >
                                     <field name="left_product_tmpl_id" />
-                                </div>
+                                </main>
                             </div>
                             <div
                                 name="product_template_link_type"
-                                style="height: 64px; width: 10%; float:left;"
+                                class="overflow-hidden"
+                                style="height: 64px; width: 15%;"
                             >
                                 <field name="type_id" />
                             </div>
-                            <div style="height: 64px; width: 45%; float:left;">
-                                <div class="o_kanban_image">
-                                    <img
-                                        t-att-src="kanban_image('product.template', 'image_128', record.right_product_tmpl_id.raw_value)"
+                            <div class="d-flex w-50" style="height: 64px;">
+                                <aside class="p-0">
+                                    <field
+                                        name="right_product_img"
+                                        widget="image"
                                         alt="Product"
-                                        class="o_image_64_contain"
                                     />
-                                </div>
-                                <div class="oe_kanban_details" style="font-size: 10px;">
+                                </aside>
+                                <main
+                                    class="col-8 d-flex flex-column overflow-hidden"
+                                    style="font-size: 10px;"
+                                >
                                     <field name="right_product_tmpl_id" />
-                                </div>
+                                </main>
                             </div>
                         </div>
                     </t>
@@ -93,14 +97,8 @@
                     <group name="main">
                         <group name="products">
                             <field name="type_id" />
-                            <field
-                                name="left_product_tmpl_id"
-                                domain="[('id', '!=', 0)]"
-                            />
-                            <field
-                                name="right_product_tmpl_id"
-                                domain="[('id', '!=', 0)]"
-                            />
+                            <field name="left_product_tmpl_id" />
+                            <field name="right_product_tmpl_id" />
                         </group>
                     </group>
                 </sheet>

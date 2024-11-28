@@ -26,10 +26,10 @@
                         colspan="2"
                         options="{'no_open':True, 'no_create':True}"
                     >
-                        <tree>
+                        <list>
                             <field name="name" />
                             <field name="default_code" />
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <footer>
