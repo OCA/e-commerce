@@ -9,3 +9,5 @@
   - Karthik \<<karthik@sodexis.com>\>
 - [Idealis Consulting](https://idealisconsulting.com):
   - Sylvain Van Hoof
+- [Kencove](https://kencove.com):
+  - Mohamed Alkobrosli

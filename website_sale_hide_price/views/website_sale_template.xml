@@ -16,19 +16,6 @@
     </template>
     <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
     <template id="product" inherit_id="website_sale.product">
-        <!-- adding website, website.website_show_price and product.website_hide_price to t-cache in order to update cache if parameter modified
-             this is needed if you connect with a different user that should not see the prices
-             see https://github.com/OCA/e-commerce/issues/818 -->
-        <xpath
-            expr="//t[starts-with(@t-cache, 'pricelist,product')]"
-            position="attributes"
-        >
-            <attribute
-                name="t-cache"
-                add="website,website.website_show_price,product.website_hide_price"
-                separator=","
-            />
-        </xpath>
         <xpath expr="//a[@id='add_to_cart']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
