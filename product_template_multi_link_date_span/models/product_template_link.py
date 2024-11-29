@@ -7,7 +7,6 @@ from odoo import _, api, exceptions, fields, models
 
 
 class ProductTemplateLink(models.Model):
-
     _inherit = "product.template.link"
 
     date_start = fields.Date("Start Date")
