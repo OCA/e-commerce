@@ -11,6 +11,7 @@
                 <field
                     name="left_product_id"
                     string="Variant"
+                    groups="product.group_product_variant"
                     filter_domain="['|',('left_product_id','ilike',self),('right_product_id','ilike',self)]"
                 />
             </field>
@@ -26,12 +27,14 @@
             <field name="left_product_tmpl_id" position="after">
                 <field
                     name="left_product_id"
+                    groups="product.group_product_variant"
                     domain="[('product_tmpl_id','=',left_product_tmpl_id)]"
                 />
             </field>
             <field name="right_product_tmpl_id" position="after">
                 <field
                     name="right_product_id"
+                    groups="product.group_product_variant"
                     domain="[('product_tmpl_id','=',right_product_tmpl_id)]"
                 />
             </field>
@@ -47,12 +50,14 @@
             <field name="left_product_tmpl_id" position="after">
                 <field
                     name="left_product_id"
+                    groups="product.group_product_variant"
                     domain="[('product_tmpl_id','=',left_product_tmpl_id)]"
                 />
             </field>
             <field name="right_product_tmpl_id" position="after">
                 <field
                     name="right_product_id"
+                    groups="product.group_product_variant"
                     domain="[('product_tmpl_id','=',right_product_tmpl_id)]"
                 />
             </field>
@@ -68,12 +73,14 @@
             <field name="left_product_tmpl_id" position="after">
                 <field
                     name="left_product_id"
+                    groups="product.group_product_variant"
                     domain="[('product_tmpl_id','=',left_product_tmpl_id)]"
                 />
             </field>
             <field name="right_product_tmpl_id" position="after">
                 <field
                     name="right_product_id"
+                    groups="product.group_product_variant"
                     domain="[('product_tmpl_id','=',right_product_tmpl_id)]"
                 />
             </field>

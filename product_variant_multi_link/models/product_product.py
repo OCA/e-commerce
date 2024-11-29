@@ -2,7 +2,7 @@
 # Simone Orsi <simahawk@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import AccessError
 
 
@@ -24,7 +24,7 @@ class ProductProduct(models.Model):
         link_model = self.env["product.template.link"]
         # Set product_template_link_qty to 0 if user has no access on the model
         try:
-            link_model.check_access_rights("read")
+            link_model.check_access("read")
         except AccessError:
             self.update({"product_product_link_count": 0})
             return
@@ -72,9 +72,9 @@ class ProductProduct(models.Model):
         self.ensure_one()
 
         return {
-            "name": _("Product links"),
+            "name": self.env._("Product links"),
             "type": "ir.actions.act_window",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "product.template.link",
             "domain": [
                 "|",

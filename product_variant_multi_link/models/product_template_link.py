@@ -2,7 +2,7 @@
 # Simone Orsi <simahawk@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class ProductTemplateLink(models.Model):
@@ -37,9 +37,9 @@ class ProductTemplateLink(models.Model):
                 # to avoid issues w/ existing table and existing records
                 if not rec.left_product_id or not rec.right_product_id:
                     raise exceptions.ValidationError(
-                        _("Source and target variants are required!")
+                        self.env._("Source and target variants are required!")
                     )
-        super()._check_products()
+        return super()._check_products()
 
     def _check_product_not_different(self):
         res = super()._check_product_not_different()
@@ -62,5 +62,6 @@ class ProductTemplateLink(models.Model):
         return params
 
     def _invalidate_links(self):
-        super()._invalidate_links()
-        self.env["product.product"].invalidate_cache(["product_variant_link_ids"])
+        res = super()._invalidate_links()
+        self.env["product.product"].invalidate_model(["product_variant_link_ids"])
+        return res
