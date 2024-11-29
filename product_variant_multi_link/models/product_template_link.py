@@ -51,15 +51,11 @@ class ProductTemplateLink(models.Model):
         params = super()._check_products_query_params()
         if self._product_variant_check_enabled():
             params["main_select_columns"] += ", right_product_id, left_product_id"
-            params[
-                "l2_join_where_clause"
-            ] += """
+            params["l2_join_where_clause"] += """
                 AND right_product_id = l1.left_product_id
                 AND left_product_id = l1.right_product_id
             """
-            params[
-                "l3_join_where_clause"
-            ] += """
+            params["l3_join_where_clause"] += """
                 AND left_product_id = l1.left_product_id
                 AND right_product_id = l1.right_product_id
             """
