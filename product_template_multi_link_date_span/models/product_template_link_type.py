@@ -6,7 +6,6 @@ from odoo import fields, models
 
 
 class ProductTemplateLinkType(models.Model):
-
     _inherit = "product.template.link.type"
 
     limited_by_dates = fields.Boolean(
