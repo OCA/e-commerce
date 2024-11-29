@@ -4,11 +4,11 @@
 from freezegun import freeze_time
 
 from odoo import exceptions
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
 @freeze_time("2020-07-29")
-class TestProductTemplateLinkDateSpan(SavepointCase):
+class TestProductTemplateLinkDateSpan(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
