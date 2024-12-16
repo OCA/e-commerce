@@ -6,7 +6,7 @@
             <div
                 class="css_quantity input-group"
                 style="display: inline-flex;"
-                t-if="product.visible_qty_configurator"
+                t-if="product.visible_qty_configurator and product._website_show_quick_add()"
             >
                 <div class="input-group-prepend">
                     <a
