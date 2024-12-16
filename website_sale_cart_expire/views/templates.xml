@@ -15,7 +15,7 @@
     >
         <xpath expr="//sup[hasclass('my_cart_quantity')]" position="after">
             <sup
-                class="my_cart_expiration badge badge-warning"
+                class="my_cart_expiration badge text-bg-primary"
                 t-if="website.cart_expire_delay"
                 t-att-data-order-expire-date="website_sale_order and website_sale_order.cart_expire_date"
             />
