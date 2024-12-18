@@ -5,12 +5,17 @@
     <template id="product" inherit_id="website_sale.product">
         <xpath expr="//div[@t-field='product.website_description']" position="before">
             <t t-if="combination_info.get('assortment_information')">
-                <div
-                    itemprop="assortment_information"
-                    t-out="combination_info.get('assortment_information')"
-                    class="oe_structure mt16"
-                    id="product_full_description"
-                />
+                <div class="oe_structure mt16" id="product_full_assortment_description">
+                    <div class="container">
+                        <div class="row">
+                            <div
+                                itemprop="assortment_information"
+                                t-out="combination_info.get('assortment_information')"
+                                id="product_full_description"
+                            />
+                        </div>
+                    </div>
+                </div>
             </t>
         </xpath>
     </template>

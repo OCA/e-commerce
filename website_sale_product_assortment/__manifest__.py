@@ -3,7 +3,7 @@
 {
     "name": "eCommerce product assortment",
     "summary": "Use product assortments to display products available on e-commerce.",
-    "version": "16.0.1.1.0",
+    "version": "18.0.1.1.0",
     "development_status": "Beta",
     "license": "AGPL-3",
     "category": "Website",
@@ -16,8 +16,8 @@
     "assets": {
         "web.assets_frontend": [
             "website_sale_product_assortment/static/src/xml/*.xml",
-            "website_sale_product_assortment/static/src/js/variant_mixin.js",
-            "website_sale_product_assortment/static/src/js/assortment_list_preview.js",
+            "website_sale_product_assortment/static/src/js/variant_mixin.esm.js",
+            "website_sale_product_assortment/static/src/js/assortment_list_preview.esm.js",
         ],
         "web.assets_tests": [
             "website_sale_product_assortment/static/src/js/no_purchase_tour.js",
