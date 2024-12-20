@@ -48,15 +48,12 @@ msgid "Created on"
 msgstr "Létrehozás dátuma"
 
 #. module: product_template_multi_link
-#: model:product.template.link,link_type_inverse_name:product_template_multi_link.link_cross_selling_1
-#: model:product.template.link,link_type_name:product_template_multi_link.link_cross_selling_1
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_cross_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_cross_selling
 msgid "Cross Selling"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__display_name
@@ -69,7 +66,6 @@ msgid "Group By"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__id
@@ -93,14 +89,6 @@ msgid "Is Symmetric"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template____last_update
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link____last_update
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type____last_update
-#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker____last_update
-msgid "Last Modified on"
-msgstr "Utolsó frissítés dátuma"
-
-#. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__write_uid
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__write_uid
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__write_uid
@@ -113,6 +101,11 @@ msgstr "Utoljára frissítve, által"
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__write_date
 msgid "Last Updated on"
 msgstr "Utoljára frissítve "
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__left_product_img
+msgid "Left Product Image"
+msgstr ""
 
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_code_uniq
@@ -177,8 +170,8 @@ msgid "Name"
 msgstr ""
 
 #. module: product_template_multi_link
+#. odoo-python
 #: code:addons/product_template_multi_link/models/product_template_link.py:0
-#, python-format
 msgid ""
 "Only one link with the same type is allowed between 2 products. \n"
 " %s"
@@ -190,6 +183,7 @@ msgid "Operation"
 msgstr ""
 
 #. module: product_template_multi_link
+#: model:ir.model,name:product_template_multi_link.model_product_template
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
 msgid "Product"
@@ -212,11 +206,6 @@ msgid "Product Links Count"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:ir.model,name:product_template_multi_link.model_product_template
-msgid "Product Template"
-msgstr ""
-
-#. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_link_type_act_window
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
@@ -229,9 +218,9 @@ msgid "Product link"
 msgstr ""
 
 #. module: product_template_multi_link
+#. odoo-python
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
-#, python-format
 msgid "Product links"
 msgstr ""
 
@@ -271,6 +260,11 @@ msgstr ""
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
 msgid "Remove links?"
+msgstr ""
+
+#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__right_product_img
+msgid "Right Product Image"
 msgstr ""
 
 #. module: product_template_multi_link
@@ -318,7 +312,10 @@ msgid "Upper Range"
 msgstr ""
 
 #. module: product_template_multi_link
+#. odoo-python
 #: code:addons/product_template_multi_link/models/product_template_link.py:0
-#, python-format
 msgid "You can only create a link between 2 different products"
 msgstr ""
+
+#~ msgid "Last Modified on"
+#~ msgstr "Utolsó frissítés dátuma"
