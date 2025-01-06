@@ -14,5 +14,6 @@
     ],
     "data": [
         "templates/cart.xml",
+        "templates/navbar_points.xml",
     ],
 }

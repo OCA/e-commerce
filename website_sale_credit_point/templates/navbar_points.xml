@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <template id="navbar_points" inherit_id="website_sale.header_cart_link">
+        <xpath expr="//li[last()]" position="after">
+            <li t-if="user_id.partner_id" class="nav-item">
+                <!-- I use an empty <a> tag here to get the styles, used in top menu -->
+                <span class="nav-link">Credit balance: <span
+                        t-esc="user_id.partner_id.credit_point"
+                    /></span>
+            </li>
+        </xpath>
+    </template>
+
+</odoo>
