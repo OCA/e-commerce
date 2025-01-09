@@ -41,7 +41,7 @@ class SaleOrder(models.Model):
         add_qty=0,
         set_qty=0,
         attributes=None,
-        **kwargs
+        **kwargs,
     ):
         if line_id:
             sol = self.env["sale.order.line"].browse(line_id)
@@ -72,7 +72,7 @@ class SaleOrder(models.Model):
             add_qty=add_qty,
             set_qty=set_qty,
             attributes=attributes,
-            **kwargs
+            **kwargs,
         )
 
     def _compute_cart_info(self):
