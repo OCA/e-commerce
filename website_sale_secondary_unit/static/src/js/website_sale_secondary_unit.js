@@ -10,9 +10,7 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
         init: function (parent, editableMode) {
             this._super.apply(this, arguments);
             this.$secondary_uom = null;
-            this.$secondary_uom_qty = null;
             this.$product_qty = null;
-            this.secondary_uom_qty = null;
             this.secondary_uom_factor = null;
             this.product_uom_factor = null;
             this.product_qty = null;
@@ -20,14 +18,8 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
         start: function () {
             const _this = this;
             this.$secondary_uom = $("#secondary_uom");
-            this.$secondary_uom_qty = $(".secondary-quantity");
             this.$product_qty = $(".quantity");
             this._setValues();
-            this.$target.on(
-                "change",
-                ".secondary-quantity",
-                this._onChangeSecondaryUom.bind(this)
-            );
             this.$target.on(
                 "change",
                 "#secondary_uom",
@@ -39,9 +31,6 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
             });
         },
         _setValues: function () {
-            this.secondary_uom_qty = Number(
-                this.$target.find(".secondary-quantity").val()
-            );
             this.secondary_uom_factor = Number(
                 $("option:selected", this.$secondary_uom).data("secondary-uom-factor")
             );
@@ -49,6 +38,7 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
                 $("option:selected", this.$secondary_uom).data("product-uom-factor")
             );
             this.product_qty = Number($(".quantity").val());
+            this.uom_factor = this.secondary_uom_factor * this.product_uom_factor
         },
 
         _onChangeSecondaryUom: function (ev) {
@@ -59,14 +49,30 @@ odoo.define("website_sale_secondary_unit.animation", function (require) {
                 ev.currentTarget = $(".form-control.quantity");
             }
             this._setValues();
-            const factor = this.secondary_uom_factor * this.product_uom_factor;
-            this.$product_qty.val(this.secondary_uom_qty * factor);
+            this.$product_qty.val(this.uom_factor);
             this.onChangeAddQuantity(ev);
         },
         _onChangeProductQty: function () {
+            // This method is called when the product quantity is changed
+            // It will adjust the quantity to be a multiple of the uom factor
+            // Constraint: Quantity cannot be less than 0
             this._setValues();
-            const factor = this.secondary_uom_factor * this.product_uom_factor;
-            this.$secondary_uom_qty.val(this.product_qty / factor);
+            const product_qty = this.$product_qty.val();
+            var qty_ratio = parseFloat(product_qty / this.uom_factor);
+            if (qty_ratio < 1) {
+                qty_ratio = 1;
+            }
+            // By using round, we get the closest ratio telling us if the value
+            // is decreased (1.75 -> 2) or increased (2.25 -> 2)
+            var nearest_ratio = Math.round(qty_ratio);
+            if (nearest_ratio !== qty_ratio) {
+                if (nearest_ratio < qty_ratio) {  // increased
+                    qty_ratio = Math.ceil(qty_ratio);
+                } else {  // decreased
+                    qty_ratio = Math.floor(qty_ratio);
+                }
+            }
+            this.$product_qty.val(qty_ratio * this.uom_factor);
         },
     });
 
@@ -122,9 +128,6 @@ odoo.define("website_sale_secondary_unit.website_sale", function (require) {
             ) {
                 this.rootProduct.secondary_uom_id = $(this.$target)
                     .find("#secondary_uom")
-                    .val();
-                this.rootProduct.secondary_uom_qty = $(this.$target)
-                    .find(".secondary-quantity")
                     .val();
             }
 

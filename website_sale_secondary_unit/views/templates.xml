@@ -2,40 +2,6 @@
 <!-- Copyright 2019 Tecnativa - Sergio Teruel
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <template id="secondary_qty">
-        <div
-            class="css_quantity input-group oe_website_spinner"
-            contenteditable="false"
-        >
-            <div class="input-group-prepend">
-                <a
-                    t-attf-href="#"
-                    class="btn btn-secondary js_add_cart_json"
-                    aria-label="Remove one"
-                    title="Remove one"
-                >
-                    <i class="fa fa-minus" />
-                </a>
-            </div>
-            <input
-                type="text"
-                class="form-control secondary-quantity"
-                data-min="1"
-                name="add_secondary_qty"
-                value="1"
-            />
-            <div class="input-group-append">
-                <a
-                    t-attf-href="#"
-                    class="btn btn-secondary float_left js_add_cart_json"
-                    aria-label="Add one"
-                    title="Add one"
-                >
-                    <i class="fa fa-plus" />
-                </a>
-            </div>
-        </div>
-    </template>
     <template id="second_qty_description">
         <t
             t-set="factor"
@@ -59,7 +25,6 @@
         >
             <t t-if="secondary_uom_ids">
                 <div class="mb8 secondary-unit">
-                    <t t-call="website_sale_secondary_unit.secondary_qty" />
                     <select
                         class="form-control mt4"
                         id="secondary_uom"
@@ -99,13 +64,6 @@
                     t-field="product.uom_id"
                 />
             </t>
-        </xpath>
-    </template>
-    <template id="product_quantity" inherit_id="website_sale.product_quantity">
-        <xpath expr="//input[@name='add_qty']/.." position="attributes">
-            <attribute
-                name="t-attf-class"
-            >css_quantity input-group oe_website_spinner #{'d-none' if secondary_uom_ids else None}</attribute>
         </xpath>
     </template>
     <template id="cart_lines" inherit_id="website_sale.cart_lines">
@@ -151,14 +109,6 @@
                     </t>
                 </div>
             </t>
-        </xpath>
-        <xpath
-            expr="//td[hasclass('td-qty')]/div[hasclass('css_quantity')]"
-            position="attributes"
-        >
-            <attribute
-                name="t-attf-class"
-            >css_quantity input-group oe_website_spinner #{'d-none' if line.secondary_uom_id else None}</attribute>
         </xpath>
         <xpath
             expr="//td[hasclass('td-qty')]/div[hasclass('css_quantity')]"
@@ -212,11 +162,6 @@
                     </t>
                 </div>
             </t>
-        </xpath>
-        <xpath expr="//td[hasclass('td-qty')]/div" position="attributes">
-            <attribute
-                name="t-attf-class"
-            >#{'d-none' if line.secondary_uom_id else None}</attribute>
         </xpath>
         <xpath expr="//td[hasclass('td-qty')]/div" position="after">
             <t t-if="not line.secondary_uom_id">
