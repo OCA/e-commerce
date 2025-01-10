@@ -1,13 +1,12 @@
+/** @odoo-module */
 /* Copyright 2019 Sergio Teruel
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_secondary_unit.tour", function (require) {
-    "use strict";
-
-    const tour = require("web_tour.tour");
-    const base = require("web_editor.base");
-
-    const steps = [
+import {registry} from "@web/core/registry";
+registry.category("web_tour.tours").add("website_sale_secondary_unit", {
+    test: true,
+    url: "/shop",
+    steps: () => [
         {
             trigger: "a:contains('Test product')",
         },
@@ -43,26 +42,14 @@ odoo.define("website_sale_secondary_unit.tour", function (require) {
             extra_trigger: "span:containsExact(Units)",
         },
         {
-            trigger: "button[name='o_payment_submit_button']",
-            extra_trigger: "table:has(span:contains(Box 5)):has(span:contains(Units))",
+            trigger: "div[id='o_wsale_total_accordion'] button.accordion-button",
+        },
+        {
+            trigger: "h6[name='secondary_uom_qty'] span:containsExact(Box 5)",
         },
         {
             trigger: "a[href='/shop']",
             extra_trigger: "table:has(span:contains(Box 5)):has(span:contains(Units))",
         },
-    ];
-
-    tour.register(
-        "website_sale_secondary_unit",
-        {
-            url: "/shop",
-            test: true,
-            wait_for: base.ready(),
-        },
-        steps
-    );
-
-    return {
-        steps: steps,
-    };
+    ],
 });

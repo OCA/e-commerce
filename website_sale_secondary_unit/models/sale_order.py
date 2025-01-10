@@ -26,13 +26,36 @@ class SaleOrder(models.Model):
             )
         return so_lines
 
-    def _website_product_id_change(self, order_id, product_id, qty=0, **kwargs):
-        res = super()._website_product_id_change(
-            order_id, product_id, qty=qty, **kwargs
+    def _prepare_order_line_values(
+        self,
+        product_id,
+        quantity,
+        linked_line_id=False,
+        no_variant_attribute_values=None,
+        product_custom_attribute_values=None,
+        **kwargs,
+    ):
+        values = super()._prepare_order_line_values(
+            product_id,
+            quantity,
+            linked_line_id=linked_line_id,
+            no_variant_attribute_values=no_variant_attribute_values,
+            product_custom_attribute_values=product_custom_attribute_values,
+            **kwargs,
         )
-        secondary_uom_id = self.env.context.get("secondary_uom_id", False)
-        res["secondary_uom_id"] = secondary_uom_id
-        return res
+        values["secondary_uom_id"] = self.env.context.get("secondary_uom_id")
+        return values
+
+    def _prepare_order_line_update_values(
+        self, order_line, quantity, linked_line_id=False, **kwargs
+    ):
+        values = super()._prepare_order_line_update_values(
+            order_line, quantity, linked_line_id=linked_line_id, **kwargs
+        )
+        secondary_uom_id = self.env.context.get("secondary_uom_id")
+        if secondary_uom_id != order_line.secondary_uom_id.id:
+            values["secondary_uom_id"] = secondary_uom_id
+        return values
 
     def _cart_update(
         self,

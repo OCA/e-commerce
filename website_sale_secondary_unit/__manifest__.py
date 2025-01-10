@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Secondary Unit",
     "summary": "Allow manage secondary units in website shop",
-    "version": "15.0.1.2.1",
+    "version": "17.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -23,11 +23,11 @@
     "post_init_hook": "post_init_hook",
     "assets": {
         "web.assets_frontend": [
-            "/website_sale_secondary_unit/static/src/js/website_sale_secondary_unit.js",
+            "/website_sale_secondary_unit/static/src/js/**/*.esm.js",
             "/website_sale_secondary_unit/static/src/scss/website_sale_secondary_unit.scss",
         ],
         "web.assets_tests": [
-            "/website_sale_secondary_unit/static/src/js/website_sale_secondary_unit_tour.js"
+            "/website_sale_secondary_unit/static/tests/tours/website_sale_secondary_unit_tour.esm.js"
         ],
     },
 }
