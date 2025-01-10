@@ -46,3 +46,24 @@ class WebsiteSaleSecondaryUnit(WebsiteSale):
             lambda su: su.active and su.is_published
         )
         return res
+
+    def _get_cart_notification_information(self, order, line_ids):
+        res = super()._get_cart_notification_information(order, line_ids)
+        for line in res.get("lines", []):
+            sale_line = request.env["sale.order.line"].browse(line["id"])
+            line["secondary_uom_name"] = ""
+            line["secondary_uom_qty"] = sale_line.secondary_uom_qty
+            secondary_uom = sale_line.secondary_uom_id
+            if not secondary_uom:
+                continue
+            factor = (
+                int(secondary_uom.factor) == secondary_uom.factor
+                and int(secondary_uom.factor)
+                or secondary_uom.factor
+            )
+            uom_name = secondary_uom.product_tmpl_id.sudo().uom_id.name
+            secondary_uom_name = f"{secondary_uom.name} {factor}"
+            if uom_name != secondary_uom.name:
+                secondary_uom_name += f" {uom_name}"
+            line["secondary_uom_name"] = secondary_uom_name
+        return res
