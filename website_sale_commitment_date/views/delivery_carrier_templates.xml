@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath
+            expr="//t[@name='website_sale_non_free_cart'] | //t[@t-if='website_sale_order.amount_total']"
+            position="before"
+        >
+            <div style="display:none;" id="commitment_date">
+                <h3 class="mb24">Commitment Date</h3>
+                <div class="card border-0">
+                    <t t-call="website_sale_commitment_date.commitment_calendar" />
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="commitment_calendar" name="commitment_calendar">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-9">
+                    <input
+                        type="text"
+                        class="form-control o_commitment_date_input"
+                        name="commitment_date"
+                        readonly="readonly"
+                    />
+                </div>
+                <div class="col-3">
+                    <button
+                        type="button"
+                        class="btn btn-primary o_website_calendar_button"
+                    >
+                        <i class="fa fa-calendar" /> Calendar
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="text-muted mt-1">
+                        <small>
+                            <i class="fa fa-info" />
+                            The commitment date is the date when the order will be delivered to you.
+                            <br />
+                            Please select a date that is convenient for you.
+                            <br />
+                            Select a commitment date before completing the order.
+                            <br />
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade o_calendar_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="CalendarModalLabel">Calendar</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        />
+                    </div>
+                    <div class="modal-body">
+                        <div class="o_website_calendar" />
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-primary o_website_calendar_confirm"
+                        >Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

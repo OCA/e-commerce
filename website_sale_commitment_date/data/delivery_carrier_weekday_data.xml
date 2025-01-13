@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="monday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Monday</field>
+        <field name="value">0</field>
+    </record>
+    <record id="tuesday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Tuesday</field>
+        <field name="value">1</field>
+    </record>
+    <record id="wednesday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Wednesday</field>
+        <field name="value">2</field>
+    </record>
+    <record id="thursday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Thursday</field>
+        <field name="value">3</field>
+    </record>
+    <record id="friday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Friday</field>
+        <field name="value">4</field>
+    </record>
+    <record id="saturday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Saturday</field>
+        <field name="value">5</field>
+    </record>
+    <record id="sunday_weekday" model="delivery.carrier.weekday">
+        <field name="name">Sunday</field>
+        <field name="value">6</field>
+    </record>
+</odoo>
