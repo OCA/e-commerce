@@ -17,7 +17,7 @@ class WebsiteSale(WebsiteSale):
         min_price=0.0,
         max_price=0.0,
         conversion_rate=1,
-        **post
+        **post,
     ):
         res = super()._get_search_options(
             category=category,
@@ -26,7 +26,7 @@ class WebsiteSale(WebsiteSale):
             min_price=min_price,
             max_price=max_price,
             conversion_rate=conversion_rate,
-            **post
+            **post,
         )
         res["brand"] = request.context.get("brand_id")
         return res
@@ -65,7 +65,7 @@ class WebsiteSale(WebsiteSale):
         max_price=0.0,
         ppg=False,
         brand=None,
-        **post
+        **post,
     ):
         if brand:
             context = dict(request.context)
@@ -79,7 +79,7 @@ class WebsiteSale(WebsiteSale):
             max_price=max_price,
             ppg=ppg,
             brand=brand,
-            **post
+            **post,
         )
 
     # Method to get the brands.
