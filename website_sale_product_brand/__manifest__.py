@@ -8,7 +8,7 @@
     "Tecnativa, "
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["product_brand", "website_sale"],
     "data": [
@@ -26,7 +26,7 @@
             "/website_sale_product_brand/static/src/scss/website_sale_product_brand.scss"
         ],
         "web.assets_tests": [
-            "/website_sale_product_brand/static/src/js/tour.js",
+            "/website_sale_product_brand/static/src/js/tour.esm.js",
         ],
     },
     "installable": True,
