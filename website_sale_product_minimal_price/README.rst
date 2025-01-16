@@ -37,13 +37,6 @@ variants price and set order by minimal price in product's view.
 .. contents::
    :local:
 
-Configuration
-=============
-
-1. Go to *Website > Configuration > Settings > Shop - Products* and
-   active the option *Multiple Prices per Product*, for use the
-   pricelists.
-
 Usage
 =====
 
@@ -78,10 +71,11 @@ Contributors
 
 - `Tecnativa <https://www.tecnativa.com>`__:
 
-     - Sergio Teruel
-     - Carlos Roca
-     - Pedro M. Baeza
-     - Pilar Vargas
+  - Sergio Teruel
+  - Carlos Roca
+  - Pedro M. Baeza
+  - Pilar Vargas
+  - Carlos Lopez
 
 Maintainers
 -----------
