@@ -25,6 +25,16 @@ class TestProductWithNoPrices(HttpCase):
         self.product_attribute_value_test_2 = ProductAttributeValue.create(
             {"name": "Test v2", "attribute_id": self.product_attribute.id}
         )
+        self.product_template_no_price = self.env["product.template"].create(
+            {
+                "name": "My product test no prices",
+                "is_published": True,
+                "type": "consu",
+                "website_sequence": 1,
+                "categ_id": self.category.id,
+                "list_price": 20,
+            }
+        )
         self.product_template = self.env["product.template"].create(
             {
                 "name": "My product test with no prices",
