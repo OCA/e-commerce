@@ -1,5 +1,5 @@
 This module allows
-[sale_order_type](https://github.com/OCA/sale-workflow/tree/14.0/sale_order_type)
+[sale_order_type](https://github.com/OCA/sale-workflow/tree/17.0/sale_order_type)
 to work with websitesale.
 
 This module is useful for users having a sale order type defined in

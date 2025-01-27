@@ -5,3 +5,4 @@
   > - João Marques
   > - Pilar Vargas
   > - Stefan Ungureanu
+  > - Carlos Lopez

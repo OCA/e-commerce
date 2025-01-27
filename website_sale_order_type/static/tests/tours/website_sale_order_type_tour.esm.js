@@ -1,12 +1,13 @@
+/** @odoo-module */
 /* Copyright 2020 Tecnativa - João Marques
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-odoo.define("website_sale_order_type.tour", function (require) {
-    "use strict";
+import {registry} from "@web/core/registry";
 
-    var tour = require("web_tour.tour");
-
-    var steps = [
+registry.category("web_tour.tours").add("website_sale_order_type_tour", {
+    test: true,
+    url: "/shop",
+    steps: () => [
         {
             trigger: ".oe_product_cart a:contains('Test Product SO Type')",
         },
@@ -18,18 +19,7 @@ odoo.define("website_sale_order_type.tour", function (require) {
             extra_trigger: "sup.my_cart_quantity:contains('1')",
         },
         {
-            trigger: ".btn:contains('Process Checkout')",
+            trigger: ".btn:contains('Checkout')",
         },
-    ];
-    tour.register(
-        "website_sale_order_type_tour",
-        {
-            url: "/shop",
-            test: true,
-        },
-        steps
-    );
-    return {
-        steps: steps,
-    };
+    ],
 });
