@@ -1,2 +1,1 @@
-Simply install the module and refresh your view. You will see the empty
-categories disappear
+Once this module is installed and configured, go to ‘/shop’. Empty categories will not be show.
