@@ -67,6 +67,7 @@ Contributors
 -  `Tecnativa <https://www.tecnativa.com>`__:
 
    -  Carlos Roca
+   -  Pilar Vargas
 
 -  Radovan Skolnik <radovan@skolnik.info>
 

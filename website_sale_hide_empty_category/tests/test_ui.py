@@ -18,9 +18,11 @@ class UICase(HttpCase):
         }
         cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         category_posted = cls.env["product.public.category"].create(
-            {"name": "Category Test Posted"}
+            {"name": "Category Test Posted", "sequence": 1}
         )
-        cls.env["product.public.category"].create({"name": "Category Test Not Posted"})
+        cls.env["product.public.category"].create(
+            {"name": "Category Test Not Posted", "sequence": 2}
+        )
         cls.env["product.template"].create(
             {
                 "name": "Test Product 1",
@@ -34,13 +36,4 @@ class UICase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        tour = (
-            "odoo.__DEBUG__.services['web_tour.tour']",
-            "website_sale_hide_empty_category",
-        )
-        self.browser_js(
-            url_path="/shop",
-            code="%s.run('%s')" % tour,
-            ready="%s.tours['%s'].ready" % tour,
-            login="admin",
-        )
+        self.start_tour("/shop", "website_sale_hide_empty_category", login="admin")
