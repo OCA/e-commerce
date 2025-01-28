@@ -17,7 +17,6 @@ class TestPublicCategory(common.TransactionCase):
         cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
 
     def test_has_product_recursive(self):
-
         category_1 = self.env["product.public.category"].create({"name": "Category 1"})
 
         self.assertFalse(category_1.has_product_recursive)
