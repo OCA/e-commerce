@@ -1,7 +1,8 @@
 # Copyright 2020 Jairo Llopis - Tecnativa
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo.tests.common import Form, HttpCase, tagged
+from odoo.tests import Form
+from odoo.tests.common import HttpCase, tagged
 
 from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
 
@@ -126,7 +127,6 @@ class UICase(HttpCase):
         cls.discount_pricelist = cls.env["product.pricelist"].create(
             {
                 "name": "website_sale_b2x_alt_price discounted",
-                "discount_policy": "without_discount",
                 "selectable": True,
                 "item_ids": [
                     (
@@ -147,7 +147,6 @@ class UICase(HttpCase):
         config = Form(self.env["res.config.settings"])
         config.show_line_subtotals_tax_selection = mode
         config.group_product_pricelist = True
-        config.product_pricelist_setting = "advanced"
         config.group_discount_per_so_line = True
         config = config.save()
         config.execute()

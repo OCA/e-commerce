@@ -37,18 +37,14 @@ class ProductTemplate(models.Model):
         )
         return combination_info
 
-    def _get_sales_prices(self, pricelist, fiscal_position):
-        res = super()._get_sales_prices(pricelist, fiscal_position)
-        website = self.env["website"].get_current_website(fallback=False)
+    def _get_sales_prices(self, website):
+        res = super()._get_sales_prices(website)
         currency = website.currency_id
-
         for template in self:
             price_info = res[template.id]
             list_price = price_info.get("base_price") or price_info["price_reduce"]
             price = price_info["price_reduce"]
-            has_discounted_price = False
-            if pricelist.discount_policy == "without_discount":
-                has_discounted_price = currency.compare_amounts(list_price, price) == 1
+            has_discounted_price = currency.compare_amounts(list_price, price) == 1
             alt_price_info = self._get_alt_prices(
                 template, list_price, price, has_discounted_price
             )

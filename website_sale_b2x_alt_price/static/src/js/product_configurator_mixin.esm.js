@@ -1,4 +1,3 @@
-/** @odoo-module **/
 /* Copyright 2020 Jairo Llopis - Tecnativa
  * Copyright 2022 Carlos Roca - Tecnativa
  * Copyright 2024 Carlos Lopez - Tecnativa
