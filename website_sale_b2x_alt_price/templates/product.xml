@@ -74,17 +74,19 @@
                     id="b2c_alt_amount"
                     t-field="sale_order.amount_untaxed"
                     data-id="untaxed_amount"
-                /><small> (without taxes)</small>
+                />
+                <small> (without taxes)</small>
             </t>
             <t t-else="">
-                 <h2 class="mb-0">
+                <h2 class="mb-0">
                     <b t-field="sale_order.amount_untaxed" data-id="untaxed_amount" />
                 </h2>
-                 <span
+                <span
                     id="b2b_alt_amount"
                     t-field="sale_order.amount_total"
                     data-id="total_amount"
-                /><small> (with taxes)</small>
+                />
+                <small> (with taxes)</small>
             </t>
         </xpath>
         <xpath expr="//span[@id='b2c_alt_amount']" position="before">
