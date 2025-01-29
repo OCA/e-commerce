@@ -2,6 +2,7 @@
 
   > - Sergio Teruel
   > - Carlos Roca
+  > - Pilar Vargas
 
 - Studio73 \<studio73.es\>:
 
