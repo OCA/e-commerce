@@ -17,13 +17,13 @@ Website Snippet Product Category
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_snippet_product_category
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_snippet_product_category
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_snippet_product_category
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_snippet_product_category
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -38,49 +38,51 @@ Adds a new snippet to show e-commerce categories
 Configuration
 =============
 
-You can select what categories can be shown by the snippet and an image for the category:
+You can select what categories can be shown by the snippet and an image
+for the category:
 
-#. Go to website (backend) > eCommerce > eCommerce Categories
-#. Create or Edit one
-#. You can see two new options "Published in product category snippet" and "Category Image"
+1. Go to website (backend) > eCommerce > eCommerce Categories
+2. Create or Edit one
+3. You can see two new options "Published in product category snippet"
+   and "Category Image"
 
 Usage
 =====
 
-#. Go to website (frontend)
-#. Press 'Edit' button
-#. Drag the 'Product Category' snippet to the place of the website that you want
-#. Save changes
-
+1. Go to website (frontend)
+2. Press 'Edit' button
+3. Drag the 'Product Category' snippet to the place of the website that
+   you want
+4. Save changes
 
 Theming
-~~~~~~~
+-------
 
 CSS Classes:
 
-* ``.categ_container`` > The container per master category
-* ``.categ_scroll_wrapper`` > The scrollable container wrapper
-* ``.categ_scroll`` > The scrollable container
-* ``.categ_tree_level`` > The category row (image + text)
-* ``.main_tree_level`` > The first category row level displayed
-* ``.categ_link`` > The link of the category row
-* ``.categ_img`` > The container of the icon of the category row
+-  ``.categ_container`` > The container per master category
+-  ``.categ_scroll_wrapper`` > The scrollable container wrapper
+-  ``.categ_scroll`` > The scrollable container
+-  ``.categ_tree_level`` > The category row (image + text)
+-  ``.main_tree_level`` > The first category row level displayed
+-  ``.categ_link`` > The link of the category row
+-  ``.categ_img`` > The container of the icon of the category row
 
+You can use 'data-tree-level' attribute to select the category row of a
+selected level (1-4 by design).
 
-You can use 'data-tree-level' attribute to select the category row of a selected
-level (1-4 by design).
-
-Also you can replace the entire template replacing the ``data-template`` attribute value
-in the ``s_product_category_options`` view. You only need know that the name
-of the variable that have all the categories is called ``object``.
+Also you can replace the entire template replacing the ``data-template``
+attribute value in the ``s_product_category_options`` view. You only
+need know that the name of the variable that have all the categories is
+called ``object``.
 
 Known issues / Roadmap
 ======================
 
-* The snippet shows a maximum of 4 levels by design.
-* Add a option to configure the initial level
-* Add a option to select how many levels can be represented
-* Handle large amounts of categories
+-  The snippet shows a maximum of 4 levels by design.
+-  Add a option to configure the initial level
+-  Add a option to select how many levels can be represented
+-  Handle large amounts of categories
 
 Bug Tracker
 ===========
@@ -88,7 +90,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_snippet_product_category%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_snippet_product_category%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -96,28 +98,28 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Alexandre D. Díaz
-  * Pedro M. Baeza
-  * Carlos Roca
-  * Sergio Teruel
-  * Pilar Vargas
+   -  Alexandre D. Díaz
+   -  Pedro M. Baeza
+   -  Carlos Roca
+   -  Sergio Teruel
+   -  Pilar Vargas
 
 Other credits
-~~~~~~~~~~~~~
+-------------
 
 static/img/boxes_32.png - https://www.iconninja.com/box-mario-icon-30561
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -137,6 +139,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-Tardo| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_snippet_product_category>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_snippet_product_category>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
