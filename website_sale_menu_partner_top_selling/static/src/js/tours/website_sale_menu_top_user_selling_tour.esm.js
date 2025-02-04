@@ -1,13 +1,13 @@
+/** @odoo-module **/
+
 /* Copyright 2024 Pilar Vargas
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
+import {registry} from "@web/core/registry";
 
-odoo.define("website_sale_menu_partner_top_selling.tour", function (require) {
-    "use strict";
-
-    var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
-
-    var steps = [
+registry.category("web_tour.tours").add("website_sale_menu_partner_top_selling", {
+    test: true,
+    url: "/shop",
+    steps: () => [
         {
             trigger: "#products_grid_before label:contains('My Regular Products')",
         },
@@ -16,18 +16,5 @@ odoo.define("website_sale_menu_partner_top_selling.tour", function (require) {
             extra_trigger:
                 "#products_grid:has(a:contains('Product 3')):not(:has(a:contains('Product 1'))):not(:has(a:contains('Product 2'))):not(:has(a:contains('Product 4')))",
         },
-    ];
-
-    tour.register(
-        "website_sale_menu_partner_top_selling",
-        {
-            url: "/shop",
-            test: true,
-            wait_for: base.ready(),
-        },
-        steps
-    );
-    return {
-        steps: steps,
-    };
+    ],
 });

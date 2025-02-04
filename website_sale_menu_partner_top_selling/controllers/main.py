@@ -1,5 +1,6 @@
 from odoo import http
 from odoo.http import request
+from odoo.tools import lazy
 
 from odoo.addons.website_sale.controllers.main import TableCompute, WebsiteSale
 
@@ -14,6 +15,7 @@ class WebsiteSale(WebsiteSale):
     def user_regular_products(self, page=0, ppg=False, **kwargs):
         if request.env.user.has_group("base.group_public"):
             return request.redirect("/web/login")
+        website = request.env["website"].get_current_website()
         param_limit = int(
             request.env["ir.config_parameter"]
             .sudo()
@@ -92,6 +94,12 @@ class WebsiteSale(WebsiteSale):
             scope=5,
             url_args=kwargs,
         )
+        pricelist = website.pricelist_id
+        # Try to fetch geoip based fpos or fallback on partner one
+        fiscal_position_sudo = website.fiscal_position_id.sudo()
+        products_prices = lazy(
+            lambda: products_on_page._get_sales_prices(pricelist, fiscal_position_sudo)
+        )
         # Shop context for the view
         shop_context = self.shop(page=page, ppg=ppg, **kwargs)
         shop_context.qcontext.update(
@@ -100,10 +108,14 @@ class WebsiteSale(WebsiteSale):
                 "products": products_on_page,
                 "search_product": products_on_page,
                 "search_count": total_products,
-                "bins": TableCompute().process(
-                    products_on_page,
-                    ppg,
-                    request.env["website"].get_current_website().shop_ppr or 4,
+                "bins": lazy(
+                    lambda: TableCompute().process(
+                        products_on_page, ppg, website.shop_ppr or 4
+                    )
+                ),
+                "products_prices": products_prices,
+                "get_product_prices": lambda product: lazy(
+                    lambda: products_prices[product.id]
                 ),
             }
         )
