@@ -24,12 +24,14 @@ msgstr "Valore attributo"
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
 msgid "Display attribute image in shop online product detail"
-msgstr "Visualizza l'immagine atributo nei dettagli prodotto del negozio online"
+msgstr ""
+"Visualizza l'immagine atributo nei dettagli prodotto del negozio online"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
 msgid "Image of the attribute for shop online product detail."
-msgstr "Immagine dell'attributo per i dettagli del prodotto nel negozio online."
+msgstr ""
+"Immagine dell'attributo per i dettagli del prodotto nel negozio online."
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute
