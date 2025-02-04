@@ -2,7 +2,7 @@
 <odoo>
     <template
         id="products_categories_top_user_selling"
-        inherit_id="website_sale.products_categories"
+        inherit_id="website_sale.products_categories_list"
         priority="999"
     >
         <xpath expr="//input[@t-att-id='all_products']" position="attributes">
@@ -11,24 +11,23 @@
             >'true' if not category and not request.httprequest.path.startswith('/shop/my_regular_products') else None</attribute>
         </xpath>
         <xpath expr="//input[@t-att-id='all_products']/../.." position="after">
-            <li class="nav-item">
-                <a
-                    href="/shop/my_regular_products"
-                    class="custom-control custom-radio mb-1 d-inline-block pl-4"
+            <li class="nav-item mb-1">
+                <div
+                    t-att-data-link-href="'/shop/my_regular_products'"
+                    class="form-check d-inline-block"
                 >
                     <input
                         type="radio"
-                        style="pointer-events:none;"
-                        class="custom-control-input o_not_editable"
+                        class="form-check-input pe-none o_not_editable"
                         t-att-id="regular_products"
                         t-att-value="regular_products"
                         t-att-checked="request.httprequest.path.startswith('/shop/my_regular_products')"
                     />
                     <label
-                        class="custom-control-label font-weight-normal o_cc o_cc1"
+                        class="form-check-label fw-normal"
                         t-att-for="regular_products"
                     >My Regular Products</label>
-                </a>
+                </div>
             </li>
         </xpath>
     </template>

@@ -6,20 +6,17 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='sale_product_catalog_settings']" position="inside">
-                <div class="col-12 col-lg-6 o_setting_box" id="regular_products_limit">
-                    <div class="o_setting_left_pane" />
-                    <div class="o_setting_right_pane">
-                        <label
-                            for="regular_products_limit"
-                            string="Regular Products Limit"
-                        />
-                        <div class="text-muted">
-                            Define the number of regular products you want to display in the e-commerce catalog.
-                        </div>
-                        <field class="col-2 mt-2" name="regular_products_limit" />
-                    </div>
-                </div>
+            <xpath
+                expr="//block[@id='sale_product_catalog_settings']"
+                position="inside"
+            >
+                <setting
+                    id="regular_products_limit"
+                    string="Regular Products Limit"
+                    help="Define the number of regular products you want to display in the e-commerce catalog."
+                >
+                    <field name="regular_products_limit" />
+                </setting>
             </xpath>
         </field>
     </record>
