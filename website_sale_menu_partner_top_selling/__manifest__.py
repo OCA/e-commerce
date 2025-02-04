@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Menu Partner Top Selling",
     "summary": "Displays the user's regular products in the e-commerce.",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -14,7 +14,8 @@
     "data": ["views/res_config_settings_views.xml", "views/templates.xml"],
     "assets": {
         "web.assets_tests": [
-            "website_sale_menu_partner_top_selling/static/src/js/tours/*.js"
+            "website_sale_menu_partner_top_selling/static/src/js/tours/*.esm.js"
         ],
     },
+    "maintainers": ["pilarvargas-tecnativa"],
 }

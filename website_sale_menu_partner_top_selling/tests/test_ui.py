@@ -3,21 +3,14 @@
 
 from odoo.tests.common import HttpCase, tagged
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 @tagged("post_install", "-at_install")
 class TestUi(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Remove this variable in v16 and put instead:
-        # from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
-        DISABLED_MAIL_CONTEXT = {
-            "tracking_disable": True,
-            "mail_create_nolog": True,
-            "mail_create_nosubscribe": True,
-            "mail_notrack": True,
-            "no_reset_password": True,
-        }
         cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         cls.env.ref("website_sale.products_categories").active = True
         cls.env["ir.config_parameter"].sudo().set_param(
@@ -41,7 +34,7 @@ class TestUi(HttpCase):
             }
         )
         quantities = [50, 30, 70, 10, 90]
-        for product, qty in zip(cls.products, quantities):
+        for product, qty in zip(cls.products, quantities, strict=True):
             cls.env["sale.order.line"].create(
                 {
                     "order_id": cls.sale_order.id,
@@ -72,4 +65,5 @@ class TestUi(HttpCase):
             "/shop",
             "website_sale_menu_partner_top_selling",
             login="admin",
+            step_delay=100,
         )
