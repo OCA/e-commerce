@@ -29,8 +29,8 @@ msgstr ""
 
 #. module: website_sale_b2x_alt_price
 #: model:ir.model,name:website_sale_b2x_alt_price.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producte"
+msgid "Product"
+msgstr ""
 
 #. module: website_sale_b2x_alt_price
 #: model_terms:ir.ui.view,arch_db:website_sale_b2x_alt_price.alt_price
@@ -41,3 +41,6 @@ msgstr "amb taxes"
 #: model_terms:ir.ui.view,arch_db:website_sale_b2x_alt_price.alt_price
 msgid "without taxes"
 msgstr "sense taxes"
+
+#~ msgid "Product Template"
+#~ msgstr "Plantilla de producte"
