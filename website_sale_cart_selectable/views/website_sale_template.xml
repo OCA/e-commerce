@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
 <!--
 SPDX-FileCopyrightText: 2016 OpenSynergy Indonesia
 SPDX-FileCopyrightText: 2024 Tecnativa
@@ -7,6 +6,7 @@ SPDX-FileCopyrightText: 2024 Coop IT Easy SC
 
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
+<odoo>
 
     <template
         id="products_item"
@@ -19,8 +19,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
 
     <template id="product" inherit_id="website_sale.product" priority="9999">
-        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="attributes">
-            <attribute name="t-if">product.website_btn_addtocart_published</attribute>
+        <!--
+            we want to hide the o_wsale_cta_wrapper div (to also remove the
+            quantity buttons), but it must still exist, because the
+            website_sale_stock module expects it to be there. so, instead of
+            removing it completely by setting the t-if attribute on it
+            directly, we wrap it or add it empty.
+        -->
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="replace">
+            <t t-if="product.website_btn_addtocart_published">$0</t>
+            <t t-else=""><div
+                    id="o_wsale_cta_wrapper"
+                    class="d-flex flex-wrap align-items-center"
+                /></t>
         </xpath>
     </template>
 
