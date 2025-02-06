@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Website Sale Cart Selectable",
-    "summary": "Add a toggle to products for enabling 'Add to Cart'"
+    "summary": 'Add a toggle to products for enabling "Add to Cart"'
     " functionality in the e-commerce.",
     "version": "16.0.1.0.0",
     "category": "Website",

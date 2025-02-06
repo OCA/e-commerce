@@ -1,2 +1,2 @@
-This module allows you to enable or disable the button 'Add to cart' in the
+This module allows you to enable or disable the "Add to cart" button in the
 e-commerce on a per-product basis.

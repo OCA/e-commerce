@@ -28,7 +28,7 @@ Website Sale Cart Selectable
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows you to enable or disable the button 'Add to cart' in the
+This module allows you to enable or disable the "Add to cart" button in the
 e-commerce on a per-product basis.
 
 **Table of contents**
@@ -44,8 +44,8 @@ from buying these products. However, a company may want to publish a product
 online to allow a customer to view the product, but NOT allow the customer to
 purchase the product.
 
-This module addresses that need by adding a toggle for the display of the 'Add
-to cart' button.
+This module addresses that need by adding a toggle for the display of the "Add
+to cart" button.
 
 Usage
 =====
@@ -54,8 +54,8 @@ To use this module, you need to:
 
 #.  Go to menu *Website -> Products -> Products*
 #.  Edit or create one.
-#.  Within the *eCommerce* tab, there will be a new field named *Button Add To
-    Cart*
+#.  Within the *eCommerce* tab, there will be a new field named *Display "Add
+    to Cart" Button*
 #.  Set it or unset it to enable or disable the *Add To Cart* button in that
     product.
 

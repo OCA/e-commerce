@@ -8,5 +8,5 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     website_btn_addtocart_published = fields.Boolean(
-        string="Display 'Add to Cart' Button", copy=False, default=True
+        string='Display "Add to Cart" Button', copy=False, default=True
     )
