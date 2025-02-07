@@ -10,13 +10,18 @@ registry.category("web_tour.tours").add("website_sale_order_type_tour", {
     steps: () => [
         {
             trigger: ".oe_product_cart a:contains('Test Product SO Type')",
+            run: "click",
         },
         {
             trigger: "#add_to_cart",
+            run: "click",
         },
         {
             trigger: "a[href='/shop/cart']",
-            extra_trigger: "sup.my_cart_quantity:contains('1')",
+        },
+        {
+            trigger: "sup.my_cart_quantity:contains('1')",
+            run: "click",
         },
         {
             trigger: ".btn:contains('Checkout')",
