@@ -29,7 +29,7 @@
     <record id="website_sale.public_category_lamps" model="product.public.category">
         <field name="published_in_product_category_snippet" eval="True" />
     </record>
-    <record id="website_sale.services" model="product.public.category">
+    <record id="website_sale.public_category_services" model="product.public.category">
         <field name="published_in_product_category_snippet" eval="True" />
     </record>
     <record

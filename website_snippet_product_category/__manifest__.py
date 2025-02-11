@@ -4,7 +4,7 @@
     "name": "Website Snippet Product Category",
     "category": "Website",
     "summary": "Adds a new snippet to show e-commerce categories",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "license": "LGPL-3",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -20,6 +20,9 @@
         ],
         "website.assets_wysiwyg": [
             "/website_snippet_product_category/static/src/js/snippet.options.esm.js",
+        ],
+        "web.assets_tests": [
+            "/website_snippet_product_category/static/src/tests/*.esm.js"
         ],
     },
     "demo": ["demo/demo.xml", "demo/pages.xml"],

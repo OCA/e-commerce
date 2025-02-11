@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="snippets" inherit_id="website.snippets">
-        <xpath
-            expr="//div[@id='snippet_feature']//div[hasclass('o_panel_body')]"
-            position="inside"
-        >
+        <xpath expr="//snippets[@id='snippet_content']" position="inside">
             <t
                 t-snippet="website_snippet_product_category.s_product_category"
                 t-thumbnail="/website_snippet_product_category/static/src/img/s_product_category.png"

@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 // Copyright 2020 Tecnativa - Alexandre Díaz
 
 import options from "@web_editor/js/editor/snippets.options";

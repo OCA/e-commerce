@@ -18,14 +18,11 @@ msgstr ""
 
 #. module: website_snippet_product_category
 #. odoo-javascript
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
-#, python-format
+#: code:addons/website_snippet_product_category/static/src/js/frontend.esm.js:0
 msgid ""
-"An error occured with this product categories block. If the problem "
+"An error occurred with this product categories block. If the problem "
 "persists, please consider deleting it and adding a new one"
 msgstr ""
-"Si è verificato un errore con il blocco di questa categoria prodotto. Se il "
-"problema continua, provare a cancellarlo e reinserirlo"
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal
@@ -34,8 +31,7 @@ msgstr "Contenitore di metallo"
 
 #. module: website_snippet_product_category
 #. odoo-javascript
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
-#, python-format
+#: code:addons/website_snippet_product_category/static/src/js/frontend.esm.js:0
 msgid "No categories were found. Make sure you have categories defined."
 msgstr "Nessuna categoria trovata. Assicurarsi di avere definito le categorie."
 
@@ -73,3 +69,11 @@ msgstr "Categoria prodotto sito web"
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
 msgstr "Scatola in legno"
+
+#, python-format
+#~ msgid ""
+#~ "An error occured with this product categories block. If the problem "
+#~ "persists, please consider deleting it and adding a new one"
+#~ msgstr ""
+#~ "Si è verificato un errore con il blocco di questa categoria prodotto. Se "
+#~ "il problema continua, provare a cancellarlo e reinserirlo"

@@ -1,10 +1,9 @@
-/** @odoo-module **/
-
 // Copyright 2020 Tecnativa - Alexandre Díaz
 // Copyright 2025 Tecnativa - Pilar Vargas
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 import sAnimation from "@website/js/content/snippets.animation";
 import {_t} from "@web/core/l10n/translation";
+import {rpc} from "@web/core/network/rpc";
 
 sAnimation.registry.js_product_category = sAnimation.Class.extend({
     selector: ".js_product_category",
@@ -15,7 +14,6 @@ sAnimation.registry.js_product_category = sAnimation.Class.extend({
      */
     init: function () {
         this._super.apply(this, arguments);
-        this.rpc = this.bindService("rpc");
     },
 
     /**
@@ -29,7 +27,7 @@ sAnimation.registry.js_product_category = sAnimation.Class.extend({
             "website_snippet_product_category.s_product_category_items";
         // Prevent user edition
         this.$target.attr("contenteditable", "false");
-        const def = this.rpc(
+        const def = rpc(
             "/website_sale/render_product_category",
             Object.assign({
                 template: template,
@@ -51,7 +49,6 @@ sAnimation.registry.js_product_category = sAnimation.Class.extend({
                     );
                     return;
                 }
-
                 _this.$target.html($object_html);
             },
             function () {

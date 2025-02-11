@@ -5,7 +5,7 @@
         name="Snippet Product Category Test"
     >
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
+            <div id="wrap">
                 <section class="s_product_category py-4">
                     <div class="js_product_category col-12" />
                 </section>
