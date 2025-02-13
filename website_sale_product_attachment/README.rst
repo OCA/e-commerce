@@ -103,8 +103,8 @@ download them:
 Known issues / Roadmap
 ======================
 
--  Make translatable the name of the attachment in the e-commerce. This
-   will mean to deal with the sorting of the translated terms.
+- Make translatable the name of the attachment in the e-commerce. This
+  will mean to deal with the sorting of the translated terms.
 
 Bug Tracker
 ===========
@@ -127,14 +127,14 @@ Authors
 Contributors
 ------------
 
--  `Tecnativa <https://www.tecnativa.com>`__:
+- `Tecnativa <https://www.tecnativa.com>`__:
 
-   -  Jairo Llopis
-   -  Víctor Martínez
+  - Jairo Llopis
+  - Víctor Martínez
 
--  `Sygel <https://www.sygel.es>`__:
+- `Sygel <https://www.sygel.es>`__:
 
-   -  Ángel García de la Chica Herrera
+  - Ángel García de la Chica Herrera
 
 Maintainers
 -----------
