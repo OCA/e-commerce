@@ -8,7 +8,7 @@ from odoo.addons.website.models import ir_http
 class TestProductTemplate(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestProductTemplate, cls).setUpClass()
+        super().setUpClass()
         cls.product_template = cls.env["product.template"].create(
             {
                 "name": "Test Product",
