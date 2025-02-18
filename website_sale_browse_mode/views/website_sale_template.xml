@@ -23,4 +23,11 @@
             </t>
         </xpath>
     </template>
+    <template id="header_hide_cart_link" inherit_id="website_sale.header_cart_link">
+        <xpath expr="//t[@t-set='show_cart']" position="after">
+            <t t-if="website.enable_browse_mode">
+                <t t-set="show_cart" t-value="false" />
+            </t>
+        </xpath>
+    </template>
 </odoo>
