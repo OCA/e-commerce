@@ -4,13 +4,12 @@
 from odoo import fields, models
 
 
-class ResConfigSettings(models.TransientModel):
+class Website(models.Model):
 
-    _inherit = "res.config.settings"
+    _inherit = "website"
 
-    enable_browse_mode = fields.Boolean(
+    browse_only = fields.Boolean(
+        default=False,
         help="When checked, users can no longer buy products from the webshop."
         "They can only browse the shop and see the products",
-        related="website_id.enable_browse_mode",
-        readonly=False,
     )

@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="website.view_website_form" />
         <field name="arch" type="xml">
             <field name="default_lang_id" position="after">
-                <field name="enable_browse_mode" />
+                <field name="browse_only" />
             </field>
         </field>
     </record>
