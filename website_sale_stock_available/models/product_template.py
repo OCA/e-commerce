@@ -11,17 +11,15 @@ class ProductTemplate(models.Model):
         self,
         combination=False,
         product_id=False,
-        add_qty=1,
-        pricelist=False,
+        add_qty=1.0,
         parent_combination=False,
         only_template=False,
     ):
         template = self.with_context(website_sale_stock_available=True)
         return super(ProductTemplate, template)._get_combination_info(
-            combination,
-            product_id,
-            add_qty,
-            pricelist,
-            parent_combination,
-            only_template,
+            combination=combination,
+            product_id=product_id,
+            add_qty=add_qty,
+            parent_combination=parent_combination,
+            only_template=only_template,
         )
