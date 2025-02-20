@@ -5,7 +5,7 @@
 {
     "name": "e-commerce required VAT",
     "summary": "VAT number required in checkout form",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "category": "Website",
     "author": "Agile Business Group, Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
@@ -16,7 +16,7 @@
     "auto_install": False,
     "assets": {
         "web.assets_tests": [
-            "website_sale_vat_required/static/src/js/website_sale_vat_required.tour.js",
+            "website_sale_vat_required/static/tests/tours/website_sale_vat_required.esm.js",
         ],
     },
 }
