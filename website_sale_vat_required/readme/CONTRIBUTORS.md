@@ -4,5 +4,6 @@
 
   > - Jairo Llopis
   > - Ernesto Tejeda
+  > - Carlos Lopez
 
 - Abraham Anes \<<abrahamanes@gmail.com>\>

@@ -1,11 +1,13 @@
+/** @odoo-module */
+
 /* License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
  */
-odoo.define("website_sale_vat_required.tour", function (require) {
-    "use strict";
 
-    var tour = require("web_tour.tour");
-
-    var steps = [
+import {registry} from "@web/core/registry";
+registry.category("web_tour.tours").add("website_sale_vat_required_tour", {
+    test: true,
+    url: "/shop",
+    steps: () => [
         {
             trigger: "a:contains('Test Product Vat Required')",
         },
@@ -17,11 +19,11 @@ odoo.define("website_sale_vat_required.tour", function (require) {
             extra_trigger: "sup.my_cart_quantity:contains('1')",
         },
         {
-            trigger: "a:contains('Process Checkout')",
+            trigger: "a:contains('Checkout')",
         },
         {
             content: "Next",
-            trigger: ".btn-primary :contains('Next')",
+            trigger: ".btn-primary:contains('Continue checkout')",
         },
         {
             content: "Set VAT",
@@ -58,18 +60,7 @@ odoo.define("website_sale_vat_required.tour", function (require) {
         },
         {
             content: "Next",
-            trigger: ".btn-primary :contains('Next')",
+            trigger: ".btn-primary:contains('Continue checkout')",
         },
-    ];
-    tour.register(
-        "website_sale_vat_required_tour",
-        {
-            url: "/shop",
-            test: true,
-        },
-        steps
-    );
-    return {
-        steps: steps,
-    };
+    ],
 });
