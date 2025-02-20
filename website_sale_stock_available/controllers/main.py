@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.http import request, route
 
-from odoo.addons.website_sale_stock.controllers.main import PaymentPortal
+from odoo.addons.website_sale.controllers.main import PaymentPortal
 
 
 class PaymentPortal(PaymentPortal):
