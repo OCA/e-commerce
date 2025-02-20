@@ -17,29 +17,31 @@ Website Sale Stock Available
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_stock_available
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_stock_available
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_stock_available
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_stock_available
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of the *Product Availability* module
-(technical name: ``website_sale_stock``) so that for the eCommerce the *Available*
-quantity of a product is taken into account instead of the *free* quantity.
+This module extends the functionality of the *Product Availability*
+module (technical name: ``website_sale_stock``) so that for the
+eCommerce the *Available* quantity of a product is taken into account
+instead of the *free* quantity.
 
-Note that in the past the eCommerce availability was based in *Forecasted quantity*. This
-isn't true anymore from version 15.0.
+Note that in the past the eCommerce availability was based in
+*Forecasted quantity*. This isn't true anymore from version 15.0.
 
-If a product is configured to *prevent sales if not enough stock*
-(see configuration section) and its page is accessed in the Website Shop,
-the availability messages will be based on the *Available* quantity instead of
-*Free* quantity. And also, the eCommerce won't allow you to buy more products than
-*Available* quantity (not *Free* quantity isn't taken into account).
+If a product is configured to *prevent sales if not enough stock* (see
+configuration section) and its page is accessed in the Website Shop, the
+availability messages will be based on the *Available* quantity instead
+of *Free* quantity. And also, the eCommerce won't allow you to buy more
+products than *Available* quantity (not *Free* quantity isn't taken into
+account).
 
 **Table of contents**
 
@@ -51,30 +53,31 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to *Inventory > Master Data > Products* and edit a product that
+1. Go to *Inventory > Master Data > Products* and edit a product that
    you only want to sell in the eCommerce if there is enough stock.
-#. Navigate to *Out-of-stock (continue selling)* field in the *Sales* tab and unset it.
-#. Go to *Inventory > Configuration > Settings*, navigate to *Stock available
-   to promise* section and set the desired option (you might need extra modules). If you
-   do not choose any, the value of *Available* quantity will be equal to *Forecasted*
-   quantity.
+2. Navigate to *Out-of-stock (continue selling)* field in the *Sales*
+   tab and unset it.
+3. Go to *Inventory > Configuration > Settings*, navigate to *Stock
+   available to promise* section and set the desired option (you might
+   need extra modules). If you do not choose any, the value of
+   *Available* quantity will be equal to *Forecasted* quantity.
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to your eCommerce.
-#. Select a product that you has been previously configured to *prevent sales
-   if not enough stock* for the web product page.
-#. Odoo doesn't allow you to add the product to the cart if *Available*
+1. Go to your eCommerce.
+2. Select a product that you has been previously configured to *prevent
+   sales if not enough stock* for the web product page.
+3. Odoo doesn't allow you to add the product to the cart if *Available*
    quantity (not *Free to use* quantity) is equal or less than zero.
    Besides, availability messages will be based on the *Available*
    quantity instead of the *Free to use* quantity.
 
-.. image:: https://raw.githubusercontent.com/OCA/e-commerce/16.0/website_sale_stock_available/static/description/availability_message.png
-    :width: 600 px
-    :alt: Availability message
+|Availability message|
+
+.. |Availability message| image:: https://raw.githubusercontent.com/OCA/e-commerce/17.0/website_sale_stock_available/static/description/availability_message.png
 
 Bug Tracker
 ===========
@@ -82,7 +85,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_available%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_stock_available%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -90,23 +93,23 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+- `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Ernesto Tejeda
-  * Pedro M. Baeza
-  * David Vidal
+  - Ernesto Tejeda
+  - Pedro M. Baeza
+  - David Vidal
 
-* Iván Todorovich
+- Iván Todorovich
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -118,6 +121,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_stock_available>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_stock_available>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
