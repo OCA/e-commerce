@@ -17,13 +17,13 @@ Product Brand Filtering in Website
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_product_brand
+    :target: https://github.com/OCA/e-commerce/tree/18.0/website_sale_product_brand
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_product_brand
+    :target: https://translation.odoo-community.org/projects/e-commerce-18-0/e-commerce-18-0-website_sale_product_brand
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -66,9 +66,9 @@ and define the brand to a product.
 To create product brand go to *Website > Settings > Products > Product
 brands*:
 
-   - User can assign a nice logo with brand description.
-   - After configuring the brand, user can assign a particular brand to
-     a particular products.
+   -  User can assign a nice logo with brand description.
+   -  After configuring the brand, user can assign a particular brand to
+      a particular products.
 
 Based on this configuration, you will see the menuitem shop by brand
 next to shop menu. It will show all the brands and once you select that
@@ -80,7 +80,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_brand%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_brand%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -96,16 +96,16 @@ Authors
 Contributors
 ------------
 
-- Jay Vora <jay.vora@serpentcs.com>
+-  Jay Vora <jay.vora@serpentcs.com>
 
-- Meet Dholakia <m.dholakia.serpentcs@gmail.com>
+-  Meet Dholakia <m.dholakia.serpentcs@gmail.com>
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-     - Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
-     - Sergio Teruel <sergio.teruel@tecnativa.com>
-     - Alexandre Díaz
-     - David Vidal
+      -  Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
+      -  Sergio Teruel <sergio.teruel@tecnativa.com>
+      -  Alexandre Díaz
+      -  David Vidal
 
 Maintainers
 -----------
@@ -120,6 +120,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_product_brand>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/18.0/website_sale_product_brand>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
