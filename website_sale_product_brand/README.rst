@@ -47,7 +47,7 @@ Configuration
 
 In order to hide brands from the e-commerce:
 
-1. Go to *Website > Settings > Products > Product brands*
+1. Go to *Website > eCommerce > Product brands*
 2. Click on the brand you want to unpublish.
 3. Click on the *Website published* smart button.
 
@@ -106,6 +106,8 @@ Contributors
       -  Sergio Teruel <sergio.teruel@tecnativa.com>
       -  Alexandre Díaz
       -  David Vidal
+      -  Carlos López
+      -  Pilar Vargas
 
 Maintainers
 -----------

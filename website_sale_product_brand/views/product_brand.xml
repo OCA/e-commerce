@@ -68,7 +68,7 @@
         </t>
     </template>
     <template id="categorie_link" inherit_id="website_sale.categorie_link">
-        <xpath expr="//label[@t-field='c.name']/.." position="attributes">
+        <xpath expr="//a[@t-field='c.name']/.." position="attributes">
             <attribute
                 name="t-att-data-link-href"
             >keep('/shop/category/' + slug(c), category=0, brand=brand)</attribute>
