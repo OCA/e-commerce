@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="address"
+        inherit_id="website_sale.address_b2b"
+        name="Address Management"
+    >
+        <xpath
+            expr="//div[contains(@t-attf-class, 'div_vat')]/.."
+            position="attributes"
+        >
+            <attribute name="t-if">mode[1] == 'billing'</attribute>
+        </xpath>
+    </template>
+</odoo>
