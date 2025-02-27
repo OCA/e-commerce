@@ -16,64 +16,82 @@ class SaleOrder(models.Model):
         digits=0,
         string="Payment Fee Amount",
         store=True,
-        track_visibility="always",
+        help="Total amount of payment fees applied to this order",
     )
 
     def _compute_website_order_line(self):
-        super(SaleOrder, self)._compute_website_order_line()
-        self.website_order_line = self.website_order_line.filtered(
-            lambda l: not l.payment_fee_line
-        )
+        res = super()._compute_website_order_line()
+        for order in self:
+            order.website_order_line = order.website_order_line.filtered(
+                lambda line: not line.payment_fee_line
+            )
+        return res
 
     @api.depends(
         "order_line.price_unit",
         "order_line.tax_id",
         "order_line.discount",
         "order_line.product_uom_qty",
+        "order_line.payment_fee_line",
     )
     def _compute_amount_payment_fee(self):
+        """Compute the total amount of payment fees in this order."""
         for order in self:
+            fee_lines = order.order_line.filtered("payment_fee_line")
             if self.env.user.has_group(
                 "account.group_show_line_subtotals_tax_excluded"
             ):
-                order.amount_payment_fee = sum(
-                    order.order_line.filtered("payment_fee_line").mapped(
-                        "price_subtotal"
-                    )
-                )
+                order.amount_payment_fee = sum(fee_lines.mapped("price_subtotal"))
             else:
-                order.amount_payment_fee = sum(
-                    order.order_line.filtered("payment_fee_line").mapped("price_total")
-                )
+                order.amount_payment_fee = sum(fee_lines.mapped("price_total"))
 
-    def update_fee_line(self, acquirer):
+    def _calculate_payment_fee_price(self, provider):
+        """Calculate payment fee price according to provider settings."""
         self.ensure_one()
-        for line in self.order_line:
-            if line.payment_fee_line:
-                line.unlink()
-        if acquirer.charge_fee:
-            if acquirer.charge_fee_type == "fixed":
-                price = acquirer.charge_fee_fixed_price
-                if (
-                    acquirer.charge_fee_currency_id.id
-                    != self.pricelist_id.currency_id.id
-                ):
-                    price = acquirer.charge_fee_currency_id._convert(
-                        price,
-                        self.pricelist_id.currency_id,
-                        self.company_id,
-                        self.date_order,
-                    )
-            elif acquirer.charge_fee_type == "percentage":
-                price = (acquirer.charge_fee_percentage / 100.0) * self.amount_total
-            self.env["sale.order.line"].create(
-                {
-                    "order_id": self.id,
-                    "payment_fee_line": True,
-                    "product_id": acquirer.charge_fee_product_id.id,
-                    "product_uom": acquirer.charge_fee_product_id.uom_id.id,
-                    "name": acquirer.charge_fee_description,
-                    "price_unit": price,
-                    "product_uom_qty": 1,
-                }
+        price = 0.0
+        if not provider.charge_fee:
+            return price
+
+        if provider.charge_fee_type == "fixed":
+            price = provider.charge_fee_fixed_price
+            if provider.charge_fee_currency_id != self.pricelist_id.currency_id:
+                price = provider.charge_fee_currency_id._convert(
+                    price,
+                    self.pricelist_id.currency_id,
+                    self.company_id,
+                    self.date_order,
+                )
+        elif provider.charge_fee_type == "percentage":
+            # Calculate amount excluding existing payment fees
+            base_amount = self.amount_total
+            existing_fees = sum(
+                self.order_line.filtered("payment_fee_line").mapped("price_total")
             )
+            base_amount -= existing_fees
+            price = (provider.charge_fee_percentage / 100.0) * base_amount
+
+        return price
+
+    def update_fee_line(self, provider):
+        """Update payment fee line based on the selected payment provider."""
+        self.ensure_one()
+        # Remove existing fee lines
+        fee_lines = self.order_line.filtered("payment_fee_line")
+        if fee_lines:
+            fee_lines.unlink()
+
+        price = self._calculate_payment_fee_price(provider)
+        if price <= 0:
+            return
+
+        self.env["sale.order.line"].create(
+            {
+                "order_id": self.id,
+                "payment_fee_line": True,
+                "product_id": provider.charge_fee_product_id.id,
+                "product_uom": provider.charge_fee_product_id.uom_id.id,
+                "name": provider.charge_fee_description,
+                "price_unit": price,
+                "product_uom_qty": 1,
+            }
+        )

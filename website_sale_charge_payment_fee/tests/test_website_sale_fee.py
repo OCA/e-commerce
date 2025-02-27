@@ -8,7 +8,7 @@ from odoo.tests.common import HttpCase
 @odoo.tests.tagged("post_install", "-at_install")
 class TestUi(HttpCase):
     def setUp(self):
-        super(TestUi, self).setUp()
+        super().setUp()
         self.product_product_service = self.env["product.product"].create(
             {
                 "name": "Discount wire tranfer",
@@ -17,7 +17,8 @@ class TestUi(HttpCase):
                 "sale_ok": True,
             }
         )
-        self.env.ref("payment.payment_acquirer_transfer").write(
+        acquirer = self.env.ref("payment.payment_provider_transfer")
+        acquirer.write(
             {
                 "charge_fee": True,
                 "charge_fee_product_id": self.product_product_service.id,
@@ -25,11 +26,10 @@ class TestUi(HttpCase):
                 "charge_fee_percentage": 10.00,
             }
         )
-        self.env.ref(
-            "payment.payment_acquirer_transfer"
-        ).onchange_charge_fee_product_id()
+        acquirer.onchange_charge_fee_product_id()
         # Avoid Shipping/Billing address page
-        self.env.ref("base.partner_admin").write(
+        partner = self.env.ref("base.partner_admin")
+        partner.write(
             {
                 "street": "215 Vine St",
                 "city": "Scranton",
@@ -43,18 +43,16 @@ class TestUi(HttpCase):
 
     def test_charge_payment_fee_percentage(self):
         existing_orders = self.env["sale.order"].search([])
-        self.start_tour(
-            "/shop", "website_sale_order_payment_acquirer_tour", login="admin"
-        )
+        self.start_tour("/shop", "website_sale_order_payment_fee_tour", login="admin")
         created_order = self.env["sale.order"].search(
             [("id", "not in", existing_orders.ids)]
         )
-        price = 10 / 100 * 49.5
+        price = (10 / 100) * 49.5
         self.assertEqual(created_order.amount_payment_fee, price)
 
     def test_charge_payment_fee_fixed(self):
-        acquirer = self.env.ref("payment.payment_acquirer_transfer")
-        acquirer.write(
+        provider = self.env.ref("payment.payment_provider_transfer")
+        provider.write(
             {
                 "charge_fee_type": "fixed",
                 "charge_fee_fixed_price": 10.00,
@@ -62,18 +60,16 @@ class TestUi(HttpCase):
             }
         )
         existing_orders = self.env["sale.order"].search([])
-        self.start_tour(
-            "/shop", "website_sale_order_payment_acquirer_tour", login="admin"
-        )
+        self.start_tour("/shop", "website_sale_order_payment_fee_tour", login="admin")
         created_order = self.env["sale.order"].search(
             [("id", "not in", existing_orders.ids)]
         )
-        price = acquirer.charge_fee_fixed_price
+        price = provider.charge_fee_fixed_price
         if (
-            acquirer.charge_fee_currency_id.id
+            provider.charge_fee_currency_id.id
             != created_order.pricelist_id.currency_id.id
         ):
-            price = acquirer.charge_fee_currency_id._convert(
+            price = provider.charge_fee_currency_id._convert(
                 price,
                 created_order.pricelist_id.currency_id,
                 created_order.company_id,

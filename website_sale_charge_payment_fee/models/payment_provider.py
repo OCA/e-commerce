@@ -5,11 +5,9 @@
 
 from odoo import api, fields, models
 
-import odoo.addons.decimal_precision as dp
 
-
-class PaymentAcquirer(models.Model):
-    _inherit = "payment.acquirer"
+class PaymentProvider(models.Model):
+    _inherit = "payment.provider"
 
     charge_fee = fields.Boolean(
         "Fee charged to customer",
@@ -19,7 +17,8 @@ class PaymentAcquirer(models.Model):
     charge_fee_description = fields.Text("Fee Description")
     charge_fee_product_id = fields.Many2one("product.product", string="Fee Product")
     charge_fee_fixed_price = fields.Float(
-        "Fixed Price", digits=dp.get_precision("Product Price")
+        "Fixed Price",
+        digits="Product Price",
     )
     charge_fee_currency_id = fields.Many2one("res.currency", string="Fee Currency")
     charge_fee_percentage = fields.Float(

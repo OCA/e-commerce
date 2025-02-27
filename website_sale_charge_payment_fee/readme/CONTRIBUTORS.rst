@@ -4,3 +4,6 @@
 * `Studio73 <https://www.studio73.es>`_:
 
     * Miguel Gandia
+
+* `Binhex <https://binhex.cloud>`:
+  * Antonio Ruban
