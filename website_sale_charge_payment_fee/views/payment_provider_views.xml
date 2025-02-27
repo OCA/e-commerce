@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="acquirer_form_fee_inherit" model="ir.ui.view">
-        <field name="name">acquirer.form.fee.inherit</field>
-        <field name="model">payment.acquirer</field>
-        <field name="inherit_id" ref="payment.acquirer_form" />
+    <record id="provider_form_fee_inherit" model="ir.ui.view">
+        <field name="name">payment.provider.form.fee.inherit</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
-                <page string="Charge payment fee">
+                <page string="Charge payment fee" name="payment_fee">
                     <group>
                         <group>
                             <field name="charge_fee" />
@@ -53,7 +53,6 @@
                                 />%
                             </div>
                         </group>
-                        <group />
                     </group>
                 </page>
             </xpath>

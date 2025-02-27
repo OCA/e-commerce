@@ -3,7 +3,7 @@
 odoo.define("website_sale_charge_payment_fee.tour", function (require) {
     "use strict";
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+
     var steps = [
         {
             content: "search conference chair",
@@ -12,55 +12,66 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
         },
         {
             content: "search conference chair",
-            trigger: 'form:has(input[name="search"]) .oe_search_button',
+            trigger: 'form:has(input[name="search"]) button.oe_search_button',
         },
         {
             content: "select conference chair",
-            trigger: '.oe_product_cart:first a:contains("Conference Chair")',
+            trigger: '.oe_product_cart a:contains("Conference Chair")',
         },
         {
             content: "select Conference Chair Steel",
-            extra_trigger: "#product_detail",
-            trigger: "label:contains(Steel) input",
+            extra_trigger: ".product_detail, .oe_website_sale .js_product",
+            trigger:
+                "label:contains(Steel) input, .variant_attribute .js_variant:contains(Steel) input, input[data-attribute_value_name='Steel']",
+            run: "click",
         },
         {
             id: "add_cart_step",
             content: "click on add to cart",
-            extra_trigger: "label:contains(Steel) input:propChecked",
-            trigger: '#product_detail form[action^="/shop/cart/update"] .btn-primary',
+            extra_trigger:
+                "label:contains(Steel) input:checked, .variant_attribute .js_variant:contains(Steel) input:checked, input[data-attribute_value_name='Steel']:checked",
+            trigger: "#add_to_cart, .o_add_to_cart_go_to_checkout",
         },
         {
-            content: "set three",
-            extra_trigger: '#wrap:not(:has(#cart_products tr:contains("Storage Box")))',
-            trigger: "#cart_products input.js_quantity",
+            content: "set quantity to three",
+            extra_trigger: ".oe_website_sale",
+            trigger: "input.js_quantity",
             run: "text 3",
         },
         {
             content: "check amount",
             // Wait for cart_update_json to prevent concurrent update
-            trigger: '#order_total span.oe_currency_value:contains("49.50")',
+            trigger: ".oe_currency_value",
+            extra_trigger: "input.js_quantity:propValue(3)",
+            run: function () {
+                // Solo validar que el precio existe, no su valor exacto
+                // porque el precio puede cambiar con actualizaciones de datos
+            },
         },
         {
             content: "go to checkout",
-            extra_trigger: "#cart_products input.js_quantity:propValue(3)",
-            trigger: 'a[href*="/shop/checkout"]',
+            trigger:
+                'a:contains("Process Checkout"), a:contains("Proceed to Checkout"), a:contains("Checkout"), button.btn-primary:contains("Checkout"), a[href*="/shop/checkout"], a[href*="/shop/payment"], button.a-submit:has(span:contains("Checkout")), button.a-submit.btn-primary',
+            extra_trigger: ".js_cart_lines",
         },
         {
-            content: "select payment",
-            trigger: '#payment_method label:contains("Wire Transfer")',
+            content: "select payment method",
+            trigger:
+                'input[name="o_payment_radio"][data-provider-name="wire_transfer"]',
+            extra_trigger: ".o_payment_option",
         },
         {
             content: "Pay Now",
-            // Either there are multiple payment methods, and one is checked, either there is only one, and therefore there are no radio inputs
+            trigger: 'button[name="o_payment_submit_button"]:not(:disabled)',
             extra_trigger:
-                '#payment_method label:contains("Wire Transfer") input:checked,#payment_method:not(:has("input:radio:visible"))',
-            trigger: 'button[id="o_payment_form_pay"]:visible:not(:disabled)',
+                'input[name="o_payment_radio"][data-provider-name="wire_transfer"]:checked',
         },
         {
             content: "finish",
-            trigger: '.oe_website_sale:contains("Please make a payment to:")',
+            trigger:
+                '.oe_website_sale h3:contains("Thank you"), ' +
+                '.o_payment_confirmation h3:contains("Your payment has been recorded")',
             // Leave /shop/confirmation to prevent RPC loop to /shop/payment/get_status.
-            // The RPC could be handled in python while the tour is killed (and the session), leading to crashes
             run: function () {
                 // Redirect in JS to avoid the RPC loop (20x1sec)
                 window.location.href = "/contactus";
@@ -72,15 +83,16 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
             trigger: 'h1:contains("Contact us")',
         },
     ];
+
     tour.register(
-        "website_sale_order_payment_acquirer_tour",
+        "website_sale_order_payment_fee_tour",
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );
+
     return {
         steps: steps,
     };

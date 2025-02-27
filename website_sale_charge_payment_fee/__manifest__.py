@@ -4,8 +4,8 @@
 # Copyright 2024 Miguel Gandia - Studio73
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
-    "name": "eCommerce: charge payment fee",
-    "summary": "Payment fee charged to customer",
+    "name": "eCommerce: Charge Payment Fee",
+    "summary": "Charge payment fee to customer",
     "version": "16.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -19,5 +19,14 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/payment_acquirer_views.xml", "views/website_sale_templates.xml"],
+    "data": [
+        "views/payment_provider_views.xml",
+        "views/website_sale_templates.xml",
+    ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_charge_payment_fee/static/src/js/website_sale_fee.js",
+            "website_sale_charge_payment_fee/static/tests/tours/website_sale_fee_tour.js",
+        ],
+    },
 }
