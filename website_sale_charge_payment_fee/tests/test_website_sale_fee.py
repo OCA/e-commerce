@@ -47,7 +47,7 @@ class TestUi(HttpCase):
         created_order = self.env["sale.order"].search(
             [("id", "not in", existing_orders.ids)]
         )
-        price = (10 / 100) * 49.5
+        price = (10 / 100) * 33.00
         self.assertEqual(created_order.amount_payment_fee, price)
 
     def test_charge_payment_fee_fixed(self):

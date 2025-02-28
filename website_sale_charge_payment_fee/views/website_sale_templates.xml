@@ -2,6 +2,9 @@
 <odoo>
 
     <template id="checkout" inherit_id="payment.checkout">
+        <xpath expr="//input[@name='o_payment_radio']" position="attributes">
+            <attribute name="t-att-data-is-fee">provider.charge_fee</attribute>
+        </xpath>
         <xpath expr="//span[hasclass('payment_option_name')]" position="after">
             <t t-if="provider.charge_fee">
                 <span class="badge rounded-pill text-bg-secondary ms-1">
@@ -26,7 +29,7 @@
     </template>
     <template id="total" name="Payment Fee" inherit_id="website_sale.total">
         <xpath expr="//tr[@id='order_total_untaxed']" position="before">
-            <tr id="order_payment_fee" t-if="website_sale_order.amount_payment_fee">
+            <tr id="order_payment_fee" class="d-none">
                 <td class="text-end border-0">Payment Fee:</td>
                 <td class="text-end border-0">
                     <span
