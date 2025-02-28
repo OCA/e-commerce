@@ -3,35 +3,60 @@
 # Copyright 2020 Quartile Limited
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
+
 from odoo import http
+from odoo.exceptions import MissingError
 from odoo.http import request
 
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers.main import PaymentPortal, WebsiteSale
+
+
+class PaymentPortal(PaymentPortal):
+    @http.route(
+        "/shop/payment/transaction/<int:order_id>",
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def shop_payment_transaction(self, order_id, access_token, **kwargs):
+        res = super().shop_payment_transaction(order_id, access_token, **kwargs)
+        try:
+            order_sudo = self._document_check_access(
+                "sale.order", order_id, access_token
+            )
+        except MissingError as error:
+            raise error
+
+        if kwargs.get("payment_option_id"):
+            selected_provider = request.env["payment.provider"].browse(
+                int(kwargs.get("payment_option_id"))
+            )
+            order_sudo.update_fee_line(selected_provider)
+        return res
 
 
 class WebsiteSaleFee(WebsiteSale):
     @http.route(
-        ["/shop/payment/update_fee"],
+        ["/shop/payment/get_fee"],
         type="json",
         auth="public",
         methods=["POST"],
         website=True,
     )
-    def update_payment_fee(self, payment_fee_id=None, **kw):
+    def get_payment_fee(self, provider_id=None, **kw):
         order = request.website.sale_get_order()
         Monetary = request.env["ir.qweb.field.monetary"]
-        result = {
-            "amount_payment_fee": Monetary.value_to_html(
-                0.0, {"display_currency": order.currency_id}
-            )
-        }
+        if not provider_id:
+            return {
+                "amount_payment_fee": Monetary.value_to_html(
+                    0.0, {"display_currency": order.currency_id}
+                )
+            }
 
-        if payment_fee_id:
-            selected_provider = request.env["payment.provider"].browse(
-                int(payment_fee_id)
-            )
-            order.sudo().update_fee_line(selected_provider.sudo())
-            result["amount_payment_fee"] = Monetary.value_to_html(
-                order.amount_payment_fee, {"display_currency": order.currency_id}
-            )
-        return result
+        provider = request.env["payment.provider"].browse(int(provider_id))
+        price = order._calculate_payment_fee_price(provider)
+        return {
+            "amount_payment_fee": Monetary.value_to_html(
+                price, {"display_currency": order.currency_id}
+            ),
+        }
