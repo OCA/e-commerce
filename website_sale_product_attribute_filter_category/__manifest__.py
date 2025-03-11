@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Attribute Filter Category",
     "summary": "Allow group attributes in shop by categories",
-    "version": "15.0.2.1.0",
+    "version": "17.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -14,6 +14,7 @@
     "depends": ["website_sale_comparison"],
     "data": [
         "views/templates.xml",
+        "views/snippets/snippets.xml",
         "views/website_sale_product_attribute_filter_category_view.xml",
     ],
     "assets": {
@@ -21,7 +22,7 @@
             "/website_sale_product_attribute_filter_category/static/src/scss/*.scss",
         ],
         "web.assets_tests": [
-            "/website_sale_product_attribute_filter_category/static/src/js/*.js"
+            "/website_sale_product_attribute_filter_category/static/tests/tours/*.esm.js"
         ],
     },
 }
