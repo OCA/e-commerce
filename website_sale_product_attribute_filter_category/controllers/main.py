@@ -8,7 +8,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 class ProductAttributeCategory(WebsiteSale):
     @http.route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):
-        response = super(ProductAttributeCategory, self).shop(
+        response = super().shop(
             page=page, category=category, search=search, ppg=ppg, **post
         )
         # Re-order attributes by their category sequence
