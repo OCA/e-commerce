@@ -29,9 +29,7 @@ Website Sale Attribute Filter Category
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module extends the functionality of website sale module to allow to
-group product attributes filter by their categories. Also you can select
-if you want display folded or unfolded category in website attribute's
-filter.
+group product attributes filter by their categories.
 
 **Table of contents**
 
@@ -43,21 +41,24 @@ Configuration
 
 To configure this module, you need to:
 
-- Go to 'Website > Configuration > Attribute Categories' and create one.
-  You can select if you want display it folded or unfolded in website.
-- Go to 'Website > Configuration > Attributes, create one or more with
-  this category and add more than one value for each attribute.
-- Go to 'Website > Products > Products' and create a product with this
-  attribute and assign it an attribute value.
+- Go to ``Website \> eCommerce \> Products \> Attribute Categories`` and
+  create one. You can select if you want display it folded or unfolded
+  in website.
+- Go to ``Website \> eCommerce \> Products \> Attributes``, create one
+  or more with this category and add more than one value for each
+  attribute.
+- Go to ``Website \> eCommerce \> Products \> Products`` and create a
+  product with this attribute and assign it an attribute value.
 
 Usage
 =====
 
-1. Go to Website Shop.
-2. Activate filter by attributes in "Customize" option in top menu.
-3. Activate attributes categories filters in "Customize" option in top
-   menu.
-4. Now you can see product attributes filter grouped by categories.
+- Go to the Website Shop.
+- Activate the website editor in the top right corner.
+- Under the ``Customize`` tab, locate the ``Attributes`` section and
+  enable the ``Group by categories`` option.
+- You should now see the product attribute filters grouped by
+  categories.
 
 Bug Tracker
 ===========
@@ -85,6 +86,7 @@ Contributors
      - Sergio Teruel
      - Carlos Roca
      - Pilar Vargas
+     - Carlos Lopez
 
 Maintainers
 -----------

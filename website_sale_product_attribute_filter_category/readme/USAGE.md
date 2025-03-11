@@ -1,5 +1,4 @@
-1.  Go to Website Shop.
-2.  Activate filter by attributes in "Customize" option in top menu.
-3.  Activate attributes categories filters in "Customize" option in top
-    menu.
-4.  Now you can see product attributes filter grouped by categories.
+- Go to the Website Shop.
+- Activate the website editor in the top right corner.
+- Under the `Customize` tab, locate the `Attributes` section and enable the `Group by categories` option.
+- You should now see the product attribute filters grouped by categories.
