@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="product_matrix"
+        inherit_id="website_sale_product_matrix.product_matrix"
+        name="Product matrix with stock"
+    >
+        <xpath expr="//div[hasclass('css_quantity')]" position="before">
+            <t
+                t-set="combination"
+                t-value="request.env['product.template.attribute.value'].browse(cell['ptav_ids'])"
+            />
+            <t t-set="qty" t-value="cell['qty']" />
+            <t
+                t-set="combination_info"
+                t-value="product.with_context(website_sale_stock_get_quantity=True)._get_combination_info(combination, add_qty=cell['qty'] or 1, pricelist=pricelist)"
+            />
+            <t t-set="free_qty" t-value="combination_info['free_qty']" />
+            <t
+                t-set="disallow_out_of_stock"
+                t-value="product.type == 'product' and not product.allow_out_of_stock_order and free_qty &lt;= 0"
+            />
+        </xpath>
+        <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+            <attribute
+                name="t-if"
+            >cell.get('is_possible_combination') and not disallow_out_of_stock</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('css_quantity')]" position="after">
+            <t t-if="product.type == 'product'">
+                <div
+                    t-if="free_qty &lt;= 0"
+                    t-attf-class="availability_message_#{product.id}"
+                >
+                    <small
+                        class="text-danger"
+                        t-if="combination_info.get('has_out_of_stock_message')"
+                        t-out="combination_info.get('has_out_of_stock_message')"
+                    />
+                    <small class="text-danger" t-else="">Out of Stock</small>
+                </div>
+                <div
+                    t-elif="product.show_availability"
+                    t-attf-class="availability_message_#{product.id}"
+                >
+                    <small class="text-success"><t t-esc="int(free_qty)" /> <t
+                            t-esc="product.uom_name"
+                        /></small>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
