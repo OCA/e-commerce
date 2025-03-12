@@ -4,12 +4,11 @@
         id="products_attributes"
         inherit_id="website_sale.products_attributes"
         active="False"
-        customize_show="True"
         name="Product Attribute's Filters Marked First"
         priority="900"
     >
         <xpath
-            expr="//t[@t-if=&quot;a.display_type == 'radio' or a.display_type == 'pills'&quot;]//t[@t-foreach='a.value_ids']"
+            expr="//div[@t-elif=&quot;a.display_type in ('radio', 'pills', 'multi')&quot;]//t[@t-foreach='a.value_ids']"
             position="attributes"
         >
             <attribute
