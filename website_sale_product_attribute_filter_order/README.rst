@@ -39,8 +39,9 @@ Configuration
 =============
 
 1. Go to the eCommerce (/shop)
-2. Drop down the 'Customize' menu
-3. Enable the 'Product Attribute's Filters Marked First' option
+2. Activate the website editor in the top right corner.
+3. Under the ``Customize`` tab, locate the ``Attributes`` section and
+   enable the ``Filters Marked First`` option.
 
 Usage
 =====
@@ -87,6 +88,7 @@ Contributors
 
   - Alexandre D. Díaz
   - Pilar Vargas
+  - Carlos Lopez
 
 - Manuel Márquez <buzondemam@gmail.com>
 
