@@ -1,0 +1,4 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Alexandre D. Díaz
+  - Pilar Vargas
+- Manuel Márquez \<<buzondemam@gmail.com>\>
