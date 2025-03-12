@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="snippet_options" inherit_id="website_sale.snippet_options">
+        <xpath
+            expr="//we-checkbox[@data-customize-website-views='website_sale.filter_products_price']"
+            position="before"
+        >
+            <we-checkbox
+                string="Filters Marked First"
+                class="o_we_sublevel_1"
+                data-customize-website-views="website_sale_product_attribute_filter_order.products_attributes"
+                data-dependencies="attributes_opt"
+                data-no-preview="true"
+                data-reload="/"
+            />
+        </xpath>
+    </template>
+
+</odoo>
