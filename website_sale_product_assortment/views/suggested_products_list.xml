@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="suggested_products_assortment_restriction"
+        inherit_id="website_sale.suggested_products_list"
+        name="Accessories with Assortment Restrictions"
+    >
+        <xpath
+            expr="//a[@t-if='product._website_show_quick_add()']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >product._show_quick_add_accesory_assortments()</attribute>
+        </xpath>
+    </template>
+</odoo>

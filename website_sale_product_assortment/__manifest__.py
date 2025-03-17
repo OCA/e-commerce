@@ -12,7 +12,7 @@
     "maintainers": ["CarlosRoca13"],
     "installable": True,
     "depends": ["product_assortment", "website_sale"],
-    "data": ["views/ir_filters_views.xml"],
+    "data": ["views/ir_filters_views.xml", "views/suggested_products_list.xml"],
     "assets": {
         "web.assets_frontend": [
             "website_sale_product_assortment/static/src/xml/*.xml",

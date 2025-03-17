@@ -85,3 +85,31 @@ class ProductTemplate(models.Model):
             domain.append(allowed_product_domain)
         res["base_domain"] = domain
         return res
+
+    def _get_allowed_show_products(self, products):
+        if not products:
+            return products
+        restricted_products_dict = self.get_product_assortment_restriction_info(
+            products.ids
+        )
+        if not restricted_products_dict:
+            return products
+
+        allowed_show_products = products.filtered(
+            lambda p: p.id not in restricted_products_dict
+            or not any(
+                assortment.website_availability == "no_show"
+                for assortment in restricted_products_dict[p.id]
+            )
+        )
+        return allowed_show_products
+
+    def _get_website_accessory_product(self):
+        res = super()._get_website_accessory_product()
+        visible_products = self._get_allowed_show_products(res)
+        return visible_products
+
+    def _get_website_alternative_product(self):
+        res = super()._get_website_alternative_product()
+        visible_products = self._get_allowed_show_products(res)
+        return visible_products
