@@ -3,3 +3,5 @@
   - Víctor Martínez
 - [Sygel](https://www.sygel.es):
   - Ángel García de la Chica Herrera
+- [Dinamiche Aziendali](https://www.dinamicheaziendali.it):
+  - Gianmarco Conte
