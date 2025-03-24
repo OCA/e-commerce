@@ -46,7 +46,8 @@ class WebsiteSaleFee(WebsiteSale):
     def get_payment_fee(self, provider_id=None, **kw):
         order = request.website.sale_get_order()
         Monetary = request.env["ir.qweb.field.monetary"]
-        if not provider_id:
+
+        if not provider_id or not order:
             return {
                 "amount_payment_fee": Monetary.value_to_html(
                     0.0, {"display_currency": order.currency_id}

@@ -1,8 +1,12 @@
 # Copyright 2022 Studio73 - Miguel Gandía <miguel@studio73.es>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+import logging
+
 import odoo.tests
 from odoo.tests.common import HttpCase
+
+_logger = logging.getLogger(__name__)
 
 
 @odoo.tests.tagged("post_install", "-at_install")
@@ -43,11 +47,20 @@ class TestUi(HttpCase):
 
     def test_charge_payment_fee_percentage(self):
         existing_orders = self.env["sale.order"].search([])
-        self.start_tour("/shop", "website_sale_order_payment_fee_tour", login="admin")
+        self.start_tour("/", "website_sale_order_payment_fee_tour", login="admin")
         created_order = self.env["sale.order"].search(
             [("id", "not in", existing_orders.ids)]
         )
-        price = (10 / 100) * 33.00
+
+        product = self.env.ref("product.product_product_4_product_template")
+        # Apply 10% of the product price
+        price = product.list_price * 0.10
+        _logger.info(f"Test 1: created_order: {created_order}")
+        _logger.info(f"Test 1: created_order state: {created_order.state}")
+        _logger.info(
+            f"Test 1: created_order.amount_payment_fee: {created_order.amount_payment_fee}"
+        )
+        _logger.info(f"Test 2: price: {price}")
         self.assertEqual(created_order.amount_payment_fee, price)
 
     def test_charge_payment_fee_fixed(self):
@@ -60,7 +73,7 @@ class TestUi(HttpCase):
             }
         )
         existing_orders = self.env["sale.order"].search([])
-        self.start_tour("/shop", "website_sale_order_payment_fee_tour", login="admin")
+        self.start_tour("/", "website_sale_order_payment_fee_tour", login="admin")
         created_order = self.env["sale.order"].search(
             [("id", "not in", existing_orders.ids)]
         )
