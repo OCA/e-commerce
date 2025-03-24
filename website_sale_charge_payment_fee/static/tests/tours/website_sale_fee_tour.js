@@ -59,10 +59,8 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
                 content: "finish",
                 trigger:
                     '.oe_website_sale:contains("Please use the following transfer details")',
-                // Leave /shop/confirmation to prevent RPC loop to /shop/payment/get_status.
-                // The RPC could be handled in python while the tour is killed (and the session), leading to crashes
                 run: function () {
-                    window.location.href = "/contactus"; // Redirect in JS to avoid the RPC loop (20x1sec)
+                    window.location.href = "/contactus";
                 },
                 timeout: 30000,
             },
