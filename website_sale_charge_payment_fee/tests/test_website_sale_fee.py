@@ -64,41 +64,41 @@ class TestUi(HttpCase):
         )
         self.assertEqual(len(created_order), 1)
 
-    # def test_charge_payment_fee_percentage(self):
-    #     self.start_tour(
-    #         "/shop", "website_sale_order_payment_fee_tour", login="fee_user"
-    #     )
-    #     created_order = self.env["sale.order"].search(
-    #         [("partner_id", "=", self.fee_user.partner_id.id)], limit=1, order="id desc"
-    #     )
-    #     self.assertEqual(len(created_order), 1)
-    #     # Apply 10% of the product price
-    #     price = 33 * 0.10
-    #     self.assertEqual(created_order.amount_payment_fee, price)
+    def test_charge_payment_fee_percentage(self):
+        self.start_tour(
+            "/shop", "website_sale_order_payment_fee_tour", login="fee_user"
+        )
+        created_order = self.env["sale.order"].search(
+            [("partner_id", "=", self.fee_user.partner_id.id)], limit=1, order="id desc"
+        )
+        self.assertEqual(len(created_order), 1)
+        # Apply 10% of the product price
+        price = 33 * 0.10
+        self.assertEqual(created_order.amount_payment_fee, price)
 
-    # def test_charge_payment_fee_fixed(self):
-    #     self.wire_transfer.write(
-    #         {
-    #             "charge_fee_type": "fixed",
-    #             "charge_fee_fixed_price": 10.00,
-    #             "charge_fee_currency_id": self.env.ref("base.USD").id,
-    #         }
-    #     )
+    def test_charge_payment_fee_fixed(self):
+        self.wire_transfer.write(
+            {
+                "charge_fee_type": "fixed",
+                "charge_fee_fixed_price": 10.00,
+                "charge_fee_currency_id": self.env.ref("base.USD").id,
+            }
+        )
 
-    #     self.start_tour("/shop", "website_sale_order_payment_fee_tour", login="admin")
-    #     created_order = self.env["sale.order"].search(
-    #         [("partner_id", "=", self.fee_user.partner_id.id)], limit=1, order="id desc"
-    #     )
-    #     self.assertEqual(len(created_order), 1)
-    #     price = self.wire_transfer.charge_fee_fixed_price
-    #     if (
-    #         self.wire_transfer.charge_fee_currency_id.id
-    #         != created_order.pricelist_id.currency_id.id
-    #     ):
-    #         price = self.wire_transfer.charge_fee_currency_id._convert(
-    #             price,
-    #             created_order.pricelist_id.currency_id,
-    #             created_order.company_id,
-    #             created_order.date_order,
-    #         )
-    #     self.assertEqual(created_order.amount_payment_fee, price)
+        self.start_tour("/shop", "website_sale_order_payment_fee_tour", login="admin")
+        created_order = self.env["sale.order"].search(
+            [("partner_id", "=", self.fee_user.partner_id.id)], limit=1, order="id desc"
+        )
+        self.assertEqual(len(created_order), 1)
+        price = self.wire_transfer.charge_fee_fixed_price
+        if (
+            self.wire_transfer.charge_fee_currency_id.id
+            != created_order.pricelist_id.currency_id.id
+        ):
+            price = self.wire_transfer.charge_fee_currency_id._convert(
+                price,
+                created_order.pricelist_id.currency_id,
+                created_order.company_id,
+                created_order.date_order,
+            )
+        self.assertEqual(created_order.amount_payment_fee, price)
