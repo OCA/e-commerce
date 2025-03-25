@@ -3,7 +3,6 @@
 odoo.define("website_sale_charge_payment_fee.tour", function (require) {
     "use strict";
     var tour = require("web_tour.tour");
-    const tourUtils = require("website_sale.tour_utils");
 
     tour.register(
         "website_sale_order_payment_fee_tour",
@@ -37,11 +36,12 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
                 trigger:
                     '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
             },
-            tourUtils.goToCart(),
+            {
+                trigger: "button:contains('Proceed to Checkout')",
+            },
             {
                 content: "go to checkout",
-                extra_trigger: "#cart_products input.js_quantity:propValue(1)",
-                trigger: 'a[href*="/shop/checkout"]',
+                trigger: 'a[href*="/shop/checkout?express=1"]',
             },
             {
                 content: "select payment",
