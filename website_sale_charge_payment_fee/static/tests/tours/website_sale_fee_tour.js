@@ -67,6 +67,9 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
             {
                 content: "wait page loaded",
                 trigger: 'h1:contains("Contact us")',
+                run: function () {
+                    console.log("wait page loaded");
+                },
             },
         ]
     );
