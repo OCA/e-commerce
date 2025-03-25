@@ -16,12 +16,8 @@ class WebsiteSaleCase(HttpCase, SaleCase):
     def setUp(self):
         super().setUp()
         self.controller = WebsiteSale()
-        self.opener.addheaders.extend(
-            [
-                ("Accept-Language", "test_language"),
-                ("Referer", "test_referrer"),
-            ]
-        )
+        self.opener.headers["Accept-Language"] = "test_language"
+        self.opener.headers["Referer"] = "test_referrer"
         self.Affiliate = self.env["sale.affiliate"]
         self.find_from_kwargs_mock = mock.MagicMock()
         self.get_request_mock = mock.MagicMock()
@@ -31,12 +27,13 @@ class WebsiteSaleCase(HttpCase, SaleCase):
         self.get_request_mock.return_value = self.demo_request
         self.demo_affiliate._patch_method("get_request", self.get_request_mock)
         try:
+            self.authenticate(None, None)
             data = {
                 "url": "/shop",
                 "aff_ref": str(self.demo_affiliate.id),
             }
             self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
-            session = http.root.session_store.get(self.session_id)
+            session = http.root.session_store.get(self.session.sid)
             self.assertEqual(
                 session.get("affiliate_request"),
                 self.demo_request.id,
@@ -49,12 +46,13 @@ class WebsiteSaleCase(HttpCase, SaleCase):
         self.get_request_mock.return_value = self.demo_request
         self.demo_affiliate._patch_method("get_request", self.get_request_mock)
         try:
+            self.authenticate(None, None)
             data = {
                 "url": self.demo_product.website_url,
                 "aff_ref": self.demo_affiliate.id,
             }
             self.url_open("%(url)s?aff_ref=%(aff_ref)s" % data)
-            session = http.root.session_store.get(self.session_id)
+            session = http.root.session_store.get(self.session.sid)
             self.assertEqual(
                 session.get("affiliate_request"),
                 self.demo_request.id,

@@ -20,13 +20,13 @@ class WebsiteSale(Base):
             _logger.info(err)
 
     @route()
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super().shop(page, category, search, ppg, **post)
+    def shop(self, *args, **post):
+        res = super().shop(*args, **post)
         self._store_affiliate_info(**post)
         return res
 
     @route()
-    def product(self, product, category="", search="", **kwargs):
-        res = super().product(product, category="", search="", **kwargs)
-        self._store_affiliate_info(**kwargs)
+    def product(self, *args, **post):
+        res = super().product(*args, **post)
+        self._store_affiliate_info(**post)
         return res
