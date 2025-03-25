@@ -6,7 +6,7 @@ from odoo.tests import HttpCase, tagged
 @tagged("post_install", "-at_install")
 class TestFrontend(HttpCase):
     def setUp(self):
-        super(TestFrontend, self).setUp()
+        super().setUp()
         self.sale_type_model = self.env["sale.order.type"]
         self.product_template = self.env["product.template"].create(
             {

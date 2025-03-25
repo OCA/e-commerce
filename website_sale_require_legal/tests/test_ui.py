@@ -30,9 +30,9 @@ class UICase(HttpCase):
         wiz.lang_install()
         website.default_lang_id = self.env.ref("base.lang_en")
         # Activate Accept Terms & Conditions views, as explained in CONFIGURE.rst
-        website.viewref(
-            "website_sale_require_legal.address_require_legal"
-        ).active = True
+        website.viewref("website_sale_require_legal.address_require_legal").active = (
+            True
+        )
         website.viewref("website_sale.payment_sale_note").active = True
         new_test_user(self.env, login="super_mario", groups="base.group_portal")
         # Create a dummy payment provider to ensure that the tour has at least one

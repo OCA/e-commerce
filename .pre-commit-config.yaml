@@ -39,7 +39,7 @@ repos:
         language: fail
         files: '[a-zA-Z0-9_]*/i18n/en\.po$'
   - repo: https://github.com/oca/maintainer-tools
-    rev: d5fab7ee87fceee858a3d01048c78a548974d935
+    rev: b89f767503be6ab2b11e4f50a7557cb20066e667
     hooks:
       # update the NOT INSTALLABLE ADDONS section above
       - id: oca-update-pre-commit-excluded-addons
@@ -54,14 +54,14 @@ repos:
           - --if-source-changed
           - --keep-source-digest
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
-    rev: v0.0.25
+    rev: v0.1.1
     hooks:
       - id: oca-checks-odoo-module
       - id: oca-checks-po
         args:
           - --disable=po-pretty-format
   - repo: https://github.com/myint/autoflake
-    rev: v1.6.1
+    rev: v2.3.1
     hooks:
       - id: autoflake
         args:
@@ -72,7 +72,7 @@ repos:
           - --remove-duplicate-keys
           - --remove-unused-variables
   - repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 25.1.0
     hooks:
       - id: black
   - repo: local
@@ -127,7 +127,7 @@ repos:
       - id: mixed-line-ending
         args: ["--fix=lf"]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.38.2
+    rev: v3.19.1
     hooks:
       - id: pyupgrade
         args: ["--keep-percent-format"]
@@ -140,7 +140,7 @@ repos:
           - --settings=.
         exclude: /__init__\.py$
   - repo: https://github.com/acsone/setuptools-odoo
-    rev: 3.1.8
+    rev: "3.3"
     hooks:
       - id: setuptools-odoo-make-default
       - id: setuptools-odoo-get-requirements
@@ -150,13 +150,13 @@ repos:
           - --header
           - "# generated from manifests external_dependencies"
   - repo: https://github.com/PyCQA/flake8
-    rev: 5.0.0
+    rev: 7.1.2
     hooks:
       - id: flake8
         name: flake8
         additional_dependencies: ["flake8-bugbear==21.9.2"]
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v8.0.19
+    rev: v9.3.2
     hooks:
       - id: pylint_odoo
         name: pylint with optional checks

@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 class SaleStockAvailableInfoPopup(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(SaleStockAvailableInfoPopup, cls).setUpClass()
+        super().setUpClass()
         user_group_stock_user = cls.env.ref("stock.group_stock_user")
         cls.user_stock_user = cls.env["res.users"].create(
             {
