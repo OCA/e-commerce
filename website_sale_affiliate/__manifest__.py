@@ -5,7 +5,7 @@
     "name": "Affiliate Program",
     "summary": "Create an e-commerce affiliate program for the tracking of "
     "referrals and conversions.",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "E-Commerce",
     "website": "https://github.com/OCA/e-commerce",
     "author": "LasLabs, Odoo Community Association (OCA)",

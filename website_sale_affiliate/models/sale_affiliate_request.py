@@ -3,7 +3,7 @@
 
 from datetime import timedelta
 
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.http import request
 
 
@@ -64,22 +64,18 @@ class AffiliateRequest(models.Model):
         help="Qualified conversions generated as a result of affiliate request",
     )
 
-    @api.multi
     def _conversions_qualify(self):
         self.ensure_one()
 
         valid_hours = self.affiliate_id.valid_hours
+        expiration = self.date + timedelta(hours=valid_hours)
         valid_sales = self.affiliate_id.valid_sales
-        datetime_start = fields.Datetime.from_string(self.date)
-        datetime_delta = timedelta(hours=valid_hours)
-        expiration = fields.Datetime.to_string(datetime_start + datetime_delta)
 
         qualified_sales = valid_sales < 0 or len(self.sale_ids) < valid_sales
         qualified_time = valid_hours < 0 or fields.Datetime.now() < expiration
 
         return qualified_sales and qualified_time
 
-    @api.model_cr_context
     def current_qualified(self):
         try:
             current_id = request.session["affiliate_request"]
