@@ -1,0 +1,7 @@
+.website_sale_product_attribute_filter_category {
+    /* Display ">" icon for collapsed elements */
+
+    button[data-bs-toggle="collapse"] {
+        display: flex;
+    }
+}
