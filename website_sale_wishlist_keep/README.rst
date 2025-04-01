@@ -28,8 +28,10 @@ Website Sale Wishlist Keep
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module sets the checkbox, that keep the products in the wishlist,
-active by default.
+This module keeps the checkbox ‘Add product to my cart but keep it in my
+wishlist’ persistently checked in the wishlist. Unlike the standard Odoo
+behaviour, which unchecks it on exit, this functionality remembers the
+user's selection even after leaving the wishlist.
 
 **Table of contents**
 
@@ -39,12 +41,16 @@ active by default.
 Usage
 =====
 
-1. Go to shop
+To keep the option *Add product to my cart but keep it in my wishlist*
+always active, please follow the steps below:
+
+1. Go to the shop
 2. Add 1 product to the wishlist
 3. Go to the wishlist
-4. Active Customize > Keep items on wishlist
-5. You can see the "Add product to my cart but keep it in my wishlist"
-   option checked by default
+4. Open the web editor and in the *Customize* tab activate the option
+   *Keep items on wishlist*
+5. Now the option *Add product to my cart but keep it in my wishlist*
+   will always be checked by default.
 
 Bug Tracker
 ===========
@@ -70,6 +76,7 @@ Contributors
 -  `Tecnativa <https://www.tecnativa.com>`__:
 
    -  Carlos Roca
+   -  Pilar Vargas
 
 Maintainers
 -----------
