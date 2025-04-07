@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_wishlist" inherit_id="website_sale_wishlist.product_wishlist">
+        <xpath
+            expr="//span[@t-field='website.prevent_zero_price_sale_text']/parent::td"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+                separator=" "
+                add="and website and website.website_show_price and not wish.product_id.website_hide_price"
+            />
+        </xpath>
+        <xpath expr="//td[hasclass('o_wish_price')]/t" position="attributes">
+            <attribute
+                name="t-if"
+            >website.website_show_price and not wish.product_id.website_hide_price</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('o_wish_price')]/small" position="attributes">
+            <attribute
+                name="t-if"
+                separator=" "
+                add="and website.website_show_price and not wish.product_id.website_hide_price"
+            />
+        </xpath>
+        <xpath expr="//td[hasclass('o_wish_price')]" position="inside">
+            <span
+                t-if="not website.website_show_price or wish.product_id.website_hide_price"
+            >
+                Price not available
+            </span>
+        </xpath>
+        <xpath expr="//a[hasclass('btn_cta')]" position="attributes">
+            <attribute
+                name="t-if"
+                separator=" "
+                add="or not website.website_show_price or wish.product_id.website_hide_price"
+            />
+        </xpath>
+    </template>
+</odoo>
