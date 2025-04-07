@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="product_wishlist"
+        inherit_id="website_sale_stock_wishlist.product_wishlist"
+    >
+        <xpath expr="//button[hasclass('o_wish_add')]" position="attributes">
+            <attribute
+                name="t-if"
+                separator=" "
+                add="and website.website_show_price and not wish.product_id.website_hide_price"
+            />
+        </xpath>
+    </template>
+</odoo>
