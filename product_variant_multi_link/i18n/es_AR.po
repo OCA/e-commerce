@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_variant_multi_link
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-12-05 21:37+0000\n"
+"Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
+"Language-Team: none\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product__display_name
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_template_link__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product__id
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_template_link__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product____last_update
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_template_link____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_template_link__right_product_id
+msgid "Linked Variant"
+msgstr "Variante Vinculada"
+
+#. module: product_variant_multi_link
+#: model:ir.model,name:product_variant_multi_link.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_variant_multi_link
+#: model_terms:ir.ui.view,arch_db:product_variant_multi_link.product_product_form_inherit_multilinks
+msgid "Product Links"
+msgstr "Vínculos de Producto"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product__product_variant_link_ids
+msgid "Product Variant Links"
+msgstr "Vínculos de Variante de Producto"
+
+#. module: product_variant_multi_link
+#: model:ir.model,name:product_variant_multi_link.model_product_template_link
+msgid "Product link"
+msgstr "Enlace de producto"
+
+#. module: product_variant_multi_link
+#: code:addons/product_variant_multi_link/models/product_product.py:0
+#: model_terms:ir.ui.view,arch_db:product_variant_multi_link.product_product_form_inherit_multilinks
+#, python-format
+msgid "Product links"
+msgstr "Vínculos de producto"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_template_link__left_product_id
+msgid "Source Variant"
+msgstr "Origen de Variante"
+
+#. module: product_variant_multi_link
+#: code:addons/product_variant_multi_link/models/product_template_link.py:0
+#, python-format
+msgid "Source and target variants are required!"
+msgstr "¡El origen y el objetivo de las variantes son requeridos!"
+
+#. module: product_variant_multi_link
+#: model_terms:ir.ui.view,arch_db:product_variant_multi_link.product_template_link__search
+msgid "Variant"
+msgstr "Variante"
+
+#. module: product_variant_multi_link
+#: model:ir.model.fields,field_description:product_variant_multi_link.field_product_product__product_product_link_count
+msgid "Variants Links Count"
+msgstr "Cuenta de los Vínculos de Variantes"

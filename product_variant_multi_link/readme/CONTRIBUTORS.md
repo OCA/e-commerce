@@ -1,0 +1,2 @@
+- Simone Orsi \<<simahawk@gmail.com>\>
+- Thien Vo \<<thienvh@trobz.com>\>
