@@ -12,7 +12,7 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/templates.xml"],
+    "data": ["views/templates.xml", "views/website_views.xml"],
     "assets": {
         "web.assets_frontend": [
             "/website_sale_tax_toggle/static/src/js/website_sale_tax_toggle.esm.js",
