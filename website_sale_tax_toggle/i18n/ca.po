@@ -27,23 +27,22 @@ msgstr ""
 "                <span>Mostra preus amb taxes incloses</span>"
 
 #. module: website_sale_tax_toggle
-#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
-msgid "Tax Toggle Preactivated"
-msgstr "Impostos activats per defecte"
-
-#. module: website_sale_tax_toggle
 #: model:ir.model.fields,help:website_sale_tax_toggle.field_website__tax_toggle_preactivated
 msgid ""
 "If enabled, the tax toggle will be active by default when entering the "
 "website."
 msgstr ""
-"Si s'activa, l'opció d'impostos estarà activada per defecte en entrar "
-"al lloc web.\""
+"Si s'activa, l'opció d'impostos estarà activada per defecte en entrar al "
+"lloc web.\""
+
+#. module: website_sale_tax_toggle
+#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
+msgid "Tax Toggle Preactivated"
+msgstr "Impostos activats per defecte"
 
 #. module: website_sale_tax_toggle
 #: model:ir.model,name:website_sale_tax_toggle.model_res_users
 #, fuzzy
-#| msgid "Users"
 msgid "User"
 msgstr "Usuaris"
 

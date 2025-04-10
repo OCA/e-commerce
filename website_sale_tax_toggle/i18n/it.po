@@ -27,16 +27,16 @@ msgstr ""
 "                <span>Visualizza prezzi con le imposte incluse</span>"
 
 #. module: website_sale_tax_toggle
-#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
-msgid "Tax Toggle Preactivated"
-msgstr "Tasse attivate per impostazione predefinita"
-
-#. module: website_sale_tax_toggle
 #: model:ir.model.fields,help:website_sale_tax_toggle.field_website__tax_toggle_preactivated
 msgid ""
 "If enabled, the tax toggle will be active by default when entering the "
 "website."
 msgstr ""
+
+#. module: website_sale_tax_toggle
+#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
+msgid "Tax Toggle Preactivated"
+msgstr "Tasse attivate per impostazione predefinita"
 
 #. module: website_sale_tax_toggle
 #: model:ir.model,name:website_sale_tax_toggle.model_res_users

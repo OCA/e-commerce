@@ -8,8 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-09 20:29+0000\n"
 "PO-Revision-Date: 2025-04-09 22:36+0200\n"
-"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy."
-"me>\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +27,6 @@ msgstr ""
 "                <span>Prijzen weergeven inclusief BTW</span>"
 
 #. module: website_sale_tax_toggle
-#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
-msgid "Tax Toggle Preactivated"
-msgstr "Standaard ingeschakelde belastingen"
-
-#. module: website_sale_tax_toggle
 #: model:ir.model.fields,help:website_sale_tax_toggle.field_website__tax_toggle_preactivated
 msgid ""
 "If enabled, the tax toggle will be active by default when entering the "
@@ -40,9 +34,13 @@ msgid ""
 msgstr ""
 
 #. module: website_sale_tax_toggle
+#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
+msgid "Tax Toggle Preactivated"
+msgstr "Standaard ingeschakelde belastingen"
+
+#. module: website_sale_tax_toggle
 #: model:ir.model,name:website_sale_tax_toggle.model_res_users
 #, fuzzy
-#| msgid "Users"
 msgid "User"
 msgstr "Gebruikers"
 
