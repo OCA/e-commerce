@@ -27,6 +27,11 @@ msgstr ""
 "                <span>Mostra preus amb taxes incloses</span>"
 
 #. module: website_sale_tax_toggle
+#: model:ir.model,name:website_sale_tax_toggle.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: website_sale_tax_toggle
 #: model:ir.model.fields,help:website_sale_tax_toggle.field_website__tax_toggle_preactivated
 msgid ""
 "If enabled, the tax toggle will be active by default when entering the "
