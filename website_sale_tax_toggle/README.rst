@@ -36,6 +36,14 @@ button to allow to user selects view prices with taxes included or without taxes
 .. contents::
    :local:
 
+Configuration
+=============
+
+A default value is set to show taxes at website level. To set this value, go to
+website > configuration and select the website on which to change the default value.
+The field Toggle default tax will be unchecked by default, to make the default value
+active when entering the website, check the field.
+
 Usage
 =====
 
@@ -68,6 +76,7 @@ Contributors
 
     * Carlos Dauden <carlos.dauden@tecnativa.com>
     * Sergio Teruel <sergio.teruel@tecnativa.com>
+    * Pilar Vargas
 
 Maintainers
 ~~~~~~~~~~~
