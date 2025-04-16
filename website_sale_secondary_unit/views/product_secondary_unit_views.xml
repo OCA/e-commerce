@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     Copyright 2021 Tecnativa - Pedro M. Baeza
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="product_template_form_view_secondary_unit" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field
+            name="inherit_id"
+            ref="product_secondary_unit.product_template_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='factor']" position="after">
+                <field name="website_published" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

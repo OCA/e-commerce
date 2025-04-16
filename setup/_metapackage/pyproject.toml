@@ -1,0 +1,29 @@
+[project]
+name = "odoo-addons-oca-e-commerce"
+version = "17.0.20250407.0"
+dependencies = [
+    "odoo-addon-website_sale_b2x_alt_price>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_checkout_skip_payment>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_hide_empty_category>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_hide_price>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_order_type>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_attribute_filter_category>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_attribute_value_filter_existing>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_brand>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_description>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_detail_attribute_image>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_minimal_price>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_product_reference_displayed>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_require_legal>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_secondary_unit>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_stock_available>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_suggest_create_account>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_vat_required>=17.0dev,<17.1dev",
+    "odoo-addon-website_sale_wishlist_keep>=17.0dev,<17.1dev",
+    "odoo-addon-website_snippet_product_category>=17.0dev,<17.1dev",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 17.0",
+]

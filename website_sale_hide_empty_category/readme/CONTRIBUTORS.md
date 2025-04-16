@@ -1,0 +1,5 @@
+- Ted Salmon \<<tsalmon@laslabs.com>\>
+- [Tecnativa](https://www.tecnativa.com):
+  - Carlos Roca
+  - Pilar Vargas
+- Radovan Skolnik \<<radovan@skolnik.info>\>

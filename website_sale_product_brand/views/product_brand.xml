@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Page template for displaying Brands -->
+    <template id="product_brands" name="Brands">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Product Brands</t>
+            <div id="wrap" t-attf-class="wrapper">
+                <div class="container">
+                    <div class="row">
+                        <form
+                            action="/page/product_brands"
+                            class="form-horizontal mt32 col-lg-8"
+                            method="post"
+                        >
+                            <div class="input-group" style="margin-left:60%;">
+                                <div class="col-lg-6">
+                                    <input
+                                        type="text"
+                                        name="search"
+                                        class="form-control"
+                                        placeholder="Search..."
+                                        t-att-value="search"
+                                    />
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                t-att-value="request.csrf_token()"
+                            />
+                        </form>
+                    </div>
+                    <br />
+                    <section>
+                        <t t-if="brand_rec">
+                            <div class="row">
+                                <t t-foreach="brand_rec" t-as="o">
+                                    <div
+                                        class="card border-0 col-lg-3 col-md-6 mb-4 text-center brand_item"
+                                    >
+                                        <a
+                                            t-att-href="keep('/shop/brands',brand = o.id)"
+                                        >
+                                            <img
+                                                class="card-img-top img-fluid brand_item_image"
+                                                t-attf-src="/website/image/product.brand/#{o.id}/logo"
+                                                t-att-alt="o.name"
+                                            />
+                                            <div class="card-body border-0">
+                                                <span t-esc="o.name" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-if="not brand_rec">
+                            <div class="text-center text-muted">
+                                <h3 class="css_editable_display">No Brands Found.</h3>
+                            </div>
+                        </t>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="categorie_link" inherit_id="website_sale.categorie_link">
+        <xpath expr="//label[@t-field='c.name']/.." position="attributes">
+            <attribute
+                name="t-att-data-link-href"
+            >keep('/shop/category/' + slug(c), category=0, brand=brand)</attribute>
+        </xpath>
+    </template>
+</odoo>

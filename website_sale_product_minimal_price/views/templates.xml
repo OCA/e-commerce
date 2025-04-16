@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="products_item"
+        name="Products from price"
+        inherit_id="website_sale.products_item"
+    >
+        <xpath expr="//*[hasclass('product_price')]/t[@t-if]" position="before">
+            <t t-if="template_price_vals.get('distinct_prices')">
+                <span>From</span>
+                <span
+                    class="h6 mb-0"
+                    t-if="template_price_vals['price'] or not website.prevent_zero_price_sale"
+                    t-esc="template_price_vals['price']"
+                    t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                />
+            </t>
+        </xpath>
+        <xpath
+            expr="//*[hasclass('product_price')]//span[@t-esc=&quot;template_price_vals['price_reduce']&quot;]"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-class"
+            >'h6 mb-0' + (' d-none' if template_price_vals.get('distinct_prices') else '')</attribute>
+        </xpath>
+    </template>
+    <template id="variants" inherit_id="website_sale.variants">
+        <!-- Sort product attribute values by minimal price extra -->
+        <xpath expr="//strong[@t-field='ptal.attribute_id.name']" position="before">
+            <t
+                t-set="sorted_values"
+                t-value="ptal.product_template_value_ids._only_active().sorted('price_extra')"
+            />
+        </xpath>
+        <xpath
+            expr="//t[@t-if=&quot;ptal.attribute_id.display_type == 'select'&quot;]//t[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            position="attributes"
+        >
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-elif=&quot;ptal.attribute_id.display_type in ('radio', 'multi')&quot;]//t[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            position="attributes"
+        >
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-elif=&quot;ptal.attribute_id.display_type == 'pills'&quot;]//t[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            position="attributes"
+        >
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+        <xpath
+            expr="//li[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            position="attributes"
+        >
+            <attribute name="t-foreach">sorted_values</attribute>
+        </xpath>
+    </template>
+</odoo>

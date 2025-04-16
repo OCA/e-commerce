@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="navigation_buttons"
+        inherit_id="website_sale.navigation_buttons"
+        customize_show="True"
+        priority="18"
+    >
+    <xpath expr="//a[@name='website_sale_main_button']/../.." position="before">
+        <t t-set="user_authenticated" t-value="user_id != website.user_id" />
+        <t
+                t-set="signup_allowed"
+                t-value="user_id._get_signup_invitation_scope() == 'b2c'"
+            />
+        <t
+                t-set="can_checkout"
+                t-value="website_sale_order and bool(website_sale_order.website_order_line)"
+            />
+        <t
+                t-set="suggest_create_account"
+                t-value="not user_authenticated and signup_allowed and can_checkout"
+            />
+        <t
+                t-set="suggest_login"
+                t-value="not user_authenticated and not signup_allowed and can_checkout"
+            />
+        <t
+                t-set="redirect_to_sign_in"
+                t-value="website.account_on_checkout == 'mandatory' and website.is_public_user()"
+            />
+    </xpath>
+        <xpath expr="//a[@name='website_sale_main_button']" position="attributes">
+            <attribute name="class" />
+            <attribute
+                name="t-attf-class"
+            >#{'btn btn-primary' if user_authenticated or redirect_to_sign_in else 'btn btn-secondary'}</attribute>
+        </xpath>
+
+        <xpath expr="//a[@name='website_sale_main_button']/../.." position="after">
+            <t t-if="xmlid != 'website_sale.payment' ">
+                <a
+                    t-if="suggest_login and not redirect_to_sign_in"
+                    role="button"
+                    class="btn btn-primary mt-2"
+                    href="/web/login?redirect=/shop/checkout?express=1"
+                >
+                    <span>Sign in and Checkout</span>
+                    <span class="fa fa-sign-in" />
+                </a>
+                <t t-if="suggest_create_account and not redirect_to_sign_in">
+                    <a
+                        class="btn btn-primary mt-2"
+                        role="button"
+                        href="/web/login?redirect=/shop/checkout"
+                    >
+                        <span>Sign In/Up and Checkout</span>
+                        <span class="fa fa-sign-in" />
+                    </a>
+            </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

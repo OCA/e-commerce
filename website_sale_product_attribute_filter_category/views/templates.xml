@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     Copyright 2020 Tecnativa - Alexandre D. Díaz
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="products_attributes_categories"
+        inherit_id="website_sale.products_attributes"
+        name="Attributes categories filters"
+        active="False"
+        customize_show="False"
+        priority="990"
+    >
+        <xpath expr="//t[@t-foreach='attributes']" position="replace">
+            <div class="website_sale_product_attribute_filter_category">
+                <h4>
+                    <i class="fa fa-filter" aria-hidden="true" />
+                    <span>Filters by category</span>
+                </h4>
+                <t t-foreach="attribute_categories" t-as="attr_category">
+                    <t
+                        t-set="attributes_filtered"
+                        t-value="attributes.filtered(lambda x: x.category_id.id == attr_category[0])"
+                    />
+                    <t
+                        t-set="display_category"
+                        t-value="any(len(a.value_ids) &gt;1 for a in attributes_filtered)"
+                    />
+                    <t
+                        t-if="(not filtered_products or attributes_filtered) and display_category"
+                    >
+                        <ul
+                            class="nav d-flex flex-column my-2 o_shop_collapse_attribute_filter"
+                            id="accordion"
+                        >
+                            <li class="nav-item">
+                                <t
+                                    t-set="values_selected"
+                                    t-value="bool(attrib_set &amp; set(attributes_filtered.mapped('value_ids').ids))"
+                                />
+                                <t t-set="folded" t-value="attr_category[2]" />
+                                <t
+                                    t-set="isOpenFilter"
+                                    t-value="values_selected or not folded"
+                                />
+                                <div class="accordion-header d-flex mb-1">
+                                    <strong t-out="attr_category[1]" />
+                                    <button
+                                        t-attf-id="collapse{{attr_category_index}}"
+                                        t-attf-class="accordion-button p-0 ms-3 {{not isOpenFilter and 'collapsed'}} w-auto flex-grow-1 bg-transparent shadow-none"
+                                        t-attf-data-bs-target="#collapse{{attr_category_index}}"
+                                        t-att-aria-expanded="isOpenFilter and 'true' or 'false'"
+                                        t-attf-aria-controls="collapse{{attr_category_index}}"
+                                        data-bs-toggle="collapse"
+                                        type="button"
+                                    />
+                                </div>
+                                <ul
+                                    t-attf-id="collapse{{attr_category_index}}"
+                                    t-attf-class="accordion-collapse list-unstyled ps-2 pb-2 collapse {{isOpenFilter and 'show'}}"
+                                    t-attf-aria-labelledby="collapse{{attr_category_index}}"
+                                >
+                                    <t>$0</t>
+                                </ul>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-foreach='attributes']" position="attributes">
+            <attribute name="t-foreach">attributes_filtered</attribute>
+        </xpath>
+    </template>
+</odoo>
