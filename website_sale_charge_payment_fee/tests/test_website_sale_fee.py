@@ -8,7 +8,7 @@ from odoo.tests.common import HttpCase
 @odoo.tests.tagged("post_install", "-at_install")
 class TestUi(HttpCase):
     def setUp(self):
-        super(TestUi, self).setUp()
+        super().setUp()
         self.product_product_service = self.env["product.product"].create(
             {
                 "name": "Discount wire tranfer",

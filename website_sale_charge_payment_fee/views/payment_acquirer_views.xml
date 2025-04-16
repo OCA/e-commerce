@@ -48,9 +48,9 @@
                                 attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}"
                             >
                                 <field
-                                    name="charge_fee_percentage"
-                                    class="oe_inline"
-                                />%
+                                name="charge_fee_percentage"
+                                class="oe_inline"
+                            />%
                             </div>
                         </group>
                         <group />
