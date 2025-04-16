@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
     )
 
     def _compute_website_order_line(self):
-        super(SaleOrder, self)._compute_website_order_line()
+        super()._compute_website_order_line()
         self.website_order_line = self.website_order_line.filtered(
             lambda l: not l.payment_fee_line
         )
