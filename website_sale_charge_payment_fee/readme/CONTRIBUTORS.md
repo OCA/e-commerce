@@ -11,3 +11,4 @@
 - \`Binhex \<https://binhex.cloud\>\`:
 
   - Antonio Ruban
+  - Carlos Rodriguez

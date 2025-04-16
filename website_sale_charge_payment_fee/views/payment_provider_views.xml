@@ -12,27 +12,30 @@
                             <field name="charge_fee" />
                             <field
                                 name="charge_fee_product_id"
-                                attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"
+                                invisible="charge_fee == False"
+                                required="charge_fee == True"
                             />
                             <field
                                 name="charge_fee_description"
-                                attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"
+                                invisible="charge_fee == False"
+                                required="charge_fee == True"
                             />
                             <field
                                 name="charge_fee_type"
-                                attrs="{'invisible': [('charge_fee', '=', False)], 'required': [('charge_fee', '=', True)]}"
+                                invisible="charge_fee == False"
+                                required="charge_fee == True"
                             />
                             <label
                                 for="charge_fee_fixed_price"
-                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'fixed')]}"
+                                invisible="charge_fee == False or charge_fee_type != 'fixed'"
                             />
                             <div
-                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'fixed')]}"
+                                invisible="charge_fee == False or charge_fee_type != 'fixed'"
                             >
                                 <field
                                     name="charge_fee_currency_id"
                                     class="oe_inline"
-                                    attrs="{'required': [('charge_fee_type', '=', 'fixed'), ('charge_fee', '=', True)]}"
+                                    required="charge_fee == True and charge_fee_type == 'fixed'"
                                 />
                                 <field
                                     name="charge_fee_fixed_price"
@@ -42,15 +45,12 @@
                             </div>
                             <label
                                 for="charge_fee_percentage"
-                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}"
+                                invisible="charge_fee == False or charge_fee_type != 'percentage'"
                             />
                             <div
-                                attrs="{'invisible': ['|', ('charge_fee', '=', False), ('charge_fee_type', '!=', 'percentage')]}"
+                                invisible="charge_fee == False or charge_fee_type != 'percentage'"
                             >
-                                <field
-                                    name="charge_fee_percentage"
-                                    class="oe_inline"
-                                />%
+                                <field name="charge_fee_percentage" class="oe_inline" />
                             </div>
                         </group>
                     </group>

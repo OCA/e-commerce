@@ -9,8 +9,6 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    # Follow the field definition as amount_delivery from
-    # the website_sale_delivery module.
     amount_payment_fee = fields.Monetary(
         compute="_compute_amount_payment_fee",
         digits=0,
@@ -38,12 +36,7 @@ class SaleOrder(models.Model):
         """Compute the total amount of payment fees in this order."""
         for order in self:
             fee_lines = order.order_line.filtered("payment_fee_line")
-            if self.env.user.has_group(
-                "account.group_show_line_subtotals_tax_excluded"
-            ):
-                order.amount_payment_fee = sum(fee_lines.mapped("price_subtotal"))
-            else:
-                order.amount_payment_fee = sum(fee_lines.mapped("price_total"))
+            order.amount_payment_fee = sum(fee_lines.mapped("price_subtotal"))
 
     def _calculate_payment_fee_price(self, provider):
         """Calculate payment fee price according to provider settings."""
@@ -84,7 +77,7 @@ class SaleOrder(models.Model):
         if price <= 0:
             return
 
-        self.env["sale.order.line"].create(
+        line = self.env["sale.order.line"].create(
             {
                 "order_id": self.id,
                 "payment_fee_line": True,
@@ -95,3 +88,5 @@ class SaleOrder(models.Model):
                 "product_uom_qty": 1,
             }
         )
+
+        return line

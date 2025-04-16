@@ -6,7 +6,7 @@
 {
     "name": "eCommerce: Charge Payment Fee",
     "summary": "Charge payment fee to customer",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "maintainers": ["miguel-S73"],
@@ -18,7 +18,11 @@
     "license": "LGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale"],
+    "depends": [
+        "website_sale",
+        "payment",
+        "web_tour",
+    ],
     "data": [
         "views/payment_provider_views.xml",
         "views/website_sale_templates.xml",
@@ -26,6 +30,8 @@
     "assets": {
         "web.assets_frontend": [
             "website_sale_charge_payment_fee/static/src/js/website_sale_fee.js",
+        ],
+        "web.assets_tests": [
             "website_sale_charge_payment_fee/static/tests/tours/website_sale_fee_tour.js",
         ],
     },

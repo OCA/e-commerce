@@ -1,37 +1,40 @@
 <?xml version="1.0" ?>
 <odoo>
 
-    <template id="checkout" inherit_id="payment.checkout">
+    <template id="checkout" inherit_id="payment.method_form">
         <xpath expr="//input[@name='o_payment_radio']" position="attributes">
-            <attribute name="t-att-data-is-fee">provider.charge_fee</attribute>
+            <attribute name="t-att-data-is-fee">provider_sudo.charge_fee</attribute>
         </xpath>
-        <xpath expr="//span[hasclass('payment_option_name')]" position="after">
-            <t t-if="provider.charge_fee">
-                <span class="badge rounded-pill text-bg-secondary ms-1">
-                    +
-                    <t t-if="provider.charge_fee_type == 'fixed'">
+        <xpath expr="//label[hasclass('o_payment_option_label')]" position="after">
+            <t t-if="provider_sudo.charge_fee">
+                <span class="badge rounded-pill text-bg-secondary ms-1"> + <t
+                        t-if="provider_sudo.charge_fee_type == 'fixed'"
+                    >
                         <span
                             id="charge_fee_fixed_price"
-                            t-field="provider.charge_fee_fixed_price"
-                            t-options="{'widget': 'monetary', 'display_currency': provider.charge_fee_currency_id}"
+                            t-field="provider_sudo.charge_fee_fixed_price"
+                            t-options="{'widget': 'monetary', 'display_currency': provider_sudo.charge_fee_currency_id}"
                         />
                     </t>
-                    <t t-if="provider.charge_fee_type == 'percentage'">
+                    <t t-if="provider_sudo.charge_fee_type == 'percentage'">
                         <span
                             id="charge_fee_percentage"
-                            t-field="provider.charge_fee_percentage"
-                        />%
-                    </t>
-                    Fee
-                </span>
+                            t-field="provider_sudo.charge_fee_percentage"
+                        />% </t> Fee </span>
             </t>
         </xpath>
     </template>
     <template id="total" name="Payment Fee" inherit_id="website_sale.total">
         <xpath expr="//tr[@id='order_total_untaxed']" position="before">
             <tr id="order_payment_fee" class="d-none">
-                <td class="text-end border-0">Payment Fee:</td>
-                <td class="text-end border-0">
+                <td
+                    id="payment_fee"
+                    class="border-0 pb-2 ps-0 pt-0 text-start text-muted"
+                    colspan="2"
+                >
+                    Payment Fee
+                </td>
+                <td class="text-end border-0 pb-2 pe-0 pt-0">
                     <span
                         t-field="website_sale_order.amount_payment_fee"
                         class="monetary_field"

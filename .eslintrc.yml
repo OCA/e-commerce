@@ -1,10 +1,10 @@
 env:
   browser: true
-  es6: true
+  es2021: true
 
-# See https://github.com/OCA/odoo-community.org/issues/37#issuecomment-470686449
 parserOptions:
-  ecmaVersion: 2019
+  ecmaVersion: 2022
+  sourceType: module
 
 overrides:
   - files:

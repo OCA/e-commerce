@@ -1,40 +1,65 @@
-odoo.define("website_sale_charge_payment_fee.website_sale_fee", (require) => {
-    "use strict";
+/** @odoo-module **/
+import PaymentForm from "@payment/js/payment_form";
+import {jsonrpc} from "@web/core/network/rpc_service";
+import wSaleUtils from "@website_sale/js/website_sale_utils";
 
-    const checkoutForm = require("payment.checkout_form");
-    const manageForm = require("payment.manage_form");
+PaymentForm.include({
+    _getIsFeeFromRadio: (radio) => $(radio).data("is-fee"),
 
-    const PaymentMixin = {
-        _getIsFeeFromRadio: (radio) => $(radio).data("is-fee"),
-        /**
-         * @override
-         */
-        _onClickPaymentOption: function (ev) {
-            this._super.apply(this, arguments);
+    /**
+     * Update the total amount to be paid.
+     *
+     * Called upon change of shipping method
+     *
+     * @private
+     * @param {float} amount
+     */
+    _updateAmountPaymentFee: function (amount) {
+        this.paymentContext.amount = amount;
+    },
 
-            const checkedRadio = $(ev.currentTarget).find(
-                'input[name="o_payment_radio"]'
-            )[0];
-            $(checkedRadio).prop("checked", true);
-            const $amount_payment_fee = $("#order_payment_fee .monetary_field");
-            const paymentOptionId = this._getPaymentOptionIdFromRadio(checkedRadio);
-            const isFee = this._getIsFeeFromRadio(checkedRadio);
-            if (isFee === "True") {
-                $("tr#order_payment_fee").removeClass("d-none");
-            } else {
-                $("tr#order_payment_fee").addClass("d-none");
-            }
-            this._rpc({
-                route: "/shop/payment/get_fee",
-                params: {
-                    provider_id: paymentOptionId,
-                },
-            }).then((result) => {
-                $amount_payment_fee.html(result.amount_payment_fee);
+    /**
+     * @override
+     */
+    _selectPaymentOption: function (ev) {
+        this._super(...arguments);
+
+        const checkedRadio = $(ev.currentTarget)[0];
+        const $amount_payment_fee = $("#order_payment_fee .monetary_field");
+        const paymentOptionId = parseInt(checkedRadio.dataset.providerId, 10);
+        const isFee = this._getIsFeeFromRadio(checkedRadio);
+        if (isFee === "True") {
+            $("tr#order_payment_fee").removeClass("d-none");
+        } else {
+            $("tr#order_payment_fee").addClass("d-none");
+        }
+        jsonrpc("/shop/payment/get_fee", {
+            provider_id: paymentOptionId,
+        }).then((result) => {
+            jsonrpc("/shop/cart/update_json", {
+                line_id: result.line_id,
+                product_id: result.product_id,
+                set_qty: 1,
+                display: true,
+            }).then((data) => {
+                wSaleUtils.updateCartNavBar(data);
+
+                if (data.amount !== undefined) {
+                    document
+                        .querySelectorAll(
+                            "#amount_total_summary.monetary_field .oe_currency_value"
+                        )
+                        .forEach((el) => {
+                            el.textContent = data.amount;
+                        });
+                }
+                // Propagating the change to the express checkout forms
+                this._updateAmountPaymentFee(data.amount);
+                setTimeout(() => {
+                    $("tr#order_payment_fee").removeClass("d-none");
+                    $amount_payment_fee.html(result.amount_payment_fee);
+                }, 50);
             });
-        },
-    };
-
-    checkoutForm.include(PaymentMixin);
-    manageForm.include(PaymentMixin);
+        });
+    },
 });
