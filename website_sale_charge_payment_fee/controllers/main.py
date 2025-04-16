@@ -14,7 +14,7 @@ class WebsiteSaleFee(WebsiteSale):
         ["/shop/payment"], type="http", auth="public", website=True, sitemap=False
     )
     def payment(self, **post):
-        res = super(WebsiteSaleFee, self).payment(**post)
+        res = super().payment(**post)
         values = res.qcontext
         order = request.website.sale_get_order()
         payment_fee_id = post.get("payment_fee_id")

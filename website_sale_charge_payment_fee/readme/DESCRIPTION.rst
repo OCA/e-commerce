@@ -1,1 +1,0 @@
-This module allows to associate generic payment fee to online payment methods. Thus, when website user select a payment method with additional fee, an additional sale order line will be added to online order
