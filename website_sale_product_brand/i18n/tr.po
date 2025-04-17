@@ -6,71 +6,73 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-04-17 13:23+0000\n"
+"Last-Translator: Betül Öğmen <betulo@eska.biz>\n"
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
 msgid "Can Publish"
-msgstr ""
+msgstr "Yayınlanabilir"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
 msgid "Is Published"
-msgstr ""
+msgstr "Yayınlandı"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
-msgstr ""
+msgstr "Marka Bulunamadı."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Ürün"
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_brand
 msgid "Product Brand"
-msgstr ""
+msgstr "Ürün Markası"
 
 #. module: website_sale_product_brand
 #: model:ir.ui.menu,name:website_sale_product_brand.menu_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
-msgstr ""
+msgstr "Ürün Markaları"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
-msgstr ""
+msgstr "Arama"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search..."
-msgstr ""
+msgstr "Arama..."
 
 #. module: website_sale_product_brand
 #: model:website.menu,name:website_sale_product_brand.menu_website_sale_brand
 msgid "Shop by Brand"
-msgstr ""
+msgstr "Markaya Göre Alışveriş"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_url
 msgid "The full URL to access the document through the website."
-msgstr ""
+msgstr "Web sitesi aracılığıyla belgeye erişmek için tam URL."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_published
 msgid "Visible on current website"
-msgstr ""
+msgstr "Mevcut web sitesinde görülebilir"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_url
 msgid "Website URL"
-msgstr ""
+msgstr "Web Sitesi URL Adresi"
