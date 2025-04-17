@@ -9,14 +9,17 @@ _logger = logging.getLogger(__name__)
 class TestWebsiteSaleFee(HttpCase):
     def setUp(self):
         super().setUp()
+
         self.fee_user = self.env["res.users"].create(
             {
                 "name": "Fee User",
                 "login": "fee_user",
                 "email": "fee_user@example.com",
+                "password": "fee_user",
                 "website_id": self.env.ref("website.default_website").id,
             }
         )
+
         self.env["product.product"].create(
             [
                 {

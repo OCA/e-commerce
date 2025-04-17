@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="provider_form_fee_inherit" model="ir.ui.view">
         <field name="name">payment.provider.form.fee.inherit</field>

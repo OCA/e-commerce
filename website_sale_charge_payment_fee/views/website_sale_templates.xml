@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
 <odoo>
 
     <template id="checkout" inherit_id="payment.method_form">
