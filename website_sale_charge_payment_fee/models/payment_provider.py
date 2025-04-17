@@ -8,15 +8,17 @@ from odoo import api, fields, models
 import odoo.addons.decimal_precision as dp
 
 
-class PaymentAcquirer(models.Model):
-    _inherit = "payment.acquirer"
+class PaymentProvider(models.Model):
+    _inherit = "payment.provider"
 
     charge_fee = fields.Boolean(
         "Fee charged to customer",
         help="An extra fee line will be added to online order when using this "
         "payment method",
     )
-    charge_fee_description = fields.Text("Fee Description")
+    charge_fee_description = fields.Text(
+        "Fee Description", compute="_compute_charge_fee_description"
+    )
     charge_fee_product_id = fields.Many2one("product.product", string="Fee Product")
     charge_fee_fixed_price = fields.Float(
         "Fixed Price", digits=dp.get_precision("Product Price")
@@ -31,7 +33,11 @@ class PaymentAcquirer(models.Model):
         default="fixed",
     )
 
-    @api.onchange("charge_fee_product_id")
-    def onchange_charge_fee_product_id(self):
-        if self.charge_fee_product_id:
-            self.charge_fee_description = self.charge_fee_product_id.name
+    @api.depends("charge_fee_product_id")
+    def _compute_charge_fee_description(self):
+        for provider in self:
+            provider.charge_fee_description = (
+                provider.charge_fee_product_id.name
+                if provider.charge_fee_product_id
+                else None
+            )

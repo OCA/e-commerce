@@ -20,10 +20,14 @@ class SaleOrder(models.Model):
     )
 
     def _compute_website_order_line(self):
-        super()._compute_website_order_line()
-        self.website_order_line = self.website_order_line.filtered(
-            lambda l: not l.payment_fee_line
-        )
+        res = super()._compute_website_order_line()
+        website_order_line = self.env["sale.order.line"]
+        for order in self:
+            for line in order.website_order_line:
+                if not line.payment_fee_line:
+                    website_order_line |= line
+            order.website_order_line = website_order_line
+        return res
 
     @api.depends(
         "order_line.price_unit",
@@ -33,46 +37,59 @@ class SaleOrder(models.Model):
     )
     def _compute_amount_payment_fee(self):
         for order in self:
-            if self.env.user.has_group(
-                "account.group_show_line_subtotals_tax_excluded"
+            amount_payment_fee = 0.0
+            if (
+                self.env["website"]
+                .get_current_website()
+                .show_line_subtotals_tax_selection
+                == "tax_excluded"
             ):
-                order.amount_payment_fee = sum(
-                    order.order_line.filtered("payment_fee_line").mapped(
-                        "price_subtotal"
-                    )
-                )
+                for line in order.order_line:
+                    if line.payment_fee_line:
+                        amount_payment_fee += line.price_subtotal
             else:
-                order.amount_payment_fee = sum(
-                    order.order_line.filtered("payment_fee_line").mapped("price_total")
-                )
+                for line in order.order_line:
+                    if line.payment_fee_line:
+                        amount_payment_fee += line.price_total
+            order.amount_payment_fee = amount_payment_fee
 
-    def update_fee_line(self, acquirer):
+    def update_fee_line(self, provider):
         self.ensure_one()
         for line in self.order_line:
             if line.payment_fee_line:
                 line.unlink()
-        if acquirer.charge_fee:
-            if acquirer.charge_fee_type == "fixed":
-                price = acquirer.charge_fee_fixed_price
+        if provider.charge_fee:
+            if provider.charge_fee_type == "fixed":
+                price = provider.charge_fee_fixed_price
                 if (
-                    acquirer.charge_fee_currency_id.id
+                    provider.charge_fee_currency_id.id
                     != self.pricelist_id.currency_id.id
                 ):
-                    price = acquirer.charge_fee_currency_id._convert(
+                    price = provider.charge_fee_currency_id._convert(
                         price,
                         self.pricelist_id.currency_id,
                         self.company_id,
                         self.date_order,
                     )
-            elif acquirer.charge_fee_type == "percentage":
-                price = (acquirer.charge_fee_percentage / 100.0) * self.amount_total
+            elif provider.charge_fee_type == "percentage":
+                if (
+                    self.env["website"]
+                    .get_current_website()
+                    .show_line_subtotals_tax_selection
+                    == "tax_excluded"
+                ):
+                    price = (
+                        provider.charge_fee_percentage / 100.0
+                    ) * self.amount_untaxed
+                else:
+                    price = (provider.charge_fee_percentage / 100.0) * self.amount_total
             self.env["sale.order.line"].create(
                 {
                     "order_id": self.id,
                     "payment_fee_line": True,
-                    "product_id": acquirer.charge_fee_product_id.id,
-                    "product_uom": acquirer.charge_fee_product_id.uom_id.id,
-                    "name": acquirer.charge_fee_description,
+                    "product_id": provider.charge_fee_product_id.id,
+                    "product_uom": provider.charge_fee_product_id.uom_id.id,
+                    "name": provider.charge_fee_description,
                     "price_unit": price,
                     "product_uom_qty": 1,
                 }

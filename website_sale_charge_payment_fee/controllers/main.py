@@ -10,30 +10,29 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleFee(WebsiteSale):
-    @http.route(
-        ["/shop/payment"], type="http", auth="public", website=True, sitemap=False
-    )
-    def payment(self, **post):
-        res = super().payment(**post)
-        values = res.qcontext
+    @http.route()
+    def shop_payment(self, **post):
+        res = super().shop_payment(**post)
         order = request.website.sale_get_order()
-        payment_fee_id = post.get("payment_fee_id")
-        checked_pm_id = post.get("pm_id")
-        if checked_pm_id:
-            values["checked_pm_id"] = int(checked_pm_id)
-        if payment_fee_id or "acquirers" in values:
-            # If 'acquirers' in values, default behaviour when acquirers are
-            # present, we update the order with the first one
-            # (see 'payment' template)
-            # If payment_fee_id, it means user selected it
-            # (see website_sale_fee.js)
-            if payment_fee_id:
-                selected_acquirer = request.env["payment.acquirer"].browse(
-                    int(payment_fee_id)
+        provider_id = post.get("provider_id")
+        payment_option_id = post.get("payment_option_id")
+        payment_methods_sudo = res.qcontext.get("payment_methods_sudo")
+        providers_sudo = res.qcontext.get("providers_sudo")
+        if payment_option_id:
+            res.qcontext["selected_payment_method"] = int(payment_option_id)
+        if provider_id or providers_sudo:
+            if provider_id:
+                selected_provider = request.env["payment.provider"].browse(
+                    int(provider_id)
                 )
             else:
-                selected_acquirer = values["acquirers"][0]
-            values["selected_acquirer"] = selected_acquirer
-            order.sudo().update_fee_line(selected_acquirer.sudo())
-            return request.render("website_sale.payment", values)
+                _selected_provider = [
+                    provider_sudo
+                    for provider_sudo in payment_methods_sudo.provider_ids
+                    if provider_sudo in providers_sudo
+                ][:1]
+                if len(_selected_provider) > 0:
+                    selected_provider = _selected_provider[0]
+                    res.qcontext["selected_provider"] = selected_provider
+            order.sudo().update_fee_line(selected_provider.sudo())
         return res
