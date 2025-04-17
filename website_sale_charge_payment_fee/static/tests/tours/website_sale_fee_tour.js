@@ -66,13 +66,9 @@ odoo.define(
             },
         ];
 
-        tour.register(
-            "website_sale_order_payment_fee_tour",
-            {
-                test: true,
-                url: "/shop",
-            },
-            steps
-        );
+        tour.register("website_sale_order_payment_fee_tour", steps, {
+            test: true,
+            url: "/shop",
+        });
     }
 );
