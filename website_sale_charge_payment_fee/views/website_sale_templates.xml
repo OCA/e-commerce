@@ -65,7 +65,10 @@
 
     <template id="total" name="Payment Fee" inherit_id="website_sale.total">
         <xpath expr="//tr[@id='order_total_untaxed']" position="before">
-            <tr id="order_payment_fee" class="d-none">
+            <tr
+                id="order_payment_fee"
+                t-attf-class="{{ 'd-none' if not website_sale_order.amount_payment_fee else '' }}"
+            >
                 <td
                     id="payment_fee"
                     class="border-0 pb-2 ps-0 pt-0 text-start text-muted"
