@@ -1,5 +1,33 @@
 <odoo>
 
+    <template
+        id="token_form"
+        name="website_sale_charge_payment_fee_token_form"
+        inherit_id="payment.token_form"
+    >
+        <xpath expr="//input[@name='o_payment_radio']" position="attributes">
+            <attribute name="t-att-data-is-fee">provider_sudo.charge_fee</attribute>
+        </xpath>
+        <xpath expr="//label[hasclass('o_payment_option_label')]" position="after">
+            <t t-if="provider_sudo.charge_fee">
+                <span class="badge rounded-pill text-bg-secondary ms-1"> + <t
+                        t-if="provider_sudo.charge_fee_type == 'fixed'"
+                    >
+                        <span
+                            id="charge_fee_fixed_price"
+                            t-field="provider_sudo.charge_fee_fixed_price"
+                            t-options="{'widget': 'monetary', 'display_currency': provider_sudo.charge_fee_currency_id}"
+                        />
+                    </t>
+                    <t t-if="provider_sudo.charge_fee_type == 'percentage'">
+                        <span
+                            id="charge_fee_percentage"
+                            t-field="provider_sudo.charge_fee_percentage"
+                        />% </t> Fee </span>
+            </t>
+        </xpath>
+    </template>
+
     <template id="checkout" inherit_id="payment.method_form">
         <xpath expr="//input[@name='o_payment_radio']" position="attributes">
             <attribute name="t-att-data-is-fee">provider_sudo.charge_fee</attribute>
@@ -23,6 +51,18 @@
             </t>
         </xpath>
     </template>
+
+    <template id="express_checkout" inherit_id="payment.express_checkout">
+        <xpath
+            expr="//form[@name='o_payment_express_checkout_form']"
+            position="attributes"
+        >
+            <attribute
+                name="t-attf-data-is-fee"
+            >{{ providers_sudo[:1].charge_fee if providers_sudo else '' }}</attribute>
+        </xpath>
+    </template>
+
     <template id="total" name="Payment Fee" inherit_id="website_sale.total">
         <xpath expr="//tr[@id='order_total_untaxed']" position="before">
             <tr id="order_payment_fee" class="d-none">

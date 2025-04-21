@@ -5,9 +5,40 @@
 
 
 from odoo import http
+from odoo.exceptions import MissingError
 from odoo.http import request
 
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers.main import PaymentPortal, WebsiteSale
+
+
+class PaymentPortal(PaymentPortal):
+    @http.route(
+        "/shop/payment/transaction/<int:order_id>",
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def shop_payment_transaction(self, order_id, access_token, **kwargs):
+        try:
+            order_sudo = self._document_check_access(
+                "sale.order", order_id, access_token
+            )
+        except MissingError as error:
+            raise error
+
+        if kwargs.get("provider_id"):
+            selected_provider = request.env["payment.provider"].browse(
+                int(kwargs.get("provider_id"))
+            )
+            line_fee = order_sudo.order_line.filtered(
+                lambda line: line.payment_fee_line
+            )
+            if selected_provider.charge_fee and not line_fee:
+                order_sudo.update_fee_line(selected_provider)
+
+        res = super().shop_payment_transaction(order_id, access_token, **kwargs)
+
+        return res
 
 
 class WebsiteSaleFee(WebsiteSale):
@@ -24,20 +55,45 @@ class WebsiteSaleFee(WebsiteSale):
 
         if not provider_id or not order:
             return {
-                "amount_payment_fee": Monetary.value_to_html(
+                "new_amount_delivery": Monetary.value_to_html(
+                    order.amount_delivery if order.amount_delivery else 0.0,
+                    {"display_currency": order.currency_id},
+                ),
+                "new_amount_payment_fee": Monetary.value_to_html(
                     0.0, {"display_currency": order.currency_id}
-                )
+                ),
+                "new_amount_untaxed": Monetary.value_to_html(
+                    order.amount_untaxed, {"display_currency": order.currency_id}
+                ),
+                "new_amount_tax": Monetary.value_to_html(
+                    order.amount_tax, {"display_currency": order.currency_id}
+                ),
+                "new_amount_total": Monetary.value_to_html(
+                    order.amount_total, {"display_currency": order.currency_id}
+                ),
+                "new_amount_total_raw": order.amount_total,
             }
 
         provider = request.env["payment.provider"].browse(int(provider_id))
-        price = order._calculate_payment_fee_price(provider)
-        line_id = order.update_fee_line(provider)
+        order.update_fee_line(provider)
         return {
-            "amount_payment_fee": Monetary.value_to_html(
-                price, {"display_currency": order.currency_id}
+            "new_amount_delivery": Monetary.value_to_html(
+                order.amount_delivery if order.amount_delivery else 0.0,
+                {"display_currency": order.currency_id},
             ),
-            "line_id": line_id.id,
-            "product_id": line_id.product_id.id,
+            "new_amount_payment_fee": Monetary.value_to_html(
+                order.amount_payment_fee, {"display_currency": order.currency_id}
+            ),
+            "new_amount_untaxed": Monetary.value_to_html(
+                order.amount_untaxed, {"display_currency": order.currency_id}
+            ),
+            "new_amount_tax": Monetary.value_to_html(
+                order.amount_tax, {"display_currency": order.currency_id}
+            ),
+            "new_amount_total": Monetary.value_to_html(
+                order.amount_total, {"display_currency": order.currency_id}
+            ),
+            "new_amount_total_raw": order.amount_total,
         }
 
     def _remove_payment_fee(self):
