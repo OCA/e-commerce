@@ -40,7 +40,6 @@ class TestWebsiteSaleFee(HttpCase):
         self.provider.write(
             {
                 "state": "enabled",
-                "website_ids": [(4, self.website.id)],
                 "charge_fee": True,
                 "charge_fee_product_id": self.fee_product.id,
             }
