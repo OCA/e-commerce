@@ -34,3 +34,23 @@ class PaymentProvider(models.Model):
     def onchange_charge_fee_product_id(self):
         if self.charge_fee_product_id:
             self.charge_fee_description = self.charge_fee_product_id.name
+
+    def _calculate_payment_fee_price(self, amount_total):
+        """Calculate payment fee price according to provider settings."""
+        self.ensure_one()
+        price = 0.0
+        if not self.charge_fee:
+            return price
+
+        if self.charge_fee_type == "fixed":
+            price = self.charge_fee_fixed_price
+            price = self.charge_fee_currency_id._convert(
+                price,
+                self.charge_fee_currency_id,
+                self.company_id,
+                fields.Date.today(),
+            )
+        elif self.charge_fee_type == "percentage":
+            # Calculate amount excluding existing payment fees
+            price = (self.charge_fee_percentage / 100.0) * amount_total
+        return price

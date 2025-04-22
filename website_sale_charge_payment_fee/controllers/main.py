@@ -54,24 +54,30 @@ class WebsiteSaleFee(WebsiteSale):
         Monetary = request.env["ir.qweb.field.monetary"]
 
         if not provider_id or not order:
+            currency_id = request.env.company.currency_id
             return {
                 "new_amount_delivery": Monetary.value_to_html(
-                    order.amount_delivery if order.amount_delivery else 0.0,
-                    {"display_currency": order.currency_id},
+                    order.amount_delivery if order and order.amount_delivery else 0.0,
+                    {"display_currency": currency_id},
                 ),
                 "new_amount_payment_fee": Monetary.value_to_html(
-                    0.0, {"display_currency": order.currency_id}
+                    0.0, {"display_currency": currency_id}
                 ),
                 "new_amount_untaxed": Monetary.value_to_html(
-                    order.amount_untaxed, {"display_currency": order.currency_id}
+                    order.amount_untaxed if order and order.amount_untaxed else 0.0,
+                    {"display_currency": currency_id},
                 ),
                 "new_amount_tax": Monetary.value_to_html(
-                    order.amount_tax, {"display_currency": order.currency_id}
+                    order.amount_tax if order and order.amount_tax else 0.0,
+                    {"display_currency": currency_id},
                 ),
                 "new_amount_total": Monetary.value_to_html(
-                    order.amount_total, {"display_currency": order.currency_id}
+                    order.amount_total if order and order.amount_total else 0.0,
+                    {"display_currency": currency_id},
                 ),
-                "new_amount_total_raw": order.amount_total,
+                "new_amount_total_raw": order.amount_total
+                if order and order.amount_total
+                else 0.0,
             }
 
         provider = request.env["payment.provider"].browse(int(provider_id))
