@@ -6,29 +6,29 @@
         customize_show="True"
         priority="18"
     >
-    <xpath expr="//a[@name='website_sale_main_button']/../.." position="before">
-        <t t-set="user_authenticated" t-value="user_id != website.user_id" />
-        <t
+        <xpath expr="//a[@name='website_sale_main_button']/../.." position="before">
+            <t t-set="user_authenticated" t-value="user_id != website.user_id" />
+            <t
                 t-set="signup_allowed"
                 t-value="user_id._get_signup_invitation_scope() == 'b2c'"
             />
-        <t
+            <t
                 t-set="can_checkout"
                 t-value="website_sale_order and bool(website_sale_order.website_order_line)"
             />
-        <t
+            <t
                 t-set="suggest_create_account"
                 t-value="not user_authenticated and signup_allowed and can_checkout"
             />
-        <t
+            <t
                 t-set="suggest_login"
                 t-value="not user_authenticated and not signup_allowed and can_checkout"
             />
-        <t
+            <t
                 t-set="redirect_to_sign_in"
                 t-value="website.account_on_checkout == 'mandatory' and website.is_public_user()"
             />
-    </xpath>
+        </xpath>
         <xpath expr="//a[@name='website_sale_main_button']" position="attributes">
             <attribute name="class" />
             <attribute
@@ -56,7 +56,7 @@
                         <span>Sign In/Up and Checkout</span>
                         <span class="fa fa-sign-in" />
                     </a>
-            </t>
+                </t>
             </t>
         </xpath>
     </template>
