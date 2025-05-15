@@ -11,8 +11,7 @@ _logger = logging.getLogger(__name__)
 
 class WebsiteSale(Base):
     def _store_affiliate_info(self, **kwargs):
-        Affiliate = request.env["sale.affiliate"]
-        affiliate = Affiliate.sudo().find_from_kwargs(**kwargs)
+        affiliate = request.env["sale.affiliate"].sudo().find_from_kwargs(**kwargs)
         if not affiliate:
             return
 

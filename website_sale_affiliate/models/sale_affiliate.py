@@ -103,10 +103,10 @@ class Affiliate(models.Model):
 
     def get_request(self, **kwargs):
         self.ensure_one()
-        Request = self.env["sale.affiliate.request"]
+        request_model = self.env["sale.affiliate.request"]
         try:
             name = kwargs["aff_key"]
-            matching_request = Request.search(
+            matching_request = request_model.search(
                 [
                     ("affiliate_id", "=", self.id),
                     ("name", "=", name),
@@ -117,7 +117,7 @@ class Affiliate(models.Model):
             name = self.sequence_id.next_by_id()
             matching_request = None
         if not matching_request:
-            matching_request = Request.create(
+            matching_request = request_model.create(
                 {
                     "affiliate_id": self.id,
                     "name": name,
