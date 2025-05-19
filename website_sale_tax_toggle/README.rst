@@ -17,19 +17,20 @@ Website Sale Tax Toggle
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_tax_toggle
+    :target: https://github.com/OCA/e-commerce/tree/18.0/website_sale_tax_toggle
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_tax_toggle
+    :target: https://translation.odoo-community.org/projects/e-commerce-18-0/e-commerce-18-0-website_sale_tax_toggle
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of website sale module adding a toggle
-button to allow to user selects view prices with taxes included or without taxes.
+This module extends the functionality of website sale module adding a
+toggle button to allow to user selects view prices with taxes included
+or without taxes.
 
 **Table of contents**
 
@@ -39,17 +40,18 @@ button to allow to user selects view prices with taxes included or without taxes
 Configuration
 =============
 
-A default value is set to show taxes at website level. To set this value, go to
-website > configuration and select the website on which to change the default value.
-The field Toggle default tax will be unchecked by default, to make the default value
-active when entering the website, check the field.
+A default value is set to show taxes at website level. To set this
+value, go to website > configuration and select the website on which to
+change the default value. The field Toggle default tax will be unchecked
+by default, to make the default value active when entering the website,
+check the field.
 
 Usage
 =====
 
-#. Go to Website Shop.
-#. Now you can see a taxes toggle button to select prices with taxes included or
-   without taxes.
+1. Go to Website Shop.
+2. Now you can see a taxes toggle button to select prices with taxes
+   included or without taxes.
 
 Bug Tracker
 ===========
@@ -57,7 +59,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_tax_toggle%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_tax_toggle%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -65,21 +67,21 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-    * Carlos Dauden <carlos.dauden@tecnativa.com>
-    * Sergio Teruel <sergio.teruel@tecnativa.com>
-    * Pilar Vargas
+      -  Carlos Dauden <carlos.dauden@tecnativa.com>
+      -  Sergio Teruel <sergio.teruel@tecnativa.com>
+      -  Pilar Vargas
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -91,6 +93,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_tax_toggle>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/18.0/website_sale_tax_toggle>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
