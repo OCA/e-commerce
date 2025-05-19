@@ -34,7 +34,8 @@ $o-we-switch-inactive-color: #f7f7f7 !default;
                 margin-left: 0.1ex;
                 border-radius: 100rem;
                 transition: all 0.3s $o-we-md-ease;
-                box-shadow: 0 1px 1px darken($o-we-switch-inactive-color, 35%),
+                box-shadow:
+                    0 1px 1px darken($o-we-switch-inactive-color, 35%),
                     inset 0 0 0 1px lighten($o-we-switch-inactive-color, 10%);
             }
         }
