@@ -27,7 +27,7 @@
                                     <i class="fa fa-download" />
                                     Product downloads
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto">
                                     <i class="fa fa-caret-down" />
                                 </div>
                             </div>
@@ -36,7 +36,6 @@
                             class="collapse"
                             role="tabpanel"
                             id="product_attachments_body"
-                            style=""
                         >
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
