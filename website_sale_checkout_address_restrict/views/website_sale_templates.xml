@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+  <!-- Copyright 2025 Patryk Pyczko (APSL-Nagarro)<ppyczko@apsl.net>
+       License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+  <template id="checkout" inherit_id="website_sale.checkout">
+    <xpath expr="//form" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+  </template>
+
+</odoo>

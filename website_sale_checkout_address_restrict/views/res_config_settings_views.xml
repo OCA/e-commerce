@@ -1,0 +1,50 @@
+<odoo>
+
+  <!-- Copyright 2025 Patryk Pyczko (APSL-Nagarro)<ppyczko@apsl.net>
+       License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field
+            name="name"
+        >res.config.settings.view.form.inherit.website.sale.shipping.express</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//div[@id='shipping_address_setting']" position="after">
+        <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="disable_express_checkout_setting"
+                >
+          <div class="o_setting_left_pane">
+            <field name="disable_express_checkout" />
+          </div>
+          <div class="o_setting_right_pane">
+            <label for="disable_express_checkout" string="Disable Express Checkout" />
+            <div class="text-muted">
+              When enabled, forces the customer to choose a shipping address even if express
+              checkout was requested.
+            </div>
+          </div>
+        </div>
+      </xpath>
+
+      <xpath expr="//div[@id='shipping_address_setting']" position="after">
+        <div class="col-12 col-lg-6 o_setting_box" id="filter_child_shipping_setting">
+          <div class="o_setting_left_pane">
+            <field name="filter_child_shipping" />
+          </div>
+          <div class="o_setting_right_pane">
+            <label
+                            for="filter_child_shipping"
+                            string="Filter Shipping for Child Contacts"
+                        />
+            <div class="text-muted">
+              When enabled, child contacts will only see their own and their children’s delivery
+              addresses at checkout.
+            </div>
+          </div>
+        </div>
+      </xpath>
+    </field>
+  </record>
+</odoo>

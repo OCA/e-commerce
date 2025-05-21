@@ -1,0 +1,69 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_checkout_address_restrict
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-21 12:07+0000\n"
+"PO-Revision-Date: 2025-05-21 12:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_checkout_address_restrict
+#: model:ir.model,name:website_sale_checkout_address_restrict.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_address_restrict.res_config_settings_view_form
+msgid "Disable Express Checkout"
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model:ir.model.fields,field_description:website_sale_checkout_address_restrict.field_res_config_settings__disable_express_checkout
+msgid "Disable Express Checkout When Multiple Addresses"
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model:ir.model.fields,field_description:website_sale_checkout_address_restrict.field_res_config_settings__filter_child_shipping
+msgid "Filter Shipping Addresses for Child Contacts"
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_address_restrict.res_config_settings_view_form
+msgid "Filter Shipping for Child Contacts"
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_address_restrict.res_config_settings_view_form
+msgid ""
+"When enabled, child contacts will only see their own and their children’s delivery\n"
+"              addresses at checkout."
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model:ir.model.fields,help:website_sale_checkout_address_restrict.field_res_config_settings__filter_child_shipping
+msgid ""
+"When enabled, child contacts will only see their own and their children’s "
+"delivery addresses at checkout."
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_address_restrict.res_config_settings_view_form
+msgid ""
+"When enabled, forces the customer to choose a shipping address even if express\n"
+"              checkout was requested."
+msgstr ""
+
+#. module: website_sale_checkout_address_restrict
+#: model:ir.model.fields,help:website_sale_checkout_address_restrict.field_res_config_settings__disable_express_checkout
+msgid ""
+"When enabled, removing the 'express' flag in cart and checkout requests so "
+"users always select an address."
+msgstr ""
