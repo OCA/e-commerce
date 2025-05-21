@@ -15,7 +15,7 @@
                     name="attached_in_product_tmpl_ids"
                     widget="many2many_tags"
                     options="{'no_create': True}"
-                    invisible="context.get('hide_attachment_products', False) or public == False"
+                    invisible="context.get('hide_attachment_products', False) or not public"
                 />
             </field>
             <field name="website_id" position="after">

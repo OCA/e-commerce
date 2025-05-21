@@ -21,7 +21,7 @@
     ],
     "assets": {
         "web.assets_tests": [
-            "website_sale_product_attachment/static/tests/tours/website_tour.js",
+            "website_sale_product_attachment/static/tests/tours/website_tour.esm.js",
         ]
     },
 }

@@ -2,7 +2,7 @@ Instead of configuring attachments per product, to configure products
 per attachment:
 
 1.  You need permissions to access system settings.
-2.  Go to *Settings \> Dashboard \> Activate the developer mode*.
+2.  Go to *Settings \> General Settings \> Activate the developer mode*.
 3.  Go to *Settings \> Technical \> Database Structure \> Attachments*.
 4.  Pick or create one.
 5.  Enable *Attached To \> Is public document*.
@@ -22,6 +22,6 @@ To be able to filter attachments per website:
 To toggle attachment icons in the website:
 
 1.  Go to any product in your eCommerce.
-2.  Toggle *Customize \> Product downloads \> Download icons*.
+2.  In web editor toggle *Customize \> Product downloads \> Download icons*.
 
 ![frontend-icons](../static/description/frontend-icons.png)
