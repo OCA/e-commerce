@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_categories_top_user_selling"
+        inherit_id="website_sale.products_categories_list"
+        priority="999"
+    >
+        <xpath expr="//input[@t-att-id='all_products']" position="attributes">
+            <attribute
+                name="t-att-checked"
+            >'true' if not category and not request.httprequest.path.startswith('/shop/my_regular_products') else None</attribute>
+        </xpath>
+        <xpath expr="//input[@t-att-id='all_products']/../.." position="after">
+            <li class="nav-item mb-1">
+                <div
+                    t-att-data-link-href="'/shop/my_regular_products'"
+                    class="form-check d-inline-block"
+                >
+                    <input
+                        type="radio"
+                        class="form-check-input pe-none o_not_editable"
+                        t-att-id="regular_products"
+                        t-att-value="regular_products"
+                        t-att-checked="request.httprequest.path.startswith('/shop/my_regular_products')"
+                    />
+                    <label
+                        class="form-check-label fw-normal"
+                        t-att-for="regular_products"
+                    >My Regular Products</label>
+                </div>
+            </li>
+        </xpath>
+    </template>
+</odoo>
