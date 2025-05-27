@@ -1,0 +1,6 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Jairo Llopis
+  - Víctor Martínez
+  - Pilar Vargas
+- [Sygel](https://www.sygel.es):
+  - Ángel García de la Chica Herrera
