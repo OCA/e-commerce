@@ -5,3 +5,7 @@
 - [InitOS](https://www.initos.com):
 
   > - Dhara Solanki \<<dhara.solanki@initos.com>\>
+
+- [Kencove](https://kencove.com/):
+
+  - Mohamed Alkobrosli

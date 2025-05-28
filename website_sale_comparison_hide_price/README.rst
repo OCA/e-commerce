@@ -65,6 +65,10 @@ Contributors
 
      - Dhara Solanki <dhara.solanki@initos.com>
 
+- `Kencove <https://kencove.com/>`__:
+
+  - Mohamed Alkobrosli
+
 Maintainers
 -----------
 
