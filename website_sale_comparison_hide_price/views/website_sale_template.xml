@@ -12,7 +12,7 @@
             >
                 <i class="fa fa-info-circle" />
                 <span
-                    t-esc="product.website_hide_price_message or website.website_hide_price_default_message"
+                    t-out="product.website_hide_price_message or website.website_hide_price_default_message"
                 />
             </div>
         </xpath>
@@ -32,6 +32,14 @@
         inherit_id="website_sale_comparison.product_product"
     >
         <xpath expr="//span[contains(@t-out,'price')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+        <xpath
+            expr="//div[span[contains(@t-out,'combination_info')]]"
+            position="attributes"
+        >
             <attribute name="t-if">
                 website.website_show_price and not product.website_hide_price
             </attribute>
