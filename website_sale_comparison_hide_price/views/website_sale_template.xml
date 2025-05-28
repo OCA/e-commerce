@@ -30,12 +30,7 @@
         id="compare_popover_hide_price"
         inherit_id="website_sale_comparison.product_product"
     >
-        <xpath expr="//del[contains(@t-esc,'list_price')]" position="attributes">
-            <attribute name="t-if">
-                website.website_show_price and not product.website_hide_price
-            </attribute>
-        </xpath>
-        <xpath expr="//span[contains(@t-esc,'price')]" position="attributes">
+        <xpath expr="//span[contains(@t-out,'price')]" position="attributes">
             <attribute name="t-if">
                 website.website_show_price and not product.website_hide_price
             </attribute>
