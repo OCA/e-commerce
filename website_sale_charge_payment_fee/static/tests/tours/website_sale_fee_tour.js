@@ -3,7 +3,8 @@
 odoo.define("website_sale_charge_payment_fee.tour", function (require) {
     "use strict";
     var tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+    const tourUtils = require("website_sale.tour_utils");
+
     var steps = [
         {
             content: "search conference chair",
@@ -19,31 +20,42 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
             trigger: '.oe_product_cart:first a:contains("Conference Chair")',
         },
         {
-            content: "select Conference Chair Steel",
-            extra_trigger: "#product_detail",
-            trigger: "label:contains(Steel) input",
-        },
-        {
             id: "add_cart_step",
             content: "click on add to cart",
             extra_trigger: "label:contains(Steel) input:propChecked",
-            trigger: '#product_detail form[action^="/shop/cart/update"] .btn-primary',
+            trigger: '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
         },
         {
+            trigger: '.modal-footer button:contains("Continue Shopping")',
+            extra_trigger: ".modal-content",
+            content: "Click 'Continue Shopping' to close the modal and resume.",
+            position: "bottom",
+        },
+        tourUtils.goToCart(),
+        {
             content: "set three",
-            extra_trigger: '#wrap:not(:has(#cart_products tr:contains("Storage Box")))',
+            extra_trigger: '#wrap:has(#cart_products tr:contains("Conference Chair"))',
             trigger: "#cart_products input.js_quantity",
             run: "text 3",
         },
         {
             content: "check amount",
             // Wait for cart_update_json to prevent concurrent update
-            trigger: '#order_total span.oe_currency_value:contains("49.50")',
+            trigger: '#order_total .oe_currency_value:contains("99.00")',
         },
         {
             content: "go to checkout",
             extra_trigger: "#cart_products input.js_quantity:propValue(3)",
             trigger: 'a[href*="/shop/checkout"]',
+        },
+        {
+            content: "Click the 'Next' button to proceed to the next step.",
+            trigger: 'a:contains("Next")',
+            position: "bottom",
+        },
+        {
+            content: "Go to confirm order page",
+            trigger: "a[href='/shop/confirm_order']",
         },
         {
             content: "select payment",
@@ -54,11 +66,12 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
             // Either there are multiple payment methods, and one is checked, either there is only one, and therefore there are no radio inputs
             extra_trigger:
                 '#payment_method label:contains("Wire Transfer") input:checked,#payment_method:not(:has("input:radio:visible"))',
-            trigger: 'button[id="o_payment_form_pay"]:visible:not(:disabled)',
+            trigger: 'button[name="o_payment_submit_button"]:visible:not(:disabled)',
         },
         {
             content: "finish",
-            trigger: '.oe_website_sale:contains("Please make a payment to:")',
+            trigger:
+                '.oe_website_sale:contains("Please use the following transfer details")',
             // Leave /shop/confirmation to prevent RPC loop to /shop/payment/get_status.
             // The RPC could be handled in python while the tour is killed (and the session), leading to crashes
             run: function () {
@@ -77,7 +90,6 @@ odoo.define("website_sale_charge_payment_fee.tour", function (require) {
         {
             url: "/shop",
             test: true,
-            wait_for: base.ready(),
         },
         steps
     );

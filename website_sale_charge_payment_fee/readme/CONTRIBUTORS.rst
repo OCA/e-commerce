@@ -4,3 +4,6 @@
 * `Studio73 <https://www.studio73.es>`_:
 
     * Miguel Gandia
+* `APSL-Nagarro <https://www.apsl.tech>`_:
+
+    * Antoni Marroig <amarroig@apsl.net>

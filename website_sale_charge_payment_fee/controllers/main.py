@@ -13,8 +13,8 @@ class WebsiteSaleFee(WebsiteSale):
     @http.route(
         ["/shop/payment"], type="http", auth="public", website=True, sitemap=False
     )
-    def payment(self, **post):
-        res = super(WebsiteSaleFee, self).payment(**post)
+    def shop_payment(self, **post):
+        res = super(WebsiteSaleFee, self).shop_payment(**post)
         values = res.qcontext
         order = request.website.sale_get_order()
         payment_fee_id = post.get("payment_fee_id")
@@ -35,5 +35,6 @@ class WebsiteSaleFee(WebsiteSale):
                 selected_acquirer = values["acquirers"][0]
             values["selected_acquirer"] = selected_acquirer
             order.sudo().update_fee_line(selected_acquirer.sudo())
+            values["amount"] = order.amount_total
             return request.render("website_sale.payment", values)
         return res

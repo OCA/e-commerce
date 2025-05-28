@@ -3,7 +3,7 @@
     <record id="acquirer_form_fee_inherit" model="ir.ui.view">
         <field name="name">acquirer.form.fee.inherit</field>
         <field name="model">payment.acquirer</field>
-        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="inherit_id" ref="payment.payment_acquirer_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Charge payment fee">

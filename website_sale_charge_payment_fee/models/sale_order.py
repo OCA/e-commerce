@@ -16,14 +16,15 @@ class SaleOrder(models.Model):
         digits=0,
         string="Payment Fee Amount",
         store=True,
-        track_visibility="always",
+        tracking=True,
     )
 
     def _compute_website_order_line(self):
-        super(SaleOrder, self)._compute_website_order_line()
+        res = super(SaleOrder, self)._compute_website_order_line()
         self.website_order_line = self.website_order_line.filtered(
             lambda l: not l.payment_fee_line
         )
+        return res
 
     @api.depends(
         "order_line.price_unit",
@@ -33,7 +34,7 @@ class SaleOrder(models.Model):
     )
     def _compute_amount_payment_fee(self):
         for order in self:
-            if self.env.user.has_group(
+            if self.env.user.with_context(skip_tax_toggle_check=True).has_group(
                 "account.group_show_line_subtotals_tax_excluded"
             ):
                 order.amount_payment_fee = sum(
