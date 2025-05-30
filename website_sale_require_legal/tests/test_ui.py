@@ -29,6 +29,19 @@ class UICase(HttpCase):
         ).active = True
         website.viewref("website_sale.payment_sale_note").active = True
         new_test_user(self.env, login="portal_user", groups="base.group_portal")
+        # Ensure that the product used in the tour has no optional products
+        # to prevent the tour from failing
+        # when the module website_sale_product_configurator is installed,
+        # because this module displays a popup before adding the product to the cart
+        if self.env["ir.module.module"].search(
+            [
+                ("name", "=", "website_sale_product_configurator"),
+                ("state", "=", "installed"),
+            ]
+        ):
+            self.env.ref(
+                "product.product_product_4_product_template"
+            ).optional_product_ids = [(6, 0, [])]
 
     def test_ui_website(self):
         """Test frontend tour."""

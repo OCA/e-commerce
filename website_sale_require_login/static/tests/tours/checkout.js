@@ -12,7 +12,10 @@ odoo.define("wbesite_sale_require_login.shop_buy", function (require) {
         [
             // Shop Page
             {
-                trigger: "a.o_product_link:first",
+                // The first product is "Customizable Desk", and when the module `website_sale_product_configurator` is installed,
+                // this product uses a configurator and requires a second step,
+                // so we use another product instead.
+                trigger: ".oe_product_cart a:contains('Warranty')",
             },
             // Product Page
             {

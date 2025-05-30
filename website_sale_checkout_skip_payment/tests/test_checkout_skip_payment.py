@@ -26,6 +26,19 @@ class WebsiteSaleHttpCase(HttpCase):
         cls.partner.vat = "F4K3V47"
         cls.partner.skip_website_checkout_payment = True
         cls.partner_orders = cls.partner.sale_order_ids
+        # Ensure that the product used in the tour has no optional products
+        # to prevent the tour from failing
+        # when the module website_sale_product_configurator is installed,
+        # because this module displays a popup before adding the product to the cart
+        if cls.env["ir.module.module"].search(
+            [
+                ("name", "=", "website_sale_product_configurator"),
+                ("state", "=", "installed"),
+            ]
+        ):
+            cls.env.ref(
+                "product.product_product_4_product_template"
+            ).optional_product_ids = [(6, 0, [])]
 
     def test_checkout_skip_payment(self):
         website = self.env.ref("website.website2")
