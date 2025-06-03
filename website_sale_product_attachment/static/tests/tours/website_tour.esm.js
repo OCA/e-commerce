@@ -10,9 +10,11 @@ registry.category("web_tour.tours").add("website_sale_product_attachment_tour", 
     steps: () => [
         {
             trigger: "a:contains('Customizable Desk')",
+            run: "click",
         },
         {
             trigger: "a:contains('Product downloads')",
+            run: "click",
         },
     ],
 });
