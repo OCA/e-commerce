@@ -1,7 +1,7 @@
 # Copyright 2025 Patryk Pyczko (APSL-Nagarro)<ppyczko@apsl.net>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from odoo import api, fields, models
 
@@ -20,14 +20,15 @@ class SaleOrder(models.Model):
             .sudo()
             .get_param("sale.cancel_restrict_days", default=1)
         )
+        today = fields.Date.today()
         for order in self:
             if order.state in ["sale", "done"]:
                 scheduled_date = order.commitment_date or order.expected_date
                 if scheduled_date:
-                    restriction_date = scheduled_date - timedelta(
-                        days=cancel_restrict_days
-                    )
-                    order.can_cancel = datetime.now() <= restriction_date
+                    restriction_date = (
+                        scheduled_date - timedelta(days=cancel_restrict_days)
+                    ).date()
+                    order.can_cancel = today <= restriction_date
                 else:
                     order.can_cancel = False
             else:
