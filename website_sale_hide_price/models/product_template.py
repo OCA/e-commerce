@@ -42,15 +42,18 @@ class ProductTemplate(models.Model):
         results_data = super()._search_render_results(
             fetch_fields, mapping, icon, limit
         )
-        website_show_price = (
-            self.env["website"].get_current_website().website_show_price
-        )
+        website = self.env["website"].get_current_website()
+        website_show_price = website.website_show_price
         for product, data in zip(self, results_data, strict=True):
             if product.website_hide_price or not website_show_price:
                 data.update(
                     {
                         "price": "<span>%s</span>"
-                        % (product.website_hide_price_message or ""),
+                        % (
+                            product.website_hide_price_message
+                            or website.website_hide_price_default_message
+                            or ""
+                        ),
                         "list_price": "",
                     }
                 )
