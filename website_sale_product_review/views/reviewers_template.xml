@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="product_review_form"
+        inherit_id="website_sale.product"
+        name="Product Review Form"
+    >
+        <xpath expr="//div[@id='product_details']" position="after">
+            <t t-if="product">
+                <div class="container mt-4 mb-4">
+                    <h3 class="mb-3">Leave a Review</h3>
+                    <form
+                        id="review_form"
+                        action="/product/review/submit"
+                        method="post"
+                        enctype="multipart/form-data"
+                    >
+                        <input
+                            type="hidden"
+                            name="product_id"
+                            t-att-value="product.id"
+                        />
+                        <div class="mb-3">
+                            <label class="form-label">Your Rating</label>
+                            <div id="star_rating" class="d-flex gap-1" />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                for="review_comment"
+                                class="form-label"
+                            >Your Comment</label>
+                            <textarea
+                                class="form-control"
+                                id="review_comment"
+                                name="comment"
+                                rows="4"
+                                required=""
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                for="review_attachment"
+                                class="form-label"
+                            >Attach a file (optional)</label>
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="review_attachment"
+                                name="attachment"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >Submit Review</button>
+                    </form>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

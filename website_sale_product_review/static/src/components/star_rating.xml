@@ -1,0 +1,16 @@
+<templates xml:space="preserve">
+    <t t-name="website_sale_product_review.StarRating" owl="1">
+        <div class="d-flex gap-1">
+            <t t-foreach="[1, 2, 3, 4, 5]" t-as="star" t-key="star">
+                <i
+                    t-att-class="'fa star-icon ' + (star &lt;= (state.hover || state.rating) ? 'fa-star text-warning' : 'fa-star-o')"
+                    t-on-click="() => this.setRating(star)"
+                    t-on-mouseenter="() => this.setHover(star)"
+                    t-on-mouseleave="() => this.resetHover()"
+                    style="font-size: 24px; cursor: pointer;"
+                />
+            </t>
+        </div>
+        <input type="hidden" name="rating" t-att-value="state.rating" />
+    </t>
+</templates>
