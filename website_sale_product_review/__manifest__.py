@@ -19,7 +19,10 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_sale_product_review/static/src/components/star_rating.esm.js",
+            "website_sale_product_review/static/src/css/reviews.css",
+            "website_sale_product_review/static/src/store.esm.js",
+            "website_sale_product_review/static/src/components/review_form/review_form.esm.js",
+            "website_sale_product_review/static/src/components/reviews/reviews.esm.js",
             "website_sale_product_review/static/src/main.esm.js",
         ],
     },

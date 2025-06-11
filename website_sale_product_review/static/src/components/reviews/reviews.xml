@@ -1,0 +1,75 @@
+<templates xml:space="preserve">
+    <t t-name="website_sale_product_review.ProductReviewWidget">
+        <div class="review-filter mb-4">
+            <label for="rating_filter" class="mr-2">Filter by Rating:</label>
+            <span class="px-2" />
+            <select
+                t-on-change="this.onRatingFilterChange"
+                class="o_input"
+                id="rating_filter"
+            >
+                <option
+                    t-att-selected="state.rating_filter === null"
+                    t-att-value="null"
+                >All Ratings</option>
+                <t t-foreach="[5,4,3,2,1]" t-as="r" t-key="r">
+                    <option
+                        t-att-value="r"
+                        t-att-selected="state.rating_filter === r"
+                    ><t t-esc="r" />★</option>
+                </t>
+            </select>
+        </div>
+
+        <div class="review-list">
+            <t
+                t-foreach="state.reviews"
+                t-as="rev"
+                t-key="rev_index"
+                t-index="rev_index"
+            >
+                <div class="row">
+                    <div class="col-2">
+                        <div class="row">
+                            <div class="col-8 review-user">
+                                <t t-esc="rev.user" />
+                            </div>
+                            <div class="col-4 review-rating">Rating: <t
+                                t-esc="rev.rating"
+                            />★</div>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="review-box">
+                            <div class="review-comment" style="white-space: pre-wrap;">
+                                <t t-esc="rev.comment" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+
+        <div class="pagination-controls text-center flex gap-4 mt-4">
+            <button
+                t-on-click="this.prevPage"
+                t-att-disabled="this.isPrevDisabled"
+                class="btn btn-outline-primary"
+            >
+                Previous
+            </button>
+            <span class="px-3" />
+            <span class="text-sm text-gray-700">
+                Page <t t-esc="state.page" /> of <t t-esc="state.pages" />
+            </span>
+            <span class="px-3" />
+            <button
+                t-on-click="this.nextPage"
+                t-att-disabled="this.isNextDisabled"
+                class="btn btn-outline-primary"
+            >
+                Next
+            </button>
+        </div>
+    </t>
+</templates>

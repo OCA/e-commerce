@@ -54,3 +54,36 @@ class StarRatingXMLController(http.Controller):
             return {"error": False, "message": "Review submitted successfully."}
         except Exception as e:
             return {"error": True, "message": str(e)}
+
+    @http.route(
+        '/shop/product_review/<model("product.template"):product_template>/get_reviews',
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def get_reviews(self, product_template, page=1, rating_filter=None, **post):
+        domain = [("product_id", "=", product_template.id)]
+        if rating_filter:
+            domain.append(("rating", "=", rating_filter))
+        limit = 3
+        offset = (page - 1) * limit
+        reviews = (
+            request.env["product.review"]
+            .sudo()
+            .search(domain, offset=offset, limit=limit, order="create_date desc")
+        )
+        result = [
+            {
+                "user": r.partner_id.name,
+                "rating": int(r.rating),
+                "comment": r.comment,
+            }
+            for r in reviews
+        ]
+        total = request.env["product.review"].sudo().search_count(domain)
+        return {
+            "reviews": result,
+            "total": total,
+            "page": page,
+            "pages": (total + limit - 1) // limit,
+        }

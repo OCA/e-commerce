@@ -1,15 +1,17 @@
 /** Copyright 2025 Kencove - Mohamed Alkobrosli
  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-/* global document, console */
+/* global console */
+import {useStore} from "../../store.esm";
 import {Component, useRef, useState} from "@odoo/owl";
 import {rpc} from "@web/core/network/rpc";
 
 export class StarRating extends Component {
+    static template = "website_sale_product_review.StarRating";
+
     setup() {
         this.csrfToken = odoo.csrf_token;
-        const productIdInput = document.querySelector("input.product_template_id");
-        this.productId = productIdInput ? parseInt(productIdInput.value, 10) : null;
+        this.store = useStore();
         this.reviewComment = useRef("reviewCommentRef");
         this.state = useState({
             rating: 0,
@@ -35,7 +37,7 @@ export class StarRating extends Component {
     checkIfReadyToSubmit() {
         this.state.hasText =
             this.reviewComment && this.reviewComment.el.value.trim().length > 0;
-        if (this.state.rating > 0 && this.state.hasText && this.productId) {
+        if (this.state.rating > 0 && this.state.hasText && this.store.productId) {
             this.state.readyToSubmit = true;
         } else {
             this.state.readyToSubmit = false;
@@ -43,12 +45,15 @@ export class StarRating extends Component {
     }
     async onClickSubmit() {
         if (this.state.readyToSubmit) {
-            const data = await rpc(`product_review/${this.productId}/post_review`, {
-                access_token: this.csrfToken,
-                product_id: this.productId,
-                rating: this.state.rating,
-                comment: this.reviewComment.el.value,
-            });
+            const data = await rpc(
+                `product_review/${this.store.productId}/post_review`,
+                {
+                    access_token: this.csrfToken,
+                    product_id: this.store.productId,
+                    rating: this.state.rating,
+                    comment: this.reviewComment.el.value,
+                }
+            );
             if (data.error) {
                 console.warn(data.message);
             } else {

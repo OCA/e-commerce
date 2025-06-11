@@ -7,6 +7,7 @@ from odoo import fields, models
 class ProductReview(models.Model):
     _name = "product.review"
     _description = "Product Review"
+    _order = "create_date desc"
 
     product_id = fields.Many2one(
         "product.template", string="Product", required=True, ondelete="cascade"
