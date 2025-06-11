@@ -33,7 +33,24 @@ class StarRatingXMLController(http.Controller):
         auth="user",
         website=True,
     )
-    def post_review(self, product_template, access_token=None, **post):
-        if product_template and access_token:
-            pass
-        return {"error": False}
+    def post_review(
+        self, product_template, access_token=None, rating=None, comment=None, **post
+    ):
+        if not access_token:
+            return {"error": True, "message": "Access token is invalid"}
+        if not rating or not comment:
+            return {"error": True, "message": "Rating and comment are required."}
+        if rating not in [1, 2, 3, 4, 5]:
+            return {"error": True, "message": "Invalid rating value."}
+        try:
+            rating = str(rating)
+            request.env["product.review"].sudo().create(
+                {
+                    "product_id": product_template.id,
+                    "rating": rating,
+                    "comment": comment.strip(),
+                }
+            )
+            return {"error": False, "message": "Review submitted successfully."}
+        except Exception as e:
+            return {"error": True, "message": str(e)}

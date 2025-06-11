@@ -9,13 +9,12 @@
     "maintainers": ["Kencove"],
     "license": "LGPL-3",
     "website": "https://github.com/OCA/e-commerce",
-    "depends": ["website_sale", "website", "mail"],
+    "depends": ["website_sale", "sales_team", "website", "mail"],
     "data": [
-        # "security/security.xml",
-        # "security/ir.model.access.csv",
-        # "views/product_review_views.xml",
-        # "views/website_templates.xml",
-        # "data/review_data.xml",
+        "security/ir.model.access.csv",
+        "security/product_review_rules.xml",
+        "views/product_review_views.xml",
+        "views/product_template_views.xml",
         "views/reviewers_template.xml",
     ],
     "assets": {

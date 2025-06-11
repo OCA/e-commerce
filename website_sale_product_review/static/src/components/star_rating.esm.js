@@ -1,7 +1,7 @@
 /** Copyright 2025 Kencove - Mohamed Alkobrosli
  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-/* global document */
+/* global document, console */
 import {Component, useRef, useState} from "@odoo/owl";
 import {rpc} from "@web/core/network/rpc";
 
@@ -49,9 +49,12 @@ export class StarRating extends Component {
                 rating: this.state.rating,
                 comment: this.reviewComment.el.value,
             });
-            if (!data.error) {
+            if (data.error) {
+                console.warn(data.message);
+            } else {
                 this.state.rating = 0;
                 this.reviewComment.el.value = "";
+                this.state.readyToSubmit = false;
             }
         }
     }

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_review_sales_manager,access.product.review.sales_manager,model_product_review,sales_team.group_sale_manager,1,1,1,1
+access_product_review_internal_readonly,access.product.review.internal_readonly,model_product_review,base.group_user,1,1,1,1
+access_product_review_portal,access.product.review.portal,model_product_review,base.group_portal,1,1,1,1
+access_product_review_public,access.product.review.public,model_product_review,base.group_public,1,0,0,0
