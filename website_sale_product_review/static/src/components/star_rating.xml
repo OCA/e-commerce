@@ -1,16 +1,59 @@
 <templates xml:space="preserve">
     <t t-name="website_sale_product_review.StarRating" owl="1">
-        <div class="d-flex gap-1">
-            <t t-foreach="[1, 2, 3, 4, 5]" t-as="star" t-key="star">
-                <i
-                    t-att-class="'fa star-icon ' + (star &lt;= (state.hover || state.rating) ? 'fa-star text-warning' : 'fa-star-o')"
-                    t-on-click="() => this.setRating(star)"
-                    t-on-mouseenter="() => this.setHover(star)"
-                    t-on-mouseleave="() => this.resetHover()"
-                    style="font-size: 24px; cursor: pointer;"
-                />
-            </t>
+        <div class="container mt-4 mb-4">
+            <h3 class="mb-3">Leave a Review</h3>
+            <form method="POST">
+                <input type="hidden" name="csrf_token" t-att-value="csrfToken" />
+                <input type="hidden" name="product_id" value="product_id" />
+                <div class="mb-3">
+                    <label class="form-label">Your Rating</label>
+                    <div class="d-flex gap-1">
+                        <t t-foreach="[1, 2, 3, 4, 5]" t-as="star" t-key="star">
+                            <i
+                                t-att-class="'fa star-icon ' + (star &lt;= (state.hover || state.rating) ? 'fa-star text-warning' : 'fa-star-o')"
+                                t-on-click="() => this.setRating(star)"
+                                t-on-mouseenter="() => this.setHover(star)"
+                                t-on-mouseleave="() => this.resetHover()"
+                                style="font-size: 24px; cursor: pointer;"
+                            />
+                        </t>
+                    </div>
+                    <input type="hidden" name="rating" t-att-value="state.rating" />
+                </div>
+                <div class="mb-3">
+                    <label for="review_comment" class="form-label">Your Comment</label>
+                    <textarea
+                        class="form-control"
+                        id="review_comment"
+                        t-ref="reviewCommentRef"
+                        name="comment"
+                        rows="4"
+                        required=""
+                        t-on-input="checkIfReadyToSubmit"
+                    />
+                </div>
+
+                <!-- a feature to submit attachments -->
+                <!-- <div class="mb-3">
+                    <label
+                        for="review_attachment"
+                        class="form-label"
+                    >Attach a file (optional)</label>
+                    <input
+                        type="file"
+                        class="form-control"
+                        id="review_attachment"
+                        name="attachment"
+                    />
+                </div> -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    t-on-click.prevent="onClickSubmit"
+                    t-att-disabled="state.readyToSubmit ? '': 'disabled'"
+                >Submit Review</button>
+            </form>
         </div>
-        <input type="hidden" name="rating" t-att-value="state.rating" />
     </t>
 </templates>
