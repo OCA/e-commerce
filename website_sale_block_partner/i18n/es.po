@@ -1,0 +1,152 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_block_partner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-18 08:02+0000\n"
+"PO-Revision-Date: 2025-06-18 08:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_block_partner
+#: code:addons/website_sale_block_partner/models/account_move.py:0
+#: code:addons/website_sale_block_partner/models/sale_order.py:0
+#, python-format
+msgid "%s is marked as blacklisted"
+msgstr "%s está marcado como bloqueado"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_buy_now_custom
+msgid ""
+"<i class=\"fa fa-bolt me-2\"/>\n"
+"                    Buy now"
+msgstr ""
+"<i class=\"fa fa-bolt me-2\"/>\n"
+"                    Comprar ahora"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_add_to_wishlist_custom
+msgid ""
+"<i class=\"fa fa-heart-o me-2\" role=\"img\" aria-label=\"Add to "
+"wishlist\"/>Add to wishlist"
+msgstr ""
+"<i class=\"fa fa-heart-o me-2\" role=\"img\" aria-label=\"Add to "
+"wishlist\"/>Añadir a lista de deseos"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_custom
+msgid ""
+"<i class=\"fa fa-shopping-cart me-2\"/>\n"
+"                    <span style=\"font-weight: bold\">ADD TO CART</span>"
+msgstr ""
+"<i class=\"fa fa-shopping-cart me-2\"/>\n"
+"                    <span style=\"font-weight: bold\">AÑADIR AL CARRITO</span>"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_custom
+msgid ""
+"<span class=\"d-inline-block alert alert-warning mt-4 mb-0\">You are not allowed to buy the product. Please contact the\n"
+"                    admin.\n"
+"                    <br/>\n"
+"                </span>"
+msgstr ""
+"<span class=\"d-inline-block alert alert-warning mt-4 mb-0\">No tienes permiso para comprar el producto. Por favor, contacta\n"
+"                    con el administrador.\n"
+"                    <br/>\n"
+"                </span>"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_add_to_compare
+msgid "<span class=\"fa fa-exchange mr-2\"/>Compare"
+msgstr "<span class=\"fa fa-exchange mr-2\"/>Comparar"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.add_to_wishlist_custom
+msgid "<span class=\"fa fa-heart\" role=\"img\" aria-label=\"Add to wishlist\"/>"
+msgstr ""
+"<span class=\"fa fa-heart\" role=\"img\" aria-label=\"Añadir a lista de "
+"deseos\"/>"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.add_to_wishlist_custom
+msgid "Add to Wishlist"
+msgstr "Añadir a lista de deseos"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_add_to_wishlist_custom
+msgid "Add to wishlist"
+msgstr "Añadir a lista de deseos"
+
+#. module: website_sale_block_partner
+#: model:ir.model.fields,field_description:website_sale_block_partner.field_res_partner__blacklist
+#: model:ir.model.fields,field_description:website_sale_block_partner.field_res_users__blacklist
+msgid "Blacklist"
+msgstr "Bloqueado"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.view_res_partner_filter_inherit_blacklist
+msgid "Blacklisted"
+msgstr "Bloqueado"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_add_to_compare
+msgid "Compare"
+msgstr "Comparar"
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_add_to_compare_custom
+msgid "Compareerty"
+msgstr ""
+
+#. module: website_sale_block_partner
+#: model_terms:ir.ui.view,arch_db:website_sale_block_partner.product_add_to_compare_custom
+msgid "Compareertyu"
+msgstr ""
+
+#. module: website_sale_block_partner
+#: model:ir.model,name:website_sale_block_partner.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_sale_block_partner
+#: model:ir.model.fields,help:website_sale_block_partner.field_res_partner__blacklist
+#: model:ir.model.fields,help:website_sale_block_partner.field_res_users__blacklist
+msgid "Enable to make the partner as blacklisted"
+msgstr "Permitir marcar al cliente como bloqueado"
+
+#. module: website_sale_block_partner
+#: model:ir.model,name:website_sale_block_partner.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: website_sale_block_partner
+#: model:ir.model,name:website_sale_block_partner.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: website_sale_block_partner
+#: model:ir.model.fields,help:website_sale_block_partner.field_sale_order__partner_blacklist_warning
+msgid "Warning message"
+msgstr "Advertencia"
+
+#. module: website_sale_block_partner
+#: model:ir.model.fields,field_description:website_sale_block_partner.field_account_bank_statement_line__partner_blacklist_warning
+#: model:ir.model.fields,field_description:website_sale_block_partner.field_account_move__partner_blacklist_warning
+#: model:ir.model.fields,field_description:website_sale_block_partner.field_account_payment__partner_blacklist_warning
+#: model:ir.model.fields,field_description:website_sale_block_partner.field_sale_order__partner_blacklist_warning
+msgid "warning"
+msgstr "Advertencia"
+
+#. module: website_sale_block_partner
+#: model:ir.model.fields,help:website_sale_block_partner.field_account_bank_statement_line__partner_blacklist_warning
+#: model:ir.model.fields,help:website_sale_block_partner.field_account_move__partner_blacklist_warning
+#: model:ir.model.fields,help:website_sale_block_partner.field_account_payment__partner_blacklist_warning
+msgid "warning message"
+msgstr "Advertencia"

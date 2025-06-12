@@ -1,0 +1,30 @@
+<!-- Copyright 2025 APSL-Nagarro Antoni Marroig
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.customer.blacklist
+        </field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="blacklist" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_inherit_blacklist" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.blacklist</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <filter
+                    string="Blacklisted"
+                    name="blacklisted"
+                    domain="[('blacklist', '=', True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
