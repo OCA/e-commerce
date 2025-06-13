@@ -1,0 +1,27 @@
+<!-- Copyright 2025 APSL-Nagarro Antoni Marroig
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='ecom_uom_price_option_setting']" position="after">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="restrict_products_setting"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="restrict_products_for_all_users" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="restrict_products_for_all_users" />
+                        <div class="text-muted">
+                            Restrict products base on the assigned pricelist of all users
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
