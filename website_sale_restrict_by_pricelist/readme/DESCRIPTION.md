@@ -1,0 +1,1 @@
+This module customizes the website shop page so that portal users only see products that are explicitly included in their assigned pricelist. It ensures personalized product visibility per customer without affecting internal users or public visitors.
