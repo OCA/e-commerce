@@ -1,0 +1,5 @@
+- [APSL-Nagarro](https://www.apsl.tech):
+  - Antoni Marroig \<<amarroig@apsl.net>\>
+- [Ingeos](https://ingeos.es):
+  - Sisco Casasempere \<<scasasempere@ingeos.es>\>
+
