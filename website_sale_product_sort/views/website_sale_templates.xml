@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products"
+        active="True"
+        customize_show="True"
+        inherit_id="website_sale.products"
+        name="Extend Sort by"
+        priority="9999"
+    >
+        <xpath expr="//t[@t-set='website_sale_sortable']" position="attributes">
+            <attribute name="t-value">website._get_product_sort_criterias()</attribute>
+        </xpath>
+    </template>
+
+    <template id="sort" inherit_id="website_sale.sort" priority="9999">
+        <xpath expr="//span[@t-field='website.shop_default_sort']" position="replace">
+            <t t-else="1">
+                <t
+                    t-if="is_view_active('website_sale_product_sort.products') and website.default_product_sort_criteria"
+                >
+                    <span t-field="website.default_product_sort_criteria" />
+                </t>
+                <t t-else="">
+                    <span t-field="website.shop_default_sort" />
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
