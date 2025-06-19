@@ -12,7 +12,7 @@ class WebsiteSale(WebsiteSale):
         if post.get("order"):
             return super()._get_search_order(post)
         order = request.website.default_product_sort_criteria
-        return "is_published desc, %s, id desc" % order
+        return f"is_published desc, {order}, id desc"
 
     @route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):

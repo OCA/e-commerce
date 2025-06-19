@@ -1,6 +1,6 @@
 # Copyright 2020 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class Website(models.Model):
@@ -10,11 +10,12 @@ class Website(models.Model):
     def _get_product_sort_criterias(self):
         """Extend to add more sort criterias"""
         return [
-            ("website_sequence asc", _("Relevance")),
-            ("list_price desc", _("Catalog price: High to Low")),
-            ("list_price asc", _("Catalog price: Low to High")),
-            ("name asc", _("Name - A to Z")),
-            ("name desc", _("Name - Z to A")),
+            ("website_sequence asc", self.env._("Featured")),
+            ("create_date desc", self.env._("Newest Arrivals")),
+            ("name asc", self.env._("Name (A-Z)")),
+            ("name desc", self.env._("Name (Z-A)")),
+            ("list_price asc", self.env._("Price - Low to High")),
+            ("list_price desc", self.env._("Price - High to Low")),
         ]
 
     default_product_sort_criteria = fields.Selection(
