@@ -1,7 +1,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
-from unittest.mock import patch
+from odoo.addons.website.tools import MockRequest
 
 from .common import SaleCase
 
@@ -103,13 +103,13 @@ class AffiliateCase(SaleCase):
             "Affiliate request not linked to correct affiliate",
         )
 
-    @patch("%s.request" % AFFILIATE_REQUEST_PATH)
-    def test_get_request_aff_key_present_request_missing(self, request_mock):
+    def test_get_request_aff_key_present_request_missing(self):
         """Creates and returns affiliate request record matching aff_key
         from kwargs when match does not exist"""
         test_name = "test_request_new"
         kwargs = {"aff_key": test_name}
-        request = self.demo_affiliate.get_request(**kwargs)
+        with MockRequest(self.env):
+            request = self.demo_affiliate.get_request(**kwargs)
         self.assertTrue(request.exists(), "Affiliate request not created")
         self.assertEqual(
             request.name,
@@ -122,12 +122,13 @@ class AffiliateCase(SaleCase):
             "Affiliate request not linked to correct affiliate",
         )
 
-    @patch("%s.request" % AFFILIATE_REQUEST_PATH)
-    def test_get_request_aff_key_missing(self, request_mock):
+    def test_get_request_aff_key_missing(self):
         """Creates and returns affiliate request record with sequential name
         when match does not exist"""
         kwargs = {}
-        request = self.demo_affiliate.get_request(**kwargs)
+        sequence = self.demo_affiliate.sequence_id
+        with MockRequest(self.env):
+            request = self.demo_affiliate.get_request(**kwargs)
         self.assertTrue(request.exists(), "Affiliate request not created")
         self.assertEqual(
             request.name,
