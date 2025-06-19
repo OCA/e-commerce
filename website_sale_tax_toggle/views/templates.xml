@@ -49,27 +49,11 @@
     <!-- Add the tax_toggle_taxed in the t-cache key after all overrides -->
     <template
         id="products_tax_toggle_taxed"
-        inherit_id="website_sale.products"
+        inherit_id="website_sale.pricelist_list"
         priority="200"
     >
         <xpath
-            expr="//div[starts-with(@t-cache, 'pricelist,products')]"
-            position="attributes"
-        >
-            <attribute
-                name="t-cache"
-                add="request.session.get('tax_toggle_taxed')"
-                separator=","
-            />
-        </xpath>
-    </template>
-    <template
-        id="product_tax_toggle_taxed"
-        inherit_id="website_sale.product"
-        priority="200"
-    >
-        <xpath
-            expr="//t[starts-with(@t-cache, 'pricelist,product')]"
+            expr="//t[starts-with(@t-cache, 'pricelist,website_sale_pricelists')]"
             position="attributes"
         >
             <attribute

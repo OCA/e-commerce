@@ -11,7 +11,13 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                test_website_sale_tax_toggle=True,
+                **DISABLED_MAIL_CONTEXT,
+            )
+        )
         # Get company for Mitchel Admin user
         cls.user_admin = cls.env.ref("base.user_admin")
         user_company = cls.user_admin.company_id
@@ -46,4 +52,5 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
             url_path="/shop",
             tour_name="website_sale_tax_toggle",
             login="admin",
+            step_delay=100,
         )

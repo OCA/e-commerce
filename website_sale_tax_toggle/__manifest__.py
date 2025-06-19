@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Tax Toggle",
     "summary": "Allow display price in Shop with or without taxes",
-    "version": "16.0.1.1.1",
+    "version": "18.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -12,7 +12,7 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/templates.xml", "views/website_views.xml"],
+    "data": ["views/templates.xml"],
     "assets": {
         "web.assets_frontend": [
             "/website_sale_tax_toggle/static/src/js/website_sale_tax_toggle.esm.js",
