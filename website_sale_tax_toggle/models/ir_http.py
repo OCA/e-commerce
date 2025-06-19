@@ -11,6 +11,8 @@ class Http(models.AbstractModel):
     def _frontend_pre_dispatch(cls):
         res = super()._frontend_pre_dispatch()
         if request.session.get("tax_toggle_taxed") is None:
-            tax_toggle_preactivated = request.website.tax_toggle_preactivated
+            tax_toggle_preactivated = (
+                request.website.show_line_subtotals_tax_selection == "tax_included"
+            )
             request.session["tax_toggle_taxed"] = tax_toggle_preactivated
         return res
