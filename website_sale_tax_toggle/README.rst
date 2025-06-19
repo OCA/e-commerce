@@ -40,17 +40,18 @@ or without taxes.
 Configuration
 =============
 
-A default value is set to show taxes at website level. To set this
-value, go to website > configuration and select the website on which to
-change the default value. The field Toggle default tax will be unchecked
-by default, to make the default value active when entering the website,
-check the field.
+A default value is set to display taxes at the website level. To set
+this value, go to Website > Configuration > Settings and select the
+website where you want to change the default value. In the Shop -
+Products section, the Tax Excluded option is selected by default, but it
+can be changed to Tax Included.
 
 Usage
 =====
 
 1. Go to Website Shop.
-2. Now you can see a taxes toggle button to select prices with taxes
+2. Open the web editor and activate the Taxes toggle option.
+3. Now you can see a taxes toggle button to select prices with taxes
    included or without taxes.
 
 Bug Tracker
