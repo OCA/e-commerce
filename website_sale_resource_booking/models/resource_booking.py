@@ -40,9 +40,7 @@ class ResourceBooking(models.Model):
             partner = self.env["res.partner"].search(
                 [
                     ("email", "=ilike", booking.prereserved_email),
-                    ("|"),
-                    ("company_id", "=", False),
-                    ("company_id", "=", company_id),
+                    ("company_id", "in", [company_id, False]),
                 ],
                 limit=1,
             )

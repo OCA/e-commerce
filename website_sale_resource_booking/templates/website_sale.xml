@@ -20,40 +20,6 @@
         </xpath>
     </template>
     <template
-        id="wizard_checkout"
-        inherit_id="website_sale.wizard_checkout"
-        priority="50"
-    >
-        <!-- Add a "flag element" to trigger style variation -->
-        <xpath expr="//div[hasclass('wizard')]/div" position="before">
-            <span
-                class="o_wizard_has_bookings d-none"
-                t-if="website_sale_order.mapped('order_line.product_id.resource_booking_type_id')"
-            />
-        </xpath>
-        <xpath expr="//div[@id='wizard-step10']" position="after">
-            <t
-                t-if="website_sale_order.mapped('order_line.product_id.resource_booking_type_id')"
-            >
-                <a
-                    class="no-decoration"
-                    t-att-href="step &gt; 15 and '/shop/booking/1/schedule'"
-                >
-                    <div
-                        id="wizard-step15"
-                        t-attf-class="progress-wizard-step #{'active' if step == 15 else 'complete' if step &gt; 15 else 'disabled'}"
-                    >
-                        <div class="progress-wizard-bar d-none d-md-block" />
-                        <span class="progress-wizard-dot d-none d-md-inline-block" />
-                        <div
-                            class="text-center progress-wizard-steplabel"
-                        >Schedule bookings</div>
-                    </div>
-                </a>
-            </t>
-        </xpath>
-    </template>
-    <template
         id="scheduling_calendar"
         name="Resource Booking Calendar for Checkout"
         primary="True"
@@ -113,15 +79,7 @@
                 <div class="container oe_website_sale py-2">
                     <div class="row">
                         <div class="col-12">
-                            <t t-call="website_sale.wizard_checkout">
-                                <t t-set="step" t-value="15" />
-                            </t>
-                        </div>
-                        <div class="col-12 col-xl-auto order-xl-2 d-none d-xl-block">
-                            <t t-call="website_sale.cart_summary">
-                                <t t-set="hide_coupon">True</t>
-                                <t t-set="redirect" t-valuef="/shop/cart" />
-                            </t>
+                            <t t-call="website_sale.wizard_checkout" />
                         </div>
                         <div class="col-12 col-xl order-xl-1 oe_cart">
                             <h3 t-esc="wizard_title" />

@@ -99,6 +99,7 @@ Contributors
 
    -  Jairo Llopis
    -  Stefan Ungureanu
+   -  Víctor Martínez
 
 Maintainers
 -----------
