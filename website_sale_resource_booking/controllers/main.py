@@ -17,6 +17,7 @@ class WebsiteSale(main.WebsiteSale):
     def _get_bookings(self):
         """Obtain bookings from current cart."""
         order = request.website.sale_get_order()
+        order = order.with_context(active_test=False)
         return order.mapped("order_line.resource_booking_ids")
 
     def _get_indexed_booking(self, index):
@@ -28,6 +29,16 @@ class WebsiteSale(main.WebsiteSale):
         if index > len(bookings):
             raise IndexError()
         return bookings[index - 1]
+
+    def _booking_redirection(self, booking, index):
+        """Call this method in /schedule and /confirm to redirect if
+        the booking has expired.
+        """
+        if not booking.active:
+            msg = _("Booking has expired")
+            url = f"/shop/booking/{index}/schedule?error={quote_plus(msg)}"
+            booking.sale_order_line_id._sync_resource_bookings()  # re-active
+            return request.redirect(url)
 
     def checkout_redirection(self, order):
         """Redirect to scheduling bookings if still not done."""
@@ -61,6 +72,9 @@ class WebsiteSale(main.WebsiteSale):
             )
         except IndexError:
             return request.redirect("/shop/checkout")
+        redirection = self._booking_redirection(booking, index)
+        if redirection:
+            return redirection
         count = len(bookings)
         values = booking.with_context(
             tz=booking.type_id.resource_calendar_id.tz
@@ -86,15 +100,21 @@ class WebsiteSale(main.WebsiteSale):
     )
     def booking_confirm(self, index, partner_name, partner_email, when, **post):
         """Pre-reserve resource booking."""
-        booking_sudo = (
-            self._get_indexed_booking(index)
-            .sudo()
-            .with_context(
-                # Avoid calendar notifications now, SO is still draft
-                dont_notify=True,
-                no_mail_to_attendees=True,
+        try:
+            booking_sudo = (
+                self._get_indexed_booking(index)
+                .sudo()
+                .with_context(
+                    # Avoid calendar notifications now, SO is still draft
+                    dont_notify=True,
+                    no_mail_to_attendees=True,
+                )
             )
-        )
+        except IndexError:
+            return request.redirect("/shop/checkout")
+        redirection = self._booking_redirection(booking_sudo, index)
+        if redirection:
+            return redirection
         when_tz_aware = isoparse(when)
         when_naive = datetime.utcfromtimestamp(when_tz_aware.timestamp())
         try:
