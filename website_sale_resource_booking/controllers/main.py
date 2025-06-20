@@ -101,9 +101,7 @@ class WebsiteSale(main.WebsiteSale):
             with Form(booking_sudo) as booking_form:
                 booking_form.start = when_naive
         except ValidationError as error:
-            url = "/shop/booking/{}/schedule?error={}".format(
-                index, quote_plus(error.name)
-            )
+            url = f"/shop/booking/{index}/schedule?error={quote_plus(error.name)}"
             return request.redirect(url)
         # Store partner info to autocreate and autoconfirm later
         product = booking_sudo.sale_order_line_id.product_id
@@ -114,4 +112,4 @@ class WebsiteSale(main.WebsiteSale):
                 "prereserved_name": partner_name,
             }
         )
-        return request.redirect("/shop/booking/{}/schedule".format(index + 1))
+        return request.redirect(f"/shop/booking/{index + 1}/schedule")
