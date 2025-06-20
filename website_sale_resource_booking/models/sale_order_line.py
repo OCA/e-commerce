@@ -48,6 +48,15 @@ class SaleOrderLine(models.Model):
                         "default_prereserved_email": prereserved_partner.email,
                     }
                 )
+                # If an expired booking is being re-activated, we will update
+                # the prereserved_* fields
+                if any(not booking.active for booking in bookings):
+                    values.update(
+                        {
+                            "prereserved_name": prereserved_partner.name,
+                            "prereserved_email": prereserved_partner.email,
+                        }
+                    )
             # Add/remove bookings if needed
             self.env["resource.booking"]._cron_cancel_expired(
                 [("id", "in", bookings.ids)]
