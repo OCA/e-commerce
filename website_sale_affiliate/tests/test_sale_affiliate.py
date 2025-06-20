@@ -127,12 +127,13 @@ class AffiliateCase(SaleCase):
         when match does not exist"""
         kwargs = {}
         sequence = self.demo_affiliate.sequence_id
+        expected_name = sequence.get_next_char(sequence.number_next_actual)
         with MockRequest(self.env):
             request = self.demo_affiliate.get_request(**kwargs)
         self.assertTrue(request.exists(), "Affiliate request not created")
         self.assertEqual(
+            expected_name,
             request.name,
-            "0000000001",
             "Affiliate request named improperly",
         )
         self.assertEqual(
