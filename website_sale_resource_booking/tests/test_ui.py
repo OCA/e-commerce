@@ -1,4 +1,5 @@
 # Copyright 2021 Tecnativa - Jairo Llopis
+# Copyright 2025 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import time
@@ -6,26 +7,31 @@ from datetime import datetime
 
 from freezegun import freeze_time
 
-from odoo.tests.common import Form, HttpCase, tagged
+from odoo import Command
+from odoo.tests.common import Form, HttpCase, new_test_user, tagged
+from odoo.tools import mute_logger
+
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
 
 from ...resource_booking.tests.common import create_test_data
 
 
-@freeze_time("2021-02-26 09:00:00", tick=True)
 @tagged("post_install", "-at_install")
 class UICase(HttpCase):
-    def setUp(self):
-        super().setUp()
-        create_test_data(self)
-        self.product = self.env["product.product"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+        create_test_data(cls)
+        cls.product = cls.env["product.product"].create(
             {
                 "list_price": 100,
                 "name": "test bookable product",
-                "resource_booking_type_id": self.rbt.id,
+                "resource_booking_type_id": cls.rbt.id,
                 "website_published": True,
             }
         )
-        self.normal_product = self.env["product.product"].create(
+        cls.normal_product = cls.env["product.product"].create(
             {
                 "list_price": 50,
                 "name": "test not bookable product",
@@ -34,27 +40,23 @@ class UICase(HttpCase):
         )
         # If the created user has the same name as the invited users,
         # the invitation does not reach the user.
-        self.user = self.env["res.users"].create(
-            {
-                "name": "user",
-                "email": "test@example.com",
-                "login": "booking_test_user",
-                "password": "booking_test_user",
-                "groups_id": [(4, self.env.ref("base.group_user").id, 0)],
-            }
-        )
+        cls.user = new_test_user(cls.env, login="booking_test_user")
         # Clean up pending emails, to avoid polluting tests
-        self.env["mail.mail"].search([("state", "=", "outgoing")]).unlink()
+        cls.env["mail.mail"].search([("state", "=", "outgoing")]).unlink()
 
+    @freeze_time("2021-02-26 09:00:00", tick=True)
     def test_checkout(self):
         """Booking checkout tour."""
         # A visitor called Mr. A buys 3 booking products
         self.start_tour(
-            "/shop?search=test not bookable product",
-            "website_sale_resource_booking_checkout",
+            "/shop",
+            "website_sale_resource_booking",
             login="booking_test_user",
-        )  # Find Mr. A's cart
-        so = self.env["sale.order"].search([("partner_id", "=", "user")])
+        )
+        # Find Mr. A's cart
+        so = self.env["sale.order"].search(
+            [("partner_id", "=", self.user.partner_id.id)]
+        )
         bookings = so.resource_booking_ids
         # It's linked to 3 scheduled bookings, that belong to him
         self.assertEqual(len(bookings), 3)
@@ -72,7 +74,9 @@ class UICase(HttpCase):
         )
         # The mail queue, later, will send the expected notifications to see
         # resource bookings in portal, but not to event attendance
-        pending_mails = self.env["mail.mail"].search([("state", "=", "outgoing")])
+        pending_mails = self.env["mail.mail"].search(
+            [("state", "=", "outgoing"), ("subject", "not ilike", "Pending Order")]
+        )
         self.assertGreaterEqual(
             set(pending_mails.mapped("subject")),
             {
@@ -81,15 +85,16 @@ class UICase(HttpCase):
                 "Invitation to Mr. B - Test resource booking type",
                 "Invitation to Mr. C - Test resource booking type",
                 # Portal invitations with tokenized link
-                "You are invited to access Mr. A - Test resource booking type "
+                "Invitation to access Mr. A - Test resource booking type "
                 "- 03/01/2021 at (09:00:00 To 09:30:00) (UTC)",
-                "You are invited to access Mr. B - Test resource booking type "
+                "Invitation to access Mr. B - Test resource booking type "
                 "- 03/01/2021 at (09:00:00 To 09:30:00) (UTC)",
-                "You are invited to access Mr. C - Test resource booking type "
+                "Invitation to access Mr. C - Test resource booking type "
                 "- 03/01/2021 at (09:30:00 To 10:00:00) (UTC)",
             },
         )
 
+    @mute_logger("odoo.models.unlink")
     def test_expiration_cron(self):
         """Abandoned cart expires bookings."""
         website = self.env["website"].get_current_website()
@@ -105,7 +110,9 @@ class UICase(HttpCase):
                     "website_id": website.id,
                     "partner_id": self.partner.id,
                     "order_line": [
-                        (0, 0, {"product_id": self.product.id, "product_uom_qty": 2})
+                        Command.create(
+                            {"product_id": self.product.id, "product_uom_qty": 2}
+                        )
                     ],
                 }
             )
