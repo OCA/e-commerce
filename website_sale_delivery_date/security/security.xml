@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="module_category_sales_delivery" model="ir.module.category">
+        <field name="parent_id" ref="base.module_category_sales" />
+        <field name="name">Delivery</field>
+    </record>
+
+    <!-- Delivery User Group -->
+    <record id="group_delivery_user" model="res.groups">
+        <field name="name">Delivery User</field>
+        <field
+            name="category_id"
+            ref="website_sale_delivery_date.module_category_sales_delivery"
+        />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+
+    <!-- Delivery Manager Group -->
+    <record id="group_delivery_manager" model="res.groups">
+        <field name="name">Delivery Manager</field>
+        <field
+            name="category_id"
+            ref="website_sale_delivery_date.module_category_sales_delivery"
+        />
+        <field
+            name="implied_ids"
+            eval="[(4, ref('website_sale_delivery_date.group_delivery_user'))]"
+        />
+    </record>
+
+    <!-- Record Rules -->
+    <record id="delivery_weekday_user_rule" model="ir.rule">
+        <field name="name">Delivery Weekday User Rule</field>
+        <field name="model_id" ref="model_delivery_weekday_rule" />
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('website_sale_delivery_date.group_delivery_user'))]"
+        />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+    </record>
+</odoo>

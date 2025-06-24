@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="delivery_form_template"
+        name="Delivery Form Template"
+        inherit_id="website_sale.delivery_form"
+    >
+        <xpath expr="//form[@id='o_delivery_form']" position="inside">
+            <div id="delivery_date_element">
+                <h4
+                    class="fs-6 small text-uppercase fw-bolder pt-3"
+                >Choose a delivery date
+                </h4>
+                <div class="has-validation">
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            id="delivery_date"
+                            data-widget="delivery-date-picker"
+                            aria-describedby="calendarDatePicker"
+                            placeholder="Delivery date"
+                            name="delivery_date"
+                            class="form-control"
+                            readonly="readonly"
+                            t-att-value="order.commitment_date"
+                        />
+                        <span
+                            class="input-group-text o_input_group_date_icon"
+                            id="calendarDatePicker"
+                        >
+                            <span
+                                class="fa fa-calendar"
+                                role="img"
+                                aria-label="Calendar"
+                            />
+                        </span>
+                    </div>
+                    <div class="text-danger mt-1" id="datetimePickerError" />
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
