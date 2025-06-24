@@ -43,6 +43,8 @@ async function loadAndAssignTemplates() {
         const swapNameId = all_templates.find((t) => t.name === component.template);
         if (swapNameId) {
             component.template = swapNameId.id;
+        } else {
+            component.template = xml`<div></div>`;
         }
     }
     return true;

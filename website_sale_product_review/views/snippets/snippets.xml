@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="snippet_options"
+        inherit_id="website_sale.snippet_options"
+        name="e-commerce snippet options"
+    >
+        <xpath expr="//div[@data-js='WebsiteSaleProductPage']" position="inside">
+            <we-checkbox
+                string="Reviews"
+                data-customize-website-views="website_sale.product_comment"
+                data-no-preview="true"
+                data-reload="/"
+            />
+        </xpath>
+    </template>
+</odoo>

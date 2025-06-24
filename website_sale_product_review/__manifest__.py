@@ -16,6 +16,8 @@
         "views/product_review_views.xml",
         "views/product_template_views.xml",
         "views/reviewers_template.xml",
+        # odoo upstream code
+        "views/snippets/snippets.xml",
     ],
     "assets": {
         "web.assets_frontend": [

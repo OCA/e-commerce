@@ -6,7 +6,9 @@
         name="Product Review Form"
     >
         <xpath expr="//div[@id='product_details']" position="after">
-            <div id="star_rating" />
+            <t t-if="is_view_active('website_sale.product_comment')">
+                <div id="star_rating" />
+            </t>
         </xpath>
     </template>
 </odoo>
