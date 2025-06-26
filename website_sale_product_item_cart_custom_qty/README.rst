@@ -28,7 +28,8 @@ Website Sale Product Cart Quantity
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows to add custom quantity from the product items.
+This module allows to add custom quantity from the product items in
+catalog.
 
 **Table of contents**
 
@@ -41,7 +42,9 @@ Configuration
 To use this module, you need to activate the **Add to Cart** option on
 **Products item** To activate this option you have to go to **/shop**,
 edit the website and in the **Customize** tab of the editor activate the
-**Add to Cart** button whose icon is a shopping cart.
+**Add to Cart** button whose icon is a shopping cart. If you want the
+buttons for selecting the quantity to always be displayed on the product
+card, activate the **Always display qty buttons** option.
 
 Usage
 =====
