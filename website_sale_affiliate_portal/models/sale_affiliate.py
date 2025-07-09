@@ -7,7 +7,7 @@ from datetime import date
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.tools.translate import html_translate
 
 
@@ -39,7 +39,6 @@ class SaleAffiliate(models.Model):
     def _gain_percentage(self, amount):
         return amount * self.gain_value / 100.0
 
-    @api.multi
     def report_data(self, month_num=None):
         """Return monthly statistics for current (single) affiliate, in
         chronological order, for each of the last `month_num` months
