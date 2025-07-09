@@ -4,13 +4,13 @@
 from mock import patch
 
 from odoo import fields
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 MODULE_PATH = "odoo.addons.website_sale_affiliate"
 AFFILIATE_REQUEST_PATH = MODULE_PATH + ".models.sale_affiliate_request.request"
 
 
-class TestWebsiteSaleAffiliateProductRestriction(SavepointCase):
+class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestWebsiteSaleAffiliateProductRestriction, cls).setUpClass()
