@@ -1,2 +1,2 @@
-* Florent Cayre <florent@commown.fr>
+* Florent Cayre <florent@commown.coop>
 * Chafique Delli <chafique.delli@akretion.com>
