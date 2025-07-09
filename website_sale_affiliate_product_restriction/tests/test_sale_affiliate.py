@@ -1,13 +1,10 @@
 # Copyright 2020-today Commown SCIC (https://commown.coop)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from mock import patch
-
 from odoo import fields
 from odoo.tests.common import TransactionCase
 
-MODULE_PATH = "odoo.addons.website_sale_affiliate"
-AFFILIATE_REQUEST_PATH = MODULE_PATH + ".models.sale_affiliate_request.request"
+from odoo.addons.website.tools import MockRequest
 
 
 class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
@@ -24,11 +21,7 @@ class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
                 "valid_sales": 100,
             }
         )
-        request_patcher = patch(AFFILIATE_REQUEST_PATH)
-        request_mock = request_patcher.start()
-        request_mock.configure_mock(session={})
-        cls.fake_session = request_mock.session
-        cls.addCleanup(request_patcher.stop)
+
         cls.pt1 = cls.env.ref("product.product_product_1").product_tmpl_id
         cls.pt2 = cls.env.ref("product.product_product_2").product_tmpl_id
         cls.pt3 = cls.env.ref("product.product_product_3").product_tmpl_id
@@ -81,17 +74,18 @@ class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
         return sale
 
     def test_sale_order_without_product_restriction(self):
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.create_sale([(self.pt1, 1), (self.pt2, 1)], "sent")
+        with MockRequest(self.env) as mock_request:
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            self.create_sale([(self.pt1, 1), (self.pt2, 1)], "sent")
 
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.create_sale([(self.pt2, 1), (self.pt3, 1)], "draft")
-        self.create_sale([(self.pt3, 1)], "sent")
-        self.create_sale([(self.pt1, 1)], "sent")
-        self.create_sale([(self.pt2, 1)], "sent")
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            self.create_sale([(self.pt2, 1), (self.pt3, 1)], "draft")
+            self.create_sale([(self.pt3, 1)], "sent")
+            self.create_sale([(self.pt1, 1)], "sent")
+            self.create_sale([(self.pt2, 1)], "sent")
 
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
 
         self.assertAlmostEqual(self.affiliate.sales_per_request, 1)
         self.assertAlmostEqual(self.affiliate.conversion_rate, 0.5)
@@ -99,15 +93,16 @@ class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
     def test_sale_order_with_product_restriction(self):
         self.affiliate.restriction_product_tmpl_ids |= self.pt2 | self.pt3
 
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.create_sale([(self.pt1, 1)], "sent")
+        with MockRequest(self.env) as mock_request:
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            self.create_sale([(self.pt1, 1)], "sent")
 
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.create_sale([(self.pt1, 1), (self.pt3, 1)], "sent")
-        self.create_sale([(self.pt2, 1)], "sent")
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            self.create_sale([(self.pt1, 1), (self.pt3, 1)], "sent")
+            self.create_sale([(self.pt2, 1)], "sent")
 
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
 
         self.assertEqual(self.affiliate.sales_per_request, 0.5)
         self.assertAlmostEqual(self.affiliate.conversion_rate, 0.25)
