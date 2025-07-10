@@ -3,7 +3,7 @@
 
 from collections import OrderedDict, defaultdict
 from copy import deepcopy
-from datetime import date
+from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
@@ -57,9 +57,7 @@ class SaleAffiliate(models.Model):
 
         oldest = None
         if month_num is not None:
-            oldest = (
-                date.today().replace(day=1) - relativedelta(months=month_num)
-            ).strftime(fields.DATETIME_FORMAT)
+            oldest = datetime.today().replace(day=1) - relativedelta(months=month_num)
 
         data = {}
         prod_item = {"validated": 0, "gain": 0.0}
