@@ -7,22 +7,18 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class WebsiteAccount(CustomerPortal):
-    @route()
-    def account(self, **kw):
-        """Add affiliation count to main account page"""
-        response = super(WebsiteAccount, self).account(**kw)
-        affiliate_model_sudo = request.env["sale.affiliate"].sudo()
-        affiliate_count = affiliate_model_sudo.search_count(
-            [
-                ("partner_id", "=", request.env.user.partner_id.id),
-            ]
-        )
-        response.qcontext.update(
-            {
-                "affiliate_count": affiliate_count,
-            }
-        )
-        return response
+    def _prepare_home_portal_values(self, counters):
+        values = super()._prepare_home_portal_values(counters)
+        if "affiliate_count" in counters:
+            affiliate_model_sudo = request.env["sale.affiliate"].sudo()
+            affiliate_count = affiliate_model_sudo.search_count(
+                [
+                    ("partner_id", "=", request.env.user.partner_id.id),
+                ]
+            )
+            values.update({"affiliate_count": affiliate_count})
+
+        return values
 
     @route("/my/affiliations", type="http", auth="user", website=True)
     def affiliations(self):
