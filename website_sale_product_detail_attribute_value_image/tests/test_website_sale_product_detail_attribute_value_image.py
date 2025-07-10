@@ -82,6 +82,17 @@ class WebsiteSaleHttpCase(odoo.tests.HttpCase):
             }
         )
         self.product_template.write({"attribute_line_ids": [(4, attribute_line.id)]})
+        # Ensure that the product used in the tour has no optional products
+        # to prevent the tour from failing
+        # when the module website_sale_product_configurator is installed,
+        # because this module displays a popup before adding the product to the cart
+        if self.env["ir.module.module"].search(
+            [
+                ("name", "=", "website_sale_product_configurator"),
+                ("state", "=", "installed"),
+            ]
+        ):
+            self.product_template.optional_product_ids = [(6, 0, [])]
 
     def test_ui_website(self):
         """Test frontend tour."""

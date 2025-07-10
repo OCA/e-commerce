@@ -53,6 +53,7 @@ class UICase(HttpCase):
             "/shop?search=test not bookable product",
             "website_sale_resource_booking_checkout",
             login="booking_test_user",
+            step_delay=300,
         )  # Find Mr. A's cart
         so = self.env["sale.order"].search([("partner_id", "=", "user")])
         bookings = so.resource_booking_ids

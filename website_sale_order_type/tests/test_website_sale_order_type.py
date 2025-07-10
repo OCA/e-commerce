@@ -10,6 +10,19 @@ class TestFrontend(HttpCase):
 
         self.partner = self.env.ref("base.partner_admin")
         self.sale_type = self.create_sale_type()
+        # Ensure that the product used in the tour has no optional products
+        # to prevent the tour from failing
+        # when the module website_sale_product_configurator is installed,
+        # because this module displays a popup before adding the product to the cart
+        if self.env["ir.module.module"].search(
+            [
+                ("name", "=", "website_sale_product_configurator"),
+                ("state", "=", "installed"),
+            ]
+        ):
+            self.env.ref(
+                "product.product_product_4_product_template"
+            ).optional_product_ids = [(6, 0, [])]
 
     def create_sale_type(self):
         self.sequence = self.env["ir.sequence"].create(

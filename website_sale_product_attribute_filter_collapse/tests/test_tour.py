@@ -51,6 +51,17 @@ class WebsiteSaleProductAttributeFilterCollapseHttpCase(HttpCase):
                 "is_published": True,
             }
         )
+        # Ensure that the product used in the tour has no optional products
+        # to prevent the tour from failing
+        # when the module website_sale_product_configurator is installed,
+        # because this module displays a popup before adding the product to the cart
+        if self.env["ir.module.module"].search(
+            [
+                ("name", "=", "website_sale_product_configurator"),
+                ("state", "=", "installed"),
+            ]
+        ):
+            self.product_template.optional_product_ids = [(6, 0, [])]
         # Active filter in /shop.
         self.env.ref("website_sale.products_attributes").active = True
         self.env.ref(
