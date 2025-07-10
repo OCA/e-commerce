@@ -7,6 +7,19 @@ from odoo.tests.common import TransactionCase
 from odoo.addons.website.tools import MockRequest
 
 
+def _set_create_date(entity, value):
+    """
+    Since the ORM doesn't allow any direct updates on the create_date fields,
+    we execute a SQL command on the database to force its change,
+    then invalidate cache to remove the old cached create_date value.
+    """
+    sql = "UPDATE %s SET create_date=%%s WHERE id=%%s" % (
+        entity._name.replace(".", "_"),
+    )
+    entity.env.cr.execute(sql, (str(value), entity.id))
+    entity.invalidate_recordset(fnames=["create_date"])
+
+
 class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
     @classmethod
     def setUpClass(cls):
@@ -39,7 +52,7 @@ class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
             }
         )
         if create_date is not None:
-            req.create_date = create_date
+            _set_create_date(req, create_date)
         return req
 
     def create_sale(self, products=None, state="sent", create_date=None):
@@ -70,7 +83,7 @@ class TestWebsiteSaleAffiliateProductRestriction(TransactionCase):
             )
         sale = self.env["sale.order"].create(data)
         if create_date is not None:
-            sale.create_date = create_date
+            _set_create_date(sale, create_date)
         return sale
 
     def test_sale_order_without_product_restriction(self):
