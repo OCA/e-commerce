@@ -3,6 +3,7 @@
 
 from collections import OrderedDict
 
+from odoo.addons.website.tools import MockRequest
 from odoo.addons.website_sale_affiliate_product_restriction.tests import (
     test_sale_affiliate,
 )
@@ -19,27 +20,29 @@ class TestWebsiteSaleAffiliatePortal(
         cls.pp3 = cls.env.ref("product.product_product_3")  # Desk Combination
 
     def create_sales(self):
-        sess = self.fake_session
-        sess["affiliate_request"] = self.create_affiliate_req("2018-01-05").id
-        self.create_sale([(self.pp1, 1)], "draft", create_date="2018-01-05")
+        with MockRequest(self.env) as mock_request:
+            sess = mock_request.session
 
-        sess["affiliate_request"] = self.create_affiliate_req("2018-01-13").id
-        self.create_sale([(self.pp1, 3), (self.pp2, 2)], create_date="2018-01-13")
+            sess["affiliate_request"] = self.create_affiliate_req("2018-01-05").id
+            self.create_sale([(self.pp1, 1)], "draft", create_date="2018-01-05")
 
-        sess["affiliate_request"] = self.create_affiliate_req("2018-02-20").id
-        self.create_sale([(self.pp2, 3), (self.pp3, 3)], create_date="2018-02-20")
-        self.create_sale([(self.pp2, 4)], create_date="2018-02-21")
+            sess["affiliate_request"] = self.create_affiliate_req("2018-01-13").id
+            self.create_sale([(self.pp1, 3), (self.pp2, 2)], create_date="2018-01-13")
 
-        sess["affiliate_request"] = self.create_affiliate_req("2018-03-20").id
-        self.create_sale(
-            [(self.pp2, 2), (self.pp1, 1)], "draft", create_date="2018-03-20"
-        )
-        self.create_sale([(self.pp3, 8), (self.pp2, 1)], create_date="2018-03-20")
+            sess["affiliate_request"] = self.create_affiliate_req("2018-02-20").id
+            self.create_sale([(self.pp2, 3), (self.pp3, 3)], create_date="2018-02-20")
+            self.create_sale([(self.pp2, 4)], create_date="2018-02-21")
 
-        sess["affiliate_request"] = self.create_affiliate_req("2018-04-20").id
-        self.create_sale([(self.pp3, 4), (self.pp1, 7)], create_date="2018-04-20")
+            sess["affiliate_request"] = self.create_affiliate_req("2018-03-20").id
+            self.create_sale(
+                [(self.pp2, 2), (self.pp1, 1)], "draft", create_date="2018-03-20"
+            )
+            self.create_sale([(self.pp3, 8), (self.pp2, 1)], create_date="2018-03-20")
 
-        sess["affiliate_request"] = self.create_affiliate_req("2018-05-03").id
+            sess["affiliate_request"] = self.create_affiliate_req("2018-04-20").id
+            self.create_sale([(self.pp3, 4), (self.pp1, 7)], create_date="2018-04-20")
+
+            sess["affiliate_request"] = self.create_affiliate_req("2018-05-03").id
 
     def test_report_no_product_restriction(self):
         self.affiliate.gain_type = "fixed"
@@ -294,8 +297,9 @@ class TestWebsiteSaleAffiliatePortal(
         self.affiliate.gain_type = "percentage"
         self.affiliate.gain_value = 10.0
 
-        self.fake_session["affiliate_request"] = self.create_affiliate_req().id
-        self.create_sale([(self.pp1, 3), (self.pp2, 5)], create_date="2018-01-05")
+        with MockRequest(self.env) as mock_request:
+            mock_request.session["affiliate_request"] = self.create_affiliate_req().id
+            self.create_sale([(self.pp1, 3), (self.pp2, 5)], create_date="2018-01-05")
 
         data = self.affiliate.report_data()
 
