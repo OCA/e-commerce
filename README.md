@@ -49,6 +49,7 @@ addon | version | maintainers | summary
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 15.0.1.0.1 |  | Display attributes images in shop product detail
 [website_sale_product_detail_attribute_value_image](website_sale_product_detail_attribute_value_image/) | 15.0.1.0.0 |  | Display attributes values images in shop product detail
 [website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 15.0.1.1.0 | <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | Allows to add to cart from product items a custom quantity.
+[website_sale_product_matrix](website_sale_product_matrix/) | 15.0.1.0.0 | <a href='https://github.com/chienandalu'><img src='https://github.com/chienandalu.png' width='32' height='32' style='border-radius:50%;' alt='chienandalu'/></a> | Product matrix in eCommerce
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 15.0.1.0.0 | <a href='https://github.com/sergio-teruel'><img src='https://github.com/sergio-teruel.png' width='32' height='32' style='border-radius:50%;' alt='sergio-teruel'/></a> | Display minimal price for products that has variants
 [website_sale_product_publish_date](website_sale_product_publish_date/) | 15.0.1.0.0 |  | Website Sale Product Publish Date
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 15.0.1.0.0 |  | Display product reference in e-commerce
