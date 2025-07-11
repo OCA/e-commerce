@@ -57,7 +57,7 @@ class SaleAffiliate(models.Model):
 
         oldest = None
         if month_num is not None:
-            oldest = datetime.today().replace(day=1) - relativedelta(months=month_num)
+            oldest = datetime.now().replace(day=1) - relativedelta(months=month_num)
 
         data = {}
         prod_item = {"validated": 0, "gain": 0.0}

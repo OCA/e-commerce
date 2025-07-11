@@ -11,8 +11,8 @@ class WebsiteAccount(CustomerPortal):
     def account(self, **kw):
         """Add affiliation count to main account page"""
         response = super(WebsiteAccount, self).account(**kw)
-        Affiliate = request.env["sale.affiliate"].sudo()
-        affiliate_count = Affiliate.search_count(
+        affiliate_model_sudo = request.env["sale.affiliate"].sudo()
+        affiliate_count = affiliate_model_sudo.search_count(
             [
                 ("partner_id", "=", request.env.user.partner_id.id),
             ]
@@ -29,8 +29,8 @@ class WebsiteAccount(CustomerPortal):
         """Render a page to describe and display statistics about current
         partner's affiliations.
         """
-        Affiliate = request.env["sale.affiliate"].sudo()
-        affiliates = Affiliate.search(
+        affiliate_model_sudo = request.env["sale.affiliate"].sudo()
+        affiliates = affiliate_model_sudo.search(
             [
                 ("partner_id", "=", request.env.user.partner_id.id),
             ]
