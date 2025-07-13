@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="website_sale_customer_reviews.Thread"
+        t-inherit="mail.Thread"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//t[@t-if='state.mountedAndLoaded']" position="replace">
+            <t t-if="state.mountedAndLoaded &amp;&amp; messages">
+                <Paginator
+                    asCard="props.thread.model === 'mail.box'"
+                    getMessageClassName.bind="getMessageClassName"
+                    isInChatWindow="props.isInChatWindow"
+                    registerMessageRef.bind="registerMessageRef"
+                    messageToReplyTo="props.messageToReplyTo"
+                    isSquashed.bind="isSquashed"
+                    thread="props.thread"
+                    messageEdition="props.messageEdition"
+                    isFirstMessage="msg_first"
+                    messageActions="props.messageActions"
+                    showDates="props.showDates"
+                    mountedAndLoaded="state.mountedAndLoaded"
+                    messages="messages"
+                />
+            </t>
+        </xpath>
+    </t>
+
+    <t t-name="website_sale_customer_reviews.Paginator">
+        <div>
+            <t t-foreach="paginatedMessages" t-as="msg" t-key="msg.id">
+                <t t-set="prevMsg" t-value="paginatedMessages[msg_index -1]" />
+                <t t-if="msg.dateDay !== currentDay and props.showDates">
+                    <DateSection date="msg.dateDay" className="'pt-2 px-2'" />
+                    <t t-set="currentDay" t-value="msg.dateDay" />
+                </t>
+                <Message
+                    asCard="props.asCard"
+                    className="props.getMessageClassName(msg)"
+                    isInChatWindow="props.isInChatWindow"
+                    message="msg"
+                    previousMessage="prevMsg"
+                    registerMessageRef="props.registerMessageRef"
+                    messageToReplyTo="props.messageToReplyTo"
+                    squashed="props.isSquashed(msg, prevMsg)"
+                    onParentMessageClick.bind="() => msg.parentMessage and env.messageHighlight?.highlightMessage(msg.parentMessage, props.thread)"
+                    thread="props.thread"
+                    messageEdition="props.messageEdition"
+                    isFirstMessage="msg_first"
+                    hasActions="props.messageActions and !msg.eq(props.thread.from_message_id)"
+                    showDates="props.showDates"
+                />
+            </t>
+            <div class="pagination-controls text-center flex gap-4 mt-4">
+                <button
+                    t-on-click="prevPage"
+                    t-att-disabled="state.currentPage === 1"
+                    class="btn btn-outline-secondary o_previous_pagination_btn"
+                >
+                    Previous
+                </button>
+
+                <span class="px-3" />
+                <span class="text-sm text-gray-700">
+                    Page <t t-esc="state.currentPage" /> of <t t-esc="totalPages" />
+                </span>
+                <span class="px-3" />
+
+                <button
+                    t-on-click="nextPage"
+                    t-att-disabled="state.currentPage === totalPages"
+                    class="btn btn-outline-secondary o_next_pagination_btn"
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    </t>
+</templates>

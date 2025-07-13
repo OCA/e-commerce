@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t
+        t-name="website_sale_customer_reviews.Chatter"
+        t-inherit="portal.Chatter"
+        t-inherit-mode="extension"
+    >
+        <!-- works for logged in users -->
+        <xpath expr="//div[@t-if='props.composer']" position="inside">
+            <BarChart threadId="props.threadId" threadModel="props.threadModel" />
+        </xpath>
+        <!-- works for public users -->
+        <xpath expr="//div[@t-if='props.composer']" position="after">
+            <div
+                t-else=""
+                class="o-mail-Chatter-top position-sticky top-0"
+                t-att-class="{ 'col-lg-6':props.twoColumns, 'bg-view':env.inFrontendPortalChatter }"
+                t-att-style="(!props.twoColumns and env.inFrontendPortalChatter and !env.projectSharingId) and 'top: -1px !important; margin-top:-15px; padding-top: 20px'"
+                t-ref="top"
+            >
+                <BarChart threadId="props.threadId" threadModel="props.threadModel" />
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="website_sale_customer_reviews.BarChart">
+        <div t-att-class="'h-100 ' + props.class" t-ref="root">
+            <div t-if="state.total &amp;&amp; state.avg" class="rating-summary mt-4">
+                <div class="row">
+                    <strong>Overall Rating</strong>
+                    <div class="col-3">
+                        <h1 t-esc="state.avg" />
+                    </div>
+                    <div class="col-9">
+                        <t t-call="portal_rating.rating_stars_static">
+                        <t t-set="val" t-value="state.avg" />
+                    </t>
+                        (<t t-esc="state.total" /> Reviews)
+                    </div>
+                </div>
+            </div>
+            <div class="h-100 position-relative" t-ref="container">
+                <canvas t-ref="canvas" />
+            </div>
+        </div>
+    </t>
+</templates>

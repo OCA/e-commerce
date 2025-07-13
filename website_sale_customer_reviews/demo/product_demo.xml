@@ -1,0 +1,129 @@
+<odoo>
+    <!-- Create a test product -->
+    <record id="product_test_review" model="product.template">
+        <field name="name">Customizable Desk Test</field>
+        <field name="categ_id" ref="product.product_category_5" />
+        <field name="standard_price">500.0</field>
+        <field name="list_price">750.0</field>
+        <field name="type">consu</field>
+        <field name="weight">0.01</field>
+        <field name="uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_po_id" ref="uom.product_uom_unit" />
+        <field name="description_sale">160x80cm, with large legs.</field>
+        <field name="website_published" eval="True" />
+        <field
+            name="public_categ_ids"
+            eval="[(6,0,[ref('website_sale.public_category_desks')])]"
+        />
+    </record>
+
+    <!-- Create ratings -->
+    <record id="rating_1_1_test_review" model="rating.rating">
+        <field name="res_model_id" ref="website_sale.model_product_template" />
+        <field name="res_id" ref="product_test_review" />
+        <field name="partner_id" ref="base.partner_demo" />
+        <field name="consumed" eval="True" />
+        <field name="rating">1</field>
+    </record>
+    <record id="rating_2_1_test_review" model="rating.rating">
+        <field name="res_model_id" ref="website_sale.model_product_template" />
+        <field name="res_id" ref="product_test_review" />
+        <field name="partner_id" ref="base.partner_demo" />
+        <field name="consumed" eval="True" />
+        <field name="rating">2</field>
+    </record>
+    <record id="rating_2_2_test_review" model="rating.rating">
+        <field name="res_model_id" ref="website_sale.model_product_template" />
+        <field name="res_id" ref="product_test_review" />
+        <field name="partner_id" ref="base.partner_demo" />
+        <field name="consumed" eval="True" />
+        <field name="rating">2</field>
+    </record>
+    <record id="rating_3_1_test_review" model="rating.rating">
+        <field name="res_model_id" ref="website_sale.model_product_template" />
+        <field name="res_id" ref="product_test_review" />
+        <field name="partner_id" ref="base.partner_demo" />
+        <field name="consumed" eval="True" />
+        <field name="rating">3</field>
+    </record>
+    <record id="rating_3_2_test_review" model="rating.rating">
+        <field name="res_model_id" ref="website_sale.model_product_template" />
+        <field name="res_id" ref="product_test_review" />
+        <field name="partner_id" ref="base.partner_demo" />
+        <field name="consumed" eval="True" />
+        <field name="rating">3</field>
+    </record>
+    <record id="rating_3_3_test_review" model="rating.rating">
+        <field name="res_model_id" ref="website_sale.model_product_template" />
+        <field name="res_id" ref="product_test_review" />
+        <field name="partner_id" ref="base.partner_demo" />
+        <field name="consumed" eval="True" />
+        <field name="rating">3</field>
+    </record>
+
+    <!-- Create a review threads -->
+    <record id="message_1_1_test_review" model="mail.message">
+        <field name="model">product.template</field>
+        <field name="res_id" ref="product_test_review" />
+        <field name="body">Great product! Loved the quality.</field>
+        <field name="author_id" ref="base.partner_demo" />
+        <field name="message_type">comment</field>
+        <field name="is_internal" eval="False" />
+        <field name="subtype_id" ref="mail.mt_comment" />
+        <field name="rating_id" ref="rating_1_1_test_review" />
+    </record>
+    <record id="message_2_1_test_review" model="mail.message">
+        <field name="model">product.template</field>
+        <field name="res_id" ref="product_test_review" />
+        <field name="body">Great product!</field>
+        <field name="author_id" ref="base.partner_demo" />
+        <field name="message_type">comment</field>
+        <field name="is_internal" eval="False" />
+        <field name="subtype_id" ref="mail.mt_comment" />
+        <field name="rating_id" ref="rating_2_1_test_review" />
+    </record>
+    <record id="message_2_2_test_review" model="mail.message">
+        <field name="model">product.template</field>
+        <field name="res_id" ref="product_test_review" />
+        <field name="body">Great!</field>
+        <field name="author_id" ref="base.partner_demo" />
+        <field name="message_type">comment</field>
+        <field name="is_internal" eval="False" />
+        <field name="subtype_id" ref="mail.mt_comment" />
+        <field name="rating_id" ref="rating_2_2_test_review" />
+    </record>
+    <record id="message_3_1_test_review" model="mail.message">
+        <field name="model">product.template</field>
+        <field name="res_id" ref="product_test_review" />
+        <field name="body">Nice!</field>
+        <field name="author_id" ref="base.partner_demo" />
+        <field name="message_type">comment</field>
+        <field name="is_internal" eval="False" />
+        <field name="subtype_id" ref="mail.mt_comment" />
+        <field name="rating_id" ref="rating_3_1_test_review" />
+    </record>
+    <record id="message_3_2_test_review" model="mail.message">
+        <field name="model">product.template</field>
+        <field name="res_id" ref="product_test_review" />
+        <field name="body">Very nice!</field>
+        <field name="author_id" ref="base.partner_demo" />
+        <field name="message_type">comment</field>
+        <field name="is_internal" eval="False" />
+        <field name="subtype_id" ref="mail.mt_comment" />
+        <field name="rating_id" ref="rating_3_2_test_review" />
+    </record>
+    <record id="message_3_3_test_review" model="mail.message">
+        <field name="model">product.template</field>
+        <field name="res_id" ref="product_test_review" />
+        <field name="body">Excellent!</field>
+        <field name="author_id" ref="base.partner_demo" />
+        <field name="message_type">comment</field>
+        <field name="is_internal" eval="False" />
+        <field name="subtype_id" ref="mail.mt_comment" />
+        <field name="rating_id" ref="rating_3_3_test_review" />
+    </record>
+
+    <record id="website_sale.product_comment" model="ir.ui.view">
+        <field name="active" eval="True" />
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="snippet_options"
+        inherit_id="website_sale.product_comment"
+        name="Discussion and Rating"
+    >
+        <xpath expr="//t[@t-call='portal.message_thread']" position="inside">
+            <t t-set="message_per_page" t-value="3" />
+        </xpath>
+    </template>
+</odoo>
