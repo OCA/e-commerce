@@ -2,12 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product matrix in eCommerce",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/e-commerce",
     "category": "Website",
-    "maintainers": ["chienandalu"],
+    "maintainers": ["pilarvargas-tecnativa"],
     "depends": [
         "sale_product_matrix",
         "website_sale",
