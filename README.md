@@ -61,6 +61,7 @@ addon | version | maintainers | summary
 [website_sale_stock_available](website_sale_stock_available/) | 15.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 15.0.1.0.0 |  | Show the stock of products on the product previews
 [website_sale_stock_order_cancel](website_sale_stock_order_cancel/) | 15.0.1.0.0 | <a href='https://github.com/ppyczko'><img src='https://github.com/ppyczko.png' width='32' height='32' style='border-radius:50%;' alt='ppyczko'/></a> | Enhances website sale order cancellation by blocking it when related stock pickings are done.
+[website_sale_stock_product_matrix](website_sale_stock_product_matrix/) | 15.0.1.0.0 | <a href='https://github.com/pilarvargas-tecnativa'><img src='https://github.com/pilarvargas-tecnativa.png' width='32' height='32' style='border-radius:50%;' alt='pilarvargas-tecnativa'/></a> | Stock hints in eCommerce product matrix
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 15.0.1.0.0 |  | Display provisioning date for a product in shop online
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 15.0.1.0.2 |  | Suggest users to create an account when buying in the website
 [website_sale_tax_toggle](website_sale_tax_toggle/) | 15.0.1.0.1 |  | Allow display price in Shop with or without taxes
