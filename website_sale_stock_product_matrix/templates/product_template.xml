@@ -13,7 +13,7 @@
             <t t-set="qty" t-value="cell['qty']" />
             <t
                 t-set="combination_info"
-                t-value="product.with_context(website_sale_stock_get_quantity=True)._get_combination_info(combination, add_qty=cell['qty'] or 1, pricelist=pricelist)"
+                t-value="product.with_context(website_sale_stock_get_quantity=True)._get_combination_info(combination, add_qty=cell['qty'] or 1)"
             />
             <t t-set="free_qty" t-value="combination_info['free_qty']" />
             <t
@@ -34,8 +34,8 @@
                 >
                     <small
                         class="text-danger"
-                        t-if="combination_info.get('has_out_of_stock_message')"
-                        t-out="combination_info.get('has_out_of_stock_message')"
+                        t-if="not is_html_empty(product.out_of_stock_message)"
+                        t-out="product.out_of_stock_message"
                     />
                     <small class="text-danger" t-else="">Out of Stock</small>
                 </div>
