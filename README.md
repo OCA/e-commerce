@@ -58,6 +58,7 @@ addon | version | maintainers | summary
 [website_sale_require_login](website_sale_require_login/) | 15.0.1.0.1 |  | Force users to login for buying
 [website_sale_resource_booking](website_sale_resource_booking/) | 15.0.1.0.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Let customers book resources temporarily before buying
 [website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.2.1 |  | Allow manage secondary units in website shop
+[website_sale_secondary_unit_product_matrix](website_sale_secondary_unit_product_matrix/) | 15.0.1.0.0 | <a href='https://github.com/chienandalu'><img src='https://github.com/chienandalu.png' width='32' height='32' style='border-radius:50%;' alt='chienandalu'/></a> | Product matrix with secondary units in eCommerce
 [website_sale_stock_available](website_sale_stock_available/) | 15.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 15.0.1.0.0 |  | Show the stock of products on the product previews
 [website_sale_stock_order_cancel](website_sale_stock_order_cancel/) | 15.0.1.0.0 | <a href='https://github.com/ppyczko'><img src='https://github.com/ppyczko.png' width='32' height='32' style='border-radius:50%;' alt='ppyczko'/></a> | Enhances website sale order cancellation by blocking it when related stock pickings are done.

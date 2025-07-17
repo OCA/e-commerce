@@ -45,6 +45,7 @@ setuptools.setup(
         'odoo-addon-website_sale_require_login>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_resource_booking>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_secondary_unit>=15.0dev,<15.1dev',
+        'odoo-addon-website_sale_secondary_unit_product_matrix>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_stock_available>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_stock_list_preview>=15.0dev,<15.1dev',
         'odoo-addon-website_sale_stock_order_cancel>=15.0dev,<15.1dev',
