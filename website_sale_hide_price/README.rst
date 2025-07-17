@@ -55,9 +55,10 @@ For not logged in customers:
 
 Hide prices at product level:
 
-1. Go to *Website > Catalog > Products* and choose one.
-2. Go to *eCommerce* tab.
-3. In the *Shop* section you have the option *Hide prices on website*.
+1. Go to *Website > eCommerce > Products* and choose one.
+2. Go to *Sales* tab.
+3. In the *Ecommerce Shop* section you have the option *Hide prices on
+   website*.
 4. You can optionally set a message that will be displayed when the
    prices are hidden.
 

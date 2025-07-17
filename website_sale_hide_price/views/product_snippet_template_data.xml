@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="1">
+<odoo>
     <!-- Hide add to cart button and prices from dynamic product snippet templates if not
         website_show_price -->
     <template
@@ -9,7 +9,7 @@
         <xpath expr="//span[hasclass('fw-bold')]" position="before">
             <div
                 id="website_hide_price"
-                t-if="user_id.partner_id.website_show_price and not data.get('website_hide_price')"
+                t-if="website.website_show_price and not data.get('website_hide_price')"
             />
         </xpath>
         <xpath expr="//div[@id='website_hide_price']" position="inside">
