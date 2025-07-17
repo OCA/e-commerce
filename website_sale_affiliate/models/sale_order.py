@@ -13,9 +13,10 @@ class SaleOrder(models.Model):
         help="Affiliate request associated with sale order",
     )
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
-        AffiliateRequest = self.env["sale.affiliate.request"]
-        res.affiliate_request_id = AffiliateRequest.current_qualified()
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        affiliate_request = self.env["sale.affiliate.request"].current_qualified()
+        if affiliate_request:
+            res.update({"affiliate_request_id": affiliate_request.id})
         return res
