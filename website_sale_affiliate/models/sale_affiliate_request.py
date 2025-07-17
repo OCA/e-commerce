@@ -10,6 +10,7 @@ from odoo.http import request
 class AffiliateRequest(models.Model):
     _name = "sale.affiliate.request"
     _order = "create_date desc"
+    _description = "Represents an web request coming from an affiliate"
 
     name = fields.Char(
         required=True,

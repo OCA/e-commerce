@@ -11,6 +11,7 @@ _logger = logging.getLogger(__name__)
 class Affiliate(models.Model):
     _name = "sale.affiliate"
     _order = "create_date desc"
+    _description = "Represents an affiliate which incoming web traffic is measured"
 
     name = fields.Char(required=True)
     partner_id = fields.Many2one(
