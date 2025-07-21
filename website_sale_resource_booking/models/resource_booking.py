@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-from odoo.tests.common import Form
 
 
 class ResourceBooking(models.Model):
@@ -73,16 +72,13 @@ class ResourceBooking(models.Model):
         affected.action_confirm()
         # Notify them
         for booking in affected:
-            share_f = Form(
-                self.env["portal.share"].with_context(
-                    active_id=booking.id,
-                    active_ids=booking.ids,
-                    active_model=booking._name,
-                    default_note=booking.requester_advice,
-                    default_partner_ids=[(4, booking.partner_id.id, 0)],
-                )
-            )
-            share = share_f.save()
+            share_vals = {
+                "note": booking.requester_advice,
+                "partner_ids": [(4, booking.partner_id.id)],
+                "res_model": booking._name,
+                "res_id": booking.id,
+            }
+            share = self.env["portal.share"].create(share_vals)
             # Put invitations in mail queue
             share.with_context(
                 mail_notify_force_send=False, mail_create_nosubscribe=True

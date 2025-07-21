@@ -8,10 +8,10 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.onchange("partner_id")
-    def onchange_partner_id(self):
-        """Update bookings partner when user creates account in checkout wizard."""
-        result = super().onchange_partner_id()
-        # Avoid sending calendar invites if user is in eCommerce checkout
+    def _onchange_partner_id_warning(self):
+        """Update booking partner when user creates accounts in checkout wizard."""
+        result = super()._onchange_partner_id_warning()
+        # Avoid sending calendar invites if a user is in eCommerce checkout
         _self = self.with_context(dont_notify=True)
         for order in _self:
             # We only care about eCommerce orders
