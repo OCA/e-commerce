@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="1">
+<odoo>
     <!-- Hide add to cart button and prices from dynamic product snippet templates if not
         website_show_price -->
     <template
