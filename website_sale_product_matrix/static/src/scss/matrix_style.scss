@@ -1,0 +1,15 @@
+.o_matrix_input {
+    // The same as in max-width for css_quantity input group
+    min-width: 50px;
+}
+#product_matrix_form {
+    // Allow inner contents scrolling
+    display: contents;
+}
+#modalMatrix {
+    // Override defaults to avoid scrolling in large option sets
+    .modal-dialog {
+        max-width: none;
+        width: 99%;
+    }
+}
