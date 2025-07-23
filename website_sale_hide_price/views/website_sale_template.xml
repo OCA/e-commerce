@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                    website and website.website_show_price and not product.website_hide_price
+                </attribute>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                    product.product_variant_ids and website.website_show_price and not product.website_hide_price
+                </attribute>
+        </xpath>
+    </template>
+    <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//a[@id='add_to_cart']" position="before">
+            <t t-set="user_authenticated" t-value="user_id != website.user_id" />
+            <div
+                class="alert alert-info"
+                t-if="(product.website_hide_price or website.website_hide_price) and (product.website_hide_price_message or website.website_hide_price_default_message) and user_authenticated"
+            >
+                <i class="fa fa-info-circle" />
+                <span
+                    t-esc="product.website_hide_price_message or website.website_hide_price_default_message"
+                />
+            </div>
+        </xpath>
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-if">
+                    website and website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
+        <xpath
+            expr="//div[contains(@t-attf-class, 'css_quantity')]"
+            position="attributes"
+        >
+            <attribute name="t-if">
+                    website and website.website_show_price and not product.website_hide_price
+                </attribute>
+        </xpath>
+    </template>
+    <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
+    <template id="product_buy_now" inherit_id="website_sale.product_buy_now">
+        <xpath expr="//a[hasclass('o_we_buy_now')]" position="attributes">
+            <attribute name="t-if">
+                website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+    <template id="website_search_box" inherit_id="website.website_search_box">
+        <xpath expr="//input[@name='search']" position="attributes">
+            <attribute
+                name="t-att-data-display-price"
+            >website and website.website_show_price</attribute>
+        </xpath>
+    </template>
+    <template id="badge_extra_price" inherit_id="website_sale.badge_extra_price">
+        <xpath
+            expr="//t[@t-name='website_sale.badge_extra_price']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >website and website.website_show_price and not product.website_hide_price</attribute>
+        </xpath>
+    </template>
+    <template id="product_variants" inherit_id="website_sale.product_variants">
+        <xpath
+            expr="//span[hasclass('sign_badge_price_extra')]/.."
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+                separator=" and "
+                add="website.website_show_price and not combination_info['website_hide_price']"
+            />
+        </xpath>
+    </template>
+
+    <template
+        id="filter_products_price"
+        inherit_id="website_sale.filter_products_price"
+    >
+        <xpath expr="//div[@id='o_wsale_price_range_option']" position="attributes">
+            <attribute name="t-if">website and website.website_show_price</attribute>
+        </xpath>
+    </template>
+</odoo>
