@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [website_sale_product_brand](website_sale_product_brand/) | 17.0.1.0.0 |  | Product Brand Filtering in Website
 [website_sale_product_description](website_sale_product_description/) | 17.0.1.0.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 17.0.1.0.0 |  | Display attributes images in shop product detail
+[website_sale_product_matrix](website_sale_product_matrix/) | 17.0.1.0.0 | <a href='https://github.com/pilarvargas-tecnativa'><img src='https://github.com/pilarvargas-tecnativa.png' width='32' height='32' style='border-radius:50%;' alt='pilarvargas-tecnativa'/></a> | Product matrix in eCommerce
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 17.0.1.0.0 | <a href='https://github.com/sergio-teruel'><img src='https://github.com/sergio-teruel.png' width='32' height='32' style='border-radius:50%;' alt='sergio-teruel'/></a> | Display minimal price for products that has variants
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 17.0.1.0.0 |  | Display product reference in e-commerce
 [website_sale_require_legal](website_sale_require_legal/) | 17.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
