@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//t[@t-if='orders']/thead/tr/th" position="after">
+            <th class="text-start">Customer Ref.</th>
+        </xpath>
+        <xpath expr="//t[@t-out='order.name']/.." position="after">
+            <td class="text-start"><t t-out="order.client_order_ref" /></td>
+        </xpath>
+    </template>
+
+    <template
+        id="sale_order_portal_content"
+        inherit_id="sale.sale_order_portal_content"
+    >
+        <xpath expr="//div[@id='introduction']/h2" position="inside">
+            <span
+                t-if="sale_order.client_order_ref"
+                class="float-end"
+            >Client Order Ref: <em t-out="sale_order.client_order_ref" /></span>
+        </xpath>
+    </template>
+</odoo>

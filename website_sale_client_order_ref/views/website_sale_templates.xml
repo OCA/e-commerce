@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//em[@t-field='order.name']/.." position="after">
+            <h3 t-if="order.client_order_ref"><span
+                    t-field="order.client_order_ref"
+                /></h3>
+        </xpath>
+    </template>
+</odoo>
