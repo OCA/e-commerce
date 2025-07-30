@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-27 14:26+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2025-07-30 15:47+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute_value
 msgid "Attribute Value"
-msgstr ""
+msgstr "Valore attributo"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__display_name
@@ -30,7 +30,7 @@ msgstr "Nome visualizzato"
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
 msgid "Display attribute image in shop online product detail"
-msgstr ""
+msgstr "Visualizza l'immagine atributo nei dettagli prodotto del negozio online"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__id
@@ -41,36 +41,36 @@ msgstr "ID"
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
 msgid "Image of the attribute for shop online product detail."
-msgstr ""
+msgstr "Immagine dell'attributo per i dettagli del prodotto nel negozio online."
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute____last_update
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute
 msgid "Product Attribute"
-msgstr ""
+msgstr "Attributo prodotto"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
 msgid "Publish in website"
-msgstr ""
+msgstr "Pubblica nel sito web"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
 msgid "Website detail image"
-msgstr ""
+msgstr "Immagine dettaglio sito web"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute__website_name
 #: model:ir.model.fields,field_description:website_sale_product_detail_attribute_image.field_product_attribute_value__website_name
 msgid "Website name"
-msgstr ""
+msgstr "Nome sito web"
 
 #. module: website_sale_product_detail_attribute_image
 #: model_terms:ir.ui.view,arch_db:website_sale_product_detail_attribute_image.product_attribute_view_form
 msgid "Website product image detail"
-msgstr ""
+msgstr "Dettaglio immagine prodotto sito web"
