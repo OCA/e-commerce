@@ -139,6 +139,10 @@ class ProductTemplate(models.Model):
                 product = self._get_variant_for_combination(combination)
         else:
             product = self._get_variant_for_combination(combination)
+        if not product:
+            # If no product is found, return the combination info without prices
+            # the combination is not valid for the product or the product is archived
+            return combination_info
         # Getting all min_quantity of the current product to compute the possible
         # price scale.
         qty_list = self.env["product.pricelist.item"].search(
