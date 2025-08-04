@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,18 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:0
-#, python-format
-msgid "Catalog price: High to Low"
-msgstr ""
-
-#. module: website_sale_product_sort
-#: code:addons/website_sale_product_sort/models/website.py:0
-#, python-format
-msgid "Catalog price: Low to High"
-msgstr ""
 
 #. module: website_sale_product_sort
 #: model:ir.model,name:website_sale_product_sort.model_res_config_settings
@@ -42,21 +30,39 @@ msgid "Default criteria for sorting products in the shop"
 msgstr ""
 
 #. module: website_sale_product_sort
+#. odoo-python
 #: code:addons/website_sale_product_sort/models/website.py:0
-#, python-format
-msgid "Name - A to Z"
+msgid "Featured"
 msgstr ""
 
 #. module: website_sale_product_sort
+#. odoo-python
 #: code:addons/website_sale_product_sort/models/website.py:0
-#, python-format
-msgid "Name - Z to A"
+msgid "Name (A-Z)"
 msgstr ""
 
 #. module: website_sale_product_sort
+#. odoo-python
 #: code:addons/website_sale_product_sort/models/website.py:0
-#, python-format
-msgid "Relevance"
+msgid "Name (Z-A)"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "Newest Arrivals"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "Price - High to Low"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "Price - Low to High"
 msgstr ""
 
 #. module: website_sale_product_sort
