@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="product_matrix"
+        inherit_id="website_sale_product_matrix.product_matrix"
+        name="Product matrix"
+    >
+        <thead position="inside">
+            <t
+                t-set="secondary_units"
+                t-value="product_matrix.get('secondary_units')"
+            />
+            <t
+                t-set="secondary_unit_id"
+                t-value="product_matrix.get('secondary_unit_id')"
+            />
+            <t t-set="uom_name" t-value="product_matrix.get('uom_name')" />
+            <tr t-if="secondary_units">
+                <td t-att-colspan="len(product_matrix.get('header', []))">
+                    <div class="form-floating" t-if="secondary_units">
+                        <select
+                            class="form-select o_matrix_secondary_unit"
+                            id="secondary_unit"
+                        >
+                            <option
+                                value=""
+                                t-att-selected="'selected' if not secondary_unit_id else None"
+                                placeholder="Secondary unit"
+                                class="font-italic"
+                            ><t t-esc="uom_name" />
+                            </option>
+                            <option
+                                t-foreach="secondary_units"
+                                t-as="unit"
+                                t-att-value="unit['id']"
+                                t-att-selected="'selected' if secondary_unit_id == unit['id'] else None"
+                            >
+                                <t t-esc="unit['name']" />
+                            </option>
+                        </select>
+                        <label for="secondary_unit">Select a unit of measure</label>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+    </template>
+</odoo>
