@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,4 +16,9 @@ msgstr ""
 #. module: website_sale_secondary_unit_product_matrix
 #: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit_product_matrix.product_matrix
 msgid "Secondary unit"
+msgstr ""
+
+#. module: website_sale_secondary_unit_product_matrix
+#: model_terms:ir.ui.view,arch_db:website_sale_secondary_unit_product_matrix.product_matrix
+msgid "Select a unit of measure"
 msgstr ""
