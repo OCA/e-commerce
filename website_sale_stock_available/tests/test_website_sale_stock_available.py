@@ -1,10 +1,12 @@
 # Copyright 2020 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo import Command
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class SaleStockAvailableInfoPopup(TransactionCase):
+class SaleStockAvailableInfoPopup(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -15,13 +17,14 @@ class SaleStockAvailableInfoPopup(TransactionCase):
                 "login": "pauline",
                 "email": "p.p@example.com",
                 "notification_type": "inbox",
-                "groups_id": [(6, 0, [user_group_stock_user.id])],
+                "groups_id": [Command.link(user_group_stock_user.id)],
             }
         )
         cls.product = cls.env["product.product"].create(
             {
                 "name": "Storable product",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
             }
         )
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
