@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from werkzeug.exceptions import NotFound
 
+from odoo import _, http
+from odoo.exceptions import UserError
 from odoo.http import request, route
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -81,3 +83,27 @@ class WebsiteSale(WebsiteSale):
                 ("product_variant_ids", "in", list(allowed_product_ids))
             ]
         return res
+
+    @http.route()
+    def shop_payment(self, **post):
+        order = request.website.sale_get_order()
+        restricted_product_names = []
+        order_lines = order.order_line.filtered(lambda l: not l.display_type and l.product_id.website_published)
+        restricted_product_ids = request.env["product.template"].get_product_assortment_restriction_info(
+            order_lines.product_id.ids
+        )
+        restricted_product_names = [
+            line.name
+            for line in order_lines
+            if line.product_id.id in restricted_product_ids
+        ]
+        if restricted_product_names:
+            restricted_products_str = ", ".join(restricted_product_names)
+            raise UserError(
+                _(
+                    "The following products cannot be added to the cart because "
+                    "they are restricted: %s. Please remove the product to continue."
+                )
+                % restricted_products_str
+            )
+        return super().shop_payment(**post)

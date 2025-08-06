@@ -71,6 +71,13 @@ msgid "Filters"
 msgstr ""
 
 #. module: website_sale_product_assortment
+#. odoo-python
+#: code:addons/website_sale_product_assortment/models/sale_order.py:0
+#, python-format
+msgid "It cannot be added to the cart because the product is restricted."
+msgstr ""
+
+#. module: website_sale_product_assortment
 #: model:ir.model.fields,help:website_sale_product_assortment.field_ir_filters__message_unavailable
 msgid ""
 "Message showed when some product is not available and the option\n"
@@ -93,6 +100,15 @@ msgstr ""
 #. module: website_sale_product_assortment
 #: model:ir.model,name:website_sale_product_assortment.model_product_template
 msgid "Product"
+msgstr ""
+
+#. module: website_sale_product_assortment
+#. odoo-python
+#: code:addons/website_sale_product_assortment/controllers/website_sale.py:0
+#, python-format
+msgid ""
+"The following products cannot be added to the cart because they are "
+"restricted: %s. Please remove the product to continue."
 msgstr ""
 
 #. module: website_sale_product_assortment

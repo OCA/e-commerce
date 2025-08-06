@@ -1,5 +1,8 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from unittest.mock import patch
+
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
@@ -22,6 +25,20 @@ class TestUI(HttpCase):
                 "is_published": True,
                 "website_sequence": 2,
                 "type": "consu",
+            }
+        )
+
+        # Configuración adicional para tests unitarios
+        self.partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "email": "test@example.com",
+            }
+        )
+
+        self.sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner.id,
             }
         )
 
@@ -98,3 +115,31 @@ class TestUI(HttpCase):
         self.start_tour(
             "/shop", "test_assortment_with_no_restriction_no_show", login="admin"
         )
+
+    def test_05_ui_cart_update_restricted_product(self):
+        product_patch_path = (
+            "odoo.addons.website_sale_product_assortment.models.product_product."
+            "ProductProduct._show_quick_add_accesory_assortments"
+        )
+        with patch(product_patch_path, return_value=False):
+            with self.assertRaises(UserError) as cm:
+                self.sale_order._cart_update(
+                    product_id=self.product.product_variant_id.id,
+                    add_qty=1,
+                    set_qty=1,
+                )
+            self.assertIn(
+                "It cannot be added to the cart because the product is restricted.",
+                str(cm.exception),
+            )
+
+    def test_06_ui_cart_update_allowed_product(self):
+        product_patch_path = (
+            "odoo.addons.website_sale_product_assortment.models.product_product."
+            "ProductProduct._show_quick_add_accesory_assortments"
+        )
+        with patch(product_patch_path, return_value=True):
+            result = self.sale_order._cart_update(
+                product_id=self.product.product_variant_id.id, add_qty=1
+            )
+            self.assertIsInstance(result, dict)

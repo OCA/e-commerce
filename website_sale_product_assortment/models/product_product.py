@@ -5,6 +5,7 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     def _show_quick_add_accesory_assortments(self):
+        self.ensure_one()
         res = self._website_show_quick_add()
         if not res:
             return res
