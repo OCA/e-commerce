@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="payment_provider_credit" model="payment.provider">
+        <field name="name">On Credit</field>
+        <field name="code">credit</field>
+        <field
+            name="image_128"
+            type="base64"
+            file="website_sale_financial_risk/static/img/icon.png"
+        />
+        <field name="company_id" ref="base.main_company" />
+        <field name="redirect_form_view_id" ref="redirect_form" />
+        <field name="module_id" ref="base.module_website_sale_financial_risk" />
+        <field name="pending_msg" type="html">
+            <p>
+                <i>Your order has been <strong>confirmed</strong>.</i><br />
+                The payment has been registered as <strong
+                >credit</strong> and is pending invoicing.
+            </p>
+        </field>
+    </record>
+</odoo>

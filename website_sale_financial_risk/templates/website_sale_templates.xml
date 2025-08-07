@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="checkout_credit_info">
+        <div class="card mb-1">
+            <div class="card-header fw-bold bg-transparent">
+                Credit information
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item bg-transparent border-0 ps-0"><strong
+                        >Credit limit </strong><span
+                            t-field="commercial_partner.sudo().credit_limit"
+                            t-options="{'widget': 'monetary', 'display_currency': risk_currency_id}"
+                        /></li>
+                    <li
+                        t-if="commercial_partner.risk_total != 0"
+                        class="list-group-item bg-transparent border-0 ps-0"
+                    ><strong>Consumed credit </strong><span
+                            t-field="commercial_partner.risk_total"
+                        /></li>
+                    <li
+                        t-if="commercial_partner.risk_total != 0"
+                        class="list-group-item bg-transparent border-0 p-0"
+                    >
+                        <ul class="list-group border-top border-bottom">
+                            <li
+                                t-if="commercial_partner.risk_invoice_draft_include and commercial_partner.risk_invoice_draft != 0"
+                                class="list-group-item bg-transparent border-0"
+                            ><em>Draft Invoices </em><span
+                                    t-field="commercial_partner.risk_invoice_draft"
+                                    t-options="{'widget': 'monetary', 'display_currency': risk_currency_id}"
+                                /></li>
+                            <li
+                                t-if="commercial_partner.risk_invoice_open_include and commercial_partner.risk_invoice_open != 0"
+                                class="list-group-item bg-transparent border-0"
+                            ><em>Open Invoices </em><span
+                                    t-field="commercial_partner.risk_invoice_open"
+                                    t-options="{'widget': 'monetary', 'display_currency': risk_currency_id}"
+                                /></li>
+                            <li
+                                t-if="commercial_partner.risk_invoice_unpaid_include and commercial_partner.risk_invoice_unpaid != 0"
+                                class="list-group-item bg-transparent border-0"
+                            ><em>Unpaid Invoices </em><span
+                                    t-field="commercial_partner.risk_invoice_unpaid"
+                                    t-options="{'widget': 'monetary', 'display_currency': risk_currency_id}"
+                                /></li>
+                            <li
+                                t-if="commercial_partner.risk_account_amount_include and commercial_partner.risk_account_amount != 0"
+                                class="list-group-item bg-transparent border-0"
+                            ><em>Other Open Amount </em><span
+                                    t-field="commercial_partner.risk_account_amount"
+                                    t-options="{'widget': 'monetary', 'display_currency': risk_currency_id}"
+                                /></li>
+                            <li
+                                t-if="commercial_partner.risk_account_amount_unpaid_include and commercial_partner.risk_account_amount_unpaid != 0"
+                                class="list-group-item bg-transparent border-0"
+                            ><em>Other Unpaid Amount </em><span
+                                    t-field="commercial_partner.risk_account_amount_unpaid"
+                                    t-options="{'widget': 'monetary', 'display_currency': risk_currency_id}"
+                                /></li>
+                        </ul>
+                    </li>
+                    <li
+                        t-if="commercial_partner.risk_remaining_value != 0"
+                        class="list-group-item bg-transparent border-0 ps-0"
+                    ><strong>Remaining credit </strong><span
+                            class="me-1"
+                            t-field="commercial_partner.risk_remaining_value"
+                        />(<span
+                            t-field="commercial_partner.risk_remaining_percentage"
+                        />%)</li>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//t[@t-call='website_sale.cart_summary']" position="before">
+            <t t-set="partner" t-value="order.partner_id" />
+            <t t-set="commercial_partner" t-value="partner.commercial_partner_id" />
+            <div
+                t-if="partner.portal_show_financial_risk_visible and partner.show_financial_risk_in_portal and commercial_partner.sudo().credit_limit != 0"
+            >
+                <t t-call="website_sale_financial_risk.checkout_credit_info" />
+            </div>
+        </xpath>
+    </template>
+</odoo>
