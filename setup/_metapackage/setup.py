@@ -42,6 +42,7 @@ setuptools.setup(
         'odoo14-addon-website_sale_product_item_cart_custom_qty',
         'odoo14-addon-website_sale_product_minimal_price',
         'odoo14-addon-website_sale_product_name_fixed_height',
+        'odoo14-addon-website_sale_product_reference_displayed',
         'odoo14-addon-website_sale_require_legal',
         'odoo14-addon-website_sale_require_login',
         'odoo14-addon-website_sale_show_company_data',
