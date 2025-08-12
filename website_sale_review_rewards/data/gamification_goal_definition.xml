@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="products_review_awards_definition" model="gamification.goal.definition">
+        <field name="name">Product Review Awards</field>
+        <field name="description">Review products and gain awards</field>
+        <field name="computation_mode">python</field>
+        <field name="compute_code">
+partner_id = object.user_id.partner_id
+result = partner_id.compute_reviews_count()
+        </field>
+        <field name="condition">higher</field>
+        <field name="display_mode">progress</field>
+        <field name="suffix">reviews</field>
+    </record>
+</odoo>
