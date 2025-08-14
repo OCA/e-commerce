@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from datetime import datetime, timedelta
 
-from odoo.tests.common import Form, HttpCase, tagged
+from odoo.tests import Form, HttpCase, tagged
 
 
 @tagged("post_install", "-at_install")
@@ -13,7 +13,7 @@ class WebsiteSaleStockProvisioningDate(HttpCase):
         product = cls.env["product.product"].create(
             {
                 "name": "product test - provisioning date",
-                "type": "product",
+                "is_storable": True,
                 "website_published": True,
                 "show_next_provisioning_date": True,
             }
@@ -50,7 +50,7 @@ class WebsiteSaleStockProvisioningDate(HttpCase):
             {
                 "name": "Product A",
                 "allow_out_of_stock_order": False,
-                "type": "product",
+                "is_storable": True,
                 "default_code": "E-COM1",
             }
         )
