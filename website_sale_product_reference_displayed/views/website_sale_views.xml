@@ -46,6 +46,25 @@
         </xpath>
     </template>
     <template
+        id="product_combination"
+        name="Display variant reference"
+        inherit_id="website_sale.product"
+        customize_show="True"
+    >
+        <!-- Combination description -->
+        <xpath expr="//div/p[@t-field='product.description_sale']" position="after">
+            <p
+                t-attf-class="text-muted js_variant_reference_displayed_parent {{'' if product_variant.default_code else 'd-none'}}"
+            >
+                Internal Reference:
+                <span
+                    class="js_variant_reference_displayed"
+                    t-field="product_variant.default_code"
+                />
+            </p>
+        </xpath>
+    </template>
+    <template
         id="recommended_products"
         name="Display product reference"
         inherit_id="website_sale.recommended_products"
