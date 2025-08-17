@@ -15,6 +15,7 @@
     ],
     "data": [
         "data/gamification_goal_definition.xml",
+        "data/ir_cron.xml",
     ],
     "assets": {},
     "demo": [],

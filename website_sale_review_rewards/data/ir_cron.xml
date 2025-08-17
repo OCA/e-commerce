@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="auto_update_goals" model="ir.cron">
+        <field name="name">Update goals for product review challenges</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field
+            name="model_id"
+            ref="website_sale_review_rewards.model_gamification_goal"
+        />
+        <field name="code">model.auto_update_goals()</field>
+        <field name="state">code</field>
+        <field name="priority">5</field>
+    </record>
+</odoo>
