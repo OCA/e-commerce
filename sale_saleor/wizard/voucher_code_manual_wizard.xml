@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_voucher_code_manual_wizard" model="ir.ui.view">
+        <field name="name">voucher.code.manual.wizard.form</field>
+        <field name="model">voucher.code.manual.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Enter Voucher Code" version="7.0">
+                <group>
+                    <field name="manual_code" nolabel="1" placeholder="Enter code" />
+                </group>
+                <footer>
+                    <button string="Back" class="btn-secondary" special="cancel" />
+                    <button
+                        string="Confirm"
+                        type="object"
+                        name="action_confirm_manual"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_voucher_code_manual_wizard" model="ir.actions.act_window">
+        <field name="name">Enter Voucher Code</field>
+        <field name="res_model">voucher.code.manual.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

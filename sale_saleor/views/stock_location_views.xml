@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_location_form_inherit_saleor" model="ir.ui.view">
+        <field name="name">stock.location.form</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_sync_to_saleor_warehouse"
+                    type="object"
+                    string="Sync to Saleor"
+                    icon="fa-refresh"
+                />
+                <button
+                    name="action_sync_product_quantities"
+                    type="object"
+                    string="Sync Product Quantities"
+                    icon="fa-dropbox"
+                />
+            </xpath>
+
+            <xpath expr="//group[@name='additional_info']" position="after">
+                <group string="Saleor" name="saleor">
+                    <group>
+                        <field
+                            name="is_saleor_warehouse"
+                            invisible="usage != 'internal'"
+                        />
+                        <field
+                            name="include_in_saleor_inventory"
+                            invisible="usage != 'internal'"
+                        />
+                    </group>
+                    <group>
+                        <field name="is_private" widget="radio" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_location_tree2_inherit_saleor" model="ir.ui.view">
+        <field name="name">stock.location.tree.inherit.saleor</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="before">
+                <header>
+                    <button
+                        name="action_sync_to_saleor_warehouse"
+                        type="object"
+                        string="Sync to Saleor"
+                        icon="fa-refresh"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

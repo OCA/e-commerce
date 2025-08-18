@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Extend product.template form to add Saleor fields and Sync button -->
+    <record id="view_product_template_form_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.saleor</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_saleor_sync"
+                    type="object"
+                    string="Sync to Saleor"
+                    class="oe_highlight"
+                    icon="fa-refresh"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+                <button
+                    name="action_fetch_metadata"
+                    type="object"
+                    string="Fetch from Saleor"
+                    class="btn-secondary"
+                    icon="fa-download"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+                <button
+                    name="action_sync_product_quantities"
+                    type="object"
+                    string="Sync Quantity to Saleor"
+                    icon="fa-dropbox"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+            </xpath>
+            <xpath expr="//field[@name='type']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Saleor">
+                    <group string="General Information">
+                        <group>
+                            <field name="channel_ids" widget="many2many_tags" />
+                            <field name="product_type_id" string="Product Type" />
+                        </group>
+                        <group>
+                            <field name="saleor_collection_id" />
+                            <field name="product_rating" />
+                        </group>
+                    </group>
+                    <label for="saleor_product_description" string="Description" />
+                    <div>
+                        <field name="saleor_product_description" type="html" />
+                    </div>
+                    <group string="SEO">
+                        <field name="saleor_slug" />
+                        <field name="saleor_seo_title" />
+                        <field name="saleor_seo_description" />
+                    </group>
+                    <group string="Images" colspan="2">
+                        <field
+                            colspan="2"
+                            name="saleor_image_ids"
+                            class="o_sale_saleor_image_list"
+                            context="{'default_name': name}"
+                            mode="kanban"
+                            add-label="Add Media"
+                            nolabel="1"
+                            widget="x2_many_media_viewer"
+                            options="{'convert_to_webp': True}"
+                        />
+                    </group>
+                    <field name="is_metadata_fetched" invisible="1" />
+                    <group string="Metadata" colspan="2">
+                        <field
+                            name="saleor_product_metadata_line_ids"
+                            nolabel="1"
+                            readonly="is_metadata_fetched"
+                        >
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Private Metadata" colspan="2">
+                        <field
+                            name="saleor_product_private_metadata_line_ids"
+                            nolabel="1"
+                            readonly="is_metadata_fetched"
+                        >
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.template.product.list.inherit.saleor</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_label_layout']" position="after">
+                <button
+                    name="action_saleor_sync"
+                    type="object"
+                    string="Sync to Saleor"
+                    icon="fa-refresh"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+                <button
+                    name="action_fetch_metadata"
+                    type="object"
+                    string="Fetch from Saleor"
+                    icon="fa-download"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+                <button
+                    name="action_sync_product_quantities"
+                    type="object"
+                    string="Sync Quantity to Saleor"
+                    icon="fa-dropbox"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

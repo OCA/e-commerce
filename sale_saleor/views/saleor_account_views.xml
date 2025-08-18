@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_saleor_account_tree" model="ir.ui.view">
+        <field name="name">saleor.account.tree</field>
+        <field name="model">saleor.account</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="base_url" />
+                <field name="email" />
+                <field name="active" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_saleor_account_form" model="ir.ui.view">
+        <field name="name">saleor.account.form</field>
+        <field name="model">saleor.account</field>
+        <field name="arch" type="xml">
+            <form string="Saleor Account">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Account Name" />
+                        <h1>
+                            <field name="name" placeholder="Default Name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="email" />
+                            <field name="password" password="True" />
+                            <field name="verify_ssl" />
+                            <field name="active" />
+                            <field name="job_batch_size" />
+                        </group>
+                        <group>
+                            <field
+                                name="base_url"
+                                placeholder="https://saleor.example.com"
+                            />
+                            <field
+                                name="odoo_base_url"
+                                placeholder="https://example.com"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_saleor_accounts" model="ir.actions.act_window">
+        <field name="name">Saleor Accounts</field>
+        <field name="res_model">saleor.account</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{"active_test": False}</field>
+    </record>
+</odoo>

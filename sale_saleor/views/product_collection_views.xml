@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Tree view for Product Collections -->
+    <record id="view_product_collection_tree_saleor" model="ir.ui.view">
+        <field name="name">product.collection.tree.saleor</field>
+        <field name="model">product.collection</field>
+        <field name="arch" type="xml">
+            <list string="Product Collections" sample="1">
+                <header>
+                    <button
+                        name="action_saleor_collection_sync"
+                        type="object"
+                        string="Sync to Saleor"
+                        icon="fa-refresh"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
+                </header>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view for Product Collections -->
+    <record id="view_product_collection_form_saleor" model="ir.ui.view">
+        <field name="name">product.collection.form.saleor</field>
+        <field name="model">product.collection</field>
+        <field name="arch" type="xml">
+            <form string="Collection">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_button"
+                            name="action_saleor_collection_sync"
+                            type="object"
+                            string="Sync to Saleor"
+                            icon="fa-refresh"
+                        />
+                    </div>
+                    <field
+                        name="saleor_background_image"
+                        nolabel="1"
+                        widget="image"
+                        class="oe_avatar"
+                    />
+                    <div class="oe_title">
+                        <label for="name" string="Collection" />
+                        <h1>
+                            <field name="name" placeholder="e.g. Lamps" />
+                        </h1>
+                    </div>
+                    <notebook colspan="4">
+                        <page string="Saleor">
+                            <group string="Core">
+                                <field
+                                    name="saleor_collection_description"
+                                    type="html"
+                                />
+                                <field name="channel_ids" widget="many2many_tags" />
+                            </group>
+                            <group string="SEO">
+                                <field name="saleor_collection_slug" />
+                                <field name="saleor_collection_seo_title" />
+                                <field name="saleor_collection_seo_description" />
+                            </group>
+                            <group string="Metadata" colspan="2">
+                                <field
+                                    name="saleor_collection_metadata_line_ids"
+                                    nolabel="1"
+                                >
+                                    <list editable="bottom">
+                                        <field name="key" />
+                                        <field name="value" />
+                                    </list>
+                                </field>
+                            </group>
+                            <group string="Private Metadata" colspan="2">
+                                <field
+                                    name="saleor_collection_private_metadata_line_ids"
+                                    nolabel="1"
+                                >
+                                    <list editable="bottom">
+                                        <field name="key" />
+                                        <field name="value" />
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- Chatter -->
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view for Product Collections -->
+    <record id="view_product_collection_search_saleor" model="ir.ui.view">
+        <field name="name">product.collection.search.saleor</field>
+        <field name="model">product.collection</field>
+        <field name="arch" type="xml">
+            <search string="Search Collections">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Window Action -->
+    <record id="action_product_collection_saleor" model="ir.actions.act_window">
+        <field name="name">Collections</field>
+        <field name="res_model">product.collection</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_product_collection_search_saleor" />
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+        Create and manage Saleor Product Collections.
+      </p>
+        </field>
+    </record>
+</odoo>

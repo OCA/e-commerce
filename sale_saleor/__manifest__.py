@@ -1,0 +1,63 @@
+# Copyright 2025 Kencove (https://www.kencove.com/)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+{
+    "name": "Saleor Connector",
+    "summary": """
+    Synchronize categories, collections, and products with Saleor
+    """,
+    "category": "Sales/Sales",
+    "author": "Kencove, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/e-commerce",
+    "version": "18.0.1.0.0",
+    "depends": [
+        "account",
+        "base",
+        "delivery",
+        "loyalty",
+        "mail",
+        "product",
+        "queue_job",
+        "sale",
+        "stock",
+    ],
+    "data": [
+        "security/saleor_security.xml",
+        "security/ir.model.access.csv",
+        "data/condition_operation_type_data.xml",
+        "data/saleor_abandoned_cron.xml",
+        "views/saleor_account_views.xml",
+        "views/product_views.xml",
+        "views/product_category_views.xml",
+        "views/product_collection_views.xml",
+        "views/product_template_views.xml",
+        "views/product_attribute_views.xml",
+        "views/product_image_views.xml",
+        "views/account_tax_views.xml",
+        "views/saleor_channel_views.xml",
+        "views/saleor_shipping_zone_views.xml",
+        "views/delivery_carrier_views.xml",
+        "views/stock_location_views.xml",
+        "views/stock_warehouse_views.xml",
+        "views/loyalty_program_views.xml",
+        "views/discount_rule_views.xml",
+        "wizard/voucher_code_auto_generate_wizard.xml",
+        "wizard/voucher_code_manual_wizard.xml",
+        "wizard/choose_delivery_carrier.xml",
+        "views/saleor_voucher_views.xml",
+        "views/saleor_gift_card_views.xml",
+        "views/saleor_product_type.xml",
+        "views/sale_saleor_menuitem.xml",
+        "views/sale_order_views.xml",
+    ],
+    "external_dependencies": {
+        "python": ["bs4", "text_unidecode"],
+    },
+    "assets": {
+        "web.assets_backend": [
+            "sale_saleor/static/src/scss/sale_saleor_backend.scss",
+            "sale_saleor/static/src/scss/kanban_record.scss",
+        ],
+    },
+    "license": "AGPL-3",
+    "installable": True,
+}

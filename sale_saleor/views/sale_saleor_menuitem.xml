@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_partner_action_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new customer in your address book
+            </p>
+            <p>
+            Odoo helps you easily track all activities related to a customer.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_saleor_root"
+        name="Saleor"
+        sequence="10"
+        web_icon="sale_saleor,static/description/icon.png"
+        action="action_saleor_accounts"
+    />
+
+    <menuitem
+        id="menu_saleor_customer"
+        name="Customers"
+        parent="menu_saleor_root"
+        sequence="10"
+        action="res_partner_action_customer"
+    />
+
+    <menuitem
+        id="menu_saleor_product"
+        name="Products"
+        parent="menu_saleor_root"
+        sequence="20"
+    >
+        <menuitem
+            id="menu_saleor_product_template"
+            name="Products"
+            sequence="10"
+            action="product.product_template_action"
+        />
+
+        <menuitem
+            id="menu_saleor_product_variants"
+            name="Product Variants"
+            groups="product.group_product_variant"
+            sequence="20"
+            action="product.product_normal_action_sell"
+        />
+    </menuitem>
+
+    <menuitem
+        id="menu_saleor_settings"
+        name="Settings"
+        parent="menu_saleor_root"
+        sequence="30"
+    >
+        <menuitem id="menu_sale_saleor" name="Saleor" sequence="10">
+            <menuitem
+                id="menu_saleor_accounts"
+                name="Accounts"
+                sequence="10"
+                action="action_saleor_accounts"
+            />
+
+            <menuitem
+                id="menu_saleor_channels"
+                name="Channels"
+                sequence="20"
+                action="action_saleor_channel"
+            />
+        </menuitem>
+
+        <menuitem id="menu_saleor_products" name="Products" sequence="20">
+            <menuitem
+                id="menu_saleor_product_attribute"
+                name="Attributes"
+                action="product.attribute_action"
+                groups="product.group_product_variant"
+                sequence="30"
+            />
+
+            <menuitem
+                id="menu_saleor_product_categories"
+                name="Categories"
+                sequence="40"
+                action="product.product_category_action_form"
+            />
+
+            <menuitem
+                id="menu_saleor_product_collections"
+                name="Collections"
+                sequence="50"
+                action="action_product_collection_saleor"
+            />
+
+            <menuitem
+                id="menu_saleor_product_types"
+                name="Types"
+                sequence="60"
+                action="action_saleor_product_type"
+            />
+        </menuitem>
+
+        <menuitem id="menu_saleor_accounting" name="Accounting" sequence="30">
+            <menuitem
+                id="menu_saleor_accounting_taxes"
+                name="Taxes"
+                sequence="10"
+                action="account.action_tax_form"
+            />
+        </menuitem>
+
+        <menuitem id="menu_saleor_shipping" name="Shipping" sequence="40">
+            <menuitem
+                id="menu_saleor_shipping_zones"
+                name="Shipping Zones"
+                sequence="10"
+                action="action_saleor_shipping_zone"
+            />
+            <menuitem
+                id="menu_saleor_delivery_carrier"
+                name="Delivery Methods"
+                sequence="20"
+                action="delivery.action_delivery_carrier_form"
+            />
+        </menuitem>
+
+        <menuitem
+            id="menu_saleor_warehouse_management"
+            name="Warehouse Management"
+            sequence="40"
+        >
+            <menuitem
+                id="menu_saleor_warehouse"
+                name="Warehouses"
+                sequence="10"
+                action="stock.action_warehouse_form"
+            />
+            <menuitem
+                id="menu_saleor_location"
+                name="Locations"
+                sequence="20"
+                action="stock.action_location_form"
+            />
+        </menuitem>
+
+        <menuitem
+            id="menu_saleor_promotions_discounts"
+            name="Promotions &amp; Discounts"
+            sequence="50"
+        >
+            <menuitem
+                id="menu_saleor_gift_cards"
+                name="Gift Cards"
+                sequence="10"
+                action="action_saleor_giftcard"
+            />
+            <menuitem
+                id="menu_saleor_promotions"
+                name="Promotions"
+                sequence="20"
+                action="loyalty.loyalty_program_discount_loyalty_action"
+            />
+            <menuitem
+                id="menu_saleor_vouchers"
+                name="Vouchers"
+                sequence="30"
+                action="action_saleor_voucher"
+            />
+        </menuitem>
+    </menuitem>
+</odoo>

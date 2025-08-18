@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_voucher_code_generate_wizard" model="ir.ui.view">
+        <field name="name">voucher.code.generate.wizard.form</field>
+        <field name="model">voucher.code.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Voucher Codes">
+                <group>
+                    <field name="code_quantity" />
+                    <field name="code_prefix" placeholder="Code Prefix (Optional)" />
+                </group>
+                <footer>
+                    <button string="Back" class="btn-secondary" special="cancel" />
+                    <button
+                        string="Confirm"
+                        type="object"
+                        name="action_confirm_generate"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_voucher_code_generate_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Voucher Codes</field>
+        <field name="res_model">voucher.code.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_saleor_voucher_tree" model="ir.ui.view">
+        <field name="name">saleor.voucher.tree</field>
+        <field name="model">saleor.voucher</field>
+        <field name="arch" type="xml">
+            <list>
+                <header>
+                    <button
+                        name="action_saleor_sync"
+                        type="object"
+                        string="Sync to Saleor"
+                        icon="fa-refresh"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
+                </header>
+                <field name="name" />
+                <field name="active_date_from" />
+                <field name="active_date_to" />
+                <field name="uses_left" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_saleor_voucher_form" model="ir.ui.view">
+        <field name="name">saleor.voucher.form</field>
+        <field name="model">saleor.voucher</field>
+        <field name="arch" type="xml">
+            <form string="Saleor Voucher">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_saleor_sync"
+                            type="object"
+                            string="Sync to Saleor"
+                            icon="fa-refresh"
+                            groups="sale_saleor.group_saleor_manager"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Voucher Name" />
+                        <h1>
+                            <field name="name" placeholder="Default Name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field
+                            name="channel_ids"
+                            widget="many2many_tags"
+                            options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                        />
+                        <field name="saleor_voucher_id" invisible="1" />
+                    </group>
+                    <group string="Voucher Code">
+                        <group>
+                            <div class="btn-group o_not_editable_mode">
+                                <a
+                                    class="btn btn-secondary dropdown-toggle"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    role="button"
+                                >
+                                    Add Code
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a
+                                            type="action"
+                                            name="%(action_voucher_code_manual_wizard)d"
+                                            class="dropdown-item"
+                                            role="menuitem"
+                                        >
+                                            <b>Manual</b>
+                                            <br />
+                                            <span class="text-muted small">
+                                                Manually enter the voucher code.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            type="action"
+                                            name="%(action_voucher_code_generate_wizard)d"
+                                            class="dropdown-item"
+                                            role="menuitem"
+                                        >
+                                            <b>Auto-generate codes</b>
+                                            <br />
+                                            <span class="text-muted small">
+                                                Generate multiple voucher codes automatically.
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </group>
+                        <field name="voucher_code_ids" nolabel="1">
+                            <list create="false" edit="false" no_open="True">
+                                <field name="code" />
+                                <field name="usage" />
+                                <field name="status" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Discount Type">
+                        <field name="type" widget="radio" />
+                    </group>
+                    <group string="Value" invisible="type == 'shipping'">
+                        <field name="discount_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field
+                                    name="channel_id"
+                                    domain="[('id','in', parent.channel_ids)]"
+                                />
+                                <field name="discount_value" />
+                                <field name="display_unit" readonly="1" string=" " />
+                            </list>
+                        </field>
+                        <field
+                            name="apply_to"
+                            string="Voucher Specific Information"
+                            widget="radio"
+                        />
+                        <field name="apply_cheapest" />
+                        <notebook invisible="apply_to != 'specific'">
+                            <page string="Categories">
+                                <field name="product_category_ids">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Collections">
+                                <field name="product_collection_ids">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Products">
+                                <field name="product_template_ids">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Variants">
+                                <field name="product_variant_ids">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                    <group string="Countries" invisible="type != 'shipping'">
+                        <field name="country_ids" widget="many2many_tags" />
+                    </group>
+                    <group string="Minimum Requirements">
+                        <field name="min_requirement" widget="radio" />
+                        <field
+                            name="min_item_qty"
+                            invisible="min_requirement != 'item_qty'"
+                        />
+                        <field
+                            name="minimal_order_value_ids"
+                            invisible="min_requirement != 'order_value'"
+                            nolabel="1"
+                        >
+                            <list editable="bottom">
+                                <field
+                                    name="channel_id"
+                                    domain="[('id','in', parent.channel_ids)]"
+                                />
+                                <field name="minimal_order_value" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Usage Limit">
+                        <field name="limit_total" class="col-2" />
+                        <field name="limit_uses" invisible="not limit_total" />
+                        <field name="uses_left" invisible="not limit_total" />
+                        <field name="limit_one_per_customer" />
+                        <field name="limit_staff_only" />
+                        <field name="limit_once_per_code" />
+                    </group>
+                    <group string="Active Dates">
+                        <field name="active_date_from" />
+                        <field name="set_end_date" />
+                        <field name="active_date_to" invisible="not set_end_date" />
+                    </group>
+                    <group string="Metadata" colspan="2">
+                        <field name="saleor_voucher_metadata_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Private Metadata" colspan="2">
+                        <field
+                            name="saleor_voucher_private_metadata_line_ids"
+                            nolabel="1"
+                        >
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="action_saleor_voucher" model="ir.actions.act_window">
+        <field name="name">Saleor Vouchers</field>
+        <field name="res_model">saleor.voucher</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create and manage Saleor Vouchers.
+            </p>
+        </field>
+    </record>
+</odoo>
