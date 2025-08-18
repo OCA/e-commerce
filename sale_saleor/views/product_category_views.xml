@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Extend product.category form to add Saleor fields and Sync button -->
+    <record id="view_product_category_form_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.category.form.inherit.saleor</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field
+                    name="saleor_background_image"
+                    nolabel="1"
+                    widget="image"
+                    class="oe_avatar"
+                />
+            </xpath>
+            <xpath expr="//group[@name='first']" position="after">
+                <notebook colspan="4">
+                    <page string="Saleor">
+                        <group string="Core">
+                            <field name="channel_ids" widget="many2many_tags" />
+                            <field name="saleor_description" type="html" />
+                        </group>
+                        <group string="SEO">
+                            <field name="saleor_slug" />
+                            <field name="saleor_seo_title" />
+                            <field name="saleor_seo_description" />
+                        </group>
+                        <group string="Metadata" colspan="2">
+                            <field
+                                name="saleor_metadata_line_ids"
+                                nolabel="1"
+                                context="{'default_category_id': id}"
+                            >
+                                <list editable="bottom">
+                                    <field name="key" />
+                                    <field name="value" />
+                                </list>
+                            </field>
+                        </group>
+                        <group string="Private Metadata" colspan="2">
+                            <field
+                                name="saleor_private_metadata_line_ids"
+                                nolabel="1"
+                                context="{'default_category_id': id}"
+                            >
+                                <list editable="bottom">
+                                    <field name="key" />
+                                    <field name="value" />
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_saleor_sync"
+                    type="object"
+                    string="Sync Saleor"
+                    class="oe_highlight"
+                    icon="fa-refresh"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_category_list_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.category.list.inherit.saleor</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="before">
+                <header>
+                    <button
+                        name="action_saleor_sync"
+                        type="object"
+                        string="Sync to Saleor"
+                        icon="fa-refresh"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

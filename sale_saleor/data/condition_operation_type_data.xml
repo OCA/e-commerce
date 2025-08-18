@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="0">
+    <!-- Catalog Operators -->
+    <record id="condition_op_is" model="condition.operation.type">
+        <field name="name">Is</field>
+        <field name="code">IS</field>
+        <field name="type">catalogue</field>
+    </record>
+
+    <!-- Order Operators -->
+    <record id="condition_op_equals" model="condition.operation.type">
+        <field name="name">Equals</field>
+        <field name="code">EQ</field>
+        <field name="type">order</field>
+    </record>
+    <record id="condition_op_greater" model="condition.operation.type">
+        <field name="name">Greater</field>
+        <field name="code">GTE</field>
+        <field name="type">order</field>
+    </record>
+    <record id="condition_op_lower" model="condition.operation.type">
+        <field name="name">Lower</field>
+        <field name="code">LTE</field>
+        <field name="type">order</field>
+    </record>
+    <record id="condition_op_between" model="condition.operation.type">
+        <field name="name">Between</field>
+        <field name="code">RANGE</field>
+        <field name="type">order</field>
+    </record>
+</odoo>

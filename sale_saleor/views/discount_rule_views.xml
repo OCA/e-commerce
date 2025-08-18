@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_discount_rule_form" model="ir.ui.view">
+        <field name="name">discount.rule.form</field>
+        <field name="model">discount.rule</field>
+        <field name="arch" type="xml">
+            <form string="Discount Rule">
+                <div
+                    class="alert alert-warning"
+                    role="alert"
+                    invisible="duplicate_type_warning == ''"
+                >
+                    <field name="duplicate_type_warning" readonly="1" />
+                </div>
+                <sheet>
+                    <field name="predicate_type" invisible="1" />
+                    <field name="program_id" invisible="1" />
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="channel_id" />
+                        </group>
+                    </group>
+                    <group string="Conditions">
+                        <field name="condition_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field
+                                    name="catalogue_predicate_type"
+                                    nolabel="1"
+                                    column_invisible="parent.predicate_type != 'catalogue'"
+                                />
+                                <field
+                                    name="order_predicate_type"
+                                    nolabel="1"
+                                    column_invisible="parent.predicate_type != 'order'"
+                                />
+                                <field
+                                    name="operator_id"
+                                    nolabel="1"
+                                    domain="[('type', '=', predicate_type)]"
+                                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                />
+                                <!-- Product template selector -->
+                                <field
+                                    name="product_template_ids"
+                                    column_invisible="parent.predicate_type != 'catalogue'"
+                                    domain="[('channel_ids', '=', parent.channel_id), ('type', '=', 'consu')]"
+                                    readonly="catalogue_predicate_type != 'product'"
+                                    widget="many2many_tags"
+                                />
+                                <!-- Product variant selector -->
+                                <field
+                                    name="product_variant_ids"
+                                    column_invisible="parent.predicate_type != 'catalogue'"
+                                    domain="[('product_tmpl_id.channel_ids', '=', parent.channel_id)]"
+                                    readonly="catalogue_predicate_type != 'variant'"
+                                    widget="many2many_tags"
+                                />
+                                <!-- Collection selector -->
+                                <field
+                                    name="product_collection_ids"
+                                    column_invisible="parent.predicate_type != 'catalogue'"
+                                    readonly="catalogue_predicate_type != 'collection'"
+                                    domain="[('channel_ids', '=', parent.channel_id)]"
+                                    widget="many2many_tags"
+                                />
+                                <!-- Category selector -->
+                                <field
+                                    name="product_category_ids"
+                                    column_invisible="parent.predicate_type != 'catalogue'"
+                                    readonly="catalogue_predicate_type != 'category'"
+                                    widget="many2many_tags"
+                                />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Reward">
+                        <group>
+                            <label
+                                for="reward_type"
+                                string="Reward Type"
+                                invisible="predicate_type != 'order'"
+                            />
+                            <div class="o_row">
+                                <field
+                                    name="reward_type"
+                                    invisible="predicate_type != 'order'"
+                                />
+                                <field
+                                    name="reward_unit"
+                                    nolabel="1"
+                                    widget="selection_badge"
+                                    invisible="reward_type == 'gift'"
+                                />
+                            </div>
+                        </group>
+                        <group>
+                            <label for="reward_value" string="Reward Value" />
+                            <div>
+                                <field name="reward_value" class="oe_inline" />
+                                <field
+                                    class="oe_inline"
+                                    name="display_unit"
+                                    readonly="True"
+                                />
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

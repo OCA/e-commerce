@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="saleor_product_type_tree_view" model="ir.ui.view">
+        <field name="name">saleor.product.type.tree.view</field>
+        <field name="model">saleor.product.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+
+    <record id="saleor_product_type_form_view" model="ir.ui.view">
+        <field name="name">saleor.product.type.form.view</field>
+        <field name="model">saleor.product.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Product Type Name" />
+                        <h1>
+                            <field name="name" placeholder="e.g. Lamps" />
+                        </h1>
+                    </div>
+
+                    <group>
+                        <field name="kind" />
+                        <field name="is_shipping" />
+                        <field name="weight" invisible="not is_shipping" />
+                    </group>
+
+                    <group string="Taxes">
+                        <field name="tax_id" string="Tax Class" />
+                    </group>
+
+                    <group string="Product Attributes">
+                        <field
+                            name="product_attribute_ids"
+                            nolabel="1"
+                            mode="list"
+                            editable="bottom"
+                        >
+                            <list>
+                                <field name="name" />
+                            </list>
+                        </field>
+                        <field name="use_variant_attributes" widget="boolean_toggle" />
+                    </group>
+
+                    <group
+                        string="Variant Attributes"
+                        invisible="not use_variant_attributes"
+                    >
+                        <field
+                            name="variant_attribute_ids"
+                            nolabel="1"
+                            mode="list"
+                            editable="bottom"
+                        >
+                            <list>
+                                <field name="name" />
+                            </list>
+                        </field>
+                    </group>
+
+                    <group string="Metadata" colspan="2">
+                        <field name="metadata_line" nolabel="1">
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+
+                    <group string="Private Metadata" colspan="2">
+                        <field name="private_metadata_line" nolabel="1">
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="action_saleor_product_type" model="ir.actions.act_window">
+        <field name="name">Product Types</field>
+        <field name="res_model">saleor.product.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and manage Saleor Product Types.
+            </p>
+        </field>
+    </record>
+</odoo>

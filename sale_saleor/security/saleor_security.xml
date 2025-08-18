@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Saleor: groups with category and implications -->
+    <record id="group_saleor_user" model="res.groups">
+        <field name="name">Saleor/ User</field>
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
+                ref('base.group_user'),
+                ref('product.group_product_variant'),
+                ref('sales_team.group_sale_manager'),
+            ])]"
+        />
+    </record>
+
+    <record id="group_saleor_manager" model="res.groups">
+        <field name="name">Saleor/ Manager</field>
+        <field name="implied_ids" eval="[(4, ref('sale_saleor.group_saleor_user'))]" />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+</odoo>

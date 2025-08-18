@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="ir_cron_saleor_abandoned_cart" model="ir.cron">
+        <field name="name">Saleor: Mark Abandoned Quotations</field>
+        <field name="model_id" ref="sale.model_sale_order" />
+        <field name="state">code</field>
+        <field
+            name="code"
+        >model.env['saleor.channel'].cron_mark_abandoned_saleor_orders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+    </record>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Extend product.product form to add Saleor page and Sync button -->
+    <record id="product_normal_form_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.saleor</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_label_layout']" position="after">
+                <button
+                    name="action_saleor_sync"
+                    type="object"
+                    string="Sync Saleor"
+                    class="oe_highlight"
+                    icon="fa-refresh"
+                />
+                <button
+                    name="action_sync_product_quantities"
+                    type="object"
+                    string="Sync Quantity to Saleor"
+                    icon="fa-dropbox"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+            </xpath>
+            <xpath expr="//field[@name='type']" position="after">
+                <field
+                    name="channel_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_tree_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.product.list.inherit.saleor</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_label_layout']" position="before">
+                <button
+                    name="action_saleor_sync"
+                    type="object"
+                    string="Sync to Saleor"
+                    icon="fa-refresh"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+                <button
+                    name="action_sync_product_quantities"
+                    type="object"
+                    string="Sync Quantity to Saleor"
+                    icon="fa-dropbox"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

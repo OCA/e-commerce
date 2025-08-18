@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_saleor_channel_tree" model="ir.ui.view">
+        <field name="name">saleor.channel.tree</field>
+        <field name="model">saleor.channel</field>
+        <field name="arch" type="xml">
+            <list>
+                <header>
+                    <button
+                        name="action_sync_to_saleor"
+                        type="object"
+                        string="Sync to Saleor"
+                        icon="fa-refresh"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
+                </header>
+                <field name="name" />
+                <field name="slug" />
+                <field name="status" />
+                <field name="abandoned_cart_delay_hours" />
+                <field name="currency_id" />
+                <field name="default_country_id" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_saleor_channel_form" model="ir.ui.view">
+        <field name="name">saleor.channel.form</field>
+        <field name="model">saleor.channel</field>
+        <field name="arch" type="xml">
+            <form string="Saleor Channel">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_sync_to_saleor"
+                            type="object"
+                            string="Sync to Saleor"
+                            class="oe_highlight"
+                            icon="fa-refresh"
+                            groups="sale_saleor.group_saleor_manager"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="Channel name" />
+                        <h1>
+                            <field name="name" placeholder="Default Channel" />
+                        </h1>
+                    </div>
+                    <field name="saleor_channel_id" invisible="1" />
+                    <group>
+                        <group>
+                            <field name="slug" />
+                            <field name="status" />
+                            <label
+                                for="abandoned_cart_delay_hours"
+                                string="Abandoned Cart Delay"
+                            />
+                            <div>
+                                <field
+                                    name="abandoned_cart_delay_hours"
+                                    class="oe_inline"
+                                />
+                                <span class="oe_inline">hours</span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="currency_id" readonly="saleor_channel_id" />
+                            <field name="default_country_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Shipping Zones">
+                            <field
+                                name="shipping_zone_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                        </group>
+                        <group string="Warehouses">
+                            <field
+                                name="warehouse_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                            <field
+                                name="location_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                            />
+                        </group>
+                        <group string="Entered Prices">
+                            <field name="entered_prices" nolabel="1" widget="radio" />
+                        </group>
+                    </group>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="action_saleor_channel" model="ir.actions.act_window">
+        <field name="name">Channels</field>
+        <field name="res_model">saleor.channel</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create and manage Saleor Channels.
+            When a channel is Active,
+            it will be synchronized to Saleor.
+            </p>
+        </field>
+    </record>
+</odoo>

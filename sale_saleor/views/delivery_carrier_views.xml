@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_delivery_carrier_form_inherit_saleor" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.inherit.saleor</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+        <field name="arch" type="xml">
+            <button name="toggle_prod_environment" icon="fa-stop" position="attributes">
+                <attribute
+                    name="invisible"
+                >prod_environment or delivery_type == 'fixed' or delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+            </button>
+            <button name="toggle_debug" position="attributes">
+                <attribute
+                    name="invisible"
+                >delivery_type == 'fixed' or delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+            </button>
+            <field name="integration_level" position="attributes">
+                <attribute
+                    name="invisible"
+                >delivery_type == 'fixed' or delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+            </field>
+            <field name="margin" position="attributes">
+                <attribute
+                    name="invisible"
+                >delivery_type == 'fixed' or delivery_type == 'saleor'</attribute>
+            </field>
+            <field name="fixed_margin" position="attributes">
+                <attribute
+                    name="invisible"
+                >delivery_type == 'fixed' or delivery_type == 'saleor'</attribute>
+            </field>
+            <label for="free_over" position="attributes">
+                <attribute
+                    name="invisible"
+                >delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+            </label>
+            <field name="free_over" position="attributes">
+                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+            </field>
+            <field name="product_id" position="attributes">
+                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+            </field>
+            <xpath expr="(//field[@name='company_id'])[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="invoice_policy" position="attributes">
+                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+            </field>
+            <page name="destination" position="attributes">
+                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+            </page>
+            <page name="description" position="attributes">
+                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+            </page>
+
+            <xpath expr="//page[@name='description']" position="after">
+                <page
+                    name="saleor"
+                    string="Saleor"
+                    invisible="delivery_type != 'saleor'"
+                >
+                    <group>
+                        <group>
+                            <field name="shipping_method_type" />
+                            <field name="tax_id" />
+                        </group>
+                        <group>
+                            <field name="min_delivery_time" />
+                            <field name="max_delivery_time" />
+                        </group>
+                    </group>
+                    <label for="description" />
+                    <div>
+                        <field name="description" type="html" />
+                    </div>
+                    <group>
+                        <field name="order_value" />
+                        <field
+                            name="saleor_order_value_line_ids"
+                            nolabel="1"
+                            invisible="not order_value"
+                        >
+                            <list editable="bottom">
+                                <field
+                                    name="channel_id"
+                                    string="Channel name"
+                                    domain="[('id','in', parent.zone_channel_ids)]"
+                                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                />
+                                <field name="min_value" />
+                                <field name="display_unit" nolabel="1" />
+                                <field name="max_value" />
+                                <field name="display_unit" nolabel="1" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Pricing" colspan="2">
+                        <field name="saleor_shipping_pricing_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field
+                                    name="channel_id"
+                                    string="Channel name"
+                                    domain="[('id','in', parent.zone_channel_ids)]"
+                                    options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                />
+                                <field name="price" />
+                                <field name="currency_id" nolabel="1" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Postal Codes" colspan="2">
+                        <group>
+                            <field
+                                name="postal_filter_mode"
+                                widget="radio"
+                                options="{'horizontal': True}"
+                            />
+                        </group>
+                        <field name="postal_code_range_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="start_zip" />
+                                <field name="end_zip" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Excluded Products" colspan="2">
+                        <field name="excluded_product_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="name" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Metadata" colspan="2">
+                        <field name="shipping_method_metadata_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Private Metadata" colspan="2">
+                        <field
+                            name="shipping_method_private_metadata_line_ids"
+                            nolabel="1"
+                        >
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

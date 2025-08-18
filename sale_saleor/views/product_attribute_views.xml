@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Extend product.attribute form to add Saleor Sync button and fields -->
+    <record id="view_product_attribute_form_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.attribute.form.inherit.saleor</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='action_open_product_template_attribute_lines']"
+                position="after"
+            >
+                <button
+                    name="action_saleor_sync"
+                    type="object"
+                    string="Sync to Saleor"
+                    class="oe_highlight"
+                    icon="fa-refresh"
+                    groups="sale_saleor.group_saleor_manager"
+                />
+            </xpath>
+
+            <xpath
+                expr="//sheet/notebook/page[@name='attribute_values']"
+                position="after"
+            >
+                <page string="Saleor">
+                    <group string="SEO">
+                        <field name="saleor_slug" />
+                    </group>
+                    <group string="Metadata" colspan="2">
+                        <field name="saleor_metadata_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Private Metadata" colspan="2">
+                        <field name="saleor_private_metadata_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="key" />
+                                <field name="value" />
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_attribute_list_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.attribute.list.inherit.saleor</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.attribute_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="before">
+                <header>
+                    <button
+                        name="action_saleor_sync"
+                        type="object"
+                        string="Sync to Saleor"
+                        icon="fa-refresh"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

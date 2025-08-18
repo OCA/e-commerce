@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_form_saleor_sync" model="ir.ui.view">
+        <field name="name">sale.order.form.saleor.sync</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_sync_to_saleor"
+                    type="object"
+                    string="Sync to Saleor"
+                    class="btn-primary"
+                />
+                <button
+                    name="action_mark_paid_in_saleor"
+                    type="object"
+                    string="Mark as Paid in Saleor"
+                    class="btn-secondary"
+                    invisible="not saleor_order_id or saleor_mark_as_paid"
+                />
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="before">
+                <group>
+                    <field name="saleor_order_id" invisible="1" />
+                    <field
+                        name="saleor_channel_id"
+                        options="{'no_create': True, 'no_create_edit': True}"
+                        readonly="saleor_order_id"
+                    />
+                    <field name="is_abandoned" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
