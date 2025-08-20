@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_item_price_uom" inherit_id="website_sale.products_item">
+        <xpath expr="//span[@itemprop='price']" position="before">
+            <t
+                t-set="combination"
+                t-value="product._get_first_possible_combination()"
+            />
+            <t
+                t-set="combination_info"
+                t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"
+            />
+            <small
+                t-if="combination_info['base_unit_price']"
+                class="ms-1 text-muted o_base_unit_price_wrapper"
+                groups="website_sale.group_show_uom_price"
+            >
+                <t t-call="website_sale.base_unit_price" />
+            </small>
+        </xpath>
+    </template>
+</odoo>
