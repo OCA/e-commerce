@@ -5,16 +5,18 @@
         <field name="model">res.country</field>
         <field name="inherit_id" ref="base.view_country_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='div_address_format']" position="after">
-                <field
-                    name="online_address_format"
-                    placeholder="eCommerce address format..."
-                />
-                <div
-                    colspan="2"
-                    name="div_online_address_format"
-                    class="text-muted"
-                >Change the way addresses are displayed in eCommerce address forms</div>
+            <xpath expr="//field[@name='name_position']" position="before">
+                <label for="online_address_format" />
+                <div class="o_row">
+                    <field
+                        name="online_address_format"
+                        placeholder="eCommerce address format..."
+                    />
+                    <div
+                        name="div_online_address_format ms-2"
+                        class="text-muted"
+                    >Change the way addresses are displayed in eCommerce address forms</div>
+                </div>
             </xpath>
         </field>
     </record>
