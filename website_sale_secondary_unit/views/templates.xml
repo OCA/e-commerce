@@ -93,9 +93,9 @@
         <xpath expr="//span[hasclass('oe_price')]" position="after">
             <t t-if="secondary_uom_ids">
                 / <span
-                    class="css_editable_mode_hidden price_uom"
-                    t-field="product.uom_id"
-                />
+                class="css_editable_mode_hidden price_uom"
+                t-field="product.uom_id"
+            />
             </t>
         </xpath>
     </template>
@@ -139,12 +139,12 @@
                 </div>
                 <div>
                     <t t-call="website_sale_secondary_unit.second_qty_description">
-                        <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
-                    </t>
+                    <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
+                </t>
                     =
                     <span
-                        t-out="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
-                    />
+                    t-out="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
+                />
                     <span t-out="line.product_uom.sudo().name" />
                 </div>
             </t>
@@ -178,21 +178,21 @@
                 <h6 name="secondary_uom_qty">
                     <t t-out="int(line.secondary_uom_qty)" />
                     <t t-call="website_sale_secondary_unit.second_qty_description">
-                        <t
-                            t-if="line.product_uom.sudo().name == line.secondary_uom_id.product_tmpl_id.sudo().uom_id.name"
-                            t-set="hide_uom_name"
-                            t-value="True"
-                        />
-                        <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
-                    </t>
+                    <t
+                        t-if="line.product_uom.sudo().name == line.secondary_uom_id.product_tmpl_id.sudo().uom_id.name"
+                        t-set="hide_uom_name"
+                        t-value="True"
+                    />
+                    <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
+                </t>
                     <t t-if="line._get_shop_warning(clear=False)">
-                        <i
-                            class="fa fa-warning text-warning"
-                            role="img"
-                            t-att-title="line._get_shop_warning()"
-                            aria-label="Warning"
-                        />
-                    </t>
+                    <i
+                        class="fa fa-warning text-warning"
+                        role="img"
+                        t-att-title="line._get_shop_warning()"
+                        aria-label="Warning"
+                    />
+                </t>
                     x
                     <t t-out="line.name_short" />
                 </h6>
