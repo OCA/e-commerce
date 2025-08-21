@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* Copyright 2019 Sergio Teruel
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
@@ -9,47 +8,60 @@ registry.category("web_tour.tours").add("website_sale_secondary_unit", {
     steps: () => [
         {
             trigger: "a:contains('Test product')",
+            run: "click",
         },
         {
             trigger: "#secondary_uom",
-            run: "text(Box 5 Units)",
+            run: "selectByLabel Box 5 Units",
         },
         {
             trigger: "#add_to_cart",
-            extra_trigger:
-                ".js_product:has(input[name='add_qty']:propValueContains(5)):has(.price_uom)",
+            run: "click",
         },
         {
             trigger: "a[href='/shop/cart']",
+            run: "click",
+        },
+        {
+            trigger: "span:contains(Box 5 Units)",
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger: "span:contains(Box 5 Units)",
+            run: "click",
         },
         {
             trigger: "a:contains('Test product')",
+            run: "click",
         },
         {
             trigger: "#add_to_cart",
-            extra_trigger:
-                ".js_product:has(input[name='add_qty']:propValueContains(1))",
+            run: "click",
         },
         {
             trigger: "a[href='/shop/cart']",
+            run: "click",
         },
         {
-            trigger: "a[href='/shop/checkout?express=1']",
-            extra_trigger: "span:containsExact(Units)",
+            trigger: "span:contains(Units)",
         },
         {
-            trigger: "div[id='o_wsale_total_accordion'] button.accordion-button",
+            trigger: "a[name='website_sale_main_button']",
+            run: "click",
         },
         {
-            trigger: "h6[name='secondary_uom_qty'] span:containsExact(Box 5)",
+            trigger: "div[id='o_wsale_total_accordion_item'] button.accordion-button",
+            run: "click",
+        },
+        {
+            trigger: "h6[name='secondary_uom_qty'] span:contains(Box 5)",
+            run: "click",
+        },
+        {
+            trigger: "table:has(span:contains(Box 5)):has(span:contains(Units))",
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger: "table:has(span:contains(Box 5)):has(span:contains(Units))",
+            run: "click",
         },
     ],
 });
