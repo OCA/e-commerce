@@ -33,10 +33,10 @@ between products templates.
 
 This module adds two types of links :
 
-- **Cross Selling** : suggest your customer to purchase an additional
-  product
-- **Up Selling** : suggest your customers to purchase a higher-end
-  product, an upgrade, etc.
+-  **Cross Selling** : suggest your customer to purchase an additional
+   product
+-  **Up Selling** : suggest your customers to purchase a higher-end
+   product, an upgrade, etc.
 
 These types of links are common in e-commerce shops.
 
@@ -57,41 +57,40 @@ Link (Variants), in the same OCA / e-commerce repository.
 Usage
 =====
 
-- To mass edit or create links between products templates, Go to Sale >
-  Configuration > Products > Product Links
+-  To mass edit or create links between products templates, Go to Sale >
+   Configuration > Products > Product Links
 
-|Product link list|
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/18.0/product_template_multi_link/static/description/product_template_link_tree.png
+   :alt: Product link list
 
 A kanban view is also available
 
-|Product link kanban|
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/18.0/product_template_multi_link/static/description/product_template_link_kanban.png
+   :alt: Product link kanban
 
-- You can manage links by product, Go to Sales > Sales > Products and
-  select a product
+-  You can manage links by product, Go to Sales > Sales > Products and
+   select a product
 
-|Product form|
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/18.0/product_template_multi_link/static/description/product_template_form.png
+   :alt: Product form
 
-- You can so add new item, line by line, via an editable tree view
+-  You can so add new item, line by line, via an editable tree view
 
-|Product link list edit|
-
-.. |Product link list| image:: https://raw.githubusercontent.com/static/description/product_template_link_tree.png
-.. |Product link kanban| image:: https://raw.githubusercontent.com/static/description/product_template_link_kanban.png
-.. |Product form| image:: https://raw.githubusercontent.com/static/description/product_template_form.png
-.. |Product link list edit| image:: https://raw.githubusercontent.com/static/description/product_template_link_tree_edit.png
+.. image:: https://raw.githubusercontent.com/OCA/e-commerce/18.0/product_template_multi_link/static/description/product_template_link_tree_edit.png
+   :alt: Product link list edit
 
 Known issues / Roadmap
 ======================
 
-- This module links templates together. 'product_multi_link' links
-  variants together. We could, in a next version of Odoo, include
-  variants features in that module, and adding a new group in 'Manage
-  Product Variant Links'.
-- Develop another module product_template_multi_link_customer, that adds
-  a new type of link named 'customer'. Those links could be generated
-  automatically by scheduled cron task, analyzing sale.order.line. Odoo
-  could create so, the 3 most products sold when a given product is
-  sold.
+-  This module links templates together. 'product_multi_link' links
+   variants together. We could, in a next version of Odoo, include
+   variants features in that module, and adding a new group in 'Manage
+   Product Variant Links'.
+-  Develop another module product_template_multi_link_customer, that
+   adds a new type of link named 'customer'. Those links could be
+   generated automatically by scheduled cron task, analyzing
+   sale.order.line. Odoo could create so, the 3 most products sold when
+   a given product is sold.
 
 Bug Tracker
 ===========
@@ -115,12 +114,12 @@ Authors
 Contributors
 ------------
 
-- Sylvain LE GAL <http://www.twitter.com/legalsylvain>
-- `Binhex <https://binhex.cloud//com>`__:
+-  Sylvain LE GAL <http://www.twitter.com/legalsylvain>
+-  `Binhex <https://binhex.cloud//com>`__:
 
-  - David Luis Mora <d.luis@binhex.cloud>
+   -  David Luis Mora <d.luis@binhex.cloud>
 
-- Vo Hong Thien <thienvh@trobz.com>
+-  Vo Hong Thien <thienvh@trobz.com>
 
 Other credits
 -------------
