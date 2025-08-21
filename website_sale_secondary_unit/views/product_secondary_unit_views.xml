@@ -10,7 +10,7 @@
             ref="product_secondary_unit.product_template_form_view"
         />
         <field name="arch" type="xml">
-            <xpath expr="//tree/field[@name='factor']" position="after">
+            <xpath expr="//list/field[@name='factor']" position="after">
                 <field name="website_published" />
             </xpath>
         </field>

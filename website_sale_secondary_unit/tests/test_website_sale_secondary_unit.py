@@ -1,10 +1,12 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase
+from odoo import Command
+from odoo.tests.common import HttpCase, tagged
 
 from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
 
 
+@tagged("post_install", "-at_install")
 class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
     @classmethod
     def setUpClass(cls):
@@ -33,9 +35,7 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
         cls.product_template.write(
             {
                 "secondary_uom_ids": [
-                    (
-                        6,
-                        0,
+                    Command.set(
                         [cls.secondary_unit_box_5.id, cls.secondary_unit_box_10.id],
                     ),
                 ],
@@ -44,6 +44,8 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
         # Add group "Manage Multiple Units of Measure" to admin
         admin = cls.env.ref("base.user_admin")
         admin.groups_id |= cls.env.ref("uom.group_uom")
+        # Force VAT to avoid error in the module that makes it required.
+        admin.partner_id.vat = "TEST12345678"
 
     def test_ui_website(self):
         """Test frontend tour."""
