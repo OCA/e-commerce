@@ -9,15 +9,15 @@ publicWidget.registry.WebsiteSale.prototype._changeCountry = function () {
     return this.rpc("/shop/country_infos/" + $("#country_id").val(), {
         mode: $("#country_id").attr("mode"),
     }).then(function (data) {
-        // placeholder phone_code
+        // Placeholder phone_code
         $("input[name='phone']").attr(
             "placeholder",
             data.phone_code !== 0 ? "+" + data.phone_code : ""
         );
 
-        // populate states and display
+        // Populate states and display
         var selectStates = $("select[name='state_id']");
-        // dont reload state at first loading (done in qweb)
+        // Dont reload state at first loading (done in qweb)
         if (
             selectStates.data("init") === 0 ||
             selectStates.find("option").length === 1
@@ -40,7 +40,7 @@ publicWidget.registry.WebsiteSale.prototype._changeCountry = function () {
             selectStates.data("init", 0);
         }
 
-        // manage fields order / visibility
+        // Manage fields order / visibility
         if (data.fields) {
             // [CUSTOM][DEL] Following 5 lines
             // if ($.inArray('zip', data.fields) > $.inArray('city', data.fields)){
@@ -77,7 +77,7 @@ publicWidget.registry.WebsiteSale.prototype._changeCountry = function () {
             $("label[for='zip']").toggleClass("label-optional", !data.zip_required);
             $("label[for='zip']")
                 .get(0)
-                .toggleAttribute("required", !!data.zip_required);
+                .toggleAttribute("required", Boolean(data.zip_required));
         }
         if ($("label[for='zip']").length) {
             $("label[for='state_id']").toggleClass(
@@ -86,7 +86,7 @@ publicWidget.registry.WebsiteSale.prototype._changeCountry = function () {
             );
             $("label[for='state_id']")
                 .get(0)
-                .toggleAttribute("required", !!data.state_required);
+                .toggleAttribute("required", Boolean(data.state_required));
         }
     });
 };
