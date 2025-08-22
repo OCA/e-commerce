@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="secondary_qty">
+        <div
+            t-attf-class="css_quantity secondary_qty input-group {{'d-none' if combination_info['prevent_zero_price_sale'] else 'd-inline-flex'}} me-2 mb-2 align-middle"
+            contenteditable="false"
+        >
+            <a
+                t-attf-href="#"
+                class="btn btn-link js_add_cart_json"
+                aria-label="Remove one"
+                title="Remove one"
+            >
+                <i class="fa fa-minus" />
+            </a>
+            <input
+                type="text"
+                class="form-control secondary-quantity text-center"
+                data-min="1"
+                name="add_secondary_qty"
+                value="1"
+            />
+            <a
+                t-attf-href="#"
+                class="btn btn-link js_add_cart_json"
+                aria-label="Add one"
+                title="Add one"
+            >
+                <i class="fa fa-plus" />
+            </a>
+        </div>
+    </template>
+    <template id="second_qty_description">
+        <t
+            t-set="factor"
+            t-value="int(secondary_uom.factor) == secondary_uom.factor and int(secondary_uom.factor) or secondary_uom.factor"
+        />
+        <!-- Show/hide unit of measure: In case the secondary unit of measure matches the unit of measure of the product it can be omitted so that it is not redundant depending on where this template is called from. -->
+        <span
+            t-if="not hide_uom_name"
+            t-out="'{} {} {}'.format(secondary_uom.name, factor, secondary_uom.product_tmpl_id.sudo().uom_id.name)"
+        />
+        <span t-else="" t-out="'{} {}'.format(secondary_uom.name, factor)" />
+    </template>
+    <template
+        id="product"
+        inherit_id="website_sale.product"
+        name="Manage secondary units"
+    >
+        <xpath
+            expr="//div[@id='product_details']//t[@t-call='website_sale.product_price']"
+            position="after"
+        >
+            <t
+                t-if="secondary_uom_ids and not combination_info['prevent_zero_price_sale']"
+            >
+                <div class="mb8 secondary-unit">
+                    <t t-call="website_sale_secondary_unit.secondary_qty" />
+                    <select
+                        class="form-control"
+                        id="secondary_uom"
+                        name="secondary_uom_id"
+                    >
+                        <option
+                            t-if="secondary_uom_ids and product.allow_uom_sell"
+                            value="0"
+                            t-att-selected="'selected' if not product.sale_secondary_uom_id else None"
+                            t-att-data-secondary-uom-factor="1.0"
+                            t-att-data-product-uom-factor="1.0"
+                        >
+                            <span t-out="product.uom_id.sudo().name" />
+                        </option>
+                        <t t-foreach="secondary_uom_ids" t-as="secondary_uom">
+                            <option
+                                t-att-value="secondary_uom.id"
+                                t-att-selected="'selected' if product.sudo().sale_secondary_uom_id.id == secondary_uom.id else None"
+                                t-att-data-secondary-uom-factor="secondary_uom.factor"
+                                t-att-data-product-uom-factor="product.sudo().uom_id.factor"
+                            >
+                                <t
+                                    t-call="website_sale_secondary_unit.second_qty_description"
+                                />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//span[hasclass('oe_price')]" position="after">
+            <t t-if="secondary_uom_ids">
+                / <span
+                class="css_editable_mode_hidden price_uom"
+                t-field="product.uom_id"
+            />
+            </t>
+        </xpath>
+    </template>
+    <template id="product_quantity" inherit_id="website_sale.product_quantity">
+        <xpath expr="//input[@name='add_qty']/.." position="attributes">
+            <attribute
+                name="t-attf-class"
+            >css_quantity input-group {{'d-none' if combination_info['prevent_zero_price_sale'] or secondary_uom_ids else 'd-inline-flex'}} me-2 mb-2 align-middle</attribute>
+        </xpath>
+    </template>
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[@name='website_sale_cart_line_quantity']" position="before">
+            <t t-if="line.secondary_uom_id">
+                <div class="css_secondary_quantity css_quantity input-group mb-2">
+                    <a
+                        t-attf-href="#"
+                        class="js_add_cart_json btn btn-link d-inline-block border-end-0"
+                        aria-label="Remove one"
+                        title="Remove one"
+                    >
+                        <i class="position-relative z-index-1 fa fa-minus" />
+                    </a>
+                    <input
+                        type="text"
+                        class="js_secondary_quantity secondary-quantity form-control border-start-0 border-end-0"
+                        t-att-data-line-id="line.id"
+                        t-att-data-product-id="line.product_id.id"
+                        t-att-data-secondary-uom-id="line.secondary_uom_id.id"
+                        t-att-data-secondary-uom-factor="line.secondary_uom_id.factor"
+                        t-att-data-product-uom-factor="line.product_uom.sudo().factor"
+                        t-att-value="int(line.secondary_uom_qty) == line.secondary_uom_qty and int(line.secondary_uom_qty) or line.secondary_uom_qty"
+                    />
+                    <a
+                        t-attf-href="#"
+                        class="js_add_cart_json d-inline-block btn btn-link border-start-0"
+                        aria-label="Add one"
+                        title="Add one"
+                    >
+                        <i class="fa fa-plus position-relative z-index-1" />
+                    </a>
+                </div>
+                <div>
+                    <t t-call="website_sale_secondary_unit.second_qty_description">
+                    <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
+                </t>
+                    =
+                    <span
+                    t-out="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"
+                />
+                    <span t-out="line.product_uom.sudo().name" />
+                </div>
+            </t>
+        </xpath>
+        <xpath
+            expr="//div[@name='website_sale_cart_line_quantity']//t[@t-if='show_qty']"
+            position="attributes"
+        >
+            <attribute name="t-if">show_qty and not line.secondary_uom_id</attribute>
+        </xpath>
+        <xpath expr="//div[@name='website_sale_cart_line_quantity']" position="after">
+            <t t-if="not line.secondary_uom_id">
+                <div class="mb-2">
+                    <span t-out="line.product_uom.sudo().name" />
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
+        <xpath
+            expr="//td[@name='website_sale_cart_summary_product_name']//h6"
+            position="attributes"
+        >
+            <attribute name="t-if">not line.secondary_uom_id</attribute>
+        </xpath>
+        <xpath
+            expr="//td[@name='website_sale_cart_summary_product_name']"
+            position="inside"
+        >
+            <t t-if="line.secondary_uom_id">
+                <h6 name="secondary_uom_qty">
+                    <t t-out="int(line.secondary_uom_qty)" />
+                    <t t-call="website_sale_secondary_unit.second_qty_description">
+                    <t
+                        t-if="line.product_uom.sudo().name == line.secondary_uom_id.product_tmpl_id.sudo().uom_id.name"
+                        t-set="hide_uom_name"
+                        t-value="True"
+                    />
+                    <t t-set="secondary_uom" t-value="line.secondary_uom_id" />
+                </t>
+                    <t t-if="line._get_shop_warning(clear=False)">
+                    <i
+                        class="fa fa-warning text-warning"
+                        role="img"
+                        t-att-title="line._get_shop_warning()"
+                        aria-label="Warning"
+                    />
+                </t>
+                    x
+                    <t t-out="line.name_short" />
+                </h6>
+                <t t-out="int(line.product_uom_qty)" />
+                <span t-out="line.product_uom.sudo().name" />
+            </t>
+        </xpath>
+        <xpath
+            expr="//td[@name='website_sale_cart_summary_product_name']//t[@t-if='line._get_shop_warning(clear=False)']"
+            position="before"
+        >
+            <span t-out="line.product_uom.sudo().name" />
+        </xpath>
+    </template>
+</odoo>
