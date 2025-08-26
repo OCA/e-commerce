@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Address Format",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
+    "summary": "Configure address field order and visibility per country in eCommerce",
     "author": "Quartile, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
     "category": "Website/Website",
@@ -14,5 +15,6 @@
             "website_sale_address_format/static/src/js/website_sale_address_format.esm.js",
         ],
     },
+    "maintainers": ["yostashiro", "Aungkokolin1997"],
     "installable": True,
 }
