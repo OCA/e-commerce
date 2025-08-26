@@ -13,8 +13,8 @@
                         placeholder="eCommerce address format..."
                     />
                     <div
-                        name="div_online_address_format ms-2"
-                        class="text-muted"
+                        name="div_online_address_format"
+                        class="text-muted ms-2"
                     >Change the way addresses are displayed in eCommerce address forms</div>
                 </div>
             </xpath>
