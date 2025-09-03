@@ -1,0 +1,1 @@
+odoo14-addon-product_eprel @ git+https://github.com/OCA/product-attribute.git@refs/pull/2034/head#subdirectory=setup/product_eprel
