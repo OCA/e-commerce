@@ -2,48 +2,73 @@
 # Copyright 2016 Tecnativa - Vicent Cubells
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, http
-from odoo.http import request
-from odoo.tools import Markup
+from markupsafe import Markup
 
+from odoo import http
+from odoo.http import request, route
+
+from odoo.addons.payment.controllers import portal
 from odoo.addons.website_sale.controllers import main
 
 
 class WebsiteSale(main.WebsiteSale):
-    def _get_mandatory_fields_billing(self, country_id=False):
-        result = super()._get_mandatory_fields_billing(country_id)
-        return result + self._mandatory_legal_terms()
-
-    def _get_mandatory_fields_shipping(self, country_id=False):
-        result = super()._get_mandatory_fields_shipping(country_id)
-        return result + self._mandatory_legal_terms()
-
-    def _mandatory_legal_terms(self):
-        """Require ``accepted_legal_terms`` only if we are validating."""
-        result = []
-        if request.context.get("needs_legal"):
-            result.append("accepted_legal_terms")
-        return result
-
-    def checkout_form_validate(self, mode, all_form_values, data):
-        """Require accepting legal terms to validate form."""
-        # Patch context
-        old_context = request.context
-        request.update_context(
-            needs_legal=request.website.viewref(
-                "website_sale_require_legal.address_require_legal"
-            ).active
+    def _validate_address_values(
+        self,
+        address_values,
+        partner_sudo,
+        address_type,
+        use_delivery_as_billing,
+        required_fields,
+        is_main_address,
+        **_kwargs,
+    ):
+        invalid_fields, missing_fields, error_messages = (
+            super()._validate_address_values(
+                address_values,
+                partner_sudo,
+                address_type,
+                use_delivery_as_billing,
+                required_fields,
+                is_main_address,
+                **_kwargs,
+            )
         )
-        result = super().checkout_form_validate(mode, all_form_values, data)
-        # Unpatch context
-        request.update_env(context=old_context)
-        return result
+        if not _kwargs.get("accepted_legal_terms"):
+            error_messages.append(
+                request.env._("You must accept the terms & conditions to continue.")
+            )
 
-    def _checkout_form_save(self, mode, checkout, all_values):
-        res = super()._checkout_form_save(mode, checkout, all_values)
-        if all_values.get("submitted") and all_values.get("accepted_legal_terms"):
-            partner = request.env["res.partner"].browse(res)
-            self._log_acceptance_metadata(partner)
+        return invalid_fields, missing_fields, error_messages
+
+    @route(
+        "/shop/address/submit",
+        type="http",
+        methods=["POST"],
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def shop_address_submit(
+        self,
+        partner_id=None,
+        address_type="billing",
+        use_delivery_as_billing=None,
+        callback=None,
+        required_fields=None,
+        **form_data,
+    ):
+        res = super().shop_address_submit(
+            partner_id=partner_id,
+            address_type=address_type,
+            use_delivery_as_billing=use_delivery_as_billing,
+            callback=callback,
+            required_fields=required_fields,
+            **form_data,
+        )
+        if partner_id:
+            partner = request.env["res.partner"].browse(int(partner_id))
+            if form_data.get("accepted_legal_terms"):
+                self._log_acceptance_metadata(partner)
         return res
 
     def _log_acceptance_metadata(self, record):
@@ -57,13 +82,15 @@ class WebsiteSale(main.WebsiteSale):
                 "HTTP_ACCEPT_LANGUAGE",
             )
         )
-        message = Markup(_("Website legal terms acceptance metadata: %s") % metadata)
+        message = Markup(
+            request.env._("Website legal terms acceptance metadata: %s") % metadata
+        )
         record.sudo().message_post(
             body=message, message_type="notification", subtype_xmlid="mail.mt_comment"
         )
 
 
-class PaymentPortal(main.PaymentPortal):
+class PaymentPortal(portal.PaymentPortal):
     @http.route()
     def shop_payment_transaction(self, order_id, access_token, **kwargs):
         """Record sale order payment legal terms acceptance.
