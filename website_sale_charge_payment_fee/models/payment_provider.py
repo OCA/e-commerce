@@ -51,6 +51,7 @@ class PaymentProvider(models.Model):
                 fields.Date.today(),
             )
         elif self.charge_fee_type == "percentage":
-            # Calculate amount excluding existing payment fees
+            # Calculate amount excluding existing payment fee
+            amount_total = amount_total if amount_total else 1
             price = (self.charge_fee_percentage / 100.0) * amount_total
         return price
