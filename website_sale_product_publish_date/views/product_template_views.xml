@@ -5,9 +5,20 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='website_id']" position="after">
-                <field name="expected_publish_date" />
-                <field name="expected_unpublish_date" />
+            <xpath
+                expr="//group[@name='extra_info']//field[@name='is_published']"
+                position="after"
+            >
+                <label for="expected_publish_date" string="Website Visible Period" />
+                <div class="o_row">
+                    <field name="expected_publish_date" nolabel="1" class="oe_inline" />
+                    <span class="mx-2">–</span>
+                    <field
+                        name="expected_unpublish_date"
+                        nolabel="1"
+                        class="oe_inline"
+                    />
+                </div>
             </xpath>
         </field>
     </record>
