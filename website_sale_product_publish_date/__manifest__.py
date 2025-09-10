@@ -3,8 +3,10 @@
 
 {
     "name": "Website Sale Product Publish Date",
+    "summary": "Control product visibility on the website shop with publish/unpublish "
+    "dates",
     "category": "Website",
-    "version": "15.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "Quartile, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
     "license": "AGPL-3",
@@ -12,5 +14,6 @@
     "data": [
         "views/product_template_views.xml",
     ],
+    "maintainers": ["yostashiro", "aungkokolin1997"],
     "installable": True,
 }
