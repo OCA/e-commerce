@@ -16,6 +16,8 @@ class WebsiteSaleFee(WebsiteSale):
     def payment(self, **post):
         res = super(WebsiteSaleFee, self).payment(**post)
         values = res.qcontext
+        if not values.get("acquirers"):
+            return res
         order = request.website.sale_get_order()
         payment_fee_id = post.get("payment_fee_id")
         checked_pm_id = post.get("pm_id")
@@ -27,11 +29,15 @@ class WebsiteSaleFee(WebsiteSale):
             # (see 'payment' template)
             # If payment_fee_id, it means user selected it
             # (see website_sale_fee.js)
+            selected_acquirer = request.env["payment.acquirer"]
             if payment_fee_id:
-                selected_acquirer = request.env["payment.acquirer"].browse(
-                    int(payment_fee_id)
+                sel = request.env["payment.acquirer"].sudo().browse(int(payment_fee_id))
+                selected_acquirer = (
+                    sel
+                    if sel and sel in values["acquirers"]
+                    else values["acquirers"][0]
                 )
-            else:
+            if not selected_acquirer:
                 selected_acquirer = values["acquirers"][0]
             values["selected_acquirer"] = selected_acquirer
             order.sudo().update_fee_line(selected_acquirer.sudo())
