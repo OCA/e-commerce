@@ -35,7 +35,7 @@
                 <tbody>
                     <tr t-foreach="product_matrix.get('matrix', [])" t-as="row">
                         <t t-foreach="row" t-as="cell">
-                            <td t-if="cell.get('name')" class="text-left">
+                            <td t-if="'name' in cell" class="text-left">
                                 <strong t-esc="cell['name']" />
                                 <t t-if="cell.get('price')">
                                     <span class="badge badge-pill badge-secondary">
