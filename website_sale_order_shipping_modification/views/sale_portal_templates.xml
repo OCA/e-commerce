@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="sale_order_portal_content"
+        inherit_id="sale.sale_order_portal_content"
+    >
+        <xpath
+            expr="//div[@id='invoicing_shipping_address']/div/strong"
+            position="before"
+        >
+            <a
+                t-if="sale_order.partner_shipping_id == sale_order.partner_invoice_id and sale_order.state =='sent' and not sale_order.is_expired"
+                class="float-end no-decoration"
+                t-attf-href="/shop/checkout?portal_order_id=#{sale_order.id}&amp;access_token=#{access_token or ''}"
+            ><i class="fa fa-edit" /> Edit shipping address</a>
+        </xpath>
+        <xpath expr="//div[@id='shipping_address']/strong" position="before">
+            <a
+                t-if="sale_order.partner_shipping_id != sale_order.partner_invoice_id and sale_order.state == 'sent' and not sale_order.is_expired"
+                class="float-end no-decoration me-2"
+                t-attf-href="/shop/checkout?portal_order_id=#{sale_order.id}&amp;access_token=#{access_token or ''}"
+            ><i class="fa fa-edit" /> Edit </a>
+        </xpath>
+    </template>
+</odoo>
