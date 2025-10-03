@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="cart_import_example" model="ir.attachment">
+        <field name="mimetype">application/vnd.ms-excel</field>
+        <field name="name">cart_import_example</field>
+        <field name="type">binary</field>
+        <field
+            name="datas"
+            type="base64"
+            file="website_sale_cart_add_product_xlsx_csv/static/xlsx/import_example.xlsx"
+        />
+        <field
+            name="url"
+        >website_sale_cart_add_product_xlsx_csv/static/xlsx/import_example.xlsx</field>
+    </record>
+</odoo>

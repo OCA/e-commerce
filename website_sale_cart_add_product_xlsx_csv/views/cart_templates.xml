@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Alberto Martínez <alberto.martinez@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="cart_lines_import" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[@id='cart_products']" position="before">
+            <div
+                class="js_cart_lines alert alert-success"
+                t-if="import_status == 'sucess'"
+            >
+                Import success
+            </div>
+            <div
+                class="js_cart_lines alert alert-warning"
+                t-if="import_status == 'warn'"
+            >
+                Partial import. The following products had errors:
+                <ul t-if="failed_products">
+                    <t t-foreach="failed_products" t-as="product">
+                        <li><t t-esc="product" /></li>
+                    </t>
+                </ul>
+            </div>
+            <div
+                class="js_cart_lines alert alert-danger"
+                t-if="import_status == 'error'"
+            >
+                Importation error.
+                <t t-if="import_msg"><t t-esc="import_msg" /></t>
+            </div>
+            <!-- <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="js_cart_lines alert alert-info"> -->
+            <form
+                t-if="website.cart_import_button and (not website_sale_order or not website_sale_order.website_order_line)"
+                action="/shop/cart"
+                method="post"
+                enctype="multipart/form-data"
+                class="o_mark_required s_website_form_no_recaptcha"
+                hide-change-model="true"
+            >
+                <div class="s_website_form_rows s_col_no_bgcolor row">
+                    <label
+                        class="s_website_form_label col-form-label col-6 pr-0"
+                        for="sale3"
+                    >
+                        <span
+                            class="s_website_form_label_content fw-bold"
+                        >You can import the cart with a xlsx/csv file</span>
+                    </label>
+                    <div class="col-6">
+                        <input
+                            id="cart_file"
+                            type="file"
+                            class="s_website_form_input form-control"
+                            name="cart_file"
+                            required="True"
+                        />
+                    </div>
+                </div>
+                <div class="s_website_form_rows s_col_no_bgcolor row">
+                    <div
+                        class="s_website_form_field col-9 py-2 mb-0"
+                        data-type="char"
+                        data-name="Field"
+                    >
+                        <a
+                            role="button"
+                            name="Download example file"
+                            href="/shop/cart/import/example"
+                        >
+                            <span>Download example file</span>
+                        </a>
+                    </div>
+                    <div
+                        class="s_website_form_submit s_website_form_no_submit_option col-3"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <input type="submit" class="btn btn-primary float-end" />
+                    </div>
+                </div>
+            </form>
+        </xpath>
+    </template>
+
+</odoo>
