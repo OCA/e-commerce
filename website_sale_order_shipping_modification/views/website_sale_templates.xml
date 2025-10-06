@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="checkout" inherit_id="website_sale.checkout">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t
+                t-set="portal_order_id"
+                t-value="request.session.get('portal_order_id', False)"
+            />
+            <t
+                t-set="portal_access_token"
+                t-value="request.session.get('portal_access_token', False)"
+            />
+            <div
+                id="portal-session-flags"
+                t-att-data-has-portal-session="1 if (portal_order_id and portal_access_token) else 0"
+            />
+        </xpath>
+        <xpath expr="//a[@href='/shop/cart']" position="attributes">
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop/confirm_order']" position="before">
+            <a
+                role="button"
+                t-if="portal_order_id and portal_access_token"
+                t-attf-href="/my/orders/#{portal_order_id}#{portal_access_token and ('?access_token=' + portal_access_token) or ''}"
+                class="btn btn-primary mb32"
+            >
+                <span>Confirm</span>
+                <i class="fa fa-chevron-right" />
+            </a>
+        </xpath>
+        <xpath expr="//a[@href='/shop/confirm_order']" position="attributes">
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-call='website_sale.wizard_checkout']/.."
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.cart_summary']/.." position="attributes">
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='allow_edit']" position="attributes">
+            <attribute
+                name="t-value"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-foreach='shippings']//t[@t-set='allow_edit']"
+            position="attributes"
+        >
+            <attribute
+                name="t-value"
+            >not order.partner_id or (ship.id in order.partner_id.child_ids.ids) and not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+        <xpath expr="//form[@action='/shop/address']/.." position="attributes">
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token and website.is_public_user())</attribute>
+        </xpath>
+    </template>
+    <template id="address" inherit_id="website_sale.address">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t
+                t-set="portal_order_id"
+                t-value="request.session.get('portal_order_id', False)"
+            />
+            <t
+                t-set="portal_access_token"
+                t-value="request.session.get('portal_access_token', False)"
+            />
+            <div
+                id="portal-session-flags"
+                t-att-data-has-portal-session="1 if (portal_order_id and portal_access_token) else 0"
+            />
+        </xpath>
+    </template>
+</odoo>
