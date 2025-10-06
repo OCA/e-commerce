@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 16.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_hide_price](website_sale_hide_price/) | 16.0.2.3.0 |  | Hide product prices on the shop
 [website_sale_invoice_address](website_sale_invoice_address/) | 16.0.1.1.0 |  | Set e-Commerce sale orders invoice address as in backend
+[website_sale_order_shipping_modification](website_sale_order_shipping_modification/) | 16.0.1.0.0 |  | Change the delivery address in quotes from the portal
 [website_sale_order_type](website_sale_order_type/) | 16.0.1.0.2 | <a href='https://github.com/pilarvargas-tecnativa'><img src='https://github.com/pilarvargas-tecnativa.png' width='32' height='32' style='border-radius:50%;' alt='pilarvargas-tecnativa'/></a> | This module allows sale_order_type to work with website_sale.
 [website_sale_product_assortment](website_sale_product_assortment/) | 16.0.1.1.1 | <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | Use product assortments to display products available on e-commerce.
 [website_sale_product_attachment](website_sale_product_attachment/) | 16.0.1.1.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Let visitors download attachments from a product page
