@@ -13,9 +13,32 @@ class TestUi(odoo.tests.HttpCase):
         cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
 
     def test_01_shop_buy(self):
+        # Create a simple product for the test
+        self.env["product.product"].create(
+            {
+                "name": "Test Product",
+                "list_price": 100.0,
+                "website_published": True,
+            }
+        )
+
         # Ensure that 'vat' is not empty for compatibility with
         # website_sale_vat_required module
-        portal_user = self.env.ref("base.demo_user0")
+        # Try to use the demo user if available, otherwise find or create
+        # a portal (share) user for tests so the test does not depend on
+        # demo data being present in the environment.
+        portal_user = self.env.ref("base.demo_user0", raise_if_not_found=False)
+        if not portal_user:
+            portal_user = self.env["res.users"].search([("share", "=", True)], limit=1)
+        if not portal_user:
+            portal_user = self.env["res.users"].create(
+                {
+                    "name": "Test Portal User",
+                    "login": "test_portal_user",
+                    "password": "test",
+                    "share": True,
+                }
+            )
         if not portal_user.partner_id.vat:
             portal_user.partner_id.vat = "BE1234567"
         current_website = self.env["website"].get_current_website()

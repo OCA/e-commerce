@@ -1,25 +1,28 @@
 import {registry} from "@web/core/registry";
+
 registry.category("web_tour.tours").add("shop_buy_checkout_suggest_account_website", {
     url: "/shop",
     steps: () => [
         // Shop Page
         {
-            trigger: "a:contains('Customizable')",
+            trigger: ".oe_product_cart a:first",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             trigger: "#add_to_cart",
             run: "click",
         },
-
         {
-            trigger: "button:contains('Proceed to Checkout')",
+            trigger: "button[name='website_sale_product_configurator_checkout_button']",
             run: "click",
+            expectUnloadPage: true,
         },
         // Cart page
         {
             trigger: "a.btn-primary[href='/web/login?redirect=/shop/checkout']",
             run: "click",
+            expectUnloadPage: true,
         },
         // Login Page
         {
@@ -33,15 +36,16 @@ registry.category("web_tour.tours").add("shop_buy_checkout_suggest_account_websi
         {
             trigger: "button.btn-primary:first",
             run: "click",
+            expectUnloadPage: true,
         },
         // Checkout Page
         {
-            trigger: "a[href='/shop/confirm_order']",
+            trigger: "a[href='/shop/payment']",
             run: "click",
+            expectUnloadPage: true,
         },
         {
-            trigger: "h3",
-            content: "Confirm Order",
+            trigger: "#payment_method",
         },
         // The End
     ],
