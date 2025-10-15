@@ -9,7 +9,7 @@ class Website(WebsiteSale):
     def _get_search_domain(
         self, search, category, attrib_values, search_in_description=True
     ):
-        domain = super(Website, self)._get_search_domain(
+        domain = super()._get_search_domain(
             search=search,
             category=category,
             attrib_values=attrib_values,
@@ -53,7 +53,7 @@ class Website(WebsiteSale):
     def _get_search_domain_no_brands(
         self, search, category, attrib_values, search_in_description
     ):
-        domain = super(Website, self)._get_search_domain(
+        domain = super()._get_search_domain(
             search=search,
             category=category,
             attrib_values=attrib_values,
@@ -70,7 +70,7 @@ class Website(WebsiteSale):
 
     @http.route()
     def shop(self, page=0, category=None, brand=None, ppg=False, search="", **post):
-        res = super(Website, self).shop(
+        res = super().shop(
             page=page, category=category, search=search, brand=brand, ppg=ppg, **post
         )
         # parse selected attributes

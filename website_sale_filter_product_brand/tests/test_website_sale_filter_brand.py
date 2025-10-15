@@ -30,7 +30,7 @@ class TestWebsiteSaleFilterBrandHttpCase(HttpCase):
 class WebsiteSale(SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(WebsiteSale, cls).setUpClass()
+        super().setUpClass()
         cls.website = cls.env["website"].browse(1)
         cls.WebsiteSaleController = Website()
         cls.public_user = cls.env.ref("base.public_user")
