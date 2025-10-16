@@ -1,15 +1,14 @@
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.website.controllers.main import QueryURL
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers.main import QueryURL, WebsiteSale
 
 
 class Website(WebsiteSale):
-    def _get_search_domain(
+    def _get_shop_domain(
         self, search, category, attrib_values, search_in_description=True
     ):
-        domain = super()._get_search_domain(
+        domain = super()._get_shop_domain(
             search=search,
             category=category,
             attrib_values=attrib_values,
@@ -50,10 +49,10 @@ class Website(WebsiteSale):
             .filtered(lambda x: x.products_count > 0)
         )
 
-    def _get_search_domain_no_brands(
+    def _get_shop_domain_no_brands(
         self, search, category, attrib_values, search_in_description
     ):
-        domain = super()._get_search_domain(
+        domain = super()._get_shop_domain(
             search=search,
             category=category,
             attrib_values=attrib_values,
@@ -69,16 +68,35 @@ class Website(WebsiteSale):
         return brands.sorted(key=lambda brand: brand.name)
 
     @http.route()
-    def shop(self, page=0, category=None, brand=None, ppg=False, search="", **post):
+    def shop(
+        self,
+        page=0,
+        category=None,
+        search="",
+        min_price=0.0,
+        max_price=0.0,
+        ppg=False,
+        brand=None,
+        **post,
+    ):
         res = super().shop(
-            page=page, category=category, search=search, brand=brand, ppg=ppg, **post
+            page=page,
+            category=category,
+            search=search,
+            min_price=0.0,
+            max_price=0.0,
+            ppg=ppg,
+            brand=brand,
+            **post,
         )
         # parse selected attributes
-        attrib_list = request.httprequest.args.getlist("attrib")
+        attrib_list = request.httprequest.args.getlist("attribute_value")
         attrib_values = res.qcontext["attrib_values"]
+        if attrib_list:
+            post["attribute_value"] = attrib_list
         # get filtered products
         products = res.qcontext["products"]
-        domain = self._get_search_domain_no_brands(
+        domain = self._get_shop_domain_no_brands(
             search, category, attrib_values, search_in_description=False
         )
         search_products = request.env["product.template"].search(domain)
@@ -89,7 +107,6 @@ class Website(WebsiteSale):
             selected_brand_ids, search, products, search_products, category
         )
         brands = self._remove_extra_brands(brands, search_products, attrib_values)
-
         # use search() domain instead of mapped() for better performance:
         # will basically search for product's related attribute values
         attrib_valid_ids = (
@@ -107,14 +124,12 @@ class Website(WebsiteSale):
             )
             .ids
         )
-
         # keep selected brands in URL
         keep = QueryURL(
             "/shop",
-            category=category and int(category),
-            search=search,
-            attrib=attrib_list,
-            order=post.get("order"),
+            **self._shop_get_query_url_kwargs(
+                category and int(category), search, min_price, max_price, **post
+            ),
             brand=brands_list,
             brand_ids=selected_brand_ids,
         )

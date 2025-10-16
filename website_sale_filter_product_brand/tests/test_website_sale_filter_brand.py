@@ -1,20 +1,23 @@
-from odoo.tests.common import HttpCase, SavepointCase
+from odoo.tests import HttpCase, tagged
 
+from odoo.addons.base.tests.common import BaseCommon
 from odoo.addons.website.tools import MockRequest
 from odoo.addons.website_sale_filter_product_brand.controllers.website_sale import (
     Website,
 )
 
 
+@tagged("post_install", "-at_install")
 class TestWebsiteSaleFilterBrandHttpCase(HttpCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
 
         # Activate attribute's filter in /shop. By default it's disabled.
-        website = self.env["website"].with_context(website_id=1)
+        website = cls.env["website"].with_context(website_id=1)
         website.viewref("website_sale.products_attributes").active = True
         # Activate filter category view
-        self.env.ref(
+        cls.env.ref(
             "website_sale_filter_product_brand.website_sale_filter_brand_products_brands"
         ).active = True
 
@@ -27,7 +30,7 @@ class TestWebsiteSaleFilterBrandHttpCase(HttpCase):
         self.start_tour("/shop", "website_sale_filter_product_brand", login="portal")
 
 
-class WebsiteSale(SavepointCase):
+class WebsiteSale(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
