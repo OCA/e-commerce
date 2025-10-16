@@ -1,0 +1,116 @@
+/* Copyright 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
+ * Copyright 2023 Pilar Vargas <pilar.vargas@tecnativa.com>
+ * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
+
+import {registry} from "@web/core/registry";
+import * as tourUtils from "@website_sale/js/tours/tour_utils";
+
+registry.category("web_tour.tours").add("website_sale_require_legal_with_payment", {
+    url: "/shop",
+    steps: () => [
+        ...tourUtils.searchProduct("Storage Box"),
+        {
+            content: "select Storage Box",
+            trigger: '.oe_product_cart:first a:contains("Storage Box")',
+            run: "click",
+        },
+        {
+            content: "click on add to cart",
+            trigger: '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
+            run: "click",
+        },
+        tourUtils.goToCart(),
+        tourUtils.goToCheckout(),
+        // Fill all required fields except legal terms acceptance
+        {
+            trigger: 'select[name="country_id"]',
+            run: function () {
+                $('input[name="phone"]').val("99999999");
+                // Required for test compatibility with the website_sale_vat_required module
+                $('input[name="vat"]').val("BE04774722701");
+                $('input[name="street"]').val("Castle St., 1");
+                $('input[name="city"]').val("Mushroom Kingdom");
+                $('input[name="zip"]').val("10000");
+                $("#country_id option:eq(1)").attr("selected", true);
+            },
+        },
+        // Submit, to prove that it is not possible to continue without accepting the legal terms
+        {
+            trigger: ".btn-primary:contains('Save address')",
+        },
+        // // Accept legal terms and accept again
+        {
+            trigger: "#accepted_legal_terms.is-invalid",
+        },
+        {
+            trigger: ".btn-primary:contains('Save address')",
+        },
+        {
+            trigger: "a[href='/shop/confirm_order']",
+        },
+        // If I can proceed to payment, it's because the form validated fine
+        {
+            trigger: "input[id='website_sale_tc_checkbox']",
+        },
+        ...tourUtils.payWithTransfer(true),
+    ],
+});
+
+registry.category("web_tour.tours").add("website_sale_require_legal", {
+    url: "/shop",
+    steps: () => [
+        ...tourUtils.searchProduct("Storage Box"),
+        {
+            content: "select Storage Box",
+            trigger: '.oe_product_cart:first a:contains("Storage Box")',
+            run: "click",
+        },
+        {
+            content: "click on add to cart",
+            trigger: '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
+            run: "click",
+        },
+        tourUtils.goToCart({quantity: 1}),
+        tourUtils.goToCheckout(),
+        // Fill all required fields except legal terms acceptance
+        {
+            content: "Fill delivery address form",
+            trigger: 'select[name="country_id"]',
+            run: "selectByLabel United State",
+        },
+        {
+            content: "Fill delivery address form",
+            trigger: 'select[name="state_id"]',
+            run: "selectByLabel Florida",
+        },
+        {
+            trigger: 'select[name="country_id"]',
+            run: function () {
+                $('input[name="phone"]').val("99999999");
+                // Required for test compatibility with the website_sale_vat_required module
+                $('input[name="vat"]').val("41511545146");
+                $('input[name="street"]').val("Castle St., 1");
+                $('input[name="city"]').val("Mushroom Kingdom");
+                $('input[name="zip"]').val("10000");
+            },
+        },
+        // Submit, to prove that it is not possible to continue without accepting the legal terms
+        {
+            trigger: ".btn-primary:contains('Save address')",
+            run: "click",
+        },
+        // // Accept legal terms and accept again
+        {
+            trigger: "#accepted_legal_terms",
+            run: "click",
+        },
+        {
+            trigger: ".btn-primary:contains('Save address')",
+            run: "click",
+        },
+        {
+            trigger: "a[href='/shop/confirm_order']",
+            run: "click",
+        },
+    ],
+});
