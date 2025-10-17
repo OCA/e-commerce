@@ -20,9 +20,9 @@
             "website_sale_product_assortment/static/src/js/assortment_list_preview.esm.js",
         ],
         "web.assets_tests": [
-            "website_sale_product_assortment/static/src/js/no_purchase_tour.js",
-            "website_sale_product_assortment/static/src/js/no_restriction_tour.js",
-            "website_sale_product_assortment/static/src/js/no_show_tour.js",
+            "website_sale_product_assortment/static/src/js/no_purchase_tour.esm.js",
+            "website_sale_product_assortment/static/src/js/no_restriction_tour.esm.js",
+            "website_sale_product_assortment/static/src/js/no_show_tour.esm.js",
         ],
     },
 }

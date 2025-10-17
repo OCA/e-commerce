@@ -1,6 +1,8 @@
 import {renderToElement} from "@web/core/utils/render";
+import {rpc} from "@web/core/network/rpc";
+import publicWidget from "@web/legacy/js/public/public_widget";
 
-var WebsiteSaleProductAssortment = {
+publicWidget.registry.WebsiteSaleProductAssortment = publicWidget.Widget.extend({
     selector: "#products_grid",
 
     start: function () {
@@ -16,9 +18,8 @@ var WebsiteSaleProductAssortment = {
             product_dic[this.querySelector("a img").src.split("/")[6]] = this;
         });
         const product_ids = Object.keys(product_dic).map(Number);
-        return this._rpc({
-            route: "/sale/get_info_assortment_preview",
-            params: {product_template_ids: product_ids},
+        return rpc("/sale/get_info_assortment_preview", {
+            product_template_ids: product_ids,
         }).then((product_values) => {
             for (const product of product_values) {
                 this.render_product_assortment(product_dic[product.id], product);
@@ -37,6 +38,4 @@ var WebsiteSaleProductAssortment = {
 
         $(product_info).find(".fa-shopping-cart").parent().addClass("disabled");
     },
-};
-
-export default WebsiteSaleProductAssortment;
+});
