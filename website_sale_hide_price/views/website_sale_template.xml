@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="product_price" inherit_id="website_sale.product_price">
-        <xpath expr="//div[@itemprop='offers']" position="attributes">
+        <xpath expr="//div[@name='product_price']" position="attributes">
             <attribute name="t-if">
-                    website and website.website_show_price and not product.website_hide_price
-                </attribute>
+                website and website.website_show_price and not product.website_hide_price
+            </attribute>
         </xpath>
     </template>
     <template id="products_item" inherit_id="website_sale.products_item">
-        <xpath expr="//div[@itemprop='offers']" position="attributes">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
             <attribute name="t-if">
                     product.product_variant_ids and website.website_show_price and not product.website_hide_price
                 </attribute>
         </xpath>
     </template>
     <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
-    <template id="product" inherit_id="website_sale.product">
+    <template id="product" inherit_id="website_sale.cta_wrapper">
         <xpath expr="//a[@id='add_to_cart']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
@@ -30,7 +30,7 @@
         </xpath>
         <xpath expr="//a[@id='add_to_cart']" position="attributes">
             <attribute name="t-if">
-                    website and website.website_show_price and not product.website_hide_price
+                website and website.website_show_price and not product.website_hide_price
             </attribute>
         </xpath>
     </template>
@@ -40,8 +40,8 @@
             position="attributes"
         >
             <attribute name="t-if">
-                    website and website.website_show_price and not product.website_hide_price
-                </attribute>
+                website and website.website_show_price and not product.website_hide_price
+            </attribute>
         </xpath>
     </template>
     <!-- Hide buy now button if "Buy Now Button" option is enabled and not website_show_price -->
@@ -67,18 +67,6 @@
             <attribute
                 name="t-if"
             >website and website.website_show_price and not product.website_hide_price</attribute>
-        </xpath>
-    </template>
-    <template id="product_variants" inherit_id="website_sale.product_variants">
-        <xpath
-            expr="//span[hasclass('sign_badge_price_extra')]/.."
-            position="attributes"
-        >
-            <attribute
-                name="t-if"
-                separator=" and "
-                add="website.website_show_price and not combination_info['website_hide_price']"
-            />
         </xpath>
     </template>
 
