@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="website_sale_filter_brand_products_brands"
+        inherit_id="website_sale.products_attributes"
+        name="Brands Filter"
+        active="True"
+        customize_show="True"
+        priority="999"
+    >
+        <xpath expr="//form[hasclass('js_attributes')]" position="inside">
+            <div t-if="len(brands)" class="accordion-item nav-item mb-3 rounded-0">
+                <h6 class="accordion-header">
+                    <button
+                        class="accordion-button px-0 bg-transparent shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        t-attf-data-bs-target="#o_products_attributes_brand"
+                        t-attf-aria-controls="o_products_attributes_brand"
+                        aria-expanded="true"
+                    >
+                        <b>Brand</b>
+                    </button>
+                </h6>
+                <div t-attf-id="o_products_attributes_brand" class="">
+                    <t t-foreach="brands" t-as="brand">
+                        <t
+                            t-if="not selected_brand_ids or brand.id in selected_brand_ids"
+                        >
+                            <div class="form-check mb-1">
+                                <input
+                                    type="checkbox"
+                                    name="brand"
+                                    class="form-check-input"
+                                    t-att-id="brand.id"
+                                    t-att-value="brand.id"
+                                    t-att-checked="'checked' if brand.id in selected_brand_ids else None"
+                                />
+                                <label
+                                    class="form-check-label fw-normal"
+                                    t-att-for="brand.id"
+                                    t-field="brand.name"
+                                />
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+        <xpath
+            expr="//div[@t-if='attrib_values or tags' and hasclass('accordion-item')]"
+            position="replace"
+        >
+            <div
+                t-if="attrib_values or tags or selected_brand_ids"
+                class="accordion-item rounded-0 border-top-0 py-3"
+            >
+                <a
+                    t-att-href="keep('/shop' + ('/category/' + slug(category)) if category else None, attribute_value=0, tags=0, selected_brand_ids=0)"
+                    t-attf-class="btn btn-{{navClass}} d-flex align-items-center py-1"
+                    title="Clear Filters"
+                >
+                    <small class="mx-auto">
+                        <b>Clear Filters</b>
+                    </small>
+                    <i class="oi oi-close" role="presentation" />
+                </a>
+            </div>
+        </xpath>
+        <xpath
+            expr="//div[@t-if='attributes or all_tags' and @id='wsale_products_attributes_collapse']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >attributes or all_tags or selected_brand_ids</attribute>
+        </xpath>
+    </template>
+    <template id="search_brands" name="Search Box" inherit_id="website_sale.search">
+        <xpath expr="//t[contains(@t-if, 'attrib_values')]" position="after">
+            <t t-if="brand_ids">
+                <t t-foreach="brand_ids" t-as="brand">
+                    <input type="hidden" name="brand" t-att-value="brand" />
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

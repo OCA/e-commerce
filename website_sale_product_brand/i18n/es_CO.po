@@ -9,19 +9,39 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-29 01:20+0000\n"
-"PO-Revision-Date: 2016-11-29 01:20+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"PO-Revision-Date: 2026-02-25 07:30+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Spanish (Colombia) (https://www.transifex.com/oca/teams/23907/"
 "es_CO/)\n"
 "Language: es_CO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: website_sale_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+msgid "<b>Brand</b>"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+msgid ""
+"<small class=\"mx-auto\">\n"
+"                        <b>Clear Filters</b>\n"
+"                    </small>\n"
+"                    <i class=\"oi oi-close\" role=\"presentation\"/>"
+msgstr ""
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
 msgid "Can Publish"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+msgid "Clear Filters"
 msgstr ""
 
 #. module: website_sale_product_brand
