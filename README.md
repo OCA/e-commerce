@@ -57,6 +57,7 @@ addon | version | maintainers | summary
 [website_sale_require_legal](website_sale_require_legal/) | 15.0.2.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_require_login](website_sale_require_login/) | 15.0.1.0.1 |  | Force users to login for buying
 [website_sale_resource_booking](website_sale_resource_booking/) | 15.0.1.0.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Let customers book resources temporarily before buying
+[website_sale_restrict_by_pricelist](website_sale_restrict_by_pricelist/) | 15.0.1.0.0 | <a href='https://github.com/peluko00'><img src='https://github.com/peluko00.png' width='32' height='32' style='border-radius:50%;' alt='peluko00'/></a> | Restricts visible products in the website shop based on the portal user's assigned pricelist.
 [website_sale_secondary_unit](website_sale_secondary_unit/) | 15.0.1.2.1 |  | Allow manage secondary units in website shop
 [website_sale_secondary_unit_product_matrix](website_sale_secondary_unit_product_matrix/) | 15.0.1.0.0 | <a href='https://github.com/chienandalu'><img src='https://github.com/chienandalu.png' width='32' height='32' style='border-radius:50%;' alt='chienandalu'/></a> | Product matrix with secondary units in eCommerce
 [website_sale_stock_available](website_sale_stock_available/) | 15.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
