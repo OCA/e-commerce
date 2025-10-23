@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* Copyright 2019 Sergio Teruel
  * Copyright 2025 Carlos Lopez - Tecnativa
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
@@ -14,14 +13,15 @@ registry.category("web_tour.tours").add("website_sale_product_minimal_price", {
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger: ".js_add_cart_variants:has(span:contains('Test v2'))",
         },
         {
             trigger: "a:contains('My product test with various prices')",
         },
         {
             trigger: "a[href='/shop']",
-            extra_trigger: ".product_price:has(span:contains('125.00'))",
+        },
+        {
+            trigger: ".product_price:has(span:contains('125.00'))",
         },
     ],
 });

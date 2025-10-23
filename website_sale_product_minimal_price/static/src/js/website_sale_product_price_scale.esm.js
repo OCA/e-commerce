@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* Copyright 2021 Carlos Roca
  * Copyright 2025 Carlos Lopez - Tecnativa
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
@@ -15,7 +14,7 @@ WebsiteSale.include({
      */
     _onChangeCombination: function (ev, $parent, combination) {
         const res = this._super(...arguments);
-        if (!this.isWebsite) {
+        if (!this.isWebsite || combination.product_id === false) {
             return res;
         }
         const unit_prices = combination.minimal_price_scale;
