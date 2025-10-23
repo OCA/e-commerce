@@ -179,13 +179,11 @@ class ProductTemplate(models.Model):
         )
         return combination_info
 
-    def _get_sales_prices(self, pricelist, fiscal_position):
-        res = super()._get_sales_prices(pricelist, fiscal_position)
-        website = (
-            self.env["website"].get_current_website().with_context(**self.env.context)
-        )
+    def _get_sales_prices(self, website):
+        prices = super()._get_sales_prices(website)
+        pricelist = website.pricelist_id
         for template in self.filtered("is_published"):
-            price_info = res[template.id]
+            price_info = prices[template.id]
             product, add_qty, has_distinct_price = template._get_cheapest_info(
                 pricelist
             )
@@ -199,4 +197,4 @@ class ProductTemplate(models.Model):
                 distinct_prices=has_distinct_price,
                 price=product_price_info["list_price"],
             )
-        return res
+        return prices

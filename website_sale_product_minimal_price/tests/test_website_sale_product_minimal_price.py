@@ -1,5 +1,6 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from odoo.fields import Command
 from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
@@ -43,14 +44,12 @@ class WebsiteSaleProductMinimalPriceHttpCase(HttpCase):
                 "website_id": self.website.id,
                 "website_sequence": 1,
                 "attribute_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "attribute_id": self.product_attribute.id,
                             "value_ids": [
-                                (4, self.product_attribute_value_test_1.id),
-                                (4, self.product_attribute_value_test_2.id),
+                                Command.link(self.product_attribute_value_test_1.id),
+                                Command.link(self.product_attribute_value_test_2.id),
                             ],
                         },
                     ),

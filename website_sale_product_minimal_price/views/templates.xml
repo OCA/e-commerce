@@ -7,19 +7,22 @@
         name="Products from price"
         inherit_id="website_sale.products_item"
     >
-        <xpath expr="//*[hasclass('product_price')]/t[@t-if]" position="before">
+        <xpath
+            expr="//*[hasclass('product_price')]/span[@t-out=&quot;template_price_vals['price_reduce']&quot;]"
+            position="before"
+        >
             <t t-if="template_price_vals.get('distinct_prices')">
                 <span>From</span>
                 <span
                     class="h6 mb-0"
                     t-if="template_price_vals['price'] or not website.prevent_zero_price_sale"
-                    t-esc="template_price_vals['price']"
+                    t-out="template_price_vals['price']"
                     t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
                 />
             </t>
         </xpath>
         <xpath
-            expr="//*[hasclass('product_price')]//span[@t-esc=&quot;template_price_vals['price_reduce']&quot;]"
+            expr="//*[hasclass('product_price')]/span[@t-out=&quot;template_price_vals['price_reduce']&quot;]"
             position="attributes"
         >
             <attribute
@@ -30,33 +33,27 @@
     <template id="variants" inherit_id="website_sale.variants">
         <!-- Sort product attribute values by minimal price extra -->
         <xpath expr="//strong[@t-field='ptal.attribute_id.name']" position="before">
-            <t
-                t-set="sorted_values"
-                t-value="ptal.product_template_value_ids._only_active().sorted('price_extra')"
-            />
+            <t t-set="sorted_values" t-value="ptavs.sorted('price_extra')" />
         </xpath>
         <xpath
-            expr="//t[@t-if=&quot;ptal.attribute_id.display_type == 'select'&quot;]//t[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            expr="//t[@t-if=&quot;attribute.display_type == 'select'&quot;]//t[@t-foreach='ptavs']"
             position="attributes"
         >
             <attribute name="t-foreach">sorted_values</attribute>
         </xpath>
         <xpath
-            expr="//t[@t-elif=&quot;ptal.attribute_id.display_type in ('radio', 'multi')&quot;]//t[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            expr="//t[@t-elif=&quot;attribute.display_type in ('radio', 'multi')&quot;]//t[@t-foreach='ptavs']"
             position="attributes"
         >
             <attribute name="t-foreach">sorted_values</attribute>
         </xpath>
         <xpath
-            expr="//t[@t-elif=&quot;ptal.attribute_id.display_type == 'pills'&quot;]//t[@t-foreach='ptal.product_template_value_ids._only_active()']"
+            expr="//t[@t-elif=&quot;attribute.display_type == 'pills'&quot;]//t[@t-foreach='ptavs']"
             position="attributes"
         >
             <attribute name="t-foreach">sorted_values</attribute>
         </xpath>
-        <xpath
-            expr="//li[@t-foreach='ptal.product_template_value_ids._only_active()']"
-            position="attributes"
-        >
+        <xpath expr="//li[@t-foreach='ptavs']" position="attributes">
             <attribute name="t-foreach">sorted_values</attribute>
         </xpath>
     </template>

@@ -1,5 +1,6 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from odoo.fields import Command
 from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
@@ -43,14 +44,12 @@ class TestProductWithNoPrices(HttpCase):
                 "website_sequence": 1,
                 "categ_id": self.category.id,
                 "attribute_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "attribute_id": self.product_attribute.id,
                             "value_ids": [
-                                (4, self.product_attribute_value_test_1.id),
-                                (4, self.product_attribute_value_test_2.id),
+                                Command.link(self.product_attribute_value_test_1.id),
+                                Command.link(self.product_attribute_value_test_2.id),
                             ],
                         },
                     ),
@@ -64,9 +63,7 @@ class TestProductWithNoPrices(HttpCase):
                 "name": "Test pricelist Aux",
                 "selectable": True,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "0_product_variant",
                             "product_id": self.variant_1.id,
@@ -74,9 +71,7 @@ class TestProductWithNoPrices(HttpCase):
                             "fixed_price": 10,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "0_product_variant",
                             "product_id": self.variant_2.id,
@@ -92,9 +87,7 @@ class TestProductWithNoPrices(HttpCase):
                 "name": "Test pricelist Main",
                 "selectable": True,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "2_product_category",
                             "categ_id": self.category.id,
