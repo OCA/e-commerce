@@ -42,15 +42,11 @@ Only supports attribute filters.
 Configuration
 =============
 
-To configure this module, you need to:
+To configure this module, you must do the following:
 
-1. Go to the frontend /shop url of the website you want to set the
-   manual filters into.
-2. Hit the Configure menu and enable the option *Manual filters*.
-
-|image1|
-
-.. |image1| image:: https://raw.githubusercontent.com/OCA/e-commerce/18.0/website_sale_attribute_filter_form_submit/static/description/manual_filter_configuration.png
+1. Go to the frontend URL /shop of the website.
+2. Open the web editor and in the “Customize” tab, enable the *Manual
+   filters* option.
 
 Usage
 =====
@@ -93,6 +89,7 @@ Contributors
 -  `Tecnativa <https://www.tecnativa.com>`__:
 
       -  David Vidal
+      -  Pilar Vargas
 
 Maintainers
 -----------

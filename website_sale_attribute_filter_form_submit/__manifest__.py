@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Website manual attribute filters",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "E-Commerce",
     "summary": "Allow to apply manually the filters on the e-commerce",
     "license": "AGPL-3",
@@ -13,7 +13,7 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_sale_attribute_filter_form_submit/static/src/js/website_sale.js"
+            "website_sale_attribute_filter_form_submit/static/src/js/website_sale.esm.js"
         ],
     },
     "author": "Studio73, Tecnativa, Odoo Community Association (OCA)",
