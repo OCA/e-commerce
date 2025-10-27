@@ -8,19 +8,19 @@ from odoo.tests.common import HttpCase
 class WebsiteSaleHttpCase(HttpCase):
     def setUp(self):
         super().setUp()
-        self.journal_bank = self.env["account.journal"].create(
+        if self.env["ir.module.module"]._get("payment_custom").state != "installed":
+            self.skipTest("Transfer provider is not installed")
+        self.provider = self.env.ref("payment.payment_provider_transfer")
+        self.provider.write(
             {
-                "name": "Test WSACO",
-                "code": "WSACO",
-                "type": "bank",
+                "state": "enabled",
+                "is_published": True,
             }
         )
-        self.acquirer = self.env.ref("payment.payment_acquirer_transfer")
-        self.acquirer.write(
-            {
-                "journal_id": self.journal_bank.id,
-            }
-        )
+        self.provider._transfer_ensure_pending_msg_is_set()
+        self.partner = self.env.ref("base.partner_admin")
+        # VAT required by the module website_sale_vat_required
+        self.partner.vat = "US01234567891"
 
     def test_ui_website(self):
         """Test frontend tour."""
@@ -30,16 +30,15 @@ class WebsiteSaleHttpCase(HttpCase):
             login="admin",
             step_delay=100,
         )
-        partner = self.env.ref("base.partner_admin")
         last_order_sent = self.env["sale.order"].search(
             [
-                ("partner_id", "=", partner.id),
+                ("partner_id", "=", self.partner.id),
             ],
             order="date_order desc",
             limit=1,
         )
         self.assertEqual(last_order_sent.state, "sent")
-        self.acquirer.write(
+        self.provider.write(
             {
                 "confirm_order": True,
             }
@@ -50,10 +49,9 @@ class WebsiteSaleHttpCase(HttpCase):
             login="admin",
             step_delay=100,
         )
-        partner = self.env.ref("base.partner_admin")
         last_order_confirm = self.env["sale.order"].search(
             [
-                ("partner_id", "=", partner.id),
+                ("partner_id", "=", self.partner.id),
             ],
             order="date_order desc",
             limit=1,
