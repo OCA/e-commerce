@@ -1,0 +1,30 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_acquirer_confirm_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model.fields,field_description:website_sale_acquirer_confirm_order.field_payment_provider__confirm_order
+msgid "Confirm Order Automatically"
+msgstr ""
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model.fields,help:website_sale_acquirer_confirm_order.field_payment_provider__confirm_order
+msgid ""
+"If enabled, orders paid with this method will be automatically confirmed."
+msgstr ""
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model,name:website_sale_acquirer_confirm_order.model_payment_provider
+msgid "Payment Provider"
+msgstr ""
