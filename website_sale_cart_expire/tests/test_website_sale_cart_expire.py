@@ -7,10 +7,11 @@ from datetime import datetime, timedelta
 from freezegun import freeze_time
 
 from odoo import fields
-from odoo.tests import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestWebsiteSaleCartExpire(TransactionCase):
+class TestWebsiteSaleCartExpire(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -32,7 +33,14 @@ class TestWebsiteSaleCartExpire(TransactionCase):
 
     def _create_payment_transaction(self, order):
         self.tx_counter += 1
-        provider = self.env.ref("payment.payment_provider_demo")
+        provider = self.env.ref("payment.payment_provider_transfer")
+        provider.write(
+            {
+                "state": "enabled",
+                "is_published": True,
+            }
+        )
+        provider._transfer_ensure_pending_msg_is_set()
         return self.env["payment.transaction"].create(
             {
                 "provider_id": provider.id,
@@ -87,6 +95,8 @@ class TestWebsiteSaleCartExpire(TransactionCase):
     @freeze_time(datetime.now() + timedelta(hours=3))
     def test_expire_scheduler_ignore_in_payment(self):
         """Carts with a payment transaction in progress shouldn't expire"""
+        if self.env["ir.module.module"]._get("payment_custom").state != "installed":
+            self.skipTest("Transfer provider is not installed")
         self._create_payment_transaction(self.order_1)
         tx_2 = self._create_payment_transaction(self.order_2)
         tx_2._set_pending()
