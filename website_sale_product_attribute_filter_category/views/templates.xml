@@ -44,20 +44,21 @@
                                     t-value="values_selected or not folded"
                                 />
                                 <div class="accordion-header d-flex mb-1">
-                                    <strong t-out="attr_category[1]" />
                                     <button
                                         t-attf-id="collapse{{attr_category_index}}"
-                                        t-attf-class="accordion-button p-0 ms-3 {{not isOpenFilter and 'collapsed'}} w-auto flex-grow-1 bg-transparent shadow-none"
+                                        t-attf-class="accordion-button p-0 ms-3 {{not isOpenFilter and 'collapsed'}} w-auto flex-grow-1 bg-light p-3 shadow-none"
                                         t-attf-data-bs-target="#collapse{{attr_category_index}}"
                                         t-att-aria-expanded="isOpenFilter and 'true' or 'false'"
                                         t-attf-aria-controls="collapse{{attr_category_index}}"
                                         data-bs-toggle="collapse"
                                         type="button"
-                                    />
+                                    >
+                                        <strong t-out="attr_category[1]" />
+                                    </button>
                                 </div>
                                 <ul
                                     t-attf-id="collapse{{attr_category_index}}"
-                                    t-attf-class="accordion-collapse list-unstyled ps-2 pb-2 collapse {{isOpenFilter and 'show'}}"
+                                    t-attf-class="accordion-collapse list-unstyled ps-3 pb-2 collapse {{isOpenFilter and 'show'}}"
                                     t-attf-aria-labelledby="collapse{{attr_category_index}}"
                                 >
                                     <t>$0</t>

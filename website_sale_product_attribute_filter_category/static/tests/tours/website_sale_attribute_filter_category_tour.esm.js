@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 /* Copyright 2019 Sergio Teruel
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
@@ -12,18 +10,26 @@ registry
         steps: () => [
             {
                 trigger: "a[href='/shop']",
+                run: "click",
+            },
+            {
+                trigger: ".js_attributes:has(strong:contains('Test category'))",
             },
             {
                 trigger: "a:contains('Customizable Desk')",
-                extra_trigger: ".js_attributes:has(strong:contains('Test category'))",
+                run: "click",
             },
             {
                 trigger: "a[href='/shop']",
+                run: "click",
             },
             // Span element must be available directly
             {
+                trigger: "strong:contains('Test category')",
+            },
+            {
                 trigger: "a:contains('Customizable Desk')",
-                extra_trigger: "strong:contains('Test category')",
+                run: "click",
             },
         ],
     });

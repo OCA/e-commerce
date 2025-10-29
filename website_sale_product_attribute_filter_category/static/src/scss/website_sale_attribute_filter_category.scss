@@ -4,4 +4,7 @@
     button[data-bs-toggle="collapse"] {
         display: flex;
     }
+    .accordion-item {
+        border: 0 !important;
+    }
 }

@@ -8,9 +8,9 @@
         />
         <field name="priority" eval="999" />
         <field name="arch" type="xml">
-            <tree position="inside">
+            <list position="inside">
                 <field name="website_folded" widget="boolean_toggle" />
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>
