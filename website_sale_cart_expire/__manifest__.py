@@ -5,7 +5,7 @@
 {
     "name": "Website Sale Cart Expire",
     "summary": "Cancel carts without activity after a configurable time",
-    "version": "16.0.1.0.2",
+    "version": "18.0.1.0.0",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "maintainers": ["ivantodorovich"],
     "website": "https://github.com/OCA/e-commerce",
@@ -15,11 +15,5 @@
     "data": [
         "data/ir_cron.xml",
         "views/res_config_settings.xml",
-        "views/templates.xml",
     ],
-    "assets": {
-        "web.assets_frontend": [
-            "website_sale_cart_expire/static/src/js/website_sale_cart_expire.js",
-        ],
-    },
 }
