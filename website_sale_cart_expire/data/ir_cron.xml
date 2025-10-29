@@ -12,6 +12,5 @@
         <field name="code">model._scheduler_website_expire_cart(autocommit=True)</field>
         <field name="interval_number">5</field>
         <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
     </record>
 </odoo>
