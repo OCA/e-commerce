@@ -5,7 +5,6 @@
     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-
     <template
         id="header_cart_link"
         inherit_id="website_sale.header_cart_link"
@@ -21,5 +20,4 @@
             />
         </xpath>
     </template>
-
 </odoo>
