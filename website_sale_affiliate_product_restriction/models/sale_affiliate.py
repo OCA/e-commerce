@@ -43,7 +43,7 @@ class SaleAffiliate(models.Model):
             try:
                 record.sales_per_request = float(sales_count) / float(len(requests))
             except ZeroDivisionError:
-                continue
+                record.sales_per_request = 0.0
 
     @api.depends("request_ids", "request_ids.sale_ids")
     def _compute_conversion_rate(self):
@@ -59,4 +59,4 @@ class SaleAffiliate(models.Model):
             try:
                 record.conversion_rate = float(len(conversions)) / float(len(requests))
             except ZeroDivisionError:
-                continue
+                record.conversion_rate = 0.0
