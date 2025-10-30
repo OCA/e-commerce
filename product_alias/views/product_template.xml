@@ -5,7 +5,7 @@
 <odoo>
     <record id="product_template_form_view" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <xpath expr="/form/sheet/notebook" position="inside">
                 <page
@@ -15,7 +15,7 @@
                 >
                     <field
                         name="product_alias_ids"
-                        context="{'default_product_tmpl_id': active_id}"
+                        context="{'default_product_tmpl_id': id}"
                     >
                         <tree editable="bottom">
                             <field name="name" />
