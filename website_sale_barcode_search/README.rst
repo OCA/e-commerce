@@ -67,6 +67,10 @@ Contributors
 
       -  Miguel Gandia
 
+-  ``Tecnativa <https://www.tecnativa.com>``\ \_\_:
+
+   -  Pilar Vargas
+
 Maintainers
 -----------
 
