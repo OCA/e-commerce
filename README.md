@@ -43,6 +43,7 @@ addon | version | maintainers | summary
 [website_sale_stock_available](website_sale_stock_available/) | 18.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 18.0.1.0.0 |  | Display provisioning date for a product in shop online
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 18.0.1.0.0 |  | Suggest users to create an account when buying in the website
+[website_sale_tax_toggle](website_sale_tax_toggle/) | 18.0.1.0.0 |  | Allow display price in Shop with or without taxes
 [website_sale_vat_required](website_sale_vat_required/) | 18.0.1.0.0 |  | VAT number required in checkout form
 [website_sale_wishlist_hide_price](website_sale_wishlist_hide_price/) | 18.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_wishlist_keep](website_sale_wishlist_keep/) | 18.0.1.0.0 |  | Allows to add products to my cart but keep it in my wishlist"
