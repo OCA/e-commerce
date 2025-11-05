@@ -19,8 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_sale_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+msgid "<b>Brand</b>"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+msgid ""
+"<small class=\"mx-auto\">\n"
+"                        <b>Clear Filters</b>\n"
+"                    </small>\n"
+"                    <i class=\"oi oi-close\" role=\"presentation\"/>"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
 msgid "Can Publish"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+msgid "Clear Filters"
 msgstr ""
 
 #. module: website_sale_product_brand
