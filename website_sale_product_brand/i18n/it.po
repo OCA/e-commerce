@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-28 02:55+0000\n"
-"PO-Revision-Date: 2024-05-07 13:37+0000\n"
+"PO-Revision-Date: 2025-11-06 09:42+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
 msgid "<b>Brand</b>"
-msgstr ""
+msgstr "<b>Marchio</b>"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
@@ -33,6 +33,10 @@ msgid ""
 "                    </small>\n"
 "                    <i class=\"oi oi-close\" role=\"presentation\"/>"
 msgstr ""
+"<small class=\"mx-auto\">\n"
+"                        <b>Pulisci filtri</b>\n"
+"                    </small>\n"
+"                    <i class=\"oi oi-close\" role=\"presentation\"/>"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
@@ -42,7 +46,7 @@ msgstr "Può pubblicare"
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
 msgid "Clear Filters"
-msgstr ""
+msgstr "Pulisci filtri"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
