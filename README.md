@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [website_sale_address_format](website_sale_address_format/) | 15.0.1.0.0 |  | Website Sale Address Format
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 15.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 15.0.1.1.1 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Display prices with(out) taxes in eCommerce, complementing normal mode
+[website_sale_block_partner](website_sale_block_partner/) | 15.0.1.0.0 | <a href='https://github.com/peluko00'><img src='https://github.com/peluko00.png' width='32' height='32' style='border-radius:50%;' alt='peluko00'/></a> | This module help to blacklist partners description
 [website_sale_cart_expire](website_sale_cart_expire/) | 15.0.1.1.1 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Cancel carts without activity after a configurable time
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 15.0.1.0.0 |  | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 15.0.1.3.1 |  | Skip payment for logged users in checkout process
