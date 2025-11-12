@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<odoo>
+    <template id="payment_tokens_list_fee" inherit_id="payment.checkout">
+        <xpath expr="//span[hasclass('payment_option_name')]" position="after">
+            <t t-if="acquirer.charge_fee">
+                <span>(Fee:
+                    <t t-if="acquirer.charge_fee_type == 'fixed'">
+                        <span
+                            id="charge_fee_fixed_price"
+                            t-field="acquirer.charge_fee_fixed_price"
+                            t-options="{'widget': 'monetary', 'display_currency': acquirer.charge_fee_currency_id}"
+                        />
+                    </t>
+                    <t t-if="acquirer.charge_fee_type == 'percentage'">
+                        <span
+                            id="charge_fee_percentage"
+                            t-field="acquirer.charge_fee_percentage"
+                        />
+                        %
+                    </t>
+                    )
+                </span>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment_fee" name="Payment Fee" inherit_id="website_sale.total">
+        <xpath expr="//tr[@id='order_total_untaxed']" position="before">
+            <tr
+                id="order_payment_fee"
+                t-if="website_sale_order and website_sale_order.order_line.filtered(lambda l: l.payment_fee_line)"
+            >
+                <td class="text-right noborder">Payment Fee:</td>
+                <td class="text-xl-right noborder">
+                    <span
+                        t-field="website_sale_order.amount_payment_fee"
+                        style="white-space: nowrap;"
+                        t-options='{
+                      "widget": "monetary",
+                      "display_currency": website_sale_order.currency_id,
+                  }'
+                    />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

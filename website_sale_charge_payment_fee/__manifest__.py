@@ -1,0 +1,31 @@
+# Copyright 2018 Lorenzo Battistini - Agile Business Group
+# Copyright 2020 AITIC S.A.S
+# Copyright 2020 Quartile Limited
+# Copyright 2024 Miguel Gandia - Studio73
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+{
+    "name": "eCommerce: charge payment fee",
+    "summary": "Payment fee charged to customer",
+    "version": "15.0.1.0.0",
+    "category": "Website",
+    "website": "https://github.com/OCA/e-commerce",
+    "maintainers": ["miguel-S73"],
+    "author": "Agile Business Group, "
+    "AITIC S.A.S, "
+    "Quartile Limited, "
+    "Studio73, "
+    "Odoo Community Association (OCA)",
+    "license": "LGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": ["website_sale"],
+    "data": ["views/payment_acquirer_views.xml", "views/website_sale_templates.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            "website_sale_charge_payment_fee/static/src/js/website_sale_fee.js",
+        ],
+        "web.assets_tests": [
+            "website_sale_charge_payment_fee/static/tests/tours/website_sale_fee_tour.js"
+        ],
+    },
+}
