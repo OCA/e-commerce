@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =======================================
 Display product reference in e-commerce
 =======================================
@@ -17,7 +13,7 @@ Display product reference in e-commerce
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
@@ -34,6 +30,8 @@ Display product reference in e-commerce
 
 This module extends the ``website_sale`` views to display the product's full
 display name, with its product reference included.
+
+The Internal Reference is also shown explicitly in the product details and automatically updated when the chosen variant changes.
 
 **Table of contents**
 
@@ -76,6 +74,9 @@ Contributors
 
   * David Vidal
   * Carlos Roca
+* `PyTech <https://www.pytech.it>`_:
+
+  * Simone Rubino <simone.rubino@pytech.it>
 
 Maintainers
 ~~~~~~~~~~~
