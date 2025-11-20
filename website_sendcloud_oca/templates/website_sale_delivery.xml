@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Onestein (<https://www.onestein.nl>)
+          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<odoo>
+    <template
+        id="payment_delivery_methods"
+        inherit_id="website_sale.payment_delivery_methods"
+    >
+        <xpath expr="//label[@t-field='delivery.name']" position="after">
+            <div t-if="delivery.sendcloud_service_point_required">
+                <button
+                    class="btn btn-secondary d-none o_website_sendcloud_btn"
+                    name="website_sendcloud_btn"
+                >
+                    <i class="fa fa-map-marker mr-2" /> Select Service Point
+                </button>
+            </div>
+        </xpath>
+    </template>
+</odoo>

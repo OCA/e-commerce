@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Onestein (<https://www.onestein.nl>)
+          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<odoo>
+
+    <menuitem
+        id="menu_configuration_sendcloud_website_brand"
+        action="action_sendcloud_onboarding_website_wizard"
+        parent="delivery_sendcloud_oca.menu_sendcloud_sendcloud_config_wizards"
+    />
+
+</odoo>

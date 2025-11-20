@@ -1,0 +1,41 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept: ["*/*"]
+        Accept-Encoding: ["gzip, deflate"]
+        Connection: [keep-alive]
+        User-Agent: [python-requests/2.28.1]
+      method: GET
+      uri: https://panel.sendcloud.sc/api/v2/user/addresses/sender
+    response:
+      body:
+        {
+          string:
+            '{"sender_addresses":[{"id":207352,"company_name":"Onestein 2
+            Multicompany","contact_name":"Patrick","email":"p.mallee@onestein.nl","telephone":"+31683576216","street":"Westhavenkade","house_number":"1","postal_box":"Reduitlaan
+            45","postal_code":"3133
+            AV","city":"Vlaardingen","country":"NL","country_state":null,"vat_number":"NL809287766B01","eori_number":"NL809287766","brand_id":93524},{"id":105827,"company_name":"Onestein
+            BV","contact_name":"Bastian
+            Colpaert","email":"b.colpaert@onestein.nl","telephone":"+31655414477","street":"Reduitlaan","house_number":"45","postal_box":"","postal_code":"4814
+            DC","city":"Breda","country":"NL","country_state":null,"vat_number":"NL809287766B01","eori_number":"NL809287766","brand_id":93524}]}',
+        }
+      headers:
+        Allow: ["GET, HEAD, OPTIONS"]
+        Connection: [keep-alive]
+        Content-Type: [application/json]
+        Date: ["Tue, 05 Jul 2022 08:21:25 GMT"]
+        Referrer-Policy: [same-origin]
+        Server: [nginx]
+        Strict-Transport-Security: [max-age=15552000; includeSubDomains; preload]
+        Transfer-Encoding: [chunked]
+        Vary: [Accept-Encoding, "Origin, Cookie"]
+        X-Content-Type-Options: [nosniff]
+        X-Frame-Options: [DENY]
+        X-SendCloud-Client-Latest-Version-Linux: [1.0.2]
+        X-SendCloud-Client-Latest-Version-Windows: [1.0.4]
+        X-SendCloud-Client-Latest-Version-macOS: [1.0.5]
+        X-XSS-Protection: [1; mode=block]
+        content-length: ["734"]
+      status: {code: 200, message: OK}
+version: 1

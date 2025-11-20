@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2025 Onestein (<https://www.onestein.nl>)
+          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<templates>
+    <div t-name="website_sendcloud_oca.Address" class="o_website_sendcloud_address">
+        <div class="card mt-2 mb-2">
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="card-body">
+                        <b>
+                            <t t-esc="servicePoint.name" />
+                        </b>
+                        <div>
+                            <t t-esc="servicePoint.street" /> <t
+                                t-esc="servicePoint.house_number"
+                            />
+                        </div>
+                        <div>
+                            <t t-esc="servicePoint.postal_code" />
+                        </div>
+                        <div>
+                            <t t-esc="servicePoint.city" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- Extra col to make inheritance easier -->
+                </div>
+            </div>
+        </div>
+    </div>
+</templates>

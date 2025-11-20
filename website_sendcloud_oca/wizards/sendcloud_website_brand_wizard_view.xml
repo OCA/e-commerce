@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Onestein (<https://www.onestein.nl>)
+          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<odoo>
+
+    <record id="sendcloud_onboarding_website_configuration_form" model="ir.ui.view">
+        <field name="model">sendcloud.website.brand.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="website_ids">
+                    <tree editable="bottom" create="false" delete="false">
+                        <field name="website_id" />
+                        <field name="sendcloud_brand_id" />
+                    </tree>
+                </field>
+                <footer>
+                    <button
+                        string="Update Brands"
+                        name="button_update"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

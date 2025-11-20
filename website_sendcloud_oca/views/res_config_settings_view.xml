@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- Copyright 2025 Onestein (<https://www.onestein.nl>)
+          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<odoo>
+
+    <record id="res_config_settings_view_form_website_sale" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='delivery_method_setting']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="o_form_label">Sendcloud</div>
+                        <div class="text-muted">
+                            Compute shipping costs and ship with Sendcloud
+                        </div>
+                        <div class="content-group">
+                            <div class="content-group">
+                                <div class="row mt16" id="is_sendcloud_test_mode">
+                                    <div class="col-12">
+                                        <label
+                                            for="is_sendcloud_test_mode"
+                                            string="Enable Test Mode"
+                                            class="p-0 col-4 o_light_label"
+                                        />
+                                        <field
+                                            name="is_sendcloud_test_mode"
+                                            class=" w-auto"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <button
+                                        name="%(delivery_sendcloud_oca.action_sendcloud_shipping_methods)d"
+                                        icon="fa-arrow-right"
+                                        type="action"
+                                        string="Sendcloud Shipping Methods"
+                                        class="btn-link"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

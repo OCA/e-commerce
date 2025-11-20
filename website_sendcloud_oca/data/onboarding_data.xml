@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- ONBOARDING STEPS -->
+    <!-- Sendcloud -->
+    <record id="onboarding_website_brand_step" model="onboarding.onboarding.step">
+        <field name="title">Configure Website Brands</field>
+        <field name="description">Set Sendcloud Website Brands.</field>
+        <field name="button_text">Configure</field>
+        <field name="done_text">Enjoy!</field>
+        <field
+            name="panel_step_open_action_name"
+        >action_open_sendcloud_onboarding_website_brand
+        </field>
+    </record>
+
+    <!-- ONBOARDING PANELS -->
+    <record
+        id="delivery_sendcloud_oca.onboarding_onboarding_sendcloud"
+        model="onboarding.onboarding"
+    >
+        <field
+            name="step_ids"
+            eval="[
+            Command.link(ref('onboarding_website_brand_step')),
+        ]"
+        />
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Onestein (<https://www.onestein.nl>)
+          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<odoo>
+
+    <record id="sendcloud_onboarding_sync_configuration_form" model="ir.ui.view">
+        <field name="model">sendcloud.sync.wizard</field>
+        <field
+            name="inherit_id"
+            ref="delivery_sendcloud_oca.sendcloud_onboarding_sync_configuration_form"
+        />
+        <field name="arch" type="xml">
+            <group name="options">
+                <field
+                    name="publish_all_shipping_methods"
+                    invisible="not shipping_methods"
+                />
+            </group>
+        </field>
+    </record>
+
+</odoo>

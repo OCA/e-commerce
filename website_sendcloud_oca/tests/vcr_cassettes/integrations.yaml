@@ -1,0 +1,41 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept: ["*/*"]
+        Accept-Encoding: ["gzip, deflate"]
+        Connection: [keep-alive]
+        User-Agent: [python-requests/2.28.1]
+      method: GET
+      uri: https://panel.sendcloud.sc/api/v2/integrations
+    response:
+      body:
+        {
+          string:
+            '[{"id":104583,"shop_name":"OdooShop","shop_url":"https://sendcloud.onestein.eu","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-03-03T17:22:47.137622+01:00","service_point_enabled":true,"service_point_carriers":["postnl"],"webhook_active":true,"webhook_url":"https://sendcloud.onestein.eu/shop/sendcloud_integration_webhook/Test/1"},{"id":166686,"shop_name":"Uploaded
+            data","shop_url":"","system":"csv","failing_since":null,"last_fetch":null,"last_updated_at":"2021-05-27T14:44:29.602592+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":false,"webhook_url":""},{"id":175729,"shop_name":"Stas_bij_Onestein","shop_url":"","system":"api","failing_since":null,"last_fetch":null,"last_updated_at":"2021-07-22T17:45:58.479413+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":false,"webhook_url":""},{"id":181839,"shop_name":"SendCloud
+            1","shop_url":"https://demo14.onestein.eu","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-06-30T12:12:31.927472+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":false,"webhook_url":"https://demo14.onestein.eu/shop/sendcloud_integration_webhook/Sendcloud/1"},{"id":182835,"shop_name":"14-sendcloud
+            3","shop_url":"https://ffd9-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2021-09-09T13:06:21.038383+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":true,"webhook_url":"https://ffd9-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/14-sendcloud/3"},{"id":182859,"shop_name":"14-sendcloud
+            1","shop_url":"https://0625-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2021-09-21T11:23:06.235248+02:00","service_point_enabled":true,"service_point_carriers":["postnl"],"webhook_active":true,"webhook_url":"https://0625-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/14-sendcloud/1"},{"id":183539,"shop_name":"13-sendcloud
+            1","shop_url":"https://617d-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2021-09-14T12:20:56.802448+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":true,"webhook_url":"https://617d-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/13-sendcloud/1"},{"id":210627,"shop_name":"15-sendcloud-test-custom
+            1","shop_url":"https://65cd-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-02-01T12:06:23.584725+01:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":true,"webhook_url":"https://65cd-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/15-sendcloud-test-custom/1"},{"id":215899,"shop_name":"15-sendcloud
+            1","shop_url":"https://4dab-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-02-24T12:08:06.285818+01:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":true,"webhook_url":"https://4dab-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/15-sendcloud/1"},{"id":226557,"shop_name":"fumanshu007-odoo-15-main-4718074
+            1","shop_url":"https://fumanshu007-odoo-15.odoo.com","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-04-19T11:26:44.429567+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":true,"webhook_url":"https://fumanshu007-odoo-15.odoo.com/shop/sendcloud_integration_webhook/fumanshu007-odoo-15-main-4718074/1"},{"id":229339,"shop_name":"13-sendcloud
+            1","shop_url":"https://c372-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-05-03T13:50:02.594330+02:00","service_point_enabled":false,"service_point_carriers":[],"webhook_active":true,"webhook_url":"https://c372-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/13-sendcloud/1"},{"id":229356,"shop_name":"13-sendcloud
+            2","shop_url":"https://fb94-185-247-144-87.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-05-03T14:42:45.186633+02:00","service_point_enabled":true,"service_point_carriers":["ups"],"webhook_active":true,"webhook_url":"https://fb94-185-247-144-87.ngrok.io/shop/sendcloud_integration_webhook/13-sendcloud/1"},{"id":241526,"shop_name":"delivery_sendcloud_official_test_15_1
+            1","shop_url":"https://f482-185-247-144-87.eu.ngrok.io","system":"odoo","failing_since":null,"last_fetch":null,"last_updated_at":"2022-07-05T09:02:24.199241+02:00","service_point_enabled":true,"service_point_carriers":["ups"],"webhook_active":true,"webhook_url":"https://f482-185-247-144-87.eu.ngrok.io/shop/sendcloud_integration_webhook/delivery_sendcloud_official_test_15_1/1"}]',
+        }
+      headers:
+        Connection: [keep-alive]
+        Content-Length: ["4836"]
+        Content-Type: [application/json]
+        Date: ["Tue, 05 Jul 2022 08:23:21 GMT"]
+        allow: ["GET, PUT, HEAD, OPTIONS"]
+        referrer-policy: [same-origin]
+        server: [envoy]
+        vary: [Origin]
+        x-content-type-options: [nosniff]
+        x-envoy-upstream-service-time: ["107"]
+        x-frame-options: [DENY]
+      status: {code: 200, message: OK}
+version: 1

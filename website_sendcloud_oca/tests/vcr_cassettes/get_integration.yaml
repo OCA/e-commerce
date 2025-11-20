@@ -1,0 +1,40 @@
+interactions:
+  - request:
+      body: "{}"
+      headers:
+        Accept: ["*/*"]
+        Accept-Encoding: ["gzip, deflate"]
+        Connection: [keep-alive]
+        Content-Length: ["2"]
+        Content-Type: [application/json]
+        User-Agent: [python-requests/2.28.1]
+      method: POST
+      uri: https://f482-185-247-144-87.eu.ngrok.io/shop/sendcloud_integration_webhook/delivery_sendcloud_official_15_3/1
+    response:
+      body: {string: "<!DOCTYPE html>\n<html lang=\"en-US\">\n  <head>\n    <meta
+            charset=\"\
+            utf-8\">\n    <meta name=\"author\" content=\"ngrok\">\n    <meta name=\"\
+            description\" content=\"ngrok is the fastest way to put anything on the
+            internet\
+            \ with a single command.\">\n    <meta name=\"robots\" content=\"noindex,\
+            \ nofollow\">\n    <meta name=\"viewport\" content=\"width=device-width,
+            initial-scale=1\"\
+            >\n    <link id=\"style\" rel=\"stylesheet\"
+            href=\"https://cdn.ngrok.com/static/css/error.css\"\
+            >\n    <noscript>Tunnel f482-185-247-144-87.eu.ngrok.io not found
+            (ERR_NGROK_3200)</noscript>\n\
+            \    <script id=\"script\" src=\"https://cdn.ngrok.com/static/js/error.js\"\
+            \ type=\"text/javascript\"></script>\n  </head>\n  <body id=\"ngrok\">\n \
+            \   <div id=\"root\"
+            data-payload=\"eyJjZG5CYXNlIjoiaHR0cHM6Ly9jZG4ubmdyb2suY29tLyIsImNvZGUiOiIzMjAwIiwibWVzc2FnZSI6IlR1bm5lbCA0ZmQ0LTg0LTI0MS0yMDAtMTIyLmV1Lm5ncm9rLmlvIG5vdCBmb3VuZCIsInRpdGxlIjoiTm90IEZvdW5kIn0=\"\
+            ></div>\n  </body>\n</html>\n"}
+      headers:
+        Connection: [close]
+        Content-Length: ["909"]
+        Content-Type: [text/html]
+        Date: ["Mon, 22 Aug 2022 07:50:09 GMT"]
+        Ngrok-Error-Code: [ERR_NGROK_3200]
+        Ngrok-Trace-Id: [5305e6107e40b11f768ab5ffffbb5c59]
+        Referrer-Policy: [no-referrer]
+      status: {code: 404, message: Not Found}
+version: 1
