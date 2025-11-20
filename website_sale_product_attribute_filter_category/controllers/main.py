@@ -7,9 +7,24 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class ProductAttributeCategory(WebsiteSale):
     @http.route()
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
+    def shop(
+        self,
+        page=0,
+        category=None,
+        search="",
+        min_price=0.0,
+        max_price=0.0,
+        ppg=False,
+        **post,
+    ):
         response = super().shop(
-            page=page, category=category, search=search, ppg=ppg, **post
+            page=page,
+            category=category,
+            search=search,
+            min_price=min_price,
+            max_price=max_price,
+            ppg=ppg,
+            **post,
         )
         # Re-order attributes by their category sequence
         response.qcontext["attributes"] = response.qcontext["attributes"].sorted(
