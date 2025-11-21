@@ -6,9 +6,9 @@
         customize_show="True"
         name="EPREL: Energy Label in Product Page"
     >
-        <xpath expr="//div[@id='product_details']" position="inside">
+        <xpath expr="//div[@id='product_details']/h1" position="after">
             <t t-if="product and product.label_arrow_url">
-                <div class="mt-2 d-flex align-items-center" style="gap: 1rem;">
+                <div class="mt-2 mb-3 d-flex align-items-center" style="gap: 1rem;">
                     <a
                         t-if="product.label_url"
                         t-att-href="product.label_url"

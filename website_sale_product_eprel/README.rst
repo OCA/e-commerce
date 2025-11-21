@@ -57,9 +57,9 @@ Authors
 Contributors
 ------------
 
-- `Tecnativa <https://www.tecnativa.com>`__
+-  `Tecnativa <https://www.tecnativa.com>`__
 
-  - Juan Carlos Oñate
+   -  Juan Carlos Oñate
 
 Maintainers
 -----------
