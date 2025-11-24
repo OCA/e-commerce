@@ -7,13 +7,17 @@
             expr="//t[@t-if=&quot;a.display_type == 'select'&quot;]//t[@t-foreach='a.value_ids']/option"
             position="attributes"
         >
-            <attribute name="t-if">attr_values_used &amp; v</attribute>
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
         </xpath>
         <xpath
             expr="//div[@t-elif=&quot;a.display_type in ('radio', 'pills', 'multi')&quot;]//t[@t-foreach='a.value_ids']"
             position="attributes"
         >
-            <attribute name="t-if">attr_values_used &amp; v</attribute>
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
         </xpath>
     </template>
     <template
@@ -21,15 +25,29 @@
         inherit_id="website_sale.o_wsale_offcanvas_color_attribute"
     >
         <xpath expr="//t[@t-foreach='a.value_ids']/label" position="attributes">
-            <attribute name="t-if">attr_values_used &amp; v</attribute>
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
         </xpath>
     </template>
     <template id="o_wsale_offcanvas" inherit_id="website_sale.o_wsale_offcanvas">
+        <xpath expr="//t[@t-foreach='a.value_ids']" position="attributes">
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
         <xpath
             expr="//div[@t-elif=&quot;a.display_type in ('radio', 'pills', 'select', 'multi')&quot;]//div[@t-foreach='a.value_ids']"
             position="attributes"
         >
-            <attribute name="t-if">attr_values_used &amp; v</attribute>
+            <attribute
+                name="t-if"
+            >attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+        <xpath expr="//input[@name='attrib']/../.." position="attributes">
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
         </xpath>
     </template>
 </odoo>
