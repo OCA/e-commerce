@@ -8,7 +8,7 @@ from odoo.http import request
 class Website(models.Model):
     _inherit = "website"
 
-    def sale_get_order(self, force_create=False, update_pricelist=False):
+    def sale_get_order(self, force_create=False):
         # This method manages the entire flow of an order on the website, from adding a
         # product to the cart to payment. The active order is retrieved by calling
         # this method.
@@ -22,17 +22,14 @@ class Website(models.Model):
         # quote being edited must be retrieved so that the partner is not modified and
         # therefore manages its own addresses.
         if not (portal_order_id and portal_access_token and sale_order_id):
-            return super().sale_get_order(
-                force_create=force_create, update_pricelist=update_pricelist
-            )
+            return super().sale_get_order(force_create=force_create)
+
         origin_so = self.env["sale.order"].sudo().browse(sale_order_id).exists()
         origin_partner = origin_so.partner_id
         previous_fiscal_position = origin_so.fiscal_position_id
         previous_pricelist = origin_so.pricelist_id
         previous_payment_term = origin_so.payment_term_id
-        sale_order_sudo = super().sale_get_order(
-            force_create=force_create, update_pricelist=update_pricelist
-        )
+        sale_order_sudo = super().sale_get_order(force_create=force_create)
         if origin_partner and sale_order_sudo.partner_id != origin_partner:
             sale_order_sudo.write(
                 {
