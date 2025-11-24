@@ -1,42 +1,29 @@
 # Copyright 2019 Tecnativa - Sergio Teruel
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-from odoo import http
 from odoo.http import request
-from odoo.tools import lazy
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class ProductAttributeValues(WebsiteSale):
-    @http.route()
-    def shop(
-        self,
-        page=0,
-        category=None,
-        search="",
-        min_price=0.0,
-        max_price=0.0,
-        ppg=False,
-        **post,
-    ):
-        res = super().shop(
-            page=page,
-            category=category,
-            search=search,
-            min_price=min_price,
-            max_price=max_price,
-            ppg=ppg,
-            **post,
-        )
-
-        # getting existing templates by "search_product" in qcontext
-        # without searching again
-        templates = res.qcontext["search_product"]
-        ProductTemplateAttributeLine = request.env["product.template.attribute.line"]
-        attribute_values = lazy(
-            lambda: ProductTemplateAttributeLine.search(
-                [("product_tmpl_id", "in", templates.ids)]
+    def _get_additional_extra_shop_values(self, values, **post):
+        res = super()._get_additional_extra_shop_values(values, **post)
+        search_product = values.get("search_product")
+        attributes = values.get("attributes")
+        if search_product and attributes:
+            ProductTemplateAttributeLine = request.env[
+                "product.template.attribute.line"
+            ]
+            lines = ProductTemplateAttributeLine.search_read(
+                domain=[
+                    ("product_tmpl_id", "in", search_product.ids),
+                    ("attribute_id", "in", attributes.ids),
+                    ("attribute_id.visibility", "=", "visible"),
+                ],
+                fields=["value_ids"],
             )
-        )
-        res.qcontext["attr_values_used"] = attribute_values.mapped("value_ids")
+            used_value_ids = {
+                value_id for line in lines for value_id in line.get("value_ids", [])
+            }
+            res["attr_values_used_ids"] = used_value_ids
         return res
