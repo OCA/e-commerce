@@ -30,7 +30,7 @@ addon | version | maintainers | summary
 [website_sale_cart_expire](website_sale_cart_expire/) | 15.0.1.1.1 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Cancel carts without activity after a configurable time
 [website_sale_charge_payment_fee](website_sale_charge_payment_fee/) | 15.0.1.0.0 | <a href='https://github.com/miguel-S73'><img src='https://github.com/miguel-S73.png' width='32' height='32' style='border-radius:50%;' alt='miguel-S73'/></a> | Payment fee charged to customer
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 15.0.1.0.0 |  | Autocomplete VAT in checkout process
-[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 15.0.1.3.1 |  | Skip payment for logged users in checkout process
+[website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 15.0.1.3.2 |  | Skip payment for logged users in checkout process
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 15.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_google_tag_manager](website_sale_google_tag_manager/) | 15.0.1.0.0 |  | Add support for Google Tag Manager Enhanced Conversions
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 15.0.1.0.1 |  | Hide any Product Categories that are empty
