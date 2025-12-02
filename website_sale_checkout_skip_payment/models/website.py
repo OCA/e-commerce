@@ -1,7 +1,7 @@
 # Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.http import request
 
 
@@ -20,6 +20,18 @@ class Website(models.Model):
         default=_get_default_skip_message,
     )
     checkout_skip_payment = fields.Boolean(compute="_compute_checkout_skip_payment")
+
+    website_sale_checkout_payment_skip_message = fields.Html(
+        string="Message displayed instead of payment methods.",
+        translate=True,
+        default=lambda self: self._get_default_payment_skip_message(),
+        help="Fill in this with a message for the customer to confirm the order as "
+        "payment will be skipped.",
+    )
+
+    @api.model
+    def _get_default_payment_skip_message(self):
+        return _("The payment step will be skipped. You can confirm the order.")
 
     def _compute_checkout_skip_payment(self):
         for rec in self:

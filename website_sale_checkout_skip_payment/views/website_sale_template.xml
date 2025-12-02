@@ -2,6 +2,12 @@
 <odoo>
     <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+    <template id="payment_form">
+        <div id="o_payment_form_skip" class="alert alert-success mb-4">
+            <span t-field="website.website_sale_checkout_payment_skip_message" />
+        </div>
+    </template>
     <template id="payment" inherit_id="website_sale.payment" priority="25">
         <xpath expr="//div[@name='website_sale_non_free_cart']" position="attributes">
             <attribute
@@ -10,6 +16,15 @@
                 add="not website.checkout_skip_payment"
             />
         </xpath>
+        <div name="website_sale_non_free_cart" position="after">
+            <div
+                t-if="not errors and website_sale_order.amount_total and website.checkout_skip_payment"
+                id="skip_payment_payment_form"
+                class="o_not_editable mt-4"
+            >
+                <t t-call="website_sale_checkout_skip_payment.payment_form" />
+            </div>
+        </div>
     </template>
     <template id="confirmation" inherit_id="website_sale.confirmation">
         <xpath
