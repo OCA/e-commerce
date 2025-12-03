@@ -26,7 +26,7 @@
         >
             <attribute
                 name="t-if"
-            >tx_sudo.state == 'done' or website.checkout_skip_payment</attribute>
+            >tx_sudo.state == 'done' or (website.checkout_skip_payment and order.state != 'sale')</attribute>
         </xpath>
         <xpath
             expr="//t[@t-call='website_sale.payment_confirmation_status']"
