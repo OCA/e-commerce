@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Tecnativa - Pilar Vargas
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="address_kanban" inherit_id="website_sale.address_kanban">
+        <xpath expr="//a" position="attributes">
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+    </template>
+    <template id="delivery_form" inherit_id="website_sale.delivery_form">
+        <xpath expr="//form" position="before">
+            <div
+                id="form_o_delivery_form"
+                t-attf-class="#{'d-none' if portal_order_id and portal_access_token else ''}"
+            />
+        </xpath>
+        <xpath expr="//div[@id='form_o_delivery_form']" position="inside">
+            <xpath expr="//form" position="move" />
+        </xpath>
+    </template>
+    <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//div[@id='o_wsale_total_accordion']" position="attributes">
+            <attribute
+                name="t-attf-class"
+            >o_wsale_accordion accordion sticky-lg-top offset-xl-1 col-12 col-lg-5 col-xl-4 order-lg-2 rounded
+            #{'d-none' if portal_order_id and portal_access_token else ''}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-out='0']/.." position="attributes">
+            <attribute
+                name="t-attf-class"
+            >oe_cart #{'col-12 col-lg-7' if not (portal_order_id and portal_access_token) else 'col'}</attribute>
+        </xpath>
+    </template>
+    <template id="checkout" inherit_id="website_sale.checkout">
+        <xpath expr="//div[@id='shop_checkout']" position="before">
+            <t
+                t-set="portal_order_id"
+                t-value="request.session.get('portal_order_id', False)"
+            />
+            <t
+                t-set="portal_access_token"
+                t-value="request.session.get('portal_access_token', False)"
+            />
+            <div
+                id="portal-session-flags"
+                t-att-data-has-portal-session="1 if (portal_order_id and portal_access_token) else 0"
+            />
+            <t
+                t-set="show_wizard_checkout"
+                t-value="(True if show_wizard_checkout is None else show_wizard_checkout) and not (portal_order_id and portal_access_token)"
+            />
+        </xpath>
+        <xpath expr="//div[@id='shop_checkout']" position="inside">
+            <a
+                role="button"
+                t-if="portal_order_id and portal_access_token"
+                t-attf-href="/my/orders/#{portal_order_id}#{portal_access_token and ('?access_token=' + portal_access_token) or ''}"
+                class="btn btn-primary mb32"
+            >
+                <span>Confirm</span>
+                <i class="fa fa-chevron-right" />
+            </a>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.billing_address_row']" position="before">
+            <div
+                id="hide_billing_address_row"
+                t-attf-class="#{'d-none' if portal_order_id and portal_access_token else ''}"
+            />
+        </xpath>
+        <xpath expr="//div[@id='hide_billing_address_row']" position="inside">
+            <xpath
+                expr="//t[@t-call='website_sale.billing_address_row']"
+                position="move"
+            />
+        </xpath>
+    </template>
+    <template id="address" inherit_id="website_sale.address">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t
+                t-set="portal_order_id"
+                t-value="request.session.get('portal_order_id', False)"
+            />
+            <t
+                t-set="portal_access_token"
+                t-value="request.session.get('portal_access_token', False)"
+            />
+            <div
+                id="portal-session-flags"
+                t-att-data-has-portal-session="1 if (portal_order_id and portal_access_token) else 0"
+            />
+        </xpath>
+        <xpath
+            expr="//t[@t-call='website_sale.wizard_checkout']/../.."
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not (portal_order_id and portal_access_token)</attribute>
+        </xpath>
+    </template>
+</odoo>
