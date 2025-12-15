@@ -20,9 +20,28 @@ class WebsiteSaleHttpCase(odoo.tests.HttpCase):
         cls.partner.with_context(**{"res_partner_search_mode": "customer"}).write(
             {"skip_website_checkout_payment": True}
         )
+        cls.env["product.template"].create(
+            {
+                "name": "Test Product",
+                "list_price": 100.0,
+                "sale_ok": True,
+                "is_published": True,
+            }
+        )
+        cls.env["res.users"].search([("login", "=", "admin")]).partner_id.write(
+            {
+                "country_id": cls.env.ref("base.us").id,
+                "street": "123 Test St",
+                "city": "Test City",
+                "zip": "12345",
+                "email": "admin@example.com",
+                "phone": "1234567890",
+                "state_id": cls.env.ref("base.state_us_1").id,
+            }
+        )
 
     def test_checkout_skip_payment(self):
-        website = self.env.ref("website.website2")
+        website = self.env["website"].create({"name": "Test Website"})
         with patch(
             "odoo.addons.website_sale_checkout_skip_payment.models.website.request",
             new=Mock(),
@@ -32,4 +51,8 @@ class WebsiteSaleHttpCase(odoo.tests.HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour("/", "website_sale_checkout_skip_payment", login="admin")
+        self.start_tour(
+            "/",
+            "website_sale_checkout_skip_payment",
+            login="admin",
+        )
