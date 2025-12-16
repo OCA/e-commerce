@@ -3,13 +3,18 @@
 import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_wishlist_hide_price_tour", {
-    checkDelay: 250,
-    url: "/shop?search=Customizable Desk",
+    url: "/shop?search=Test Product",
     steps: () => [
         {
-            content: "hover card && click on add to wishlist",
-            trigger: ".o_wsale_product_grid_wrapper:contains(desk)",
-            run: "hover && click .o_add_wishlist",
+            content: `Select Test Product`,
+            trigger: `.oe_product_cart:first a:text(Test Product)`,
+            run: "click",
+            expectUnloadPage: true,
+        },
+        {
+            content: "click on add to wishlist",
+            trigger: ".o_add_wishlist_dyn",
+            run: "click",
         },
         {
             trigger: 'a[href="/shop/wishlist"] .badge:contains(1)',
@@ -18,12 +23,13 @@ registry.category("web_tour.tours").add("website_sale_wishlist_hide_price_tour",
             content: "go to wishlist",
             trigger: 'a[href="/shop/wishlist"]',
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content:
-                "verify that the product 'Customizable Desk' is in the wishlist without the 'Add to Wishlist' button or price displayed",
+                "verify that the product 'Test Product' is in the wishlist without the 'Add to Wishlist' button or price displayed",
             trigger:
-                "tr:has(a:contains('Customizable Desk')):not(:has(button.o_wish_add)):not(:has(span.oe_currency_value)):visible",
+                "div:has(a:contains('Test Product')):not(:has(button.o_wish_add)):not(:has(span.oe_currency_value)):visible",
         },
     ],
 });
