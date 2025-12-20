@@ -5,7 +5,7 @@
 {
     "name": "Website Sale Stock List Preview",
     "summary": "Show the stock of products on the product previews",
-    "version": "16.0.1.0.1",
+    "version": "18.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -14,12 +14,8 @@
     "depends": ["website_sale_stock"],
     "data": ["views/templates.xml"],
     "assets": {
-        "web.assets_frontend": [
-            "/website_sale_stock_list_preview/static/src/js/*",
-            "/website_sale_stock_list_preview/static/src/scss/*",
-        ],
         "web.assets_tests": [
-            "/website_sale_stock_list_preview/static/src/tests/*.js",
+            "/website_sale_stock_list_preview/static/src/tests/*.esm.js",
         ],
     },
 }

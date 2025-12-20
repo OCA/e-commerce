@@ -1,3 +1,5 @@
-- Carlos Roca \<carlos.roca@tecnativa.com\>
-- Sergio Teruel \<sergio.teruel@tecnativa.com\>
-- Carlos Dauden \<carlos.dauden@tecnativa.com\>
+- `Tecnativa <https://www.tecnativa.com>`__:
+    - Carlos Roca \<carlos.roca@tecnativa.com\>
+    - Sergio Teruel \<sergio.teruel@tecnativa.com\>
+    - Carlos Dauden \<carlos.dauden@tecnativa.com\>
+    - Pilar Vargas

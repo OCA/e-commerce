@@ -42,8 +42,8 @@ Usage
 To use this module, you need to:
 
 - Edit some products on the option Availability of e-commerce
-- Go to the shop on the website and active Add to Cart view on Customize
-  menu.
+- Go to the shop on the website and active Add to Cart button on web
+  editor options.
 - You can see on your products the results of the options that you had
   choose.
 
@@ -68,9 +68,12 @@ Authors
 Contributors
 ------------
 
-- Carlos Roca <carlos.roca@tecnativa.com>
-- Sergio Teruel <sergio.teruel@tecnativa.com>
-- Carlos Dauden <carlos.dauden@tecnativa.com>
+- ``Tecnativa <https://www.tecnativa.com>``\ \_\_:
+
+  - Carlos Roca <carlos.roca@tecnativa.com>
+  - Sergio Teruel <sergio.teruel@tecnativa.com>
+  - Carlos Dauden <carlos.dauden@tecnativa.com>
+  - Pilar Vargas
 
 Maintainers
 -----------

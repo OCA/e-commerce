@@ -13,7 +13,8 @@ class UICase(HttpCase):
                 "name": "Test Product 1",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "allow_out_of_stock_order": True,
                 "show_availability": True,
                 "available_threshold": 99999,
@@ -24,7 +25,8 @@ class UICase(HttpCase):
                 "name": "Test Product 2",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "allow_out_of_stock_order": False,
                 "show_availability": True,
             }
@@ -34,7 +36,8 @@ class UICase(HttpCase):
                 "name": "Test Product 3",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "allow_out_of_stock_order": False,
                 "show_availability": True,
                 "available_threshold": 5,
@@ -45,7 +48,8 @@ class UICase(HttpCase):
                 "name": "Test Product 4",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "out_of_stock_message": "test message",
             }
         )
@@ -54,7 +58,8 @@ class UICase(HttpCase):
                 "name": "Test Product 5",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
             }
         )
         cls.env["product.template"].create(
@@ -62,7 +67,8 @@ class UICase(HttpCase):
                 "name": "Test Product 6",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "allow_out_of_stock_order": True,
                 "show_availability": True,
                 "out_of_stock_message": "Out of stock",
@@ -73,7 +79,8 @@ class UICase(HttpCase):
                 "name": "Test Product 7",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "allow_out_of_stock_order": False,
                 "show_availability": True,
             }
@@ -113,7 +120,5 @@ class UICase(HttpCase):
     def test_ui_website(self):
         """Test frontend tour."""
         self.start_tour(
-            "/shop",
-            "website_sale_stock_list_preview",
-            login="admin",
+            "/shop", "website_sale_stock_list_preview", login="admin", step_delay=100
         )

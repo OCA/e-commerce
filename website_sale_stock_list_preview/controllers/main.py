@@ -1,51 +1,39 @@
 # Copyright 2020 Tecnativa - Carlos Roca
 # Copyright 2020 Tecnativa - Carlos Dauden
+# Copyright 2025 Tecnativa - Pilar Vargas
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
-from odoo import http
 from odoo.http import request
 
-from odoo.addons.sale.controllers.variant import VariantController
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSaleVariantController(VariantController):
-    @http.route(
-        ["/sale/get_combination_info_stock_preview"],
-        type="json",
-        auth="public",
-        website=True,
-    )
-    def get_combination_info_stock_preview(self, product_template_ids, **kw):
-        """Special route to use website logic in get_combination_info override.
-        This route is called in JS by appending _website to the base route.
-        """
-        current_website = request.env["website"].get_current_website()
-        res = []
-        templates = (
-            request.env["product.template"]
-            .sudo()
-            .with_context(
-                warehouse=current_website.sudo().warehouse_id.id,
-                website_sale_stock_available=True,
-            )
-            .browse(product_template_ids)
+class WebsiteSaleStockListPreview(WebsiteSale):
+    def _get_additional_shop_values(self, values):
+        res = super()._get_additional_shop_values(values)
+
+        products = values.get("products") or request.env["product.template"]
+        if not products:
+            return res
+        website = request.env["website"].get_current_website()
+        products_sudo = products.sudo().with_context(
+            warehouse=website.sudo().warehouse_id.id,
+            website_sale_stock_available=True,
         )
-        for template in templates.filtered(lambda t: t.is_published):
-            variants = template.product_variant_ids
-            res.append(
-                {
-                    "product_template": template.id,
-                    "product_type": template.type,
-                    "free_qty": sum(variants.mapped("free_qty")),
-                    "cart_qty": sum(
-                        [product._get_cart_qty(current_website) for product in variants]
-                    ),
-                    "out_of_stock_message": template.out_of_stock_message,
-                    "allow_out_of_stock_order": template.allow_out_of_stock_order,
-                    "show_availability": template.show_availability,
-                    "available_threshold": template.available_threshold,
-                    "uom_name": template.uom_name,
-                    "uom_rounding": template.uom_id.rounding,
-                }
-            )
+        products_stock = {}
+        for tmpl in products_sudo:
+            if not tmpl.show_availability:
+                continue
+            variants = tmpl.product_variant_ids
+            products_stock[tmpl.id] = {
+                "product_template": tmpl.id,
+                "product_type": tmpl.type,
+                "free_qty": sum(variants.mapped("free_qty")),
+                "out_of_stock_message": tmpl.out_of_stock_message,
+                "allow_out_of_stock_order": tmpl.allow_out_of_stock_order,
+                "show_availability": tmpl.show_availability,
+                "available_threshold": tmpl.available_threshold,
+                "uom_name": tmpl.uom_name,
+                "uom_rounding": tmpl.uom_id.rounding,
+            }
+        res["products_stock"] = products_stock
         return res
