@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath
+            expr="//div[hasclass('o_wsale_product_information_text')]/.."
+            position="inside"
+        >
+            <t t-set="stock" t-value="(products_stock or {}).get(product.id)" />
+            <t t-if="stock">
+                <t t-set="product_template" t-value="stock.get('product_template')" />
+                <t t-set="free_qty" t-value="stock.get('free_qty')" />
+                <t
+                    t-set="allow_out_of_stock_order"
+                    t-value="stock.get('allow_out_of_stock_order')"
+                />
+                <t t-set="show_availability" t-value="stock.get('show_availability')" />
+                <t
+                    t-set="available_threshold"
+                    t-value="stock.get('available_threshold')"
+                />
+                <t t-set="uom_name" t-value="stock.get('uom_name')" />
+                <t
+                    t-set="has_out_of_stock_message"
+                    t-value="bool(stock.get('out_of_stock_message'))"
+                />
+                <t
+                    t-set="out_of_stock_message"
+                    t-value="stock.get('out_of_stock_message')"
+                />
+                <t
+                    t-set="formatQuantity"
+                    t-value="lambda qty: int(qty) if qty and qty.is_integer() else qty"
+                />
+                <div
+                    t-if="free_qty &lt;= 0"
+                    t-attf-class="availability_message_#{product_template}"
+                >
+                    <t t-if="has_out_of_stock_message" t-out="out_of_stock_message" />
+                    <t t-elif="not allow_out_of_stock_order">
+                        <div class="text-danger fw-bold">
+                            <i class="fa fa-times me-1" />
+                            Out of Stock
+                        </div>
+                    </t>
+                </div>
+                <div
+                    t-elif="show_availability and free_qty &lt;= available_threshold"
+                    t-attf-class="availability_message_#{product_template} text-warning fw-bold"
+                >
+                    Only <t t-esc="formatQuantity(free_qty)" /> <t
+                    t-esc="uom_name"
+                /> left in stock.
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
