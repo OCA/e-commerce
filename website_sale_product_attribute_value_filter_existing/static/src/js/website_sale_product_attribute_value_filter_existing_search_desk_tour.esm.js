@@ -1,14 +1,12 @@
-/** @odoo-module **/
-
 import {registry} from "@web/core/registry";
 
 registry
     .category("web_tour.tours")
     .add("website_sale_product_attribute_value_filter_existing_search_desk", {
-        url: "/shop?search=customizable",
+        url: "/shop?search=Test+Product+1",
         steps: () => [
             // After searching, the attributes "test red" and "test green" must be present.
-            // "Test yelow" should not be present as it is not used in any product and
+            // "Test yellow" should not be present as it is not used in any product and
             // "test blue" should not be present as it is not used in the products shown.
             {
                 content:

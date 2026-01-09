@@ -51,7 +51,25 @@ class WebsiteSaleHttpCase(HttpCase):
                 "html_color": "#FDEA01",
             }
         )
-        cls.product_template = cls.env.ref("product.product_product_4_product_template")
+        # Demo data not available in v19, create test products
+        ProductTemplate = cls.env["product.template"]
+        cls.product_template = ProductTemplate.create(
+            {
+                "name": "Test Product 1",
+                "sale_ok": True,
+                "is_published": True,
+                "list_price": 100.0,
+            }
+        )
+        cls.product_template_2 = ProductTemplate.create(
+            {
+                "name": "Test Product 2",
+                "sale_ok": True,
+                "is_published": True,
+                "list_price": 200.0,
+            }
+        )
+
         cls.product_attribute_line = ProductAttributeLine.create(
             {
                 "product_tmpl_id": cls.product_template.id,
@@ -71,12 +89,9 @@ class WebsiteSaleHttpCase(HttpCase):
         cls.product_template.write(
             {"attribute_line_ids": [(4, cls.product_attribute_line.id)]}
         )
-        cls.product_template_11 = cls.env.ref(
-            "product.product_product_11_product_template"
-        )
-        cls.product_attribute_line_11 = ProductAttributeLine.create(
+        cls.product_attribute_line_2 = ProductAttributeLine.create(
             {
-                "product_tmpl_id": cls.product_template_11.id,
+                "product_tmpl_id": cls.product_template_2.id,
                 "attribute_id": cls.product_attribute.id,
                 "value_ids": [
                     (
@@ -90,11 +105,19 @@ class WebsiteSaleHttpCase(HttpCase):
                 ],
             }
         )
-        cls.product_template_11.write(
-            {"attribute_line_ids": [(4, cls.product_attribute_line_11.id)]}
+        cls.product_template_2.write(
+            {"attribute_line_ids": [(4, cls.product_attribute_line_2.id)]}
         )
         # Active attribute's filter in /shop. By default it's disabled.
         cls.env.ref("website_sale.products_attributes").active = True
+        cls.env.ref("website_sale.search").active = True
+        website = cls.env["website"].get_current_website()
+        cls.env["website"].with_context(website_id=website.id).viewref(
+            "website_sale.products_attributes"
+        ).active = True
+        cls.env["website"].with_context(website_id=website.id).viewref(
+            "website_sale.search"
+        ).active = True
 
     def test_ui_website(self):
         # This test ensures that unused attributes are not visible in the filter panel.
@@ -102,8 +125,6 @@ class WebsiteSaleHttpCase(HttpCase):
             "/",
             "website_sale_product_attribute_value_filter_existing",
             login="admin",
-            # deplay step here to ensure the tests pass
-            step_delay=100,
         )
 
     def test_ui_website_search_desk(self):
@@ -113,6 +134,4 @@ class WebsiteSaleHttpCase(HttpCase):
             "/",
             "website_sale_product_attribute_value_filter_existing_search_desk",
             login="admin",
-            # deplay step here to ensure the tests pass
-            step_delay=100,
         )
