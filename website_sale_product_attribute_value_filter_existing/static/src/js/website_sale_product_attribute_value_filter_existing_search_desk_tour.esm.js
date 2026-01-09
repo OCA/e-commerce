@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import {registry} from "@web/core/registry";
 
 registry
@@ -8,7 +6,7 @@ registry
         url: "/shop?search=customizable",
         steps: () => [
             // After searching, the attributes "test red" and "test green" must be present.
-            // "Test yelow" should not be present as it is not used in any product and
+            // "Test yellow" should not be present as it is not used in any product and
             // "test blue" should not be present as it is not used in the products shown.
             {
                 content:

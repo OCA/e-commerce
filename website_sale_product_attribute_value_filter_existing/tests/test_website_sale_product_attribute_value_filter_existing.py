@@ -51,7 +51,25 @@ class WebsiteSaleHttpCase(HttpCase):
                 "html_color": "#FDEA01",
             }
         )
-        cls.product_template = cls.env.ref("product.product_product_4_product_template")
+        # Demo data not available in v19, create test products
+        ProductTemplate = cls.env["product.template"]
+        cls.product_template = ProductTemplate.create(
+            {
+                "name": "Test Product 1",
+                "sale_ok": True,
+                "is_published": True,
+                "list_price": 100.0,
+            }
+        )
+        cls.product_template_11 = ProductTemplate.create(
+            {
+                "name": "Test Product 2",
+                "sale_ok": True,
+                "is_published": True,
+                "list_price": 200.0,
+            }
+        )
+
         cls.product_attribute_line = ProductAttributeLine.create(
             {
                 "product_tmpl_id": cls.product_template.id,
@@ -70,9 +88,6 @@ class WebsiteSaleHttpCase(HttpCase):
         )
         cls.product_template.write(
             {"attribute_line_ids": [(4, cls.product_attribute_line.id)]}
-        )
-        cls.product_template_11 = cls.env.ref(
-            "product.product_product_11_product_template"
         )
         cls.product_attribute_line_11 = ProductAttributeLine.create(
             {
@@ -102,7 +117,7 @@ class WebsiteSaleHttpCase(HttpCase):
             "/",
             "website_sale_product_attribute_value_filter_existing",
             login="admin",
-            # deplay step here to ensure the tests pass
+            # delay step here to ensure the tests pass
             step_delay=100,
         )
 
@@ -113,6 +128,6 @@ class WebsiteSaleHttpCase(HttpCase):
             "/",
             "website_sale_product_attribute_value_filter_existing_search_desk",
             login="admin",
-            # deplay step here to ensure the tests pass
+            # delay step here to ensure the tests pass
             step_delay=100,
         )
