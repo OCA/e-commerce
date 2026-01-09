@@ -6,8 +6,8 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class ProductAttributeValues(WebsiteSale):
-    def _get_additional_extra_shop_values(self, values, **post):
-        res = super()._get_additional_extra_shop_values(values, **post)
+    def _get_additional_shop_values(self, values, **post):
+        res = super()._get_additional_shop_values(values, **post)
         search_product = values.get("search_product")
         attributes = values.get("attributes")
         if search_product and attributes:
