@@ -41,3 +41,5 @@ from . import saleor_gift_card
 from . import saleor_gift_card_tag
 from . import saleor_giftcard_meta_line
 from . import sale_order
+from . import sale_order_line
+from . import stock_picking

@@ -1352,6 +1352,228 @@ class SaleorAccount(models.Model):
             raise UserError(header)
         return True
 
+    def job_order_fulfill(self, sale_order_id):
+        """Fulfill newly delivered quantities for a Saleor-linked order.
+
+        This job supports both full and partial fulfillments by comparing
+        each line's delivered quantity in Odoo with the quantity already
+        fulfilled in Saleor (tracked via saleor_fulfilled_qty).
+        """
+        self.ensure_one()
+        if not self.active:
+            _logger.debug(
+                "Saleor order fulfill skipped for order %s on inactive account %s",
+                sale_order_id,
+                self.name,
+            )
+            return True
+
+        order = self.env["sale.order"].browse(sale_order_id)
+        if not order or not order.exists():
+            return True
+        if not order.saleor_order_id:
+            return True
+
+        client = self._get_client()
+
+        try:
+            # Fetch remote order to obtain line IDs and variants
+            self._refresh_token(client)
+            remote_order = client.order_get_by_id(order.saleor_order_id) or {}
+        except Exception as e:
+            _logger.exception(
+                "Error fetching Saleor order %s for fulfill via account %s: %s",
+                order.saleor_order_id,
+                self.name,
+                e,
+            )
+            raise UserError(
+                self.env._("Saleor order fulfill failed while reading order: %s", e)
+            ) from e
+
+        remote_lines = (remote_order or {}).get("lines") or []
+        by_id, by_variant = self._job_order_fulfill_build_remote_maps(remote_lines)
+
+        default_saleor_wh = self._job_order_fulfill_default_warehouse()
+
+        lines_payload, updates = self._job_order_fulfill_build_payload(
+            order, by_id, by_variant, default_saleor_wh
+        )
+
+        if not lines_payload:
+            _logger.debug(
+                "Saleor order fulfill: no new quantities to fulfill for order %s",
+                order.id,
+            )
+            return True
+
+        try:
+            self._refresh_token(client)
+            res = client.order_fulfill(
+                order.saleor_order_id,
+                lines_payload,
+                notify_customer=False,
+                allow_stock_to_be_exceeded=True,
+            )
+            _logger.info(
+                "Triggered Saleor fulfill for order %s via account %s: %s",
+                order.saleor_order_id,
+                self.name,
+                res,
+            )
+        except Exception as e:
+            _logger.exception(
+                "Error calling orderFulfill for Saleor order %s via account %s: %s",
+                order.saleor_order_id,
+                self.name,
+                e,
+            )
+            raise UserError(
+                self.env._("Saleor order fulfill failed: %s", str(e))
+            ) from e
+
+        # Update local tracking of fulfilled quantities
+        self._job_order_fulfill_update_local(updates)
+
+        try:
+            order.message_post(
+                body=self.env._(
+                    "Pushed fulfillment to Saleor for %s line(s).",
+                    len(lines_payload),
+                )
+            )
+        except Exception as e:
+            _logger.debug(
+                "Failed to post Saleor fulfill message on sale.order %s: %s",
+                order.id,
+                e,
+            )
+
+        return True
+
+    def _job_order_fulfill_build_remote_maps(self, remote_lines):
+        by_id = {ln.get("id"): ln for ln in remote_lines if ln.get("id")}
+        by_variant = {}
+        for ln in remote_lines:
+            var = (ln or {}).get("variant") or {}
+            vid = var.get("id")
+            if not vid:
+                continue
+            by_variant.setdefault(vid, []).append(ln)
+        return by_id, by_variant
+
+    def _job_order_fulfill_default_warehouse(self):
+        saleor_wh_ids = set()
+        try:
+            Warehouses = (
+                self.env["stock.warehouse"]
+                .sudo()
+                .search(
+                    [
+                        ("is_saleor_warehouse", "=", True),
+                        ("include_in_saleor_inventory", "=", True),
+                        ("saleor_warehouse_id", "!=", False),
+                    ]
+                )
+            )
+            Locations = (
+                self.env["stock.location"]
+                .sudo()
+                .search(
+                    [
+                        ("is_saleor_warehouse", "=", True),
+                        ("include_in_saleor_inventory", "=", True),
+                        ("saleor_warehouse_id", "!=", False),
+                    ]
+                )
+            )
+            for wh in Warehouses:
+                if wh.saleor_warehouse_id:
+                    saleor_wh_ids.add(wh.saleor_warehouse_id)
+            for loc in Locations:
+                if loc.saleor_warehouse_id:
+                    saleor_wh_ids.add(loc.saleor_warehouse_id)
+        except Exception as e:
+            _logger.debug(
+                "Failed to collect Saleor warehouses for fulfill: %s",
+                e,
+            )
+        return next(iter(saleor_wh_ids), None)
+
+    def _job_order_fulfill_build_payload(
+        self, order, by_id, by_variant, default_saleor_wh
+    ):
+        lines_payload = []
+        updates = []
+        for line in order.order_line:
+            if getattr(line, "display_type", False):
+                continue
+            if getattr(line, "is_delivery", False):
+                continue
+            product = getattr(line, "product_id", False)
+            if not product:
+                continue
+            saleor_variant_id = getattr(product, "saleor_variant_id", None)
+            if not saleor_variant_id:
+                continue
+
+            delivered = getattr(line, "qty_delivered", 0.0) or 0.0
+            already = getattr(line, "saleor_fulfilled_qty", 0.0) or 0.0
+            delta = delivered - already
+            if delta <= 0:
+                continue
+
+            saleor_line_id = getattr(line, "saleor_order_line_id", None)
+            if saleor_line_id and saleor_line_id in by_id:
+                pass
+            else:
+                candidates = by_variant.get(saleor_variant_id) or []
+                if candidates:
+                    remote_ln = candidates[0]
+                    saleor_line_id = remote_ln.get("id")
+                    if saleor_line_id and not getattr(
+                        line, "saleor_order_line_id", None
+                    ):
+                        try:
+                            line.write({"saleor_order_line_id": saleor_line_id})
+                        except Exception as e:
+                            _logger.debug(
+                                "Failed to store Saleor order line ID on line %s: %s",
+                                line.id,
+                                e,
+                            )
+
+            if not saleor_line_id:
+                continue
+
+            try:
+                qty_int = int(delta)
+            except Exception:
+                qty_int = 0
+            if qty_int <= 0 or not default_saleor_wh:
+                continue
+
+            lines_payload.append(
+                {
+                    "orderLineId": saleor_line_id,
+                    "stocks": [{"warehouse": default_saleor_wh, "quantity": qty_int}],
+                }
+            )
+            updates.append((line, qty_int))
+        return lines_payload, updates
+
+    def _job_order_fulfill_update_local(self, updates):
+        for line, qty_int in updates:
+            try:
+                current = getattr(line, "saleor_fulfilled_qty", 0.0) or 0.0
+                line.saleor_fulfilled_qty = current + float(qty_int)
+            except Exception as e:
+                _logger.debug(
+                    "Failed to update saleor_fulfilled_qty on line %s: %s",
+                    line.id,
+                    e,
+                )
+
     def job_location_sync(self, location_id, payload):
         """Sync a single stock.location to Saleor Warehouse.
         Name rule is complete_name of location.
