@@ -26,28 +26,30 @@
                             <field name="saleor_seo_title" />
                             <field name="saleor_seo_description" />
                         </group>
-                        <group string="Metadata" colspan="2">
+                        <group string="Metadata">
                             <field
                                 name="saleor_metadata_line_ids"
                                 nolabel="1"
                                 context="{'default_category_id': id}"
+                                colspan="2"
                             >
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="key" />
                                     <field name="value" />
-                                </list>
+                                </tree>
                             </field>
                         </group>
-                        <group string="Private Metadata" colspan="2">
+                        <group string="Private Metadata">
                             <field
                                 name="saleor_private_metadata_line_ids"
                                 nolabel="1"
                                 context="{'default_category_id': id}"
+                                colspan="2"
                             >
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="key" />
                                     <field name="value" />
-                                </list>
+                                </tree>
                             </field>
                         </group>
                     </page>
@@ -65,8 +67,8 @@
         </field>
     </record>
 
-    <record id="product_category_list_view_inherit_saleor" model="ir.ui.view">
-        <field name="name">product.category.list.inherit.saleor</field>
+    <record id="product_category_tree_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.category.tree.inherit.saleor</field>
         <field name="model">product.category</field>
         <field name="inherit_id" ref="product.product_category_list_view" />
         <field name="arch" type="xml">

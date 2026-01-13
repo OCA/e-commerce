@@ -4,9 +4,9 @@
         <field name="name">saleor.product.type.tree.view</field>
         <field name="model">saleor.product.type</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="name" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -26,7 +26,10 @@
                     <group>
                         <field name="kind" />
                         <field name="is_shipping" />
-                        <field name="weight" invisible="not is_shipping" />
+                        <field
+                            name="weight"
+                            attrs="{'invisible': [('is_shipping', '=', False)]}"
+                        />
                     </group>
 
                     <group string="Taxes">
@@ -37,47 +40,49 @@
                         <field
                             name="product_attribute_ids"
                             nolabel="1"
-                            mode="list"
+                            mode="tree"
                             editable="bottom"
+                            colspan="2"
                         >
-                            <list>
+                            <tree>
                                 <field name="name" />
-                            </list>
+                            </tree>
                         </field>
                         <field name="use_variant_attributes" widget="boolean_toggle" />
                     </group>
 
                     <group
                         string="Variant Attributes"
-                        invisible="not use_variant_attributes"
+                        attrs="{'invisible': [('use_variant_attributes', '=', False)]}"
                     >
                         <field
                             name="variant_attribute_ids"
                             nolabel="1"
-                            mode="list"
+                            mode="tree"
                             editable="bottom"
+                            colspan="2"
                         >
-                            <list>
+                            <tree>
                                 <field name="name" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
 
-                    <group string="Metadata" colspan="2">
-                        <field name="metadata_line" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field name="metadata_line" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
 
-                    <group string="Private Metadata" colspan="2">
-                        <field name="private_metadata_line" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Private Metadata">
+                        <field name="private_metadata_line" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </sheet>
@@ -89,7 +94,7 @@
     <record id="action_saleor_product_type" model="ir.actions.act_window">
         <field name="name">Product Types</field>
         <field name="res_model">saleor.product.type</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

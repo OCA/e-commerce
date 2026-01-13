@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account, html_to_editorjs, to_saleor_datetime
@@ -38,7 +38,7 @@ class LoyaltyProgram(models.Model):
         res = super()._program_items_name()
         res.update(
             {
-                "saleor": self.env._("Sale Orders"),
+                "saleor": _("Sale Orders"),
             }
         )
         return res
@@ -73,7 +73,7 @@ class LoyaltyProgram(models.Model):
         programs = self.filtered(lambda p: p.program_type == "saleor")
         if not programs:
             raise UserError(
-                self.env._("Only programs with type 'Saleor Discount' can be synced.")
+                _("Only programs with type 'Saleor Discount' can be synced.")
             )
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if len(programs) == 1:
@@ -95,19 +95,17 @@ class LoyaltyProgram(models.Model):
                     account.job_promotion_sync_batch(chunk)
             queued = True
         # Notify via client action
-        msg = self.env._(
+        msg = _(
             "Queued sync of %s promotion(s) to Saleor.",
             len(programs)
             if queued
-            else self.env._(
-                "Triggered sync of %s promotion(s) to Saleor.", len(programs)
-            ),
+            else _("Triggered sync of %s promotion(s) to Saleor.", len(programs)),
         )
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": self.env._("Saleor Promotion Sync"),
+                "title": _("Saleor Promotion Sync"),
                 "message": msg,
                 "type": "success",
                 "sticky": False,

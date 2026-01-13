@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="product.product_attribute_view_form" />
         <field name="arch" type="xml">
             <xpath
-                expr="//button[@name='action_open_product_template_attribute_lines']"
+                expr="//button[@name='action_open_related_products']"
                 position="after"
             >
                 <button
@@ -28,20 +28,24 @@
                     <group string="SEO">
                         <field name="saleor_slug" />
                     </group>
-                    <group string="Metadata" colspan="2">
-                        <field name="saleor_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field name="saleor_metadata_line_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
-                        <field name="saleor_private_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Private Metadata">
+                        <field
+                            name="saleor_private_metadata_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </page>
@@ -49,8 +53,8 @@
         </field>
     </record>
 
-    <record id="product_attribute_list_view_inherit_saleor" model="ir.ui.view">
-        <field name="name">product.attribute.list.inherit.saleor</field>
+    <record id="product_attribute_tree_view_inherit_saleor" model="ir.ui.view">
+        <field name="name">product.attribute.tree.inherit.saleor</field>
         <field name="model">product.attribute</field>
         <field name="inherit_id" ref="product.attribute_tree_view" />
         <field name="arch" type="xml">

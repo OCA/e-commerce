@@ -60,7 +60,7 @@
                         <field
                             colspan="2"
                             name="saleor_image_ids"
-                            class="o_sale_saleor_image_list"
+                            class="o_sale_saleor_image_tree"
                             context="{'default_name': name}"
                             mode="kanban"
                             add-label="Add Media"
@@ -70,28 +70,30 @@
                         />
                     </group>
                     <field name="is_metadata_fetched" invisible="1" />
-                    <group string="Metadata" colspan="2">
+                    <group string="Metadata">
                         <field
                             name="saleor_product_metadata_line_ids"
                             nolabel="1"
-                            readonly="is_metadata_fetched"
+                            attrs="{'readonly': [('is_metadata_fetched', '=', True)]}"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
+                    <group string="Private Metadata">
                         <field
                             name="saleor_product_private_metadata_line_ids"
                             nolabel="1"
-                            readonly="is_metadata_fetched"
+                            attrs="{'readonly': [('is_metadata_fetched', '=', True)]}"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </page>
@@ -100,7 +102,7 @@
     </record>
 
     <record id="product_template_tree_view_inherit_saleor" model="ir.ui.view">
-        <field name="name">product.template.product.list.inherit.saleor</field>
+        <field name="name">product.template.product.tree.inherit.saleor</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">

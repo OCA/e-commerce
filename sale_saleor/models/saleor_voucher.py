@@ -1,7 +1,7 @@
 # Copyright 2025 Kencove (https://www.kencove.com/)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from ..helpers import get_active_saleor_account, to_saleor_datetime
@@ -316,7 +316,5 @@ class SaleorVoucher(models.Model):
         for rec in self:
             if rec.min_item_qty is not None and rec.min_item_qty < 0:
                 raise ValidationError(
-                    self.env._(
-                        "Minimum quantity of items must be greater than or equal to 0."
-                    )
+                    _("Minimum quantity of items must be greater than or equal to 0.")
                 )

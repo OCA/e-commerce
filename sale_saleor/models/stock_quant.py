@@ -27,7 +27,7 @@ class StockQuant(models.Model):
             self._trigger_saleor_sync()
         return res
 
-    def _trigger_saleor_sync(self):
+    def _trigger_saleor_sync(self):  # noqa: C901
         # No-op if called in a protected context
         if tools.config["test_enable"]:
             return
@@ -63,17 +63,20 @@ class StockQuant(models.Model):
                 ("location_id", "child_of", wh.view_location_id.id),
                 ("product_id", "in", variant_ids),
             ]
-            rows = Quant._read_group(
-                domain, groupby=["product_id"], aggregates=["quantity:sum"]
+            rows = Quant.read_group(
+                domain,
+                ["quantity:sum"],
+                ["product_id"],
             )
-            for group_val, qty in rows:
-                prod_id = group_val and group_val.id
+            for row in rows:
+                product_group = row.get("product_id")
+                prod_id = product_group and product_group[0]
                 if not prod_id:
                     continue
                 prod = variant_by_id.get(prod_id)
                 if not prod:
                     continue
-                qty = qty or 0.0
+                qty = row.get("quantity") or 0.0
                 try:
                     # Queue job if available
                     if hasattr(account, "with_delay"):
@@ -95,17 +98,20 @@ class StockQuant(models.Model):
         # Batch by exact locations using _read_group
         for loc in saleor_locs:
             domain = [("location_id", "=", loc.id), ("product_id", "in", variant_ids)]
-            rows = Quant._read_group(
-                domain, groupby=["product_id"], aggregates=["quantity:sum"]
+            rows = Quant.read_group(
+                domain,
+                ["quantity:sum"],
+                ["product_id"],
             )
-            for group_val, qty in rows:
-                prod_id = group_val and group_val.id
+            for row in rows:
+                product_group = row.get("product_id")
+                prod_id = product_group and product_group[0]
                 if not prod_id:
                     continue
                 prod = variant_by_id.get(prod_id)
                 if not prod:
                     continue
-                qty = qty or 0.0
+                qty = row.get("quantity") or 0.0
                 try:
                     if hasattr(account, "with_delay"):
                         account.with_delay().job_variant_stock_update(

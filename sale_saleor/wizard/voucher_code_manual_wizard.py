@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -17,11 +17,11 @@ class VoucherCodeManualWizard(models.TransientModel):
         voucher = self.env["saleor.voucher"].browse(active_id)
 
         if not voucher:
-            raise UserError(self.env._("No active voucher found."))
+            raise UserError(_("No active voucher found."))
 
         code_str = (self.manual_code or "").strip()
         if voucher.voucher_code_ids.filtered(lambda c: c.code == code_str):
-            raise UserError(self.env._("This code already exists."))
+            raise UserError(_("This code already exists."))
 
         self.env["saleor.voucher.code"].create(
             {

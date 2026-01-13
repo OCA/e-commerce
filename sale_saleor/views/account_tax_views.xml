@@ -18,29 +18,33 @@
                         class="oe_highlight"
                         icon="fa-refresh"
                         groups="sale_saleor.group_saleor_manager"
-                        invisible="amount_type != 'percent' and type_tax_use != 'sale'"
+                        attrs="{'invisible': ['|', ('amount_type', '!=', 'percent'), ('type_tax_use', '!=', 'sale')]}"
                     />
                 </div>
             </xpath>
             <xpath expr="//page[@name='advanced_options']" position="after">
                 <page
                     string="Saleor"
-                    invisible="amount_type != 'percent' and type_tax_use != 'sale'"
+                    attrs="{'invisible': ['|', ('amount_type', '!=', 'percent'), ('type_tax_use', '!=', 'sale')]}"
                 >
-                    <group string="Metadata" colspan="2">
-                        <field name="saleor_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field name="saleor_metadata_line_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
-                        <field name="saleor_private_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Private Metadata">
+                        <field
+                            name="saleor_private_metadata_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </page>
@@ -49,7 +53,7 @@
     </record>
 
     <record id="view_tax_tree_inherit_saleor" model="ir.ui.view">
-        <field name="name">account.tax.list.inherit.saleor</field>
+        <field name="name">account.tax.tree.inherit.saleor</field>
         <field name="model">account.tax</field>
         <field name="inherit_id" ref="account.view_tax_tree" />
         <field name="arch" type="xml">

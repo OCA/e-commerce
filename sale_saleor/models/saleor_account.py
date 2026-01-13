@@ -6,7 +6,7 @@ import time
 from datetime import timedelta
 from functools import partial
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import (
@@ -168,7 +168,7 @@ class SaleorAccount(models.Model):
                 count_active = self.search_count([("active", "=", True)])
                 if count_active > 1:
                     raise UserError(
-                        self.env._("Only one Saleor account can be active at a time.")
+                        _("Only one Saleor account can be active at a time.")
                     )
 
     def _refresh_token(self, client=None):
@@ -857,7 +857,7 @@ class SaleorAccount(models.Model):
     def _raise_if_updating_parent(self, odoo_cat, payload):
         if payload.get("parent") and odoo_cat.saleor_category_id:
             raise UserError(
-                self.env._(
+                _(
                     "Saleor does not support updating a category's parent. "
                     "Please change the parent directly in Saleor"
                     " or create a new category."
@@ -1039,9 +1039,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"category[{cat_id}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch category sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch category sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             raise UserError(header)
@@ -1302,7 +1300,7 @@ class SaleorAccount(models.Model):
             emsg = str(e)
             if "postalCode" in emsg and "INVALID" in emsg:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Address validation failed: "
                         "The postal code is invalid for the selected country.\n"
                         "Please verify the ZIP/Postal Code format for your country"
@@ -1311,7 +1309,7 @@ class SaleorAccount(models.Model):
                 ) from e
             if "countryArea" in emsg and "INVALID" in emsg:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Address validation failed: "
                         "The state/region (country area) is invalid"
                         " for the selected country.\n"
@@ -1319,7 +1317,7 @@ class SaleorAccount(models.Model):
                         " for your country and update the partner's address."
                     )
                 ) from e
-            raise UserError(self.env._("Saleor warehouse sync failed: %s", emsg)) from e
+            raise UserError(_("Saleor warehouse sync failed: %s", emsg)) from e
 
     def job_warehouse_sync_batch(self, items):
         """Batch sync warehouses."""
@@ -1343,9 +1341,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"warehouse[{wid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch warehouse sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch warehouse sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -1388,7 +1384,7 @@ class SaleorAccount(models.Model):
                 e,
             )
             raise UserError(
-                self.env._("Saleor order fulfill failed while reading order: %s", e)
+                _("Saleor order fulfill failed while reading order: %s", e)
             ) from e
 
         remote_lines = (remote_order or {}).get("lines") or []
@@ -1428,16 +1424,14 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(
-                self.env._("Saleor order fulfill failed: %s", str(e))
-            ) from e
+            raise UserError(_("Saleor order fulfill failed: %s", str(e))) from e
 
         # Update local tracking of fulfilled quantities
         self._job_order_fulfill_update_local(updates)
 
         try:
             order.message_post(
-                body=self.env._(
+                body=_(
                     "Pushed fulfillment to Saleor for %s line(s).",
                     len(lines_payload),
                 )
@@ -1631,7 +1625,7 @@ class SaleorAccount(models.Model):
             emsg = str(e)
             if "postalCode" in emsg and "INVALID" in emsg:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Address validation failed:"
                         " The postal code is invalid for the selected country.\n"
                         "Please verify the ZIP/Postal Code format for your country"
@@ -1640,7 +1634,7 @@ class SaleorAccount(models.Model):
                 ) from e
             if "countryArea" in emsg and "INVALID" in emsg:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Address validation failed:"
                         " The state/region (country area) is invalid for"
                         " the selected country.\n"
@@ -1648,7 +1642,7 @@ class SaleorAccount(models.Model):
                         " for your country and update the partner's address."
                     )
                 ) from e
-            raise UserError(self.env._("Saleor location sync failed: %s", emsg)) from e
+            raise UserError(_("Saleor location sync failed: %s", emsg)) from e
 
     def job_location_sync_batch(self, items):
         """Batch sync locations."""
@@ -1672,15 +1666,15 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"location[{lid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch location sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch location sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             raise UserError(header)
         return True
 
-    def job_product_variant_sync(self, variant_id, product_saleor_id, payload):
+    def job_product_variant_sync(  # noqa: C901
+        self, variant_id, product_saleor_id, payload
+    ):
         """Sync a single product.product variant to Saleor."""
         self.ensure_one()
         if not self.active:
@@ -1806,7 +1800,7 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(self.env._("Saleor variant sync failed: %s", str(e))) from e
+            raise UserError(_("Saleor variant sync failed: %s", str(e))) from e
 
     def job_product_variant_sync_batch(self, items):
         """Batch sync product variants."""
@@ -1831,9 +1825,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"variant[{vid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch product variant sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch product variant sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             raise UserError(header)
@@ -1879,7 +1871,7 @@ class SaleorAccount(models.Model):
                     )
         return saleor_id
 
-    def _variant_build_channel_listings(self, variant, payload):
+    def _variant_build_channel_listings(self, variant, payload):  # noqa: C901
         """Build channel listing payloads using provided channelListings"""
         listings = (payload or {}).get("channelListings") or []
         update_channels = []
@@ -1981,7 +1973,7 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(self.env._("Saleor stock update failed: %s", str(e))) from e
+            raise UserError(_("Saleor stock update failed: %s", str(e))) from e
 
     def job_order_sync(self, order_id, payload):
         """Create a draft order in Saleor and add lines.
@@ -2025,7 +2017,7 @@ class SaleorAccount(models.Model):
                 if unavail:
                     msg = ", ".join(sorted(set(unavail)))
                     raise UserError(
-                        self.env._(
+                        _(
                             "Cannot sync order: variants unavailable in channel: %s",
                             msg,
                         )
@@ -2080,7 +2072,7 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(self.env._("Saleor order sync failed: %s", str(e))) from e
+            raise UserError(_("Saleor order sync failed: %s", str(e))) from e
 
     def job_order_sync_batch(self, items):
         """Batch sync sale orders."""
@@ -2104,7 +2096,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"order[{oid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._("Batch order sync failed for %s item(s):", len(errors))
+            header = _("Batch order sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -2281,7 +2273,7 @@ class SaleorAccount(models.Model):
                 )
                 if allowed and country_code not in allowed:
                     raise UserError(
-                        self.env._(
+                        _(
                             "Shipping country %s is not available for channel."
                             " Please check Saleor Shipping Zones"
                             " assigned to the channel.",
@@ -2412,9 +2404,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"collection[{col_id}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch collection sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch collection sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -2566,9 +2556,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"product[{pt_id}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch product sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch product sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -2642,7 +2630,7 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(self.env._("Saleor voucher sync failed: %s", str(e))) from e
+            raise UserError(_("Saleor voucher sync failed: %s", str(e))) from e
 
     def job_voucher_sync_batch(self, items):
         """Batch sync vouchers."""
@@ -2666,16 +2654,14 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"voucher[{vid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch voucher sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch voucher sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
             raise UserError(header)
         return True
 
-    def job_giftcard_activate(self, giftcard_id, input_payload):
+    def job_giftcard_activate(self, giftcard_id, input_payload):  # noqa: C901
         """Upsert (create/update) a gift card in Saleor, then sync metadata.
 
         Expects input_payload per GiftCardCreateInput/GiftCardUpdateInput.
@@ -2790,9 +2776,7 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(
-                self.env._("Saleor gift card activation failed: %s", str(e))
-            ) from e
+            raise UserError(_("Saleor gift card activation failed: %s", str(e))) from e
 
     def _voucher_sync_metadata(self, client, saleor_id, metadata, private_metadata):
         """Update public and private metadata if provided."""
@@ -3000,9 +2984,7 @@ class SaleorAccount(models.Model):
                 self.name,
                 e,
             )
-            raise UserError(
-                self.env._("Saleor promotion sync failed: %s", str(e))
-            ) from e
+            raise UserError(_("Saleor promotion sync failed: %s", str(e))) from e
 
     def job_promotion_sync_batch(self, items):
         """Batch sync promotions."""
@@ -3026,9 +3008,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"promotion[{pid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch promotion sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch promotion sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -3046,7 +3026,7 @@ class SaleorAccount(models.Model):
             if missing:
                 names = ", ".join(missing.mapped("display_name"))
                 raise UserError(
-                    self.env._(
+                    _(
                         "Some channels on this promotion"
                         " are not synced to Saleor yet: %s.\n"
                         "Please sync these channels first.",
@@ -3100,9 +3080,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"attribute[{att_id}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch attribute sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch attribute sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -3116,7 +3094,7 @@ class SaleorAccount(models.Model):
             if missing:
                 names = ", ".join(missing.mapped("name"))
                 raise UserError(
-                    self.env._(
+                    _(
                         "Some shipping zones assigned to this channel"
                         " are not synced to Saleor yet: %s."
                         "\nPlease sync these shipping zones first.",
@@ -3191,7 +3169,7 @@ class SaleorAccount(models.Model):
                 e,
             )
 
-    def job_channel_sync(self, channel_id, payload):
+    def job_channel_sync(self, channel_id, payload):  # noqa: C901
         """Sync a single saleor.channel to Saleor."""
         self.ensure_one()
 
@@ -3271,7 +3249,7 @@ class SaleorAccount(models.Model):
                 cur = getattr(ch.currency_id, "name", None)
                 if not cur:
                     raise UserError(
-                        self.env._(
+                        _(
                             "Channel %s requires a Currency before creating in Saleor",
                             ch.display_name or ch.slug or ch.name,
                         )
@@ -3314,7 +3292,7 @@ class SaleorAccount(models.Model):
                     ch.id,
                     e2,
                 )
-            raise UserError(self.env._("Saleor channel sync failed: %s", e)) from e
+            raise UserError(_("Saleor channel sync failed: %s", e)) from e
 
     def job_channel_sync_batch(self, items):
         """Batch sync channels."""
@@ -3338,9 +3316,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"channel[{cid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch channel sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch channel sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -3453,7 +3429,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"tax[{tid}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._("Batch tax sync failed for %s item(s):", len(errors))
+            header = _("Batch tax sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -3827,7 +3803,7 @@ class SaleorAccount(models.Model):
         else:
             _logger.info("No channels to add for shipping method %s", method_id)
 
-    def job_shipping_zone(self, shipping_zone_id, payload):
+    def job_shipping_zone(self, shipping_zone_id, payload):  # noqa: C901
         """Sync a single saleor.shippingZone to Saleor."""
         self.ensure_one()
         if not self.active:
@@ -3955,9 +3931,7 @@ class SaleorAccount(models.Model):
                 rec_name = rec.display_name if rec else f"shipping.zone[{zone_id}]"
                 errors.append((rec_name, str(e)))
         if errors:
-            header = self.env._(
-                "Batch shipping zone sync failed for %s item(s):", len(errors)
-            )
+            header = _("Batch shipping zone sync failed for %s item(s):", len(errors))
             body = format_batch_errors_message(header, errors)
             post_to_current_job_committed(self.env, self, body)
             self.env.cr.rollback()
@@ -4046,7 +4020,7 @@ class SaleorAccount(models.Model):
             if missing_channels:
                 names = ", ".join(missing_channels.mapped("name"))
                 raise UserError(
-                    self.env._(
+                    _(
                         "Some channels assigned to this shipping zone"
                         " are not synced to Saleor yet: %s."
                         "\nPlease sync these channels first.",
@@ -4478,15 +4452,13 @@ class SaleorAccount(models.Model):
         except Exception as e:
             _logger.warning("Failed to sync attribute values: %s", e)
 
-    def _ensure_product_type(self, client, rec, payload):
+    def _ensure_product_type(self, client, rec, payload):  # noqa: C901
         """Ensure ProductType exists/updates in Saleor using rec.product_type_id."""
         # Require explicit product_type_id on template
         ptype = getattr(rec, "product_type_id", None)
         if not ptype:
             raise UserError(
-                self.env._(
-                    "Please set Product Type on the product before syncing to Saleor."
-                )
+                _("Please set Product Type on the product before syncing to Saleor.")
             )
 
         # Build ProductType input payload from ptype
@@ -4527,9 +4499,7 @@ class SaleorAccount(models.Model):
 
         if not ptype_id:
             raise UserError(
-                self.env._(
-                    "Failed to create/update Product Type '%s' in Saleor.", ptype.name
-                )
+                _("Failed to create/update Product Type '%s' in Saleor.", ptype.name)
             )
 
         # Persist mapping on the product type record
@@ -4576,7 +4546,7 @@ class SaleorAccount(models.Model):
         new_payload["productType"] = ptype_id
         return new_payload
 
-    def sync_product_type_from_ptype(self, ptype):
+    def sync_product_type_from_ptype(self, ptype):  # noqa: C901
         self.ensure_one()
         client = self._get_client()
         input_data = self._build_product_type_input(ptype)
@@ -4617,7 +4587,7 @@ class SaleorAccount(models.Model):
 
         if not ptype_id:
             raise UserError(
-                self.env._(
+                _(
                     "Failed to create/update Product Type '%s' in Saleor.",
                     ptype.name,
                 )
@@ -5284,7 +5254,7 @@ class SaleorAccount(models.Model):
         if missing:
             names = ", ".join(missing.mapped("display_name"))
             raise UserError(
-                self.env._(
+                _(
                     "Some channels on this collection"
                     " are not synced to Saleor yet: %s.\n"
                     "Please sync these channels first.",
@@ -5337,7 +5307,7 @@ class SaleorAccount(models.Model):
             if missing:
                 names = ", ".join(missing.mapped("display_name"))
                 raise UserError(
-                    self.env._(
+                    _(
                         "Some channels on this product"
                         " are not synced to Saleor yet: %s.\n"
                         "Please sync these channels first.",

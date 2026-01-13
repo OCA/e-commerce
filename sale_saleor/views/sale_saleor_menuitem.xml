@@ -3,7 +3,7 @@
     <record id="res_partner_action_customer" model="ir.actions.act_window">
         <field name="name">Customers</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban,list,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Create a new customer in your address book

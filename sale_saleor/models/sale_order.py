@@ -1,6 +1,6 @@
 import logging
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -58,9 +58,7 @@ class SaleOrder(models.Model):
     def _saleor_prepare_order_payload(self):
         self.ensure_one()
         if not self.saleor_channel_id or not self.saleor_channel_id.saleor_channel_id:
-            raise UserError(
-                self.env._("Please select a Saleor Channel with remote ID.")
-            )
+            raise UserError(_("Please select a Saleor Channel with remote ID."))
         partner = self.partner_id
         billing = self._saleor_prepare_address(self.partner_invoice_id or partner)
         shipping = self._saleor_prepare_address(self.partner_shipping_id or partner)
@@ -72,10 +70,12 @@ class SaleOrder(models.Model):
         for label, addr in (("Billing", billing), ("Shipping", shipping)):
             if _needs_state(addr) and not (addr or {}).get("countryArea"):
                 raise UserError(
-                    self.env._(
-                        "%s address requires a State/Province for country %s.",
-                        label,
-                        (addr or {}).get("country") or "",
+                    _(
+                        "%(label)s address requires a State/Province for country %(country)s.",
+                        {
+                            "label": label,
+                            "country": (addr or {}).get("country") or "",
+                        },
                     )
                 )
         user_id = getattr(partner, "saleor_customer_id", None)
@@ -110,7 +110,7 @@ class SaleOrder(models.Model):
         ]
         if missing:
             raise UserError(
-                self.env._(
+                _(
                     "The following products are not synced"
                     " to Saleor (no variant ID): %s",
                     ", ".join(sorted(set(missing))),
@@ -175,9 +175,7 @@ class SaleOrder(models.Model):
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         for order in self:
             if not order.saleor_order_id:
-                raise UserError(
-                    self.env._("This order is not linked to a Saleor order.")
-                )
+                raise UserError(_("This order is not linked to a Saleor order."))
             client = account._get_client()
             account._refresh_token(client)
             tx_ref = f"Odoo-{order.name}" if order.name else None
@@ -186,7 +184,7 @@ class SaleOrder(models.Model):
             )
             try:
                 order.message_post(
-                    body=self.env._(
+                    body=_(
                         "Marked as paid in Saleor (order: %s)",
                         (res or {}).get("id") or order.saleor_order_id,
                     )

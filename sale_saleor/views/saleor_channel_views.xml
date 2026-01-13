@@ -4,7 +4,7 @@
         <field name="name">saleor.channel.tree</field>
         <field name="model">saleor.channel</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <header>
                     <button
                         name="action_sync_to_saleor"
@@ -20,7 +20,7 @@
                 <field name="abandoned_cart_delay_hours" />
                 <field name="currency_id" />
                 <field name="default_country_id" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -64,7 +64,10 @@
                             </div>
                         </group>
                         <group>
-                            <field name="currency_id" readonly="saleor_channel_id" />
+                            <field
+                                name="currency_id"
+                                attrs="{'readonly': [('saleor_channel_id', '!=', False)]}"
+                            />
                             <field name="default_country_id" />
                         </group>
                     </group>
@@ -89,7 +92,12 @@
                             />
                         </group>
                         <group string="Entered Prices">
-                            <field name="entered_prices" nolabel="1" widget="radio" />
+                            <field
+                                name="entered_prices"
+                                nolabel="1"
+                                widget="radio"
+                                colspan="4"
+                            />
                         </group>
                     </group>
                 </sheet>
@@ -101,7 +109,7 @@
     <record id="action_saleor_channel" model="ir.actions.act_window">
         <field name="name">Channels</field>
         <field name="res_model">saleor.channel</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Create and manage Saleor Channels.

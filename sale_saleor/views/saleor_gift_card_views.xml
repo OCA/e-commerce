@@ -4,7 +4,7 @@
         <field name="name">saleor.giftcard.tree</field>
         <field name="model">saleor.giftcard</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <header>
                     <button
                         name="action_activate_giftcard"
@@ -18,7 +18,7 @@
                 <field name="code" />
                 <field name="status" />
                 <field name="tag_ids" widget="many2many_tags" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -34,7 +34,7 @@
                         type="object"
                         class="oe_highlight"
                         groups="sale_saleor.group_saleor_manager"
-                        invisible="status != 'disabled'"
+                        attrs="{'invisible': [('status', '!=', 'disabled')]}"
                     />
                     <button
                         name="action_deactivate_giftcard"
@@ -42,7 +42,7 @@
                         type="object"
                         class="oe_highlight"
                         groups="sale_saleor.group_saleor_manager"
-                        invisible="status != 'active'"
+                        attrs="{'invisible': [('status', '!=', 'active')]}"
                     />
                     <field name="status" widget="statusbar" />
                 </header>
@@ -58,18 +58,26 @@
                                 nolabel="1"
                             />
                         </group>
+                        <field name="available_currency_ids" invisible="1" />
                     </group>
                     <group>
                         <field name="tag_ids" widget="many2many_tags" />
                         <field name="send_to_customer" />
-                        <field name="partner_id" invisible="not send_to_customer" />
-                        <field name="channel_id" invisible="not send_to_customer" />
+                        <field
+                            name="partner_id"
+                            attrs="{'invisible': [('send_to_customer', '=', False)]}"
+                        />
+                        <field
+                            name="channel_id"
+                            attrs="{'invisible': [('send_to_customer', '=', False)]}"
+                        />
                         <field name="set_expiry_date" />
                         <field
                             name="expiry_type"
-                            invisible="not set_expiry_date"
+                            attrs="{'invisible': [('set_expiry_date', '=', False)]}"
                             widget="radio"
                             nolabel="1"
+                            colspan="2"
                         />
                     </group>
                     <group>
@@ -77,16 +85,16 @@
                             <label
                                 for="expiry_duration"
                                 string="Expiry Duration"
-                                invisible="not set_expiry_date or expiry_type != 'duration'"
+                                attrs="{'invisible': ['|', ('set_expiry_date', '=', False), ('expiry_type', '!=', 'duration')]}"
                             />
                             <div class="o_row">
                                 <field
                                     name="expiry_duration"
-                                    invisible="not set_expiry_date or expiry_type != 'duration'"
+                                    attrs="{'invisible': ['|', ('set_expiry_date', '=', False), ('expiry_type', '!=', 'duration')]}"
                                 />
                                 <field
                                     name="expiry_unit"
-                                    invisible="not set_expiry_date or expiry_type != 'duration'"
+                                    attrs="{'invisible': ['|', ('set_expiry_date', '=', False), ('expiry_type', '!=', 'duration')]}"
                                     nolabel="1"
                                 />
                             </div>
@@ -95,7 +103,7 @@
                             <field
                                 string="Will expire on"
                                 name="expiry_date"
-                                invisible="not set_expiry_date or expiry_type != 'duration'"
+                                attrs="{'invisible': ['|', ('set_expiry_date', '=', False), ('expiry_type', '!=', 'duration')]}"
                             />
                         </group>
                     </group>
@@ -103,27 +111,31 @@
                         <field
                             string="Exact date"
                             name="expiry_date"
-                            invisible="not set_expiry_date or expiry_type != 'exact'"
+                            attrs="{'invisible': ['|', ('set_expiry_date', '=', False), ('expiry_type', '!=', 'exact')]}"
                         />
                     </group>
                     <group>
                         <field name="note" />
                         <field name="requires_activation" />
                     </group>
-                    <group string="Metadata" colspan="2">
-                        <field name="saleor_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field name="saleor_metadata_line_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
-                        <field name="saleor_private_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Private Metadata">
+                        <field
+                            name="saleor_private_metadata_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </sheet>
@@ -135,7 +147,7 @@
     <record id="action_saleor_giftcard" model="ir.actions.act_window">
         <field name="name">Gift Cards</field>
         <field name="res_model">saleor.giftcard</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_saleor_giftcard_tree" />
     </record>
 </odoo>

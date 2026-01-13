@@ -5,7 +5,7 @@ import logging
 
 from markupsafe import Markup
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -56,7 +56,7 @@ class ProductProduct(models.Model):
             channel_saleor_ids, missing = _collect_channels(variant_channels)
             if missing:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Please sync the following channels to Saleor first: %s",
                         ", ".join(missing),
                     )
@@ -69,7 +69,7 @@ class ProductProduct(models.Model):
                 channel_saleor_ids, missing = _collect_channels(tmpl.channel_ids)
                 if missing:
                     raise UserError(
-                        self.env._(
+                        _(
                             "Please sync the following channels to Saleor first: %s",
                             ", ".join(missing),
                         )
@@ -264,9 +264,7 @@ class ProductProduct(models.Model):
                 self.default_code or self.id,
                 str(e),
             )
-            raise UserError(
-                self.env._("Failed to sync variant to Saleor: %s", str(e))
-            ) from e
+            raise UserError(_("Failed to sync variant to Saleor: %s", str(e))) from e
 
     def action_saleor_sync(self):
         """Action to sync product variants to all active Saleor accounts.
@@ -279,7 +277,7 @@ class ProductProduct(models.Model):
             product_tmpl = variant.product_tmpl_id
             if not product_tmpl.saleor_product_id:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Parent product %s is not synced with Saleor yet."
                         " Please sync the product first.",
                         product_tmpl.name,
@@ -299,7 +297,7 @@ class ProductProduct(models.Model):
                 product_tmpl = variant.product_tmpl_id
                 if not product_tmpl.saleor_product_id:
                     raise UserError(
-                        self.env._(
+                        _(
                             "Parent product %s is not synced with Saleor yet."
                             " Please sync the product first.",
                             product_tmpl.name,
@@ -326,23 +324,23 @@ class ProductProduct(models.Model):
     def _notify_saleor_sync(self, warehouse, success=True, error_msg=None):
         """Post chatter notification for Saleor stock sync"""
         if success:
-            body = f"""
-                <p>Updated stock in Saleor:</p>
-                <ul class='mb-0 ps-4'>
-                    <li><b>Product</b>: {self.display_name}</li>
-                    <li><b>Warehouse</b>: {warehouse.display_name}</li>
-                </ul>
-                """
+            body = (
+                "<p>Updated stock in Saleor:</p>"
+                "<ul class='mb-0 ps-4'>"
+                f"<li><b>Product</b>: {self.display_name}</li>"
+                f"<li><b>Warehouse</b>: {warehouse.display_name}</li>"
+                "</ul>"
+            )
         else:
-            body = f"""
-                <p>Failed to update stock in Saleor:</p>
-                <ul class='mb-0 ps-4'>
-                    <li><b>Product</b>: {self.display_name}</li>
-                    <li><b>Warehouse</b>: {warehouse.display_name}</li>
-                    <li><b>Reason</b>: {error_msg or self.env._("Unknown error")}</li>
-                </ul>
-                """
-
+            error_text = error_msg or _("Unknown error")
+            body = (
+                "<p>Failed to update stock in Saleor:</p>"
+                "<ul class='mb-0 ps-4'>"
+                f"<li><b>Product</b>: {self.display_name}</li>"
+                f"<li><b>Warehouse</b>: {warehouse.display_name}</li>"
+                f"<li><b>Reason</b>: {error_text}</li>"
+                "</ul>"
+            )
         self.message_post(body=Markup(body))
 
     def action_sync_product_quantities(self):
@@ -352,7 +350,7 @@ class ProductProduct(models.Model):
         for product in self:
             if not product.saleor_variant_id:
                 product._notify_saleor_sync(
-                    success=False, error_msg=self.env._("Missing Saleor Variant ID")
+                    success=False, error_msg=_("Missing Saleor Variant ID")
                 )
                 continue
 
@@ -381,9 +379,7 @@ class ProductProduct(models.Model):
                 )
 
             if not saleor_sources:
-                raise UserError(
-                    self.env._("No Saleor warehouses or locations configured.")
-                )
+                raise UserError(_("No Saleor warehouses or locations configured."))
 
             for _source_type, source_rec, location_id, saleor_wh_id in saleor_sources:
                 if not saleor_wh_id:

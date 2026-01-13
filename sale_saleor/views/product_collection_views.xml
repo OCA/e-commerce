@@ -5,7 +5,7 @@
         <field name="name">product.collection.tree.saleor</field>
         <field name="model">product.collection</field>
         <field name="arch" type="xml">
-            <list string="Product Collections" sample="1">
+            <tree sample="1">
                 <header>
                     <button
                         name="action_saleor_collection_sync"
@@ -16,7 +16,7 @@
                     />
                 </header>
                 <field name="name" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -62,26 +62,28 @@
                                 <field name="saleor_collection_seo_title" />
                                 <field name="saleor_collection_seo_description" />
                             </group>
-                            <group string="Metadata" colspan="2">
+                            <group string="Metadata">
                                 <field
                                     name="saleor_collection_metadata_line_ids"
                                     nolabel="1"
+                                    colspan="2"
                                 >
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="key" />
                                         <field name="value" />
-                                    </list>
+                                    </tree>
                                 </field>
                             </group>
-                            <group string="Private Metadata" colspan="2">
+                            <group string="Private Metadata">
                                 <field
                                     name="saleor_collection_private_metadata_line_ids"
                                     nolabel="1"
+                                    colspan="2"
                                 >
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="key" />
                                         <field name="value" />
-                                    </list>
+                                    </tree>
                                 </field>
                             </group>
                         </page>
@@ -108,7 +110,7 @@
     <record id="action_product_collection_saleor" model="ir.actions.act_window">
         <field name="name">Collections</field>
         <field name="res_model">product.collection</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_product_collection_search_saleor" />
         <field name="context">{}</field>
         <field name="help" type="html">

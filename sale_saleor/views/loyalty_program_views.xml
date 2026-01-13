@@ -6,60 +6,82 @@
         <field name="inherit_id" ref="loyalty.loyalty_program_view_form" />
         <field name="arch" type="xml">
             <button name="action_open_loyalty_cards" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </button>
             <field name="date_to" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
-            </field>
-            <field name="date_from" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </field>
             <field name="currency_id" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </field>
             <xpath expr="//label[@for='limit_usage']" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//span[field[@name='limit_usage']]" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='portal_point_name'][1]" position="attributes">
-                <attribute
-                    name="invisible"
-                >program_type in ('loyalty', 'gift_card', 'ewallet', 'saleor')</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', 'in', ('loyalty', 'gift_card', 'ewallet', 'saleor'))]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='portal_point_name'][2]" position="attributes">
-                <attribute
-                    name="invisible"
-                >program_type in ('gift_card', 'ewallet', 'saleor') or program_type != 'loyalty'</attribute>
+                <attribute name="attrs">
+                    {'invisible': ['|',
+                        ('program_type', 'in', ('gift_card', 'ewallet', 'saleor')),
+                        ('program_type', '!=', 'loyalty')
+                    ]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='company_id'][2]" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='portal_visible'][2]" position="attributes">
-                <attribute
-                    name="invisible"
-                >program_type in ('gift_card', 'ewallet', 'saleor')</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', 'in', ('gift_card', 'ewallet', 'saleor'))]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='trigger'][2]" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//label[@for='available_on']" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='sale_ok']" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//label[@for='sale_ok']" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='applies_on'][2]" position="attributes">
-                <attribute name="invisible">program_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', '=', 'saleor')]}
+                </attribute>
             </xpath>
             <page name="rules_rewards" position="attributes">
-                <attribute
-                    name="invisible"
-                >program_type in ('gift_card', 'ewallet', 'saleor')</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('program_type', 'in', ('gift_card', 'ewallet', 'saleor'))]}
+                </attribute>
             </page>
             <xpath expr="//button[@name='action_open_loyalty_cards']" position="after">
                 <button
@@ -69,7 +91,7 @@
                     class="oe_highlight"
                     icon="fa-refresh"
                     groups="sale_saleor.group_saleor_manager"
-                    invisible="program_type != 'saleor'"
+                    attrs="{'invisible': [('program_type', '!=', 'saleor')]}"
                 />
             </xpath>
 
@@ -77,7 +99,7 @@
                 <page
                     name="saleor"
                     string="Saleor"
-                    invisible="program_type != 'saleor'"
+                    attrs="{'invisible': [('program_type', '!=', 'saleor')]}"
                 >
                     <group>
                         <field name="discount_type" />
@@ -86,7 +108,10 @@
                     <group>
                         <field name="active_date_from" />
                         <field name="set_end_date" />
-                        <field name="active_date_to" invisible="not set_end_date" />
+                        <field
+                            name="active_date_to"
+                            attrs="{'invisible': [('set_end_date', '=', False)]}"
+                        />
                     </group>
                     <group>
                         <field

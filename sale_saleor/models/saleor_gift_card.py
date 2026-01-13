@@ -5,7 +5,7 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -125,7 +125,7 @@ class SaleorGiftCard(models.Model):
         for giftcard in self:
             giftcard.status = "active"
             if not giftcard.currency_id:
-                raise UserError(self.env._("Please set a currency before activation."))
+                raise UserError(_("Please set a currency before activation."))
             payload = giftcard._saleor_prepare_payload()
             if use_delay:
                 account.with_delay().job_giftcard_activate(giftcard.id, payload)

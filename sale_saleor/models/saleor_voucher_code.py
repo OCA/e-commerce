@@ -1,7 +1,7 @@
 # Copyright 2025 Kencove (https://www.kencove.com/)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -46,6 +46,4 @@ class SaleorVoucherCode(models.Model):
                 limit=1,
             )
             if dup:
-                raise ValidationError(
-                    self.env._("Voucher code '%s' already exists.", rec.code)
-                )
+                raise ValidationError(_("Voucher code '%s' already exists.", rec.code))

@@ -4,7 +4,7 @@
 import json as _json
 import logging
 
-from odoo import Command, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import html_to_editorjs
@@ -169,9 +169,7 @@ class DeliveryCarrier(models.Model):
             )
 
         if not saleor_channel:
-            raise UserError(
-                self.env._("This order does not have a Saleor channel linked.")
-            )
+            raise UserError(_("This order does not have a Saleor channel linked."))
 
         price_line = self.saleor_shipping_pricing_line_ids.filtered(
             lambda line, ch=saleor_channel: line.channel_id == ch
@@ -179,7 +177,7 @@ class DeliveryCarrier(models.Model):
 
         if not price_line:
             raise UserError(
-                self.env._(
+                _(
                     "No shipping price configured for channel '%s'.",
                     saleor_channel.name,
                 )

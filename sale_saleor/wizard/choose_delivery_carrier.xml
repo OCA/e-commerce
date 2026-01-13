@@ -6,15 +6,15 @@
         <field name="model">choose.delivery.carrier</field>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='update_price']" position="attributes">
-                <attribute
-                    name="invisible"
-                >delivery_type in ('fixed', 'base_on_rule', 'saleor')</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', 'in', ('fixed', 'base_on_rule', 'saleor'))]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='invoicing_message']/.." position="after">
                 <div
                     class="alert alert-warning"
                     role="status"
-                    invisible="delivery_type != 'saleor' or saleor_warning_msg == ''"
+                    attrs="{'invisible': ['|', ('delivery_type', '!=', 'saleor'), ('saleor_warning_msg', '=', '')]}"
                 >
                     <field name="saleor_warning_msg" nolabel="1" />
                 </div>

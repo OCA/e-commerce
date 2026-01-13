@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -94,9 +94,7 @@ class Location(models.Model):
         if not records:
             if len(self) == 1:
                 raise UserError(
-                    self.env._(
-                        "Enable 'Is Saleor Warehouse'" " before syncing this location."
-                    )
+                    _("Enable 'Is Saleor Warehouse'" " before syncing this location.")
                 )
             return True
 
@@ -105,8 +103,8 @@ class Location(models.Model):
             loc = records
             payload = loc._saleor_prepare_warehouse_payload()
             account.job_location_sync(loc.id, payload)
-            title = self.env._("Saleor Sync")
-            msg = self.env._("Location synced successfully: %s", loc.display_name)
+            title = _("Saleor Sync")
+            msg = _("Location synced successfully: %s", loc.display_name)
             return {
                 "type": "ir.actions.client",
                 "tag": "display_notification",
@@ -130,8 +128,8 @@ class Location(models.Model):
                 account.with_delay().job_location_sync_batch(chunk)
             else:
                 account.job_location_sync_batch(chunk)
-        title = self.env._("Saleor Sync")
-        msg = self.env._("Location sync started for %s record(s).", len(records))
+        title = _("Saleor Sync")
+        msg = _("Location sync started for %s record(s).", len(records))
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
@@ -149,14 +147,12 @@ class Location(models.Model):
         """
         self.ensure_one()
         if not self.include_in_saleor_inventory:
-            raise UserError(self.env._("This location is not marked for Saleor sync."))
+            raise UserError(_("This location is not marked for Saleor sync."))
 
         account = get_active_saleor_account(self.env, raise_if_missing=True)
 
         if not self.saleor_warehouse_id:
-            raise UserError(
-                self.env._("This location has no linked Saleor warehouse ID.")
-            )
+            raise UserError(_("This location has no linked Saleor warehouse ID."))
 
         quants = self.env["stock.quant"].search([("location_id", "=", self.id)])
         success_count = 0
@@ -181,12 +177,14 @@ class Location(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": self.env._("Saleor Sync Completed"),
-                "message": self.env._(
-                    "Successfully updated %s product(s)."
-                    "\nSkipped %s product(s) without Saleor Variant ID.",
-                    success_count,
-                    skip_count,
+                "title": _("Saleor Sync Completed"),
+                "message": _(
+                    "Successfully updated %(success)s product(s)."
+                    "\nSkipped %(skip)s product(s) without Saleor Variant ID.",
+                    {
+                        "success": success_count,
+                        "skip": skip_count,
+                    },
                 ),
                 "sticky": False,
                 "type": "success",
@@ -202,7 +200,7 @@ class Location(models.Model):
                 and loc.warehouse_id.is_saleor_warehouse
             ):
                 raise UserError(
-                    self.env._(
+                    _(
                         "You cannot mark this location as a Saleor warehouse because"
                         " its warehouse (%s) is already marked as a Saleor warehouse.",
                         loc.warehouse_id.display_name,

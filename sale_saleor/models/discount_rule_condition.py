@@ -1,7 +1,7 @@
 # Copyright 2025 Kencove (https://www.kencove.com/)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -91,7 +91,7 @@ class DiscountRuleCondition(models.Model):
         for rec in self:
             if not rec.catalogue_predicate_type:
                 raise ValidationError(
-                    self.env._(
+                    _(
                         "Condition type cannot be empty."
                         " Please select a Catalogue Predicate Type."
                     )

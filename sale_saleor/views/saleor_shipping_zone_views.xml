@@ -4,7 +4,7 @@
         <field name="name">saleor.shipping.zone.tree</field>
         <field name="model">saleor.shipping.zone</field>
         <field name="arch" type="xml">
-            <list string="Shipping Zones">
+            <tree>
                 <header>
                     <button
                         name="action_saleor_shipping_zone_sync"
@@ -18,7 +18,7 @@
                 <field name="description" />
                 <field name="country_ids" widget="many2many_tags" />
                 <field name="channel_ids" widget="many2many_tags" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -77,23 +77,28 @@
                             />
                         </group>
                     </group>
-                    <group string="Metadata" colspan="2">
-                        <field name="shipping_zone_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field
+                            name="shipping_zone_metadata_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
+                    <group string="Private Metadata">
                         <field
                             name="shipping_zone_private_metadata_line_ids"
                             nolabel="1"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </sheet>
@@ -105,7 +110,7 @@
     <record id="action_saleor_shipping_zone" model="ir.actions.act_window">
         <field name="name">Shipping Zones</field>
         <field name="res_model">saleor.shipping.zone</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field
             name="help"
         >Define Saleor Shipping Zones, assign countries, channels, warehouses/locations and shipping methods.</field>

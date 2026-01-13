@@ -1,7 +1,7 @@
 # Copyright 2025 Kencove (https://www.kencove.com/)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -30,7 +30,7 @@ class AccountTax(models.Model):
         self.ensure_one()
         if self.amount_type != "percent" or self.type_tax_use != "sale":
             raise UserError(
-                self.env._("Only percent Sales taxes can be synced to Saleor TaxClass.")
+                _("Only percent Sales taxes can be synced to Saleor TaxClass.")
             )
 
         # Base payload
@@ -69,7 +69,7 @@ class AccountTax(models.Model):
         self.ensure_one()
         if self.amount_type != "percent" or self.type_tax_use != "sale":
             raise UserError(
-                self.env._("Only percent Sales taxes can be synced to Saleor TaxClass.")
+                _("Only percent Sales taxes can be synced to Saleor TaxClass.")
             )
 
     def action_saleor_tax_sync(self):

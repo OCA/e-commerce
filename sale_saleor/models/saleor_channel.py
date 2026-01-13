@@ -5,7 +5,7 @@ import logging
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -121,7 +121,7 @@ class SaleorChannel(models.Model):
                 delay = getattr(channel, "abandoned_cart_delay_hours", 0.0) or 0.0
                 try:
                     order.message_post(
-                        body=self.env._(
+                        body=_(
                             "This quotation has been marked as abandoned by the "
                             "Saleor connector cron (delay=%s hours).",
                             delay,
@@ -163,7 +163,7 @@ class SaleorChannel(models.Model):
         ]
         if missing:
             raise UserError(
-                self.env._(
+                _(
                     "Please sync the following warehouses/locations"
                     " to Saleor first: %s",
                     ", ".join(missing),
@@ -217,7 +217,7 @@ class SaleorChannel(models.Model):
                     "bypass_currency_lock"
                 ):
                     raise UserError(
-                        self.env._(
+                        _(
                             "Currency cannot be changed after the channel"
                             " has been synced to Saleor."
                         )

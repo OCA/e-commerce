@@ -6,7 +6,7 @@ import logging
 
 from markupsafe import Markup
 
-from odoo import api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import generate_unique_slug, get_active_saleor_account, html_to_editorjs
@@ -126,7 +126,7 @@ class ProductTemplate(models.Model):
             ]
             if missing:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Please sync the following channels to Saleor first: %s",
                         ", ".join(missing),
                     )
@@ -185,7 +185,6 @@ class ProductTemplate(models.Model):
                     account.job_product_sync_batch(chunk)
         return True
 
-    @api.model
     def write(self, vals):
         res = super().write(vals)
         # When attributes matrix changes, resync variants with Saleor
@@ -278,25 +277,26 @@ class ProductTemplate(models.Model):
     def _notify_saleor_sync(self, warehouse, success=True, error_msg=None):
         """Notify sync result in chatter"""
         if success:
-            body = f"""
-                <p>Updated stock in Saleor:</p>
-                <ul class='mb-0 ps-4'>
-                    <li><b>Product</b>: {self.display_name}</li>
-                    <li><b>Warehouse</b>: {warehouse.display_name}</li>
-                </ul>
-                """
+            body = (
+                "<p>Updated stock in Saleor:</p>"
+                "<ul class='mb-0 ps-4'>"
+                f"<li><b>Product</b>: {self.display_name}</li>"
+                f"<li><b>Warehouse</b>: {warehouse.display_name}</li>"
+                "</ul>"
+            )
         else:
-            body = f"""
-                <p>Failed to update stock in Saleor:</p>
-                <ul class='mb-0 ps-4'>
-                    <li><b>Product</b>: {self.display_name}</li>
-                    <li><b>Warehouse</b>: {warehouse.display_name}</li>
-                    <li><b>Reason</b>: {error_msg or self.env._('Unknown error')}</li>
-                </ul>
-                """
+            error_text = error_msg or _("Unknown error")
+            body = (
+                "<p>Failed to update stock in Saleor:</p>"
+                "<ul class='mb-0 ps-4'>"
+                f"<li><b>Product</b>: {self.display_name}</li>"
+                f"<li><b>Warehouse</b>: {warehouse.display_name}</li>"
+                f"<li><b>Reason</b>: {error_text}</li>"
+                "</ul>"
+            )
         self.message_post(body=Markup(body))
 
-    def action_sync_product_quantities(self):
+    def action_sync_product_quantities(self):  # noqa: C901
         account = get_active_saleor_account(self.env, raise_if_missing=True)
 
         saleor_warehouses = self.env["stock.warehouse"].search(
@@ -313,22 +313,20 @@ class ProductTemplate(models.Model):
         )
 
         if not saleor_warehouses and not saleor_locations:
-            raise UserError(
-                self.env._("No warehouses or locations marked for Saleor sync.")
-            )
+            raise UserError(_("No warehouses or locations marked for Saleor sync."))
 
         # Collect all variants with Saleor IDs across selected templates
         variants = self.mapped("product_variant_ids")
         missing = variants.filtered(lambda v: not v.saleor_variant_id)
         for v in missing:
-            reason_text = self.env._("Does not have a Saleor Variant ID")
-            body = f"""
-                <p>Variant skipped during inventory synchronization:</p>
-                <ul class='mb-0 ps-4'>
-                    <li><b>Variant</b>: {v.display_name}</li>
-                    <li><b>Reason</b>: {reason_text}</li>
-                </ul>
-                """
+            reason_text = _("Does not have a Saleor Variant ID")
+            body = (
+                "<p>Variant skipped during inventory synchronization:</p>"
+                "<ul class='mb-0 ps-4'>"
+                f"<li><b>Variant</b>: {v.display_name}</li>"
+                f"<li><b>Reason</b>: {reason_text}</li>"
+                "</ul>"
+            )
             v.product_tmpl_id.message_post(body=Markup(body))
 
         variants = variants - missing
@@ -364,40 +362,47 @@ class ProductTemplate(models.Model):
                 ("location_id", "child_of", wh.view_location_id.id),
                 ("product_id", "in", variant_ids),
             ]
-            rows = Quant._read_group(
-                domain, groupby=["product_id"], aggregates=["quantity:sum"]
+            rows = Quant.read_group(
+                domain,
+                ["quantity:sum"],
+                ["product_id"],
             )
-            for group_val, qty in rows:
-                # group_val is a product.product recordset (prefetched)
-                prod_id = group_val and group_val.id
+            for row in rows:
+                product_group = row.get("product_id")
+                prod_id = product_group and product_group[0]
                 if not prod_id:
                     continue
                 prod = variant_by_id.get(prod_id)
                 if not prod:
                     continue
+                qty = row.get("quantity") or 0.0
                 _push_qty(prod, wh.saleor_warehouse_id, qty, wh)
 
         # Batch by exact locations using _read_group
         for loc in saleor_locations:
             domain = [("location_id", "=", loc.id), ("product_id", "in", variant_ids)]
-            rows = Quant._read_group(
-                domain, groupby=["product_id"], aggregates=["quantity:sum"]
+            rows = Quant.read_group(
+                domain,
+                ["quantity:sum"],
+                ["product_id"],
             )
-            for group_val, qty in rows:
-                prod_id = group_val and group_val.id
+            for row in rows:
+                product_group = row.get("product_id")
+                prod_id = product_group and product_group[0]
                 if not prod_id:
                     continue
                 prod = variant_by_id.get(prod_id)
                 if not prod:
                     continue
+                qty = row.get("quantity") or 0.0
                 _push_qty(prod, loc.saleor_warehouse_id, qty, loc)
 
         # Post completion messages per template
         for template in self:
-            body = f"""
-                <p>Successfully synchronized inventory for template:</p>
-                <ul class='mb-0 ps-4'>
-                    <li><b>Template</b>: {template.display_name}</li>
-                </ul>
-                """
+            body = (
+                "<p>Successfully synchronized inventory for template:</p>"
+                "<ul class='mb-0 ps-4'>"
+                f"<li><b>Template</b>: {template.display_name}</li>"
+                "</ul>"
+            )
             template.message_post(body=Markup(body))

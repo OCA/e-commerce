@@ -6,60 +6,84 @@
         <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
         <field name="arch" type="xml">
             <button name="toggle_prod_environment" icon="fa-stop" position="attributes">
-                <attribute
-                    name="invisible"
-                >prod_environment or delivery_type == 'fixed' or delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': ['|','|','|',
+                        ('prod_environment', '=', True),
+                        ('delivery_type', '=', 'fixed'),
+                        ('delivery_type', '=', 'base_on_rule'),
+                        ('delivery_type', '=', 'saleor')
+                    ]}
+                </attribute>
             </button>
             <button name="toggle_debug" position="attributes">
-                <attribute
-                    name="invisible"
-                >delivery_type == 'fixed' or delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', 'in', ('fixed','base_on_rule','saleor'))]}
+                </attribute>
             </button>
             <field name="integration_level" position="attributes">
-                <attribute
-                    name="invisible"
-                >delivery_type == 'fixed' or delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', 'in', ('fixed','base_on_rule','saleor'))]}
+                </attribute>
             </field>
             <field name="margin" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
+            </field>
+            <xpath expr="//label[@for='margin']/.." position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
+            </xpath>
+            <!-- <field name="fixed_margin" position="attributes">
                 <attribute
                     name="invisible"
                 >delivery_type == 'fixed' or delivery_type == 'saleor'</attribute>
-            </field>
-            <field name="fixed_margin" position="attributes">
-                <attribute
-                    name="invisible"
-                >delivery_type == 'fixed' or delivery_type == 'saleor'</attribute>
-            </field>
-            <label for="free_over" position="attributes">
+            </field> -->
+            <!-- <label for="free_over" position="attributes">
                 <attribute
                     name="invisible"
                 >delivery_type == 'base_on_rule' or delivery_type == 'saleor'</attribute>
-            </label>
+            </label> -->
             <field name="free_over" position="attributes">
-                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
             </field>
             <field name="product_id" position="attributes">
-                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
             </field>
+
             <xpath expr="(//field[@name='company_id'])[2]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <field name="invoice_policy" position="attributes">
-                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
             </field>
             <page name="destination" position="attributes">
-                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
             </page>
             <page name="description" position="attributes">
-                <attribute name="invisible">delivery_type == 'saleor'</attribute>
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', '=', 'saleor')]}
+                </attribute>
             </page>
 
             <xpath expr="//page[@name='description']" position="after">
                 <page
                     name="saleor"
                     string="Saleor"
-                    invisible="delivery_type != 'saleor'"
+                    attrs="{'invisible': [('delivery_type', '!=', 'saleor')]}"
                 >
+                    <group>
+                        <field name="zone_channel_ids" invisible="1" />
+                    </group>
                     <group>
                         <group>
                             <field name="shipping_method_type" />
@@ -79,9 +103,10 @@
                         <field
                             name="saleor_order_value_line_ids"
                             nolabel="1"
-                            invisible="not order_value"
+                            attrs="{'invisible': [('order_value', '=', False)]}"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field
                                     name="channel_id"
                                     string="Channel name"
@@ -92,12 +117,16 @@
                                 <field name="display_unit" nolabel="1" />
                                 <field name="max_value" />
                                 <field name="display_unit" nolabel="1" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                     <group string="Pricing" colspan="2">
-                        <field name="saleor_shipping_pricing_line_ids" nolabel="1">
-                            <list editable="bottom">
+                        <field
+                            name="saleor_shipping_pricing_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field
                                     name="channel_id"
                                     string="Channel name"
@@ -106,7 +135,7 @@
                                 />
                                 <field name="price" />
                                 <field name="currency_id" nolabel="1" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                     <group string="Postal Codes" colspan="2">
@@ -118,36 +147,41 @@
                             />
                         </group>
                         <field name="postal_code_range_ids" nolabel="1">
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="start_zip" />
                                 <field name="end_zip" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                     <group string="Excluded Products" colspan="2">
                         <field name="excluded_product_ids" nolabel="1">
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="name" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Metadata" colspan="2">
-                        <field name="shipping_method_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field
+                            name="shipping_method_metadata_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
+                    <group string="Private Metadata">
                         <field
                             name="shipping_method_private_metadata_line_ids"
                             nolabel="1"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </page>

@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -78,9 +78,7 @@ class Warehouse(models.Model):
         if not records:
             if len(self) == 1:
                 raise UserError(
-                    self.env._(
-                        "Enable 'Is Saleor Warehouse' before syncing this warehouse."
-                    )
+                    _("Enable 'Is Saleor Warehouse' before syncing this warehouse.")
                 )
             return True
 
@@ -107,16 +105,14 @@ class Warehouse(models.Model):
     def action_sync_product_quantities(self):
         self.ensure_one()
         if not self.include_in_saleor_inventory:
-            raise UserError(self.env._("This warehouse is not marked for Saleor sync."))
+            raise UserError(_("This warehouse is not marked for Saleor sync."))
 
         account = self.env["saleor.account"].search([("active", "=", True)], limit=1)
         if not account:
-            raise UserError(self.env._("No active Saleor account configured."))
+            raise UserError(_("No active Saleor account configured."))
 
         if not self.saleor_warehouse_id:
-            raise UserError(
-                self.env._("This warehouse has no linked Saleor warehouse ID.")
-            )
+            raise UserError(_("This warehouse has no linked Saleor warehouse ID."))
 
         quants = self.env["stock.quant"].search(
             [
@@ -146,12 +142,14 @@ class Warehouse(models.Model):
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": self.env._("Saleor Sync Completed"),
-                "message": self.env._(
-                    "Successfully updated %s product(s)."
-                    "\nSkipped %s product(s) without Saleor Variant ID.",
-                    success_count,
-                    skip_count,
+                "title": _("Saleor Sync Completed"),
+                "message": _(
+                    "Successfully updated %(success)s product(s)."
+                    "\nSkipped %(skip)s product(s) without Saleor Variant ID.",
+                    {
+                        "success": success_count,
+                        "skip": skip_count,
+                    },
                 ),
                 "sticky": False,
                 "type": "success",
@@ -171,7 +169,7 @@ class Warehouse(models.Model):
             )
             if has_child_saleor_locations:
                 raise UserError(
-                    self.env._(
+                    _(
                         "You cannot mark this warehouse as a Saleor warehouse because "
                         "one or more locations belonging to it"
                         " are already marked as Saleor warehouses."

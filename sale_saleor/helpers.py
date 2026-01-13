@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup, NavigableString
 from markupsafe import Markup
 from text_unidecode import unidecode
 
-from odoo import api, fields
+from odoo import _, api, fields
 from odoo.exceptions import UserError
 
 
@@ -305,7 +305,7 @@ def _raise_missing_catalogue_errors(env, conditions, missing: dict) -> None:
     for key, fmt in msg_specs:
         values = missing.get(key) or []
         if values:
-            missing_msgs.append(env._(fmt, ", ".join(sorted(set(values)))))
+            missing_msgs.append(_(fmt, ", ".join(sorted(set(values)))))
     if not missing_msgs:
         return
 
@@ -314,13 +314,12 @@ def _raise_missing_catalogue_errors(env, conditions, missing: dict) -> None:
         and conditions.discount_rule_id.display_name
     ) or ""
     raise UserError(
-        env._(
-            "Cannot sync discount rule '%s'"
+        _(
+            "Cannot sync discount rule '%(rule_name)s'"
             " to Saleor because some condition targets are not synced."
-            "\n%s",
-            rule_name,
-            "\n".join(missing_msgs),
+            "\n%(missing)s"
         )
+        % {"rule_name": rule_name, "missing": "\n".join(missing_msgs)}
     )
 
 
@@ -425,7 +424,7 @@ def get_active_saleor_account(env, raise_if_missing: bool = True):
     """
     account = env["saleor.account"].search([("active", "=", True)], limit=1)
     if not account and raise_if_missing:
-        raise UserError(env._("No active Saleor account configured."))
+        raise UserError(_("No active Saleor account configured."))
     return account
 
 
@@ -456,7 +455,7 @@ def format_batch_errors_message(title, items):
 
 
 def format_note(env, template, *args):
-    text = env._(template, *args)
+    text = _(template, *args)
     return Markup("<p>%s</p>") % text
 
 

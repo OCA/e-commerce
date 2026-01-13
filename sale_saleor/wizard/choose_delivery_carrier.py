@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -9,7 +9,6 @@ class ChooseDeliveryCarrier(models.TransientModel):
 
     @api.depends(
         "carrier_id",
-        "total_weight",
         "order_id.amount_total",
         "order_id.saleor_channel_id",
     )
@@ -21,21 +20,21 @@ class ChooseDeliveryCarrier(models.TransientModel):
             if carrier.shipping_method_type == "weight":
                 for line in lines:
                     if wizard.total_weight > line.max_value:
-                        wizard.saleor_warning_msg = wizard.env._(
+                        wizard.saleor_warning_msg = _(
                             "The total weight of the order exceeds"
                             " the maximum weight for this carrier."
                         )
             elif carrier.shipping_method_type == "price":
                 for line in lines:
                     if wizard.order_id.amount_total > line.max_value:
-                        wizard.saleor_warning_msg = wizard.env._(
+                        wizard.saleor_warning_msg = _(
                             "The total amount of the order exceeds"
                             " the maximum amount for this carrier."
                         )
             else:
                 wizard.saleor_warning_msg = ""
 
-    @api.onchange("carrier_id", "total_weight")
+    @api.onchange("carrier_id")
     def _onchange_carrier_id(self):
         self.delivery_message = False
         if self.delivery_type in ("fixed", "base_on_rule", "saleor"):
@@ -57,9 +56,7 @@ class ChooseDeliveryCarrier(models.TransientModel):
             order.saleor_delivery_carrier_id = carrier.id
 
             if not saleor_channel:
-                raise UserError(
-                    self.env._("This order does not have a Saleor channel linked.")
-                )
+                raise UserError(_("This order does not have a Saleor channel linked."))
 
             price_line = carrier.saleor_shipping_pricing_line_ids.filtered(
                 lambda line: line.channel_id == saleor_channel
@@ -67,7 +64,7 @@ class ChooseDeliveryCarrier(models.TransientModel):
 
             if not price_line:
                 raise UserError(
-                    self.env._(
+                    _(
                         "No shipping price configured for channel '%s'.",
                         saleor_channel.name,
                     )
@@ -76,10 +73,35 @@ class ChooseDeliveryCarrier(models.TransientModel):
             price = price_line[0].price
             self.delivery_price = price
             self.display_price = price
-            self.delivery_message = self.env._(
+            self.delivery_message = _(
                 "Saleor shipping via channel: %s", saleor_channel.name
             )
 
             return {"success": True, "no_rate": False}
 
-        return super()._get_delivery_rate()
+        # Fallback to standard carrier rating logic for non-Saleor types
+        order = self.order_id
+        carrier = self.carrier_id
+
+        if not carrier or not order:
+            return {
+                "success": False,
+                "price": 0.0,
+                "error_message": _("No carrier or order set."),
+                "warning_message": False,
+            }
+
+        vals = carrier.rate_shipment(order)
+
+        # Keep behavior consistent with core wizard: propagate price and messages
+        if vals.get("success"):
+            price = vals.get("price", 0.0)
+            self.delivery_price = price
+            self.display_price = price
+        else:
+            self.delivery_price = 0.0
+            self.display_price = 0.0
+
+        self.delivery_message = vals.get("warning_message") or False
+
+        return vals

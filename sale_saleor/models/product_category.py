@@ -1,6 +1,6 @@
 import json as _json
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import generate_unique_slug, get_active_saleor_account, html_to_editorjs
@@ -82,7 +82,7 @@ class ProductCategory(models.Model):
             ]
             if missing:
                 raise UserError(
-                    self.env._(
+                    _(
                         "Please sync the following channels to Saleor first: %s",
                         ", ".join(missing),
                     )

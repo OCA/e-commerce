@@ -27,7 +27,10 @@ class OrderValueLine(models.Model):
     def _compute_display_unit(self):
         for line in self:
             if line.carrier_id.shipping_method_type == "price":
-                line.display_unit = line.carrier_id.currency_id.name or ""
+                currency = getattr(
+                    getattr(line.carrier_id, "company_id", None), "currency_id", None
+                )
+                line.display_unit = currency.name if currency else ""
             elif line.carrier_id.shipping_method_type == "weight":
                 line.display_unit = "KG"
             else:

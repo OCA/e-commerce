@@ -8,7 +8,7 @@
                 <div
                     class="alert alert-warning"
                     role="alert"
-                    invisible="duplicate_type_warning == ''"
+                    attrs="{'invisible': [('duplicate_type_warning', '=', '')]}"
                 >
                     <field name="duplicate_type_warning" readonly="1" />
                 </div>
@@ -24,8 +24,8 @@
                         </group>
                     </group>
                     <group string="Conditions">
-                        <field name="condition_ids" nolabel="1">
-                            <list editable="bottom">
+                        <field name="condition_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field
                                     name="catalogue_predicate_type"
                                     nolabel="1"
@@ -42,38 +42,39 @@
                                     domain="[('type', '=', predicate_type)]"
                                     options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
                                 />
+                                <field name="predicate_type" invisible="1" />
                                 <!-- Product template selector -->
                                 <field
                                     name="product_template_ids"
                                     column_invisible="parent.predicate_type != 'catalogue'"
                                     domain="[('channel_ids', '=', parent.channel_id), ('type', '=', 'consu')]"
-                                    readonly="catalogue_predicate_type != 'product'"
                                     widget="many2many_tags"
+                                    attrs="{'readonly': [('catalogue_predicate_type', '!=', 'product')]}"
                                 />
                                 <!-- Product variant selector -->
                                 <field
                                     name="product_variant_ids"
                                     column_invisible="parent.predicate_type != 'catalogue'"
                                     domain="[('product_tmpl_id.channel_ids', '=', parent.channel_id)]"
-                                    readonly="catalogue_predicate_type != 'variant'"
                                     widget="many2many_tags"
+                                    attrs="{'readonly': [('catalogue_predicate_type', '!=', 'variant')]}"
                                 />
                                 <!-- Collection selector -->
                                 <field
                                     name="product_collection_ids"
                                     column_invisible="parent.predicate_type != 'catalogue'"
-                                    readonly="catalogue_predicate_type != 'collection'"
                                     domain="[('channel_ids', '=', parent.channel_id)]"
                                     widget="many2many_tags"
+                                    attrs="{'readonly': [('catalogue_predicate_type', '!=', 'collection')]}"
                                 />
                                 <!-- Category selector -->
                                 <field
                                     name="product_category_ids"
                                     column_invisible="parent.predicate_type != 'catalogue'"
-                                    readonly="catalogue_predicate_type != 'category'"
                                     widget="many2many_tags"
+                                    attrs="{'readonly': [('catalogue_predicate_type', '!=', 'category')]}"
                                 />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                     <group string="Reward">
@@ -81,18 +82,18 @@
                             <label
                                 for="reward_type"
                                 string="Reward Type"
-                                invisible="predicate_type != 'order'"
+                                attrs="{'invisible': [('predicate_type', '!=', 'order')]}"
                             />
-                            <div class="o_row">
+                            <div class="o_row" colspan="1">
                                 <field
                                     name="reward_type"
-                                    invisible="predicate_type != 'order'"
+                                    attrs="{'invisible': [('predicate_type', '!=', 'order')]}"
                                 />
                                 <field
                                     name="reward_unit"
                                     nolabel="1"
                                     widget="selection_badge"
-                                    invisible="reward_type == 'gift'"
+                                    attrs="{'invisible': [('reward_type', '=', 'gift')]}"
                                 />
                             </div>
                         </group>
@@ -109,7 +110,7 @@
                         </group>
                     </group>
                     <group string="Description">
-                        <field name="description" nolabel="1" />
+                        <field name="description" nolabel="1" colspan="2" />
                     </group>
                 </sheet>
             </form>

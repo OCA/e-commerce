@@ -25,7 +25,10 @@
                             <div class="col">
                                 <field name="image_1920" widget="image" />
                             </div>
-                            <div class="col" invisible="video_url in ['', False]">
+                            <div
+                                class="col"
+                                attrs="{'invisible': ['|', ('video_url', '=', ''), ('video_url', '=', False)]}"
+                            >
                                 <div class="o_video_container p-2">
                                     <span>Video Preview</span>
                                     <field
@@ -35,7 +38,7 @@
                                     />
                                     <h4
                                         class="o_invalid_warning text-muted text-center"
-                                        invisible="embed_code"
+                                        attrs="{'invisible': [('embed_code', '!=', False)]}"
                                     >
                                         Please enter a valid Video URL.
                                     </h4>
@@ -56,7 +59,7 @@
                 <field name="video_url" invisible="1" />
                 <field name="sequence" widget="handle" />
                 <templates>
-                    <t t-name="card" class="p-0 border-0">
+                    <t t-name="kanban-box" class="p-0 border-0">
                         <div class="card">
                             <div class="o_squared_image">
                                 <field

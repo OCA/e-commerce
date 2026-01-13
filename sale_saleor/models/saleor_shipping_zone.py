@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..helpers import get_active_saleor_account
@@ -130,7 +130,7 @@ class SaleorShippingZone(models.Model):
         ]
         if missing:
             raise UserError(
-                self.env._(
+                _(
                     "Please sync the following warehouses/locations"
                     " to Saleor first: %s",
                     ", ".join(missing),

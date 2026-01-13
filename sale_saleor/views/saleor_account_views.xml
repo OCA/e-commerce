@@ -4,12 +4,12 @@
         <field name="name">saleor.account.tree</field>
         <field name="model">saleor.account</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="name" />
                 <field name="base_url" />
                 <field name="email" />
                 <field name="active" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -52,7 +52,7 @@
     <record id="action_saleor_accounts" model="ir.actions.act_window">
         <field name="name">Saleor Accounts</field>
         <field name="res_model">saleor.account</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="context">{"active_test": False}</field>
     </record>
 </odoo>

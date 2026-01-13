@@ -25,11 +25,11 @@
                     <group>
                         <field
                             name="is_saleor_warehouse"
-                            invisible="usage != 'internal'"
+                            attrs="{'invisible': [('usage', '!=', 'internal')]}"
                         />
                         <field
                             name="include_in_saleor_inventory"
-                            invisible="usage != 'internal'"
+                            attrs="{'invisible': [('usage', '!=', 'internal')]}"
                         />
                     </group>
                     <group>

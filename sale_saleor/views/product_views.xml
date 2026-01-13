@@ -22,7 +22,7 @@
                     groups="sale_saleor.group_saleor_manager"
                 />
             </xpath>
-            <xpath expr="//field[@name='type']" position="after">
+            <xpath expr="//field[@name='detailed_type']" position="after">
                 <field
                     name="channel_ids"
                     widget="many2many_tags"
@@ -33,7 +33,7 @@
     </record>
 
     <record id="product_product_tree_view_inherit_saleor" model="ir.ui.view">
-        <field name="name">product.product.list.inherit.saleor</field>
+        <field name="name">product.product.tree.inherit.saleor</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_product_tree_view" />
         <field name="arch" type="xml">

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 from ..helpers import (
     apply_reward_mapping,
@@ -79,10 +79,12 @@ class DiscountRule(models.Model):
                 )
                 labels = [dict(sel).get(t) for t in duplicates if t]
                 labels = [lbl for lbl in labels if isinstance(lbl, str)]
-                warning = self.env._(
-                    "Warning: Rule '%s' has duplicate condition types: %s.",
-                    rule.display_name,
-                    ", ".join(labels),
+                warning = _(
+                    "Warning: Rule '%(rule)s' has duplicate condition types: %(types)s.",
+                    {
+                        "rule": rule.display_name,
+                        "types": ", ".join(labels),
+                    },
                 )
             rule.duplicate_type_warning = warning
 

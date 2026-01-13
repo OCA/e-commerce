@@ -1,6 +1,6 @@
 import uuid
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -21,17 +21,17 @@ class VoucherCodeGenerateWizard(models.TransientModel):
         """Generate multiple voucher codes for the active voucher."""
         self.ensure_one()
         if self.code_quantity <= 0 or self.code_quantity > 50:
-            raise UserError(self.env._("Code Quantity must be between 1 and 50."))
+            raise UserError(_("Code Quantity must be between 1 and 50."))
 
         active_id = self.env.context.get("active_id")
         voucher = self.env["saleor.voucher"].browse(active_id)
         if not voucher:
-            raise UserError(self.env._("No active voucher found."))
+            raise UserError(_("No active voucher found."))
 
         codes = []
         prefix = (self.code_prefix or "").strip()
 
-        for _ in range(self.code_quantity):
+        for _i in range(self.code_quantity):
             uuid_str = str(uuid.uuid4())
             code = f"{prefix}-{uuid_str}" if prefix else uuid_str
             codes.append(

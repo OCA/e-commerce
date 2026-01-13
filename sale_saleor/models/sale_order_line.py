@@ -7,11 +7,8 @@ from odoo import fields, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    saleor_order_line_id = fields.Char(
-        string="Saleor Order Line ID", copy=False, index=True
-    )
+    saleor_order_line_id = fields.Char(copy=False, index=True)
     saleor_fulfilled_qty = fields.Float(
-        string="Saleor Fulfilled Qty",
         copy=False,
         default=0.0,
         help="Quantity already fulfilled in Saleor for this line.",

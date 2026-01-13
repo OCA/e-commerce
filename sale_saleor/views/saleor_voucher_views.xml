@@ -4,7 +4,7 @@
         <field name="name">saleor.voucher.tree</field>
         <field name="model">saleor.voucher</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <header>
                     <button
                         name="action_saleor_sync"
@@ -18,7 +18,7 @@
                 <field name="active_date_from" />
                 <field name="active_date_to" />
                 <field name="uses_left" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -94,27 +94,30 @@
                                 </ul>
                             </div>
                         </group>
-                        <field name="voucher_code_ids" nolabel="1">
-                            <list create="false" edit="false" no_open="True">
+                        <field name="voucher_code_ids" nolabel="1" colspan="2">
+                            <tree create="false" edit="false" no_open="True">
                                 <field name="code" />
                                 <field name="usage" />
                                 <field name="status" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                     <group string="Discount Type">
                         <field name="type" widget="radio" />
                     </group>
-                    <group string="Value" invisible="type == 'shipping'">
-                        <field name="discount_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group
+                        string="Value"
+                        attrs="{'invisible': [('type', '=', 'shipping')]}"
+                    >
+                        <field name="discount_line_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom">
                                 <field
                                     name="channel_id"
                                     domain="[('id','in', parent.channel_ids)]"
                                 />
                                 <field name="discount_value" />
                                 <field name="display_unit" readonly="1" string=" " />
-                            </list>
+                            </tree>
                         </field>
                         <field
                             name="apply_to"
@@ -122,64 +125,77 @@
                             widget="radio"
                         />
                         <field name="apply_cheapest" />
-                        <notebook invisible="apply_to != 'specific'">
+                        <notebook
+                            attrs="{'invisible': [('apply_to', '!=', 'specific')]}"
+                            colspan="2"
+                        >
                             <page string="Categories">
                                 <field name="product_category_ids">
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name" />
-                                    </list>
+                                    </tree>
                                 </field>
                             </page>
                             <page string="Collections">
                                 <field name="product_collection_ids">
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name" />
-                                    </list>
+                                    </tree>
                                 </field>
                             </page>
                             <page string="Products">
                                 <field name="product_template_ids">
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name" />
-                                    </list>
+                                    </tree>
                                 </field>
                             </page>
                             <page string="Variants">
                                 <field name="product_variant_ids">
-                                    <list editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name" />
-                                    </list>
+                                    </tree>
                                 </field>
                             </page>
                         </notebook>
                     </group>
-                    <group string="Countries" invisible="type != 'shipping'">
+                    <group
+                        string="Countries"
+                        attrs="{'invisible': [('type', '!=', 'shipping')]}"
+                    >
                         <field name="country_ids" widget="many2many_tags" />
                     </group>
                     <group string="Minimum Requirements">
                         <field name="min_requirement" widget="radio" />
                         <field
                             name="min_item_qty"
-                            invisible="min_requirement != 'item_qty'"
+                            attrs="{'invisible': [('min_requirement', '!=', 'item_qty')]}"
                         />
                         <field
                             name="minimal_order_value_ids"
-                            invisible="min_requirement != 'order_value'"
+                            attrs="{'invisible': [('min_requirement', '!=', 'order_value')]}"
                             nolabel="1"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field
                                     name="channel_id"
                                     domain="[('id','in', parent.channel_ids)]"
                                 />
                                 <field name="minimal_order_value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                     <group string="Usage Limit">
                         <field name="limit_total" class="col-2" />
-                        <field name="limit_uses" invisible="not limit_total" />
-                        <field name="uses_left" invisible="not limit_total" />
+                        <field
+                            name="limit_uses"
+                            attrs="{'invisible': [('limit_total', '=', False)]}"
+                        />
+                        <field
+                            name="uses_left"
+                            attrs="{'invisible': [('limit_total', '=', False)]}"
+                        />
                         <field name="limit_one_per_customer" />
                         <field name="limit_staff_only" />
                         <field name="limit_once_per_code" />
@@ -187,25 +203,33 @@
                     <group string="Active Dates">
                         <field name="active_date_from" />
                         <field name="set_end_date" />
-                        <field name="active_date_to" invisible="not set_end_date" />
+                        <field
+                            name="active_date_to"
+                            attrs="{'invisible': [('set_end_date', '=', False)]}"
+                        />
                     </group>
-                    <group string="Metadata" colspan="2">
-                        <field name="saleor_voucher_metadata_line_ids" nolabel="1">
-                            <list editable="bottom">
+                    <group string="Metadata">
+                        <field
+                            name="saleor_voucher_metadata_line_ids"
+                            nolabel="1"
+                            colspan="2"
+                        >
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
-                    <group string="Private Metadata" colspan="2">
+                    <group string="Private Metadata">
                         <field
                             name="saleor_voucher_private_metadata_line_ids"
                             nolabel="1"
+                            colspan="2"
                         >
-                            <list editable="bottom">
+                            <tree editable="bottom">
                                 <field name="key" />
                                 <field name="value" />
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </sheet>
@@ -217,7 +241,7 @@
     <record id="action_saleor_voucher" model="ir.actions.act_window">
         <field name="name">Saleor Vouchers</field>
         <field name="res_model">saleor.voucher</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Create and manage Saleor Vouchers.
