@@ -8,10 +8,10 @@ odoo.define("website_sale_product_assortment.assortment_preview", function (requ
         selector: "#products_grid",
 
         start: function () {
-            return $.when.apply($, [
+            return $.when(
                 this._super.apply(this, arguments),
-                this.render_assortments(),
-            ]);
+                this.render_assortments()
+            );
         },
         render_assortments: function () {
             const $products = $(".o_wsale_product_grid_wrapper");

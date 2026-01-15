@@ -15,10 +15,7 @@ odoo.define("website_sale_stock_list_preview.shop_stock", function (require) {
             "click .btn.btn-primary.a-submit": "_onAddToCartClicked",
         },
         start: function () {
-            return $.when.apply($, [
-                this._super.apply(this, arguments),
-                this.render_stock(),
-            ]);
+            return $.when(this._super.apply(this, arguments), this.render_stock());
         },
         render_stock: function () {
             const $products = $(".o_wsale_product_grid_wrapper");
