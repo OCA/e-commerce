@@ -2,8 +2,8 @@
  * Copyright 2023 Pilar Vargas <pilar.vargas@tecnativa.com>
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-import {registry} from "@web/core/registry";
 import * as tourUtils from "@website_sale/js/tours/tour_utils";
+import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_require_legal_with_payment", {
     url: "/shop",
