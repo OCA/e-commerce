@@ -1,9 +1,9 @@
 // Copyright 2020 Tecnativa - Alexandre Díaz
 // Copyright 2025 Tecnativa - Pilar Vargas
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-import sAnimation from "@website/js/content/snippets.animation";
 import {_t} from "@web/core/l10n/translation";
 import {rpc} from "@web/core/network/rpc";
+import sAnimation from "@website/js/content/snippets.animation";
 
 sAnimation.registry.js_product_category = sAnimation.Class.extend({
     selector: ".js_product_category",
