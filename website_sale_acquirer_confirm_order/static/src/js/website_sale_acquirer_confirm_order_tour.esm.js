@@ -1,7 +1,7 @@
 /* Copyright 2025 Tecnativa - Pilar Vargas
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
-import {registry} from "@web/core/registry";
 import * as tourUtils from "@website_sale/js/tours/tour_utils";
+import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_acquirer_confirm_order", {
     url: "/shop",
