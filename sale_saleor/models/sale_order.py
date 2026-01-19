@@ -121,6 +121,39 @@ class SaleOrder(models.Model):
             )
         return payload
 
+    def _is_fully_delivered_for_saleor(self):
+        """Check if all pickings related to this order are done or cancelled.
+
+        Used as a guard before triggering auto-fulfill to Saleor.
+        """
+        self.ensure_one()
+        pickings = self.picking_ids
+        if not pickings:
+            return False
+        return all(p.state in ("done", "cancel") for p in pickings)
+
+    def _saleor_auto_fulfill(self):
+        """Enqueue a job to fulfill the linked Saleor order when possible.
+
+        This helper is called from stock.picking._action_done once the
+        order is fully delivered in Odoo.
+        """
+        self.ensure_one()
+        if not self.saleor_order_id:
+            return True
+
+        account = get_active_saleor_account(self.env, raise_if_missing=False)
+        if not account:
+            return True
+
+        # Delegate to the account job; use queue if available.
+        if hasattr(account, "with_delay"):
+            account.with_delay().job_order_fulfill(self.id)
+        else:
+            account.job_order_fulfill(self.id)
+
+        return True
+
     def action_sync_to_saleor(self):
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if len(self) == 1:

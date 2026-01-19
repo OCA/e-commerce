@@ -1125,6 +1125,80 @@ class SaleorClient:
             raise Exception(f"Saleor draftOrderUpdate errors: {errors}")
         return result.get("order")
 
+    def order_fulfill(
+        self,
+        order_id,
+        lines,
+        notify_customer=False,
+        allow_stock_to_be_exceeded=False,
+    ):
+        """Fulfill specific lines of an order using orderFulfill mutation.
+
+        `lines` must be a list of dicts with at least:
+          - orderLineId: Saleor order line ID
+          - stocks: list of {warehouse: ID, quantity: Int}
+        """
+        if not order_id or not lines:
+            return None
+
+        input_lines = []
+        for ln in lines:
+            line_id = ln.get("orderLineId")
+            stocks = ln.get("stocks") or []
+            if not line_id or not stocks:
+                continue
+            # Ensure quantities are ints
+            norm_stocks = []
+            for st in stocks:
+                wh = (st or {}).get("warehouse")
+                qty = (st or {}).get("quantity")
+                if not wh:
+                    continue
+                try:
+                    qty_int = int(qty or 0)
+                except Exception:
+                    qty_int = 0
+                if qty_int <= 0:
+                    continue
+                norm_stocks.append({"warehouse": wh, "quantity": qty_int})
+            if not norm_stocks:
+                continue
+            input_lines.append({"orderLineId": line_id, "stocks": norm_stocks})
+
+        if not input_lines:
+            return None
+
+        query = """
+        mutation OrderFulfill(
+          $order: ID!,
+          $input: OrderFulfillInput!
+        ) {
+          orderFulfill(order: $order, input: $input) {
+            fulfillments {
+              id
+              status
+            }
+            errors { field message }
+          }
+        }
+        """
+
+        variables = {
+            "order": order_id,
+            "input": {
+                "lines": input_lines,
+                "notifyCustomer": bool(notify_customer),
+                "allowStockToBeExceeded": bool(allow_stock_to_be_exceeded),
+            },
+        }
+
+        data = self.graphql(query, variables)
+        result = (data or {}).get("orderFulfill") or {}
+        errors = result.get("errors") or []
+        if errors:
+            raise Exception(f"Saleor orderFulfill errors: {errors}")
+        return result
+
     def order_line_delete(self, order_line_id):
         """Delete a single order line by ID (works for draft orders)."""
         query = """

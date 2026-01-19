@@ -5,6 +5,7 @@ import json as _json
 import logging
 
 from odoo import Command, api, fields, models
+from odoo.exceptions import UserError
 
 from ..helpers import html_to_editorjs
 
@@ -144,6 +145,75 @@ class DeliveryCarrier(models.Model):
                     # Do not block writes for ancillary errors
                     _logger.debug("Skipping tax propagation for carrier %s", carrier.id)
         return res
+
+    def saleor_rate_shipment(self, order):
+        """Compute shipping price for Saleor delivery methods.
+
+        This mirrors the logic used in the choose.delivery.carrier wizard
+        for delivery_type == "saleor", so that any caller of
+        delivery.carrier.rate_shipment() (website, recompute, etc.)
+        behaves consistently.
+        """
+        self.ensure_one()
+
+        sale_order = order
+        saleor_channel = sale_order.saleor_channel_id
+
+        # Persist chosen carrier on the order for later Saleor sync jobs
+        try:
+            sale_order.saleor_delivery_carrier_id = self.id
+        except Exception:
+            _logger.debug(
+                "Could not set saleor_delivery_carrier_id on sale.order %s",
+                sale_order.id,
+            )
+
+        if not saleor_channel:
+            raise UserError(
+                self.env._("This order does not have a Saleor channel linked.")
+            )
+
+        price_line = self.saleor_shipping_pricing_line_ids.filtered(
+            lambda line, ch=saleor_channel: line.channel_id == ch
+        )
+
+        if not price_line:
+            raise UserError(
+                self.env._(
+                    "No shipping price configured for channel '%s'.",
+                    saleor_channel.name,
+                )
+            )
+
+        price = price_line[0].price
+
+        return {
+            "success": True,
+            "price": price,
+            "error_message": False,
+            "warning_message": False,
+        }
+
+    def saleor_send_shipping(self, pickings):
+        """Dummy shipment handler for Saleor carriers.
+
+        Core stock_delivery expects send_shipping() to return a list of dicts
+        with at least keys 'exact_price' and 'tracking_number'. For Saleor
+        delivery methods, the actual fulfillment and tracking are managed on
+        the Saleor side via sync jobs, so here we just return a minimal
+        structure to avoid errors in stock_picking.send_to_shipper.
+
+        :param pickings: stock.picking recordset (ignored here)
+        :return: list[dict] in the format expected by stock_delivery
+        """
+        self.ensure_one()
+
+        return [
+            {
+                "exact_price": 0.0,
+                "tracking_number": False,
+            }
+        ]
 
     def _saleor_shipping_method_prepare_payload(self):
         """Build payload for Saleor shipping method create/update."""
