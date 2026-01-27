@@ -105,6 +105,15 @@ class SaleorGiftCard(models.Model):
         string="Private Meta Lines",
     )
 
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=(
+            "If unchecked, this gift card will not be synchronized with Saleor "
+            "when activated."
+        ),
+    )
+
     @api.depends()
     def _compute_available_currencies(self):
         channels = self.env["saleor.channel"].search([])
@@ -122,6 +131,17 @@ class SaleorGiftCard(models.Model):
         """Activate and sync gift cards to Saleor via account job."""
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         use_delay = len(self) > 1 and hasattr(account, "with_delay")
+        invalid = self.filtered(lambda g: not g.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync to Saleor' on the following gift cards "
+                    "before activation:%s",
+                    names,
+                )
+            )
+
         for giftcard in self:
             giftcard.status = "active"
             if not giftcard.currency_id:

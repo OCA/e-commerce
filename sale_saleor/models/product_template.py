@@ -43,6 +43,15 @@ class ProductTemplate(models.Model):
         help="Saleor channels where this product is available.",
     )
 
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=(
+            "If unchecked, synchronization of this product and its variants "
+            "with Saleor (including inventory updates) will be disabled."
+        ),
+    )
+
     # Optional: link to a collection to sync the product into Saleor collection
     saleor_collection_id = fields.Many2one(
         "product.collection",
@@ -164,6 +173,18 @@ class ProductTemplate(models.Model):
         return payload
 
     def action_saleor_sync(self):
+        # Ensure inventory sync is enabled before allowing Saleor sync
+        invalid = self.filtered(lambda tmpl: not tmpl.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync Inventory to Saleor' on the following "
+                    "products before running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         # If only one record selected, run immediate (no queue)
         if len(self) == 1:
@@ -187,6 +208,10 @@ class ProductTemplate(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
+        if "sync_to_saleor" in vals:
+            self.mapped("product_variant_ids").write(
+                {"sync_to_saleor": vals["sync_to_saleor"]}
+            )
         # When attributes matrix changes, resync variants with Saleor
         if "attribute_line_ids" in vals:
             account = get_active_saleor_account(self.env, raise_if_missing=False)
@@ -297,6 +322,18 @@ class ProductTemplate(models.Model):
         self.message_post(body=Markup(body))
 
     def action_sync_product_quantities(self):  # noqa: C901
+        # Only allow manual quantity sync when inventory sync is enabled
+        invalid = self.filtered(lambda tmpl: not tmpl.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync Inventory to Saleor' on the following "
+                    "products before synchronizing quantities to Saleor:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
 
         saleor_warehouses = self.env["stock.warehouse"].search(

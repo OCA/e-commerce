@@ -33,6 +33,15 @@ class ProductCollection(models.Model):
     )
     saleor_background_image = fields.Binary()
 
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=(
+            "If unchecked, this collection will not be synchronized with Saleor, "
+            "including metadata and channel availability."
+        ),
+    )
+
     _sql_constraints = [
         (
             "saleor_collection_slug_unique",
@@ -111,6 +120,17 @@ class ProductCollection(models.Model):
 
     def action_saleor_collection_sync(self):
         # Sync selected collections to all active Saleor accounts
+        invalid = self.filtered(lambda col: not col.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync to Saleor' on the following collections "
+                    "before running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if len(self) == 1:
             col = self

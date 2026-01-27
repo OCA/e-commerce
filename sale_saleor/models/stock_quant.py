@@ -32,10 +32,22 @@ class StockQuant(models.Model):
         if tools.config["test_enable"]:
             return
 
+        # Collect affected products and ensure account is configured if sync is enabled
+        products = self.mapped("product_id")
+        if not products:
+            return
+
+        sync_products = products.filtered(lambda p: getattr(p, "sync_to_saleor", False))
+        if not sync_products:
+            return
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
 
-        # Collect affected variants
-        variants = self.mapped("product_id").filtered("saleor_variant_id")
+        # From here, only variants that are actually synced to Saleor will be
+        # pushed, but we already validated the account above.
+        variants = sync_products.filtered(
+            lambda p: p.saleor_variant_id and getattr(p, "sync_to_saleor", True)
+        )
         if not variants:
             return
 

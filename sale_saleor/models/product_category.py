@@ -29,6 +29,15 @@ class ProductCategory(models.Model):
     )
     saleor_background_image = fields.Binary()
 
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=(
+            "If unchecked, this category will not be synchronized with Saleor, "
+            "including metadata and channel availability."
+        ),
+    )
+
     _sql_constraints = [
         (
             "saleor_category_slug_unique",
@@ -110,6 +119,17 @@ class ProductCategory(models.Model):
 
     def action_saleor_sync(self):
         # Sync this category to all active Saleor accounts
+        invalid = self.filtered(lambda cat: not cat.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync to Saleor' on the following categories "
+                    "before running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if len(self) == 1:
             cat = self

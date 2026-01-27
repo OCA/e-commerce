@@ -35,6 +35,7 @@
                             string="Sync to Saleor"
                             icon="fa-refresh"
                             groups="sale_saleor.group_saleor_manager"
+                            attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                         />
                     </div>
                     <div class="oe_title">
@@ -43,6 +44,9 @@
                             <field name="name" placeholder="Default Name" />
                         </h1>
                     </div>
+                    <group>
+                        <field name="sync_to_saleor" />
+                    </group>
                     <group>
                         <field
                             name="channel_ids"

@@ -44,6 +44,14 @@ class ProductProduct(models.Model):
         This field is synchronized with the default_code (Internal Reference) field
         """,
     )
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=(
+            "If unchecked, synchronization of this variant with Saleor "
+            "(including inventory updates) will be disabled."
+        ),
+    )
 
     def _variant_add_channels(self, payload):
         def _collect_channels(recs):
@@ -271,6 +279,18 @@ class ProductProduct(models.Model):
 
         This method can be called from the UI to sync one or multiple variants.
         """
+        # Ensure inventory sync is enabled before allowing Saleor sync on variants
+        invalid = self.filtered(lambda variant: not variant.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync Variant to Saleor' on the following "
+                    "variants before running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if len(self) == 1:
             variant = self
@@ -345,6 +365,18 @@ class ProductProduct(models.Model):
 
     def action_sync_product_quantities(self):
         """Sync this product's stock quantities to all Saleor warehouses/locations."""
+        # Only allow manual quantity sync when inventory sync is enabled
+        invalid = self.filtered(lambda product: not product.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync Variant to Saleor' on the following "
+                    "variants before synchronizing quantities to Saleor:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
 
         for product in self:

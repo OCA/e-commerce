@@ -1,7 +1,8 @@
 # Copyright 2025 Kencove (https://www.kencove.com/)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import _, fields, models
+from odoo.exceptions import UserError
 
 from ..helpers import generate_unique_slug, get_active_saleor_account
 
@@ -22,6 +23,12 @@ class ProductAttribute(models.Model):
         "saleor.attribute.private.meta.line",
         "attribute_id",
         string="Saleor Private Metadata",
+    )
+
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=("If unchecked, this attribute will not be synchronized with " "Saleor."),
     )
 
     _sql_constraints = [
@@ -57,6 +64,17 @@ class ProductAttribute(models.Model):
         return payload
 
     def action_saleor_sync(self):
+        invalid = self.filtered(lambda attr: not attr.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync to Saleor' on the following attributes "
+                    "before running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if len(self) == 1:
             rec = self

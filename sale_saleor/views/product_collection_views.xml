@@ -34,6 +34,7 @@
                             type="object"
                             string="Sync to Saleor"
                             icon="fa-refresh"
+                            attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                         />
                     </div>
                     <field
@@ -41,6 +42,7 @@
                         nolabel="1"
                         widget="image"
                         class="oe_avatar"
+                        attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                     />
                     <div class="oe_title">
                         <label for="name" string="Collection" />
@@ -48,8 +50,14 @@
                             <field name="name" placeholder="e.g. Lamps" />
                         </h1>
                     </div>
+                    <group>
+                        <field name="sync_to_saleor" />
+                    </group>
                     <notebook colspan="4">
-                        <page string="Saleor">
+                        <page
+                            string="Saleor"
+                            attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
+                        >
                             <group string="Core">
                                 <field
                                     name="saleor_collection_description"

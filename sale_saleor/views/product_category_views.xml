@@ -15,8 +15,14 @@
                 />
             </xpath>
             <xpath expr="//group[@name='first']" position="after">
+                <group>
+                    <field name="sync_to_saleor" />
+                </group>
                 <notebook colspan="4">
-                    <page string="Saleor">
+                    <page
+                        string="Saleor"
+                        attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
+                    >
                         <group string="Core">
                             <field name="channel_ids" widget="many2many_tags" />
                             <field name="saleor_description" type="html" />
@@ -62,6 +68,7 @@
                     string="Sync Saleor"
                     class="oe_highlight"
                     icon="fa-refresh"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
             </xpath>
         </field>

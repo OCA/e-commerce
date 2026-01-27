@@ -18,14 +18,17 @@
                         class="oe_highlight"
                         icon="fa-refresh"
                         groups="sale_saleor.group_saleor_manager"
-                        attrs="{'invisible': ['|', ('amount_type', '!=', 'percent'), ('type_tax_use', '!=', 'sale')]}"
+                        attrs="{'invisible': ['|', '|', ('sync_to_saleor', '=', False), ('amount_type', '!=', 'percent'), ('type_tax_use', '!=', 'sale')]}"
                     />
                 </div>
             </xpath>
+            <field name="active" position="after">
+                <field name="sync_to_saleor" />
+            </field>
             <xpath expr="//page[@name='advanced_options']" position="after">
                 <page
                     string="Saleor"
-                    attrs="{'invisible': ['|', ('amount_type', '!=', 'percent'), ('type_tax_use', '!=', 'sale')]}"
+                    attrs="{'invisible': ['|', '|', ('sync_to_saleor', '=', False), ('amount_type', '!=', 'percent'), ('type_tax_use', '!=', 'sale')]}"
                 >
                     <group string="Metadata">
                         <field name="saleor_metadata_line_ids" nolabel="1" colspan="2">

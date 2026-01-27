@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 from ..helpers import get_active_saleor_account, to_saleor_datetime
 
@@ -135,6 +135,12 @@ class SaleorVoucher(models.Model):
             "Minimum quantity of items must be greater than or equal to 0.",
         ),
     ]
+
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=("If unchecked, this voucher will not be synchronized with Saleor."),
+    )
 
     @api.onchange("type")
     def _onchange_type_clear_discount_values(self):
@@ -269,6 +275,17 @@ class SaleorVoucher(models.Model):
         return payload
 
     def action_saleor_sync(self):
+        invalid = self.filtered(lambda rec: not rec.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync to Saleor' on the following vouchers "
+                    "before running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
         if not account:
             return True

@@ -17,14 +17,22 @@
                     class="oe_highlight"
                     icon="fa-refresh"
                     groups="sale_saleor.group_saleor_manager"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
             </xpath>
+
+            <field name="name" position="after">
+                <field name="sync_to_saleor" />
+            </field>
 
             <xpath
                 expr="//sheet/notebook/page[@name='attribute_values']"
                 position="after"
             >
-                <page string="Saleor">
+                <page
+                    string="Saleor"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
+                >
                     <group string="SEO">
                         <field name="saleor_slug" />
                     </group>

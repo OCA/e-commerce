@@ -34,7 +34,7 @@
                         type="object"
                         class="oe_highlight"
                         groups="sale_saleor.group_saleor_manager"
-                        attrs="{'invisible': [('status', '!=', 'disabled')]}"
+                        attrs="{'invisible': ['|', ('status', '!=', 'disabled'), ('sync_to_saleor', '=', False)]}"
                     />
                     <button
                         name="action_deactivate_giftcard"
@@ -42,7 +42,7 @@
                         type="object"
                         class="oe_highlight"
                         groups="sale_saleor.group_saleor_manager"
-                        attrs="{'invisible': [('status', '!=', 'active')]}"
+                        attrs="{'invisible': ['|', ('status', '!=', 'active'), ('sync_to_saleor', '=', False)]}"
                     />
                     <field name="status" widget="statusbar" />
                 </header>
@@ -61,6 +61,7 @@
                         <field name="available_currency_ids" invisible="1" />
                     </group>
                     <group>
+                        <field name="sync_to_saleor" />
                         <field name="tag_ids" widget="many2many_tags" />
                         <field name="send_to_customer" />
                         <field

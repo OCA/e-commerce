@@ -14,6 +14,7 @@
                     class="oe_highlight"
                     icon="fa-refresh"
                     groups="sale_saleor.group_saleor_manager"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
                 <button
                     name="action_fetch_metadata"
@@ -22,6 +23,7 @@
                     class="btn-secondary"
                     icon="fa-download"
                     groups="sale_saleor.group_saleor_manager"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
                 <button
                     name="action_sync_product_quantities"
@@ -29,6 +31,7 @@
                     string="Sync Quantity to Saleor"
                     icon="fa-dropbox"
                     groups="sale_saleor.group_saleor_manager"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
             </xpath>
             <xpath expr="//field[@name='type']" position="attributes">
@@ -39,6 +42,7 @@
                 <page string="Saleor">
                     <group string="General Information">
                         <group>
+                            <field name="sync_to_saleor" />
                             <field name="channel_ids" widget="many2many_tags" />
                             <field name="product_type_id" string="Product Type" />
                         </group>

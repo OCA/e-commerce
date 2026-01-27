@@ -26,6 +26,15 @@ class AccountTax(models.Model):
         string="Saleor TaxClass ID", copy=False, index=True, help="ID in Saleor"
     )
 
+    sync_to_saleor = fields.Boolean(
+        string="Sync to Saleor",
+        default=False,
+        help=(
+            "If unchecked, this tax will not be synchronized with Saleor as a "
+            "TaxClass."
+        ),
+    )
+
     def _saleor_prepare_tax_payload(self):
         self.ensure_one()
         if self.amount_type != "percent" or self.type_tax_use != "sale":
@@ -74,6 +83,17 @@ class AccountTax(models.Model):
 
     def action_saleor_tax_sync(self):
         """Sync this tax to Saleor as a TaxClass."""
+        invalid = self.filtered(lambda tax: not tax.sync_to_saleor)
+        if invalid:
+            names = "\n- " + "\n- ".join(invalid.mapped("display_name"))
+            raise UserError(
+                _(
+                    "Please enable 'Sync to Saleor' on the following taxes before "
+                    "running Saleor synchronization:%s",
+                    names,
+                )
+            )
+
         account = get_active_saleor_account(self.env, raise_if_missing=True)
 
         if len(self) == 1:
