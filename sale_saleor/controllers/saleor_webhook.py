@@ -67,6 +67,25 @@ def _saleor_match_account(headers):
     return None
 
 
+def _saleor_is_webhook_active(account, kind):
+    """Return True if the given webhook kind is active in Odoo for this account.
+
+    kind is a human-readable name matching the name_suffix used when ensuring
+    webhooks (e.g. "Customer", "Payment", "Order", "Draft Order").
+    """
+    Activation = request.env["saleor.webhook.activation"].sudo()
+    # Match by account and kind contained in the remote webhook name
+    # (e.g. "Odoo Customer Webhook (Test Odoo 16.0)").
+    rec = Activation.search(
+        [
+            ("saleor_account_id", "=", account.id),
+            ("name", "ilike", kind),
+        ],
+        limit=1,
+    )
+    return bool(rec and rec.status == "active")
+
+
 def _saleor_verify_signature(account, headers, body):
     secret_str = (account.saleor_webhook_secret or "").strip()
     if not secret_str:
@@ -548,6 +567,13 @@ class SaleorWebhookController(http.Controller):
         ok, resp = _saleor_verify_signature(account, headers, body)
         if not ok:
             return resp
+        if not _saleor_is_webhook_active(account, "Order"):
+            _logger.info("Saleor order webhook: currently, webook is inactive in Odoo")
+            return request.make_response(
+                "currently, webook is inactive in Odoo",
+                headers=[("Content-Type", "text/plain")],
+                status=200,
+            )
         event_type, event_type_raw, data, payload = _saleor_parse_payload(body, headers)
         _logger.info(
             "Saleor order webhook: event=%s raw=%s", event_type, event_type_raw
@@ -629,6 +655,15 @@ class SaleorWebhookController(http.Controller):
         ok, resp = _saleor_verify_signature(account, headers, body)
         if not ok:
             return resp
+        if not _saleor_is_webhook_active(account, "Draft Order"):
+            _logger.info(
+                "Saleor draft order webhook: currently, webook is inactive in Odoo"
+            )
+            return request.make_response(
+                "currently, webook is inactive in Odoo",
+                headers=[("Content-Type", "text/plain")],
+                status=200,
+            )
         event_type, event_type_raw, data, payload = _saleor_parse_payload(body, headers)
         _logger.info(
             "Saleor draft order webhook: event=%s raw=%s", event_type, event_type_raw
@@ -715,6 +750,15 @@ class SaleorWebhookController(http.Controller):
         ok, resp = _saleor_verify_signature(account, headers, body)
         if not ok:
             return resp
+        if not _saleor_is_webhook_active(account, "Customer"):
+            _logger.info(
+                "Saleor customer webhook: currently, webook is inactive in Odoo"
+            )
+            return request.make_response(
+                "currently, webook is inactive in Odoo",
+                headers=[("Content-Type", "text/plain")],
+                status=200,
+            )
         # Parse payload and event
         event_type, event_type_raw, data, payload = _saleor_parse_payload(body, headers)
         if event_type != "CUSTOMER_UPDATED":
@@ -765,6 +809,15 @@ class SaleorWebhookController(http.Controller):
         ok, resp = _saleor_verify_signature(account, headers, body)
         if not ok:
             return resp
+        if not _saleor_is_webhook_active(account, "Payment"):
+            _logger.info(
+                "Saleor order payment webhook: currently, webook is inactive in Odoo"
+            )
+            return request.make_response(
+                "currently, webook is inactive in Odoo",
+                headers=[("Content-Type", "text/plain")],
+                status=200,
+            )
         event_type, event_type_raw, data, payload = _saleor_parse_payload(body, headers)
         _logger.info(
             "Saleor order payment webhook: event=%s raw=%s", event_type, event_type_raw

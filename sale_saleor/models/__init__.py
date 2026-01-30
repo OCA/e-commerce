@@ -40,6 +40,7 @@ from . import saleor_voucher_minimal_order_value
 from . import saleor_gift_card
 from . import saleor_gift_card_tag
 from . import saleor_giftcard_meta_line
+from . import saleor_webhook_activation
 from . import sale_order
 from . import sale_order_line
 from . import stock_picking

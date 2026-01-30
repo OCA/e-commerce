@@ -44,6 +44,22 @@
                             />
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Webhooks">
+                            <group>
+                                <field
+                                    name="webhook_activation_ids"
+                                    nolabel="1"
+                                    colspan="2"
+                                >
+                                    <tree create="False" editable="bottom">
+                                        <field name="name" />
+                                        <field name="status" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

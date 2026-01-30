@@ -135,6 +135,12 @@ class SaleorAccount(models.Model):
         copy=False, readonly=True, string="Saleor Draft Order Webhook ID"
     )
 
+    webhook_activation_ids = fields.One2many(
+        comodel_name="saleor.webhook.activation",
+        inverse_name="saleor_account_id",
+        string="Webhook Activations",
+    )
+
     def _get_client(self):
         self.ensure_one()
         # Prefer App token if available (long-lived). Otherwise use staff JWT.
@@ -330,19 +336,18 @@ class SaleorAccount(models.Model):
             webhook = None
 
         if webhook:
-            need_update = webhook.get("targetUrl") != target_url or not webhook.get(
-                "isActive", True
-            )
+            need_update = webhook.get("targetUrl") != target_url
             if need_update:
                 upd = client.webhook_update(
                     webhook_id=webhook.get("id"),
                     target_url=target_url,
                     events=events,
                     secret_key=self.saleor_webhook_secret,
-                    is_active=True,
                 )
                 if upd and upd.get("id") and upd.get("id") != webhook_id:
                     self.write({id_field: upd.get("id")})
+                if upd:
+                    webhook = upd
         else:
             created = client.webhook_create(
                 app_id=self.saleor_app_id,
@@ -354,6 +359,28 @@ class SaleorAccount(models.Model):
             )
             if created and created.get("id"):
                 self.write({id_field: created.get("id")})
+
+        webhook_obj = created or webhook or {}
+        activation_name = webhook_obj.get("name") or name_suffix
+        Activation = self.env["saleor.webhook.activation"].sudo()
+        existing = Activation.search(
+            [
+                ("saleor_account_id", "=", self.id),
+                ("name", "=", activation_name),
+            ],
+            limit=1,
+        )
+        if existing:
+            if activation_name and existing.name != activation_name:
+                existing.write({"name": activation_name})
+        else:
+            Activation.create(
+                {
+                    "name": activation_name,
+                    "status": "inactive",
+                    "saleor_account_id": self.id,
+                }
+            )
 
     # --- Saleor → Odoo Order upsert ---
     def _import_saleor_order(self, order):

@@ -79,3 +79,5 @@ access_product_type_meta_line_user,saleor.product.type.meta.line user,model_prod
 access_product_type_meta_line_manager,saleor.product.type.meta.line manager,model_product_type_meta_line,sale_saleor.group_saleor_manager,1,1,1,1
 access_product_type_private_meta_line_user,saleor.product.type.private.meta.line user,model_product_type_private_meta_line,sale_saleor.group_saleor_user,1,1,1,0
 access_product_type_private_meta_line_manager,saleor.product.type.private.meta.line manager,model_product_type_private_meta_line,sale_saleor.group_saleor_manager,1,1,1,1
+access_saleor_webhook_activation_user,saleor.webhook.activation user,model_saleor_webhook_activation,sale_saleor.group_saleor_user,1,1,1,0
+access_saleor_webhook_activation_manager,saleor.webhook.activation manager,model_saleor_webhook_activation,sale_saleor.group_saleor_manager,1,1,1,1
