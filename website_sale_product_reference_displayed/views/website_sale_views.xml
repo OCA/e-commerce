@@ -6,28 +6,21 @@
         id="products_item"
         name="Display product reference"
         inherit_id="website_sale.products_item"
-        customize_show="True"
     >
         <!-- Product title in list -->
-        <xpath expr="//a[@t-field='product.name']" position="attributes">
+        <xpath expr="//span[@t-field='product.name']" position="attributes">
             <attribute name="class" add="d-none" separator=" " />
         </xpath>
-        <xpath expr="//a[@t-field='product.name']" position="after">
-            <a
-                itemprop="name"
-                t-att-href="product_href"
-                t-att-content="product.display_name"
-                t-field="product.display_name"
-            />
+        <xpath expr="//span[@t-field='product.name']" position="after">
+            <span t-field="product.display_name" />
         </xpath>
     </template>
     <template
         id="product"
         name="Display product reference"
         inherit_id="website_sale.product"
-        customize_show="True"
     >
-        <xpath expr="//t[@t-set='additional_title']" positions="after">
+        <xpath expr="//t[@t-set='additional_title']" position="after">
             <t t-set="additional_title" t-value="product.display_name" />
         </xpath>
         <!-- Breadcrumb -->
@@ -37,12 +30,23 @@
         <xpath expr="//span[@t-field='product.name']" position="after">
             <span t-field="product.display_name" />
         </xpath>
+    </template>
+    <template
+        id="product_title"
+        name="Display product reference"
+        inherit_id="website_sale.product_title"
+    >
         <!-- Product Title -->
         <xpath expr="//h1[@t-field='product.name']" position="attributes">
-            <attribute name="class" add="d-none" separator=" " />
+            <attribute name="t-attf-class" add="d-none" separator=" " />
         </xpath>
         <xpath expr="//h1[@t-field='product.name']" position="after">
-            <h1 itemprop="name" t-field="product.display_name" />
+            <h1
+                t-attf-class="h3 {{'mb-3' if not product.description_ecommerce and not is_view_active('website_sale.product_comment') else ''}}"
+                t-field="product.display_name"
+            >
+                Product Name
+            </h1>
         </xpath>
     </template>
 </odoo>

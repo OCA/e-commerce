@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="website_sale_product_reference_displayed.ShopProductReferenceOption">
+        <BuilderRow label.translate="Product Reference">
+            <BuilderCheckbox
+                action="'websiteConfig'"
+                actionParam="{views: ['website_sale_product_reference_displayed.products_item']}"
+            />
+        </BuilderRow>
+    </t>
+
+    <t t-name="website_sale_product_reference_displayed.ProductPageReferenceOption">
+        <BuilderRow label.translate="Product Reference">
+            <BuilderCheckbox
+                action="'websiteConfig'"
+                actionParam="{views: [
+                'website_sale_product_reference_displayed.product',
+                'website_sale_product_reference_displayed.product_title',
+            ]}"
+            />
+        </BuilderRow>
+    </t>
+
+</templates>
