@@ -6,13 +6,14 @@ import logging
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-from ..helpers import get_active_saleor_account
+from ..helpers import get_active_saleor_account, make_link
 
 _logger = logging.getLogger(__name__)
 
 
 class Location(models.Model):
-    _inherit = "stock.location"
+    _name = "stock.location"
+    _inherit = ["stock.location", "mail.thread", "mail.activity.mixin"]
 
     warehouse_id = fields.Many2one(
         "stock.warehouse",
@@ -103,18 +104,29 @@ class Location(models.Model):
             loc = records
             payload = loc._saleor_prepare_warehouse_payload()
             account.job_location_sync(loc.id, payload)
-            title = _("Saleor Sync")
-            msg = _("Location synced successfully: %s", loc.display_name)
-            return {
-                "type": "ir.actions.client",
-                "tag": "display_notification",
-                "params": {
-                    "title": title,
-                    "message": msg,
-                    "sticky": False,
-                    "type": "success",
-                },
-            }
+
+            base = (account.base_url or "").rstrip("/")
+            dash_url = ""
+            if base and loc.saleor_warehouse_id:
+                dash_url = f"{base}/dashboard/warehouses/{loc.saleor_warehouse_id}"
+
+            link_html = (
+                f"<li><b>Saleor</b>: {make_link('View in Saleor', dash_url)}</li>"
+                if dash_url
+                else ""
+            )
+
+            body = (
+                "<p><b>Synced location to Saleor</b></p>"
+                "<ul>"
+                f"<li><b>Account</b>: {account.email or account.name}</li>"
+                f"<li><b>Location</b>: {loc.display_name}</li>"
+                f"<li><b>Saleor Warehouse ID</b>: {loc.saleor_warehouse_id or ''}</li>"
+                f"{link_html}"
+                "</ul>"
+            )
+            loc.message_post(body=body)
+            return True
 
         # Multiple: batch
         batch_size = getattr(account, "job_batch_size", 10) or 10
@@ -128,18 +140,9 @@ class Location(models.Model):
                 account.with_delay().job_location_sync_batch(chunk)
             else:
                 account.job_location_sync_batch(chunk)
-        title = _("Saleor Sync")
-        msg = _("Location sync started for %s record(s).", len(records))
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": title,
-                "message": msg,
-                "sticky": False,
-                "type": "success",
-            },
-        }
+        msg = _("Location sync started for %s record(s).") % len(records)
+        records.message_post(body=msg)
+        return True
 
     def action_sync_product_quantities(self):
         """
@@ -173,23 +176,15 @@ class Location(models.Model):
             )
             success_count += 1
 
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Saleor Sync Completed"),
-                "message": _(
-                    "Successfully updated %(success)s product(s)."
-                    "\nSkipped %(skip)s product(s) without Saleor Variant ID.",
-                    {
-                        "success": success_count,
-                        "skip": skip_count,
-                    },
-                ),
-                "sticky": False,
-                "type": "success",
-            },
+        message = _(
+            "Successfully updated %(success)s product(s)."
+            "\nSkipped %(skip)s product(s) without Saleor Variant ID."
+        ) % {
+            "success": success_count,
+            "skip": skip_count,
         }
+        self.message_post(body=message)
+        return True
 
     @api.constrains("is_saleor_warehouse", "warehouse_id")
     def _check_saleor_location_vs_warehouse(self):

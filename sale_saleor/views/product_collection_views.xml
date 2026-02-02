@@ -64,6 +64,10 @@
                                     type="html"
                                 />
                                 <field name="channel_ids" widget="many2many_tags" />
+                                <field
+                                    name="saleor_collection_id"
+                                    groups="sale_saleor.group_saleor_manager"
+                                />
                             </group>
                             <group string="SEO">
                                 <field name="saleor_collection_slug" />
@@ -98,7 +102,11 @@
                     </notebook>
                 </sheet>
                 <!-- Chatter -->
-                <chatter />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                    <field name="activity_ids" widget="mail_activity" />
+                </div>
             </form>
         </field>
     </record>

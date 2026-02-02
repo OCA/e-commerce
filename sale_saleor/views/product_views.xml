@@ -30,6 +30,7 @@
                     name="channel_ids"
                     widget="many2many_tags"
                     options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
             </xpath>
         </field>

@@ -8,7 +8,8 @@ from ..helpers import get_active_saleor_account
 
 
 class AccountTax(models.Model):
-    _inherit = "account.tax"
+    _name = "account.tax"
+    _inherit = ["account.tax", "mail.thread", "mail.activity.mixin"]
 
     saleor_metadata_line_ids = fields.One2many(
         "saleor.tax.meta.line",

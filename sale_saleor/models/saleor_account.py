@@ -51,6 +51,7 @@ class SaleorAccount(models.Model):
     _name = "saleor.account"
     _description = "Saleor Account"
     _rec_name = "name"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     TOKEN_EXPIRY_MINUTES = 4
     DEFAULT_APP_PERMISSIONS = ["MANAGE_USERS", "MANAGE_TAXES", "MANAGE_ORDERS"]
@@ -2469,7 +2470,7 @@ class SaleorAccount(models.Model):
                     product_id=parent_pid,
                 )
                 body = format_kv_list(
-                    "Synced variant to Saleor:",
+                    "Synced variant to Saleor successfully:",
                     [
                         ("Account", self.email),
                         (
@@ -2506,7 +2507,7 @@ class SaleorAccount(models.Model):
                 # For products, show explicit Storefront/Saleor links.
                 if kind == "product":
                     body = format_kv_list(
-                        "Synced to Saleor:",
+                        "Synced to Saleor successfully:",
                         [
                             ("Account", self.email),
                             ("Slug", slug_val),
@@ -2526,7 +2527,7 @@ class SaleorAccount(models.Model):
                     )
                 else:
                     body = format_kv_list(
-                        "Synced to Saleor:",
+                        "Synced to Saleor successfully:",
                         [
                             ("Account", self.email),
                             ("Slug", slug_val),
@@ -3417,7 +3418,7 @@ class SaleorAccount(models.Model):
                 self.base_url, "tax", id=saleor_tax_id
             )
             body = format_kv_list(
-                "Synced to Saleor:",
+                "Synced to Saleor successfully:",
                 [
                     ("Account", self.email or self.name),
                     ("TaxClass ID", saleor_tax_id),

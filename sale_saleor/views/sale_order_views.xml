@@ -17,17 +17,19 @@
                     type="object"
                     string="Mark as Paid in Saleor"
                     class="btn-secondary"
-                    attrs="{'invisible': ['|', ('saleor_order_id', '=', False), ('saleor_mark_as_paid', '=', True)]}"
+                    attrs="{'invisible': [('saleor_mark_as_paid', '=', True)]}"
                 />
             </xpath>
             <xpath expr="//field[@name='order_line']" position="before">
                 <group>
-                    <field name="saleor_order_id" invisible="1" />
+                    <field
+                        name="saleor_order_id"
+                        groups="sale_saleor.group_saleor_manager"
+                    />
                     <field name="saleor_mark_as_paid" invisible="1" />
                     <field
                         name="saleor_channel_id"
                         options="{'no_create': True, 'no_create_edit': True}"
-                        attrs="{'readonly': [('saleor_order_id', '!=', False)]}"
                     />
                     <field name="is_abandoned" />
                 </group>

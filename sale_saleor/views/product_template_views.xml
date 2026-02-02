@@ -34,19 +34,28 @@
                     attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
                 />
             </xpath>
-            <xpath expr="//field[@name='type']" position="attributes">
+            <!-- <xpath expr="//field[@name='detailed_type']" position="attributes">
                 <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="sync_to_saleor" />
             </xpath>
 
             <xpath expr="//sheet/notebook" position="inside">
-                <page string="Saleor">
+                <page
+                    string="Saleor"
+                    attrs="{'invisible': [('sync_to_saleor', '=', False)]}"
+                >
                     <group string="General Information">
                         <group>
-                            <field name="sync_to_saleor" />
                             <field name="channel_ids" widget="many2many_tags" />
                             <field name="product_type_id" string="Product Type" />
                         </group>
                         <group>
+                            <field
+                                name="saleor_product_id"
+                                groups="sale_saleor.group_saleor_manager"
+                            />
                             <field name="saleor_collection_id" />
                             <field name="product_rating" />
                         </group>

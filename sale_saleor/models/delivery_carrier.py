@@ -13,7 +13,8 @@ _logger = logging.getLogger(__name__)
 
 
 class DeliveryCarrier(models.Model):
-    _inherit = "delivery.carrier"
+    _name = "delivery.carrier"
+    _inherit = ["delivery.carrier", "mail.thread", "mail.activity.mixin"]
 
     delivery_type = fields.Selection(
         selection_add=[

@@ -5,11 +5,17 @@
 from odoo import _, fields, models
 from odoo.exceptions import UserError
 
-from ..helpers import get_active_saleor_account, html_to_editorjs, to_saleor_datetime
+from ..helpers import (
+    get_active_saleor_account,
+    html_to_editorjs,
+    make_link,
+    to_saleor_datetime,
+)
 
 
 class LoyaltyProgram(models.Model):
-    _inherit = "loyalty.program"
+    _name = "loyalty.program"
+    _inherit = ["loyalty.program", "mail.thread", "mail.activity.mixin"]
 
     program_type = fields.Selection(
         selection_add=[
@@ -80,7 +86,6 @@ class LoyaltyProgram(models.Model):
             prog = programs
             payload = prog._saleor_prepare_promotion_payload()
             account.job_promotion_sync(prog.id, payload)
-            queued = False
         else:
             batch_size = getattr(account, "job_batch_size", 10) or 10
             items = []
@@ -93,21 +98,30 @@ class LoyaltyProgram(models.Model):
                     account.with_delay().job_promotion_sync_batch(chunk)
                 else:
                     account.job_promotion_sync_batch(chunk)
-            queued = True
-        # Notify via client action
-        msg = _(
-            "Queued sync of %s promotion(s) to Saleor.",
-            len(programs)
-            if queued
-            else _("Triggered sync of %s promotion(s) to Saleor.", len(programs)),
-        )
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Saleor Promotion Sync"),
-                "message": msg,
-                "type": "success",
-                "sticky": False,
-            },
-        }
+        # Log detailed message per program, similar to other Saleor objects
+        base = (account.base_url or "").rstrip("/")
+        for prog in programs:
+            dash_url = ""
+            if base and prog.saleor_promotion_id:
+                dash_url = (
+                    f"{base}/dashboard/discounts/sales/{prog.saleor_promotion_id}"
+                )
+
+            link_html = (
+                f"<li><b>Saleor</b>: {make_link('View in Saleor', dash_url)}</li>"
+                if dash_url
+                else ""
+            )
+
+            body = (
+                "<p><b>Synced promotion to Saleor</b></p>"
+                "<ul>"
+                f"<li><b>Account</b>: {account.email or account.name}</li>"
+                f"<li><b>Program</b>: {prog.display_name}</li>"
+                f"<li><b>Saleor Promotion ID</b>: {prog.saleor_promotion_id or ''}</li>"
+                f"{link_html}"
+                "</ul>"
+            )
+            prog.message_post(body=body)
+
+        return True

@@ -6,13 +6,14 @@ import logging
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-from ..helpers import get_active_saleor_account
+from ..helpers import get_active_saleor_account, make_link
 
 _logger = logging.getLogger(__name__)
 
 
 class Warehouse(models.Model):
-    _inherit = "stock.warehouse"
+    _name = "stock.warehouse"
+    _inherit = ["stock.warehouse", "mail.thread", "mail.activity.mixin"]
 
     is_saleor_warehouse = fields.Boolean(
         default=False,
@@ -86,6 +87,28 @@ class Warehouse(models.Model):
             wh = records
             payload = wh._saleor_prepare_warehouse_payload()
             account.job_warehouse_sync(wh.id, payload)
+
+            base = (account.base_url or "").rstrip("/")
+            dash_url = ""
+            if base and wh.saleor_warehouse_id:
+                dash_url = f"{base}/dashboard/warehouses/{wh.saleor_warehouse_id}"
+
+            link_html = (
+                f"<li><b>Saleor</b>: {make_link('View in Saleor', dash_url)}</li>"
+                if dash_url
+                else ""
+            )
+
+            body = (
+                "<p><b>Synced warehouse to Saleor</b></p>"
+                "<ul>"
+                f"<li><b>Account</b>: {account.email or account.name}</li>"
+                f"<li><b>Warehouse</b>: {wh.display_name}</li>"
+                f"<li><b>Saleor Warehouse ID</b>: {wh.saleor_warehouse_id or ''}</li>"
+                f"{link_html}"
+                "</ul>"
+            )
+            wh.message_post(body=body)
             return True
 
         # Multiple: batch
@@ -100,6 +123,8 @@ class Warehouse(models.Model):
                 account.with_delay().job_warehouse_sync_batch(chunk)
             else:
                 account.job_warehouse_sync_batch(chunk)
+        msg = _("Warehouse sync started for %s record(s).", len(records))
+        records.message_post(body=msg)
         return True
 
     def action_sync_product_quantities(self):
@@ -138,23 +163,15 @@ class Warehouse(models.Model):
             )
             success_count += 1
 
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "title": _("Saleor Sync Completed"),
-                "message": _(
-                    "Successfully updated %(success)s product(s)."
-                    "\nSkipped %(skip)s product(s) without Saleor Variant ID.",
-                    {
-                        "success": success_count,
-                        "skip": skip_count,
-                    },
-                ),
-                "sticky": False,
-                "type": "success",
-            },
+        message = _(
+            "Successfully updated %(success)s product(s)."
+            "\nSkipped %(skip)s product(s) without Saleor Variant ID."
+        ) % {
+            "success": success_count,
+            "skip": skip_count,
         }
+        self.message_post(body=message)
+        return True
 
     @api.constrains("is_saleor_warehouse")
     def _check_saleor_warehouse_vs_locations(self):
