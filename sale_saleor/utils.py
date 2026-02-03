@@ -295,6 +295,45 @@ class SaleorClient:
             raise Exception(f"Saleor productVariantStocksUpdate errors: {errors}")
         return result.get("productVariant")
 
+    def product_variant_stocks_delete(
+        self, variant_id=None, sku=None, warehouse_ids=None
+    ):
+        """Delete stock entries for a product variant in one or more warehouses.
+
+        At least one of variant_id or sku must be provided. warehouse_ids must be
+        a list of Saleor warehouse IDs.
+        """
+        ids = list(warehouse_ids or [])
+        if not ids:
+            return True
+        query = """
+        mutation ProductVariantStocksDelete(
+          $variantId: ID, $sku: String, $warehouseIds: [ID!]
+        ) {
+          productVariantStocksDelete(
+            variantId: $variantId,
+            sku: $sku,
+            warehouseIds: $warehouseIds
+          ) {
+            errors {
+              field
+              message
+            }
+          }
+        }
+        """
+        variables = {
+            "variantId": variant_id,
+            "sku": sku,
+            "warehouseIds": ids,
+        }
+        data = self.graphql(query, variables)
+        result = (data or {}).get("productVariantStocksDelete") or {}
+        errors = result.get("errors") or []
+        if errors:
+            raise Exception(f"Saleor productVariantStocksDelete errors: {errors}")
+        return True
+
     def product_variants_list_by_product_id(self, product_id):
         """Return list of variants for a given Saleor product ID.
 

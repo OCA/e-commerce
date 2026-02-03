@@ -2003,6 +2003,38 @@ class SaleorAccount(models.Model):
             )
             raise UserError(_("Saleor stock update failed: %s", str(e))) from e
 
+    def job_variant_stock_delete(self, variant_id=None, sku=None, warehouse_ids=None):
+        """Delete stock entries for a product variant in one or more warehouses."""
+        self.ensure_one()
+        if not self.active:
+            _logger.debug(
+                "Saleor stock delete skipped for variant %s on inactive account %s",
+                variant_id or sku,
+                self.name,
+            )
+            return True
+
+        client = self._get_client()
+        self._refresh_token(client)
+        try:
+            res = client.product_variant_stocks_delete(
+                variant_id=variant_id, sku=sku, warehouse_ids=warehouse_ids
+            )
+            _logger.info(
+                "Deleted Saleor stock: variant=%s, warehouses=%s",
+                variant_id or sku,
+                warehouse_ids,
+            )
+            return res
+        except Exception as e:
+            _logger.exception(
+                "Error deleting Saleor stock for variant %s via account %s: %s",
+                variant_id or sku,
+                self.name,
+                e,
+            )
+            raise UserError(_("Saleor stock delete failed: %s", str(e))) from e
+
     def job_order_sync(self, order_id, payload):
         """Create a draft order in Saleor and add lines.
 

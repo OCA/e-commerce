@@ -158,8 +158,8 @@
                             </tree>
                         </field>
                     </group>
-                    <group string="Excluded Products" colspan="2">
-                        <field name="excluded_product_ids" nolabel="1">
+                    <group string="Excluded Products">
+                        <field name="excluded_product_ids" nolabel="1" colspan="2">
                             <tree editable="bottom">
                                 <field name="name" />
                             </tree>

@@ -363,7 +363,7 @@ class ProductProduct(models.Model):
             )
         self.message_post(body=Markup(body))
 
-    def action_sync_product_quantities(self):
+    def action_sync_product_quantities(self):  # noqa: C901
         """Sync this product's stock quantities to all Saleor warehouses/locations."""
         # Only allow manual quantity sync when inventory sync is enabled
         invalid = self.filtered(lambda product: not product.sync_to_saleor)
@@ -413,24 +413,61 @@ class ProductProduct(models.Model):
             if not saleor_sources:
                 raise UserError(_("No Saleor warehouses or locations configured."))
 
+            # Determine active Saleor warehouses for this product based on channels
+            channels = (
+                product.channel_ids
+                or getattr(product.product_tmpl_id, "channel_ids", False)
+                or self.env["saleor.channel"]
+            )
+
+            active_saleor_wh_ids = set()
+            for ch in channels:
+                for wh in getattr(ch, "warehouse_ids", self.env["stock.warehouse"]):
+                    if wh.saleor_warehouse_id:
+                        active_saleor_wh_ids.add(wh.saleor_warehouse_id)
+                for loc in getattr(ch, "location_ids", self.env["stock.location"]):
+                    if loc.saleor_warehouse_id:
+                        active_saleor_wh_ids.add(loc.saleor_warehouse_id)
+
             for _source_type, source_rec, location_id, saleor_wh_id in saleor_sources:
                 if not saleor_wh_id:
                     continue
 
-                # Aggregate stock at this location/warehouse
-                qty = (
-                    self.env["stock.quant"].read_group(
-                        domain=[
-                            ("product_id", "=", product.id),
-                            ("location_id", "child_of", location_id),
-                        ],
-                        fields=["quantity:sum"],
-                        groupby=[],
-                    )[0]["quantity"]
-                    or 0.0
-                )
-
                 try:
+                    # If we have channel-based active warehouses and this warehouse
+                    # is not among them, delete its stock entry in Saleor so that it
+                    # disappears from the product inventory screen.
+                    if (
+                        active_saleor_wh_ids
+                        and saleor_wh_id not in active_saleor_wh_ids
+                    ):
+                        _logger.info(
+                            "Deleting obsolete Saleor stock for product %s (variant=%s) "
+                            "from warehouse %s",
+                            product.display_name,
+                            product.saleor_variant_id,
+                            source_rec.display_name,
+                        )
+                        account.with_delay().job_variant_stock_delete(
+                            variant_id=product.saleor_variant_id,
+                            warehouse_ids=[saleor_wh_id],
+                        )
+                        product._notify_saleor_sync(success=True, warehouse=source_rec)
+                        continue
+
+                    # Otherwise, aggregate stock at this location/warehouse and update
+                    qty = (
+                        self.env["stock.quant"].read_group(
+                            domain=[
+                                ("product_id", "=", product.id),
+                                ("location_id", "child_of", location_id),
+                            ],
+                            fields=["quantity:sum"],
+                            groupby=[],
+                        )[0]["quantity"]
+                        or 0.0
+                    )
+
                     _logger.info(
                         "Syncing product %s (variant=%s) qty=%s to Saleor warehouse %s",
                         product.display_name,

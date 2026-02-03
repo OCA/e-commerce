@@ -147,8 +147,17 @@ class SaleorChannel(models.Model):
             payload["currencyCode"] = self.currency_id.name
 
         # Warehouses/Locations: add addWarehouses with Saleor IDs
-        selected_wh = self.warehouse_ids or self.env["stock.warehouse"]
-        selected_loc = self.location_ids or self.env["stock.location"]
+        selected_wh = self.warehouse_ids
+        selected_loc = self.location_ids
+
+        if not selected_wh and not selected_loc:
+            raise UserError(
+                _(
+                    "Please select at least one warehouse/location to link "
+                    "with this Saleor channel before syncing."
+                )
+            )
+
         wh_ids = [
             wh.saleor_warehouse_id for wh in selected_wh if wh.saleor_warehouse_id
         ]
@@ -172,6 +181,32 @@ class SaleorChannel(models.Model):
         add_warehouses = [*wh_ids, *loc_ids]
         if add_warehouses:
             payload["addWarehouses"] = add_warehouses
+
+        # Compute obsolete Saleor warehouses/locations to detach from this channel.
+        all_saleor_wh = self.env["stock.warehouse"].search(
+            [("is_saleor_warehouse", "=", True), ("saleor_warehouse_id", "!=", False)]
+        )
+        all_saleor_loc = self.env["stock.location"].search(
+            [
+                ("is_saleor_warehouse", "=", True),
+                ("usage", "=", "internal"),
+                ("saleor_warehouse_id", "!=", False),
+            ]
+        )
+
+        current_ids = set(add_warehouses)
+        remove_warehouses = [
+            wh.saleor_warehouse_id
+            for wh in all_saleor_wh
+            if wh.saleor_warehouse_id and wh.saleor_warehouse_id not in current_ids
+        ] + [
+            loc.saleor_warehouse_id
+            for loc in all_saleor_loc
+            if loc.saleor_warehouse_id and loc.saleor_warehouse_id not in current_ids
+        ]
+
+        if remove_warehouses:
+            payload["removeWarehouses"] = remove_warehouses
         return payload
 
     def action_sync_to_saleor(self):
