@@ -20,7 +20,12 @@ class WebsiteSale(WebsiteSale):
         )
         # add selected brands to product search domain
         brands_list = self._get_brand_ids(request.httprequest.args)
-        return self._update_domain(brands_list, domain)
+        domain = self._update_domain(brands_list, domain)
+        if "brand_id" in request.context:
+            domain = expression.AND(
+                [domain, [("product_brand_id", "=", request.context["brand_id"])]]
+            )
+        return domain
 
     def _update_domain(self, brands_list, domain):
         selected_brand_ids = [int(brand) for brand in brands_list]
@@ -92,18 +97,6 @@ class WebsiteSale(WebsiteSale):
         )
         res["brand"] = request.context.get("brand_id")
         return res
-
-    def _get_shop_domain(
-        self, search, category, attrib_values, search_in_description=True
-    ):
-        domain = super()._get_shop_domain(
-            search, category, attrib_values, search_in_description=search_in_description
-        )
-        if "brand_id" in request.context:
-            domain = expression.AND(
-                [domain, [("product_brand_id", "=", request.context["brand_id"])]]
-            )
-        return domain
 
     @http.route(
         [

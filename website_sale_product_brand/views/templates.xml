@@ -56,7 +56,7 @@
                 class="accordion-item rounded-0 border-top-0 py-3"
             >
                 <a
-                    t-att-href="keep('/shop' + ('/category/' + slug(category)) if category else None, attribute_value=0, tags=0, selected_brand_ids=0)"
+                    t-att-href="keep('/shop' + ('/category/' + slug(category)) if category else None, attribute_value=0, tags=0, brand=0, brand_ids=0)"
                     t-attf-class="btn btn-{{navClass}} d-flex align-items-center py-1"
                     title="Clear Filters"
                 >
@@ -83,6 +83,99 @@
                     <input type="hidden" name="brand" t-att-value="brand" />
                 </t>
             </t>
+        </xpath>
+    </template>
+    <template
+        id="website_sale_filter_brand_top_products_brands"
+        inherit_id="website_sale.o_wsale_offcanvas"
+        priority="999"
+    >
+        <xpath
+            expr="//form[@t-if='opt_wsale_attributes or opt_wsale_attributes_top']"
+            position="inside"
+        >
+            <t
+                t-if="is_view_active('website_sale_product_brand.website_sale_filter_brand_products_brands')"
+            >
+                <t t-if="brands">
+                    <!-- status activo si hay marca seleccionada -->
+                    <t
+                        t-set="_brand_status"
+                        t-value="selected_brand_ids and 'active' or 'inactive'"
+                    />
+
+                    <div
+                        t-attf-class="accordion-item border-top-0 {{(_brand_status == 'active') and 'order-1' or 'order-2'}}"
+                    >
+                        <h2
+                            class="accordion-header mb-0"
+                            t-attf-id="o_wsale_offcanvas_brand_header"
+                        >
+                            <button
+                                t-attf-class="o_wsale_offcanvas_title accordion-button rounded-0 {{ (not selected_brand_ids) and 'collapsed' }}"
+                                type="button"
+                                t-att-data-status="_brand_status"
+                                data-bs-toggle="collapse"
+                                t-attf-data-bs-target="#o_wsale_offcanvas_brand"
+                                t-att-aria-expanded="_brand_status == 'active' and 'True' or 'False'"
+                                t-attf-aria-controls="o_wsale_offcanvas_brand"
+                            >
+                                <b>Brand</b>
+                            </button>
+                        </h2>
+                        <div
+                            t-attf-id="o_wsale_offcanvas_brand"
+                            t-attf-class="accordion-collapse collapse {{ (_brand_status == 'active') and 'show' }}"
+                            t-att-aria-expanded="(_brand_status == 'active') and 'True' or 'False'"
+                            t-attf-aria-labelledby="o_wsale_offcanvas_brand_header"
+                        >
+                            <div class="accordion-body pt-0">
+                                <div class="list-group list-group-flush">
+                                    <t t-foreach="brands" t-as="brand">
+                                        <t
+                                            t-if="not selected_brand_ids or brand.id in selected_brand_ids"
+                                        >
+                                            <div
+                                                class="list-group-item border-0 ps-0 pb-0"
+                                            >
+                                                <div class="form-check mb-1">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="brand"
+                                                        class="form-check-input"
+                                                        t-att-id="'brand-%s' % brand.id"
+                                                        t-att-value="brand.id"
+                                                        t-att-checked="'checked' if brand.id in (selected_brand_ids or []) else None"
+                                                    />
+                                                    <label
+                                                        class="form-check-label fw-normal"
+                                                        t-att-for="'brand-%s' % brand.id"
+                                                        t-field="brand.name"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//a[@href='/shop']" position="replace">
+            <t
+                t-set="_has_any_filters"
+                t-value="bool(attrib_values) or bool(isFilteringByPrice) or bool(tags) or bool(selected_brand_ids)"
+            />
+            <a
+                t-att-href="keep('/shop' + ('/category/' + slug(category)) if category else None, attribute_value=0, tags=0, brand=0, brand_ids=0)"
+                t-attf-class="btn btn-{{navClass}} d-flex py-1 mb-2 {{ (not _has_any_filters) and 'disabled' }}"
+                t-att-aria-disabled="(not _has_any_filters) and 'true' or 'false'"
+                title="Clear Filters"
+            >
+                    Clear Filters
+            </a>
         </xpath>
     </template>
 </odoo>
