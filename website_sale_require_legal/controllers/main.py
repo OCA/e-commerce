@@ -33,7 +33,12 @@ class WebsiteSale(main.WebsiteSale):
                 **_kwargs,
             )
         )
-        if not _kwargs.get("accepted_legal_terms"):
+        if (
+            not _kwargs.get("accepted_legal_terms")
+            and request.website.viewref(
+                "website_sale_require_legal.address_require_legal"
+            ).active
+        ):
             error_messages.append(
                 request.env._("You must accept the terms & conditions to continue.")
             )
