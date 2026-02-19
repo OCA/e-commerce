@@ -30,6 +30,9 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         # Set to draft and assign all to website_2
         # (this also updates write_date to now())
         cls.orders.write({"state": "draft", "website_id": cls.website_2.id})
+        cls.payment_method = cls.env["payment.method"].create(
+            {"name": "Test_method", "code": "123"}
+        )
 
     def _create_payment_transaction(self, order):
         self.tx_counter += 1
@@ -50,6 +53,7 @@ class TestWebsiteSaleCartExpire(BaseCommon):
                 "partner_id": order.partner_id.id,
                 "operation": "online_direct",
                 "sale_order_ids": [fields.Command.set([order.id])],
+                "payment_method_id": self.payment_method.id,
             }
         )
 
