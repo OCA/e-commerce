@@ -15,13 +15,6 @@ msgstr ""
 
 #. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
-msgstr ""
-
-#. module: website_sale_cart_expire
-#: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid "Automatically cancel carts without activity after a period of time"
 msgstr ""
 
@@ -78,6 +71,11 @@ msgstr ""
 #. module: website_sale_cart_expire
 #: model:ir.model.fields,help:website_sale_cart_expire.field_sale_order__cart_expire_date
 msgid "Technical field: The date this cart will automatically expire"
+msgstr ""
+
+#. module: website_sale_cart_expire
+#: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
+msgid "Values set here are website-specific."
 msgstr ""
 
 #. module: website_sale_cart_expire
