@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-08 07:46+0000\n"
+"PO-Revision-Date: 2026-02-21 12:10+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
@@ -56,7 +56,7 @@ msgstr "Impostazioni configurazione"
 #. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid "Expire Carts"
-msgstr ""
+msgstr "Scadenza carrelli"
 
 #. module: website_sale_cart_expire
 #: model:ir.model.fields,field_description:website_sale_cart_expire.field_res_config_settings__cart_expire_delay
@@ -67,7 +67,7 @@ msgstr "Ritardo scadenza"
 #. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid "Hours."
-msgstr ""
+msgstr "Ore."
 
 #. module: website_sale_cart_expire
 #: model:ir.model,name:website_sale_cart_expire.model_sale_order
@@ -82,7 +82,7 @@ msgstr "Campo tecnico: la data in cui questo carrello scade automaticamente"
 #. module: website_sale_cart_expire
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_expire.res_config_settings_view_form
 msgid "Values set here are website-specific."
-msgstr ""
+msgstr "I valori impostati qui sono specifici per sito web."
 
 #. module: website_sale_cart_expire
 #: model:ir.model,name:website_sale_cart_expire.model_website
