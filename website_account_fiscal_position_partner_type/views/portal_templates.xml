@@ -6,7 +6,7 @@
 <odoo>
     <template
         id="website_checkoout_second_lastname_portal_my_details"
-        inherit_id="portal.portal_my_details"
+        inherit_id="portal.portal_my_details_fields"
     >
         <xpath expr="//label[@for='vat']/.." position="after">
             <div
