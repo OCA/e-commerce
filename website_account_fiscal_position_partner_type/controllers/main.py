@@ -21,14 +21,13 @@ class WebsiteSale(WebsiteSale):
 
     def checkout_form_validate(self, mode, all_form_values, data):
         old_context = request.context
-        request.context = dict(
-            request.context,
-            fiscal_position_type=all_form_values.get("fiscal_position_type"),
+        request.update_context(
+            fiscal_position_type=all_form_values.get("fiscal_position_type")
         )
         error, error_message = super().checkout_form_validate(
             mode, all_form_values, data
         )
-        request.context = old_context
+        request.update_context(**old_context)
         if data.get("fiscal_position_type"):
             partner_su = (
                 request.env["res.partner"]
