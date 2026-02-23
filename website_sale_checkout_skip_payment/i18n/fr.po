@@ -30,15 +30,6 @@ msgstr ""
 "                        Retourner au panier"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont "
-"spécifiques au site.\" groups=\"website.group_multi_website\"/>"
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
 msgstr "<span>Confirmer <span class=\"fa fa-chevron-right\"/></span>"
@@ -89,6 +80,11 @@ msgid "Skip Website Checkout Payment"
 msgstr "Sauter l'étape de paiement sur la boutique en ligne"
 
 #. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Values set here are website-specific."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
 msgid "Website"
 msgstr "Site Internet"
@@ -107,6 +103,13 @@ msgstr "Message à afficher quand l'étape de paiement est sautée"
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
 msgstr "Votre commande est en attente d'une confirmation manuelle."
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+#~ "specific.\" groups=\"website.group_multi_website\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont "
+#~ "spécifiques au site.\" groups=\"website.group_multi_website\"/>"
 
 #~ msgid "Confirm"
 #~ msgstr "Confirmer"

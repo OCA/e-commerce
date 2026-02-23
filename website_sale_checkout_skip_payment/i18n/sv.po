@@ -29,15 +29,6 @@ msgstr ""
 "                        Återgå till kundvagnen"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Värdena som anges här är "
-"webbplatsspecifika.\" groups=\"website.group_multi_website\"/>"
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
 msgstr "<span> Bekräfta <span class=\"fa fa-chevron-right\"/></span>"
@@ -88,6 +79,11 @@ msgid "Skip Website Checkout Payment"
 msgstr "Hoppa över betalning på webbplatsens kassa"
 
 #. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Values set here are website-specific."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
 msgid "Website"
 msgstr "Webbplats"
@@ -106,6 +102,13 @@ msgstr "Webbplatsförsäljning SKippa meddelande"
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
 msgstr "Din order väntar på manuell bekräftelse."
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+#~ "specific.\" groups=\"website.group_multi_website\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Värdena som anges här är "
+#~ "webbplatsspecifika.\" groups=\"website.group_multi_website\"/>"
 
 #~ msgid "Confirm"
 #~ msgstr "Bekräfta"

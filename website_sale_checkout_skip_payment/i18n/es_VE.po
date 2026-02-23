@@ -30,16 +30,6 @@ msgstr ""
 "                    Devolver al Carrito"
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-globe\" title="
-"\"Values set here are website-specific.\" groups="
-"\"website.group_multi_website\"/>"
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
 msgstr "<span>Confirmar <span class=\"fa fa-chevron-right\"/></span>"
@@ -90,6 +80,11 @@ msgid "Skip Website Checkout Payment"
 msgstr "Omitir pago en el sitio web"
 
 #. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Values set here are website-specific."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
 msgid "Website"
 msgstr "Sitio web"
@@ -108,3 +103,10 @@ msgstr "Mensaje de omisión de venta del sitio web"
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
 msgstr "Su pedido está a la espera de confirmación manual."
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+#~ "specific.\" groups=\"website.group_multi_website\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+#~ "specific.\" groups=\"website.group_multi_website\"/>"

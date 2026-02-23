@@ -27,13 +27,6 @@ msgid ""
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
-"specific.\" groups=\"website.group_multi_website\"/>"
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
 msgstr ""
@@ -79,6 +72,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__skip_website_checkout_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Values set here are website-specific."
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
