@@ -11,81 +11,89 @@
                             t-foreach="product_matrix.get('header', [])"
                             t-as="column_header"
                         >
-                            <th class="border-top-0 text-center">
-                                <t t-if="not column_header_first">
-                                    <span t-esc="column_header.get('name')" />
-                                    <t t-if="column_header.get('price')">
-                                        <span class="badge badge-pill badge-secondary">
+                            <t
+                                t-if="not (column_header_first and product_matrix.get('matrix') and product_matrix['matrix'][0] and not product_matrix['matrix'][0][0].get('name'))"
+                            >
+                                <th class="border-top-0 text-center">
+                                    <t t-if="not column_header_first">
+                                        <span t-esc="column_header.get('name')" />
+                                        <t t-if="column_header.get('price')">
                                             <span
-                                                class="variant_price_extra"
-                                                style="white-space: nowrap;"
+                                                class="badge badge-pill badge-secondary"
                                             >
-                                                + <t
-                                                    t-esc="column_header['price']"
-                                                    t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
-                                                />
+                                                <span
+                                                    class="variant_price_extra"
+                                                    style="white-space: nowrap;"
+                                                >
+                                                    + <t
+                                                        t-esc="column_header['price']"
+                                                        t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                                                    />
+                                                </span>
                                             </span>
-                                        </span>
+                                        </t>
                                     </t>
-                                </t>
-                            </th>
+                                </th>
+                            </t>
                         </t>
                     </tr>
                 </thead>
                 <tbody>
                     <tr t-foreach="product_matrix.get('matrix', [])" t-as="row">
                         <t t-foreach="row" t-as="cell">
-                            <td t-if="cell.get('name')" class="text-left">
-                                <strong t-esc="cell['name']" />
-                                <t t-if="cell.get('price')">
-                                    <span class="badge badge-pill badge-secondary">
-                                        <span
-                                            class="variant_price_extra"
-                                            style="white-space: nowrap;"
-                                        >
-                                            <t
-                                                t-esc="cell['price']"
-                                                t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
-                                            />
+                            <t t-if="not (cell_first and not cell.get('name'))">
+                                <td t-if="cell.get('name')" class="text-left">
+                                    <strong t-esc="cell['name']" />
+                                    <t t-if="cell.get('price')">
+                                        <span class="badge badge-pill badge-secondary">
+                                            <span
+                                                class="variant_price_extra"
+                                                style="white-space: nowrap;"
+                                            >
+                                                <t
+                                                    t-esc="cell['price']"
+                                                    t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                                                />
+                                            </span>
                                         </span>
-                                    </span>
-                                </t>
-                            </td>
-                            <td t-else="" class="text-center">
-                                <div
-                                    t-if="cell.get('is_possible_combination')"
-                                    class="css_quantity input-group input-group-sm justify-content-center"
-                                >
-                                    <a
-                                        t-attf-href="#"
-                                        class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
-                                        aria-label="Remove one"
-                                        title="Remove one"
+                                    </t>
+                                </td>
+                                <td t-else="" class="text-center">
+                                    <div
+                                        t-if="cell.get('is_possible_combination')"
+                                        class="css_quantity input-group input-group-sm justify-content-center"
                                     >
-                                        <i class="fa fa-minus" />
-                                    </a>
-                                    <input
-                                        type="text"
-                                        class="o_matrix_input text-center form-control border-start-0 border-end-0"
-                                        data-min="0"
-                                        name="add_qty"
-                                        t-att-data-ptav_ids="cell['ptav_ids']"
-                                        t-att-value="cell['qty'] and int(cell['qty']) or '0'"
-                                    />
-                                    <a
-                                        t-attf-href="#"
-                                        class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
-                                        aria-label="Add one"
-                                        title="Add one"
-                                    >
-                                        <i class="fa fa-plus" />
-                                    </a>
-                                </div>
-                                <span
-                                    t-else=""
-                                    class="o_matrix_cell o_matrix_text_muted o_matrix_nocontent_container"
-                                > Not available </span>
-                            </td>
+                                        <a
+                                            t-attf-href="#"
+                                            class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
+                                            aria-label="Remove one"
+                                            title="Remove one"
+                                        >
+                                            <i class="fa fa-minus" />
+                                        </a>
+                                        <input
+                                            type="text"
+                                            class="o_matrix_input text-center form-control border-start-0 border-end-0"
+                                            data-min="0"
+                                            name="add_qty"
+                                            t-att-data-ptav_ids="cell['ptav_ids']"
+                                            t-att-value="cell['qty'] and int(cell['qty']) or '0'"
+                                        />
+                                        <a
+                                            t-attf-href="#"
+                                            class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
+                                            aria-label="Add one"
+                                            title="Add one"
+                                        >
+                                            <i class="fa fa-plus" />
+                                        </a>
+                                    </div>
+                                    <span
+                                        t-else=""
+                                        class="o_matrix_cell o_matrix_text_muted o_matrix_nocontent_container"
+                                    > Not available </span>
+                                </td>
+                            </t>
                         </t>
                     </tr>
                 </tbody>
