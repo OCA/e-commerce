@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-08 16:34+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2026-02-25 07:27+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute_value
@@ -24,14 +24,12 @@ msgstr "Valore attributo"
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image_published
 msgid "Display attribute image in shop online product detail"
-msgstr ""
-"Visualizza l'immagine atributo nei dettagli prodotto del negozio online"
+msgstr "Visualizza l'immagine atributo nei dettagli prodotto del negozio online"
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model.fields,help:website_sale_product_detail_attribute_image.field_product_attribute__website_product_detail_image
 msgid "Image of the attribute for shop online product detail."
-msgstr ""
-"Immagine dell'attributo per i dettagli del prodotto nel negozio online."
+msgstr "Immagine dell'attributo per i dettagli del prodotto nel negozio online."
 
 #. module: website_sale_product_detail_attribute_image
 #: model:ir.model,name:website_sale_product_detail_attribute_image.model_product_attribute
