@@ -59,13 +59,14 @@ odoo.define("website_sale_require_legal.tour", function (require) {
             trigger: "div[name='o_checkbox_container'] input",
         },
         {
-            trigger: ".btn-primary:contains('Pay Now')",
-        },
-        {
             trigger: '#payment_method label:contains("Dummy Provider")',
         },
         {
-            trigger: 'button[name="o_payment_submit_button"]',
+            trigger: 'button[name="o_payment_submit_button"]:not([disabled])',
+        },
+        {
+            content: "Wait for payment to be processed and redirect",
+            trigger: "form.oe_product_cart",
         },
     ];
 
