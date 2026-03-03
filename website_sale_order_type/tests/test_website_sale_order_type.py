@@ -18,8 +18,14 @@ class TestFrontend(HttpCase):
             }
         )
         cls.partner = cls.env.ref("base.partner_admin")
+        cls.website = cls.env["website"].search(
+            [("company_id", "=", cls.env.company.id)], limit=1
+        )
         cls.sale_pricelist = cls.env["product.pricelist"].create(
-            {"name": "Test Pricelist"}
+            {
+                "name": "Test Pricelist",
+                "website_id": cls.website.id,
+            }
         )
         cls.sale_type = cls.create_sale_type()
 
@@ -61,4 +67,22 @@ class TestFrontend(HttpCase):
         created_order = capture.records
         self.assertEqual(created_order.type_id, self.sale_type)
         self.assertEqual(created_order.payment_term_id, self.sale_type.payment_term_id)
-        self.assertEqual(created_order.pricelist_id, self.sale_type.pricelist_id)
+        if self.env["res.groups"]._is_feature_enabled(
+            "product.group_product_pricelist"
+        ):
+            self.assertEqual(created_order.pricelist_id, self.sale_type.pricelist_id)
+        else:
+            self.assertFalse(created_order.pricelist_id)
+
+    def test_get_pricelist_available_filtered_by_sale_type(self):
+        if not self.env["res.groups"]._is_feature_enabled(
+            "product.group_product_pricelist"
+        ):
+            self.skipTest("Pricelist feature is disabled.")
+        self.partner.sale_type = self.sale_type
+        admin = self.env.ref("base.user_admin")
+        website = self.env["website"].get_current_website().with_user(admin)
+
+        pricelists = website.get_pricelist_available()
+
+        self.assertEqual(pricelists, self.sale_type.pricelist_id)
