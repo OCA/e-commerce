@@ -19,6 +19,9 @@
                 name="t-if"
             >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
         </xpath>
+        <xpath expr="//t[@t-as='a']/t[@t-cache]" position="attributes">
+            <attribute name="t-cache" add="attr_values_used_ids" separator=","/>
+        </xpath>
     </template>
     <template id="o_wsale_offcanvas" inherit_id="website_sale.o_wsale_offcanvas">
         <xpath expr="//t[@t-foreach='a.value_ids']" position="attributes">
@@ -30,6 +33,9 @@
             <attribute
                 name="t-if"
             >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+        <xpath expr="//t[@t-as='a']/t[@t-cache]" position="attributes">
+            <attribute name="t-cache" add="attr_values_used_ids" separator=","/>
         </xpath>
     </template>
     <template
