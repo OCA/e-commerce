@@ -4,7 +4,7 @@
         id="compare_page_hide_price"
         inherit_id="website_sale_comparison.product_compare"
     >
-        <xpath expr="//del[contains(@t-esc,'list_price')]/.." position="before">
+        <xpath expr="//span[del[contains(@t-out,'list_price')]]" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
                 class="alert alert-info"
@@ -16,28 +16,13 @@
                 />
             </div>
         </xpath>
-        <xpath expr="//del[contains(@t-esc,'list_price')]/.." position="attributes">
+        <xpath expr="//span[del[contains(@t-out,'list_price')]]" position="attributes">
             <attribute name="t-if">
-                website.website_show_price and not product.website_hide_price
-            </attribute>
-        </xpath>
-        <xpath expr="//form[@action='/shop/cart/update']" position="attributes">
-            <attribute name="t-if">
-                website.website_show_price and not product.website_hide_price
-            </attribute>
-        </xpath>
-    </template>
-    <template
-        id="compare_popover_hide_price"
-        inherit_id="website_sale_comparison.product_product"
-    >
-        <xpath expr="//span[contains(@t-out,'price')]" position="attributes">
-            <attribute name="t-if">
-                website.website_show_price and not product.website_hide_price
+                not combination_info['prevent_zero_price_sale'] and website.website_show_price and not product.website_hide_price
             </attribute>
         </xpath>
         <xpath
-            expr="//div[span[contains(@t-out,'combination_info')]]"
+            expr="//div[button[@name='comparison_add_to_cart']]"
             position="attributes"
         >
             <attribute name="t-if">
