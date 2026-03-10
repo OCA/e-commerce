@@ -56,14 +56,14 @@ class ProductTemplate(models.Model):
         combination=False,
         product_id=False,
         add_qty=1,
-        parent_combination=False,
+        uom_id=False,
         only_template=False,
     ):
         combination_info = super()._get_combination_info(
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            parent_combination=parent_combination,
+            uom_id=uom_id,
             only_template=only_template,
         )
         if combination_info["product_id"]:
