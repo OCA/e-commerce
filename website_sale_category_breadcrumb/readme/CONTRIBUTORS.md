@@ -1,0 +1,3 @@
+- Radovan Skolnik \<radovan@skolnik.info\>
+- [Tecnativa](https://www.tecnativa.com):
+  - Carlos Lopez
