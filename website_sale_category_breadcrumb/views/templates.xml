@@ -2,7 +2,7 @@
 <odoo>
     <template id="breadcrumb" inherit_id="website_sale.product" priority="999">
         <xpath
-            expr="//ol[hasclass('breadcrumb')]/li[@t-if='category']"
+            expr="//li[@t-nocache][hasclass('breadcrumb-item')][@t-if='category']"
             position="replace"
         >
             <t
@@ -31,10 +31,7 @@
         customize_show="True"
         active="True"
     >
-        <xpath
-            expr="//section[@id='product_detail']/div[hasclass('row')]"
-            position="inside"
-        >
+        <xpath expr="//div[@id='product_detail_main']" position="before">
             <div class="col-md-12">
                 <t
                     t-if="product.public_categ_ids and ((not category) or (not category in product.public_categ_ids) or (category in product.public_categ_ids and len(product.public_categ_ids) &gt; 1))"
