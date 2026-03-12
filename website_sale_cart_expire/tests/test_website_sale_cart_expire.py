@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 from freezegun import freeze_time
 
-from odoo import fields
+from odoo import Command, fields
 
 from odoo.addons.base.tests.common import BaseCommon
 
@@ -18,20 +18,49 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         cls.tx_counter = 0
         # Websites
         cls.website_1 = cls.env.ref("website.default_website")
-        cls.website_2 = cls.env.ref("website.website2")
+        cls.website_2 = cls.env["website"].create(
+            {"name": "My Website 2", "sequence": 20}
+        )
         cls.website_1.cart_expire_delay = 0.00  # hours (= disabled)
         cls.website_2.cart_expire_delay = 2.00  # hours
+        cls.partner = cls.env["res.partner"].create({"name": "Test"})
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Desk Combination",
+                "type": "consu",
+            }
+        )
         # Orders
-        cls.order_1 = cls.env.ref("website_sale.website_sale_order_1")
-        cls.order_2 = cls.env.ref("website_sale.website_sale_order_2")
-        cls.order_3 = cls.env.ref("website_sale.website_sale_order_3")
-        cls.order_4 = cls.env.ref("website_sale.website_sale_order_4")
-        cls.orders = cls.order_1 + cls.order_2 + cls.order_3 + cls.order_4
-        # Set to draft and assign all to website_2
-        # (this also updates write_date to now())
-        cls.orders.write({"state": "draft", "website_id": cls.website_2.id})
+        cls.order_1 = cls._create_cart_order()
+        cls.order_2 = cls._create_cart_order()
+        cls.order_3 = cls._create_cart_order()
+        cls.order_4 = cls._create_cart_order()
+        cls.orders = cls.order_1 | cls.order_2 | cls.order_3 | cls.order_4
         cls.payment_method = cls.env["payment.method"].create(
             {"name": "Test_method", "code": "123"}
+        )
+
+    @classmethod
+    def _create_cart_order(cls):
+        return cls.env["sale.order"].create(
+            {
+                "partner_id": cls.partner.id,
+                "partner_invoice_id": cls.partner.id,
+                "partner_shipping_id": cls.partner.id,
+                # Set to draft and assign all to website_2
+                # (this also updates write_date to now())
+                "website_id": cls.website_2.id,
+                "state": "draft",
+                "order_line": [
+                    Command.create(
+                        {
+                            "product_id": cls.product.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 100.0,
+                        },
+                    )
+                ],
+            }
         )
 
     def _create_payment_transaction(self, order):
@@ -77,7 +106,7 @@ class TestWebsiteSaleCartExpire(BaseCommon):
 
     def test_expire_scheduler_multi_website(self):
         # For this test, we split the orders among the 2 websites
-        (self.order_1 + self.order_2).write({"website_id": self.website_1.id})
+        (self.order_1 | self.order_2).write({"website_id": self.website_1.id})
         with freeze_time(datetime.now() + timedelta(hours=3)):
             self.env["website"]._scheduler_website_expire_cart()
         self.assertEqual(self.order_1.state, "draft", "No expire delay on website 1")

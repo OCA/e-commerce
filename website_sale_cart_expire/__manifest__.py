@@ -5,7 +5,7 @@
 {
     "name": "Website Sale Cart Expire",
     "summary": "Cancel carts without activity after a configurable time",
-    "version": "18.0.1.0.1",
+    "version": "19.0.1.0.0",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "maintainers": ["ivantodorovich"],
     "website": "https://github.com/OCA/e-commerce",

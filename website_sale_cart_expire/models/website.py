@@ -5,8 +5,8 @@
 import logging
 from datetime import timedelta
 
-from odoo import _, api, fields, models
-from odoo.osv import expression
+from odoo import api, fields, models
+from odoo.fields import Domain
 
 _logger = logging.getLogger(__name__)
 
@@ -24,26 +24,27 @@ class Website(models.Model):
     def _get_cart_expire_delay_domain(self):
         self.ensure_one()
         expire_date = fields.Datetime.now() - timedelta(hours=self.cart_expire_delay)
-        return [
-            ("website_id", "=", self.id),
-            ("state", "=", "draft"),
-            ("write_date", "<=", expire_date),
+        return (
+            Domain("website_id", "=", self.id)
+            & Domain("state", "=", "draft")
+            & Domain("write_date", "<=", expire_date)
             # We don't want to cancel carts that are already in payment.
-            "|",
-            ("transaction_ids", "=", False),
-            "!",
-            ("transaction_ids.state", "in", ["pending", "authorized", "done"]),
-        ]
+            & (
+                Domain(
+                    "transaction_ids",
+                    "not any",
+                    Domain("state", "in", ["pending", "authorized", "done"]),
+                )
+            )
+        )
 
     @api.model
     def _scheduler_website_expire_cart(self, autocommit=False):
-        websites = self.search([("cart_expire_delay", ">", 0)])
+        websites = self.search(Domain("cart_expire_delay", ">", 0))
         if not websites:
             return True
         carts = self.env["sale.order"].search(
-            expression.OR(
-                [website._get_cart_expire_delay_domain() for website in websites]
-            )
+            Domain.OR([website._get_cart_expire_delay_domain() for website in websites])
         )
         now = fields.Datetime.now()
         for cart in carts:
@@ -51,7 +52,7 @@ class Website(models.Model):
                 continue
             try:
                 with self.env.cr.savepoint():
-                    cart.message_post(body=_("Cart expired"))
+                    cart.message_post(body=self.env._("Cart expired"))
                     cart.action_cancel()
             except Exception as e:
                 _logger.exception("Unable to cancel expired cart %s: %s", cart, e)
