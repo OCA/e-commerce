@@ -10,8 +10,8 @@ class ProductTemplate(models.Model):
     def _search_get_detail(self, website, order, options):
         res = super()._search_get_detail(website, order, options)
         domain = res["base_domain"]
-        brand_id = options.get("brand")
-        if brand_id:
-            domain.append([("product_brand_id", "=", brand_id)])
+        brand_ids = options.get("brand_ids")
+        if brand_ids:
+            domain.append([("product_brand_id", "in", brand_ids)])
         res["base_domain"] = domain
         return res

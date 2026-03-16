@@ -9,6 +9,7 @@ registry.category("web_tour.tours").add("website_sale_product_brand", {
         {
             trigger: "a[href='/page/product_brands']",
             content: "Go to 'Product brand' page",
+            expectUnloadPage: true,
             run: "click",
         },
         {
@@ -19,11 +20,14 @@ registry.category("web_tour.tours").add("website_sale_product_brand", {
         {
             content: "Click to search Apple",
             trigger: 'form:has(input[name="search"]) button',
+            expectUnloadPage: true,
             run: "click",
         },
         {
             content: "select Apple",
-            trigger: 'section a div:contains("Apple")',
+            trigger: 'section a:has(span:contains("Apple"))',
+            expectUnloadPage: true,
+            run: "click",
         },
     ],
 });

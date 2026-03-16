@@ -11,3 +11,6 @@
   > - Carlos López
   > - Pilar Vargas
 
+- [Studio73](https://www.studio73.es):
+  > - Alex Garcia <[alex@studio73.es]>
+

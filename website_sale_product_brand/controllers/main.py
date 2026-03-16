@@ -2,26 +2,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import http
+from odoo.fields import Domain
 from odoo.http import request
-from odoo.osv import expression
 
 from odoo.addons.website_sale.controllers.main import QueryURL, WebsiteSale
 
 
 class WebsiteSale(WebsiteSale):
-    def _get_shop_domain(
-        self, search, category, attrib_values, search_in_description=True
-    ):
-        domain = super()._get_shop_domain(
-            search=search,
-            category=category,
-            attrib_values=attrib_values,
-            search_in_description=search_in_description,
-        )
-        # add selected brands to product search domain
-        brands_list = self._get_brand_ids(request.httprequest.args)
-        return self._update_domain(brands_list, domain)
-
     def _update_domain(self, brands_list, domain):
         selected_brand_ids = [int(brand) for brand in brands_list]
         if brands_list:
@@ -49,20 +36,20 @@ class WebsiteSale(WebsiteSale):
             domain = [("product_ids", "in", search_products.ids)]
         return (
             request.env["product.brand"]
+            .sudo()
             .search(domain)
-            .filtered(lambda x: x.products_count > 0)
+            .filtered(lambda x: x.is_published and x.published_products_count > 0)
         )
 
     def _get_shop_domain_no_brands(
-        self, search, category, attrib_values, search_in_description
+        self, search, category, attribute_value_dict, search_in_description
     ):
-        domain = super()._get_shop_domain(
-            search=search,
-            category=category,
-            attrib_values=attrib_values,
+        return super()._get_shop_domain(
+            search,
+            category,
+            attribute_value_dict,
             search_in_description=search_in_description,
         )
-        return domain
 
     def _remove_extra_brands(self, brands, search_products, attrib_values):
         if attrib_values:
@@ -74,8 +61,8 @@ class WebsiteSale(WebsiteSale):
     def _get_search_options(
         self,
         category=None,
-        attrib_values=None,
-        pricelist=None,
+        attribute_value_dict=None,
+        tags=None,
         min_price=0.0,
         max_price=0.0,
         conversion_rate=1,
@@ -83,26 +70,35 @@ class WebsiteSale(WebsiteSale):
     ):
         res = super()._get_search_options(
             category=category,
-            attrib_values=attrib_values,
-            pricelist=pricelist,
+            attribute_value_dict=attribute_value_dict,
+            tags=tags,
             min_price=min_price,
             max_price=max_price,
             conversion_rate=conversion_rate,
             **post,
         )
-        res["brand"] = request.context.get("brand_id")
+        res["brand_ids"] = request.env.context.get("brand_ids")
         return res
 
     def _get_shop_domain(
-        self, search, category, attrib_values, search_in_description=True
+        self, search, category, attribute_value_dict, search_in_description=True
     ):
         domain = super()._get_shop_domain(
-            search, category, attrib_values, search_in_description=search_in_description
+            search,
+            category,
+            attribute_value_dict,
+            search_in_description=search_in_description,
         )
-        if "brand_id" in request.context:
-            domain = expression.AND(
-                [domain, [("product_brand_id", "=", request.context["brand_id"])]]
+        brand_ids = request.env.context.get("brand_ids") or [
+            int(b)
+            for b in (
+                request.httprequest.args.getlist("brand")
+                or request.httprequest.args.getlist("brand_ids")
             )
+            if b and str(b).isdigit()
+        ]
+        if brand_ids:
+            domain = Domain.AND([domain, [("product_brand_id", "in", brand_ids)]])
         return domain
 
     @http.route(
@@ -129,9 +125,12 @@ class WebsiteSale(WebsiteSale):
         brand=None,
         **post,
     ):
-        if brand:
-            context = dict(request.context)
-            context.setdefault("brand_id", int(brand))
+        brands_list = self._get_brand_ids(request.httprequest.args)
+        if brands_list:
+            request.update_context(brand_ids=[int(b) for b in brands_list])
+        elif brand:
+            context = dict(request.env.context)
+            context.setdefault("brand_ids", [int(brand)])
             request.update_context(**context)
         res = super().shop(
             page=page,
@@ -143,19 +142,19 @@ class WebsiteSale(WebsiteSale):
             brand=brand,
             **post,
         )
-        # parse selected attributes
-        attrib_list = request.httprequest.args.getlist("attribute_value")
-        attrib_values = res.qcontext["attrib_values"]
-        if attrib_list:
-            post["attribute_value"] = attrib_list
-        # get filtered products
-        products = res.qcontext["products"]
+        qcontext = getattr(res, "qcontext", None) or {}
+        attrib_values = qcontext.get("attrib_values")
+        products = qcontext.get("products")
+        if attrib_values is None or products is None:
+            return res
+        attribute_values = request.httprequest.args.getlist("attribute_values")
+        if attribute_values:
+            post["attribute_values"] = attribute_values
         domain = self._get_shop_domain_no_brands(
             search, category, attrib_values, search_in_description=False
         )
         search_products = request.env["product.template"].search(domain)
         # build brands list
-        brands_list = self._get_brand_ids(request.httprequest.args)
         selected_brand_ids = [int(brand) for brand in brands_list]
         brands = self._build_brands_list(
             selected_brand_ids, search, products, search_products, category
@@ -178,22 +177,16 @@ class WebsiteSale(WebsiteSale):
             )
             .ids
         )
-        # keep selected brands in URL
-        keep = QueryURL(
-            "/shop",
-            **self._shop_get_query_url_kwargs(
-                category and int(category), search, min_price, max_price, **post
-            ),
-            brand=brands_list,
-            brand_ids=selected_brand_ids,
-        )
+        keep = qcontext.get("keep")
+        if keep and hasattr(keep, "args"):
+            keep.args["brand"] = brands_list
+            keep.args["brand_ids"] = selected_brand_ids
         # assign values for usage in qweb
-        res.qcontext.update(
+        qcontext.update(
             {
                 "brands": brands,
                 "selected_brand_ids": selected_brand_ids,
                 "attr_valid": attrib_valid_ids,
-                "keep": keep,
             }
         )
         return res
@@ -205,7 +198,11 @@ class WebsiteSale(WebsiteSale):
         domain = [("website_published", "=", True)]
         if post.get("search"):
             domain += [("name", "ilike", post.get("search"))]
-        brand_rec = b_obj.sudo().search(domain)
+        brand_rec = (
+            b_obj.sudo()
+            .search(domain)
+            .filtered(lambda x: x.published_products_count > 0)
+        )
 
         keep = QueryURL("/page/product_brands", brand_id=[])
         values = {"brand_rec": brand_rec, "keep": keep}
