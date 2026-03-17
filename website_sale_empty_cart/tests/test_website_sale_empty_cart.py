@@ -5,12 +5,12 @@
 from odoo.tests.common import tagged
 
 from odoo.addons.website.tools import MockRequest
-from odoo.addons.website_sale.tests.test_website_sale_cart import WebsiteSaleCart
+from odoo.addons.website_sale.tests.test_website_sale_cart import TestWebsiteSaleCart
 from odoo.addons.website_sale_empty_cart.controllers.main import WebsiteSaleEmptyCart
 
 
 @tagged("post_install", "-at_install")
-class TestWebsiteSaleEmptyCart(WebsiteSaleCart):
+class TestWebsiteSaleEmptyCart(TestWebsiteSaleCart):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
