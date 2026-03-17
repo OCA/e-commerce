@@ -2,7 +2,6 @@
 <!-- Copyright 2025 Alberto Martínez <alberto.martinez@sygel.es>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <template id="total_empty_cart" inherit_id="payment.express_checkout">
         <xpath expr="//form[@name='o_payment_express_checkout_form']" position="before">
             <div
@@ -34,5 +33,4 @@
             </div>
         </xpath>
     </template>
-
 </odoo>
