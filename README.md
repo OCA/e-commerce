@@ -17,7 +17,11 @@ e-commerce
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[website_sale_cart_expire](website_sale_cart_expire/) | 19.0.1.0.0 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Cancel carts without activity after a configurable time
 
 [//]: # (end addons)
 

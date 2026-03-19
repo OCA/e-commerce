@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addons-oca-e-commerce"
+version = "19.0.20260319.0"
+dependencies = [
+    "odoo-addon-website_sale_cart_expire==19.0.*",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 19.0",
+]
