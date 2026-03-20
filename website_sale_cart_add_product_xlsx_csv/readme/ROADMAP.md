@@ -1,0 +1,1 @@
+- Despithe the fact that the cart button is enabled by default, some Odoo instances have the website configured to hide it if it is empty. If the shopping cart button is hidden without anything in it, the functionality cannot be used until something is added to the cart.
