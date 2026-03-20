@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [website_sale_b2x_alt_price](website_sale_b2x_alt_price/) | 17.0.1.0.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Display prices with(out) taxes in eCommerce, complementing normal mode
+[website_sale_cart_add_product_xlsx_csv](website_sale_cart_add_product_xlsx_csv/) | 17.0.1.0.0 |  | Adds button to import xlsx or csv in website cart
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 17.0.1.0.1 |  | Skip payment for logged users in checkout process
 [website_sale_empty_cart](website_sale_empty_cart/) | 17.0.1.0.0 |  | Adds a button in the website cart to empty all
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 17.0.1.0.0 |  | Hide any Product Categories that are empty
