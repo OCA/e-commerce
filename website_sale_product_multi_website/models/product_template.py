@@ -1,43 +1,62 @@
-import logging
-
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
-from odoo.http import request
-
-_logger = logging.getLogger(__name__)
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    website_ids = fields.Many2many("website", string="Websites")
+    website_ids = fields.Many2many(
+        "website",
+        "product_template_website_rel",
+        "product_template_id",
+        "website_id",
+        string="Websites",
+        help="Restrict the product to the selected websites. Leave empty to "
+        "make it available on all websites.",
+    )
+    website_id = fields.Many2one(
+        "website",
+        string="Website",
+        compute="_compute_website_id",
+        inverse="_inverse_website_id",
+        store=True,
+    )
+
+    @api.depends("website_ids")
+    def _compute_website_id(self):
+        for record in self:
+            record.website_id = record.website_ids[:1]
+
+    def _inverse_website_id(self):
+        for record in self:
+            record.website_ids = record.website_id
 
     def can_access_from_current_website(self, website_id=False):
-        """We overwrite this method completely in order to
-        use the website_ids logic instead of website_id"""
-        website_id = website_id or request.website.id
-        for rec in self.filtered(lambda x: x.website_ids):
-            if website_id not in rec.website_ids.ids:
+        # We overwrite this method completely in order to
+        # use the website_ids logic instead of website_id
+        website_id = website_id or self.env.context.get("website_id")
+        for record in self:
+            website_ids = record.sudo().website_ids.ids
+            if website_ids and website_id not in website_ids:
                 return False
         return True
 
     @api.depends("is_published", "website_ids")
     @api.depends_context("website_id")
     def _compute_website_published(self):
-        """We overwrite this method completely in order to
-        use the website_ids logic instead of website_id"""
-        current_website_id = self._context.get("website_id")
+        # We overwrite this method completely in order to
+        # use the website_ids logic instead of website_id
+        current_website_id = self.env.context.get("website_id")
         for record in self:
-            if current_website_id:
-                record.website_published = record.is_published and (
-                    not record.website_ids
-                    or current_website_id in record.website_ids.ids
-                )
-            else:
-                record.website_published = record.is_published
+            website_ids = record.sudo().website_ids
+            record.website_published = record.is_published and (
+                not current_website_id
+                or not website_ids
+                or current_website_id in website_ids.ids
+            )
 
     def _search_website_published(self, operator, value):
-        """We overwrite this method completely in order to
-        use the website_ids logic instead of website_id"""
+        # Search with the multi_website_domain context.
         return super(
             ProductTemplate, self.with_context(multi_website_domain=True)
         )._search_website_published(operator, value)

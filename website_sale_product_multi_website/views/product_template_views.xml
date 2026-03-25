@@ -1,4 +1,4 @@
-<data>
+<odoo>
     <record id="product_template_form_view" model="ir.ui.view">
         <field name="name">product.template.inherit.view.form</field>
         <field name="model">product.template</field>
@@ -13,6 +13,7 @@
                     options="{'no_create': True}"
                     groups="website.group_multi_website"
                     widget="many2many_tags"
+                    placeholder="Empty means all websites"
                 />
             </field>
         </field>
@@ -23,7 +24,7 @@
         <field name="inherit_id" ref="website_sale.product_product_website_tree_view" />
         <field name="arch" type="xml">
             <field name="website_id" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="column_invisible">1</attribute>
             </field>
             <field name="website_id" position="after">
                 <field
@@ -41,7 +42,7 @@
         <field name="inherit_id" ref="website_sale.product_template_view_tree" />
         <field name="arch" type="xml">
             <field name="website_id" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="column_invisible">1</attribute>
             </field>
             <field name="website_id" position="after">
                 <field
@@ -53,4 +54,4 @@
             </field>
         </field>
     </record>
-</data>
+</odoo>

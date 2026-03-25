@@ -1,0 +1,83 @@
+# Copyright 2026 Tecnativa - Pilar Vargas
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+from odoo.tests import HttpCase, tagged
+
+
+@tagged("post_install", "-at_install")
+class TestWebsiteSaleProductMultiWebsite(HttpCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Create multiple websites
+        cls.website0_host = "web0.local"
+        cls.website1_host = "web1.local"
+        cls.website2_host = "web2.local"
+        cls.website0 = cls.env["website"].create(
+            {"name": "web0", "domain": cls.website0_host}
+        )
+        cls.website1 = cls.env["website"].create(
+            {"name": "web1", "domain": cls.website1_host}
+        )
+        cls.website2 = cls.env["website"].create(
+            {"name": "web2", "domain": cls.website2_host}
+        )
+
+        # Create a product template
+        cls.product_template = cls.env["product.template"].create(
+            {
+                "name": "Test Product Multi Website",
+                "is_published": True,
+                "list_price": 750,
+                "sequence": 10,
+            }
+        )
+
+    def test_01_product_without_websites_is_available_on_all_websites(self):
+        # Check that a product without website_ids is available on all websites
+        for website in (self.website0, self.website1, self.website2):
+            product = self.product_template.with_context(website_id=website.id)
+            self.assertTrue(
+                product.website_published,
+            )
+            self.assertTrue(
+                product.can_access_from_current_website(website_id=website.id)
+            )
+
+    def test_02_product_is_only_available_on_assigned_websites(self):
+        # Assign the product to only one website
+        self.product_template.website_ids = [(6, 0, self.website1.ids)]
+        # Check that the product is only available on the assigned website
+        self.assertTrue(
+            self.product_template.can_access_from_current_website(
+                website_id=self.website1.id
+            )
+        )
+        self.assertFalse(
+            self.product_template.can_access_from_current_website(
+                website_id=self.website0.id
+            )
+        )
+        self.assertFalse(
+            self.product_template.can_access_from_current_website(
+                website_id=self.website2.id
+            )
+        )
+
+    def test_03_product_is_visible_only_on_assigned_website_shop(self):
+        self.product_template.website_ids = self.website1
+        product_url = self.product_template.website_url
+        # Check that the product is listed on the assigned website
+        response = self.url_open(
+            "/shop?search=Test+Product+Multi+Website",
+            headers={"Host": self.website1_host},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(product_url, response.text)
+        # Check that the product is not listed on non-assigned websites
+        for host in (self.website0_host, self.website2_host):
+            response = self.url_open(
+                "/shop?search=Test+Product+Multi+Website",
+                headers={"Host": host},
+            )
+            self.assertEqual(response.status_code, 200)
+            self.assertNotIn(product_url, response.text)
