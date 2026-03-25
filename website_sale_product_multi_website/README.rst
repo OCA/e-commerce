@@ -1,5 +1,9 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ==================================
-Website sale product multi website
+Website Sale Product Multi Website
 ==================================
 
 .. 
@@ -13,31 +17,47 @@ Website sale product multi website
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_sale_product_multi_website
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_product_multi_website
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_sale_product_multi_website
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_product_multi_website
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-By default, Odoo allows to set just one (or all) website for products to be sold on eCommerces, by setting the field product_template.website_ids (a many2one field). This module allows to set more than one value (website) in this field (convert it in a many2many field).
+This module extends that behavior by allowing products to be linked to
+multiple websites through a new ``website_ids`` field. It also adapts
+the website publication and access logic so products are only available
+on the selected websites.
+
+This is useful in multi-website environments where the same catalog item
+must be shared across some websites, but not all of them.
 
 **Table of contents**
 
 .. contents::
    :local:
 
+Use Cases / Context
+===================
+
+Standard Odoo only allows linking a product to one website through the
+``website_id`` field. As a result, a product can be restricted to a
+single website or made globally available, but it cannot be assigned to
+several specific websites.
+
 Usage
 =====
-#. Just install it.
+
+1. Go to **Website fields** on the product form.
+2. Select the websites where the product should be available.
 
 Bug Tracker
 ===========
@@ -45,7 +65,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_multi_website0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_product_multi_website%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -53,24 +73,24 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
-* Agile Business Group
+* Adhoc S.A.
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Simone Rubino <simone.rubino@agilebg.com>
+-  Pablo Montenegro
+-  Katherine Zaoral
+-  Juan Jose Scarafia
+-  lav-adhoc
+-  Manuela Cepeda
+-  Tecnativa (<https://www.tecnativa.com>):
 
-
-* `Tecnativa <https://www.tecnativa.com>`_:
-
-    * João Marques
-    * Pilar Vargas
-    * Stefan Ungureanu
+   -  Pilar Vargas
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -82,17 +102,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-.. |maintainer-stefan-tecnativa| image:: https://github.com/stefan-tecnativa.png?size=40px
-    :target: https://github.com/stefan-tecnativa
-    :alt: stefan-tecnativa
-.. |maintainer-pilarvargas-tecnativa| image:: https://github.com/pilarvargas-tecnativa.png?size=40px
-    :target: https://github.com/pilarvargas-tecnativa
-    :alt: pilarvargas-tecnativa
-
-Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
-
-|maintainer-stefan-tecnativa| |maintainer-pilarvargas-tecnativa|
-
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_sale_product_multi_website>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_product_multi_website>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
