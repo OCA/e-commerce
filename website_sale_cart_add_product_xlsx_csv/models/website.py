@@ -15,7 +15,7 @@ class Website(models.Model):
     _sql_constraints = [
         (
             "cart_import_button_file_limit_min",
-            "CHECK (vat_prorate > 0)",
+            "CHECK (cart_import_button_file_limit > 0)",
             "The file size limit must be positive",
         ),
     ]
