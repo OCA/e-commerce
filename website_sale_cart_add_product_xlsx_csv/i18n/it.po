@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-03-26 14:45+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.cart_lines_import
@@ -20,54 +22,56 @@ msgid ""
 "<span class=\"s_website_form_label_content fw-bold\">You can import the cart"
 " with a xlsx/csv file</span>"
 msgstr ""
+"<span class=\"s_website_form_label_content fw-bold\">È possibile importare "
+"il carrello con un file xlsx/csv</span>"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.cart_lines_import
 msgid "<span>Download example file</span>"
-msgstr ""
+msgstr "<span>Scarica il file di esempio</span>"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.res_config_settings_view_form
 msgid "Cart Import Button"
-msgstr ""
+msgstr "Pulsante importazione carrello"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.res_config_settings_view_form
 msgid "Cart Import Button File Size Limit (MB)"
-msgstr ""
+msgstr "Limite dimensione file pulsante importazione carrello (MB)"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model:ir.model.fields,field_description:website_sale_cart_add_product_xlsx_csv.field_res_config_settings__cart_import_button_file_limit
 #: model:ir.model.fields,field_description:website_sale_cart_add_product_xlsx_csv.field_website__cart_import_button_file_limit
 msgid "Cart import button file size limit (MB)"
-msgstr ""
+msgstr "Limite dimensione file pulsante importazione carrello (MB)"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model:ir.model,name:website_sale_cart_add_product_xlsx_csv.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Impostazioni configurazione"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.res_config_settings_view_form
 msgid "Enable or disable the cart import button"
-msgstr ""
+msgstr "Abilita o disabilita il pulsante importazione carrello"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.cart_lines_import
 msgid "Import success"
-msgstr ""
+msgstr "Importazione riuscita"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.cart_lines_import
 msgid "Importation error."
-msgstr ""
+msgstr "Errore importazione."
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "Incorrect file format, it must me a .xlsx or a .csv"
-msgstr ""
+msgstr "Formato file errato, deve essere un .xlsx o un .csv"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
@@ -77,80 +81,82 @@ msgid ""
 "Incorrect file format, the columns should be 'default_code' and "
 "'product_uom_qty'"
 msgstr ""
+"Formato file errato, le colonne dovrebbero essere 'default_code' e "
+"'product_uom_qty'"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model:ir.model.fields,field_description:website_sale_cart_add_product_xlsx_csv.field_res_config_settings__cart_import_button
 #: model:ir.model.fields,field_description:website_sale_cart_add_product_xlsx_csv.field_website__cart_import_button
 msgid "Is the cart import button enabled?"
-msgstr ""
+msgstr "Il pulsante importazione carrello è abilitato?"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model_terms:ir.ui.view,arch_db:website_sale_cart_add_product_xlsx_csv.cart_lines_import
 msgid "Partial import. The following products had errors:"
-msgstr ""
+msgstr "Importazione parziale. I seguenti prodotti hanno errori:"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "Product can not be sold"
-msgstr ""
+msgstr "Il prodotto non può essere venduto"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "Product is not published on the website"
-msgstr ""
+msgstr "Il prodotto non è pubblicato nel sito web"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "Product max saleable qty is {}"
-msgstr ""
+msgstr "La massima quantità vendibile del prodotto è {}"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "The file size is greater than the maximum allowed, {} MB"
-msgstr ""
+msgstr "La dimensione del file è superiore alla massima consentita, {} MB"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model:ir.model.constraint,message:website_sale_cart_add_product_xlsx_csv.constraint_website_cart_import_button_file_limit_min
 msgid "The file size limit must be positive"
-msgstr ""
+msgstr "Il limite della dimensione del file deve essere positivo"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "The product is archived"
-msgstr ""
+msgstr "Il prodotto è archiviato"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "The product was not found"
-msgstr ""
+msgstr "Il prodotto non è stato trovato"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "The quantity is not a number"
-msgstr ""
+msgstr "La quantità non è un numero"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #. odoo-python
 #: code:addons/website_sale_cart_add_product_xlsx_csv/controllers/main.py:0
 #, python-format
 msgid "The quantity should be a positive number"
-msgstr ""
+msgstr "La quantità deve essere un numero positivo"
 
 #. module: website_sale_cart_add_product_xlsx_csv
 #: model:ir.model,name:website_sale_cart_add_product_xlsx_csv.model_website
 msgid "Website"
-msgstr ""
+msgstr "Sito web"
