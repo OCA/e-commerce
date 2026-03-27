@@ -18,6 +18,9 @@ class Website(http.Controller):
             [
                 ("parent_id", "=", False),
                 ("published_in_product_category_snippet", "=", True),
+                "|",
+                ("snippet_website_ids", "=", False),
+                ("snippet_website_ids", "=", request.website.id),
             ]
         )
         keep = QueryURL("/shop", category=0)
