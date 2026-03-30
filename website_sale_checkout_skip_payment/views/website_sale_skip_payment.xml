@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template id="confirmation_order_error">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop - Confirmation - Error</t>
+            <div id="wrap">
+                <div class="container oe_website_sale">
+                    <div class="row">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> An error occurred trying to
+                            confirm the sale order.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
