@@ -14,9 +14,14 @@ class ProductPublicCategory(models.Model):
     )
 
     @api.depends("product_tmpl_ids", "child_id.has_product_recursive")
+    @api.depends_context("website_id")
     def _compute_has_product_recursive(self):
         for category in self:
-            category.has_product_recursive = bool(
-                category.product_tmpl_ids
-                or any(child.has_product_recursive for child in category.child_id)
+            website = self.env["website"].get_current_website()
+            website_domain = website.website_domain()
+            has_products = bool(
+                category.product_tmpl_ids.filtered_domain(website_domain)
+            )
+            category.has_product_recursive = has_products or any(
+                child.has_product_recursive for child in category.child_id
             )
