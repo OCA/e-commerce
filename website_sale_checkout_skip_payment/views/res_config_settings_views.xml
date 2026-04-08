@@ -16,6 +16,17 @@
                         </div>
                     </div>
                 </setting>
+                <setting
+                    id="sale_checkout_payment_skip_message"
+                    string="Sale Checkout Payment Skip Message"
+                    help="Message shown to the user during the payment step when payment will be skipped"
+                >
+                    <div class="content-group">
+                        <div class="row">
+                            <field name="website_sale_checkout_payment_skip_message" />
+                        </div>
+                    </div>
+                </setting>
             </xpath>
         </field>
     </record>

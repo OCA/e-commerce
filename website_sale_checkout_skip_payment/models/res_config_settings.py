@@ -11,3 +11,8 @@ class ResConfigSettings(models.TransientModel):
         related="website_id.website_sale_checkout_skip_message",
         readonly=False,
     )
+    website_sale_checkout_payment_skip_message = fields.Html(
+        string="Message displayed instead of payment methods.",
+        related="website_id.website_sale_checkout_payment_skip_message",
+        readonly=False,
+    )
