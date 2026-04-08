@@ -60,6 +60,27 @@ msgid "Contact"
 msgstr "Contato"
 
 #. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,help:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_payment_skip_message
+#: model:ir.model.fields,help:website_sale_checkout_skip_payment.field_website__website_sale_checkout_payment_skip_message
+msgid ""
+"Fill in this with a message for the customer to confirm the order as payment "
+"will be skipped."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_payment_skip_message
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_payment_skip_message
+msgid "Message displayed instead of payment methods."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid ""
+"Message shown to the user during the payment step when payment will be "
+"skipped"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Message shown to the user when the purchase is finished"
 msgstr "Mensagem mostrada ao usuário quando a compra for finalizada"
@@ -71,6 +92,11 @@ msgid "Our team will check your order and send you payment information soon."
 msgstr ""
 "Nossa equipe verificará seu pedido e enviará as informações de pagamento em "
 "breve."
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Sale Checkout Payment Skip Message"
+msgstr ""
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -87,6 +113,12 @@ msgstr "Loja - Confirmação - Erro"
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
 msgstr "Pular pagamento de finalização de compra do site"
+
+#. module: website_sale_checkout_skip_payment
+#. odoo-python
+#: code:addons/website_sale_checkout_skip_payment/models/website.py:0
+msgid "The payment step will be skipped. You can confirm the order."
+msgstr ""
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website

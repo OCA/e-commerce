@@ -59,6 +59,27 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,help:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_payment_skip_message
+#: model:ir.model.fields,help:website_sale_checkout_skip_payment.field_website__website_sale_checkout_payment_skip_message
+msgid ""
+"Fill in this with a message for the customer to confirm the order as payment "
+"will be skipped."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_payment_skip_message
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_payment_skip_message
+msgid "Message displayed instead of payment methods."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid ""
+"Message shown to the user during the payment step when payment will be "
+"skipped"
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Message shown to the user when the purchase is finished"
 msgstr "Meddelande som visas för användaren när köpet är slutfört"
@@ -67,6 +88,11 @@ msgstr "Meddelande som visas för användaren när köpet är slutfört"
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
 msgid "Our team will check your order and send you payment information soon."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
+msgid "Sale Checkout Payment Skip Message"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
@@ -84,6 +110,12 @@ msgstr "Butik - Bekräftelse - Fel"
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
 msgstr "Hoppa över betalning på webbplatsens kassa"
+
+#. module: website_sale_checkout_skip_payment
+#. odoo-python
+#: code:addons/website_sale_checkout_skip_payment/models/website.py:0
+msgid "The payment step will be skipped. You can confirm the order."
+msgstr ""
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
