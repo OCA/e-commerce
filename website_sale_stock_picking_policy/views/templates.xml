@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="checkout_picking_policy"
+        name="Checkout - Shipping Policy Selection"
+        inherit_id="website_sale.checkout"
+    >
+        <!-- Inject the shipping policy section before the billing address block -->
+        <xpath
+            expr="//div[@id='shop_checkout']/t[@t-call='website_sale.billing_address_list']"
+            position="before"
+        >
+            <t t-if="order._has_deliverable_products()">
+                <t t-call="website_sale_stock_picking_policy.picking_policy_form">
+                    <t t-set="selected_picking_policy" t-value="order.picking_policy" />
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="picking_policy_form">
+        <div id="o_picking_policy_section" t-attf-class="mb-4">
+            <h5 class="mb-3">Shipping Policy</h5>
+            <div class="list-group">
+                <t t-foreach="picking_policy_selection_values" t-as="policy_key">
+                    <t
+                        t-set="is_selected"
+                        t-value="policy_key == selected_picking_policy"
+                    />
+                    <label class="list-group-item d-flex align-items-center gap-2">
+                        <input
+                            type="radio"
+                            name="picking_policy"
+                            t-att-value="policy_key"
+                            t-att-checked="'checked' if is_selected else None"
+                        />
+                        <span t-out="picking_policy_selection_values[policy_key]" />
+                        <t t-if="policy_key == 'one' and order.expected_date">
+                            <span
+                                t-attf-class="text-muted o_picking_policy_date {{'d-none' if not is_selected else ''}}"
+                            >
+                                (estimated: <span
+                                class="o_picking_policy_date_value"
+                                t-field="order.expected_date"
+                                t-options='{"widget": "date"}'
+                            />)
+                            </span>
+                        </t>
+                    </label>
+                </t>
+            </div>
+        </div>
+    </template>
+</odoo>
