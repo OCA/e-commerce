@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Attribute Filter Visibility",
     "summary": "Allow hide any attributes in shop attributes filter",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -12,5 +12,14 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/assets.xml", "views/product_attribute_views.xml"],
+    "data": ["views/product_attribute_views.xml"],
+    "assets": {
+        "web.assets_frontend": [
+            (
+                "website_sale_product_attribute_filter_visibility/"
+                "static/src/js/"
+                "website_sale_product_attribute_filter_visibility_tour.js"
+            ),
+        ],
+    },
 }

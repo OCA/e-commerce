@@ -8,10 +8,10 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 class ProductAttribute(WebsiteSale):
     @http.route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):
-        response = super(ProductAttribute, self).shop(
+        response = super().shop(
             page=page, category=category, search=search, ppg=ppg, **post
         )
-        response.qcontext["attributes"] = response.qcontext["attributes"].filtered(
-            "website_published"
-        )
+        attributes = response.qcontext.get("attributes")
+        if attributes:
+            response.qcontext["attributes"] = attributes.filtered("website_published")
         return response
