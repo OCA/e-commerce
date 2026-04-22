@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-18 10:04+0000\n"
-"PO-Revision-Date: 2026-02-25 07:28+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-04-22 12:30+0000\n"
+"Last-Translator: Ed-Spain <eduamoros@gmail.com>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -21,13 +21,15 @@ msgstr ""
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
+#, fuzzy
 msgid "<span class=\"px-3\">or</span>"
-msgstr ""
+msgstr "<span class=\"px-3\">or</span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "<span>Confirm <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
 msgstr ""
+"<span>Confirmar <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -65,12 +67,14 @@ msgid ""
 "Fill in this with a message for the customer to confirm the order as payment "
 "will be skipped."
 msgstr ""
+"Rellena este campo con un mensaje para que el cliente confirme el pedido, ya "
+"que el pago será omitido."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_payment_skip_message
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_payment_skip_message
 msgid "Message displayed instead of payment methods."
-msgstr ""
+msgstr "Mensaje mostrado en lugar de los métodos de pago."
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -78,6 +82,8 @@ msgid ""
 "Message shown to the user during the payment step when payment will be "
 "skipped"
 msgstr ""
+"Mensaje mostrado al usuario durante el paso de pago cuando el pago será "
+"omitido"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -95,7 +101,7 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Sale Checkout Payment Skip Message"
-msgstr ""
+msgstr "Mensaje para omitir el pago en el proceso de compra"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -117,7 +123,7 @@ msgstr "Omitir pago en el sitio web"
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
 msgid "The payment step will be skipped. You can confirm the order."
-msgstr ""
+msgstr "El paso de pago será omitido. Puedes confirmar el pedido."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
