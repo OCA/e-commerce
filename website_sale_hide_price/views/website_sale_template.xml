@@ -7,6 +7,13 @@
             </attribute>
         </xpath>
     </template>
+    <template id="base_unit_price" inherit_id="website_sale.base_unit_price">
+        <xpath expr="//span[hasclass('o_base_unit_price')]" position="attributes">
+            <attribute name="t-if">
+                website and website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
     <template id="products_item" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('product_price')]" position="attributes">
             <attribute name="t-if">
