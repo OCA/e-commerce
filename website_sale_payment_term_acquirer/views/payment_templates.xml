@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template
-        id="payment_tokens_list_custom"
-        inherit_id="payment.payment_tokens_list"
-        name="Payment Trace"
-        priority="100"
-    >
+    <template id="form" inherit_id="payment.form">
         <form position="before">
             <t
                 t-set="payment_term_id"
-                t-value="env['sale.order'].get_payment_term_by_order_id(order_id)"
+                t-value="env['sale.order'].get_payment_term_by_order_id(sale_order_id)"
             />
             <t t-if="not payment_term_id">
                 <t
-                    t-set="acquirers"
-                    t-value="list(filter(lambda acq: not acq.display_main_payment_term, acquirers))"
+                    t-set="providers_sudo"
+                    t-value="list(filter(lambda acq: not acq.display_main_payment_term, providers_sudo))"
                 />
             </t>
         </form>
-        <span class="payment_option_name" position="replace">
-            <t
-                t-if="acq.display_main_payment_term and payment_term_id"
+    </template>
+
+    <template id="token_form" inherit_id="payment.token_form">
+        <xpath expr="//input[@name='o_payment_radio']/.." position="inside">
+            <div
+                t-if="provider_sudo.display_main_payment_term and payment_term_id"
                 t-esc="payment_term_id.display_name"
             />
-            <t t-else="" t-esc="acq.display_as or acq.name" />
+        </xpath>
+    </template>
+
+    <template id="method_form" inherit_id="payment.method_form">
+        <xpath expr="//div[hasclass('form-check')]" position="inside">
             <div
-                t-if="acq.state == 'test'"
-                class="badge-pill badge-warning float-right"
-                style="margin-left:5px"
-            >
-                Test Mode
-            </div>
-        </span>
+                t-if="provider_sudo.display_main_payment_term and payment_term_id"
+                t-esc="payment_term_id.display_name"
+            />
+        </xpath>
     </template>
 </odoo>

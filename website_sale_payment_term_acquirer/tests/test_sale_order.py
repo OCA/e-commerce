@@ -1,14 +1,17 @@
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.addons.payment.tests.http_common import PaymentHttpCommon
+from odoo.addons.website.tools import MockRequest
+from odoo.addons.website_sale.controllers.payment import PaymentPortal
 
 
-@tagged("post_install", "-at-install")
-class TestSaleOrder(AccountTestInvoicingCommon):
+@tagged("post_install", "-at_install")
+class TestSaleOrder(AccountTestInvoicingCommon, PaymentHttpCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        PaymentAcquirer = cls.env["payment.acquirer"]
+    def setUpClass(cls):
+        super().setUpClass()
+        PaymentAcquirer = cls.env["payment.provider"]
 
         cls.payment_term_end_following_month = cls.env.ref(
             "account.account_payment_term_end_following_month"
@@ -33,6 +36,7 @@ class TestSaleOrder(AccountTestInvoicingCommon):
                 ],
             }
         )
+        cls.order.carrier_id = cls.order._get_delivery_methods()[0]
 
         cls.acquirer_transfer_test = PaymentAcquirer.create(
             {
@@ -41,17 +45,32 @@ class TestSaleOrder(AccountTestInvoicingCommon):
             }
         )
         cls.acquirer_transfer_test.journal_id = cls.company_data["default_journal_cash"]
+        # We need another test acquirer to check ordering
+        cls.acquirer_transfer_test.copy()
+        cls.payment_method = cls.env.ref("payment.payment_method_unknown")
 
         PaymentAcquirer.search([]).write({"display_main_payment_term": False})
-        cls.partner_payment_term = cls.env.user.partner_id.property_payment_term_id
+        cls.partner_payment_term = cls.env.user.partner_id.property_payment_term_id = (
+            cls.env.ref("account.account_payment_term_immediate")
+        )
+        cls.website = cls.env["website"].browse(1)
+        cls.payment_portal = PaymentPortal()
 
-    def test_default_order_acquirer_position(self):
-        """
-        This test covers the behavior when a messages
-        search have default ordering
-        """
-        first_acquirer = self.env["payment.acquirer"].search([], limit=1)
-        self.assertNotEqual(first_acquirer, self.acquirer_transfer_test)
+    def _create_payment_transaction(self):
+        with MockRequest(self.env):
+            return self.make_jsonrpc_request(
+                self._build_url(f"/shop/payment/transaction/{self.order.id}"),
+                {
+                    "order_id": self.order.id,
+                    "access_token": self.order._portal_ensure_token(),
+                    "provider_id": self.acquirer_transfer_test.id,
+                    "payment_method_id": self.payment_method.id,
+                    "token_id": None,
+                    "flow": "direct",
+                    "tokenization_requested": False,
+                    "landing_route": None,
+                },
+            )
 
     def test_order_acquirer_with_flag(self):
         """
@@ -60,16 +79,16 @@ class TestSaleOrder(AccountTestInvoicingCommon):
         has a first position in the recordset
         """
         self.acquirer_transfer_test.write({"display_main_payment_term": True})
-        first_acquirer = self.env["payment.acquirer"].search([], limit=1)
+        all_acquirers = self.env["payment.provider"].search([])
+        self.assertGreater(len(all_acquirers), 1)
+        first_acquirer = all_acquirers[0]
         self.assertEqual(first_acquirer, self.acquirer_transfer_test)
 
     def test_default_acquirer_behavior(self):
         """
         This test covers the behavior when a transaction creates by default. by default.
         """
-        self.order._create_payment_transaction(
-            {"acquirer_id": self.acquirer_transfer_test.id}
-        )
+        self._create_payment_transaction()
         self.assertEqual(self.order.payment_term_id, self.partner_payment_term)
 
     def test_acquirer_behavior_with_tag(self):
@@ -79,9 +98,7 @@ class TestSaleOrder(AccountTestInvoicingCommon):
         """
         self.acquirer_transfer_test.write({"display_main_payment_term": True})
 
-        self.order._create_payment_transaction(
-            {"acquirer_id": self.acquirer_transfer_test.id}
-        )
+        self._create_payment_transaction()
         self.assertEqual(self.order.payment_term_id, self.partner_payment_term)
 
     def test_acquirer_behavior_with_tag_and_payment_term(self):
@@ -96,9 +113,7 @@ class TestSaleOrder(AccountTestInvoicingCommon):
                 "payment_term_id": self.payment_term_30days.id,
             }
         )
-        self.order._create_payment_transaction(
-            {"acquirer_id": self.acquirer_transfer_test.id}
-        )
+        self._create_payment_transaction()
         self.assertEqual(self.order.payment_term_id, self.partner_payment_term)
 
     def test_acquirer_bevavior_with_payment_term(self):
@@ -111,8 +126,6 @@ class TestSaleOrder(AccountTestInvoicingCommon):
                 "payment_term_id": self.payment_term_30days.id,
             }
         )
-        self.order._create_payment_transaction(
-            {"acquirer_id": self.acquirer_transfer_test.id}
-        )
+        self._create_payment_transaction()
         self.assertNotEqual(self.order.payment_term_id, self.partner_payment_term)
         self.assertEqual(self.order.payment_term_id, self.payment_term_30days)
