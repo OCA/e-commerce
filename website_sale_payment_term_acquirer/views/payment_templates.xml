@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <template
         id="payment_tokens_list_custom"
         inherit_id="payment.payment_tokens_list"
@@ -34,5 +33,4 @@
             </div>
         </span>
     </template>
-
 </odoo>
