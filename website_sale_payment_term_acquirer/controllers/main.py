@@ -11,11 +11,10 @@ class WebsiteSale(WebsiteSale):
         if not user_payment_term:
             # Skip acquirers with active 'display_main_payment_term' key
             values.update(
-                acquirers=list(
-                    filter(
-                        lambda acq: not acq.display_main_payment_term,
-                        values.get("acquirers", []),
-                    )
+                providers_sudo=values.get(
+                    "providers_sudo", request.env["payment.provider"].sudo().browse()
+                ).filtered(
+                    lambda acq: not acq.display_main_payment_term,
                 )
             )
         return values
