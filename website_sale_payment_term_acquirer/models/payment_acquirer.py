@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class PaymentAcquirer(models.Model):
-    _inherit = "payment.acquirer"
+    _inherit = "payment.provider"
     _order = "display_main_payment_term desc"
 
     payment_term_id = fields.Many2one(

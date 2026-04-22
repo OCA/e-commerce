@@ -80,6 +80,9 @@ Contributors
 
 - Ooops404 <`https://ooops404.com\\> <https://ooops404.com\>>`__
 - Cetmix <`https://cetmix.com\\> <https://cetmix.com\>>`__
+- `PyTech <https://www.pytech.it>`__:
+
+  - Simone Rubino <simone.rubino@pytech.it>
 
 Maintainers
 -----------
