@@ -17,21 +17,28 @@ eCommerce Payment Term Acquirer
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/14.0/website_sale_payment_term_acquirer
+    :target: https://github.com/OCA/e-commerce/tree/18.0/website_sale_payment_term_acquirer
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-14-0/e-commerce-14-0-website_sale_payment_term_acquirer
+    :target: https://translation.odoo-community.org/projects/e-commerce-18-0/e-commerce-18-0-website_sale_payment_term_acquirer
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=14.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module allows:
 
-1. To relate payment acquirers used in checkout to payment terms: if a payment acquirer is related to a payment term, when the payment acquirer is selected the payment term is selected in the corresponding SO.
-2. To display the name of a specific payment acquirer in checkout with the name of the payment term set in partner related to the user completing the ecommerce order. This payment acquirer is not displayed during the checkout if partner related to user does not have a payment term set.
+1. To relate payment acquirers used in checkout to payment terms: if a
+   payment acquirer is related to a payment term, when the payment
+   acquirer is selected the payment term is selected in the
+   corresponding SO.
+2. To display the name of a specific payment acquirer in checkout with
+   the name of the payment term set in partner related to the user
+   completing the ecommerce order. This payment acquirer is not
+   displayed during the checkout if partner related to user does not
+   have a payment term set.
 
 **Table of contents**
 
@@ -43,11 +50,11 @@ Usage
 
 Go to **Website** > **Configuration** > **Payment Acquirer**
 
-
-You will find field **Payment Term** to relate a payment term to payment acquirer
-alternatively, you can use flag **Display as partner's main payment term** to:
-make this payment acquirer name appear in checkout with partner’s default payment term name
-hide this payment acquirer from checkout if partner’s default payment term is not set.
+You will find field **Payment Term** to relate a payment term to payment
+acquirer alternatively, you can use flag **Display as partner's main
+payment term** to: make this payment acquirer name appear in checkout
+with partner’s default payment term name hide this payment acquirer from
+checkout if partner’s default payment term is not set.
 
 Bug Tracker
 ===========
@@ -55,7 +62,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_payment_term_acquirer%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_payment_term_acquirer%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -63,19 +70,19 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Ooops
 * Cetmix
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Ooops404 <https://ooops404.com>
-* Cetmix <https://cetmix.com>
+- Ooops404 <`https://ooops404.com\\> <https://ooops404.com\>>`__
+- Cetmix <`https://cetmix.com\\> <https://cetmix.com\>>`__
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -98,6 +105,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-geomer198| |maintainer-CetmixGitDrone| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/14.0/website_sale_payment_term_acquirer>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/18.0/website_sale_payment_term_acquirer>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

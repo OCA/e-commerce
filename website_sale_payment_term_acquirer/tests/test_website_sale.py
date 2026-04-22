@@ -8,7 +8,7 @@ from odoo.addons.website_sale_payment_term_acquirer.controllers.main import Webs
 class TestWebsiteSale(SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestWebsiteSale, cls).setUpClass()
+        super().setUpClass()
         PaymentAcquirer = cls.env["payment.acquirer"]
 
         cls.payment_term_end_following_month = cls.env.ref(

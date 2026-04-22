@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-
     <record id="payment_acquirer_partners_pt" model="payment.acquirer">
         <field name="name">Partner's PT</field>
         <field name="sequence">3</field>
@@ -15,5 +14,4 @@
             ref="account.account_payment_term_end_following_month"
         />
     </record>
-
 </odoo>
