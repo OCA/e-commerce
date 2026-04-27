@@ -14,7 +14,6 @@ const searchResultsPage = "/shop?search=website_sale_b2x_alt_price";
  * downloading many product images, so we direct the tour directly via JS.
  */
 function goSearch() {
-    // eslint-disable-next-line no-undef
     window.location = searchResultsPage;
 }
 
