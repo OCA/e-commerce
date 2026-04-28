@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [website_sale_product_attachment](website_sale_product_attachment/) | 17.0.1.0.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Let visitors download attachments from a product page
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 17.0.1.0.0 |  | Allow group attributes in shop by categories
 [website_sale_product_attribute_filter_order](website_sale_product_attribute_filter_order/) | 17.0.1.0.0 | <a href='https://github.com/Tardo'><img src='https://github.com/Tardo.png' width='32' height='32' style='border-radius:50%;' alt='Tardo'/></a> | Move active checkbox options to the first place of the list
-[website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 17.0.1.0.0 |  | Allow hide attributes values not used in variants
+[website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 17.0.1.1.0 |  | Allow hide attributes values not used in variants
 [website_sale_product_brand](website_sale_product_brand/) | 17.0.1.0.0 |  | Product Brand Filtering in Website
 [website_sale_product_description](website_sale_product_description/) | 17.0.1.0.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 17.0.1.0.0 |  | Display attributes images in shop product detail
