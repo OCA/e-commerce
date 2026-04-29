@@ -18,14 +18,17 @@ msgstr ""
 
 #. module: website_snippet_product_category
 #. odoo-javascript
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
+#: code:addons/website_snippet_product_category/static/src/js/frontend.esm.js:0
 #, python-format
 msgid ""
-"An error occured with this product categories block. If the problem "
+"An error occurred with this product categories block. If the problem "
 "persists, please consider deleting it and adding a new one"
 msgstr ""
-"Ocurrió un error con este bloque de categorías de productos. Si el problema "
-"persiste, considere eliminarlo y agregar uno nuevo"
+
+#. module: website_snippet_product_category
+#: model_terms:ir.ui.view,arch_db:website_snippet_product_category.product_public_category_form_view
+msgid "Empty means all websites"
+msgstr ""
 
 #. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal
@@ -34,7 +37,7 @@ msgstr "Caja de metal"
 
 #. module: website_snippet_product_category
 #. odoo-javascript
-#: code:addons/website_snippet_product_category/static/src/js/frontend.js:0
+#: code:addons/website_snippet_product_category/static/src/js/frontend.esm.js:0
 #, python-format
 msgid "No categories were found. Make sure you have categories defined."
 msgstr "No se encontraron categorías. Asegúrese de tener categorías definidas."
@@ -43,6 +46,13 @@ msgstr "No se encontraron categorías. Asegúrese de tener categorías definidas
 #: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__published_in_product_category_snippet
 msgid "Published in product category snippet"
 msgstr "Publicado en fragmento de categoría de producto"
+
+#. module: website_snippet_product_category
+#: model:ir.model.fields,help:website_snippet_product_category.field_product_public_category__snippet_website_ids
+msgid ""
+"Show this category in the product category snippet only on the selected "
+"websites. Leave empty to show it on all websites."
+msgstr ""
 
 #. module: website_snippet_product_category
 #: model:website.menu,name:website_snippet_product_category.snippet_product_category_demo_page_link
@@ -70,6 +80,19 @@ msgid "Website Product Category"
 msgstr "Categoría de producto para la página web"
 
 #. module: website_snippet_product_category
+#: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__snippet_website_ids
+msgid "Websites for category snippet"
+msgstr ""
+
+#. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
 msgstr "Caja de madera"
+
+#, python-format
+#~ msgid ""
+#~ "An error occured with this product categories block. If the problem "
+#~ "persists, please consider deleting it and adding a new one"
+#~ msgstr ""
+#~ "Ocurrió un error con este bloque de categorías de productos. Si el "
+#~ "problema persiste, considere eliminarlo y agregar uno nuevo"
