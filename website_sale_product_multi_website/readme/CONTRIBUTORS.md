@@ -1,0 +1,7 @@
+- Pablo Montenegro
+- Katherine Zaoral
+- Juan Jose Scarafia
+- lav-adhoc
+- Manuela Cepeda
+- Tecnativa (\<<https://www.tecnativa.com>\>):
+  - Pilar Vargas
