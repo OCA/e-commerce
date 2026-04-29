@@ -10,6 +10,13 @@
                     name="published_in_product_category_snippet"
                     widget="boolean_toggle"
                 />
+                <field
+                    name="snippet_website_ids"
+                    options="{'no_create': True}"
+                    widget="many2many_tags"
+                    groups="website.group_multi_website"
+                    placeholder="Empty means all websites"
+                />
             </field>
         </field>
     </record>
@@ -22,6 +29,12 @@
                 <field
                     name="published_in_product_category_snippet"
                     widget="boolean_toggle"
+                />
+                <field
+                    name="snippet_website_ids"
+                    groups="website.group_multi_website"
+                    widget="many2many_tags"
+                    optional="show"
                 />
             </field>
         </field>

@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ================================
 Website Snippet Product Category
 ================================
@@ -13,7 +17,7 @@ Website Snippet Product Category
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
@@ -28,7 +32,10 @@ Website Snippet Product Category
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-Adds a new snippet to show e-commerce categories
+Adds a new snippet to show e-commerce categories.
+
+The snippet only displays categories explicitly enabled for it, and can
+optionally restrict them to selected websites.
 
 **Table of contents**
 
@@ -44,6 +51,9 @@ for the category:
 1. Go to website > eCommerce > eCommerce Categories
 2. Create or Edit one
 3. You can see a new options "Published in product category snippet"
+4. You can also set "Websites for category snippet" to restrict where
+   the category is shown in the snippet. Leave it empty to show it on
+   all websites.
 
 Usage
 =====
@@ -59,13 +69,13 @@ Theming
 
 CSS Classes:
 
-- ``.categ_container`` > The container per master category
-- ``.categ_scroll_wrapper`` > The scrollable container wrapper
-- ``.categ_scroll`` > The scrollable container
-- ``.categ_tree_level`` > The category row (image + text)
-- ``.main_tree_level`` > The first category row level displayed
-- ``.categ_link`` > The link of the category row
-- ``.categ_img`` > The container of the icon of the category row
+-  ``.categ_container`` > The container per master category
+-  ``.categ_scroll_wrapper`` > The scrollable container wrapper
+-  ``.categ_scroll`` > The scrollable container
+-  ``.categ_tree_level`` > The category row (image + text)
+-  ``.main_tree_level`` > The first category row level displayed
+-  ``.categ_link`` > The link of the category row
+-  ``.categ_img`` > The container of the icon of the category row
 
 You can use 'data-tree-level' attribute to select the category row of a
 selected level (1-4 by design).
@@ -78,10 +88,10 @@ called ``object``.
 Known issues / Roadmap
 ======================
 
-- The snippet shows a maximum of 4 levels by design.
-- Add a option to configure the initial level
-- Add a option to select how many levels can be represented
-- Handle large amounts of categories
+-  The snippet shows a maximum of 4 levels by design.
+-  Add a option to configure the initial level
+-  Add a option to select how many levels can be represented
+-  Handle large amounts of categories
 
 Bug Tracker
 ===========
@@ -104,13 +114,13 @@ Authors
 Contributors
 ------------
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  - Alexandre D. Díaz
-  - Pedro M. Baeza
-  - Carlos Roca
-  - Sergio Teruel
-  - Pilar Vargas
+   -  Alexandre D. Díaz
+   -  Pedro M. Baeza
+   -  Carlos Roca
+   -  Sergio Teruel
+   -  Pilar Vargas
 
 Other credits
 -------------
