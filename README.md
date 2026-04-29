@@ -51,7 +51,7 @@ addon | version | maintainers | summary
 [website_sale_vat_required](website_sale_vat_required/) | 17.0.1.0.0 |  | VAT number required in checkout form
 [website_sale_wishlist_hide_price](website_sale_wishlist_hide_price/) | 17.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_wishlist_keep](website_sale_wishlist_keep/) | 17.0.1.0.0 |  | Allows to add products to my cart but keep it in my wishlist"
-[website_snippet_product_category](website_snippet_product_category/) | 17.0.1.0.0 | <a href='https://github.com/Tardo'><img src='https://github.com/Tardo.png' width='32' height='32' style='border-radius:50%;' alt='Tardo'/></a> | Adds a new snippet to show e-commerce categories
+[website_snippet_product_category](website_snippet_product_category/) | 17.0.1.1.0 | <a href='https://github.com/Tardo'><img src='https://github.com/Tardo.png' width='32' height='32' style='border-radius:50%;' alt='Tardo'/></a> | Adds a new snippet to show e-commerce categories
 
 [//]: # (end addons)
 
