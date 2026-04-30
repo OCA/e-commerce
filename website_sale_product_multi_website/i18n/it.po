@@ -6,28 +6,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-04-30 10:45+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_product_multi_website
 #: model_terms:ir.ui.view,arch_db:website_sale_product_multi_website.product_template_form_view
 msgid "Empty means all websites"
-msgstr ""
+msgstr "Vuoto significa tutti i siti"
 
 #. module: website_sale_product_multi_website
 #: model:ir.model,name:website_sale_product_multi_website.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: website_sale_product_multi_website
 #: model:ir.model.fields,help:website_sale_product_multi_website.field_product_template__website_id
 msgid "Restrict publishing to this website."
-msgstr ""
+msgstr "Limitare la pubblicazione a questo sito web."
 
 #. module: website_sale_product_multi_website
 #: model:ir.model.fields,help:website_sale_product_multi_website.field_product_product__website_ids
@@ -36,15 +38,17 @@ msgid ""
 "Restrict the product to the selected websites. Leave empty to make it "
 "available on all websites."
 msgstr ""
+"Limita la visualizzazione del prodotto ai siti web selezionati. Lascia vuoto "
+"il campo per renderlo disponibile su tutti i siti web."
 
 #. module: website_sale_product_multi_website
 #: model:ir.model,name:website_sale_product_multi_website.model_website
 #: model:ir.model.fields,field_description:website_sale_product_multi_website.field_product_template__website_id
 msgid "Website"
-msgstr ""
+msgstr "Sito web"
 
 #. module: website_sale_product_multi_website
 #: model:ir.model.fields,field_description:website_sale_product_multi_website.field_product_product__website_ids
 #: model:ir.model.fields,field_description:website_sale_product_multi_website.field_product_template__website_ids
 msgid "Websites"
-msgstr ""
+msgstr "Siti web"
