@@ -3,6 +3,7 @@ from unittest.mock import patch
 from werkzeug.datastructures import OrderedMultiDict
 from werkzeug.wrappers import Response
 
+from odoo import Command
 from odoo.http import request
 from odoo.tests import HttpCase, tagged
 
@@ -31,7 +32,7 @@ class TestWebsiteSaleFilterBrandHttpCase(HttpCase):
             {
                 "name": "Tour Product",
                 "sale_ok": True,
-                "is_published": True,
+                "website_published": True,
                 "list_price": 10.0,
                 "product_brand_id": cls.brand.id,
             }
@@ -46,7 +47,7 @@ class TestWebsiteSaleFilterBrandHttpCase(HttpCase):
                     "login": login,
                     "password": login,
                     "email": "portal_brand@example.com",
-                    "group_ids": [(6, 0, [cls.env.ref("base.group_portal").id])],
+                    "group_ids": [Command.set([cls.env.ref("base.group_portal").id])],
                 }
             )
         )
@@ -67,15 +68,46 @@ class WebsiteSale(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.website = cls.env["website"].browse(1)
+        cls.other_website = cls.env["website"].create(
+            {
+                "name": "Other Website",
+                "company_id": cls.env.company.id,
+            }
+        )
         cls.WebsiteSaleController = Website()
         cls.public_user = cls.env.ref("base.public_user")
         cls.brand = cls.env["product.brand"].create({"name": "Test Brand"})
+        cls.global_brand = cls.env["product.brand"].create(
+            {"name": "Global Brand", "website_id": False}
+        )
+        cls.other_brand = cls.env["product.brand"].create(
+            {
+                "name": "Other Website Brand",
+                "website_id": cls.other_website.id,
+            }
+        )
         cls.product = cls.env["product.template"].create(
             {
                 "name": "Test Product",
                 "sale_ok": True,
-                "is_published": True,
+                "website_published": True,
                 "product_brand_id": cls.brand.id,
+            }
+        )
+        cls.env["product.template"].create(
+            {
+                "name": "Global Product",
+                "sale_ok": True,
+                "website_published": True,
+                "product_brand_id": cls.global_brand.id,
+            }
+        )
+        cls.env["product.template"].create(
+            {
+                "name": "Other Website Product",
+                "sale_ok": True,
+                "website_published": True,
+                "product_brand_id": cls.other_brand.id,
             }
         )
 
@@ -106,6 +138,16 @@ class WebsiteSale(BaseCommon):
         self.assertEqual(res2, required_domain2, "Must be the same")
         self.assertEqual(res3.ids, brand_ids.ids, "Must be the same")
         self.assertEqual(res4.ids, brand_ids.ids, "Must be the same")
+
+    def test_build_brands_list_filters_other_websites(self):
+        with MockRequest(
+            self.env,
+            website=self.website,
+        ):
+            brands = self.WebsiteSaleController._build_brands_list(
+                [self.brand.id, self.global_brand.id, self.other_brand.id]
+            )
+        self.assertCountEqual(brands.ids, [self.brand.id, self.global_brand.id])
 
     def test_shop_controller_lines(self):
         class MockResponse(Response):
@@ -163,3 +205,17 @@ class WebsiteSale(BaseCommon):
                 self.assertEqual(res.status_code, 200)
                 args, kwargs = mock_render.call_args
                 self.assertEqual(args[1]["search"], self.brand.name)
+
+    def test_product_brands_controller_filters_other_websites(self):
+        with MockRequest(self.env, website=self.website):
+            with patch(
+                "odoo.addons.website_sale_product_brand.controllers.main.request.render"
+            ) as mock_render:
+                mock_render.return_value = Response("Mocked Response")
+                res = self.WebsiteSaleController.product_brands()
+                self.assertEqual(res.status_code, 200)
+                args, kwargs = mock_render.call_args
+                brand_rec = args[1]["brand_rec"]
+                self.assertIn(self.brand, brand_rec)
+                self.assertIn(self.global_brand, brand_rec)
+                self.assertNotIn(self.other_brand, brand_rec)

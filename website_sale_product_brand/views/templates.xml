@@ -96,4 +96,66 @@
             </t>
         </xpath>
     </template>
+
+    <template
+        id="website_sale_products_brand_landing"
+        inherit_id="website_sale.products"
+    >
+        <xpath expr="//div[@id='products_grid']/header/h1" position="attributes">
+            <attribute name="t-if">not landing_brand</attribute>
+        </xpath>
+
+        <xpath
+            expr="//div[@id='oe_structure_products_header_shop']"
+            position="attributes"
+        >
+            <attribute name="t-if">not landing_brand</attribute>
+        </xpath>
+
+        <xpath expr="//div[@id='products_grid']/header" position="before">
+            <section
+                t-if="landing_brand"
+                id="brand_landing_header"
+                t-attf-class="o_brand_landing_header mb-4 text-#{landing_brand.align_brand_content}"
+            >
+                <div t-if="landing_brand.cover_image" class="mb-3">
+                    <img
+                        class="img-fluid w-100"
+                        t-att-src="'/web/image/product.brand/%s/cover_image' % landing_brand.id"
+                        t-att-alt="landing_brand.name"
+                    />
+                </div>
+
+                <div
+                    class="d-flex gap-3 align-items-center mb-3"
+                    t-if="landing_brand.show_brand_name and landing_brand.name"
+                >
+                    <h1
+                        t-if="landing_brand.show_brand_name"
+                        class="mb-0"
+                        t-out="landing_brand.name"
+                    />
+                </div>
+
+                <div
+                    t-if="landing_brand.show_brand_description"
+                    id="brand_header"
+                    t-field="landing_brand.website_description"
+                    t-att-data-editor-message="'Drag building blocks here to customize the header for &quot;%s&quot; brand.' % landing_brand.name"
+                />
+            </section>
+        </xpath>
+
+        <xpath expr="//div[@id='o_wsale_pager']" position="after">
+            <section t-if="landing_brand" id="brand_landing_footer" class="mb16">
+                <div>
+                    <div
+                        id="brand_footer"
+                        t-field="landing_brand.website_footer"
+                        t-att-data-editor-message="'Drag building blocks here to customize the footer for &quot;%s&quot; brand.' % landing_brand.name"
+                    />
+                </div>
+            </section>
+        </xpath>
+    </template>
 </odoo>
