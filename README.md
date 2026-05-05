@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [website_sale_barcode_search](website_sale_barcode_search/) | 17.0.1.0.0 |  | It improve website product search adding search by barcode
 [website_sale_cart_add_product_xlsx_csv](website_sale_cart_add_product_xlsx_csv/) | 17.0.1.0.1 |  | Adds button to import xlsx or csv in website cart
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 17.0.1.0.1 |  | Skip payment for logged users in checkout process
+[website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 17.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_empty_cart](website_sale_empty_cart/) | 17.0.1.0.0 |  | Adds a button in the website cart to empty all
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 17.0.1.0.1 |  | Hide any Product Categories that are empty
 [website_sale_hide_price](website_sale_hide_price/) | 17.0.1.2.1 |  | Hide product prices on the shop
