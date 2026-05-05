@@ -23,6 +23,7 @@
                             id="secondary_unit"
                         >
                             <option
+                                t-if="product_matrix.get('allow_uom_sell')"
                                 value=""
                                 t-att-selected="'selected' if not secondary_unit_id else None"
                                 placeholder="Secondary unit"
