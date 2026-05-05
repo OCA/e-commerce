@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-17 10:15+0000\n"
-"PO-Revision-Date: 2016-10-04 10:07+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"PO-Revision-Date: 2026-05-05 15:14+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Croatian (http://www.transifex.com/oca/OCA-e-commerce-8-0/"
 "language/hr/)\n"
 "Language: hr\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_require_legal
 #: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
