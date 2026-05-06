@@ -1,0 +1,201 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_product_inquiry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: none\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_button
+msgid ""
+"<i class=\"fa fa-envelope me-2\"/>\n"
+"                Request Information"
+msgstr ""
+"<i class=\"fa fa-envelope me-2\"/>\n"
+"                Begär information"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid ""
+"<strong>Thank you!</strong> We have received your request and will be in "
+"touch shortly."
+msgstr ""
+"<strong>Tack!</strong> Vi har tagit emot din förfrågan och återkommer så "
+"snart som möjligt."
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Attachments"
+msgstr "Bilagor"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Close"
+msgstr "Stäng"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Company"
+msgstr "Företag"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Contact Details"
+msgstr "Kontaktuppgifter"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model,website_form_label:website_sale_product_inquiry.model_crm_lead
+msgid "Create an Opportunity"
+msgstr "Skapa en möjlighet"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model.fields,field_description:website_sale_product_inquiry.field_crm_lead__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Email <span class=\"text-danger\">*</span>"
+msgstr "E-post <span class=\"text-danger\">*</span>"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "I'd like a quote"
+msgstr "Jag vill ha en offert"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "I'd like more information"
+msgstr "Jag vill ha mer information"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model.fields,field_description:website_sale_product_inquiry.field_crm_lead__id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model.fields,field_description:website_sale_product_inquiry.field_crm_lead__inquiry_type
+msgid "Inquiry Type"
+msgstr "Förfrågningstyp"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Item No."
+msgstr "Artikelnr"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model,name:website_sale_product_inquiry.model_crm_lead
+msgid "Lead"
+msgstr "Lead"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model.fields.selection,name:website_sale_product_inquiry.selection__crm_lead__inquiry_type__more_info
+msgid "More Information"
+msgstr "Mer information"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Name <span class=\"text-danger\">*</span>"
+msgstr "Namn <span class=\"text-danger\">*</span>"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Phone"
+msgstr "Telefon"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Please enter a valid email address."
+msgstr "Ange en giltig e-postadress."
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Please enter your name."
+msgstr "Ange ditt namn."
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Please enter your question."
+msgstr "Skriv din fråga."
+
+#. module: website_sale_product_inquiry
+#: model:ir.model.fields,field_description:website_sale_product_inquiry.field_crm_lead__inquired_product_id
+msgid "Product"
+msgstr "Produkt"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Product Details"
+msgstr "Produktinformation"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.crm_lead_view_form_product_inquiry
+msgid "Product Inquiry"
+msgstr "Produktförfrågan"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Product Name"
+msgstr "Produktnamn"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Question <span class=\"text-danger\">*</span>"
+msgstr "Fråga <span class=\"text-danger\">*</span>"
+
+#. module: website_sale_product_inquiry
+#: model:ir.model.fields.selection,name:website_sale_product_inquiry.selection__crm_lead__inquiry_type__quote
+msgid "Quote"
+msgstr "Offert"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Request type"
+msgstr "Typ av förfrågan"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Send Request"
+msgstr "Skicka förfrågan"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid ""
+"Type your question (e.g. item price, available variants, units of "
+"measurement, etc.)"
+msgstr ""
+"Skriv din fråga (t.ex. artikelpris, tillgängliga varianter, måttenheter osv.)"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Your company name"
+msgstr "Ditt företagsnamn"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Your email address"
+msgstr "Din e-postadress"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Your name"
+msgstr "Ditt namn"
+
+#. module: website_sale_product_inquiry
+#: model_terms:ir.ui.view,arch_db:website_sale_product_inquiry.product_inquiry_modal
+msgid "Your phone number"
+msgstr "Ditt telefonnummer"
