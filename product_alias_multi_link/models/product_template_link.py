@@ -52,17 +52,13 @@ class ProductTemplateLink(models.Model):
             ", right_product_alias_id, left_product_alias_id"
         )
         # Use "is not distinct from" to handle NULL values
-        params[
-            "l2_join_where_clause"
-        ] += """
+        params["l2_join_where_clause"] += """
             AND right_product_id is not distinct from l1.left_product_id
             AND left_product_id is not distinct from l1.right_product_id
             AND right_product_alias_id is not distinct from l1.left_product_alias_id
             AND left_product_alias_id is not distinct from l1.right_product_alias_id
         """
-        params[
-            "l3_join_where_clause"
-        ] += """
+        params["l3_join_where_clause"] += """
             AND left_product_id is not distinct from l1.left_product_id
             AND right_product_id is not distinct from l1.right_product_id
             AND left_product_alias_id is not distinct from l1.left_product_alias_id
