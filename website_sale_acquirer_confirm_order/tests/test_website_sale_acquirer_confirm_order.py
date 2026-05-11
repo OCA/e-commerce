@@ -21,14 +21,37 @@ class WebsiteSaleHttpCase(HttpCase):
         self.partner = self.env.ref("base.partner_admin")
         # VAT required by the module website_sale_vat_required
         self.partner.vat = "US01234567891"
+        # Ensure checkout can proceed to payment in tour tests.
+        self.partner.write(
+            {
+                "country_id": self.env.ref("base.us").id,
+                "street": "123 Test St",
+                "city": "Test City",
+                "zip": "12345",
+                "email": "admin@example.com",
+                "phone": "1234567890",
+                "state_id": self.env.ref("base.state_us_1").id,
+            }
+        )
 
     def test_ui_website(self):
         """Test frontend tour."""
+        desk_product = self.env["product.template"].search(
+            [("name", "=", "Customizable Desk")], limit=1
+        )
+        if not desk_product:
+            self.env["product.template"].create(
+                {
+                    "name": "Customizable Desk",
+                    "type": "consu",
+                    "list_price": 50.0,
+                    "is_published": True,
+                }
+            )
         self.start_tour(
             "/shop",
             "website_sale_acquirer_confirm_order",
             login="admin",
-            step_delay=100,
         )
         last_order_sent = self.env["sale.order"].search(
             [
@@ -47,7 +70,6 @@ class WebsiteSaleHttpCase(HttpCase):
             "/shop",
             "website_sale_acquirer_confirm_order",
             login="admin",
-            step_delay=100,
         )
         last_order_confirm = self.env["sale.order"].search(
             [
