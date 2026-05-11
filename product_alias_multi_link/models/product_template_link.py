@@ -67,5 +67,6 @@ class ProductTemplateLink(models.Model):
         return params
 
     def _invalidate_links(self):
-        super()._invalidate_links()
-        self.env["product.alias"].invalidate_cache(["product_alias_link_ids"])
+        res = super()._invalidate_links()
+        self.env["product.alias"].invalidate_model(["product_alias_link_ids"])
+        return res
