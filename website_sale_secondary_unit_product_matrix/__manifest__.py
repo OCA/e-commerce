@@ -11,6 +11,7 @@
     "depends": [
         "website_sale_product_matrix",
         "sale_product_matrix_secondary_unit",
+        "website_sale_secondary_unit",
     ],
     "data": [
         "templates/product_template.xml",
