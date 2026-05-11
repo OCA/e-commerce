@@ -92,6 +92,10 @@ Contributors
 
    -  Pilar Vargas
 
+-  `Studio73 <https://www.studio73.es>`__:
+
+   -  Arantxa Gandia
+
 Maintainers
 -----------
 
