@@ -26,6 +26,7 @@
                             />
                             <field name="show_brand_name" />
                             <field name="show_brand_description" />
+                            <field name="show_without_published_products" />
                             <field name="align_brand_content" />
                         </group>
                         <group>

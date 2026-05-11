@@ -349,7 +349,10 @@ class WebsiteSale(WebsiteSaleBase):
         brand_rec = (
             product_brand.sudo()
             .search(domain)
-            .filtered(lambda x: x.published_products_count > 0)
+            .filtered(
+                lambda x: x.published_products_count > 0
+                or x.show_without_published_products
+            )
         )
 
         keep = QueryURL("/page/product_brands", brand_id=[])
