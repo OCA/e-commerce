@@ -3,10 +3,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Shopinvader Product Alias",
+    "name": "Product Alias",
     "summary": "Alias for each product attribute values's configuration",
-    "version": "14.0.1.0.0",
-    "category": "Shopinvader",
+    "version": "18.0.1.0.0",
+    "category": "E-Commerce",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Akretion, Odoo Community Association (OCA)",
     "maintainers": ["Kev-Roche"],
@@ -14,7 +14,7 @@
     "application": False,
     "installable": True,
     "depends": [
-        "shopinvader",
+        "product",
     ],
     "data": [
         "views/product_template.xml",

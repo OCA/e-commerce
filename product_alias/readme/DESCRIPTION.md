@@ -1,2 +1,2 @@
-This module allows to add url aliases from the product template for each
-selectected variants (or attribute values's combinaison)
+This module allows to add aliases from the product template for each
+selected variants (or attribute values combination).

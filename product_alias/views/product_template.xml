@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright (C) 2023 Akretion (<http://www.akretion.com>).
      @author Kévin Roche <kevin.roche@akretion.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
@@ -11,17 +11,16 @@
                 <page
                     name="Alias"
                     string="Alias"
-                    attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}"
+                    invisible="product_variant_count &lt;= 1"
                 >
                     <field
                         name="product_alias_ids"
                         context="{'default_product_tmpl_id': id}"
                     >
-                        <tree editable="bottom">
+                        <list editable="bottom">
                             <field name="name" />
                             <field name="attribute_value_ids" widget="many2many_tags" />
-                            <field name="available_attribute_value_ids" invisible="1" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

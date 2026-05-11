@@ -1,6 +1,6 @@
-=========================
-Shopinvader Product Alias
-=========================
+=============
+Product Alias
+=============
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -28,8 +28,8 @@ Shopinvader Product Alias
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows to add url aliases from the product template for each
-selectected variants (or attribute values's combinaison)
+This module allows to add aliases from the product template for each
+selected variants (or attribute values combination).
 
 **Table of contents**
 

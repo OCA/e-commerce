@@ -2,7 +2,7 @@
 # @author Sébastien BEAU <sebastien.beau@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -18,16 +18,16 @@ class ProductProduct(models.Model):
         values = self.product_template_attribute_value_ids.product_attribute_value_id
         for alias in self.product_alias_ids:
             attrs = alias.attribute_value_ids.attribute_id
-            variant_values = values.filtered(lambda s: s.attribute_id in attrs)
+            variant_values = values.filtered(
+                lambda s, attrs=attrs: s.attribute_id in attrs
+            )
             if variant_values and not (variant_values - alias.attribute_value_ids):
                 match |= alias
         if len(match) > 1:
             raise UserError(
-                _(
-                    "Wrong alias attribute value configuration"
+                self.env._(
+                    "Wrong alias attribute value configuration. "
                     "The variant %(variant)s match too many aliases %(aliases)s",
-                )
-                % dict(
                     variant=self.display_name,
                     aliases=match.mapped("name"),
                 )

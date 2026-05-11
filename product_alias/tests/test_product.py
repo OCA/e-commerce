@@ -2,15 +2,15 @@
 # @author Sébastien BEAU <sebastien.beau@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-
 from odoo.exceptions import UserError
-from odoo.tests import SavepointCase
+from odoo.tests import TransactionCase
 
 
-class TestProduct(SavepointCase):
+class TestProduct(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.tmpl = cls.env.ref("product.product_product_4_product_template")
         cls.product_sw = cls.env.ref("product.product_product_4")  # steel, white
         cls.product_sb = cls.env.ref("product.product_product_4b")  # steel, black
@@ -70,4 +70,4 @@ class TestProduct(SavepointCase):
                     "attribute_value_ids": [(6, 0, [self.attr_a.id])],
                 }
             )
-            self.env["product.alias"].flush()
+            self.env["product.alias"].flush_model()
