@@ -19,7 +19,7 @@ class ProductAlias(models.Model):
             record.product_alias_link_ids = record._get_alias_links()
 
     def _get_alias_links(self):
-        return self.product_alias_link_ids.filtered_domain(
+        return self.env["product.template.link"].search(
             [
                 "|",
                 ("left_product_alias_id", "=", self.id),
