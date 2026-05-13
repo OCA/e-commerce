@@ -81,3 +81,26 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
             )
             self.assertEqual(response.status_code, 200)
             self.assertNotIn(product_url, response.text)
+
+    def test_04_website_ids_are_preserved_when_multiple_websites_are_assigned(self):
+        self.product_template.website_ids = self.website1 + self.website2
+        self.assertEqual(self.product_template.website_id, self.website1)
+        self.assertEqual(
+            self.product_template.website_ids, self.website1 + self.website2
+        )
+
+    def test_05_inverse_adds_website_without_replacing_existing_websites(self):
+        self.product_template.website_ids = self.website1 + self.website2
+        self.product_template.website_id = self.website0
+        self.assertEqual(
+            set(self.product_template.website_ids.ids),
+            set((self.website0 + self.website1 + self.website2).ids),
+        )
+
+    def test_06_inverse_does_not_duplicate_existing_website(self):
+        self.product_template.website_ids = self.website1 + self.website2
+        self.product_template.website_id = self.website1
+        self.assertEqual(
+            set(self.product_template.website_ids.ids),
+            set((self.website1 + self.website2).ids),
+        )
