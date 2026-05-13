@@ -29,7 +29,8 @@ class ProductTemplate(models.Model):
 
     def _inverse_website_id(self):
         for record in self:
-            record.website_ids = record.website_id
+            if record.website_id and record.website_id not in record.website_ids:
+                record.website_ids = [(4, record.website_id.id)]
 
     def can_access_from_current_website(self, website_id=False):
         # We overwrite this method completely in order to
