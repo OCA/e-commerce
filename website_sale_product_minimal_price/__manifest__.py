@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Minimal Price",
     "summary": "Display minimal price for products that has variants",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "development_status": "Production/Stable",
     "maintainers": ["sergio-teruel"],
     "category": "Website",

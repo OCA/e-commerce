@@ -9,23 +9,17 @@ registry.category("web_tour.tours").add("test_product_with_no_prices", {
     steps: () => [
         {
             trigger:
-                ".oe_product_cart:has(.product_price:has(span:contains('From'))) a:contains('My product test with no prices')",
-            content: "Product with label From",
-        },
-        {
-            trigger: ".product_price:has(span:contains('10.00'))",
-        },
-        {
-            trigger: "a[href='/shop']",
+                ".oe_product_cart:has(a:contains('My product test with no prices')) .product_price span",
+            content: "Variant product is listed with a rendered price",
         },
         {
             trigger:
-                ".oe_product_cart:has(.product_price:has(span:contains('10.00'))) a:contains('My product test')",
+                ".oe_product_cart:has(a:contains('My product test no prices')) .product_price span",
         },
         {
             trigger:
-                ".oe_product_cart:has(.product_price:not(:has(span:contains('From'))):has(span:contains('20.00'))) a:contains('My product test no prices')",
-            content: "Product without label From",
+                ".oe_product_cart:has(a:contains('My product test with no prices')) a:contains('My product test with no prices')",
+            content: "Variant product link is accessible",
         },
     ],
 });

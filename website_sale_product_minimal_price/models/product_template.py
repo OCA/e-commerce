@@ -3,29 +3,38 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
+from odoo.http import request
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    def _get_website_current_pricelist(self, website=None):
+        website = website or self.env["website"].get_current_website()
+        if request and getattr(request, "pricelist", False):
+            return request.pricelist
+        pricelist = website._get_and_cache_current_pricelist()
+        if pricelist:
+            return pricelist
+        return self.env.user.partner_id.property_product_pricelist
+
     def _get_product_subpricelists(self, pricelist):
         base_domain = pricelist._get_applicable_rules_domain(
-            self, fields.Datetime.now()
+            products=self, date=fields.Datetime.now()
         )
-        domain = expression.AND(
+        domain = Domain.AND(
             [
                 base_domain,
-                [("compute_price", "=", "formula"), ("base", "=", "pricelist")],
+                [
+                    ("compute_price", "=", "formula"),
+                    ("base", "=", "pricelist"),
+                    ("base_pricelist_id", "!=", False),
+                ],
             ]
         )
-        pricelist_data = self.env["product.pricelist.item"]._read_group(
-            domain,
-            groupby=["base_pricelist_id"],
-            aggregates=["base_pricelist_id:array_agg"],
-        )
-        pricelist_ids = [item for line in pricelist_data for item in line[1]]
-        return self.env["product.pricelist"].browse(pricelist_ids)
+        items = self.env["product.pricelist.item"].search(domain)
+        return items.mapped("base_pricelist_id")
 
     def _get_variants_from_pricelist(self, pricelist):
         return pricelist.mapped("item_ids").filtered(
@@ -98,7 +107,7 @@ class ProductTemplate(models.Model):
             # It only makes sense to change the default one when there are
             # more than one variants and we know the pricelist
             current_website = self.env["website"].get_current_website()
-            pricelist = current_website.pricelist_id
+            pricelist = self._get_website_current_pricelist(current_website)
             product = self._get_cheapest_info(pricelist)[0]
             # Rebuild the combination in the expected order
             res = self.env["product.template.attribute.value"]
@@ -116,14 +125,14 @@ class ProductTemplate(models.Model):
         combination=False,
         product_id=False,
         add_qty=1,
-        parent_combination=False,
+        uom_id=False,
         only_template=False,
     ):
         combination_info = super()._get_combination_info(
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            parent_combination=parent_combination,
+            uom_id=uom_id,
             only_template=only_template,
         )
         if only_template and not product_id:
@@ -143,6 +152,9 @@ class ProductTemplate(models.Model):
             # If no product is found, return the combination info without prices
             # the combination is not valid for the product or the product is archived
             return combination_info
+        category_ids = []
+        if product.categ_id and product.categ_id.parent_path:
+            category_ids = list(map(int, product.categ_id.parent_path.split("/")[0:-1]))
         # Getting all min_quantity of the current product to compute the possible
         # price scale.
         qty_list = self.env["product.pricelist.item"].search(
@@ -151,11 +163,7 @@ class ProductTemplate(models.Model):
                 ("product_id", "=", product.id),
                 "|",
                 ("product_tmpl_id", "=", product.product_tmpl_id.id),
-                (
-                    "categ_id",
-                    "in",
-                    list(map(int, product.categ_id.parent_path.split("/")[0:-1])),
-                ),
+                ("categ_id", "in", category_ids),
                 ("min_quantity", ">", 0),
             ]
         )
@@ -181,7 +189,7 @@ class ProductTemplate(models.Model):
 
     def _get_sales_prices(self, website):
         prices = super()._get_sales_prices(website)
-        pricelist = website.pricelist_id
+        pricelist = self._get_website_current_pricelist(website)
         for template in self.filtered("is_published"):
             price_info = prices[template.id]
             product, add_qty, has_distinct_price = template._get_cheapest_info(
@@ -190,6 +198,7 @@ class ProductTemplate(models.Model):
             product_price_info = template._get_additionnal_combination_info(
                 product,
                 quantity=add_qty,
+                uom=product.uom_id,
                 date=fields.Date.context_today(self),
                 website=website,
             )

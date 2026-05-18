@@ -81,6 +81,10 @@ Contributors
   - Pilar Vargas
   - Carlos Lopez
 
+- `Studio73 <https://www.studio73.es>`__:
+
+  - Alex Garcia
+
 Maintainers
 -----------
 

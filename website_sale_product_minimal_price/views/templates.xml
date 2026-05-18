@@ -32,7 +32,10 @@
     </template>
     <template id="variants" inherit_id="website_sale.variants">
         <!-- Sort product attribute values by minimal price extra -->
-        <xpath expr="//strong[@t-field='ptal.attribute_id.name']" position="before">
+        <xpath
+            expr="//h6[hasclass('attribute_name')]/span[@t-field='ptal.attribute_id.name']"
+            position="before"
+        >
             <t t-set="sorted_values" t-value="ptavs.sorted('price_extra')" />
         </xpath>
         <xpath

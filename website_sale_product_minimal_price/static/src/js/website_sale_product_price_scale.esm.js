@@ -2,60 +2,60 @@
  * Copyright 2025 Carlos Lopez - Tecnativa
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-import {WebsiteSale} from "@website_sale/js/website_sale";
+import VariantMixin from "@website_sale/js/variant_mixin";
 import {formatCurrency} from "@web/core/currency";
 import {renderToString} from "@web/core/utils/render";
 
-WebsiteSale.include({
-    /**
-     * @override
-     * Render the price scale of the product
-     * based on the selected combination and current pricelist .
-     */
-    _onChangeCombination: function (ev, $parent, combination) {
-        const res = this._super(...arguments);
-        if (!this.isWebsite || combination.product_id === false) {
-            return res;
+const oldOnChangeCombination = VariantMixin._onChangeCombination;
+
+VariantMixin._onChangeCombination = function (ev, parent, combination) {
+    oldOnChangeCombination.apply(this, arguments);
+    if (!this.isWebsite || combination.product_id === false) {
+        return;
+    }
+
+    const unitPrices = combination.minimal_price_scale || [];
+    const visiblePrices = unitPrices.filter((line) => line.price !== 0);
+    const uomName = combination.uom_name;
+    const form =
+        parent?.closest('form[action*="/shop/cart/update"]') ||
+        document.querySelector('form[action*="/shop/cart/update"]');
+    if (!form) {
+        return;
+    }
+
+    form.querySelectorAll(".o_wsmp_temp").forEach((el) => el.remove());
+    if (!visiblePrices.length) {
+        return;
+    }
+
+    form.insertAdjacentHTML("beforeend", '<hr class="o_wsmp_temp"/>');
+    form.insertAdjacentHTML(
+        "beforeend",
+        renderToString("website_sale_product_minimal_price.title", {uom: uomName})
+    );
+
+    const limitCol = 4;
+    let rowEl = null;
+    for (const [index, line] of visiblePrices.entries()) {
+        if (index % limitCol === 0) {
+            rowEl = document.createElement("div");
+            rowEl.className = "row o_wsmp_temp";
+            form.append(rowEl);
         }
-        const unit_prices = combination.minimal_price_scale;
-        const uom_name = combination.uom_name;
-        $(".temporal").remove();
-        if (unit_prices.length <= 0) {
-            return res;
-        }
-        const $form = $('form[action*="/shop/cart/update"]');
-        $form.append('<hr class="temporal"/>');
-        $form.append(
-            renderToString("website_sale_product_minimal_price.title", {uom: uom_name})
+        let unitPrice = formatCurrency(line.price, line.currency_id);
+        unitPrice = unitPrice.replace("&nbsp;", " ");
+        rowEl.insertAdjacentHTML(
+            "beforeend",
+            renderToString("website_sale_product_minimal_price.pricelist", {
+                quantity: line.min_qty,
+                price: unitPrice,
+            })
         );
-        // We define a limit of displayed columns as 4
-        const limit_col = 4;
-        let $div; // eslint-disable-line init-declarations
-        for (const i in unit_prices) {
-            if (unit_prices[i].price === 0) {
-                continue;
-            }
-            if (i % limit_col === 0) {
-                const id = i / limit_col;
-                $form.append('<div id="row_' + id + '" class="row temporal"></div>');
-                $div = $("#row_" + id);
-            }
-            let monetary_u = formatCurrency(
-                unit_prices[i].price,
-                unit_prices[i].currency_id
-            );
-            monetary_u = monetary_u.replace("&nbsp;", " ");
-            $div.append(
-                renderToString("website_sale_product_minimal_price.pricelist", {
-                    quantity: unit_prices[i].min_qty,
-                    price: monetary_u,
-                })
-            );
-        }
-        $div = $('div[id*="row_"]');
-        for (let i = 0; i < $div.length - 1; i++) {
-            $($div[i]).addClass("border-bottom");
-        }
-        return res;
-    },
-});
+    }
+
+    const rows = form.querySelectorAll(".row.o_wsmp_temp");
+    rows.forEach((row, index) => {
+        row.classList.toggle("border-bottom", index < rows.length - 1);
+    });
+};

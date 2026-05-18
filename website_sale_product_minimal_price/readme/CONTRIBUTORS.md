@@ -5,3 +5,7 @@
     - Pedro M. Baeza
     - Pilar Vargas
     - Carlos Lopez
+
+- [Studio73](https://www.studio73.es):
+
+    - Alex Garcia
