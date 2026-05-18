@@ -18,7 +18,7 @@ class ProductPublicCategory(models.Model):
     def _compute_has_product_recursive(self):
         for category in self:
             website = self.env["website"].get_current_website()
-            website_domain = website.website_domain()
+            website_domain = website.sale_product_domain()
             has_products = bool(
                 category.product_tmpl_ids.filtered_domain(website_domain)
             )
