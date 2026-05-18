@@ -14,9 +14,10 @@ class Product(models.Model):
             lot_id, owner_id, package_id, from_date, to_date
         )
         if self.env.context.get("website_sale_stock_available"):
-            for product in self.with_context(website_sale_stock_available=False):
-                immediately = product.immediately_usable_qty
-                res[product.id]["free_qty"] = immediately
+            products_no_ctx = self.with_context(website_sale_stock_available=False)
+            products_no_ctx._compute_available_quantities()
+            for product in products_no_ctx:
+                res[product.id]["free_qty"] = product.immediately_usable_qty
         return res
 
     @api.depends_context("website_sale_stock_available")

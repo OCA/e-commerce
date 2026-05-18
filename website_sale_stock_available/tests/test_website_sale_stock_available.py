@@ -89,3 +89,38 @@ class SaleStockAvailableInfoPopup(TransactionCase):
         self.assertEqual(
             combination_info["free_qty"], self.product.immediately_usable_qty
         )
+
+    def test_compute_quantities_dict_multi_product_batch(self):
+        product_b = self.env["product.product"].create(
+            {"name": "Storable product B", "type": "product"}
+        )
+        product_c = self.env["product.product"].create(
+            {"name": "Storable product C", "type": "product"}
+        )
+        self.env["stock.quant"].create(
+            {
+                "product_id": product_b.id,
+                "location_id": self.stock_location.id,
+                "quantity": 20.0,
+            }
+        )
+        self.env["stock.quant"].create(
+            {
+                "product_id": product_c.id,
+                "location_id": self.stock_location.id,
+                "quantity": 30.0,
+            }
+        )
+        products = self.product | product_b | product_c
+        result = products.with_context(
+            website_sale_stock_available=True,
+        )._compute_quantities_dict(None, None, None)
+        for product in products:
+            self.assertIn(product.id, result)
+            self.assertEqual(
+                result[product.id]["free_qty"],
+                product.immediately_usable_qty,
+                "free_qty incorrect for product %s" % product.display_name,
+            )
+        free_qtys = {result[p.id]["free_qty"] for p in products}
+        self.assertEqual(len(free_qtys), 3, "Per-product values collapsed in batch")
