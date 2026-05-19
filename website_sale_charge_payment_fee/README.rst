@@ -47,11 +47,6 @@ Accounting -> Configuration -> Payments -> Payment Acquirers
 open an acquirer and in CHARGE PAYMENT FEE tab, you can set the fee to
 be charged to customer.
 
-Known issues / Roadmap
-======================
-
-- As for now, this module does not handle express checkout.
-
 Bug Tracker
 ===========
 

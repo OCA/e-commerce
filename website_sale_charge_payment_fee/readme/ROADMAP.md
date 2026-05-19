@@ -1,1 +1,0 @@
-- As for now, this module does not handle express checkout.

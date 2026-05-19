@@ -1,7 +1,7 @@
 # Copyright 2018 Lorenzo Battistini - Agile Business Group
 # Copyright 2020 AITIC S.A.S
 # Copyright 2020 Quartile Limited
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
 
@@ -28,27 +28,22 @@ class SaleOrder(models.Model):
 
     @api.depends(
         "order_line.price_unit",
-        "order_line.tax_id",
+        "order_line.tax_ids",
         "order_line.discount",
         "order_line.product_uom_qty",
     )
     def _compute_amount_payment_fee(self):
         for order in self:
-            if (
-                self.env["website"]
-                .get_current_website()
-                .show_line_subtotals_tax_selection
-                == "tax_excluded"
-            ):
-                order.amount_payment_fee = sum(
-                    order.order_line.filtered("payment_fee_line").mapped(
-                        "price_subtotal"
-                    )
-                )
+            amount_payment_fee = 0.0
+            if order.website_id.show_line_subtotals_tax_selection == "tax_excluded":
+                for line in order.order_line:
+                    if line.payment_fee_line:
+                        amount_payment_fee += line.price_subtotal
             else:
-                order.amount_payment_fee = sum(
-                    order.order_line.filtered("payment_fee_line").mapped("price_total")
-                )
+                for line in order.order_line:
+                    if line.payment_fee_line:
+                        amount_payment_fee += line.price_total
+            order.amount_payment_fee = amount_payment_fee
 
     def update_fee_line(self, provider):
         self.ensure_one()
@@ -69,13 +64,18 @@ class SaleOrder(models.Model):
                         self.date_order,
                     )
             elif provider.charge_fee_type == "percentage":
-                price = (provider.charge_fee_percentage / 100.0) * self.amount_total
+                if self.website_id.show_line_subtotals_tax_selection == "tax_excluded":
+                    price = (
+                        provider.charge_fee_percentage / 100.0
+                    ) * self.amount_untaxed
+                else:
+                    price = (provider.charge_fee_percentage / 100.0) * self.amount_total
             self.env["sale.order.line"].create(
                 {
                     "order_id": self.id,
                     "payment_fee_line": True,
                     "product_id": provider.charge_fee_product_id.id,
-                    "product_uom": provider.charge_fee_product_id.uom_id.id,
+                    "product_uom_id": provider.charge_fee_product_id.uom_id.id,
                     "name": provider.charge_fee_description,
                     "price_unit": price,
                     "product_uom_qty": 1,

@@ -9,6 +9,7 @@ registry.category("web_tour.tours").add("payment_fee_tour", {
             content: "select Test-1",
             trigger: '.oe_product_cart:first a:contains("Test-1")',
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "add 3 into cart",
@@ -17,7 +18,7 @@ registry.category("web_tour.tours").add("payment_fee_tour", {
         },
         {
             content: "click on add to cart",
-            trigger: '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
+            trigger: "#product_detail form #add_to_cart",
             run: "click",
         },
         {

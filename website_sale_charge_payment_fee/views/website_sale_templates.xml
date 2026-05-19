@@ -40,7 +40,7 @@
         </xpath>
     </template>
     <template id="payment_fee" name="Payment Fee" inherit_id="website_sale.total">
-        <xpath expr="//tr[@id='order_total_untaxed']" position="before">
+        <xpath expr="//tr[@name='o_order_total_untaxed']" position="before">
             <tr
                 id="order_payment_fee"
                 t-if="website_sale_order and any(l.payment_fee_line for l in website_sale_order.order_line)"

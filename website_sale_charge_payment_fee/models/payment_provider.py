@@ -1,7 +1,7 @@
 # Copyright 2018 Lorenzo Battistini - Agile Business Group
 # Copyright 2020 AITIC S.A.S
 # Copyright 2020 Quartile Limited
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
 
@@ -20,7 +20,9 @@ class PaymentProvider(models.Model):
     charge_fee_product_id = fields.Many2one(
         "product.product", string="Fee Product", domain="[('type', '=', 'service')]"
     )
-    charge_fee_fixed_price = fields.Float("Fixed Price", digits="Product Price")
+    charge_fee_fixed_price = fields.Float(
+        "Fixed Price", min_display_digits="Product Price"
+    )
     charge_fee_currency_id = fields.Many2one("res.currency", string="Fee Currency")
     charge_fee_percentage = fields.Float(
         "Percentage", help="Percentage applied to order total"

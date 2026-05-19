@@ -2,11 +2,11 @@
 # Copyright 2020 AITIC S.A.S
 # Copyright 2020 Quartile Limited
 # Copyright 2024 Miguel Gandia - Studio73
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "eCommerce: charge payment fee",
     "summary": "Payment fee charged to customer",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "maintainers": ["miguel-S73"],
@@ -15,7 +15,7 @@
     "Quartile Limited, "
     "Studio73, "
     "Odoo Community Association (OCA)",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": ["payment", "website_sale"],
