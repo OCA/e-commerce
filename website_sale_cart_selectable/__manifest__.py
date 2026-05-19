@@ -5,11 +5,11 @@
 {
     "name": "Website Sale Cart Selectable",
     "summary": "Enables to control button Add to cart display per product",
-    "version": "12.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "OpenSynergy Indonesia, Tecnativa,"
-              " Akretion, Odoo Community Association (OCA)",
+    "author": "OpenSynergy Indonesia, Tecnativa, "
+    "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["website_sale"],
     "data": [
