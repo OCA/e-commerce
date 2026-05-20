@@ -1,7 +1,8 @@
 # Copyright 2016 OpenSynergy Indonesia
 # Copyright 2017 Tecnativa
 # Copyright 2020 Akretion
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2026 Quartile (https://www.quartile.co)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Cart Selectable",
     "summary": "Enables to control button Add to cart display per product",
