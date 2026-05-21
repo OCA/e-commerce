@@ -2,8 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import Command
-from odoo.tests import HttpCase, tagged
-from odoo.tests.common import Form
+from odoo.tests import Form, HttpCase, tagged
 
 
 @tagged("post_install", "-at_install")
