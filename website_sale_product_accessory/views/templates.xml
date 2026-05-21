@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ForgeFlow S.L. (https://www.forgeflow.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="product_accessory_products"
+        name="Accessory Products"
+        inherit_id="website_sale.product"
+        active="True"
+    >
+        <div t-field="product.website_description" position="after">
+            <t
+                t-set="accessory_products"
+                t-value="product._get_product_page_accessory_products()"
+            />
+            <div
+                t-if="accessory_products"
+                id="oe_structure_website_sale_product_accessory_products"
+                class="oe_structure oe_structure_solo oe_unremovable oe_unmovable container my-4"
+                t-ignore="true"
+            >
+                <h4 class="mb-3">Suggested accessories</h4>
+                <div class="row g-3">
+                    <div
+                        t-foreach="accessory_products"
+                        t-as="accessory"
+                        class="col-12 col-md-6 col-lg-4"
+                        name="accessory_product"
+                    >
+                        <div class="d-flex gap-3 p-3 h-100 border rounded">
+                            <a t-att-href="accessory.website_url" class="flex-shrink-0">
+                                <div
+                                    t-field="accessory.image_128"
+                                    t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'border rounded'}"
+                                />
+                            </a>
+                            <div
+                                class="flex-grow-1 d-flex flex-column justify-content-between"
+                            >
+                                <div>
+                                    <a
+                                        class="text-reset"
+                                        t-att-href="accessory.website_url"
+                                    >
+                                        <h6
+                                            class="align-top text-wrap"
+                                            t-out="accessory.with_context(display_default_code=False).display_name"
+                                        />
+                                    </a>
+                                    <div
+                                        class="small text-muted mb-2"
+                                        t-field="accessory.description_sale"
+                                    />
+                                </div>
+                                <div
+                                    class="d-flex justify-content-between align-items-center"
+                                >
+                                    <t
+                                        t-set="combination_info"
+                                        t-value="accessory._get_combination_info_variant()"
+                                    />
+                                    <h6
+                                        class="d-flex mb-0"
+                                        name="accessory_product_price_container"
+                                    >
+                                        <del
+                                            t-attf-class="me-2 text-nowrap text-muted {{'' if combination_info['has_discounted_price'] else 'd-none'}}"
+                                            t-out="combination_info['list_price']"
+                                            t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                                        />
+                                        <span
+                                            class="text-nowrap"
+                                            t-out="combination_info['price']"
+                                            t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                                        />
+                                    </h6>
+                                    <a
+                                        t-att-href="accessory.website_url"
+                                        class="btn btn-primary btn-sm text-nowrap"
+                                    >
+                                        <i
+                                            class="d-md-none fa fa-shopping-cart"
+                                            role="presentation"
+                                        />
+                                        <span
+                                            class="d-none d-md-inline"
+                                        >View product</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>
