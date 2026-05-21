@@ -12,3 +12,11 @@ availability messages will be based on the *Available* quantity instead
 of *Free* quantity. And also, the eCommerce won't allow you to buy more
 products than *Available* quantity (not *Free* quantity isn't taken into
 account).
+
+## Relation to Odoo 19.0 core
+
+Core 19.0 `website_sale_stock` uses `free_qty` (on-hand minus
+reservations) for eCommerce availability. This module swaps in
+`immediately_usable_qty` (Available To Promise — includes incoming
+moves), which matters for businesses with ongoing inbound supply where
+incoming stock should be sellable before it arrives.
