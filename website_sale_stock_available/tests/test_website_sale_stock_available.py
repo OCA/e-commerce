@@ -4,6 +4,7 @@
 from odoo import Command
 
 from odoo.addons.base.tests.common import BaseCommon
+from odoo.addons.website_sale.tests.common import MockRequest
 
 
 class SaleStockAvailableInfoPopup(BaseCommon):
@@ -17,7 +18,7 @@ class SaleStockAvailableInfoPopup(BaseCommon):
                 "login": "pauline",
                 "email": "p.p@example.com",
                 "notification_type": "inbox",
-                "groups_id": [Command.link(user_group_stock_user.id)],
+                "group_ids": [Command.link(user_group_stock_user.id)],
             }
         )
         cls.product = cls.env["product.product"].create(
@@ -46,7 +47,6 @@ class SaleStockAvailableInfoPopup(BaseCommon):
         )
         cls.env["stock.move"].create(
             {
-                "name": "a move",
                 "product_id": cls.product.id,
                 "product_uom_qty": 3.0,
                 "product_uom": cls.product.uom_id.id,
@@ -65,7 +65,6 @@ class SaleStockAvailableInfoPopup(BaseCommon):
         cls.env["stock.move"].create(
             {
                 "restrict_partner_id": cls.user_stock_user.partner_id.id,
-                "name": "another move",
                 "product_id": cls.product.id,
                 "product_uom_qty": 5.0,
                 "product_uom": cls.product.uom_id.id,
@@ -77,18 +76,20 @@ class SaleStockAvailableInfoPopup(BaseCommon):
 
     def test_get_combination_info(self):
         product_tmpl = self.product.product_tmpl_id
-        combination_info = product_tmpl.with_context(
-            website_sale_stock_get_quantity=True,
-        )._get_combination_info()
-        self.assertEqual(
-            combination_info["free_qty"],
-            40,
-        )
-        self.picking_out.action_confirm()
-        self.picking_in.action_assign()
-        combination_info = product_tmpl.with_context(
-            website_sale_stock_get_quantity=True,
-        )._get_combination_info()
-        self.assertEqual(
-            combination_info["free_qty"], self.product.immediately_usable_qty
-        )
+        website = self.env["website"].search([], limit=1)
+        with MockRequest(self.env, website=website):
+            combination_info = product_tmpl.with_context(
+                website_sale_stock_get_quantity=True,
+            )._get_combination_info()
+            self.assertEqual(
+                combination_info["free_qty"],
+                40,
+            )
+            self.picking_out.action_confirm()
+            self.picking_in.action_assign()
+            combination_info = product_tmpl.with_context(
+                website_sale_stock_get_quantity=True,
+            )._get_combination_info()
+            self.assertEqual(
+                combination_info["free_qty"], self.product.immediately_usable_qty
+            )

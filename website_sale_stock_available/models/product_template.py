@@ -12,7 +12,7 @@ class ProductTemplate(models.Model):
         combination=False,
         product_id=False,
         add_qty=1.0,
-        parent_combination=False,
+        uom_id=False,
         only_template=False,
     ):
         template = self.with_context(website_sale_stock_available=True)
@@ -20,6 +20,6 @@ class ProductTemplate(models.Model):
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            parent_combination=parent_combination,
+            uom_id=uom_id,
             only_template=only_template,
         )
