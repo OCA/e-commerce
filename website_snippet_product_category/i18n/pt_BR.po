@@ -25,6 +25,11 @@ msgid ""
 msgstr ""
 
 #. module: website_snippet_product_category
+#: model_terms:ir.ui.view,arch_db:website_snippet_product_category.product_public_category_form_view
+msgid "Empty means all websites"
+msgstr ""
+
+#. module: website_snippet_product_category
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal
 msgid "Metal Box"
 msgstr ""
@@ -38,6 +43,13 @@ msgstr ""
 #. module: website_snippet_product_category
 #: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__published_in_product_category_snippet
 msgid "Published in product category snippet"
+msgstr ""
+
+#. module: website_snippet_product_category
+#: model:ir.model.fields,help:website_snippet_product_category.field_product_public_category__snippet_website_ids
+msgid ""
+"Show this category in the product category snippet only on the selected "
+"websites. Leave empty to show it on all websites."
 msgstr ""
 
 #. module: website_snippet_product_category
@@ -63,6 +75,11 @@ msgstr ""
 #. module: website_snippet_product_category
 #: model:ir.model,name:website_snippet_product_category.model_product_public_category
 msgid "Website Product Category"
+msgstr ""
+
+#. module: website_snippet_product_category
+#: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__snippet_website_ids
+msgid "Websites for category snippet"
 msgstr ""
 
 #. module: website_snippet_product_category
