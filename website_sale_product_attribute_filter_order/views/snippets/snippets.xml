@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <template id="snippet_options" inherit_id="website_sale.snippet_options">
         <xpath
             expr="//we-checkbox[@data-customize-website-views='website_sale.filter_products_price']"
@@ -16,5 +15,4 @@
             />
         </xpath>
     </template>
-
 </odoo>
