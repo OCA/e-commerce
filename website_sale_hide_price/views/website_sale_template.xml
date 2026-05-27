@@ -108,5 +108,10 @@
             />
         </xpath>
     </template>
+    <template id="header_cart_link" inherit_id="website_sale.header_cart_link">
+        <xpath expr="//t[@t-set='show_cart']" position="after">
+            <t t-set="show_cart" t-value="show_cart and website.website_show_price" />
+        </xpath>
+    </template>
 
 </odoo>
