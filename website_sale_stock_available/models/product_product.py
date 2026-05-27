@@ -13,11 +13,18 @@ class Product(models.Model):
         res = super()._compute_quantities_dict(
             lot_id, owner_id, package_id, from_date, to_date
         )
-        if self.env.context.get("website_sale_stock_available"):
-            products_no_ctx = self.with_context(website_sale_stock_available=False)
-            products_no_ctx._compute_available_quantities()
-            for product in products_no_ctx:
-                res[product.id]["free_qty"] = product.immediately_usable_qty
+        if not self.env.context.get("website_sale_stock_available"):
+            return res
+        products = self.with_context(
+            website_sale_stock_available=False,
+            lot_id=lot_id,
+            owner_id=owner_id,
+            package_id=package_id,
+            from_date=from_date,
+            to_date=to_date,
+        )
+        for data in products.read(["immediately_usable_qty"]):
+            res[data["id"]]["free_qty"] = data["immediately_usable_qty"]
         return res
 
     @api.depends_context("website_sale_stock_available")
