@@ -1,0 +1,1 @@
+from . import test_website_sale_stock_picking_policy
