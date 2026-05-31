@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 01:57+0000\n"
-"PO-Revision-Date: 2026-02-25 07:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-05-31 06:46+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Nastavitve"
 
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_res_partner
@@ -34,24 +34,24 @@ msgstr "Stik"
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_config_settings__website_hide_price_default_message
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_website__website_hide_price_default_message
 msgid "Default Hidden price message"
-msgstr ""
+msgstr "Privzeto sporočilo pri skriti ceni"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_product__website_hide_price_message
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_template__website_hide_price_message
 msgid "Hidden price message"
-msgstr ""
+msgstr "Sporočilo pri skriti ceni"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,help:website_sale_hide_price.field_res_config_settings__website_hide_price
 #: model:ir.model.fields,help:website_sale_hide_price.field_website__website_hide_price
 msgid "Hide price at website level"
-msgstr ""
+msgstr "Skrij ceno na nivoju spletne strani"
 
 #. module: website_sale_hide_price
 #: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
 msgid "Hide prices at website level"
-msgstr ""
+msgstr "Skrij cene na nivoju spletne strani"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_product__website_hide_price
@@ -59,17 +59,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_config_settings__website_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_website__website_hide_price
 msgid "Hide prices on website"
-msgstr ""
+msgstr "Skrij cene na spletni strani"
 
 #. module: website_sale_hide_price
 #: model:ir.model,name:website_sale_hide_price.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Proizvod"
 
 #. module: website_sale_hide_price
 #: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
 msgid "Set a default text when hiding prices"
-msgstr ""
+msgstr "Nastavi privzeto besedilo pri skrivanju cen"
 
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
@@ -96,3 +96,5 @@ msgid ""
 "When the price is hidden on the website we can give the customersome tips on "
 "how to find it out."
 msgstr ""
+"Če je cena na spletni strani skrita, lahko stranki ponudimo nekaj nasvetov, "
+"kako jo najti."
