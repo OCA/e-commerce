@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-28 00:48+0000\n"
-"PO-Revision-Date: 2026-02-25 07:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-05-31 06:46+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-e-commerce-8-0/"
 "language/sl/)\n"
 "Language: sl\n"
@@ -24,19 +24,19 @@ msgstr ""
 #. module: website_sale_require_legal
 #: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
 msgid "I agree to the"
-msgstr ""
+msgstr "Strinjam se s"
 
 #. module: website_sale_require_legal
 #. odoo-python
 #: code:addons/website_sale_require_legal/controllers/main.py:0
 #, python-format
 msgid "Website legal terms acceptance metadata: %s"
-msgstr ""
+msgstr "Metapodatki o sprejetju pravnih pogojev spletnega mesta: %s"
 
 #. module: website_sale_require_legal
 #: model_terms:ir.ui.view,arch_db:website_sale_require_legal.accept_input
 msgid "terms &amp; conditions"
-msgstr ""
+msgstr "Pravila in pogoji"
 
 #~ msgid "Confirm"
 #~ msgstr "Potrjujem"
