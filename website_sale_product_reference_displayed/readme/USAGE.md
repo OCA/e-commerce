@@ -5,7 +5,9 @@ To toggle the display per page type, open the website editor and use the
 **Product Reference** checkbox in the builder sidebar:
 
 - On the **shop listing page** (`/shop`): the option appears under the
-  *Products Page* section.
+  *Products Page* section. It also controls whether the product search
+  results render their title from `display_name` (reference included) or
+  from `name`.
 - On a **product detail page** (`/shop/<product>`): the option appears
   under the *Product Page* section.
 

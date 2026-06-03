@@ -5,7 +5,10 @@
         <BuilderRow label.translate="Product Reference">
             <BuilderCheckbox
                 action="'websiteConfig'"
-                actionParam="{views: ['website_sale_product_reference_displayed.products_item']}"
+                actionParam="{views: [
+                'website_sale_product_reference_displayed.products_item',
+                'website_sale_product_reference_displayed.search_display_name',
+            ]}"
             />
         </BuilderRow>
     </t>
