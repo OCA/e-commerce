@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [website_sale_cart_expire](website_sale_cart_expire/) | 19.0.1.0.0 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Cancel carts without activity after a configurable time
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 19.0.1.0.0 |  | Skip payment for logged users in checkout process
+[website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 19.0.1.0.0 |  | Display product reference in e-commerce
 
 [//]: # (end addons)
 
