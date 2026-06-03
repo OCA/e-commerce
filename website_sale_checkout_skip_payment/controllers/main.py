@@ -24,13 +24,11 @@ class CheckoutSkipPaymentWebsite(WebsiteSale):
         if not request.website.checkout_skip_payment or not order_id:
             return super().shop_payment_confirmation(**post)
         order = request.env["sale.order"].sudo().browse(order_id)
-        try:
-            order.with_context(
-                send_email=True,
-                mark_so_as_sent=True,
-            ).action_confirm()
-
-        except Exception:
+        result = order.with_context(
+            send_email=True,
+            mark_so_as_sent=True,
+        ).action_confirm()
+        if isinstance(result, dict) or order.state != "sale":
             return request.render(
                 "website_sale_checkout_skip_payment.confirmation_order_error"
             )
