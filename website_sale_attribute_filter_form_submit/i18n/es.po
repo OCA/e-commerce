@@ -19,6 +19,11 @@ msgstr ""
 
 #. module: website_sale_attribute_filter_form_submit
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_form_submit.o_wsale_offcanvas
+msgid "<option value=\"\">-</option>"
+msgstr ""
+
+#. module: website_sale_attribute_filter_form_submit
+#: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_form_submit.o_wsale_offcanvas
 #: model_terms:ir.ui.view,arch_db:website_sale_attribute_filter_form_submit.products_attributes_filter_manual
 msgid "Apply"
 msgstr "Aplicar"
