@@ -20,7 +20,7 @@ odoo.define("website_sale_product_assortment.VariantMixin", function (require) {
         const isMainProduct =
             combination.product_id &&
             ($parent.is(".js_main_product") || $parent.is(".main_product")) &&
-            combination.product_id === parseInt(product_id);
+            combination.product_id === parseInt(product_id, 10);
         if (!this.isWebsite || !isMainProduct) {
             return;
         }
