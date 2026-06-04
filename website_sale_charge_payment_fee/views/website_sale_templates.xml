@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<odoo>
+    <template id="form_fee" inherit_id="payment.form">
+        <xpath
+            expr="//t[@t-call='payment.method_form']/t[@t-set='is_selected']"
+            position="attributes"
+        >
+            <attribute
+                name="t-value"
+                add="not selected_token_id and pm_sudo.id == selected_payment_method"
+                separator=" or "
+            />
+        </xpath>
+    </template>
+    <template
+        id="method_form_fee"
+        name="Payment Method Fee"
+        inherit_id="payment.method_form"
+    >
+        <xpath expr="//label[hasclass('o_payment_option_label')]" position="after">
+            <t t-if="provider_sudo.charge_fee">
+                <span>(Fee:
+                    <t t-if="provider_sudo.charge_fee_type == 'fixed'">
+                    <span
+                        id="charge_fee_fixed_price"
+                        t-field="provider_sudo.charge_fee_fixed_price"
+                        t-options="{'widget': 'monetary', 'display_currency': provider_sudo.charge_fee_currency_id}"
+                    />
+                </t>
+                    <t t-if="provider_sudo.charge_fee_type == 'percentage'">
+                        <span
+                    id="charge_fee_percentage"
+                    t-field="provider_sudo.charge_fee_percentage"
+                />
+                        %
+                    </t>
+                    )
+                </span>
+            </t>
+        </xpath>
+    </template>
+    <template id="payment_fee" name="Payment Fee" inherit_id="website_sale.total">
+        <xpath expr="//tr[@id='order_total_untaxed']" position="before">
+            <tr
+                id="order_payment_fee"
+                t-if="website_sale_order and any(l.payment_fee_line for l in website_sale_order.order_line)"
+            >
+                <td
+                    class="ps-0 pt-0 pb-2 border-0 text-muted"
+                    colspan="2"
+                >Payment Fee</td>
+                <td class="text-end pe-0 pt-0 pb-2 border-0">
+                    <span
+                        t-field="website_sale_order.amount_payment_fee"
+                        style="white-space: nowrap;"
+                        t-options='{
+                      "widget": "monetary",
+                      "display_currency": website_sale_order.currency_id,
+                  }'
+                    />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>
