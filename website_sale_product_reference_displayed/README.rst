@@ -35,6 +35,11 @@ Display product reference in e-commerce
 This module extends the ``website_sale`` views to display the product's
 full display name, with its product reference included.
 
+It can also make the website product search render the result title from
+``display_name`` instead of ``name``. This keeps the search results
+consistent with the rest of the shop and exposes the product reference,
+and can be toggled per website like the rest of the options.
+
 **Table of contents**
 
 .. contents::
@@ -49,10 +54,12 @@ Just install and the products will be shown with their full display name
 To toggle the display per page type, open the website editor and use the
 **Product Reference** checkbox in the builder sidebar:
 
-- On the **shop listing page** (``/shop``): the option appears under the
-  *Products Page* section.
-- On a **product detail page** (``/shop/<product>``): the option appears
-  under the *Product Page* section.
+-  On the **shop listing page** (``/shop``): the option appears under
+   the *Products Page* section. It also controls whether the product
+   search results render their title from ``display_name`` (reference
+   included) or from ``name``.
+-  On a **product detail page** (``/shop/<product>``): the option
+   appears under the *Product Page* section.
 
 Disabling the option hides the reference from the product name in the
 selected area. Each website can have its own setting.
@@ -82,22 +89,23 @@ Authors
 Contributors
 ------------
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  - David Vidal
-  - Carlos Roca
+   -  David Vidal
+   -  Carlos Roca
 
-- `Onestein <https://www.onestein.nl>`__:
+-  `Onestein <https://www.onestein.nl>`__:
 
-  - Anjeel Haria
+   -  Anjeel Haria
 
-- `Kencove <https://www.kencove.com/>`__:
+-  `Kencove <https://www.kencove.com/>`__:
 
-  - Mohamed Alkobrosli
+   -  Mohamed Alkobrosli
 
-- `ForgeFlow <https://www.forgeflow.com>`__:
+-  `ForgeFlow <https://www.forgeflow.com>`__:
 
-  - Jasmin Solanki
+   -  Jasmin Solanki
+   -  Miquel Raïch
 
 Maintainers
 -----------

@@ -31,6 +31,17 @@
             <span t-field="product.display_name" />
         </xpath>
     </template>
+    <!-- Feature flag toggled from the website builder. When active, the
+         website product search renders the result title from display_name
+         instead of name (see models/product_template.py). It is kept as a
+         view so it can be enabled/disabled per website like the rest of the
+         options. -->
+    <template
+        id="search_display_name"
+        name="Display product reference in search results"
+    >
+        <t />
+    </template>
     <template
         id="product_title"
         name="Display product reference"

@@ -7,3 +7,4 @@
   - Mohamed Alkobrosli
 - [ForgeFlow](https://www.forgeflow.com):
   - Jasmin Solanki
+  - Miquel Raïch
