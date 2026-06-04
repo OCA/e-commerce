@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Alberto Martínez <alberto.martinez@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="total_empty_cart" inherit_id="payment.express_checkout">
+        <xpath expr="//form[@name='o_payment_express_checkout_form']" position="before">
+            <div
+                t-if="website.cart_empty_button"
+                class=" d-flex flex-column mb-5 mb-lg-0 pt-4"
+            >
+                <form
+                    action="/shop/cart"
+                    method="post"
+                    enctype="multipart/form-data"
+                    class="o_mark_required s_website_form_no_recaptcha"
+                    hide-change-model="true"
+                >
+                    <input type="hidden" name="empty_cart" t-att-value="1" />
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <t t-set="empty_cart_label">Empty Cart</t>
+                    <input
+                        type="submit"
+                        t-att-value="empty_cart_label"
+                        id="empty_cart_button"
+                        name="empty_cart_button"
+                        class="btn btn-light  w-100"
+                    />
+                </form>
+            </div>
+        </xpath>
+    </template>
+</odoo>

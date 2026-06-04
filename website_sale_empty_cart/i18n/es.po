@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_empty_cart
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-13 08:51+0000\n"
+"PO-Revision-Date: 2025-10-13 08:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_empty_cart
+#: model_terms:ir.ui.view,arch_db:website_sale_empty_cart.res_config_settings_view_form
+msgid "Cart Empty Button"
+msgstr "Botón de vaciado de carrito"
+
+#. module: website_sale_empty_cart
+#: model:ir.model,name:website_sale_empty_cart.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: website_sale_empty_cart
+#: model_terms:ir.ui.view,arch_db:website_sale_empty_cart.total_empty_cart
+msgid "Empty Cart"
+msgstr "Vaciar carrito"
+
+#. module: website_sale_empty_cart
+#: model_terms:ir.ui.view,arch_db:website_sale_empty_cart.res_config_settings_view_form
+msgid "Enable or disable the cart empty button"
+msgstr "Habilitar o deshabilitar el botón de vaciado de carrito"
+
+#. module: website_sale_empty_cart
+#: model:ir.model.fields,field_description:website_sale_empty_cart.field_res_config_settings__cart_empty_button
+#: model:ir.model.fields,field_description:website_sale_empty_cart.field_website__cart_empty_button
+msgid "Is the cart empty button enabled?"
+msgstr "Está el botón de vaciado de carrito habilitado?"
+
+#. module: website_sale_empty_cart
+#: model:ir.model,name:website_sale_empty_cart.model_website
+msgid "Website"
+msgstr "Sitio web"
