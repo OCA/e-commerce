@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 19.0.1.0.1 |  | Skip payment for logged users in checkout process
 [website_sale_hide_price](website_sale_hide_price/) | 19.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_product_brand](website_sale_product_brand/) | 19.0.1.0.0 |  | Product Brand Filtering in Website
+[website_sale_product_minimal_price](website_sale_product_minimal_price/) | 19.0.1.0.0 | <a href='https://github.com/sergio-teruel'><img src='https://github.com/sergio-teruel.png' width='32' height='32' style='border-radius:50%;' alt='sergio-teruel'/></a> | Display minimal price for products that has variants
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 19.0.1.1.0 |  | Display product reference in e-commerce
 [website_sale_stock_picking_policy](website_sale_stock_picking_policy/) | 19.0.1.0.0 |  | Let customers choose consolidated delivery at checkout
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 19.0.1.0.0 |  | Display provisioning date for a product in shop online
