@@ -41,6 +41,11 @@ msgid "Hidden price message"
 msgstr ""
 
 #. module: website_sale_hide_price
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
+msgid "Hidden price message options"
+msgstr ""
+
+#. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_product__website_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_product_template__website_hide_price
 msgid "Hide prices on website"
@@ -57,9 +62,22 @@ msgid "Set a default text when hiding prices"
 msgstr ""
 
 #. module: website_sale_hide_price
+#: model:ir.model.fields,field_description:website_sale_hide_price.field_res_config_settings__show_hide_price_message_to_public
+#: model:ir.model.fields,field_description:website_sale_hide_price.field_website__show_hide_price_message_to_public
+msgid "Show hidden price message to public users"
+msgstr ""
+
+#. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_partner__website_show_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_res_users__website_show_price
 msgid "Show prices on website"
+msgstr ""
+
+#. module: website_sale_hide_price
+#: model_terms:ir.ui.view,arch_db:website_sale_hide_price.res_config_settings_view_form
+msgid ""
+"Show the hidden price message to public\n"
+"                                (not logged-in) users"
 msgstr ""
 
 #. module: website_sale_hide_price
@@ -70,6 +88,15 @@ msgstr "Вэбсайт"
 #. module: website_sale_hide_price
 #: model:ir.model.fields,field_description:website_sale_hide_price.field_website__website_show_price
 msgid "Website Show Price"
+msgstr ""
+
+#. module: website_sale_hide_price
+#: model:ir.model.fields,help:website_sale_hide_price.field_res_config_settings__show_hide_price_message_to_public
+#: model:ir.model.fields,help:website_sale_hide_price.field_website__show_hide_price_message_to_public
+msgid ""
+"When enabled, the hidden price message set on each product (or the default "
+"one) is also shown to public (not logged-in) users. By default it is only "
+"shown to logged-in users."
 msgstr ""
 
 #. module: website_sale_hide_price
