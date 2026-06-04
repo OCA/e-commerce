@@ -35,7 +35,7 @@ addon | version | maintainers | summary
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 15.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_google_tag_manager](website_sale_google_tag_manager/) | 15.0.1.0.0 |  | Add support for Google Tag Manager Enhanced Conversions
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 15.0.1.0.1 |  | Hide any Product Categories that are empty
-[website_sale_hide_price](website_sale_hide_price/) | 15.0.1.3.0 |  | Hide product prices on the shop
+[website_sale_hide_price](website_sale_hide_price/) | 15.0.1.4.0 |  | Hide product prices on the shop
 [website_sale_invoice_address](website_sale_invoice_address/) | 15.0.1.0.2 |  | Set e-Commerce sale orders invoice address as in backend
 [website_sale_menu_partner_top_selling](website_sale_menu_partner_top_selling/) | 15.0.1.0.0 |  | Displays the user's regular products in the e-commerce.
 [website_sale_order_cancel](website_sale_order_cancel/) | 15.0.1.0.1 | <a href='https://github.com/ppyczko'><img src='https://github.com/ppyczko.png' width='32' height='32' style='border-radius:50%;' alt='ppyczko'/></a> | Allow customers to cancel their website sale orders
