@@ -74,6 +74,7 @@ addon | version | maintainers | summary
 [website_sale_wishlist_archive_cron](website_sale_wishlist_archive_cron/) | 15.0.1.0.0 |  | Website Sales Wishlist Archive Cron
 [website_sale_wishlist_hide_price](website_sale_wishlist_hide_price/) | 15.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_wishlist_keep](website_sale_wishlist_keep/) | 15.0.1.0.1 |  | Allows to add products to my cart but keep it in my wishlist"
+[website_sale_wishlist_menuitem](website_sale_wishlist_menuitem/) | 15.0.1.0.0 |  | Website Sales Wishlist Menuitem
 [website_snippet_product_category](website_snippet_product_category/) | 15.0.1.0.0 | <a href='https://github.com/Tardo'><img src='https://github.com/Tardo.png' width='32' height='32' style='border-radius:50%;' alt='Tardo'/></a> | Adds a new snippet to show e-commerce categories
 
 [//]: # (end addons)
