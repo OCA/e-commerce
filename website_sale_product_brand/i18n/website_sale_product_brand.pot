@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,22 +19,20 @@ msgid "<b>Brand</b>"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
-msgid ""
-"<small class=\"mx-auto\">\n"
-"                        <b>Clear Filters</b>\n"
-"                    </small>\n"
-"                    <i class=\"oi oi-close\" role=\"presentation\"/>"
-msgstr ""
-
-#. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
 msgid "Can Publish"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
-msgid "Clear Filters"
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__display_name
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__id
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_template__id
+msgid "ID"
 msgstr ""
 
 #. module: website_sale_product_brand
@@ -64,6 +62,11 @@ msgid "Product Brands"
 msgstr ""
 
 #. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__published_products_count
+msgid "Published Products Count"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
 msgstr ""
@@ -79,13 +82,23 @@ msgid "Shop by Brand"
 msgstr ""
 
 #. module: website_sale_product_brand
+#: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_absolute_url
+msgid "The full absolute URL to access the document through the website."
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_url
-msgid "The full URL to access the document through the website."
+msgid "The full relative URL to access the document through the website."
 msgstr ""
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_published
 msgid "Visible on current website"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_absolute_url
+msgid "Website Absolute URL"
 msgstr ""
 
 #. module: website_sale_product_brand
