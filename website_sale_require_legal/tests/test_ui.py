@@ -19,6 +19,20 @@ class UICase(HttpCase):
         """Ensure website lang is en_US."""
         super().setUp()
         website = self.env["website"].get_current_website()
+        wire_transfer = self.env["payment.provider"].search(
+            [
+                ("code", "=", "custom"),
+                ("custom_mode", "=", "wire_transfer"),
+            ],
+            limit=1,
+        )
+        wire_transfer.write(
+            {
+                "state": "enabled",
+                "is_published": True,
+                "company_id": website.company_id.id,
+            }
+        )
         en_US = (
             self.env["res.lang"]
             .with_context(active_test=False)
@@ -30,10 +44,12 @@ class UICase(HttpCase):
         wiz.lang_install()
         website.default_lang_id = self.env.ref("base.lang_en")
         # Activate Accept Terms & Conditions views, as explained in CONFIGURE.rst
-        website.viewref(
-            "website_sale_require_legal.address_require_legal"
-        ).active = True
-        website.viewref("website_sale.accept_terms_and_conditions").active = True
+        website.with_context(
+            website_id=website.id,
+        ).viewref("website_sale_require_legal.address_require_legal").active = True
+        website.with_context(
+            website_id=website.id,
+        ).viewref("website_sale.accept_terms_and_conditions").active = True
         self.user = new_test_user(
             self.env,
             login="super_mario",
@@ -41,10 +57,25 @@ class UICase(HttpCase):
             password="super_mario",
             name="Super Mario",
         )
+        self.env["product.template"].create(
+            {
+                "name": "Storage Box",
+                "list_price": 100.0,
+                "sale_ok": True,
+                "is_published": True,
+            }
+        )
 
     def test_ui_website(self):
         """Test frontend tour."""
-        if self.env["ir.module.module"]._get("payment_custom").state != "installed":
+        wire_transfer = self.env["payment.provider"].search(
+            [
+                ("code", "=", "custom"),
+                ("custom_mode", "=", "wire_transfer"),
+            ],
+            limit=1,
+        )
+        if not wire_transfer:
             self.start_tour(
                 "/shop",
                 "website_sale_require_legal",
@@ -52,14 +83,6 @@ class UICase(HttpCase):
                 login="super_mario",
             )
         else:
-            transfer_provider = self.env.ref("payment.payment_provider_transfer")
-            transfer_provider.write(
-                {
-                    "state": "enabled",
-                    "is_published": True,
-                }
-            )
-            transfer_provider._transfer_ensure_pending_msg_is_set()
             self.start_tour(
                 "/shop",
                 "website_sale_require_legal_with_payment",
@@ -69,7 +92,7 @@ class UICase(HttpCase):
             order = self.env["sale.order"].search(
                 [
                     ("partner_id", "ilike", "super_mario"),
-                    ("website_id", "!=", "False"),
+                    ("website_id", "!=", False),
                 ]
             )
             # Assert that the sale order have metadata logs

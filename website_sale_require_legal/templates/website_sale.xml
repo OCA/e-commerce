@@ -10,7 +10,6 @@
                 type="checkbox"
                 name="accepted_legal_terms"
                 id="accepted_legal_terms"
-                required="required"
             />
             <label for="accepted_legal_terms" class="control-label form-check-label">
                 I agree to the <a
@@ -27,8 +26,8 @@
         customize_show="True"
         active="False"
     >
-        <xpath expr="//form/div[hasclass('row')]" position="inside">
-            <div class="col-lg-12">
+        <xpath expr="//t[@t-call='website_sale.address_form_fields']" position="after">
+            <div class="mt-3">
                 <t t-call="website_sale_require_legal.accept_input" />
             </div>
         </xpath>

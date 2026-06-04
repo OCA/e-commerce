@@ -7,3 +7,7 @@
   > - Ernesto Tejeda
   > - Cristina Martin R.
   > - Pilar Vargas
+
+- [ACSONE](https://www.acsone.eu/):
+
+  > - Raphaël Vicini

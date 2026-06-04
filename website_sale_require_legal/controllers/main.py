@@ -19,7 +19,6 @@ class WebsiteSale(main.WebsiteSale):
         address_type,
         use_delivery_as_billing,
         required_fields,
-        is_main_address,
         **_kwargs,
     ):
         invalid_fields, missing_fields, error_messages = (
@@ -29,7 +28,6 @@ class WebsiteSale(main.WebsiteSale):
                 address_type,
                 use_delivery_as_billing,
                 required_fields,
-                is_main_address,
                 **_kwargs,
             )
         )
@@ -39,6 +37,7 @@ class WebsiteSale(main.WebsiteSale):
                 "website_sale_require_legal.address_require_legal"
             ).active
         ):
+            invalid_fields.add("accepted_legal_terms")
             error_messages.append(
                 request.env._("You must accept the terms & conditions to continue.")
             )
@@ -88,7 +87,7 @@ class WebsiteSale(main.WebsiteSale):
             )
         )
         message = Markup(
-            request.env._("Website legal terms acceptance metadata: %s") % metadata
+            request.env._("Website legal terms acceptance metadata: %s", metadata)
         )
         record.sudo().message_post(
             body=message, message_type="notification", subtype_xmlid="mail.mt_comment"
