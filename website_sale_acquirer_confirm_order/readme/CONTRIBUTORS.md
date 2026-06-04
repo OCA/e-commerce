@@ -1,0 +1,4 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Pilar Vargas
+- [Studio73](https://www.studio73.es):
+  - Arantxa Gandia
