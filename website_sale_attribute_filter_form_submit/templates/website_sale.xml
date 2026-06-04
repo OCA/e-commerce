@@ -46,18 +46,29 @@
                 class="list-group list-group-flush"
                 t-if="a.display_type == 'select' or a.display_type == 'multi'"
             >
-                <select
-                    name="attrib"
-                    t-att-id="'%s-%s' % (a.id,v.id)"
-                    t-att-value="'%s-%s' % (a.id,v.id)"
-                    t-attf-class="form-control"
+                <div
+                    class="list-group list-group-flush"
+                    t-if="a.display_type in ('select', 'multi')"
                 >
-                    <t t-foreach="a.value_ids" t-as="v">
-                        <option t-att-value="'%s-%s' % (a.id,v.id)">
-                            <span t-field="v.name" />
-                        </option>
-                    </t>
-                </select>
+                    <select
+                        class="form-select js_attribute_select"
+                        t-att-id="'attrib_%s' % a.id"
+                        name="attribute_value"
+                        t-att-multiple="a.display_type == 'multi' and 'multiple' or None"
+                    >
+                        <t t-if="a.display_type == 'select'">
+                            <option value="">-</option>
+                        </t>
+                        <t t-foreach="a.value_ids" t-as="v">
+                            <option
+                                t-att-value="'%s-%s' % (a.id, v.id)"
+                                t-att-selected="v.id in attrib_set and 'selected' or None"
+                            >
+                                <t t-out="v.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
             </div>
         </xpath>
         <xpath
