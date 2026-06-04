@@ -23,6 +23,7 @@ msgstr ""
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_top_products_brands
 msgid "<b>Brand</b>"
 msgstr ""
 
@@ -42,6 +43,7 @@ msgstr ""
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_top_products_brands
 msgid "Clear Filters"
 msgstr ""
 
