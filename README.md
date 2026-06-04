@@ -31,6 +31,7 @@ addon | version | maintainers | summary
 [website_sale_barcode_search](website_sale_barcode_search/) | 18.0.1.0.0 |  | It improve website product search adding search by barcode
 [website_sale_cart_expire](website_sale_cart_expire/) | 18.0.1.0.1 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Cancel carts without activity after a configurable time
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 18.0.1.0.0 | <a href='https://github.com/Rad0van'><img src='https://github.com/Rad0van.png' width='32' height='32' style='border-radius:50%;' alt='Rad0van'/></a> | Displays Product Category Breadcrumb(s) in eCommerce
+[website_sale_charge_payment_fee](website_sale_charge_payment_fee/) | 18.0.1.0.0 | <a href='https://github.com/miguel-S73'><img src='https://github.com/miguel-S73.png' width='32' height='32' style='border-radius:50%;' alt='miguel-S73'/></a> | Payment fee charged to customer
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 18.0.1.0.0 |  | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 18.0.1.1.1 |  | Skip payment for logged users in checkout process
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 18.0.1.0.0 |  | Hide product prices on the shop
