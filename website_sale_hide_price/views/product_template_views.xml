@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view" />
+        <field name="arch" type="xml">
+            <group name="extra_info" position="inside">
+                <field name="website_hide_price" />
+                <field name="website_hide_price_message" />
+            </group>
+        </field>
+    </record>
+</odoo>
