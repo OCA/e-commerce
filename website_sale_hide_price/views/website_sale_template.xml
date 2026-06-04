@@ -20,7 +20,7 @@
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
                 class="alert alert-info"
-                t-if="product.website_hide_price and (product.website_hide_price_message or website.website_hide_price_default_message) and user_authenticated"
+                t-if="product.website_hide_price and (product.website_hide_price_message or website.website_hide_price_default_message) and (user_authenticated or website.show_hide_price_message_to_public)"
             >
                 <i class="fa fa-info-circle" /> <span
                     t-esc="product.website_hide_price_message or website.website_hide_price_default_message"
