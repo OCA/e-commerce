@@ -1,7 +1,5 @@
-/** @odoo-module **/
-
-import {registry} from "@web/core/registry";
 import * as tourUtils from "@website_sale/js/tours/tour_utils";
+import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_checkout_skip_payment", {
     url: "/shop",

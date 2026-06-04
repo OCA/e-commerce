@@ -1,9 +1,9 @@
 /* Copyright 2020 Tecnativa - Ernesto Tejeda
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
+import {clickOnElement} from "@website/js/tours/tour_utils";
 import {registry} from "@web/core/registry";
 import {searchProduct} from "@website_sale/js/tours/tour_utils";
-import {clickOnElement} from "@website/js/tours/tour_utils";
 
 registry.category("web_tour.tours").add("website_sale_stock_provisioning_date", {
     test: true,

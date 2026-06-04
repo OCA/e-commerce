@@ -52,16 +52,17 @@ publicWidget.registry.sale_secondary_unit = publicWidget.Widget.extend(VariantMi
     },
 
     _onChangeSecondaryUom: function (ev) {
-        if (!ev) {
+        let eventToUse = ev;
+        if (!eventToUse) {
             // HACK: Create a fake event to locate the form on "onChangeAddQuantity"
             // odoo method
-            ev = jQuery.Event("fakeEvent");
-            ev.currentTarget = $(".form-control.quantity");
+            eventToUse = jQuery.Event("fakeEvent");
+            eventToUse.currentTarget = $(".form-control.quantity");
         }
         this._setValues();
         const factor = this.secondary_uom_factor * this.product_uom_factor;
         this.$product_qty.val(this.secondary_uom_qty * factor);
-        this.onChangeAddQuantity(ev);
+        this.onChangeAddQuantity(eventToUse);
     },
     _onChangeProductQty: function () {
         this._setValues();
