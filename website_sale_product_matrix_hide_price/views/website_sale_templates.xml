@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product" inherit_id="website_sale_product_matrix.product">
+        <xpath expr="//a[@href='#modalMatrix']" position="attributes">
+            <attribute name="t-if">
+                product.product_add_mode == 'matrix' and website and website.website_show_price and not product.website_hide_price
+            </attribute>
+        </xpath>
+    </template>
+</odoo>
