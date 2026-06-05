@@ -1,0 +1,83 @@
+# Copyright 2018 Lorenzo Battistini - Agile Business Group
+# Copyright 2020 AITIC S.A.S
+# Copyright 2020 Quartile Limited
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+from odoo import api, fields, models
+
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    # Follow the field definition as amount_delivery from
+    # the website_sale_delivery module.
+    amount_payment_fee = fields.Monetary(
+        compute="_compute_amount_payment_fee",
+        string="Payment Fee Amount",
+        store=True,
+        tracking=True,
+    )
+
+    def _compute_website_order_line(self):
+        res = super()._compute_website_order_line()
+        for order in self:
+            order.website_order_line = order.website_order_line.filtered(
+                lambda line: not line.payment_fee_line
+            )
+        return res
+
+    @api.depends(
+        "order_line.price_unit",
+        "order_line.tax_ids",
+        "order_line.discount",
+        "order_line.product_uom_qty",
+    )
+    def _compute_amount_payment_fee(self):
+        for order in self:
+            amount_payment_fee = 0.0
+            if order.website_id.show_line_subtotals_tax_selection == "tax_excluded":
+                for line in order.order_line:
+                    if line.payment_fee_line:
+                        amount_payment_fee += line.price_subtotal
+            else:
+                for line in order.order_line:
+                    if line.payment_fee_line:
+                        amount_payment_fee += line.price_total
+            order.amount_payment_fee = amount_payment_fee
+
+    def update_fee_line(self, provider):
+        self.ensure_one()
+        for line in self.order_line:
+            if line.payment_fee_line:
+                line.unlink()
+        if provider.charge_fee:
+            if provider.charge_fee_type == "fixed":
+                price = provider.charge_fee_fixed_price
+                if (
+                    provider.charge_fee_currency_id.id
+                    != self.pricelist_id.currency_id.id
+                ):
+                    price = provider.charge_fee_currency_id._convert(
+                        price,
+                        self.pricelist_id.currency_id,
+                        self.company_id,
+                        self.date_order,
+                    )
+            elif provider.charge_fee_type == "percentage":
+                if self.website_id.show_line_subtotals_tax_selection == "tax_excluded":
+                    price = (
+                        provider.charge_fee_percentage / 100.0
+                    ) * self.amount_untaxed
+                else:
+                    price = (provider.charge_fee_percentage / 100.0) * self.amount_total
+            self.env["sale.order.line"].create(
+                {
+                    "order_id": self.id,
+                    "payment_fee_line": True,
+                    "product_id": provider.charge_fee_product_id.id,
+                    "product_uom_id": provider.charge_fee_product_id.uom_id.id,
+                    "name": provider.charge_fee_description,
+                    "price_unit": price,
+                    "product_uom_qty": 1,
+                }
+            )
