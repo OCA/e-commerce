@@ -52,6 +52,13 @@
         </t>
     </template>
     <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
+        <xpath expr="//t[@t-call='payment.express_checkout']" position="attributes">
+            <attribute
+                name="t-if"
+                separator="and"
+                add="not website.checkout_skip_payment"
+            />
+        </xpath>
         <xpath expr="//a[@name='website_sale_main_button']/span" position="attributes">
             <attribute name="t-if">not website.checkout_skip_payment</attribute>
         </xpath>
