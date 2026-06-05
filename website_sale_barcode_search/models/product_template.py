@@ -1,7 +1,7 @@
 # Copyright 2025 Tecnativa - Pilar Vargas
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class ProductTemplate(models.Model):
@@ -12,7 +12,7 @@ class ProductTemplate(models.Model):
         records, count = super()._search_fetch(search_detail, search, limit, order)
         base_domain = search_detail.get("base_domain")
         base_domain.append([("barcode", "ilike", search)])
-        domain = expression.AND(base_domain)
+        domain = Domain.AND(base_domain)
         tmpl_ids = self.search(domain)
         if tmpl_ids:
             records |= tmpl_ids
