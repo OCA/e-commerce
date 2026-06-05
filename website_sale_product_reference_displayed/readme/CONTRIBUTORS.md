@@ -5,3 +5,5 @@
   - Anjeel Haria
 - [Kencove](https://www.kencove.com/):
   - Mohamed Alkobrosli
+- [Versada](https://versada.eu)
+  - Maciej Wichowski
