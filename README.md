@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [website_sale_product_matrix_hide_price](website_sale_product_matrix_hide_price/) | 17.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 17.0.1.0.0 | <a href='https://github.com/sergio-teruel'><img src='https://github.com/sergio-teruel.png' width='32' height='32' style='border-radius:50%;' alt='sergio-teruel'/></a> | Display minimal price for products that has variants
 [website_sale_product_minimal_price_hide_price](website_sale_product_minimal_price_hide_price/) | 17.0.1.0.0 |  | Hide the product price scale when website prices are hidden
-[website_sale_product_multi_website](website_sale_product_multi_website/) | 17.0.1.0.1 |  | Show products in many websites
+[website_sale_product_multi_website](website_sale_product_multi_website/) | 17.0.1.0.2 |  | Show products in many websites
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 17.0.1.0.0 |  | Display product reference in e-commerce
 [website_sale_require_legal](website_sale_require_legal/) | 17.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_resource_booking](website_sale_resource_booking/) | 17.0.1.0.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Let customers book resources temporarily before buying
