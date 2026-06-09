@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-18 10:04+0000\n"
-"PO-Revision-Date: 2026-06-09 07:43+0000\n"
+"PO-Revision-Date: 2026-06-09 07:45+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
@@ -23,12 +23,12 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "<span class=\"px-3\">or</span>"
-msgstr ""
+msgstr "<span class=\"px-3\">ali</span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "<span>Confirm <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
-msgstr ""
+msgstr "<span>Potrdi <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -36,11 +36,13 @@ msgid ""
 "<strong>Error!</strong> An error occurred trying to\n"
 "                            confirm the sale order."
 msgstr ""
+"<strong>Napaka!</strong> Prišlo je do napake pri poskusu\n"
+"                            potrditve prodajnega naloga."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__checkout_skip_payment
 msgid "Checkout Skip Payment"
-msgstr ""
+msgstr "Blagajna brez plačila"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_res_config_settings
@@ -64,12 +66,13 @@ msgid ""
 "Fill in this with a message for the customer to confirm the order as payment "
 "will be skipped."
 msgstr ""
+"Vnesite sporočilo za stranko, da potrdi naročilo, saj bo plačilo preskočeno."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_payment_skip_message
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_payment_skip_message
 msgid "Message displayed instead of payment methods."
-msgstr ""
+msgstr "Sporočilo, prikazano namesto načinov plačila."
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -77,44 +80,47 @@ msgid ""
 "Message shown to the user during the payment step when payment will be "
 "skipped"
 msgstr ""
+"Sporočilo, prikazano uporabniku med korakom plačila, ko bo plačilo preskočeno"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Message shown to the user when the purchase is finished"
-msgstr ""
+msgstr "Sporočilo, prikazano uporabniku, ko je nakup zaključen"
 
 #. module: website_sale_checkout_skip_payment
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
 msgid "Our team will check your order and send you payment information soon."
 msgstr ""
+"Naša ekipa bo preverila vaše naročilo in vam kmalu poslala informacije o "
+"plačilu."
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Sale Checkout Payment Skip Message"
-msgstr ""
+msgstr "Sporočilo o preskoku plačila na blagajni"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Sale Checkout Skip Message"
-msgstr ""
+msgstr "Sporočilo o preskoku na blagajni"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
 msgid "Shop - Confirmation - Error"
-msgstr ""
+msgstr "Trgovina - Potrditev - Napaka"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__skip_website_checkout_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
-msgstr ""
+msgstr "Preskoči plačilo na spletni blagajni"
 
 #. module: website_sale_checkout_skip_payment
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
 msgid "The payment step will be skipped. You can confirm the order."
-msgstr ""
+msgstr "Korak plačila bo preskočen. Naročilo lahko potrdite."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
@@ -124,9 +130,9 @@ msgstr "Spletna stran"
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_skip_message
 msgid "Website Sale Checkout Skip Message"
-msgstr ""
+msgstr "Sporočilo o preskoku blagajne spletne prodaje"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_skip_message
 msgid "Website Sale SKip Message"
-msgstr ""
+msgstr "Sporočilo o preskoku spletne prodaje"
