@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: e-commerce (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-29 10:29+0000\n"
-"PO-Revision-Date: 2026-02-25 07:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-06-09 07:43+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-e-commerce-8-0/"
 "language/sl/)\n"
 "Language: sl\n"
@@ -27,6 +27,8 @@ msgid ""
 "<span>Sign In and Checkout</span>\n"
 "                    <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Prijava in blagajna</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
@@ -34,6 +36,8 @@ msgid ""
 "<span>Sign In/Up and Checkout</span>\n"
 "                        <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Prijava/registracija in blagajna</span>\n"
+"                        <span class=\"fa fa-sign-in\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
@@ -41,12 +45,14 @@ msgid ""
 "<span>Sign In/Up and Checkout</span>\n"
 "                    <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Prijava/registracija in blagajna</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
 msgid "<span>Sign In/Up</span>"
-msgstr ""
+msgstr "<span>Prijava/registracija</span>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
@@ -54,6 +60,8 @@ msgid ""
 "<span>Sign in and Checkout</span>\n"
 "                <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Prijava in blagajna</span>\n"
+"                <span class=\"fa fa-sign-in\"/>"
 
 #, fuzzy
 #~ msgid "<span>Log in and checkout</span>"
