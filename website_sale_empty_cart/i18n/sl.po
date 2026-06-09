@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-06-09 07:54+0000\n"
+"PO-Revision-Date: 2026-06-09 10:46+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: website_sale_empty_cart
 #: model_terms:ir.ui.view,arch_db:website_sale_empty_cart.res_config_settings_view_form
 msgid "Cart Empty Button"
-msgstr ""
+msgstr "Gumb za praznjenje košarice"
 
 #. module: website_sale_empty_cart
 #: model:ir.model,name:website_sale_empty_cart.model_res_config_settings
@@ -30,18 +30,18 @@ msgstr "Nastavitve"
 #. module: website_sale_empty_cart
 #: model_terms:ir.ui.view,arch_db:website_sale_empty_cart.total_empty_cart
 msgid "Empty Cart"
-msgstr ""
+msgstr "Izprazni košarico"
 
 #. module: website_sale_empty_cart
 #: model_terms:ir.ui.view,arch_db:website_sale_empty_cart.res_config_settings_view_form
 msgid "Enable or disable the cart empty button"
-msgstr ""
+msgstr "Omogoči ali onemogoči gumb za praznjenje košarice"
 
 #. module: website_sale_empty_cart
 #: model:ir.model.fields,field_description:website_sale_empty_cart.field_res_config_settings__cart_empty_button
 #: model:ir.model.fields,field_description:website_sale_empty_cart.field_website__cart_empty_button
 msgid "Is the cart empty button enabled?"
-msgstr ""
+msgstr "Ali je gumb za praznjenje košarice omogočen?"
 
 #. module: website_sale_empty_cart
 #: model:ir.model,name:website_sale_empty_cart.model_website
