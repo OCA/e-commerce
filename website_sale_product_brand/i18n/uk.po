@@ -26,12 +26,8 @@ msgid "<b>Brand</b>"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
-msgid ""
-"<small class=\"mx-auto\">\n"
-"                        <b>Clear Filters</b>\n"
-"                    </small>\n"
-"                    <i class=\"oi oi-close\" role=\"presentation\"/>"
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__align_brand_content
+msgid "Align Brand Content"
 msgstr ""
 
 #. module: website_sale_product_brand
@@ -40,13 +36,62 @@ msgid "Can Publish"
 msgstr ""
 
 #. module: website_sale_product_brand
-#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
-msgid "Clear Filters"
+#: model:ir.model.fields.selection,name:website_sale_product_brand.selection__product_brand__align_brand_content__center
+msgid "Center"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__cover_image
+msgid "Cover Image"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__display_name
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_template__display_name
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__id
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_template__id
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_website__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_1920
+msgid "Image"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_1024
+msgid "Image 1024"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_128
+msgid "Image 128"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_256
+msgid "Image 256"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_512
+msgid "Image 512"
 msgstr ""
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
 msgid "Is Published"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields.selection,name:website_sale_product_brand.selection__product_brand__align_brand_content__left
+msgid "Left"
 msgstr ""
 
 #. module: website_sale_product_brand
@@ -71,6 +116,21 @@ msgid "Product Brands"
 msgstr ""
 
 #. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__published_products_count
+msgid "Published Products Count"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_id
+msgid "Restrict to a specific website."
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_seo_optimized
+msgid "SEO optimized"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
 msgstr ""
@@ -81,13 +141,38 @@ msgid "Search..."
 msgstr ""
 
 #. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__seo_name
+msgid "Seo name"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model:website.menu,name:website_sale_product_brand.menu_website_sale_brand
 msgid "Shop by Brand"
 msgstr ""
 
 #. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_brand_description
+msgid "Show Brand Description"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_brand_name
+msgid "Show Brand Name"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_without_published_products
+msgid "Show Without Published Products"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_absolute_url
+msgid "The full absolute URL to access the document through the website."
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_url
-msgid "The full URL to access the document through the website."
+msgid "The full relative URL to access the document through the website."
 msgstr ""
 
 #. module: website_sale_product_brand
@@ -96,9 +181,48 @@ msgid "Visible on current website"
 msgstr ""
 
 #. module: website_sale_product_brand
+#: model:ir.model,name:website_sale_product_brand.model_website
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_id
+#: model_terms:ir.ui.view,arch_db:website_sale_product_brand.view_product_brand_form
+msgid "Website"
+msgstr "Веб-сайт"
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_absolute_url
+msgid "Website Absolute URL"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_description
+msgid "Website Description"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_footer
+msgid "Website Footer"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_url
 msgid "Website URL"
 msgstr ""
 
-#~ msgid "Website"
-#~ msgstr "Веб-сайт"
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_description
+msgid "Website meta description"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_keywords
+msgid "Website meta keywords"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_title
+msgid "Website meta title"
+msgstr ""
+
+#. module: website_sale_product_brand
+#: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_og_img
+msgid "Website opengraph image"
+msgstr ""
