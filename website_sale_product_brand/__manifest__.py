@@ -10,7 +10,7 @@
     "website": "https://github.com/OCA/e-commerce",
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
-    "depends": ["product_brand", "website_sale"],
+    "depends": ["product_brand", "website", "website_sale"],
     "data": [
         "security/ir.model.access.csv",
         "data/website_menu.xml",

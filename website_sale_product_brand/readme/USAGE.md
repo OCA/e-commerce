@@ -17,3 +17,17 @@ Product brands*:
 Based on this configuration, you will see the menuitem shop by brand
 next to shop menu. It will show all the brands and once you select that
 brand it will show product's which is related to this brand.
+
+When a user selects a published brand from `/shop/brands`, the request is
+redirected to that brand landing page (`/shop/brand/<brand-slug>`). In the
+brand form view, you can configure:
+
+> - Cover image
+> - Header website description block
+> - Footer website description block
+> - Header alignment and visibility of brand name/description
+
+If your database uses multiple websites, each brand can be assigned to a
+specific website from the product brand form and list views. Brands are
+only shown on the website they belong to, while global brands remain
+available on every website.

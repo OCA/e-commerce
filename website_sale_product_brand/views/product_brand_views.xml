@@ -14,6 +14,37 @@
                     <field name="website_published" widget="website_publish_button" />
                 </button>
             </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="website" string="Website">
+                    <group>
+                        <group>
+                            <field name="website_published" />
+                            <field
+                                name="website_id"
+                                options="{'no_create': True}"
+                                groups="website.group_multi_website"
+                            />
+                            <field name="show_brand_name" />
+                            <field name="show_brand_description" />
+                            <field name="show_without_published_products" />
+                            <field name="align_brand_content" />
+                        </group>
+                        <group>
+                            <field
+                                name="cover_image"
+                                widget="image"
+                                class="oe_avatar"
+                            />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="website_description" widget="html" />
+                    </group>
+                    <group>
+                        <field name="website_footer" widget="html" />
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
     <record id="view_product_brand_tree" model="ir.ui.view">
@@ -22,6 +53,7 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
                 <field name="website_published" widget="boolean_toggle" />
+                <field name="website_id" groups="website.group_multi_website" />
             </field>
         </field>
     </record>
