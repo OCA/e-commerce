@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
-"PO-Revision-Date: 2026-06-09 07:25+0000\n"
+"PO-Revision-Date: 2026-06-09 07:28+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
@@ -53,7 +53,7 @@ msgstr "Ustvarjeno"
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_cross_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_cross_selling
 msgid "Cross Selling"
-msgstr ""
+msgstr "Navzkrižna prodaja"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
@@ -133,12 +133,12 @@ msgstr "Tip povezave"
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_inverse_name_uniq
 msgid "Link type inverse name already exists !"
-msgstr ""
+msgstr "Inverzni naziv tipa povezave že obstaja!"
 
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_name_uniq
 msgid "Link type name already exists !"
-msgstr ""
+msgstr "Naziv tipa povezave že obstaja!"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__right_product_tmpl_id
@@ -148,7 +148,7 @@ msgstr "Povezani proizvod"
 #. module: product_template_multi_link
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_demo_range
 msgid "Lower Range"
-msgstr ""
+msgstr "Nižji razred"
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_linker_action
@@ -178,6 +178,8 @@ msgid ""
 "Only one link with the same type is allowed between 2 products. \n"
 " %s"
 msgstr ""
+"Med dvema proizvodoma je dovoljena samo ena povezava istega tipa. \n"
+" %s"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__operation_type
@@ -229,7 +231,7 @@ msgstr "Povezave proizvoda"
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_linker
 msgid "Product template linker wizard"
-msgstr ""
+msgstr "Čarovnik za povezovanje predlog proizvoda"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
@@ -253,6 +255,9 @@ msgid ""
 "products;\n"
 "Link these products: will link all selected products together."
 msgstr ""
+"Odstrani obstoječe povezave: odstrani vsako obstoječo povezavo na vseh "
+"izbranih proizvodih;\n"
+"Poveži te proizvode: poveže vse izbrane proizvode med seboj."
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
@@ -287,7 +292,7 @@ msgstr "Tehnična koda (inverzna)"
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type__is_symmetric
 msgid "The relation meaning is the same from each side of the relation"
-msgstr ""
+msgstr "Pomen razmerja je enak z obeh strani razmerja"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type__code
@@ -296,6 +301,8 @@ msgid ""
 "This code allows to provide a technical code to externalsystems identifying "
 "this link type"
 msgstr ""
+"Ta koda omogoča zagotovitev tehnične kode zunanjim sistemom, ki prepoznajo "
+"ta tip povezave"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
@@ -306,18 +313,18 @@ msgstr "Tip"
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_up_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_up_selling
 msgid "Up Selling"
-msgstr ""
+msgstr "Dodatna prodaja"
 
 #. module: product_template_multi_link
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_demo_range
 msgid "Upper Range"
-msgstr ""
+msgstr "Višji razred"
 
 #. module: product_template_multi_link
 #. odoo-python
 #: code:addons/product_template_multi_link/models/product_template_link.py:0
 msgid "You can only create a link between 2 different products"
-msgstr ""
+msgstr "Povezavo lahko ustvarite le med dvema različnima proizvodoma"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Zadnjič spremenjeno"
