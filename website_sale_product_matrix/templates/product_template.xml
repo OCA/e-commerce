@@ -107,10 +107,12 @@
         customize_show="True"
     >
         <xpath
-            expr="//div[hasclass('js_product')]//t[@t-placeholder='select']"
+            expr="//div[hasclass('js_product')]//t[@t-placeholder='select']//t[@t-set='ul_class']"
             position="attributes"
         >
-            <attribute name="t-if">product.product_add_mode != 'matrix'</attribute>
+            <attribute name="t-valuef">
+                flex-column #{'d-none' if product.product_add_mode == 'matrix' else ''}
+            </attribute>
         </xpath>
         <xpath expr="//div[@id='add_to_cart_wrap']" position="after">
             <a
