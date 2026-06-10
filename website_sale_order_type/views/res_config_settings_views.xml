@@ -1,0 +1,21 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='salesperson_id']/ancestor::div[1]"
+                position="after"
+            >
+                <div class="row" groups="sales_team.group_sale_salesman">
+                    <label
+                        for="sale_type_id"
+                        string="Sale Order Type"
+                        class="o_light_label col-lg-3"
+                    />
+                    <field name="sale_type_id" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -4,3 +4,7 @@
     product;
 3.  Check that the created sale oder has the same sale order type that
     has been set in the contact.
+
+You can also set a sale order type on a website from the e-commerce
+settings. When configured, orders created from that website use the
+website sale order type instead of the contact sale order type.

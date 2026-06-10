@@ -6,3 +6,10 @@
   > - Pilar Vargas
   > - Stefan Ungureanu
   > - Carlos Lopez
+
+- [Studio73](https://www.studio73.es/):
+  > - Vicent Castells
+
+- [Camptocamp](https://www.camptocamp.com):
+
+  > - Maksym Yankin
