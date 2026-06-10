@@ -6,18 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-06-10 18:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_charge_payment_fee
 #: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.method_form_fee
 msgid "(Fee:"
-msgstr ""
+msgstr "(Tariffa:"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,help:website_sale_charge_payment_fee.field_payment_provider__charge_fee
@@ -25,84 +27,86 @@ msgid ""
 "An extra fee line will be added to online order when using this payment "
 "method"
 msgstr ""
+"Una tariffa aggiuntiva verrà aggiunta all'ordine online quando si utilizza "
+"questo metodo di pagamento"
 
 #. module: website_sale_charge_payment_fee
 #: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.provider_form_fee_inherit
 msgid "Charge payment fee"
-msgstr ""
+msgstr "Addebita tariffa di pagamento"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee_type
 msgid "Computation type"
-msgstr ""
+msgstr "Tipo di calcolo"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee_currency_id
 msgid "Fee Currency"
-msgstr ""
+msgstr "Valuta tariffa"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee_description
 msgid "Fee Description"
-msgstr ""
+msgstr "Descrizione tariffa"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee_product_id
 msgid "Fee Product"
-msgstr ""
+msgstr "Prodotto tariffa"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee
 msgid "Fee charged to customer"
-msgstr ""
+msgstr "Tariffa addebitata al cliente"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields.selection,name:website_sale_charge_payment_fee.selection__payment_provider__charge_fee_type__fixed
 msgid "Fixed"
-msgstr ""
+msgstr "Fissa"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee_fixed_price
 msgid "Fixed Price"
-msgstr ""
+msgstr "Prezzo fisso"
 
 #. module: website_sale_charge_payment_fee
 #: model_terms:ir.ui.view,arch_db:website_sale_charge_payment_fee.payment_fee
 msgid "Payment Fee"
-msgstr ""
+msgstr "Tariffa pagamento"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_sale_order__amount_payment_fee
 msgid "Payment Fee Amount"
-msgstr ""
+msgstr "Valore tariffa pagamento"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model,name:website_sale_charge_payment_fee.model_payment_provider
 msgid "Payment Provider"
-msgstr ""
+msgstr "Fornitore pagamento"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_sale_order_line__payment_fee_line
 msgid "Payment fee line"
-msgstr ""
+msgstr "Riga tariffa pagamento"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,field_description:website_sale_charge_payment_fee.field_payment_provider__charge_fee_percentage
 #: model:ir.model.fields.selection,name:website_sale_charge_payment_fee.selection__payment_provider__charge_fee_type__percentage
 msgid "Percentage"
-msgstr ""
+msgstr "Percentuale"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model.fields,help:website_sale_charge_payment_fee.field_payment_provider__charge_fee_percentage
 msgid "Percentage applied to order total"
-msgstr ""
+msgstr "Percentuale applicata al totale dell'ordine"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model,name:website_sale_charge_payment_fee.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Ordine di vendita"
 
 #. module: website_sale_charge_payment_fee
 #: model:ir.model,name:website_sale_charge_payment_fee.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Riga ordine di vendita"
