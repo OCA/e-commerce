@@ -59,6 +59,7 @@ class TestFrontend(HttpCase):
         )
 
     def test_website_sale_order_type(self):
+        self.website.sale_type_id = False
         self.partner.sale_type = self.sale_type
         # In frontend, create an order
         with RecordCapturer(self.env["sale.order"], []) as capture:
@@ -79,6 +80,7 @@ class TestFrontend(HttpCase):
             "product.group_product_pricelist"
         ):
             self.skipTest("Pricelist feature is disabled.")
+        self.website.sale_type_id = False
         self.partner.sale_type = self.sale_type
         admin = self.env.ref("base.user_admin")
         website = self.env["website"].get_current_website().with_user(admin)
@@ -86,3 +88,54 @@ class TestFrontend(HttpCase):
         pricelists = website.get_pricelist_available()
 
         self.assertEqual(pricelists, self.sale_type.pricelist_id)
+
+    def test_website_sale_type(self):
+        self.partner.sale_type = False
+        self.website.sale_type_id = self.sale_type
+
+        with RecordCapturer(self.env["sale.order"], []) as capture:
+            self.start_tour("/shop", "website_sale_order_type_tour", login="admin")
+
+        created_order = capture.records
+        self.assertEqual(created_order.type_id, self.sale_type)
+        self.assertEqual(created_order.payment_term_id, self.sale_type.payment_term_id)
+
+    def test_website_sale_type_takes_precedence_over_partner_sale_type(self):
+        website_sale_type = self.sale_type.copy({"name": "Website Sale Order Type"})
+        partner_sale_type = self.sale_type.copy({"name": "Partner Sale Order Type"})
+        self.website.sale_type_id = website_sale_type
+        self.partner.sale_type = partner_sale_type
+
+        sale_type = self.website._get_sale_order_type(self.partner)
+
+        self.assertEqual(sale_type, website_sale_type)
+
+    def test_get_pricelist_available_filtered_by_website_sale_type(self):
+        if not self.env["res.groups"]._is_feature_enabled(
+            "product.group_product_pricelist"
+        ):
+            self.skipTest("Pricelist feature is disabled.")
+        self.partner.sale_type = False
+        self.website.sale_type_id = self.sale_type
+        admin = self.env.ref("base.user_admin")
+        website = self.env["website"].get_current_website().with_user(admin)
+
+        pricelists = website.get_pricelist_available()
+
+        self.assertEqual(pricelists, self.sale_type.pricelist_id)
+
+    def test_public_cart_creation_with_website_sale_type(self):
+        self.partner.sale_type = False
+        self.website.sale_type_id = self.sale_type
+
+        with RecordCapturer(self.env["sale.order"], []) as capture:
+            self.make_jsonrpc_request(
+                "/shop/cart/add",
+                {
+                    "product_template_id": self.product_template.id,
+                    "product_id": self.product_template.product_variant_id.id,
+                    "quantity": 1,
+                },
+            )
+
+        self.assertEqual(capture.records.type_id, self.sale_type)
