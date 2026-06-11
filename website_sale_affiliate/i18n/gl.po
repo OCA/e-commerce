@@ -119,7 +119,6 @@ msgid "Date and time of initial request"
 msgstr ""
 
 #. module: website_sale_affiliate
-#: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_request_view_form
 msgid "Details"
 msgstr ""
 
@@ -127,11 +126,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_display_name
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_display_name
 msgid "Display Name"
-msgstr ""
-
-#. module: website_sale_affiliate
-#: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
-msgid "Form Name"
 msgstr ""
 
 #. module: website_sale_affiliate
@@ -225,7 +219,6 @@ msgstr ""
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_ids
-#: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Requests"
 msgstr ""
 
@@ -241,7 +234,6 @@ msgstr ""
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_sale_ids
-#: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_request_view_form
 msgid "Sales"
 msgstr ""
 
@@ -261,7 +253,6 @@ msgid "Sequence to use for affiliate request naming"
 msgstr ""
 
 #. module: website_sale_affiliate
-#: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Settings"
 msgstr ""
 
@@ -271,7 +262,6 @@ msgid "Start Date"
 msgstr ""
 
 #. module: website_sale_affiliate
-#: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Statistics"
 msgstr ""
 
