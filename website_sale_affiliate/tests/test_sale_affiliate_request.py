@@ -3,10 +3,10 @@
 
 from unittest.mock import patch
 
+from odoo.addons.website.tools import MockRequest
+
 from ..models.sale_affiliate_request import AffiliateRequest
 from .common import SaleCase
-
-MODEL_PATH = "odoo.addons.website_sale_affiliate.models.sale_affiliate_request"
 
 
 class AffiliateRequestCase(SaleCase):
@@ -32,24 +32,24 @@ class AffiliateRequestCase(SaleCase):
             }
         )
 
-    @patch(f"{MODEL_PATH}.request")
-    def test_defaults_all_present(self, request_mock):
+    def test_defaults_all_present(self):
         ip = "0.0.0.0"
         referrer = "referrer"
         user_agent = "user_agent"
         accept_language = "esperanto"
-        request_mock.httprequest.headers.environ = {
-            "REMOTE_ADDR": ip,
-            "HTTP_REFERER": referrer,
-            "HTTP_USER_AGENT": user_agent,
-            "HTTP_ACCEPT_LANGUAGE": accept_language,
-        }
-        affiliate_request = self.env["sale.affiliate.request"].create(
-            {
-                "name": "test_headers_request",
-                "affiliate_id": self.test_affiliate.id,
+        with MockRequest(self.env) as mock_request:
+            mock_request.httprequest.headers.environ = {
+                "REMOTE_ADDR": ip,
+                "HTTP_REFERER": referrer,
+                "HTTP_USER_AGENT": user_agent,
+                "HTTP_ACCEPT_LANGUAGE": accept_language,
             }
-        )
+            affiliate_request = self.env["sale.affiliate.request"].create(
+                {
+                    "name": "test_headers_request",
+                    "affiliate_id": self.test_affiliate.id,
+                }
+            )
         self.assertTrue(affiliate_request.exists())
         self.assertEqual(affiliate_request.ip, ip)
         self.assertEqual(affiliate_request.referrer, referrer)
@@ -119,63 +119,50 @@ class AffiliateRequestCase(SaleCase):
         )
         self.assertFalse(self.test_request._conversions_qualify())
 
-    @patch(f"{MODEL_PATH}.request")
-    def test_current_qualified_no_request_in_session(self, request_mock):
-        """Returns None if no affiliate request is in session"""
-        request_mock.session = {}
-        self.assertIsNone(self.AffiliateRequest.current_qualified())
+    def test_current_qualified_no_request_in_session(self):
+        """Returns None if request is in session"""
+        with MockRequest(self.env) as mock_request:
+            mock_request.session = {}
+            self.assertIsNone(self.AffiliateRequest.current_qualified())
 
-    @patch(f"{MODEL_PATH}.request")
-    def test_current_qualified_no_session(self, request_mock):
-        """Returns None if there is no session."""
-        request_mock.session.__getitem__.side_effect = RuntimeError
-        self.assertIsNone(self.AffiliateRequest.current_qualified())
+    def test_current_qualified_request_not_in_session_returns_none(self):
+        with MockRequest(self.env) as mock_request:
+            self.assertFalse(mock_request.session.get("affiliate_request"))
+            self.assertIsNone(self.AffiliateRequest.current_qualified())
 
     @patch.object(AffiliateRequest, "_conversions_qualify")
-    @patch(f"{MODEL_PATH}.request")
     def test_current_qualified_request_in_session_calls_conversions_qualify(
         self,
-        request_mock,
         _conversions_qualify_mock,
     ):
         """Calls _conversions_qualify if affiliate request is in session"""
-        request_mock.session = {"affiliate_request": self.test_request.id}
-        self.AffiliateRequest.current_qualified()
+        with MockRequest(self.env) as mock_request:
+            mock_request.session["affiliate_request"] = self.test_request.id
+            self.AffiliateRequest.current_qualified()
+
         _conversions_qualify_mock.assert_called_once_with()
 
-    @patch(f"{MODEL_PATH}.request")
-    def test_current_qualified_request_not_in_session_returns_none(
-        self,
-        request_mock,
-    ):
-        """Returns None if no affiliate request in session"""
-        request_mock.session = {}
-        request = self.AffiliateRequest.current_qualified()
-        self.assertIsNone(request)
-
     @patch.object(AffiliateRequest, "_conversions_qualify")
-    @patch(f"{MODEL_PATH}.request")
     def test_current_qualified_request_in_session_returns_request(
         self,
-        request_mock,
         _conversions_qualify_mock,
     ):
         """Returns affiliate request in session if its conversions qualify"""
-        request_mock.session = {"affiliate_request": self.test_request.id}
         _conversions_qualify_mock.return_value = True
-        request = self.AffiliateRequest.current_qualified()
+        with MockRequest(self.env) as mock_request:
+            mock_request.session["affiliate_request"] = self.test_request.id
+            request = self.AffiliateRequest.current_qualified()
         self.assertEqual(request, self.test_request)
 
     @patch.object(AffiliateRequest, "_conversions_qualify")
-    @patch(f"{MODEL_PATH}.request")
     def test_current_qualified_request_in_session_returns_none(
         self,
-        request_mock,
         _conversions_qualify_mock,
     ):
         """Returns None if conversions do not qualify for affiliate request
         currently in session"""
-        request_mock.session = {"affiliate_request": self.test_request.id}
         _conversions_qualify_mock.return_value = False
-        request = self.AffiliateRequest.current_qualified()
+        with MockRequest(self.env) as mock_request:
+            mock_request.session["affiliate_request"] = self.test_request.id
+            request = self.AffiliateRequest.current_qualified()
         self.assertIsNone(request)

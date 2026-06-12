@@ -7,11 +7,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='technical']" position="after">
-                <group string="Affiliate Request">
-                    <field name="affiliate_request_id" />
-                </group>
-            </xpath>
+            <field name="origin" position="after">
+                <field name="affiliate_request_id" />
+            </field>
         </field>
     </record>
 </odoo>
