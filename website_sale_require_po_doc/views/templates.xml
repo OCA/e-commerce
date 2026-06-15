@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="payment_customer_ref"
+        name="Payment - Customer PO Reference"
+        inherit_id="website_sale.payment"
+    >
+        <xpath expr="//div[@id='address_on_payment']" position="before">
+            <t t-if="customer_need_po">
+                <div id="div_customer_po_ref" class="mb-4">
+                    <h4 class="mb-3">Purchase Order Reference</h4>
+                    <div class="mb-3">
+                        <label for="customer_ref_input" class="form-label fw-semibold">
+                            PO Number / Customer Reference
+                            <span class="text-danger ms-1" aria-hidden="true">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="customer_ref_input"
+                            name="client_order_ref"
+                            class="form-control"
+                            t-att-value="client_order_ref"
+                            placeholder="Enter your Purchase Order number"
+                            autocomplete="off"
+                            aria-required="true"
+                        />
+                        <div id="customer_ref_error" class="invalid-feedback">
+                            A Purchase Order number is required to complete this order.
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
