@@ -21,3 +21,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_stock_product_matrix.product_matrix
 msgid "Out of Stock"
 msgstr "Sin existencias"
+
+#. module: website_sale_stock_product_matrix
+#: model:ir.model,name:website_sale_stock_product_matrix.model_product_template
+msgid "Product"
+msgstr ""
