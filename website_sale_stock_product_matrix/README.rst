@@ -72,6 +72,7 @@ Contributors
 
   - David Vidal
   - Pilar Vargas
+  - Carlos Roca
 
 Maintainers
 -----------
