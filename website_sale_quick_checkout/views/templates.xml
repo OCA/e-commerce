@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
+        <!-- The main button lives inside <t t-else=""> which only renders when
+             NOT on the payment step, so this shortcut shows only on the Order,
+             Address and Extra Info pages without an additional t-if. -->
+        <xpath expr="//a[@name='website_sale_main_button']" position="after">
+            <a role="button" href="/shop/payment" class="btn btn-secondary w-100">
+                Payment
+            </a>
+        </xpath>
+    </template>
+</odoo>
