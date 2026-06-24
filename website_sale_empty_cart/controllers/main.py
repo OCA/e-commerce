@@ -15,4 +15,8 @@ class WebsiteSaleEmptyCart(WebsiteSale):
             order = request.website.sale_get_order()
             if order:
                 order.order_line.unlink()
-        return super().cart(access_token, revive, **post)
+        return super().cart(
+            access_token=access_token,
+            revive=revive,
+            **post,
+        )
