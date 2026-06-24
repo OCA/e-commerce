@@ -35,7 +35,7 @@ addon | version | maintainers | summary
 [website_sale_checkout_country_vat](website_sale_checkout_country_vat/) | 18.0.1.0.0 |  | Autocomplete VAT in checkout process
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 18.0.1.1.1 |  | Skip payment for logged users in checkout process
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 18.0.1.0.0 |  | Hide product prices on the shop
-[website_sale_empty_cart](website_sale_empty_cart/) | 18.0.1.0.0 |  | Adds a button in the website cart to empty all
+[website_sale_empty_cart](website_sale_empty_cart/) | 18.0.1.0.1 |  | Adds a button in the website cart to empty all
 [website_sale_hide_empty_category](website_sale_hide_empty_category/) | 18.0.1.0.1 |  | Hide any Product Categories that are empty
 [website_sale_hide_price](website_sale_hide_price/) | 18.0.1.0.0 |  | Hide product prices on the shop
 [website_sale_order_shipping_modification](website_sale_order_shipping_modification/) | 18.0.1.0.0 |  | Change the delivery address in quotes from the portal

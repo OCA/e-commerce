@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Empty Cart",
     "summary": "Adds a button in the website cart to empty all",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Sygel, Odoo Community Association (OCA)",
     "license": "AGPL-3",
