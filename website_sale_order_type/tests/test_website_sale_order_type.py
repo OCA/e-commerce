@@ -65,9 +65,12 @@ class TestFrontend(HttpCase):
         created_order = capture.records
         self.assertEqual(created_order.type_id, self.sale_type)
         self.assertEqual(created_order.payment_term_id, self.sale_type.payment_term_id)
-        if self.env["res.groups"]._is_feature_enabled(
-            "product.group_product_pricelist"
-        ):
+        pricelists_enabled = (
+            self.env.ref("product.group_product_pricelist")
+            in self.env.ref("base.group_user").implied_ids
+        )
+
+        if pricelists_enabled:
             self.assertEqual(created_order.pricelist_id, self.sale_type.pricelist_id)
         else:
             self.assertFalse(created_order.pricelist_id)
@@ -121,11 +124,10 @@ class TestFrontend(HttpCase):
 
         with RecordCapturer(self.env["sale.order"], []) as capture:
             self.make_jsonrpc_request(
-                "/shop/cart/add",
+                "/shop/cart/update_json",
                 {
-                    "product_template_id": self.product_template.id,
                     "product_id": self.product_template.product_variant_id.id,
-                    "quantity": 1,
+                    "add_qty": 1,
                 },
             )
 
