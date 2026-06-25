@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [website_sale_attribute_filter_form_submit](website_sale_attribute_filter_form_submit/) | 16.0.1.0.0 |  | Allow to apply manually the filters on the e-commerce
 [website_sale_attribute_filter_multiselect](website_sale_attribute_filter_multiselect/) | 16.0.1.0.0 |  | Add multiselect display type for product and new filter for it
 [website_sale_cart_expire](website_sale_cart_expire/) | 16.0.1.0.3 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Cancel carts without activity after a configurable time
-[website_sale_cart_selectable](website_sale_cart_selectable/) | 16.0.1.0.0 |  | Add a toggle to products for enabling "Add to Cart" functionality in the e-commerce.
+[website_sale_cart_selectable](website_sale_cart_selectable/) | 16.0.1.0.1 |  | Add a toggle to products for enabling "Add to Cart" functionality in the e-commerce.
 [website_sale_category_breadcrumb](website_sale_category_breadcrumb/) | 16.0.1.0.0 | <a href='https://github.com/Rad0van'><img src='https://github.com/Rad0van.png' width='32' height='32' style='border-radius:50%;' alt='Rad0van'/></a> | Displays Product Category Breadcrumb(s) in eCommerce
 [website_sale_checkout_skip_payment](website_sale_checkout_skip_payment/) | 16.0.1.2.2 |  | Skip payment for logged users in checkout process
 [website_sale_comparison_hide_price](website_sale_comparison_hide_price/) | 16.0.1.0.0 |  | Hide product prices on the shop
