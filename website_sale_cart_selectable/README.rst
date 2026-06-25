@@ -91,6 +91,9 @@ Contributors
 * David Vidal <david.vidal@tecnativa.com>
 * Chafique Delli <chafique.delli@akretion.com>
 * Carmen Bianca BAKKER <carmen@coopiteasy.be>
+* `Quartile <https://www.quartile.co>`_:
+
+  * Shinnosuke Morita
 
 Maintainers
 ~~~~~~~~~~~
