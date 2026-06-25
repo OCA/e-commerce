@@ -12,6 +12,7 @@
     "author": "Agile Business Group, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["website_sale", "sale_order_type"],
+    "data": ["views/res_config_settings_views.xml"],
     "assets": {
         "web.assets_tests": [
             "/website_sale_order_type/static/tests/tours/website_sale_order_type_tour.esm.js"
