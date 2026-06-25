@@ -43,13 +43,19 @@ class ProductBrand(models.Model):
         return res
 
     def _compute_published_products_count(self):
-        for brand in self:
-            brand.published_products_count = self.env["product.template"].search_count(
+        count_by_brand = {
+            brand.id: count
+            for brand, count in self.env["product.template"]._read_group(
                 [
-                    ("product_brand_id", "=", brand.id),
+                    ("product_brand_id", "in", self.ids),
                     ("website_published", "=", True),
-                ]
+                ],
+                ["product_brand_id"],
+                ["__count"],
             )
+        }
+        for brand in self:
+            brand.published_products_count = count_by_brand.get(brand.id, 0)
 
     @api.model
     def _website_scope_domain(self, website=None):
