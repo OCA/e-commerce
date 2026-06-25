@@ -86,6 +86,7 @@
                         name="o_payment_submit_button"
                         type="submit"
                         class="btn btn-primary w-100 w-md-auto ms-auto px-5"
+                        disabled="disabled"
                     >
                         <span>Confirm <span
                             class="fa fa-angle-right ms-2 fw-light"
