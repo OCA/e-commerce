@@ -19,10 +19,21 @@ msgstr ""
 #. module: website_sale_cart_selectable
 #: model:ir.model.fields,field_description:website_sale_cart_selectable.field_product_product__website_btn_addtocart_published
 #: model:ir.model.fields,field_description:website_sale_cart_selectable.field_product_template__website_btn_addtocart_published
-msgid "Button Add To Cart"
-msgstr "Bouton Ajouter au panier"
+msgid "Display \"Add to Cart\" Button"
+msgstr ""
 
 #. module: website_sale_cart_selectable
 #: model:ir.model,name:website_sale_cart_selectable.model_product_template
-msgid "Product Template"
-msgstr "Modèle d'article"
+msgid "Product"
+msgstr ""
+
+#. module: website_sale_cart_selectable
+#: model:ir.model,name:website_sale_cart_selectable.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#~ msgid "Button Add To Cart"
+#~ msgstr "Bouton Ajouter au panier"
+
+#~ msgid "Product Template"
+#~ msgstr "Modèle d'article"
