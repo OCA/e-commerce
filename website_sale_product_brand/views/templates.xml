@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <template id="brand_filter_items" name="Brand Filter Items">
+        <t t-foreach="brands" t-as="brand">
+            <div class="form-check mb-1">
+                <input
+                    type="checkbox"
+                    name="brand"
+                    class="form-check-input"
+                    t-attf-id="brand_#{brand.id}"
+                    t-att-value="brand.id"
+                    t-att-checked="'checked' if brand.id in selected_brand_ids else None"
+                />
+                <label
+                    class="form-check-label fw-normal"
+                    t-attf-for="brand_#{brand.id}"
+                    t-field="brand.name"
+                />
+            </div>
+        </t>
+    </template>
+
     <template
         id="website_sale_filter_brand_products_brands"
         inherit_id="website_sale.products"
@@ -13,10 +33,15 @@
             position="inside"
         >
             <form
-                t-if="brands"
+                t-if="brands or brand_letters"
                 class="js_attributes wsale_accordion_collapsible accordion accordion-flush mb-3"
                 method="get"
                 t-att-action="keep(brand=0, brand_ids=0)"
+                t-att-data-brand-filter-mode="brand_filter_display_mode"
+                t-att-data-search="search or ''"
+                t-att-data-category-id="brand_filter_category_id or ''"
+                t-att-data-brand-limit="brand_filter_limit"
+                t-att-data-brand-letter-limit="brand_letter_limit"
             >
                 <div class="accordion-item nav-item rounded-0">
                     <div class="accordion-header h6 mb-0">
@@ -35,21 +60,68 @@
                         t-attf-id="o_products_attributes_brand"
                         class="accordion-collapse collapse show pt-2"
                     >
-                        <t t-foreach="brands" t-as="brand">
-                            <div class="form-check mb-1">
-                                <input
-                                    type="checkbox"
-                                    name="brand"
-                                    class="form-check-input"
-                                    t-attf-id="brand_#{brand.id}"
-                                    t-att-value="brand.id"
-                                    t-att-checked="'checked' if brand.id in selected_brand_ids else None"
+                        <t t-if="brand_filter_display_mode in ('list', 'limited')">
+                            <div data-brand-filter-items="">
+                                <t
+                                    t-call="website_sale_product_brand.brand_filter_items"
                                 />
-                                <label
-                                    class="form-check-label fw-normal"
-                                    t-attf-for="brand_#{brand.id}"
-                                    t-field="brand.name"
-                                />
+                            </div>
+                            <button
+                                t-if="brand_filter_display_mode == 'limited' and brand_has_more"
+                                type="button"
+                                class="btn btn-link px-0 py-1 o_wsale_brand_load_more"
+                                t-att-data-offset="brand_next_offset"
+                                t-att-data-exclude-brand-ids="','.join([str(brand.id) for brand in brands])"
+                            >
+                                Show more
+                            </button>
+                        </t>
+                        <t t-if="brand_filter_display_mode == 'letters'">
+                            <div
+                                class="accordion accordion-flush o_wsale_brand_letters"
+                            >
+                                <t t-foreach="brand_letters" t-as="letter_data">
+                                    <div class="accordion-item rounded-0">
+                                        <div class="accordion-header">
+                                            <button
+                                                t-attf-class="accordion-button px-0 py-1 bg-transparent shadow-none #{'' if letter_data['active'] else 'collapsed'}"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                t-attf-data-bs-target="#o_products_brand_letter_#{letter_data['key']}"
+                                                t-attf-aria-controls="o_products_brand_letter_#{letter_data['key']}"
+                                                t-att-aria-expanded="letter_data['active']"
+                                            >
+                                                <span t-out="letter_data['letter']" />
+                                                <span class="text-muted ms-1">
+                                                    (<t t-out="letter_data['count']" />)
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div
+                                            t-attf-id="o_products_brand_letter_#{letter_data['key']}"
+                                            t-attf-class="accordion-collapse collapse #{'show' if letter_data['active'] else ''}"
+                                            t-att-data-letter="letter_data['letter']"
+                                            data-loaded="0"
+                                        >
+                                            <div data-brand-filter-items="">
+                                                <t
+                                                    t-set="brands"
+                                                    t-value="letter_data['brands']"
+                                                />
+                                                <t
+                                                    t-call="website_sale_product_brand.brand_filter_items"
+                                                />
+                                            </div>
+                                            <button
+                                                type="button"
+                                                class="btn btn-link px-0 py-1 o_wsale_brand_letter_load_more d-none"
+                                                data-offset="0"
+                                            >
+                                                Show more
+                                            </button>
+                                        </div>
+                                    </div>
+                                </t>
                             </div>
                         </t>
                     </div>

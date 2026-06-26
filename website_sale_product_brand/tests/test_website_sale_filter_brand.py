@@ -86,6 +86,8 @@ class WebsiteSale(BaseCommon):
                 "website_id": cls.other_website.id,
             }
         )
+        cls.selected_brand = cls.env["product.brand"].create({"name": "Selected Brand"})
+        cls.numeric_brand = cls.env["product.brand"].create({"name": "1 Brand"})
         cls.product = cls.env["product.template"].create(
             {
                 "name": "Test Product",
@@ -108,6 +110,26 @@ class WebsiteSale(BaseCommon):
                 "sale_ok": True,
                 "website_published": True,
                 "product_brand_id": cls.other_brand.id,
+            }
+        )
+        cls.extra_brands = cls.env["product.brand"].create(
+            [{"name": f"A Brand {index}"} for index in range(6)]
+        )
+        for brand in cls.extra_brands:
+            cls.env["product.template"].create(
+                {
+                    "name": f"Product {brand.name}",
+                    "sale_ok": True,
+                    "website_published": True,
+                    "product_brand_id": brand.id,
+                }
+            )
+        cls.env["product.template"].create(
+            {
+                "name": "Numeric Product",
+                "sale_ok": True,
+                "website_published": True,
+                "product_brand_id": cls.numeric_brand.id,
             }
         )
 
@@ -219,3 +241,109 @@ class WebsiteSale(BaseCommon):
                 self.assertIn(self.brand, brand_rec)
                 self.assertIn(self.global_brand, brand_rec)
                 self.assertNotIn(self.other_brand, brand_rec)
+
+    def test_brand_filter_display_mode_default(self):
+        self.assertEqual(self.website.brand_filter_display_mode, "list")
+
+    def test_brand_filter_limited_mode(self):
+        self.website.brand_filter_display_mode = "limited"
+        domain = [("website_published", "=", True)]
+        with MockRequest(self.env, website=self.website):
+            values = self.WebsiteSaleController._get_brand_filter_values(domain, [])
+        self.assertEqual(values["brand_filter_display_mode"], "limited")
+        self.assertLessEqual(len(values["brands"]), 5)
+        self.assertTrue(values["brand_has_more"])
+
+    def test_brand_filter_letters_mode(self):
+        self.website.brand_filter_display_mode = "letters"
+        domain = [("website_published", "=", True)]
+        with MockRequest(self.env, website=self.website):
+            values = self.WebsiteSaleController._get_brand_filter_values(domain, [])
+        self.assertEqual(values["brand_filter_display_mode"], "letters")
+        self.assertIn("A", [letter["letter"] for letter in values["brand_letters"]])
+
+    def test_available_brands_keep_selected_brand_without_products(self):
+        domain = [("website_published", "=", True)]
+        with MockRequest(self.env, website=self.website):
+            brands, brand_counts = self.WebsiteSaleController._get_available_brands(
+                domain, [self.selected_brand.id]
+            )
+        self.assertIn(self.selected_brand, brands)
+        self.assertNotIn(self.other_brand, brands)
+        self.assertEqual(brand_counts.get(self.selected_brand.id, 0), 0)
+
+    def test_brand_filter_letters_group_non_alpha_names(self):
+        domain = [("website_published", "=", True)]
+        with MockRequest(self.env, website=self.website):
+            brands, brand_counts = self.WebsiteSaleController._get_available_brands(
+                domain, []
+            )
+            letters = self.WebsiteSaleController._get_brand_letters(
+                brands, brand_counts, []
+            )
+        self.assertIn("#", [letter["letter"] for letter in letters])
+
+    def test_get_brand_rpc_domain_with_category_and_attribute_values(self):
+        category = self.env["product.public.category"].create({"name": "Test Category"})
+        with MockRequest(self.env, website=self.website):
+            with patch.object(
+                self.WebsiteSaleController, "_get_shop_domain_no_brands"
+            ) as mock_domain:
+                mock_domain.return_value = [("id", "in", self.product.ids)]
+                domain = self.WebsiteSaleController._get_brand_rpc_domain(
+                    search="Test",
+                    category_id=category.id,
+                    attribute_values=["1-2,3"],
+                )
+        self.assertEqual(domain, [("id", "in", self.product.ids)])
+        args, kwargs = mock_domain.call_args
+        self.assertEqual(args[0], "Test")
+        self.assertEqual(args[1], category)
+
+    def test_brand_filter_load_more(self):
+        with MockRequest(self.env, website=self.website):
+            with patch.object(
+                self.WebsiteSaleController,
+                "_render_brand_items",
+                return_value="<div>brands</div>",
+            ):
+                result = self.WebsiteSaleController.brand_filter_load_more(
+                    offset=0,
+                    limit=2,
+                    brand_ids=[str(self.selected_brand.id)],
+                    exclude_brand_ids=[str(self.brand.id)],
+                )
+        self.assertEqual(result["html"], "<div>brands</div>")
+        self.assertTrue(result["has_more"])
+        self.assertEqual(result["next_offset"], 2)
+
+    def test_brand_filter_load_letter(self):
+        with MockRequest(self.env, website=self.website):
+            with patch.object(
+                self.WebsiteSaleController,
+                "_render_brand_items",
+                return_value="<div>a-brands</div>",
+            ) as mock_render:
+                result = self.WebsiteSaleController.brand_filter_load_letter(
+                    letter="A",
+                    offset=0,
+                    limit=50,
+                )
+        self.assertEqual(result["html"], "<div>a-brands</div>")
+        brands = mock_render.call_args.args[0]
+        self.assertTrue(all(brand.name.startswith("A") for brand in brands))
+
+    def test_brand_filter_load_letter_non_alpha(self):
+        with MockRequest(self.env, website=self.website):
+            with patch.object(
+                self.WebsiteSaleController,
+                "_render_brand_items",
+                return_value="<div>other-brands</div>",
+            ) as mock_render:
+                result = self.WebsiteSaleController.brand_filter_load_letter(
+                    letter="#",
+                    offset=0,
+                    limit=50,
+                )
+        self.assertEqual(result["html"], "<div>other-brands</div>")
+        self.assertIn(self.numeric_brand, mock_render.call_args.args[0])

@@ -18,6 +18,9 @@ from odoo.addons.website_sale.controllers.main import (
 
 
 class WebsiteSale(WebsiteSaleBase):
+    BRAND_LIMIT = 5
+    BRAND_LETTER_LIMIT = 50
+
     def _as_int_list(self, values):
         return [int(value) for value in values if str(value).isdigit()]
 
@@ -109,6 +112,145 @@ class WebsiteSale(WebsiteSaleBase):
         return brand_model.search(domain).filtered(
             lambda x: x.published_products_count > 0
             or x.show_without_published_products
+        )
+
+    def _get_product_counts_by_brand_ids(self, domain):
+        public_brand_ids = (
+            request.env["product.brand"]
+            .sudo()
+            .search(request.env["product.brand"]._website_public_domain())
+            .ids
+        )
+        domain = Domain.AND(
+            [
+                domain,
+                [
+                    ("product_brand_id", "!=", False),
+                    ("product_brand_id", "in", public_brand_ids),
+                ],
+            ]
+        )
+        return {
+            brand.id: count
+            for brand, count in request.env["product.template"]
+            .sudo()
+            ._read_group(domain, ["product_brand_id"], ["__count"])
+        }
+
+    def _get_available_brands(self, domain, selected_brand_ids=None):
+        selected_brand_ids = selected_brand_ids or []
+        brand_model = request.env["product.brand"].sudo()
+        brand_counts = self._get_product_counts_by_brand_ids(domain)
+        brand_ids = list(brand_counts)
+        brands = brand_model.browse(brand_ids)
+        brands |= brand_model.search(
+            Domain.AND(
+                [
+                    brand_model._website_public_domain(),
+                    [("show_without_published_products", "=", True)],
+                ]
+            )
+        )
+        selected_brand_ids = [
+            brand_id for brand_id in selected_brand_ids if brand_id not in brand_ids
+        ]
+        if selected_brand_ids:
+            selected_brands = brand_model.search(
+                Domain.AND(
+                    [
+                        brand_model._website_public_domain(),
+                        [
+                            ("id", "in", selected_brand_ids),
+                        ],
+                    ]
+                )
+            )
+            brands |= selected_brands
+        return brands.sorted("name"), brand_counts
+
+    def _get_brand_letters(self, brands, brand_counts, selected_brand_ids):
+        letters = {}
+        for brand in brands:
+            letter = (brand.name or "#")[0].upper()
+            if not letter.isalpha():
+                letter = "#"
+            values = letters.setdefault(
+                letter,
+                {
+                    "letter": letter,
+                    "key": letter if letter != "#" else "other",
+                    "count": 0,
+                    "active": False,
+                    "brands": request.env["product.brand"],
+                    "has_more": False,
+                },
+            )
+            values["count"] += brand_counts.get(brand.id, 0)
+            if brand.id in selected_brand_ids:
+                values["active"] = True
+                values["brands"] |= brand
+        return [letters[letter] for letter in sorted(letters)]
+
+    def _get_brand_filter_values(self, domain, selected_brand_ids):
+        mode = request.website.brand_filter_display_mode
+        brands, brand_counts = self._get_available_brands(domain, selected_brand_ids)
+        values = {
+            "brand_filter_display_mode": mode,
+            "brand_filter_limit": self.BRAND_LIMIT,
+            "brand_letter_limit": self.BRAND_LETTER_LIMIT,
+            "brand_has_more": False,
+            "brand_letters": [],
+        }
+        if mode == "limited":
+            selected_brands = brands.filtered(lambda b: b.id in selected_brand_ids)
+            first_brands = brands[: self.BRAND_LIMIT]
+            visible_brands = (selected_brands | first_brands).sorted("name")
+            values.update(
+                {
+                    "brands": visible_brands,
+                    "brand_has_more": len(brands - visible_brands) > 0,
+                    "brand_next_offset": 0,
+                }
+            )
+        elif mode == "letters":
+            values.update(
+                {
+                    "brands": brands,
+                    "brand_letters": self._get_brand_letters(
+                        brands, brand_counts, selected_brand_ids
+                    ),
+                }
+            )
+        else:
+            values["brands"] = brands
+        return values
+
+    def _get_brand_rpc_domain(self, search="", category_id=None, attribute_values=None):
+        category = None
+        if category_id:
+            category = request.env["product.public.category"].browse(int(category_id))
+        attribute_value_dict = self._get_attribute_value_dict(attribute_values or [])
+        return self._get_shop_domain_no_brands(
+            search,
+            category,
+            attribute_value_dict,
+            search_in_description=False,
+        )
+
+    def _get_selected_brand_ids_from_request(self, brand_ids=None):
+        return [
+            int(brand_id)
+            for brand_id in brand_ids or []
+            if brand_id and str(brand_id).isdigit()
+        ]
+
+    def _render_brand_items(self, brands, selected_brand_ids):
+        return request.env["ir.ui.view"]._render_template(
+            "website_sale_product_brand.brand_filter_items",
+            {
+                "brands": brands,
+                "selected_brand_ids": selected_brand_ids,
+            },
         )
 
     def _get_shop_domain_no_brands(
@@ -251,13 +393,9 @@ class WebsiteSale(WebsiteSaleBase):
         domain = self._get_shop_domain_no_brands(
             search, category, attrib_values, search_in_description=False
         )
-        search_products = request.env["product.template"].search(domain)
+        product_query = request.env["product.template"]._search(domain)
         # build brands list
         selected_brand_ids = brands_list
-        brands = self._build_brands_list(
-            selected_brand_ids, search, products, search_products, category
-        )
-        brands = self._remove_extra_brands(brands, search_products, attrib_values)
         # use search() domain instead of mapped() for better performance:
         # will basically search for product's related attribute values
         attrib_valid_ids = (
@@ -268,7 +406,7 @@ class WebsiteSale(WebsiteSaleBase):
                     (
                         "pav_attribute_line_ids.product_tmpl_id",
                         "in",
-                        search_products._ids,
+                        product_query,
                     ),
                     ("pav_attribute_line_ids.value_ids", "!=", False),
                 ]
@@ -282,9 +420,11 @@ class WebsiteSale(WebsiteSaleBase):
         # assign values for usage in qweb
         qcontext.update(
             {
-                "brands": brands,
                 "selected_brand_ids": selected_brand_ids,
                 "attr_valid": attrib_valid_ids,
+                "brand_filter_category_id": category.id if category else False,
+                "brand_filter_attribute_values": attribute_values,
+                **self._get_brand_filter_values(domain, selected_brand_ids),
             }
         )
         return res
@@ -338,6 +478,72 @@ class WebsiteSale(WebsiteSaleBase):
             return response
         finally:
             self._clear_current_brand()
+
+    @http.route(
+        ["/shop/brand_filter/load_more"],
+        type="jsonrpc",
+        auth="public",
+        website=True,
+    )
+    def brand_filter_load_more(
+        self,
+        offset=0,
+        limit=None,
+        search="",
+        category_id=None,
+        attribute_values=None,
+        brand_ids=None,
+        exclude_brand_ids=None,
+        **post,
+    ):
+        limit = int(limit or self.BRAND_LIMIT)
+        selected_brand_ids = self._get_selected_brand_ids_from_request(brand_ids)
+        exclude_brand_ids = self._get_selected_brand_ids_from_request(exclude_brand_ids)
+        domain = self._get_brand_rpc_domain(search, category_id, attribute_values)
+        all_brands, _brand_counts = self._get_available_brands(
+            domain, selected_brand_ids
+        )
+        all_brands -= all_brands.filtered(lambda b: b.id in exclude_brand_ids)
+        brands = all_brands[int(offset) : int(offset) + limit]
+        return {
+            "html": self._render_brand_items(brands, selected_brand_ids),
+            "has_more": int(offset) + limit < len(all_brands),
+            "next_offset": int(offset) + limit,
+        }
+
+    @http.route(
+        ["/shop/brand_filter/load_letter"],
+        type="jsonrpc",
+        auth="public",
+        website=True,
+    )
+    def brand_filter_load_letter(
+        self,
+        letter,
+        offset=0,
+        limit=None,
+        search="",
+        category_id=None,
+        attribute_values=None,
+        brand_ids=None,
+        **post,
+    ):
+        limit = int(limit or self.BRAND_LETTER_LIMIT)
+        selected_brand_ids = self._get_selected_brand_ids_from_request(brand_ids)
+        domain = self._get_brand_rpc_domain(search, category_id, attribute_values)
+        brands, _brand_counts = self._get_available_brands(domain, selected_brand_ids)
+        if letter == "#":
+            brands = brands.filtered(lambda b: not (b.name or "#")[0].isalpha())
+        else:
+            brands = brands.filtered(
+                lambda b: (b.name or "").upper().startswith(letter)
+            )
+        visible_brands = brands[int(offset) : int(offset) + limit]
+        return {
+            "html": self._render_brand_items(visible_brands, selected_brand_ids),
+            "has_more": int(offset) + limit < len(brands),
+            "next_offset": int(offset) + limit,
+        }
 
     # Method to get the brands.
     @http.route(["/page/product_brands"], type="http", auth="public", website=True)

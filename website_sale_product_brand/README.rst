@@ -70,6 +70,18 @@ brand's Website field on the product brand form to scope the brand to a
 specific website. The field is shown to users in the
 ``website.group_multi_website`` group.
 
+To configure how brands are displayed in the shop filter:
+
+1. Go to *Website > Configuration > Settings*.
+
+2. In the *Shop - Products* section, set *Brand Filter Display* to one
+   of the following values:
+
+   -  *Full list*: show all available brands.
+   -  *Limited list*: show the first 5 brands and a *Show more* option.
+   -  *Alphabetical accordion*: group brands by letter when there are
+      more than 50 brands.
+
 Usage
 =====
 
@@ -85,9 +97,9 @@ and define the brand to a product.
 To create product brand go to *Website > Settings > Products > Product
 brands*:
 
-   - User can assign a nice logo with brand description.
-   - After configuring the brand, user can assign a particular brand to
-     a particular products.
+   -  User can assign a nice logo with brand description.
+   -  After configuring the brand, user can assign a particular brand to
+      a particular products.
 
 Based on this configuration, you will see the menuitem shop by brand
 next to shop menu. It will show all the brands and once you select that
@@ -97,10 +109,10 @@ When a user selects a published brand from ``/shop/brands``, the request
 is redirected to that brand landing page (``/shop/brand/<brand-slug>``).
 In the brand form view, you can configure:
 
-   - Cover image
-   - Header website description block
-   - Footer website description block
-   - Header alignment and visibility of brand name/description
+   -  Cover image
+   -  Header website description block
+   -  Footer website description block
+   -  Header alignment and visibility of brand name/description
 
 If your database uses multiple websites, each brand can be assigned to a
 specific website from the product brand form and list views. Brands are
@@ -129,22 +141,22 @@ Authors
 Contributors
 ------------
 
-- Jay Vora <jay.vora@serpentcs.com>
+-  Jay Vora <jay.vora@serpentcs.com>
 
-- Meet Dholakia <m.dholakia.serpentcs@gmail.com>
+-  Meet Dholakia <m.dholakia.serpentcs@gmail.com>
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-     - Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
-     - Sergio Teruel <sergio.teruel@tecnativa.com>
-     - Alexandre Díaz
-     - David Vidal
-     - Carlos López
-     - Pilar Vargas
+      -  Ernesto Tejeda <ernesto.tejeda@tecnativa.com>
+      -  Sergio Teruel <sergio.teruel@tecnativa.com>
+      -  Alexandre Díaz
+      -  David Vidal
+      -  Carlos López
+      -  Pilar Vargas
 
-- `Studio73 <https://www.studio73.es>`__:
+-  `Studio73 <https://www.studio73.es>`__:
 
-     - Alex Garcia <[alex@studio73.es]>
+      -  Alex Garcia <[alex@studio73.es]>
 
 Maintainers
 -----------

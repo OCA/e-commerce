@@ -16,6 +16,7 @@
         "data/website_menu.xml",
         "views/product_brand.xml",
         "views/product_brand_views.xml",
+        "views/res_config_settings_views.xml",
         "views/templates.xml",
     ],
     "assets": {
