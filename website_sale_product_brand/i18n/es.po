@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-29 01:20+0000\n"
-"PO-Revision-Date: 2026-06-25 12:46+0000\n"
+"PO-Revision-Date: 2026-06-29 08:46+0000\n"
 "Last-Translator: \"Miguel Gandia (Studio73)\" <miguel@studio73.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
@@ -38,13 +38,13 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Brand Filter Display"
-msgstr ""
+msgstr "Visualización del filtro de marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_res_config_settings__brand_filter_display_mode
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_website__brand_filter_display_mode
 msgid "Brand Filter Display Mode"
-msgstr ""
+msgstr "Modo de visualización del filtro de marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
@@ -60,6 +60,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Choose how product brands are displayed in the shop filters."
 msgstr ""
+"Elige cómo se muestran las marcas de productos en los filtros de la tienda."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_res_config_settings
@@ -75,6 +76,10 @@ msgid ""
 "using 'Show more', and 'Alphabetical accordion' groups brands by letter when "
 "there are more than 50 brands."
 msgstr ""
+"Controla cómo se muestran las marcas en el filtro de la tienda: \"Lista "
+"completa\" muestra todas las marcas, \"Lista limitada\" muestra las primeras "
+"5 marcas con la opción de cargar más mediante \"Mostrar más\", y \"Acordeón "
+"alfabético\" agrupa las marcas por letra cuando hay más de 50 marcas."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__cover_image
@@ -92,7 +97,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__list
 msgid "Full list"
-msgstr ""
+msgstr "Lista completa"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__id
@@ -140,7 +145,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__limited
 msgid "Limited list"
-msgstr ""
+msgstr "Lista limitida"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
@@ -166,17 +171,17 @@ msgstr "Marcas de producto"
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__published_products_count
 msgid "Published Products Count"
-msgstr ""
+msgstr "Recuento de productos publicados"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_id
 msgid "Restrict to a specific website."
-msgstr ""
+msgstr "Restringir a un sitio web específico."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_seo_optimized
 msgid "SEO optimized"
-msgstr ""
+msgstr "SEO optimizado"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
@@ -191,7 +196,7 @@ msgstr "Búsqueda..."
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__seo_name
 msgid "Seo name"
-msgstr ""
+msgstr "Nombre SEO"
 
 #. module: website_sale_product_brand
 #: model:website.menu,name:website_sale_product_brand.menu_website_sale_brand
@@ -201,32 +206,34 @@ msgstr "Tienda por marcas"
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_brand_description
 msgid "Show Brand Description"
-msgstr ""
+msgstr "Mostrar descripción de la marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_brand_name
 msgid "Show Brand Name"
-msgstr ""
+msgstr "Mostrar nombre de la marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_without_published_products
 msgid "Show Without Published Products"
-msgstr ""
+msgstr "Mostrar sin productos publicados"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
 msgid "Show more"
-msgstr ""
+msgstr "Mostrar más"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_absolute_url
 msgid "The full absolute URL to access the document through the website."
 msgstr ""
+"La URL absoluta completa para acceder al documento a través del sitio web."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_url
 msgid "The full relative URL to access the document through the website."
 msgstr ""
+"La URL relativa completa para acceder al documento a través del sitio web."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_published
