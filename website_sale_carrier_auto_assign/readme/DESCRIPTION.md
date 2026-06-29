@@ -1,7 +1,7 @@
 This module is a glue between
-[website_sale](https://github.com/odoo/odoo/tree/18.0/addons/website_sale)
+[website_sale](https://github.com/odoo/odoo/tree/19.0/addons/website_sale)
 and
-[sale_order_carrier_auto_assign](https://github.com/OCA/sale-workflow/tree/18.0/sale_order_carrier_auto_assign).
+[sale_order_carrier_auto_assign](https://github.com/OCA/sale-workflow/tree/19.0/sale_order_carrier_auto_assign).
 
 When `sale_order_carrier_auto_assign` is installed with `carrier_on_create`
 enabled and a shipping partner has `property_delivery_carrier_id` set, its

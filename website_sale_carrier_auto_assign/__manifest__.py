@@ -4,7 +4,7 @@
     "name": "Website Sale Carrier Auto Assign",
     "summary": "Prevent duplicate delivery lines on website orders when "
     "sale_order_carrier_auto_assign is installed.",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
