@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,6 +29,7 @@ msgid "B2C Information"
 msgstr ""
 
 #. module: website_account_fiscal_position_partner_type
+#. odoo-python
 #: code:addons/website_account_fiscal_position_partner_type/controllers/portal.py:0
 #, python-format
 msgid ""
@@ -37,6 +38,7 @@ msgid ""
 msgstr ""
 
 #. module: website_account_fiscal_position_partner_type
+#. odoo-python
 #: code:addons/website_account_fiscal_position_partner_type/controllers/main.py:0
 #, python-format
 msgid ""
@@ -58,7 +60,7 @@ msgstr ""
 
 #. module: website_account_fiscal_position_partner_type
 #: model:ir.model,name:website_account_fiscal_position_partner_type.model_res_users
-msgid "Users"
+msgid "User"
 msgstr ""
 
 #. module: website_account_fiscal_position_partner_type
