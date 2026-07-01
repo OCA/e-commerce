@@ -9,25 +9,25 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-18 10:04+0000\n"
-"PO-Revision-Date: 2021-05-18 12:11+0200\n"
-"Last-Translator: Carlos <carlos.roca@tecnativa.com>\n"
+"PO-Revision-Date: 2026-07-01 17:46+0000\n"
+"Last-Translator: Laura V <laura.valls@forgeflow.com>\n"
 "Language-Team: Danish (https://www.transifex.com/oca/teams/23907/da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "<span class=\"px-3\">or</span>"
-msgstr ""
+msgstr "<span class=\"px-3\">eller</span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "<span>Confirm <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
-msgstr ""
+msgstr "<span>Bekræft <span class=\"fa fa-angle-right ms-2 fw-light\"/></span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -35,53 +35,56 @@ msgid ""
 "<strong>Error!</strong> An error occurred trying to\n"
 "                            confirm the sale order."
 msgstr ""
+"<strong>Fejl!</strong> Der opstod en fejl ved bekræftelse af salgsordren."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__checkout_skip_payment
 msgid "Checkout Skip Payment"
-msgstr ""
+msgstr "Spring betalingsflow over"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Konfigurationsindstillinger"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.navigation_buttons
 msgid "Confirm"
-msgstr ""
+msgstr "Bekræft"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Message shown to the user when the purchase is finished"
-msgstr ""
+msgstr "Besked vist til brugeren når købet er fuldført"
 
 #. module: website_sale_checkout_skip_payment
 #. odoo-python
 #: code:addons/website_sale_checkout_skip_payment/models/website.py:0
 msgid "Our team will check your order and send you payment information soon."
 msgstr ""
+"Vores team vil kontrollere din ordre og sende dig betalingsinformationer "
+"snart."
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Sale Checkout Skip Message"
-msgstr ""
+msgstr "Besked for spring af betalingsflow"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
 msgid "Shop - Confirmation - Error"
-msgstr ""
+msgstr "Butik - Bekræftelse - Fejl"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__skip_website_checkout_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
-msgstr ""
+msgstr "Spring betalingsflow over på websted"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model,name:website_sale_checkout_skip_payment.model_website
@@ -91,9 +94,9 @@ msgstr "Hjemmeside"
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_config_settings__website_sale_checkout_skip_message
 msgid "Website Sale Checkout Skip Message"
-msgstr ""
+msgstr "Besked for spring af websted-betalingsflow"
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__website_sale_checkout_skip_message
 msgid "Website Sale SKip Message"
-msgstr ""
+msgstr "Besked for spring af websted-salg"
