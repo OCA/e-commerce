@@ -8,109 +8,137 @@ import {registry} from "@web/core/registry";
 registry.category("web_tour.tours").add("website_sale_require_legal_with_payment", {
     url: "/shop",
     steps: () => [
-        ...tourUtils.searchProduct("Storage Box"),
-        {
-            content: "select Storage Box",
-            trigger: '.oe_product_cart:first a:contains("Storage Box")',
-            run: "click",
-        },
+        ...tourUtils.searchProduct("Legal Test Product", {select: true}),
         {
             content: "click on add to cart",
-            trigger: '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
+            trigger: "#product_detail form #add_to_cart",
             run: "click",
         },
         tourUtils.goToCart(),
         tourUtils.goToCheckout(),
         // Fill all required fields except legal terms acceptance
         {
+            content: "Fulfill delivery address form",
             trigger: 'select[name="country_id"]',
-            run: function () {
-                $('input[name="phone"]').val("99999999");
-                // Required for test compatibility with the website_sale_vat_required module
-                $('input[name="vat"]').val("BE04774722701");
-                $('input[name="street"]').val("Castle St., 1");
-                $('input[name="city"]').val("Mushroom Kingdom");
-                $('input[name="zip"]').val("10000");
-                $("#country_id option:eq(1)").attr("selected", true);
-            },
-        },
-        // Submit, to prove that it is not possible to continue without accepting the legal terms
-        {
-            trigger: ".btn-primary:contains('Save address')",
-        },
-        // // Accept legal terms and accept again
-        {
-            trigger: "#accepted_legal_terms.is-invalid",
+            run: "selectByLabel Spain",
         },
         {
-            trigger: ".btn-primary:contains('Save address')",
+            trigger: `input[name="name"]`,
+            run: "edit ghi",
         },
         {
-            trigger: "a[href='/shop/confirm_order']",
+            trigger: `input[name="phone"]`,
+            run: "edit 99999999",
         },
+        {
+            trigger: `input[name="vat"]`,
+            run: "edit BE04774722701",
+        },
+        {
+            trigger: `input[name="street"]`,
+            run: "edit Castle St., 1",
+        },
+        {
+            trigger: `input[name="city"]`,
+            run: "edit Mushroom Kingdom",
+        },
+        {
+            trigger: `input[name="zip"]`,
+            run: "edit 100",
+        },
+        {
+            trigger: `input[name="email"]`,
+            run: "edit super_mario@odoo.com",
+        },
+        {
+            content: "Try to continue without accepting legal terms",
+            trigger: "a[name='website_sale_main_button']",
+            run: "click",
+        },
+        {
+            trigger: "#accepted_legal_terms",
+            run: "click",
+        },
+        {
+            content: "Continue after accepting legal terms",
+            trigger: "a[name='website_sale_main_button']",
+            run: "click",
+            expectUnloadPage: true,
+        },
+        tourUtils.confirmOrder(),
         // If I can proceed to payment, it's because the form validated fine
         {
-            trigger: "input[id='website_sale_tc_checkbox']",
+            trigger: "#website_sale_tc_checkbox",
+            run: "click",
         },
-        ...tourUtils.payWithTransfer(true),
+        ...tourUtils.payWithTransfer({
+            redirect: false,
+            expectUnloadPage: true,
+            waitFinalizeYourPayment: true,
+        }),
     ],
 });
 
 registry.category("web_tour.tours").add("website_sale_require_legal", {
     url: "/shop",
     steps: () => [
-        ...tourUtils.searchProduct("Storage Box"),
-        {
-            content: "select Storage Box",
-            trigger: '.oe_product_cart:first a:contains("Storage Box")',
-            run: "click",
-        },
+        ...tourUtils.searchProduct("Legal Test Product", {select: true}),
         {
             content: "click on add to cart",
-            trigger: '#product_detail form[action^="/shop/cart/update"] #add_to_cart',
+            trigger: "#product_detail form #add_to_cart",
             run: "click",
         },
-        tourUtils.goToCart({quantity: 1}),
+        tourUtils.goToCart(),
         tourUtils.goToCheckout(),
         // Fill all required fields except legal terms acceptance
         {
-            content: "Fill delivery address form",
+            content: "Fulfill delivery address form",
             trigger: 'select[name="country_id"]',
-            run: "selectByLabel United State",
+            run: "selectByLabel Spain",
         },
         {
-            content: "Fill delivery address form",
-            trigger: 'select[name="state_id"]',
-            run: "selectByLabel Florida",
+            trigger: `input[name="name"]`,
+            run: "edit ghi",
         },
         {
-            trigger: 'select[name="country_id"]',
-            run: function () {
-                $('input[name="phone"]').val("99999999");
-                // Required for test compatibility with the website_sale_vat_required module
-                $('input[name="vat"]').val("41511545146");
-                $('input[name="street"]').val("Castle St., 1");
-                $('input[name="city"]').val("Mushroom Kingdom");
-                $('input[name="zip"]').val("10000");
-            },
+            trigger: `input[name="phone"]`,
+            run: "edit 99999999",
         },
-        // Submit, to prove that it is not possible to continue without accepting the legal terms
         {
-            trigger: ".btn-primary:contains('Save address')",
+            trigger: `input[name="vat"]`,
+            run: "edit BE04774722701",
+        },
+        {
+            trigger: `input[name="street"]`,
+            run: "edit Castle St., 1",
+        },
+        {
+            trigger: `input[name="city"]`,
+            run: "edit Mushroom Kingdom",
+        },
+        {
+            trigger: `input[name="zip"]`,
+            run: "edit 100",
+        },
+        {
+            trigger: `input[name="email"]`,
+            run: "edit super_mario@odoo.com",
+        },
+        {
+            content: "Try to continue without accepting legal terms",
+            trigger: "a[name='website_sale_main_button']",
             run: "click",
         },
-        // // Accept legal terms and accept again
         {
             trigger: "#accepted_legal_terms",
             run: "click",
         },
         {
-            trigger: ".btn-primary:contains('Save address')",
+            content: "Continue after accepting legal terms",
+            trigger: "a[name='website_sale_main_button']",
             run: "click",
+            expectUnloadPage: true,
         },
-        {
-            trigger: "a[href='/shop/confirm_order']",
-            run: "click",
-        },
+        tourUtils.confirmOrder(),
     ],
 });
