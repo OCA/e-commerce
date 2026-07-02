@@ -41,6 +41,15 @@ class UICase(HttpCase):
             password="super_mario",
             name="Super Mario",
         )
+        self.product = self.env["product.template"].create(
+            {
+                "name": "Legal Test Product",
+                "type": "consu",
+                "sale_ok": True,
+                "website_published": True,
+                "list_price": 10.0,
+            }
+        )
 
     def test_ui_website(self):
         """Test frontend tour."""

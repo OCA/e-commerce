@@ -7,8 +7,8 @@ from markupsafe import Markup
 from odoo import http
 from odoo.http import request, route
 
-from odoo.addons.payment.controllers import portal
 from odoo.addons.website_sale.controllers import main
+from odoo.addons.website_sale.controllers.payment import PaymentPortal
 
 
 class WebsiteSale(main.WebsiteSale):
@@ -19,8 +19,7 @@ class WebsiteSale(main.WebsiteSale):
         address_type,
         use_delivery_as_billing,
         required_fields,
-        is_main_address,
-        **_kwargs,
+        **kwargs,
     ):
         invalid_fields, missing_fields, error_messages = (
             super()._validate_address_values(
@@ -29,16 +28,16 @@ class WebsiteSale(main.WebsiteSale):
                 address_type,
                 use_delivery_as_billing,
                 required_fields,
-                is_main_address,
-                **_kwargs,
+                **kwargs,
             )
         )
         if (
-            not _kwargs.get("accepted_legal_terms")
+            not kwargs.get("accepted_legal_terms")
             and request.website.viewref(
                 "website_sale_require_legal.address_require_legal"
             ).active
         ):
+            invalid_fields.add("accepted_legal_terms")
             error_messages.append(
                 request.env._("You must accept the terms & conditions to continue.")
             )
@@ -88,14 +87,17 @@ class WebsiteSale(main.WebsiteSale):
             )
         )
         message = Markup(
-            request.env._("Website legal terms acceptance metadata: %s") % metadata
+            request.env._(
+                "Website legal terms acceptance metadata: <br/>%s",
+                metadata,
+            )
         )
         record.sudo().message_post(
             body=message, message_type="notification", subtype_xmlid="mail.mt_comment"
         )
 
 
-class PaymentPortal(portal.PaymentPortal):
+class PaymentPortal(PaymentPortal):
     @http.route()
     def shop_payment_transaction(self, order_id, access_token, **kwargs):
         """Record sale order payment legal terms acceptance.
@@ -111,12 +113,8 @@ class PaymentPortal(portal.PaymentPortal):
             return result
         # Retrieve the sale order
         if order_id:
-            sale_obj = request.env["sale.order"]
-            domain = [("id", "=", order_id)]
-            if access_token:
-                sale_obj = sale_obj.sudo()
-                domain.append(("access_token", "=", access_token))
-            order = sale_obj.search(domain, limit=1)
+            # The access token has already been validated by super().
+            order = request.env["sale.order"].browse(order_id)
         else:
             order = request.website.sale_get_order()
         # Log metadata in the sale order
