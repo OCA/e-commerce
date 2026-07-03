@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t
+        t-name="website_sale_require_legal.checkoutPageOption"
+        t-inherit="website_sale.checkoutPageOption"
+        t-inherit-mode="extension"
+    >
+        <BuilderContext action="'websiteConfig'" position="inside">
+            <BuilderRow label.translate="Require Legal Terms Acceptance">
+                <BuilderCheckbox
+                    actionParam="{views: ['website_sale_require_legal.address_require_legal']}"
+                />
+            </BuilderRow>
+        </BuilderContext>
+    </t>
+
+</templates>

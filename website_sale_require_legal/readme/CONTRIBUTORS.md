@@ -1,0 +1,13 @@
+- [Tecnativa](https://www.tecnativa.com):
+
+  > - Rafael Blasco
+  > - Jairo Llopis
+  > - Vicent Cubells
+  > - David Vidal
+  > - Ernesto Tejeda
+  > - Cristina Martin R.
+  > - Pilar Vargas
+
+- [ACSONE](https://www.acsone.eu/):
+
+  > - Raphaël Vicini
