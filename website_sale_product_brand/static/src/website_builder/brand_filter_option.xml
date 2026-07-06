@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t
+        t-name="website_sale_product_brand.BrandFilterOption"
+        t-inherit="website_sale.ProductsListPageOption"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//BuilderRow[@label.translate='Tags']" position="after">
+            <BuilderRow label.translate="Brand" level="1">
+                <BuilderCheckbox
+                    actionParam="{views: ['website_sale_product_brand.website_sale_filter_brand_products_brands']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+
+</templates>

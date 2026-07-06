@@ -28,6 +28,9 @@
                 "/website_sale_product_brand/static/src/interactions/website_sale_brand_filter.esm.js",
             ),
         ],
+        "website.website_builder_assets": [
+            "website_sale_product_brand/static/src/website_builder/brand_filter_option.xml",
+        ],
         "web.assets_tests": [
             "/website_sale_product_brand/static/src/js/tour.esm.js",
             "/website_sale_product_brand/static/src/js/test_website_sale_filter_brand.esm.js",
