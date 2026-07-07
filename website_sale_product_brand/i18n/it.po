@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-28 02:55+0000\n"
-"PO-Revision-Date: 2026-06-10 16:46+0000\n"
+"PO-Revision-Date: 2026-07-07 10:29+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -33,18 +33,18 @@ msgstr "Allinea contenuto marca"
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__letters
 msgid "Alphabetical accordion"
-msgstr ""
+msgstr "Schedario alfabetico"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Brand Filter Display"
-msgstr ""
+msgstr "Visualizzatore filtro marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_res_config_settings__brand_filter_display_mode
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_website__brand_filter_display_mode
 msgid "Brand Filter Display Mode"
-msgstr ""
+msgstr "Modo visualizzazione filtro marca"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
@@ -59,12 +59,12 @@ msgstr "Centro"
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Choose how product brands are displayed in the shop filters."
-msgstr ""
+msgstr "Definisce come le marche prodotto sono visualizzate nel filtri negozio."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Impostazioni configurazione"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_res_config_settings__brand_filter_display_mode
@@ -75,6 +75,11 @@ msgid ""
 "using 'Show more', and 'Alphabetical accordion' groups brands by letter when "
 "there are more than 50 brands."
 msgstr ""
+"Consente di controllare la visualizzazione dei marchi nel filtro del "
+"negozio: 'Elenco completo' mostra tutti i marchi, 'Elenco limitato' mostra i "
+"primi 5 marchi con la possibilità di caricarne altri tramite 'Mostra altro', "
+"e 'Schedario alfabetico' raggruppa i marchi per lettera quando ce ne sono "
+"più di 50."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__cover_image
@@ -92,7 +97,7 @@ msgstr "Nome visualizzato"
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__list
 msgid "Full list"
-msgstr ""
+msgstr "Elenco completo"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__id
@@ -140,7 +145,7 @@ msgstr "Sinistra"
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__limited
 msgid "Limited list"
-msgstr ""
+msgstr "Elenco limitato"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
@@ -216,7 +221,7 @@ msgstr "Visualizza senza prodotti pubblicati"
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
 msgid "Show more"
-msgstr ""
+msgstr "Mostra di più"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_absolute_url
