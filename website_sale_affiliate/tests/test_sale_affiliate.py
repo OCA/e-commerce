@@ -1,7 +1,7 @@
 # Copyright 2017 LasLabs Inc.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
-from unittest.mock import patch
+from odoo.addons.website.tools import MockRequest
 
 from .common import SaleCase
 
@@ -103,39 +103,39 @@ class AffiliateCase(SaleCase):
             "Affiliate request not linked to correct affiliate",
         )
 
-    @patch("%s.request" % AFFILIATE_REQUEST_PATH)
-    def test_get_request_aff_key_present_request_missing(self, request_mock):
+    def test_get_request_aff_key_present_request_missing(self):
         """Creates and returns affiliate request record matching aff_key
         from kwargs when match does not exist"""
-        test_name = "test_request_new"
-        kwargs = {"aff_key": test_name}
-        request = self.demo_affiliate.get_request(**kwargs)
-        self.assertTrue(request.exists(), "Affiliate request not created")
-        self.assertEqual(
-            request.name,
-            test_name,
-            "Affiliate request not created with aff_key name",
-        )
-        self.assertEqual(
-            request.affiliate_id,
-            self.demo_affiliate,
-            "Affiliate request not linked to correct affiliate",
-        )
+        with MockRequest(self.env):
+            test_name = "test_request_new"
+            kwargs = {"aff_key": test_name}
+            request = self.demo_affiliate.get_request(**kwargs)
+            self.assertTrue(request.exists(), "Affiliate request not created")
+            self.assertEqual(
+                request.name,
+                test_name,
+                "Affiliate request not created with aff_key name",
+            )
+            self.assertEqual(
+                request.affiliate_id,
+                self.demo_affiliate,
+                "Affiliate request not linked to correct affiliate",
+            )
 
-    @patch("%s.request" % AFFILIATE_REQUEST_PATH)
-    def test_get_request_aff_key_missing(self, request_mock):
+    def test_get_request_aff_key_missing(self):
         """Creates and returns affiliate request record with sequential name
         when match does not exist"""
-        kwargs = {}
-        request = self.demo_affiliate.get_request(**kwargs)
-        self.assertTrue(request.exists(), "Affiliate request not created")
-        self.assertEqual(
-            request.name,
-            "0000000001",
-            "Affiliate request named improperly",
-        )
-        self.assertEqual(
-            request.affiliate_id,
-            self.demo_affiliate,
-            "Affiliate request not linked to correct affiliate",
-        )
+        with MockRequest(self.env):
+            kwargs = {}
+            request = self.demo_affiliate.get_request(**kwargs)
+            self.assertTrue(request.exists(), "Affiliate request not created")
+            self.assertEqual(
+                request.name,
+                "0000000001",
+                "Affiliate request named improperly",
+            )
+            self.assertEqual(
+                request.affiliate_id,
+                self.demo_affiliate,
+                "Affiliate request not linked to correct affiliate",
+            )

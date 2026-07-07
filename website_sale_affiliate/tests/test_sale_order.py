@@ -28,7 +28,7 @@ class SaleOrderCase(SaleCase):
                     },
                 )
             ],
-            "pricelist_id": self.env.ref("product.list0").id,
+            "pricelist_id": self.env["product.pricelist"].search([], limit=1).id,
         }
 
     @patch.object(AffiliateRequest, "current_qualified")

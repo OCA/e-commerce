@@ -10,9 +10,11 @@ _logger = logging.getLogger(__name__)
 
 class Affiliate(models.Model):
     _name = "sale.affiliate"
+    _description = "Sale Affiliate"
     _order = "create_date desc"
 
     name = fields.Char(required=True)
+    date = fields.Date(default=fields.Date.context_today)
     partner_id = fields.Many2one(
         "res.partner",
         string="Partner",
@@ -52,7 +54,6 @@ class Affiliate(models.Model):
         "sale. Use negative numbers to indicate infinity.",
     )
     conversion_rate = fields.Float(
-        string="Conversion Rate",
         digits=(12, 4),
         compute="_compute_conversion_rate",
         help="Conversion count / Request count",
@@ -72,7 +73,7 @@ class Affiliate(models.Model):
             try:
                 record.sales_per_request = float(sales_count) / float(len(requests))
             except ZeroDivisionError:
-                pass
+                record.sales_per_request = 0.0
 
     @api.depends("request_ids", "request_ids.sale_ids")
     def _compute_conversion_rate(self):
@@ -82,7 +83,7 @@ class Affiliate(models.Model):
             try:
                 record.conversion_rate = float(len(conversions)) / float(len(requests))
             except ZeroDivisionError:
-                pass
+                record.conversion_rate = 0.0
 
     @api.model
     def _default_sequence_id(self):
@@ -91,19 +92,18 @@ class Affiliate(models.Model):
             raise_if_not_found=False,
         )
 
-    @api.model_cr_context
+    @api.model
     def find_from_kwargs(self, **kwargs):
         """Find affiliate record based on kwargs"""
         try:
             affiliate_id = int(kwargs["aff_ref"])
             return self.search([("id", "=", affiliate_id)], limit=1)
         except KeyError:
-            pass
+            _logger.debug("Key error while finding affiliate record")
         except ValueError:
             _logger.debug("Invalid affiliate ID value")
         return
 
-    @api.multi
     def get_request(self, **kwargs):
         self.ensure_one()
         Request = self.env["sale.affiliate.request"]
