@@ -187,6 +187,33 @@ class ProductTemplate(models.Model):
         )
         return combination_info
 
+    def _get_minimal_search_price(self, website, mapping):
+        self.ensure_one()
+        pricelist = self._get_website_current_pricelist(website)
+        product, add_qty, _has_distinct_price = self._get_cheapest_info(pricelist)
+        product_price = product.with_context(
+            quantity=add_qty, pricelist=pricelist.id
+        )._get_contextual_price()
+        return self.env["ir.qweb.field.monetary"].value_to_html(
+            product_price,
+            {"display_currency": mapping["detail"]["display_currency"]},
+        )
+
+    def _search_render_results(self, fetch_fields, mapping, icon, limit):
+        results_data = super()._search_render_results(
+            fetch_fields, mapping, icon, limit
+        )
+        if "detail" not in mapping:
+            return results_data
+
+        current_website = self.env["website"].get_current_website()
+        for product, data in zip(self, results_data, strict=False):
+            minimal_price = product._get_minimal_search_price(current_website, mapping)
+            if minimal_price:
+                data["price"] = minimal_price
+                data.pop("list_price", None)
+        return results_data
+
     def _get_sales_prices(self, website):
         prices = super()._get_sales_prices(website)
         pricelist = self._get_website_current_pricelist(website)

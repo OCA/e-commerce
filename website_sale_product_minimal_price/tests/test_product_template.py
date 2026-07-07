@@ -179,3 +179,79 @@ class TestProductTemplateMinimalPrice(TransactionCase):
             )._get_combination_info(product_id=self.variant1.id)
             self.assertIn("minimal_price_scale", res5)
             self.assertTrue(len(res5["minimal_price_scale"]) > 0)
+
+    def test_search_render_results_uses_minimal_variant_price(self):
+        from odoo.addons.website_sale.tests.common import MockRequest
+
+        pl = self.env["product.pricelist"].create(
+            {
+                "name": "Search Minimal PL",
+                "item_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "applied_on": "0_product_variant",
+                            "product_id": self.variant1.id,
+                            "compute_price": "fixed",
+                            "fixed_price": 50.0,
+                        },
+                    )
+                ],
+            }
+        )
+        mapping = {
+            "name": {"name": "name", "type": "text"},
+            "website_url": {"name": "website_url", "type": "text"},
+            "detail": {
+                "name": "price",
+                "type": "html",
+                "display_currency": self.website.currency_id,
+            },
+        }
+        with patch.object(
+            type(self.product_tmpl), "_get_website_current_pricelist"
+        ) as mock_pricelist:
+            mock_pricelist.return_value = pl
+            with MockRequest(self.env, website=self.website):
+                result = self.product_tmpl._search_render_results(
+                    ["id", "name", "website_url"], mapping, "fa-shopping-cart", 5
+                )[0]
+
+        self.assertNotIn("From", result["price"])
+        self.assertIn("50.00", result["price"])
+
+    def test_minimal_search_price_without_distinct_prices(self):
+        pl = self.env["product.pricelist"].create({"name": "Search Regular PL"})
+        mapping = {
+            "detail": {
+                "display_currency": self.website.currency_id,
+            },
+        }
+        with patch.object(
+            type(self.product_tmpl), "_get_website_current_pricelist"
+        ) as mock_pricelist:
+            mock_pricelist.return_value = pl
+            with patch.object(
+                type(self.product_tmpl), "_get_cheapest_info"
+            ) as mock_cheap:
+                mock_cheap.return_value = (self.variant1, 1, False)
+                result = self.product_tmpl._get_minimal_search_price(
+                    self.website, mapping
+                )
+
+        self.assertIn("100.00", result)
+
+    def test_search_render_results_without_price_detail(self):
+        from odoo.addons.website_sale.tests.common import MockRequest
+
+        mapping = {
+            "name": {"name": "name", "type": "text"},
+            "website_url": {"name": "website_url", "type": "text"},
+        }
+        with MockRequest(self.env, website=self.website):
+            result = self.product_tmpl._search_render_results(
+                ["id", "name", "website_url"], mapping, "fa-shopping-cart", 5
+            )[0]
+
+        self.assertNotIn("price", result)
