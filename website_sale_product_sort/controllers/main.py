@@ -1,7 +1,8 @@
 # Copyright 2020 Tecnativa - David Vidal
 # Copyright 2021 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.http import request, route
+from odoo import http
+from odoo.http import request
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
@@ -14,7 +15,7 @@ class WebsiteSale(WebsiteSale):
         order = request.website.default_product_sort_criteria
         return f"is_published desc, {order}, id desc"
 
-    @route()
+    @http.route(type="http")
     def shop(self, page=0, category=None, search="", ppg=False, **post):
         """Transfer custom sort order to QWeb templates."""
         response = super().shop(

@@ -14,7 +14,10 @@
     </template>
 
     <template id="sort" inherit_id="website_sale.sort" priority="9999">
-        <xpath expr="//span[@t-field='website.shop_default_sort']" position="replace">
+        <xpath
+            expr="//span[@t-else='' and @t-out='dict(website_sale_sortable)[website.shop_default_sort]']"
+            position="replace"
+        >
             <t t-else="1">
                 <t
                     t-if="is_view_active('website_sale_product_sort.products') and website.default_product_sort_criteria"
