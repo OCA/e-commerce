@@ -8,8 +8,8 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleStockListPreview(WebsiteSale):
-    def _get_additional_shop_values(self, values):
-        res = super()._get_additional_shop_values(values)
+    def _get_additional_shop_values(self, values, **kwargs):
+        res = super()._get_additional_shop_values(values, **kwargs)
 
         products = values.get("products") or request.env["product.template"]
         if not products:
@@ -17,7 +17,6 @@ class WebsiteSaleStockListPreview(WebsiteSale):
         website = request.env["website"].get_current_website()
         products_sudo = products.sudo().with_context(
             warehouse=website.sudo().warehouse_id.id,
-            website_sale_stock_available=True,
         )
         products_stock = {}
         for tmpl in products_sudo:
