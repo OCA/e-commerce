@@ -13,15 +13,10 @@ class WebsiteSale(WebsiteSale):
             field_names |= {"vat"}
         return field_names
 
-    def _prepare_address_form_values(
-        self, *args, address_type, use_delivery_as_billing, **kwargs
-    ):
-        rendering_values = super()._prepare_address_form_values(
-            *args,
-            address_type=address_type,
-            use_delivery_as_billing=use_delivery_as_billing,
-            **kwargs,
-        )
+    def _prepare_address_form_values(self, *args, **kwargs):
+        rendering_values = super()._prepare_address_form_values(*args, **kwargs)
+        address_type = kwargs.get("address_type")
+        use_delivery_as_billing = kwargs.get("use_delivery_as_billing", False)
         rendering_values["show_vat"] = (
             address_type == "billing" or use_delivery_as_billing
         )
