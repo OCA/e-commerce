@@ -104,7 +104,6 @@ class UICase(HttpCase):
                 },
             ]
         )
-        cls.env.ref("website_sale.products_add_to_cart").active = True
         # Ensure website lang is en_US.
         website = cls.env["website"].get_current_website()
         en_us = (
@@ -119,6 +118,4 @@ class UICase(HttpCase):
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour(
-            "/shop", "website_sale_stock_list_preview", login="admin", step_delay=100
-        )
+        self.start_tour("/shop", "website_sale_stock_list_preview", login="admin")
