@@ -25,7 +25,7 @@ class Website(models.Model):
         result = super()._search_get_details(search_type, order, options)
         if not self.has_ecommerce_access():
             return result
-        if search_type in ["products", "products_only", "all"]:
+        if search_type in ["products", "all"]:
             result.append(
                 self.env["product.brand"]._search_get_detail(self, order, options)
             )
