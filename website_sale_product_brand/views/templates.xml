@@ -230,4 +230,25 @@
             </section>
         </xpath>
     </template>
+
+    <template
+        id="product_title_brand_logo"
+        inherit_id="website_sale.product_title"
+        name="Product Page Brand Logo"
+    >
+        <xpath expr="//h1[@t-field='product.name']" position="after">
+            <a
+                t-if="product.product_brand_id and product.product_brand_id.logo"
+                t-att-href="product.product_brand_id.website_url"
+                class="d-inline-block mb-3"
+            >
+                <img
+                    style="max-height: 48px; max-width: 160px; object-fit: contain;"
+                    t-att-src="'/web/image/product.brand/%s/logo/256x256' % product.product_brand_id.id"
+                    t-att-alt="product.product_brand_id.name"
+                    loading="lazy"
+                />
+            </a>
+        </xpath>
+    </template>
 </odoo>
