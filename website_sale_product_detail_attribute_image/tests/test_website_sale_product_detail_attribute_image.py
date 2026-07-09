@@ -29,7 +29,13 @@ class WebsiteSaleHttpCase(HttpCase):
         cls.ProductAttributeValue.create(
             {"name": "Low dangerousness", "attribute_id": attribute_dangerous.id}
         )
-        cls.product_template = cls.env.ref("product.product_product_4_product_template")
+        cls.product_template = cls.env["product.template"].create(
+            {
+                "name": "Customizable Desk",
+                "type": "consu",
+                "is_published": True,
+            }
+        )
         attribute_line = cls.ProductAttributeLine.create(
             {
                 "product_tmpl_id": cls.product_template.id,

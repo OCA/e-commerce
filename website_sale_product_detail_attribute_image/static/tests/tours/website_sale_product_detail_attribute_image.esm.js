@@ -10,6 +10,7 @@ registry.category("web_tour.tours").add("website_sale_product_detail_attribute_i
         {
             trigger: "a:contains('Customizable Desk')",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             trigger:

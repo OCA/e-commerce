@@ -7,8 +7,8 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSaleProductDetailAttributeImage(WebsiteSale):
     @http.route()
-    def product(self, product, category="", search="", **kwargs):
-        res = super().product(product, category=category, search=search, **kwargs)
+    def product(self, product, category=None, pricelist=None, **kwargs):
+        res = super().product(product, category=category, pricelist=pricelist, **kwargs)
         attributes_detail = product.attribute_line_ids.filtered(
             lambda x: x.attribute_id.website_product_detail_image_published
         )

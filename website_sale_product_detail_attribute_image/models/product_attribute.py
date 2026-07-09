@@ -18,7 +18,7 @@ class ProductAttribute(models.Model):
     website_name = fields.Char(translate=True)
 
 
-class ProductAttributevalue(models.Model):
+class ProductAttributeValue(models.Model):
     _inherit = "product.attribute.value"
 
     website_name = fields.Char(string="Website value", translate=True)
