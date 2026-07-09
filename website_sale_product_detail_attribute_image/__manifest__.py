@@ -4,7 +4,7 @@
 {
     "name": "Website Sale Product Detail Attribute Image",
     "summary": "Display attributes images in shop product detail",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
