@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-12 08:04+0000\n"
-"PO-Revision-Date: 2026-02-25 07:29+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-07-14 06:46+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
 msgid "<b>Brand</b>"
-msgstr ""
+msgstr "<b>Blagovna znamka</b>"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__align_brand_content
@@ -49,12 +49,12 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__can_publish
 msgid "Can Publish"
-msgstr ""
+msgstr "Lahko objavlja"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__product_brand__align_brand_content__center
 msgid "Center"
-msgstr ""
+msgstr "Center"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
@@ -64,7 +64,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Nastavitve"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_res_config_settings__brand_filter_display_mode
@@ -87,7 +87,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_website__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Prikazani naziv"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__list
@@ -100,42 +100,42 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_res_config_settings__id
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_website__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_1920
 msgid "Image"
-msgstr ""
+msgstr "Slika"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_1024
 msgid "Image 1024"
-msgstr ""
+msgstr "Slika 1024"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_128
 msgid "Image 128"
-msgstr ""
+msgstr "Slika 128"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_256
 msgid "Image 256"
-msgstr ""
+msgstr "Slika 256"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_512
 msgid "Image 512"
-msgstr ""
+msgstr "Slika 512"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
 msgid "Is Published"
-msgstr ""
+msgstr "Je objavljeno"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__product_brand__align_brand_content__left
 msgid "Left"
-msgstr ""
+msgstr "Levo"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__limited
@@ -145,23 +145,23 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "No Brands Found."
-msgstr ""
+msgstr "Ni najdenih blagovnih znamk."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Proizvod"
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_product_brand
 msgid "Product Brand"
-msgstr ""
+msgstr "Znamka proizvoda"
 
 #. module: website_sale_product_brand
 #: model:ir.ui.menu,name:website_sale_product_brand.menu_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Product Brands"
-msgstr ""
+msgstr "Znamke proizvodov"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__published_products_count
@@ -171,42 +171,42 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_id
 msgid "Restrict to a specific website."
-msgstr ""
+msgstr "Omeji na določeno spletno mesto."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_seo_optimized
 msgid "SEO optimized"
-msgstr ""
+msgstr "SEO optimizirano"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search"
-msgstr ""
+msgstr "Iskanje"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.product_brands
 msgid "Search..."
-msgstr ""
+msgstr "Iskanje..."
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__seo_name
 msgid "Seo name"
-msgstr ""
+msgstr "SEO naziv"
 
 #. module: website_sale_product_brand
 #: model:website.menu,name:website_sale_product_brand.menu_website_sale_brand
 msgid "Shop by Brand"
-msgstr ""
+msgstr "Nakupovanje po blagovnih znamkah"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_brand_description
 msgid "Show Brand Description"
-msgstr ""
+msgstr "Prikaži opis blagovne znamke"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_brand_name
 msgid "Show Brand Name"
-msgstr ""
+msgstr "Prikaži naziv blagovne znamke"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__show_without_published_products
@@ -216,7 +216,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.website_sale_filter_brand_products_brands
 msgid "Show more"
-msgstr ""
+msgstr "Prikaži več"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_product_brand__website_absolute_url
@@ -231,7 +231,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_published
 msgid "Visible on current website"
-msgstr ""
+msgstr "Vidno na trenutni spletni strani"
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_website
@@ -248,7 +248,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_description
 msgid "Website Description"
-msgstr ""
+msgstr "Opis spletne strani"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_footer
@@ -258,24 +258,24 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_url
 msgid "Website URL"
-msgstr ""
+msgstr "Spletni URL"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_description
 msgid "Website meta description"
-msgstr ""
+msgstr "Spletni meta opis"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_keywords
 msgid "Website meta keywords"
-msgstr ""
+msgstr "Spletne meta ključne besede"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_title
 msgid "Website meta title"
-msgstr ""
+msgstr "Spletni meta naslov"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_og_img
 msgid "Website opengraph image"
-msgstr ""
+msgstr "Slika Open Graph spletnega mesta"
