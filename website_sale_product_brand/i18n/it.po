@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-28 02:55+0000\n"
-"PO-Revision-Date: 2026-07-07 10:29+0000\n"
+"PO-Revision-Date: 2026-07-15 08:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -245,7 +245,7 @@ msgstr "Visibile sul sito web attuale"
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_id
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.view_product_brand_form
 msgid "Website"
-msgstr "Sito"
+msgstr "Sito web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_absolute_url
