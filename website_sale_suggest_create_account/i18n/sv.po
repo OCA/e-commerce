@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-07-20 11:52+0000\n"
+"Last-Translator: Patricia Lorenzo Bartolomé <lb.patri@gmail.com>\n"
 "Language-Team: none\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
@@ -20,6 +22,8 @@ msgid ""
 "<span>Sign In and Checkout</span>\n"
 "                    <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Logga in och gå till kassan</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
@@ -27,6 +31,8 @@ msgid ""
 "<span>Sign In/Up and Checkout</span>\n"
 "                        <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Logga in/Registrera dig och gå till kassan</span>\n"
+"                        <span class=\"fa fa-sign-in\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
@@ -34,12 +40,14 @@ msgid ""
 "<span>Sign In/Up and Checkout</span>\n"
 "                    <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Logga in/Registrera dig och gå till kassan</span>\n"
+"                    <span class=\"fa fa-sign-in\"/>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.cart
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
 msgid "<span>Sign In/Up</span>"
-msgstr ""
+msgstr "<span>Logga in/Registrera dig</span>"
 
 #. module: website_sale_suggest_create_account
 #: model_terms:ir.ui.view,arch_db:website_sale_suggest_create_account.short_cart_summary
@@ -47,3 +55,5 @@ msgid ""
 "<span>Sign in and Checkout</span>\n"
 "                <span class=\"fa fa-sign-in\"/>"
 msgstr ""
+"<span>Logga in och gå till kassan</span>\n"
+"                <span class=\"fa fa-sign-in\"/>"
