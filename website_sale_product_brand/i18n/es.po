@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-29 01:20+0000\n"
-"PO-Revision-Date: 2026-06-29 08:46+0000\n"
+"PO-Revision-Date: 2026-07-20 08:39+0000\n"
 "Last-Translator: \"Miguel Gandia (Studio73)\" <miguel@studio73.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr "Alinear el contenido de la marca"
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__letters
 msgid "Alphabetical accordion"
-msgstr ""
+msgstr "Acordeón alfabético"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
@@ -54,7 +54,7 @@ msgstr "Puede publicar"
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__product_brand__align_brand_content__center
 msgid "Center"
-msgstr ""
+msgstr "Centrar"
 
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
@@ -65,7 +65,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Configuración"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,help:website_sale_product_brand.field_res_config_settings__brand_filter_display_mode
@@ -84,7 +84,7 @@ msgstr ""
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__cover_image
 msgid "Cover Image"
-msgstr ""
+msgstr "Imagen de portada"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__display_name
@@ -92,7 +92,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_website__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre a mostrar"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__list
@@ -105,32 +105,32 @@ msgstr "Lista completa"
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_res_config_settings__id
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_website__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_1920
 msgid "Image"
-msgstr ""
+msgstr "Imagen"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_1024
 msgid "Image 1024"
-msgstr ""
+msgstr "Imagen 1024"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_128
 msgid "Image 128"
-msgstr ""
+msgstr "Imagen 128"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_256
 msgid "Image 256"
-msgstr ""
+msgstr "Imagen 256"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__image_512
 msgid "Image 512"
-msgstr ""
+msgstr "Imagen 512"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__is_published
@@ -140,7 +140,7 @@ msgstr "Está publicado"
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__product_brand__align_brand_content__left
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields.selection,name:website_sale_product_brand.selection__website__brand_filter_display_mode__limited
@@ -250,17 +250,17 @@ msgstr "Sitio web"
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_absolute_url
 msgid "Website Absolute URL"
-msgstr ""
+msgstr "URL absoluta del sitio web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_description
 msgid "Website Description"
-msgstr ""
+msgstr "Descripción del sitio web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_footer
 msgid "Website Footer"
-msgstr ""
+msgstr "Pié de página del sitio web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_url
@@ -270,22 +270,22 @@ msgstr "URL de la página web"
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_description
 msgid "Website meta description"
-msgstr ""
+msgstr "Metda descripción del sitio web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_keywords
 msgid "Website meta keywords"
-msgstr ""
+msgstr "Meta palabras clave del sitio web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_title
 msgid "Website meta title"
-msgstr ""
+msgstr "Título meta del sitio web"
 
 #. module: website_sale_product_brand
 #: model:ir.model.fields,field_description:website_sale_product_brand.field_product_brand__website_meta_og_img
 msgid "Website opengraph image"
-msgstr ""
+msgstr "Imagen Open Graph del sitio web"
 
 #~ msgid "The full URL to access the document through the website."
 #~ msgstr "URL completa de acceso al documento a través de la página web."
