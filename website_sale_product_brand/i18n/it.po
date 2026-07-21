@@ -36,6 +36,12 @@ msgid "Alphabetical accordion"
 msgstr "Schedario alfabetico"
 
 #. module: website_sale_product_brand
+#. odoo-javascript
+#: code:addons/website_sale_product_brand/static/src/website_builder/brand_filter_option.xml:0
+msgid "Brand"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Brand Filter Display"
 msgstr "Visualizzatore filtro marca"
@@ -59,7 +65,8 @@ msgstr "Centro"
 #. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Choose how product brands are displayed in the shop filters."
-msgstr "Definisce come le marche prodotto sono visualizzate nel filtri negozio."
+msgstr ""
+"Definisce come le marche prodotto sono visualizzate nel filtri negozio."
 
 #. module: website_sale_product_brand
 #: model:ir.model,name:website_sale_product_brand.model_res_config_settings

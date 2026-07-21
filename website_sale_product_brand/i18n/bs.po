@@ -36,6 +36,12 @@ msgid "Alphabetical accordion"
 msgstr ""
 
 #. module: website_sale_product_brand
+#. odoo-javascript
+#: code:addons/website_sale_product_brand/static/src/website_builder/brand_filter_option.xml:0
+msgid "Brand"
+msgstr ""
+
+#. module: website_sale_product_brand
 #: model_terms:ir.ui.view,arch_db:website_sale_product_brand.res_config_settings_view_form
 msgid "Brand Filter Display"
 msgstr ""
