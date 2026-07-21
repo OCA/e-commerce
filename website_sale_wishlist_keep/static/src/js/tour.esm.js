@@ -5,7 +5,6 @@
 import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_wishlist_keep", {
-    test: true,
     url: "/shop?search=Test Product",
     steps: () => [
         {

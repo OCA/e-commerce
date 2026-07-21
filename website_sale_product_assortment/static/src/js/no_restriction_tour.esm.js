@@ -5,7 +5,6 @@ import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("test_assortment_with_no_restriction", {
     url: "/shop",
-    test: true,
     steps: () => [
         {
             trigger: "a:contains('Test Product 1')",

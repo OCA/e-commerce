@@ -6,7 +6,6 @@ import {registry} from "@web/core/registry";
 import {searchProduct} from "@website_sale/js/tours/tour_utils";
 
 registry.category("web_tour.tours").add("website_sale_stock_provisioning_date", {
-    test: true,
     url: "/shop",
     steps: () => [
         ...searchProduct("provisioning date"),
