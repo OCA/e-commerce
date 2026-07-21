@@ -31,3 +31,6 @@ If your database uses multiple websites, each brand can be assigned to a
 specific website from the product brand form and list views. Brands are
 only shown on the website they belong to, while global brands remain
 available on every website.
+
+When a product has a brand with a logo configured, that logo is displayed
+on the product page and links to the brand's landing page.
