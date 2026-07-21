@@ -3,7 +3,7 @@
 {
     "name": "eCommerce product assortment",
     "summary": "Use product assortments to display products available on e-commerce.",
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.1.1",
     "development_status": "Beta",
     "license": "AGPL-3",
     "category": "Website",
