@@ -2,7 +2,6 @@
 import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_hide_empty_category", {
-    test: true,
     url: "/shop",
     steps: () => [
         {
