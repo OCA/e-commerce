@@ -15,11 +15,11 @@ registry.category("web_tour.tours").add("website_sale_hide_empty_category", {
             trigger: "a[href='/shop']",
         },
         {
-            trigger: ".o_wsale_filmstip_wrapper span:contains('Category Test Posted')",
+            trigger: ".o_wsale_filmstrip_wrapper:contains('Category Test Posted')",
         },
         {
             trigger:
-                ".o_wsale_filmstip_wrapper:not(:has(span:contains('Category Test Not Posted')))",
+                ".o_wsale_filmstrip_wrapper:not(:has(:contains('Category Test Not Posted')))",
         },
     ],
 });

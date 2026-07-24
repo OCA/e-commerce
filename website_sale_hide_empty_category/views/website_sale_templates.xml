@@ -15,7 +15,18 @@
         >
             <attribute
                 name="t-if"
-            >not hide_empty_category or c.has_product_recursive</attribute>
+            >not hide_empty_category or c.has_published_products</attribute>
+        </xpath>
+    </template>
+    <template
+        inherit_id="website_sale.dynamic_filter_template_product_public_category_default"
+        id="hide_categories_snippet_recursive"
+        name="Hide Empty Category Snippet list"
+    >
+        <xpath expr="//div[@name='category_item']" position="attributes">
+            <attribute
+                name="t-if"
+            >(not is_parent or includeParent) and not category.get('unpublished')</attribute>
         </xpath>
     </template>
     <template
@@ -23,13 +34,16 @@
         id="hide_categories_collapse_recursive"
         name="Hide Empty Category Collapsible list"
     >
-        <xpath
-            expr="//t[@t-name='website_sale.option_collapse_categories_recursive']"
-            position="attributes"
-        >
+        <xpath expr="//t[@t-if='children']" position="attributes">
             <attribute
                 name="t-if"
-            >not hide_empty_category or c.has_product_recursive</attribute>
+            >children and (not hide_empty_category or c.has_published_products)</attribute>
+        </xpath>
+        <xpath expr="//li[@t-else='']" position="attributes">
+            <attribute name="t-else" />
+            <attribute
+                name="t-if"
+            >not children and (not hide_empty_category or c.has_published_products)</attribute>
         </xpath>
     </template>
     <template
@@ -50,13 +64,13 @@
         customize_show="True"
         active="True"
     >
-        <xpath expr="//div[@t-if='entries']" position="before">
+        <xpath expr="//div[@id='o_wsale_categories_filmstrip']" position="before">
             <t t-set="hide_empty_category" t-value="True" />
         </xpath>
         <xpath expr="//li[@t-foreach='entries']" position="attributes">
             <attribute
                 name="t-if"
-            >not hide_empty_category or c.has_product_recursive</attribute>
+            >not hide_empty_category or c.has_published_products</attribute>
         </xpath>
     </template>
 </odoo>
