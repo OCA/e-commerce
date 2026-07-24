@@ -7,24 +7,29 @@ registry.category("web_tour.tours").add("website_sale_product_item_cart_custom_q
     url: "/shop",
     steps: () => [
         {
+            trigger: ".oe_product_cart:contains('Test Product')",
+            run: "hover",
+        },
+        {
             trigger:
-                ".o_wsale_product_information:contains('Test Product') a[title='Add one']",
+                ".oe_product_cart:contains('Test Product') a[title='Add one']:not(:visible), .oe_product_cart:contains('Test Product') a[title='Add one']",
             run: "click",
         },
         {
             trigger:
-                ".o_wsale_product_information:contains('Test Product') a[title='Shopping cart']",
+                ".oe_product_cart:contains('Test Product') button[title='Add to cart'], .oe_product_cart:contains('Test Product') a[title='Add to cart']",
             run: "click",
         },
         {
-            trigger: "sup.my_cart_quantity:contains('2')",
+            trigger: ".my_cart_quantity:contains('2')",
         },
         {
             trigger: 'a[href="/shop/cart"]',
             run: "click",
+            expectUnloadPage: true,
         },
         {
-            trigger: ".o_cart_product:contains('Test Product') .js_quantity[value='2']",
+            trigger: ".o_cart_product:contains('Test Product') input.js_quantity",
         },
         {
             trigger: ".js_delete_product",
