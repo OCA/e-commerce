@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_one_time_delivery_address
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_one_time_delivery_address
+#: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.one_time_delivery_section
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                The delivery address entered for this order will be stored as a\n"
+"                temporary contact. It will not be reused for future orders."
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.one_time_delivery_section
+msgid ""
+"<span>Create a one-time delivery contact (temporary address for this order "
+"only)</span>"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__type
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_users__type
+msgid "Address Type"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__allow_dropship
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_users__allow_dropship
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__allow_dropship
+msgid "Allow Drop-shipping"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model,name:website_sale_one_time_delivery_address.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model,website_form_label:website_sale_one_time_delivery_address.model_res_partner
+msgid "Create a Customer"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__display_name
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__id
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.address_card_one_time_delivery_badge
+msgid "One-Time Delivery"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__one_time_delivery
+#: model:ir.model.fields.selection,name:website_sale_one_time_delivery_address.selection__res_partner__type__one_time_delivery
+#: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.one_time_delivery_section
+msgid "One-Time Delivery Address"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model,name:website_sale_one_time_delivery_address.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,help:website_sale_one_time_delivery_address.field_sale_order__one_time_delivery
+msgid ""
+"When enabled, the delivery address created during the website checkout is "
+"stored as a temporary contact with type 'one_time_delivery' instead of the "
+"standard 'delivery' type. This keeps the recipient out of the customer's "
+"regular address book and is useful for reseller orders shipped to an end "
+"customer."
+msgstr ""
+
+#. module: website_sale_one_time_delivery_address
+#: model:ir.model.fields,help:website_sale_one_time_delivery_address.field_res_partner__allow_dropship
+#: model:ir.model.fields,help:website_sale_one_time_delivery_address.field_res_users__allow_dropship
+#: model:ir.model.fields,help:website_sale_one_time_delivery_address.field_sale_order__allow_dropship
+msgid ""
+"When enabled, this customer can use the one-time delivery flow during the "
+"website checkout: the delivery address is stored as a temporary "
+"'one_time_delivery' contact while billing stays on the customer. The one-"
+"time delivery option is hidden for customers that do not allow drop-"
+"shipping."
+msgstr ""
