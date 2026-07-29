@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!--
+        Inject the one-time delivery section just before the delivery address list so
+        the shopper can opt in before choosing / entering the delivery address.
+    -->
+    <template
+        id="checkout_one_time_delivery"
+        name="Checkout - One-Time Delivery"
+        inherit_id="website_sale.checkout"
+    >
+        <xpath
+            expr="//div[@id='shop_checkout']/t[@t-if]/div[t[@t-call='website_sale.delivery_address_list']]"
+            position="before"
+        >
+            <t
+                t-if="order.allow_dropship"
+                t-call="website_sale_one_time_delivery_address.one_time_delivery_section"
+            >
+                <t t-set="one_time_delivery" t-value="order.one_time_delivery" />
+            </t>
+        </xpath>
+    </template>
+
+    <template id="one_time_delivery_section">
+        <div id="o_one_time_delivery_section" class="mb-4">
+            <h5 class="mb-3">One-Time Delivery Address</h5>
+            <div class="list-group">
+                <label class="list-group-item d-flex align-items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="o_one_time_delivery_checkbox"
+                        t-att-checked="'checked' if one_time_delivery else None"
+                    />
+                    <span
+                    >Create a one-time delivery contact (temporary address for this order only)</span>
+                </label>
+            </div>
+            <div
+                id="o_one_time_delivery_notice"
+                t-attf-class="alert alert-info mt-2 {{'d-none' if not one_time_delivery else ''}}"
+                role="alert"
+            >
+                <i class="fa fa-info-circle me-2" />
+                The delivery address entered for this order will be stored as a
+                temporary contact. It will not be reused for future orders.
+            </div>
+        </div>
+    </template>
+
+    <!--
+        Hide the "Same as delivery address" toggle when the order is in
+        one-time delivery mode: billing must stay on the reseller, so the
+        temporary delivery address can never be reused as the billing address.
+        The node is hidden with d-none (not removed) because website_sale_collect
+        patches the checkout interaction and reads textContent of the
+        use_delivery_as_billing_text span, which must stay in the DOM.
+    -->
+    <template
+        id="checkout_hide_use_delivery_as_billing"
+        name="Checkout - Hide Same As Delivery Address"
+        inherit_id="website_sale.billing_address_list"
+    >
+        <xpath
+            expr="//label[@id='use_delivery_as_billing_label']/.."
+            position="attributes"
+        >
+            <attribute
+                name="t-attf-class"
+            >form-check form-switch mt-2 {{'d-none' if order.one_time_delivery else ''}}</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Expose the partner type on checkout address cards so the one-time delivery
+        interaction can react when the shopper selects a delivery address.
+    -->
+    <template
+        id="address_card_partner_type"
+        name="Checkout - Address Card Partner Type"
+        inherit_id="website_sale.address_card"
+    >
+        <xpath expr="//div[@name='address_card']" position="attributes">
+            <attribute name="t-att-data-partner-type">contact.type</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Add a dedicated badge for one_time_delivery contacts so they are easy to
+        spot among the standard delivery / billing addresses.
+    -->
+    <template
+        id="address_card_one_time_delivery_badge"
+        name="Address Card - One-Time Delivery Badge"
+        inherit_id="portal.address_card"
+    >
+        <xpath
+            expr="//span[@t-elif=&quot;contact.type=='invoice'&quot;]"
+            position="after"
+        >
+            <span
+                t-elif="contact.type=='one_time_delivery'"
+                t-att-class=" badge_classes "
+            >
+                One-Time Delivery
+            </span>
+        </xpath>
+    </template>
+</odoo>
