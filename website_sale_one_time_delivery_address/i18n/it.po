@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-08-03 13:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_one_time_delivery_address
 #: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.one_time_delivery_section
@@ -21,6 +23,11 @@ msgid ""
 "                The delivery address entered for this order will be stored as a\n"
 "                temporary contact. It will not be reused for future orders."
 msgstr ""
+"<i class=\"fa fa-info-circle me-2\"/>\n"
+"                L'indirizzo di consegna inserito per questo ordine verrà "
+"salvato\n"
+"                come un contatto temporaneo. Non verrà usato per ordini "
+"futuri."
 
 #. module: website_sale_one_time_delivery_address
 #: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.one_time_delivery_section
@@ -28,58 +35,60 @@ msgid ""
 "<span>Create a one-time delivery contact (temporary address for this order "
 "only)</span>"
 msgstr ""
+"<span>Crea un contatto di consegna temporaneo (indirizzo temporaneo solo per "
+"quest'ordine))</span>"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__type
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_users__type
 msgid "Address Type"
-msgstr ""
+msgstr "Tipo indirizzo"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__allow_dropship
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_users__allow_dropship
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__allow_dropship
 msgid "Allow Drop-shipping"
-msgstr ""
+msgstr "Consenti consegna diretta"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model,name:website_sale_one_time_delivery_address.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contatto"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model,website_form_label:website_sale_one_time_delivery_address.model_res_partner
 msgid "Create a Customer"
-msgstr ""
+msgstr "Crea un cliente"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__display_name
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_res_partner__id
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_one_time_delivery_address
 #: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.address_card_one_time_delivery_badge
 msgid "One-Time Delivery"
-msgstr ""
+msgstr "Consegna temporanea"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,field_description:website_sale_one_time_delivery_address.field_sale_order__one_time_delivery
 #: model:ir.model.fields.selection,name:website_sale_one_time_delivery_address.selection__res_partner__type__one_time_delivery
 #: model_terms:ir.ui.view,arch_db:website_sale_one_time_delivery_address.one_time_delivery_section
 msgid "One-Time Delivery Address"
-msgstr ""
+msgstr "Indirizzo consegna temporanea"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model,name:website_sale_one_time_delivery_address.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Ordine di vendita"
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,help:website_sale_one_time_delivery_address.field_sale_order__one_time_delivery
@@ -90,6 +99,11 @@ msgid ""
 "regular address book and is useful for reseller orders shipped to an end "
 "customer."
 msgstr ""
+"Quando questa opzione è abilitata, l'indirizzo di consegna creato durante il "
+"check-out sul sito web viene memorizzato come contatto temporaneo di tipo "
+"\"one_time_delivery\" anziché del tipo standard \"delivery\". In questo "
+"modo, il destinatario non viene aggiunto alla rubrica del cliente ed è utile "
+"per gli ordini dei rivenditori spediti al cliente finale."
 
 #. module: website_sale_one_time_delivery_address
 #: model:ir.model.fields,help:website_sale_one_time_delivery_address.field_res_partner__allow_dropship
@@ -102,3 +116,8 @@ msgid ""
 "time delivery option is hidden for customers that do not allow drop-"
 "shipping."
 msgstr ""
+"Quando abilitata, questa opzione consente al cliente di utilizzare il flusso "
+"di consegna una tantum durante il check- out sul sito web: l'indirizzo di "
+"consegna viene memorizzato come contatto temporaneo \"one_time_delivery\" "
+"mentre la fatturazione rimane a carico del cliente. L'opzione di consegna "
+"una tantum è nascosta per i clienti che non consentono la consegna diretta."
