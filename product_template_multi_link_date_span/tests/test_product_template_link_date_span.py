@@ -12,12 +12,17 @@ class TestProductTemplateLinkDateSpan(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.link_type = cls.env["product.template.link.type"].get_by_code(
             "cross-selling"
         )
         cls.link_type.limited_by_dates = True
-        cls.prod1 = prod1 = cls.env.ref("product.product_product_1")
-        cls.prod2 = prod2 = cls.env.ref("product.product_product_2")
+        cls.prod1 = prod1 = cls.env["product.template"].create(
+            {"name": "Test product 1"}
+        )
+        cls.prod2 = prod2 = cls.env["product.template"].create(
+            {"name": "Test product 2"}
+        )
         cls.link = cls.env["product.template.link"].create(
             {
                 "left_product_tmpl_id": prod1.id,
