@@ -11,9 +11,18 @@ class TestProductVariantLink(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.ProductTemplateLink = cls.env["product.template.link"]
-        cls.product_product_1 = cls.env.ref("product.product_product_1")
-        cls.product_product_2 = cls.env.ref("product.product_product_2")
+        cls.product_product_1 = (
+            cls.env["product.template"]
+            .create({"name": "Test product 1"})
+            .product_variant_id
+        )
+        cls.product_product_2 = (
+            cls.env["product.template"]
+            .create({"name": "Test product 2"})
+            .product_variant_id
+        )
         cls.link_type = cls.env.ref(
             "product_template_multi_link.product_template_link_type_cross_selling"
         )

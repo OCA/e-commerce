@@ -35,26 +35,26 @@ class ProductProduct(models.Model):
             ("right_product_id", "in", self.ids),
         ]
 
-        res_1 = link_model.read_group(
-            domain=domain,
-            fields=["left_product_id"],
-            groupby=["left_product_id"],
+        res_1 = link_model._read_group(
+            domain,
+            ["left_product_id"],
+            ["__count"],
         )
-        res_2 = link_model.read_group(
-            domain=domain,
-            fields=["right_product_id"],
-            groupby=["right_product_id"],
+        res_2 = link_model._read_group(
+            domain,
+            ["right_product_id"],
+            ["__count"],
         )
 
         link_dict = {}
-        for dic in res_1:
-            link_id = dic["left_product_id"][0]
+        for product, count in res_1:
+            link_id = product.id
             link_dict.setdefault(link_id, 0)
-            link_dict[link_id] += dic["left_product_id_count"]
-        for dic in res_2:
-            link_id = dic["right_product_id"][0]
+            link_dict[link_id] += count
+        for product, count in res_2:
+            link_id = product.id
             link_dict.setdefault(link_id, 0)
-            link_dict[link_id] += dic["right_product_id_count"]
+            link_dict[link_id] += count
 
         for rec in self:
             rec.product_product_link_count = link_dict.get(rec.id, 0)
