@@ -83,9 +83,9 @@ class ProductTemplateLink(models.Model):
             raise ValidationError(
                 self.env._(
                     "Only one link with the same type is allowed between 2 "
-                    "products. \n %s"
+                    "products. \n %(descriptions)s",
+                    descriptions=descrs,
                 )
-                % descrs
             )
 
     def _check_product_not_different(self):
