@@ -11,7 +11,7 @@
                     filter_domain="['|',('right_product_tmpl_id','ilike',self),('left_product_tmpl_id','ilike',self)]"
                 />
                 <field name="type_id" />
-                <group expand="1" string="Group By">
+                <group>
                     <filter
                         name="groupby_type"
                         context="{'group_by' : 'type_id'}"
