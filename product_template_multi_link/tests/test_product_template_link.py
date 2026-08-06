@@ -16,11 +16,16 @@ class TestProductTemplateLink(BaseCommon):
                 # compatibility flag when you run tests on a db
                 # where `product_variant_multi_link` is installed.
                 _product_variant_link_bypass_check=True,
+                tracking_disable=True,
             )
         )
         cls.ProductTemplateLink = cls.env["product.template.link"]
-        cls.product_product_1 = cls.env.ref("product.product_product_1")
-        cls.product_product_2 = cls.env.ref("product.product_product_2")
+        cls.product_product_1 = cls.env["product.template"].create(
+            {"name": "Test product 1"}
+        )
+        cls.product_product_2 = cls.env["product.template"].create(
+            {"name": "Test product 2"}
+        )
         cls.link_type = cls.env.ref(
             "product_template_multi_link.product_template_link_type_cross_selling"
         )

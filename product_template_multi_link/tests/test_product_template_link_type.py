@@ -12,12 +12,19 @@ class TestProductTemplateLinkType(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.LinkType = cls.env["product.template.link.type"]
         cls.link_type_cross_selling = cls.env.ref(
             "product_template_multi_link.product_template_link_type_cross_selling"
         )
-        cls.link_type_range = cls.env.ref(
-            "product_template_multi_link.product_template_link_type_demo_range"
+        cls.link_type_range = cls.LinkType.create(
+            {
+                "is_symmetric": False,
+                "name": "Upper Range",
+                "inverse_name": "Lower Range",
+                "code": "upper-range",
+                "inverse_code": "lower-range",
+            }
         )
         cls.symmetric_link_without_code = cls.LinkType.create(
             {"name": "symmetric_link_without_code"}

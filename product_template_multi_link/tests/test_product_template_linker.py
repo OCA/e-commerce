@@ -11,6 +11,7 @@ class TestProductTemplateLinker(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.wizard_obj = cls.env["product.template.linker"]
         cls.product_link_obj = cls.env["product.template.link"]
         cls.cross_sell = cls.env.ref(
@@ -19,9 +20,9 @@ class TestProductTemplateLinker(BaseCommon):
         cls.up_sell = cls.env.ref(
             "product_template_multi_link.product_template_link_type_up_selling"
         )
-        cls.product1 = cls.env.ref("product.product_product_25").product_tmpl_id
-        cls.product2 = cls.env.ref("product.product_product_5").product_tmpl_id
-        cls.product3 = cls.env.ref("product.product_product_27").product_tmpl_id
+        cls.product1 = cls.env["product.template"].create({"name": "Test product 1"})
+        cls.product2 = cls.env["product.template"].create({"name": "Test product 2"})
+        cls.product3 = cls.env["product.template"].create({"name": "Test product 3"})
         cls.products = cls.product1 | cls.product2 | cls.product3
         cls.products.mapped("product_template_link_ids").unlink()
 

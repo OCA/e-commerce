@@ -36,24 +36,18 @@ class ProductTemplateLinkType(models.Model):
         "systems identifying this link type",
     )
     manual_inverse_code = fields.Char()
-    _sql_constraints = [
-        ("name_uniq", "unique (name)", "Link type name already exists !"),
-        (
-            "inverse_name_uniq",
-            "unique (inverse_name)",
-            "Link type inverse name already exists !",
-        ),
-        (
-            "code_uniq",
-            "EXCLUDE (code WITH =) WHERE (code is not null)",
-            "Link code already exists !",
-        ),
-        (
-            "inverse_code_uniq",
-            "EXCLUDE (inverse_code WITH =) WHERE (inverse_code is not null)",
-            "Link inverse code already exists !",
-        ),
-    ]
+    _name_uniq = models.Constraint("unique (name)", "Link type name already exists !")
+    _inverse_name_uniq = models.Constraint(
+        "unique (inverse_name)", "Link type inverse name already exists !"
+    )
+    _code_uniq = models.Constraint(
+        "EXCLUDE (code WITH =) WHERE (code is not null)",
+        "Link code already exists !",
+    )
+    _inverse_code_uniq = models.Constraint(
+        "EXCLUDE (inverse_code WITH =) WHERE (inverse_code is not null)",
+        "Link inverse code already exists !",
+    )
 
     display_name = fields.Char(compute="_compute_display_name")
 
