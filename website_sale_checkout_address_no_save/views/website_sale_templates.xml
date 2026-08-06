@@ -23,7 +23,10 @@
         active="False"
     >
         <xpath expr="//form/div[hasclass('row')]" position="inside">
-            <div class="col-lg-12">
+            <div
+                class="col-lg-12"
+                t-if="address_type == 'delivery' and not is_anonymous_cart and partner_id != website_sale_order.partner_id.id"
+            >
                 <t t-call="website_sale_checkout_address_no_save.archive_address" />
             </div>
         </xpath>

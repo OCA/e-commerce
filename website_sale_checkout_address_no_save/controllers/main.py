@@ -70,5 +70,11 @@ class PaymentPostProcessing(post_processing.PaymentPostProcessing):
             sale_order_id = request.session.get("sale_last_order_id")
             if sale_order_id:
                 order = request.env["sale.order"].sudo().browse(sale_order_id)
-                order.partner_shipping_id.active = False
+                shipping_partner = order.partner_shipping_id
+                # res.partner forbids archiving contacts linked to an active user
+                if (
+                    shipping_partner != order.partner_id
+                    and not shipping_partner.user_ids
+                ):
+                    shipping_partner.active = False
         return result

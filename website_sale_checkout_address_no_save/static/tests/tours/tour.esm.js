@@ -77,8 +77,8 @@ registry.category("web_tour.tours").add("website_sale_checkout_address_no_save",
             },
         },
         {
-            trigger: "input[id='archive_address']",
-            run: "click",
+            content: "The archive checkbox is present and checked by default",
+            trigger: "input[id='archive_address']:checked",
         },
         {
             trigger: ".btn-primary:contains('Save address')",
@@ -169,8 +169,8 @@ registry
                 },
             },
             {
-                trigger: "input[id='archive_address']",
-                run: "click",
+                content: "The archive checkbox is present and checked by default",
+                trigger: "input[id='archive_address']:checked",
             },
             {
                 trigger: ".btn-primary:contains('Save address')",
