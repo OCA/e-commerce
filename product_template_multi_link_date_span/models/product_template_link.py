@@ -31,7 +31,8 @@ class ProductTemplateLink(models.Model):
             if rec.mandatory_date_start and not rec.date_start:
                 raise exceptions.UserError(
                     self.env._(
-                        "A start date is required according to link type: %s",
-                        rec.type_id.name,
+                        "A start date is required according to link type: "
+                        "%(link_type)s",
+                        link_type=rec.type_id.name,
                     )
                 )
