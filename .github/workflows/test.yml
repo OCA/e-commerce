@@ -40,8 +40,17 @@ jobs:
       matrix:
         include:
           - container: ghcr.io/oca/oca-ci/py3.10-odoo19.0:latest
+            include: "website_sale_tax_selection"
             name: test with Odoo
           - container: ghcr.io/oca/oca-ci/py3.10-ocb19.0:latest
+            include: "website_sale_tax_selection"
+            name: test with OCB
+            makepot: "true"
+          - container: ghcr.io/oca/oca-ci/py3.10-odoo19.0:latest
+            exclude: "website_sale_tax_selection"
+            name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.10-ocb19.0:latest
+            exclude: "website_sale_tax_selection"
             name: test with OCB
             makepot: "true"
     services:
@@ -54,6 +63,8 @@ jobs:
         ports:
           - 5432:5432
     env:
+      INCLUDE: "${{ matrix.include }}"
+      EXCLUDE: "${{ matrix.exclude }}"
       OCA_ENABLE_CHECKLOG_ODOO: "1"
     steps:
       - uses: actions/checkout@v4
