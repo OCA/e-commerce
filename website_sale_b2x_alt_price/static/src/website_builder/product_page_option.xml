@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t
+        t-name="website_sale_b2x_alt_price.ProductPageOption"
+        t-inherit="website_sale.ProductPageOption"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//BuilderRow[@label.translate='Tax Indication']" position="after">
+            <BuilderRow label.translate="Alternative Tax Indication">
+                <BuilderCheckbox
+                    action="'websiteConfig'"
+                    actionParam="{views: ['website_sale_b2x_alt_price.product_price']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+
+<t
+        t-name="website_sale_b2x_alt_price.ProductsListPageOption"
+        t-inherit="website_sale.ProductsListPageOption"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//BuilderRow[@label.translate='Tags']" position="after">
+            <BuilderRow label.translate="Alternative Tax Indication">
+                <BuilderCheckbox
+                    actionParam="{views: ['website_sale_b2x_alt_price.products_item']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+
+</templates>

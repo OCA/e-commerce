@@ -41,6 +41,3 @@ msgstr "amb taxes"
 #: model_terms:ir.ui.view,arch_db:website_sale_b2x_alt_price.alt_price
 msgid "without taxes"
 msgstr "sense taxes"
-
-#~ msgid "Product Template"
-#~ msgstr "Plantilla de producte"

@@ -3,6 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 from odoo import models
+from odoo.http import request
 
 
 class ProductTemplate(models.Model):
@@ -13,7 +14,7 @@ class ProductTemplate(models.Model):
         combination=False,
         product_id=False,
         add_qty=1,
-        parent_combination=False,
+        uom_id=False,
         only_template=False,
     ):
         """Include alternative (un)taxed amount."""
@@ -21,7 +22,7 @@ class ProductTemplate(models.Model):
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
-            parent_combination=parent_combination,
+            uom_id=uom_id,
             only_template=only_template,
         )
         product = (
@@ -57,7 +58,7 @@ class ProductTemplate(models.Model):
             return {}
         partner = self.env.user.partner_id
         company_id = website.company_id
-        pricelist = website.pricelist_id
+        pricelist = request.pricelist
         # The list_price is always the price of one.
         quantity_1 = 1
         # Obtain the inverse field of the normal b2b/b2c behavior

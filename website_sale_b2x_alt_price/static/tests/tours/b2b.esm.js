@@ -37,12 +37,14 @@ registry.category("web_tour.tours").add("website_sale_b2x_alt_price_b2b", {
             trigger:
                 ".oe_product_cart:not(:has(.js_alt_price)):has(.oe_currency_value:contains(/^100.00$/)) a:contains('Training on accounting')",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "go back to search results",
             trigger:
                 "#product_details:not(:has(.js_alt_price)):has(.oe_currency_value:contains(/^100.00$/)):contains('Training on accounting')",
             run: goSearch,
+            expectUnloadPage: true,
         },
         // Pen costs $5 + 22% tax
         {
@@ -50,12 +52,14 @@ registry.category("web_tour.tours").add("website_sale_b2x_alt_price_b2b", {
             trigger:
                 ".oe_product_cart:has(.js_alt_price :contains(/^6.10$/)):has(.oe_currency_value:contains(/^5.00$/)) a:contains('Pen')",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "go back to search results",
             trigger:
                 "#product_details:has(.js_alt_price :contains(/^6.10$/)):has(.oe_currency_value:contains(/^5.00$/)):contains('Pen')",
             run: goSearch,
+            expectUnloadPage: true,
         },
         {
             content: "Check Pen price",
@@ -65,7 +69,7 @@ registry.category("web_tour.tours").add("website_sale_b2x_alt_price_b2b", {
         // Switch to "website_sale_b2x_alt_price discounted" pricelist
         {
             content: "open pricelist selector",
-            trigger: ".btn:contains(/^website_sale_b2x_alt_price public$/)",
+            trigger: "div.o_pricelist_dropdown > a.dropdown-toggle",
             run: "click",
         },
         {
@@ -73,26 +77,30 @@ registry.category("web_tour.tours").add("website_sale_b2x_alt_price_b2b", {
             trigger:
                 ".switcher_pricelist:contains(/^website_sale_b2x_alt_price discounted$/)",
             run: "click",
+            expectUnloadPage: true,
         },
         // Pen now has 10% discount
         {
             content: "select pen",
             trigger:
-                ".oe_product_cart:has(.js_alt_list_price:visible :contains(/^6.10$/)):has(.js_alt_price :contains(/^5.49$/)):has(.text-muted.me-1.h6.mb-0 :contains(/^5.00$/)):has(.oe_currency_value:contains(/^4.50$/)) a:contains('Pen')",
+                ".oe_product_cart:has(.js_alt_list_price:visible :contains(/^6.10$/)):has(.js_alt_price :contains(/^5.49$/)):has(.text-muted.me-1.mb-0 :contains(/^5.00$/)):has(.oe_currency_value:contains(/^4.50$/)) a:contains('Pen')",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "go back to search results",
             trigger:
                 "#product_details:has(.js_alt_list_price:visible :contains(/^6.10$/)):has(.js_alt_price :contains(/^5.49$/)):has(.text-muted :contains(/^5.00$/)):has(.oe_currency_value:contains(/^4.50$/)):contains('Pen')",
             run: goSearch,
+            expectUnloadPage: true,
         },
         // A5 Notebook costs $3 - 10% discount + 22% tax
         {
             content: "select notebook",
             trigger:
-                ".oe_product_cart:has(.js_alt_list_price:visible :contains(/^3.66$/)):has(.js_alt_price :contains(/^3.29$/)):has(.text-muted.me-1.h6.mb-0 :contains(/^3.00$/)):has(.oe_currency_value:contains(/^2.70$/)) a:contains('Notebook')",
+                ".oe_product_cart:has(.js_alt_list_price:visible :contains(/^3.66$/)):has(.js_alt_price :contains(/^3.29$/)):has(.text-muted.me-1.mb-0 :contains(/^3.00$/)):has(.oe_currency_value:contains(/^2.70$/)) a:contains('Notebook')",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "Check Notebook price a5",
@@ -114,27 +122,15 @@ registry.category("web_tour.tours").add("website_sale_b2x_alt_price_b2b", {
         // Change to "website_sale_b2x_alt_price public" pricelist; 10% discount disappears
         {
             content: "open pricelist selector",
-            trigger: ".btn:contains(/^website_sale_b2x_alt_price discounted$/)",
+            trigger: "div.o_pricelist_dropdown > a.dropdown-toggle",
             run: "click",
         },
         {
             content: "select website_sale_b2x_alt_price public",
             trigger:
-                ".switcher_pricelist:contains(/^website_sale_b2x_alt_price public$/)",
+                "div.o_pricelist_dropdown .dropdown-menu .dropdown-item:contains(/^website_sale_b2x_alt_price public$/)",
             run: "click",
-        },
-        // When changing pricelist, product was reset to Notebook A5
-        {
-            content: "check a5 price is fine",
-            trigger:
-                "#product_details:not(:has(.js_alt_list_price:visible, .text-danger:visible)):has(.js_alt_price :contains(/^3.66$/)):has(.oe_currency_value:contains(/^3.00$/)):contains('Notebook')",
-            run: "click",
-        },
-        // Change to a4 size
-        {
-            content: "select variant: a4 size",
-            trigger: ".js_attribute_value span:contains('A4')",
-            run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "check a4 price is fine",

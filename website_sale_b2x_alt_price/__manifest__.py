@@ -3,7 +3,7 @@
 {
     "name": "Alternative (un)taxed prices display on eCommerce",
     "summary": "Display prices with(out) taxes in eCommerce, complementing normal mode",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -17,6 +17,9 @@
     "assets": {
         "web.assets_frontend": [
             "/website_sale_b2x_alt_price/static/src/js/product_configurator_mixin.esm.js",
+        ],
+        "website.website_builder_assets": [
+            "/website_sale_b2x_alt_price/static/src/website_builder/product_page_option.xml",
         ],
         "web.assets_tests": [
             "/website_sale_b2x_alt_price/static/tests/tours/b2b.esm.js",

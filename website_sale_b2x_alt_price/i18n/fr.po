@@ -41,6 +41,3 @@ msgstr "avec taxes"
 #: model_terms:ir.ui.view,arch_db:website_sale_b2x_alt_price.alt_price
 msgid "without taxes"
 msgstr "sans taxes"
-
-#~ msgid "Product Template"
-#~ msgstr "Modèle d'article"

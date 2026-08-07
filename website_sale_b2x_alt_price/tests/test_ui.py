@@ -1,7 +1,7 @@
 # Copyright 2020 Jairo Llopis - Tecnativa
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo.tests import Form
+from odoo.fields import Command
 from odoo.tests.common import HttpCase, tagged
 
 from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
@@ -58,9 +58,8 @@ class UICase(HttpCase):
                 "type": "service",
                 "website_published": True,
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
-                "uom_po_id": cls.env.ref("uom.product_uom_unit").id,
-                "taxes_id": [(5, 0, 0)],
-                "supplier_taxes_id": [(5, 0, 0)],
+                "taxes_id": [Command.clear()],
+                "supplier_taxes_id": [Command.clear()],
             }
         )
         # One product with taxes
@@ -71,10 +70,9 @@ class UICase(HttpCase):
                 "type": "consu",
                 "website_published": True,
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
-                "uom_po_id": cls.env.ref("uom.product_uom_unit").id,
                 "description_sale": "Best. Pen. Ever.",
-                "taxes_id": [(6, 0, [cls.tax_22_sale.id])],
-                "supplier_taxes_id": [(6, 0, [cls.tax_22_purchase.id])],
+                "taxes_id": [Command.set(cls.tax_22_sale.ids)],
+                "supplier_taxes_id": [Command.set(cls.tax_22_purchase.ids)],
             }
         )
         # One product with taxes and variants
@@ -85,10 +83,9 @@ class UICase(HttpCase):
                 "type": "consu",
                 "website_published": True,
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
-                "uom_po_id": cls.env.ref("uom.product_uom_unit").id,
                 "description_sale": "Best. Notebook. Ever.",
-                "taxes_id": [(6, 0, [cls.tax_22_sale.id])],
-                "supplier_taxes_id": [(6, 0, [cls.tax_22_purchase.id])],
+                "taxes_id": [Command.set(cls.tax_22_sale.ids)],
+                "supplier_taxes_id": [Command.set(cls.tax_22_purchase.ids)],
             }
         )
         cls.sheet_size = cls.env["product.attribute"].create(
@@ -104,7 +101,9 @@ class UICase(HttpCase):
             {
                 "product_tmpl_id": cls.notebook.id,
                 "attribute_id": cls.sheet_size.id,
-                "value_ids": [(6, 0, [cls.sheet_size_a4.id, cls.sheet_size_a5.id])],
+                "value_ids": [
+                    Command.set([cls.sheet_size_a4.id, cls.sheet_size_a5.id])
+                ],
             }
         )
         cls.notebook_size_a4 = cls.notebook_attline.product_template_value_ids[1]
@@ -129,9 +128,7 @@ class UICase(HttpCase):
                 "name": "website_sale_b2x_alt_price discounted",
                 "selectable": True,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "3_global",
                             "compute_price": "percentage",
@@ -144,11 +141,13 @@ class UICase(HttpCase):
 
     def _switch_tax_mode(self, mode):
         assert mode in {"tax_excluded", "tax_included"}
-        config = Form(self.env["res.config.settings"])
-        config.show_line_subtotals_tax_selection = mode
-        config.group_product_pricelist = True
-        config.group_discount_per_so_line = True
-        config = config.save()
+        config = self.env["res.config.settings"].create(
+            {
+                "show_line_subtotals_tax_selection": mode,
+                "group_product_pricelist": True,
+                "group_discount_per_so_line": True,
+            }
+        )
         config.execute()
 
     def test_ui_website_b2b(self):
