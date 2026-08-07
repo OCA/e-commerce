@@ -4,7 +4,7 @@
 {
     "name": "Website Sale - Stock Picking Policy",
     "summary": "Let customers choose consolidated delivery at checkout",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/e-commerce",
