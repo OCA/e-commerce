@@ -1,10 +1,10 @@
 // Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
 // License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import {deserializeDate, formatDate} from "@web/core/l10n/dates";
 import {Interaction} from "@web/public/interaction";
 import {registry} from "@web/core/registry";
 import {rpc} from "@web/core/network/rpc";
-import {deserializeDate, formatDate} from "@web/core/l10n/dates";
 
 export class WebsiteSalePickingPolicy extends Interaction {
     static selector = "#shop_checkout";
