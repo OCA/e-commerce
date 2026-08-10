@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_template_link_tree" model="ir.ui.view">
+        <field name="name">product.template.link.list.date.span</field>
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="right_product_tmpl_id" position="after">
+                <field name="date_start" required="mandatory_date_start" />
+                <field name="date_end" />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_link_form" model="ir.ui.view">
+        <field name="name">product.template.link.form.date.span</field>
+        <field name="model">product.template.link</field>
+        <field
+            name="inherit_id"
+            ref="product_template_multi_link.product_template_link_form"
+        />
+        <field name="arch" type="xml">
+            <group name="main" position="inside">
+                <group name="dates" invisible="not limited_by_dates">
+                    <field name="mandatory_date_start" />
+                    <field name="date_start" required="mandatory_date_start" />
+                    <field name="date_end" />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
