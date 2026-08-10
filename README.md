@@ -36,6 +36,7 @@ addon | version | maintainers | summary
 [website_sale_product_item_cart_custom_qty](website_sale_product_item_cart_custom_qty/) | 19.0.1.0.0 | <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | Allows to add to cart from product items a custom quantity.
 [website_sale_product_minimal_price](website_sale_product_minimal_price/) | 19.0.1.1.0 | <a href='https://github.com/sergio-teruel'><img src='https://github.com/sergio-teruel.png' width='32' height='32' style='border-radius:50%;' alt='sergio-teruel'/></a> | Display minimal price for products that has variants
 [website_sale_product_reference_displayed](website_sale_product_reference_displayed/) | 19.0.1.1.0 |  | Display product reference in e-commerce
+[website_sale_product_sort](website_sale_product_sort/) | 19.0.1.0.0 |  | Allow to define default sort criteria for e-commerce
 [website_sale_quick_checkout](website_sale_quick_checkout/) | 19.0.1.0.0 |  | Add a shortcut button to jump directly to the payment step
 [website_sale_require_legal](website_sale_require_legal/) | 19.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_stock_available](website_sale_stock_available/) | 19.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
