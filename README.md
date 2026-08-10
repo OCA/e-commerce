@@ -23,6 +23,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [product_template_multi_link](product_template_multi_link/) | 19.0.1.0.0 |  | Product Multi Links (Template)
+[product_template_multi_link_date_span](product_template_multi_link_date_span/) | 19.0.1.0.0 |  | Add an optional date span for when a link is active.
 [product_variant_multi_link](product_variant_multi_link/) | 19.0.1.0.0 |  | Product Multi Links (Variant)
 [website_sale_acquirer_confirm_order](website_sale_acquirer_confirm_order/) | 19.0.1.0.0 | <a href='https://github.com/pilarvargas-tecnativa'><img src='https://github.com/pilarvargas-tecnativa.png' width='32' height='32' style='border-radius:50%;' alt='pilarvargas-tecnativa'/></a> | eCommerce Confirm Order By Payment Provider
 [website_sale_barcode_search](website_sale_barcode_search/) | 19.0.1.0.0 |  | It improve website product search adding search by barcode
