@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,9 +30,21 @@ msgid "Default criteria for sorting products in the shop"
 msgstr ""
 
 #. module: website_sale_product_sort
+#: model:ir.model.fields,field_description:website_sale_product_sort.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:website_sale_product_sort.field_website__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_product_sort
 #. odoo-python
 #: code:addons/website_sale_product_sort/models/website.py:0
 msgid "Featured"
+msgstr ""
+
+#. module: website_sale_product_sort
+#: model:ir.model.fields,field_description:website_sale_product_sort.field_res_config_settings__id
+#: model:ir.model.fields,field_description:website_sale_product_sort.field_website__id
+msgid "ID"
 msgstr ""
 
 #. module: website_sale_product_sort
@@ -79,4 +91,34 @@ msgstr ""
 #. module: website_sale_product_sort
 #: model:ir.model,name:website_sale_product_sort.model_website
 msgid "Website"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "create_date desc"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "list_price asc"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "list_price desc"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "name asc"
+msgstr ""
+
+#. module: website_sale_product_sort
+#. odoo-python
+#: code:addons/website_sale_product_sort/models/website.py:0
+msgid "name desc"
 msgstr ""
