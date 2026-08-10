@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -49,6 +49,7 @@ msgid "Cross Selling"
 msgstr ""
 
 #. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__display_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__display_name
@@ -56,11 +57,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
-msgid "Group By"
-msgstr ""
-
-#. module: product_template_multi_link
+#: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__id
@@ -139,11 +136,6 @@ msgid "Linked Product"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_demo_range
-msgid "Lower Range"
-msgstr ""
-
-#. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_linker_action
 msgid "Manage Product Links"
 msgstr ""
@@ -169,7 +161,7 @@ msgstr ""
 #: code:addons/product_template_multi_link/models/product_template_link.py:0
 msgid ""
 "Only one link with the same type is allowed between 2 products. \n"
-" %s"
+" %(descriptions)s"
 msgstr ""
 
 #. module: product_template_multi_link
@@ -301,12 +293,13 @@ msgid "Up Selling"
 msgstr ""
 
 #. module: product_template_multi_link
-#: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_demo_range
-msgid "Upper Range"
+#. odoo-python
+#: code:addons/product_template_multi_link/models/product_template_link.py:0
+msgid "You can only create a link between 2 different products"
 msgstr ""
 
 #. module: product_template_multi_link
 #. odoo-python
-#: code:addons/product_template_multi_link/models/product_template_link.py:0
-msgid "You can only create a link between 2 different products"
+#: code:addons/product_template_multi_link/models/product_template.py:0
+msgid "left_product_tmpl_id"
 msgstr ""
