@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//setting[@id='ecom_uom_price_option_setting']"
+                position="after"
+            >
+                <setting
+                    id="product_sort_criteria_setting"
+                    string="Sort Criteria"
+                    help="Default Sort Criteria"
+                >
+                    <field name="product_sort_criteria" class="o_light_label" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
