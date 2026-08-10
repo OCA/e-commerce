@@ -1,0 +1,2 @@
+from . import test_website_sale_hide_no_variant_attributes
+from . import test_website_sale_hide_no_variant_attributes_tour
