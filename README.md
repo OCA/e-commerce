@@ -22,6 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[portal_sale_order_website_filter](portal_sale_order_website_filter/) | 15.0.1.0.0 | <a href='https://github.com/yostashiro'><img src='https://github.com/yostashiro.png' width='32' height='32' style='border-radius:50%;' alt='yostashiro'/></a> <a href='https://github.com/aungkokolin1997'><img src='https://github.com/aungkokolin1997.png' width='32' height='32' style='border-radius:50%;' alt='aungkokolin1997'/></a> | Filter portal sale orders by current website
 [product_template_multi_link](product_template_multi_link/) | 15.0.1.0.0 |  | Product Multi Links (Template)
 [website_account_fiscal_position_partner_type](website_account_fiscal_position_partner_type/) | 15.0.1.0.2 |  | Website Account Fiscal Position Partner Type
 [website_sale_address_format](website_sale_address_format/) | 15.0.1.0.0 |  | Website Sale Address Format
