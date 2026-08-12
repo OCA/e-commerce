@@ -17,7 +17,8 @@ odoo_version: 19.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 postgres_image: ''
-rebel_module_groups: []
+rebel_module_groups:
+- website_sale_tax_selection
 repo_description: e-commerce
 repo_name: e-commerce
 repo_slug: e-commerce
