@@ -32,7 +32,7 @@ registry.category("web_tour.tours").add("website_sale_require_legal_with_payment
         },
         {
             trigger: `input[name="vat"]`,
-            run: "edit BE04774722701",
+            run: "edit BE0428759497",
         },
         {
             trigger: `input[name="street"]`,
@@ -106,7 +106,7 @@ registry.category("web_tour.tours").add("website_sale_require_legal", {
         },
         {
             trigger: `input[name="vat"]`,
-            run: "edit BE04774722701",
+            run: "edit BE0428759497",
         },
         {
             trigger: `input[name="street"]`,
