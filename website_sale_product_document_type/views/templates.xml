@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Camptocamp SA
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="product_documents_by_type_content"
+        name="Product Documents Grouped by Type (content)"
+    >
+        <t
+            t-set="product_document_types"
+            t-value="product_documents.mapped('document_type_id').sorted(lambda document_type: (document_type.sequence, document_type.name))"
+        />
+        <t t-foreach="product_document_types" t-as="product_document_type">
+            <strong t-field="product_document_type.name" />
+            <div class="list-group">
+                <t
+                    t-foreach="product_documents.filtered(lambda d: d.document_type_id == product_document_type)"
+                    t-as="document_sudo"
+                >
+                    <t
+                        t-set="attachment_sudo"
+                        t-value="document_sudo.ir_attachment_id"
+                    />
+                    <t
+                        t-set="target"
+                        t-value="attachment_sudo.type == 'url' and '_blank' or '_self'"
+                    />
+                    <t
+                        t-set="icon"
+                        t-value="attachment_sudo.type == 'url' and 'fa-link' or 'fa-download'"
+                    />
+                    <a
+                        class="list-group-item list-group-item-action"
+                        t-att-href="'/shop/' + slug(product) + '/document/' + str(document_sudo.id)"
+                        t-att-target="target"
+                    >
+                        <i t-att-class="'fa ' + icon + ' me-2'" />
+                        <t t-out="attachment_sudo.name" />
+                    </a>
+                </t>
+            </div>
+        </t>
+        <t
+            t-set="product_documents_untyped"
+            t-value="product_documents.filtered(lambda d: not d.document_type_id)"
+        />
+        <t t-if="product_documents_untyped">
+            <strong>Other documents</strong>
+            <div class="list-group">
+                <t t-foreach="product_documents_untyped" t-as="document_sudo">
+                    <t
+                        t-set="attachment_sudo"
+                        t-value="document_sudo.ir_attachment_id"
+                    />
+                    <t
+                        t-set="target"
+                        t-value="attachment_sudo.type == 'url' and '_blank' or '_self'"
+                    />
+                    <t
+                        t-set="icon"
+                        t-value="attachment_sudo.type == 'url' and 'fa-link' or 'fa-download'"
+                    />
+                    <a
+                        class="list-group-item list-group-item-action"
+                        t-att-href="'/shop/' + slug(product) + '/document/' + str(document_sudo.id)"
+                        t-att-target="target"
+                    >
+                        <i t-att-class="'fa ' + icon + ' me-2'" />
+                        <t t-out="attachment_sudo.name" />
+                    </a>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template
+        id="product_documents_by_type"
+        inherit_id="website_sale.product"
+        name="Product Page Documents Grouped by Type"
+    >
+        <xpath expr="//div[@id='product_documents']/strong" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath
+            expr="//div[@id='product_documents']/div[hasclass('list-group')]"
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath
+            expr="//div[@id='product_documents']/div[hasclass('list-group')]"
+            position="after"
+        >
+            <t
+                t-call="website_sale_product_document_type.product_documents_by_type_content"
+            />
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,1 @@
+odoo-addon-product_document_type @ git+https://github.com/OCA/product-attribute.git@refs/pull/2377/head#subdirectory=product_document_type
