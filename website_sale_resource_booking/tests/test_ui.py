@@ -8,7 +8,7 @@ from datetime import datetime
 from freezegun import freeze_time
 
 from odoo import Command
-from odoo.tests.common import Form, HttpCase, new_test_user, tagged
+from odoo.tests import Form, HttpCase, new_test_user, tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
@@ -86,11 +86,11 @@ class UICase(HttpCase):
                 "Invitation to Mr. C - Test resource booking type",
                 # Portal invitations with tokenized link
                 "Invitation to access Mr. A - Test resource booking type "
-                "- 03/01/2021 at (09:00:00 To 09:30:00) (UTC)",
+                "- 03/01/2021 at (09:00:00 AM To 09:30:00 AM) (UTC)",
                 "Invitation to access Mr. B - Test resource booking type "
-                "- 03/01/2021 at (09:00:00 To 09:30:00) (UTC)",
+                "- 03/01/2021 at (09:00:00 AM To 09:30:00 AM) (UTC)",
                 "Invitation to access Mr. C - Test resource booking type "
-                "- 03/01/2021 at (09:30:00 To 10:00:00) (UTC)",
+                "- 03/01/2021 at (09:30:00 AM To 10:00:00 AM) (UTC)",
             },
         )
 

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 
 class ResourceBooking(models.Model):
@@ -24,7 +24,7 @@ class ResourceBooking(models.Model):
         result = super()._compute_access_url()
         index = self.env.context.get("checkout_booking_index")
         if index and len(self) == 1:
-            self.access_url = "/shop/booking/%d" % index
+            self.access_url = f"/shop/booking/{index}"
         return result
 
     def _confirm_prereservation(self):
