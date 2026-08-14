@@ -5,10 +5,9 @@ from urllib.parse import quote_plus
 
 from dateutil.parser import isoparse
 
-from odoo import _
 from odoo.exceptions import ValidationError
 from odoo.http import request, route
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 from ...website_sale.controllers import main
 
@@ -16,7 +15,7 @@ from ...website_sale.controllers import main
 class WebsiteSale(main.WebsiteSale):
     def _get_bookings(self):
         """Obtain bookings from current cart."""
-        order = request.website.sale_get_order()
+        order = request.cart
         order = order.with_context(active_test=False)
         return order.mapped("order_line.resource_booking_ids")
 
@@ -35,19 +34,23 @@ class WebsiteSale(main.WebsiteSale):
         the booking has expired.
         """
         if not booking.active:
-            msg = _("Booking has expired")
+            msg = request.env._("Booking has expired")
             url = f"/shop/booking/{index}/schedule?error={quote_plus(msg)}"
             booking.sale_order_line_id._sync_resource_bookings()  # re-active
             return request.redirect(url)
 
-    def checkout_redirection(self, order):
-        """Redirect to scheduling bookings if still not done."""
+    @route()
+    def shop_checkout(self, try_skip_step=None, **query_params):
+        order = request.cart
         order.order_line._sync_resource_bookings()
-        bookings = order.mapped("order_line.resource_booking_ids")
-        for booking in bookings:
-            if booking.state == "pending":
-                return request.redirect("/shop/booking/1/schedule")
-        return super().checkout_redirection(order)
+        if order.order_line.resource_booking_ids.filtered(
+            lambda booking: booking.state == "pending"
+        ):
+            return request.redirect("/shop/booking/1/schedule")
+        return super().shop_checkout(
+            try_skip_step=try_skip_step,
+            **query_params,
+        )
 
     @route(
         [
@@ -84,9 +87,12 @@ class WebsiteSale(main.WebsiteSale):
                 "booking_index": index,
                 "bookings_count": count,
                 "error": error,
-                "website_sale_order": request.website.sale_get_order(),
-                "wizard_title": _("Pre-schedule your booking (%(index)d of %(total)d)")
-                % {"index": index, "total": count},
+                "website_sale_order": request.cart,
+                "wizard_title": request.env._(
+                    "Pre-schedule your booking (%(index)d of %(total)d)",
+                    index=index,
+                    total=count,
+                ),
             }
         )
         return request.render("website_sale_resource_booking.scheduling", values)

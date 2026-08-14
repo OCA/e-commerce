@@ -3,7 +3,7 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <data>
     <!-- Inform buyer about the upcoming reservation step -->
-    <template id="product" inherit_id="website_sale.product">
+    <template id="product" inherit_id="website_sale.cta_wrapper">
         <xpath expr="//a[@id='add_to_cart']" position="before">
             <div
                 t-if="product.resource_booking_type_id"
