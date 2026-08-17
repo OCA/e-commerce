@@ -83,13 +83,4 @@
             </div>
         </div>
     </template>
-    <template id="s_product_category_options" inherit_id="website.snippet_options">
-        <xpath expr="." position="inside">
-            <div
-                data-js="js_product_category"
-                data-selector=".js_product_category"
-                data-template="website_snippet_product_category.s_product_category_items"
-            />
-        </xpath>
-    </template>
 </odoo>

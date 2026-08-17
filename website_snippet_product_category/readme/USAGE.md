@@ -19,7 +19,15 @@ CSS Classes:
 You can use 'data-tree-level' attribute to select the category row of a
 selected level (1-4 by design).
 
-Also you can replace the entire template replacing the `data-template`
-attribute value in the `s_product_category_options` view. You only need
-know that the name of the variable that have all the categories is
-called `object`.
+Also you can replace the entire template by setting the `data-template`
+attribute directly on the `.js_product_category` element, e.g. by
+inheriting the view where the snippet is placed:
+
+```xml
+<xpath expr="//div[hasclass('js_product_category')]" position="attributes">
+    <attribute name="data-template">my_module.my_custom_template</attribute>
+</xpath>
+```
+
+You only need know that the name of the variable that have all the
+categories is called `object`.

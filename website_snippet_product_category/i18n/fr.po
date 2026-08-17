@@ -87,12 +87,3 @@ msgstr ""
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
 msgstr "Boite en bois"
-
-#, python-format
-#~ msgid ""
-#~ "An error occured with this product categories block. If the problem "
-#~ "persists, please consider deleting it and adding a new one"
-#~ msgstr ""
-#~ "Une erreur est survenue avec ce bloc de catégories d'articles. Si le "
-#~ "problème persiste, merci de considérer la suppression de ce bloc et "
-#~ "l'ajout d'un nouveau"

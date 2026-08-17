@@ -91,11 +91,3 @@ msgstr "Llocs web el fragment de codi de categoria"
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
 msgstr "Caixa de fusta"
-
-#, python-format
-#~ msgid ""
-#~ "An error occured with this product categories block. If the problem "
-#~ "persists, please consider deleting it and adding a new one"
-#~ msgstr ""
-#~ "S'ha produït un error amb aquest bloc de categories de productes. Si el "
-#~ "problema continua, penseu en suprimir-lo i afegir-ne un de nou"

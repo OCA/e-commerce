@@ -90,11 +90,3 @@ msgstr "Sitios web para el bloque de categoría"
 #: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
 msgid "Wooden Box"
 msgstr "Caja de madera"
-
-#, python-format
-#~ msgid ""
-#~ "An error occured with this product categories block. If the problem "
-#~ "persists, please consider deleting it and adding a new one"
-#~ msgstr ""
-#~ "Ocurrió un error con este bloque de categorías de productos. Si el "
-#~ "problema persiste, considere eliminarlo y agregar uno nuevo"

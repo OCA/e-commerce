@@ -9,7 +9,7 @@ from odoo.addons.website.controllers.main import QueryURL
 class Website(http.Controller):
     @http.route(
         ["/website_sale/render_product_category"],
-        type="json",
+        type="jsonrpc",
         auth="public",
         website=True,
     )
