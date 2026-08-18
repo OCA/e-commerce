@@ -178,4 +178,21 @@
             </a>
         </xpath>
     </template>
+    <!-- Add Schema.org brand microdata to product pages. -->
+    <template
+        id="product_brand_microdata"
+        inherit_id="website_sale.product"
+        name="Product Brand Microdata"
+    >
+        <xpath expr="//span[@itemprop='image']" position="after">
+            <span
+                t-if="product.product_brand_id"
+                itemprop="brand"
+                itemscope="itemscope"
+                itemtype="https://schema.org/Brand"
+            >
+                <meta itemprop="name" t-att-content="product.product_brand_id.name" />
+            </span>
+        </xpath>
+    </template>
 </odoo>
