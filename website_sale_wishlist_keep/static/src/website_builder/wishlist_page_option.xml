@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t t-inherit="website_sale_wishlist.WishlistPageOption" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('d-none')]" position="after">
+            <BuilderRow label.translate="Keep items on wishlist">
+                <BuilderCheckbox
+                    action="'websiteConfig'"
+                    actionParam="{views: ['website_sale_wishlist_keep.default_active_b2b_wish']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+
+</templates>

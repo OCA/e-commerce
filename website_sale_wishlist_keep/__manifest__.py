@@ -3,9 +3,9 @@
 {
     "name": "Website Sale Wishlist Keep",
     "category": "Website",
-    "summary": 'Allows to add products to my cart but keep it in my wishlist"',
+    "summary": "Allows to add products to my cart but keep it in my wishlist",
     "development_status": "Production/Stable",
-    "version": "18.0.1.0.1",
+    "version": "19.0.1.0.0",
     "license": "LGPL-3",
     "depends": ["website_sale_wishlist"],
     "website": "https://github.com/OCA/e-commerce",
@@ -13,6 +13,12 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "installable": True,
     "assets": {
-        "web.assets_tests": ["/website_sale_wishlist_keep/static/src/js/tour.esm.js"]
+        "web.assets_frontend": [
+            "/website_sale_wishlist_keep/static/src/js/product_wishlist_patch.esm.js"
+        ],
+        "web.assets_tests": ["/website_sale_wishlist_keep/static/src/js/tour.esm.js"],
+        "website.website_builder_assets": [
+            "/website_sale_wishlist_keep/static/src/website_builder/**/*"
+        ],
     },
 }

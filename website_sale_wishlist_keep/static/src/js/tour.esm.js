@@ -20,24 +20,27 @@ registry.category("web_tour.tours").add("website_sale_wishlist_keep", {
             content: "go to wishlist",
             trigger: 'a[href="/shop/wishlist"]',
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "Ensure that the option keep in wish list is ticked.",
-            trigger: "#b2b_wish[checked='True']",
+            trigger: "#b2b_wish:checked",
         },
         {
             content: "get out of the wish list",
             trigger: "a[href='/shop']",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "go back to wishlist",
             trigger: 'a[href="/shop/wishlist"]',
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "Ensure that the option to keep in the wish list remains ticked.",
-            trigger: "#b2b_wish[checked='True']",
+            trigger: "#b2b_wish:checked",
         },
         {
             content: "Add product to cart",
@@ -46,12 +49,13 @@ registry.category("web_tour.tours").add("website_sale_wishlist_keep", {
         },
         {
             content: "Ensure that the option to keep in the wish list remains ticked.",
-            trigger: "#b2b_wish[checked='True']",
+            trigger: "#b2b_wish:checked",
         },
         {
             content: "Go to cart",
             trigger: "a[href='/shop/cart']",
             run: "click",
+            expectUnloadPage: true,
         },
         {
             trigger: "a:contains('Test Product')",
@@ -60,10 +64,11 @@ registry.category("web_tour.tours").add("website_sale_wishlist_keep", {
             content: "go back to wishlist",
             trigger: 'a[href="/shop/wishlist"]',
             run: "click",
+            expectUnloadPage: true,
         },
         {
             content: "Ensure that the option to keep in the wish list remains ticked.",
-            trigger: "#b2b_wish[checked='True']",
+            trigger: "#b2b_wish:checked",
         },
     ],
 });
