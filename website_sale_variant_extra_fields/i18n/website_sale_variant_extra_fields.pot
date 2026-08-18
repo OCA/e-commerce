@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_variant_extra_fields
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_variant_extra_fields
+#: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_product_template__display_name
+#: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_variant_extra_fields
+#: model:ir.model,name:website_sale_variant_extra_fields.model_website_sale_extra_field
+msgid "E-Commerce Extra Info Shown on product page"
+msgstr ""
+
+#. module: website_sale_variant_extra_fields
+#: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__field_id
+msgid "Field"
+msgstr ""
+
+#. module: website_sale_variant_extra_fields
+#: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_product_template__id
+#: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_variant_extra_fields
+#: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__is_variant_field
+msgid "Is Variant Field"
+msgstr ""
+
+#. module: website_sale_variant_extra_fields
+#: model:ir.model,name:website_sale_variant_extra_fields.model_product_template
+msgid "Product"
+msgstr ""
