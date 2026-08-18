@@ -44,7 +44,7 @@ addon | version | maintainers | summary
 [website_sale_product_attribute_filter_category](website_sale_product_attribute_filter_category/) | 18.0.1.0.2 |  | Allow group attributes in shop by categories
 [website_sale_product_attribute_filter_order](website_sale_product_attribute_filter_order/) | 18.0.1.0.0 | <a href='https://github.com/Tardo'><img src='https://github.com/Tardo.png' width='32' height='32' style='border-radius:50%;' alt='Tardo'/></a> | Move active checkbox options to the first place of the list
 [website_sale_product_attribute_value_filter_existing](website_sale_product_attribute_value_filter_existing/) | 18.0.1.1.3 |  | Allow hide attributes values not used in variants
-[website_sale_product_brand](website_sale_product_brand/) | 18.0.1.0.2 |  | Product Brand Filtering in Website
+[website_sale_product_brand](website_sale_product_brand/) | 18.0.1.1.0 |  | Product Brand Filtering in Website
 [website_sale_product_description](website_sale_product_description/) | 18.0.1.0.0 |  | Shows custom e-Commerce description for products
 [website_sale_product_detail_attribute_image](website_sale_product_detail_attribute_image/) | 18.0.1.0.1 |  | Display attributes images in shop product detail
 [website_sale_product_eprel](website_sale_product_eprel/) | 18.0.1.0.0 |  | Display EPREL energy label and product info on website product page.
