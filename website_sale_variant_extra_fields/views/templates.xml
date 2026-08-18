@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Camptocamp SA
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template
+        id="ecom_show_extra_fields"
+        inherit_id="website_sale.ecom_show_extra_fields"
+        priority="100"
+    >
+        <!-- Keep the block in the page as soon as a variant scoped extra field is
+             configured, so that the client side refresh always has a node to
+             update when the customer selects another variant. -->
+        <xpath
+            expr="//t[@t-foreach='website.shop_extra_field_ids']/../.."
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >website.shop_extra_field_ids._has_content_to_display(product, product_variant)</attribute>
+        </xpath>
+        <!-- Stable anchor for the client side refresh. -->
+        <xpath
+            expr="//t[@t-foreach='website.shop_extra_field_ids']/.."
+            position="attributes"
+        >
+            <attribute name="id">o_wsale_extra_fields</attribute>
+        </xpath>
+        <!-- Hide the original block, which is not variant aware and would show the
+        extra field value of the first variant only and replace it with a variant aware block that will be updated on variant change. -->
+        <xpath
+            expr="//t[@t-foreach='website.shop_extra_field_ids']"
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-foreach='website.shop_extra_field_ids']" position="after">
+            <t t-foreach="website.shop_extra_field_ids" t-as="field">
+                <t
+                    t-set="extra_record"
+                    t-value="field._get_source_record(product, product_variant)"
+                />
+                <t t-set="extra_value" t-value="field._render_value(extra_record)" />
+                <t t-if="field.is_variant_field or extra_value">
+                    <span
+                        t-attf-class="o_wsale_extra_field#{'' if extra_value else ' d-none'}"
+                        t-att-data-extra-field="field.name"
+                    >
+                        <b><t t-out="field.label" />: </b>
+                        <span class="o_wsale_extra_field_value" t-out="extra_value" />
+                        <br />
+                    </span>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
