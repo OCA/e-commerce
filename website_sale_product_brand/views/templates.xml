@@ -187,11 +187,12 @@
         <xpath expr="//span[@itemprop='image']" position="after">
             <span
                 t-if="product.product_brand_id"
+                class="d-none"
                 itemprop="brand"
                 itemscope="itemscope"
                 itemtype="https://schema.org/Brand"
             >
-                <meta itemprop="name" t-att-content="product.product_brand_id.name" />
+                <span itemprop="name" t-esc="product.product_brand_id.name" />
             </span>
         </xpath>
     </template>
