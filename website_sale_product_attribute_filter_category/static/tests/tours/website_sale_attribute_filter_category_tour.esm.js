@@ -10,25 +10,29 @@ registry
             {
                 trigger: "a[href='/shop']",
                 run: "click",
+                expectUnloadPage: true,
             },
             {
-                trigger: ".js_attributes:has(strong:contains('Test category'))",
+                trigger: ".js_attributes:has(b:contains('Test category'))",
             },
             {
                 trigger: "a:contains('Customizable Desk')",
                 run: "click",
+                expectUnloadPage: true,
             },
             {
                 trigger: "a[href='/shop']",
                 run: "click",
+                expectUnloadPage: true,
             },
             // Span element must be available directly
             {
-                trigger: "strong:contains('Test category')",
+                trigger: "b:contains('Test category')",
             },
             {
                 trigger: "a:contains('Customizable Desk')",
                 run: "click",
+                expectUnloadPage: true,
             },
         ],
     });
