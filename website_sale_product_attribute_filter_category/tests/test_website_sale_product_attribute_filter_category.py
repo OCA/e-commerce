@@ -34,7 +34,9 @@ class WebsiteSaleAttributeFilterCategoryHttpCase(HttpCase):
         cls.product_attribute_value_test_2 = ProductAttributeValue.create(
             {"name": "Test v2", "attribute_id": cls.product_attribute.id}
         )
-        cls.product_template = cls.env.ref("product.product_product_4_product_template")
+        cls.product_template = cls.env["product.template"].create(
+            {"name": "Customizable Desk", "is_published": True}
+        )
         cls.product_attribute_line = ProductAttributeLine.create(
             {
                 "product_tmpl_id": cls.product_template.id,
