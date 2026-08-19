@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="website_sale_product_attribute_filter_category.ProductsListPageOption"
+        t-inherit="website_sale.ProductsListPageOption"
+        t-inherit-mode="extension"
+    >
+        <BuilderRow label.translate="Tags" level="1" position="after">
+            <BuilderRow label.translate="Group by categories" level="1">
+                <BuilderCheckbox
+                    id="'o_wsale_attributes_categories_opt'"
+                    actionParam="{views: ['website_sale_product_attribute_filter_category.products_attributes_categories']}"
+                />
+            </BuilderRow>
+        </BuilderRow>
+    </t>
+</templates>

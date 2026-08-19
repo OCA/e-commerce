@@ -5,7 +5,7 @@
 <odoo>
     <template
         id="products_attributes_categories"
-        inherit_id="website_sale.products_attributes"
+        inherit_id="website_sale.product_attribute_filters_form"
         name="Attributes categories filters"
         active="False"
         customize_show="False"
@@ -24,47 +24,65 @@
                     />
                     <t
                         t-set="display_category"
-                        t-value="any(len(a.value_ids) &gt;1 for a in attributes_filtered)"
+                        t-value="any(len(a.value_ids) &gt; 1 for a in attributes_filtered)"
                     />
                     <t
                         t-if="(not filtered_products or attributes_filtered) and display_category"
                     >
-                        <ul
-                            class="nav d-flex flex-column my-2 o_shop_collapse_attribute_filter"
-                            id="accordion"
+                        <t t-set="_cat_status" t-value="'inactive'" />
+                        <t
+                            t-foreach="attributes_filtered.mapped('value_ids')"
+                            t-as="v"
+                            t-if="v.id in attrib_set"
+                            t-set="_cat_status"
+                            t-value="'active'"
+                        />
+                        <t
+                            t-set="_cat_expand"
+                            t-value="_cat_status == 'active' or not attr_category[2]"
+                        />
+                        <div
+                            t-attf-class="accordion-item {{'border-top-0' if isMobile else 'nav-item mb-1 rounded-0'}}"
                         >
-                            <li class="nav-item">
-                                <t
-                                    t-set="values_selected"
-                                    t-value="bool(attrib_set &amp; set(attributes_filtered.mapped('value_ids').ids))"
-                                />
-                                <t t-set="folded" t-value="attr_category[2]" />
-                                <t
-                                    t-set="isOpenFilter"
-                                    t-value="values_selected or not folded"
-                                />
-                                <div class="accordion-header d-flex mb-1">
-                                    <button
-                                        t-attf-id="collapse{{attr_category_index}}"
-                                        t-attf-class="accordion-button p-0 ms-3 {{not isOpenFilter and 'collapsed'}} w-auto flex-grow-1 bg-light p-3 shadow-none"
-                                        t-attf-data-bs-target="#collapse{{attr_category_index}}"
-                                        t-att-aria-expanded="isOpenFilter and 'true' or 'false'"
-                                        t-attf-aria-controls="collapse{{attr_category_index}}"
-                                        data-bs-toggle="collapse"
-                                        type="button"
-                                    >
-                                        <strong t-out="attr_category[1]" />
-                                    </button>
-                                </div>
-                                <ul
-                                    t-attf-id="collapse{{attr_category_index}}"
-                                    t-attf-class="accordion-collapse list-unstyled ps-3 pb-2 collapse {{isOpenFilter and 'show'}}"
-                                    t-attf-aria-labelledby="collapse{{attr_category_index}}"
+                            <h2
+                                t-if="isMobile"
+                                class="accordion-header mb-0"
+                                t-attf-id="o_wsale_offcanvas_category_{{attr_category[0] or 0}}_header"
+                            >
+                                <button
+                                    t-attf-class="o_wsale_offcanvas_title accordion-button rounded-0 {{'' if _cat_expand else 'collapsed'}}"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    t-attf-data-bs-target="#o_wsale_offcanvas_category_{{attr_category[0] or 0}}"
+                                    t-att-aria-expanded="_cat_expand"
+                                    t-attf-aria-controls="o_wsale_offcanvas_category_{{attr_category[0] or 0}}"
+                                >
+                                    <b t-out="attr_category[1]" />
+                                </button>
+                            </h2>
+                            <h6 t-else="" class="mb-0">
+                                <button
+                                    t-attf-class="accordion-button p-0 shadow-none bg-transparent {{'' if _cat_expand else 'collapsed'}}"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    t-attf-data-bs-target="#o_wsale_category_{{attr_category[0] or 0}}"
+                                    t-att-aria-expanded="_cat_expand"
+                                    t-attf-aria-controls="o_wsale_category_{{attr_category[0] or 0}}"
+                                >
+                                    <b t-out="attr_category[1]" />
+                                </button>
+                            </h6>
+                            <div
+                                t-attf-id="{{'o_wsale_offcanvas_category_' + str(attr_category[0] or 0) if isMobile else 'o_wsale_category_' + str(attr_category[0] or 0)}}"
+                                t-attf-class="accordion-collapse collapse {{'show' if _cat_expand else ''}}"
+                            >
+                                <div
+                                    t-attf-class="{{'accordion-body pt-0' if isMobile else 'ps-3 pt-2'}}"
                                 >
                                     <t>$0</t>
-                                </ul>
-                            </li>
-                        </ul>
+                                </div>
+                            </div>
+                        </div>
                     </t>
                 </t>
             </div>
