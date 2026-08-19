@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="product_attributes_body_specification_exclusion"
+        inherit_id="website_sale_comparison.product_attributes_body"
+        priority="120"
+    >
+        <xpath expr="//t[@t-set='attrib_categories']" position="after">
+            <t t-set="combination" t-value="combination_info['combination']" />
+            <t
+                t-set="attribute_exclusions"
+                t-value="product._get_display_attribute_exclusions()"
+            />
+        </xpath>
+    </template>
+
+    <template
+        id="accordion_specs_item_specification_exclusion"
+        inherit_id="website_sale_comparison.accordion_specs_item"
+    >
+        <xpath expr="//t[@t-set='attrib_categories']" position="after">
+            <t t-set="combination" t-value="combination_info['combination']" />
+            <t
+                t-set="attribute_exclusions"
+                t-value="product._get_display_attribute_exclusions()"
+            />
+        </xpath>
+    </template>
+
+    <template
+        id="specifications_table_specification_exclusion"
+        inherit_id="website_sale_comparison.specifications_table"
+    >
+        <xpath expr="//t[@t-foreach='ptal.value_ids']" position="attributes">
+            <attribute
+                name="t-foreach"
+            >ptal._get_display_value_ids(combination, attribute_exclusions)</attribute>
+        </xpath>
+    </template>
+
+    <!-- Deliberately duplicates the `div.row` markup from
+    `website_sale_comparison.product_attributes_body`: that template never
+    exposes this fragment under its own id, so there is nothing to call
+    into. Giving it a stable id here lets `ProductTemplate._get_specs_table_html()`
+    render it standalone, for the AJAX refresh triggered by
+    `/website_sale/get_combination_info`, with output matching what
+    `product_attributes_body` renders inline on initial page load. -->
+    <template id="product_specifications_content">
+        <div class="row">
+            <t t-foreach="attrib_categories" t-as="category">
+                <div class="col-lg-6">
+                    <t t-call="website_sale_comparison.specifications_table" />
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <!-- Same duplication rationale as `product_specifications_content`
+    above, but matching `accordion_specs_item`'s per-category markup
+    instead. Each category is tagged with its `category_index` so the
+    front-end can target that exact category's `.accordion-body` and
+    refresh only its content, leaving the `accordion-collapse`/
+    `accordion-header` wrappers untouched so the accordion's
+    open/collapsed state survives the AJAX refresh. -->
+    <template id="product_specifications_accordion_content">
+        <t t-foreach="attrib_categories" t-as="category">
+            <div t-att-data-category-index="category_index">
+                <t t-call="website_sale_comparison.specifications_table">
+                    <t t-set="is_accordion" t-value="True" />
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>
