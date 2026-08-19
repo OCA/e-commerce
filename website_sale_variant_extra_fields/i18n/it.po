@@ -6,42 +6,44 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-08-19 09:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_variant_extra_fields
 #: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_product_template__display_name
 #: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: website_sale_variant_extra_fields
 #: model:ir.model,name:website_sale_variant_extra_fields.model_website_sale_extra_field
 msgid "E-Commerce Extra Info Shown on product page"
-msgstr ""
+msgstr "Informazioni aggiuntive E-commerce visualizzate nella pagina prodotto"
 
 #. module: website_sale_variant_extra_fields
 #: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__field_id
 msgid "Field"
-msgstr ""
+msgstr "Campo"
 
 #. module: website_sale_variant_extra_fields
 #: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_product_template__id
 #: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: website_sale_variant_extra_fields
 #: model:ir.model.fields,field_description:website_sale_variant_extra_fields.field_website_sale_extra_field__is_variant_field
 msgid "Is Variant Field"
-msgstr ""
+msgstr "È un campo variante"
 
 #. module: website_sale_variant_extra_fields
 #: model:ir.model,name:website_sale_variant_extra_fields.model_product_template
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
