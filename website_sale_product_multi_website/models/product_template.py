@@ -1,5 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
+from odoo.http import request
 
 
 class ProductTemplate(models.Model):
@@ -16,7 +17,6 @@ class ProductTemplate(models.Model):
     )
     website_id = fields.Many2one(
         "website",
-        string="Website",
         compute="_compute_website_id",
         inverse="_inverse_website_id",
         store=True,
@@ -35,7 +35,7 @@ class ProductTemplate(models.Model):
     def can_access_from_current_website(self, website_id=False):
         # We overwrite this method completely in order to
         # use the website_ids logic instead of website_id
-        website_id = website_id or self.env.context.get("website_id")
+        website_id = website_id or request.env["website"].get_current_website().id
         for record in self:
             website_ids = record.sudo().website_ids.ids
             if website_ids and website_id not in website_ids:
