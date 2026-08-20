@@ -1,7 +1,7 @@
 {
     "name": "Website Sale Product Multi Website",
     "summary": "Show products in many websites",
-    "version": "17.0.1.0.2",
+    "version": "19.0.1.0.0",
     "category": "Website",
     "author": "Odoo Community Association (OCA), Adhoc S.A.",
     "license": "AGPL-3",

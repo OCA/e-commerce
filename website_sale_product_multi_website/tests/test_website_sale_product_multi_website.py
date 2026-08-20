@@ -104,3 +104,23 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
             set(self.product_template.website_ids.ids),
             set((self.website1 + self.website2).ids),
         )
+
+    def test_07_accessory_domain_does_not_raise_for_public_user(self):
+        # Regression test: website_domain()'s website_ids condition used to be
+        # evaluated in-memory (filtered_domain) by _get_website_accessory_product,
+        # which raised an AccessError for the public user instead of silently
+        # filtering out the accessory it can't read (unpublished).
+        published_accessory = self.env["product.template"].create(
+            {"name": "Published accessory", "is_published": True, "list_price": 5}
+        )
+        unpublished_accessory = self.env["product.template"].create(
+            {"name": "Unpublished accessory", "is_published": False, "list_price": 5}
+        )
+        self.product_template.accessory_product_ids = (
+            published_accessory.product_variant_ids
+            + unpublished_accessory.product_variant_ids
+        )
+        accessories = self.product_template.with_user(
+            self.env.ref("base.public_user")
+        )._get_website_accessory_product()
+        self.assertEqual(accessories, published_accessory.product_variant_ids)
