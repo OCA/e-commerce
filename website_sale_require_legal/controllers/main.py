@@ -116,7 +116,7 @@ class PaymentPortal(PaymentPortal):
             # The access token has already been validated by super().
             order = request.env["sale.order"].browse(order_id)
         else:
-            order = request.website.sale_get_order()
+            order = request.cart
         # Log metadata in the sale order
         if order:
             WebsiteSale._log_acceptance_metadata(self, order)
