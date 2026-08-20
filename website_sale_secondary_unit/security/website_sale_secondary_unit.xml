@@ -9,7 +9,7 @@
         <field name="domain_force">[('website_published', '=', True)]</field>
         <field
             name="groups"
-            eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"
+            eval="[Command.link(ref('base.group_public')), Command.link(ref('base.group_portal'))]"
         />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="False" />

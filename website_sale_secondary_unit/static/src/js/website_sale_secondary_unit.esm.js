@@ -2,136 +2,79 @@
  * Copyright 2025 Carlos Lopez - Tecnativa
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
-import "@website_sale/js/website_sale";
-import VariantMixin from "@website_sale/js/sale_variant_mixin";
-import publicWidget from "@web/legacy/js/public/public_widget";
+import {WebsiteSale} from "@website_sale/interactions/website_sale";
+import {patch} from "@web/core/utils/patch";
 
-publicWidget.registry.sale_secondary_unit = publicWidget.Widget.extend(VariantMixin, {
-    selector: ".secondary-unit",
-    // eslint-disable-next-line no-unused-vars
-    init: function (parent, editableMode) {
-        this._super.apply(this, arguments);
-        this.$secondary_uom = null;
-        this.$secondary_uom_qty = null;
-        this.$product_qty = null;
-        this.secondary_uom_qty = null;
-        this.secondary_uom_factor = null;
-        this.product_uom_factor = null;
-        this.product_qty = null;
-    },
-    start: function () {
-        const _this = this;
-        this.$secondary_uom = $("#secondary_uom");
-        this.$secondary_uom_qty = $(".secondary-quantity");
-        this.$product_qty = $(".quantity");
-        this._setValues();
-        this.$target.on(
-            "change",
-            ".secondary-quantity",
-            this._onChangeSecondaryUom.bind(this)
-        );
-        this.$target.on(
-            "change",
-            "#secondary_uom",
-            this._onChangeSecondaryUom.bind(this)
-        );
-        this.$product_qty.on("change", null, this._onChangeProductQty.bind(this));
-        return this._super.apply(this, arguments).then(function () {
-            _this._onChangeSecondaryUom();
+const SECONDARY_UOM_SELECTOR = 'select[name="secondary_uom_id"]';
+
+/**
+ * Return the secondary unit currently selected for a product, if any.
+ *
+ * @param {HTMLElement} el - The product form or its `.js_product` container.
+ * @returns {?{id: Number, factor: Number, uomId: Number}}
+ */
+function getSelectedSecondaryUom(el) {
+    const select =
+        el.querySelector(SECONDARY_UOM_SELECTOR) ||
+        el.closest(".js_product")?.querySelector(SECONDARY_UOM_SELECTOR);
+    if (!select) {
+        return null;
+    }
+    const id = parseInt(select.value, 10);
+    if (!id) {
+        // The product unit of measure is selected.
+        return null;
+    }
+    return {
+        id: id,
+        factor: parseFloat(select.selectedOptions[0]?.dataset.factor) || 1,
+        uomId: parseInt(select.dataset.productUomId, 10),
+    };
+}
+
+patch(WebsiteSale.prototype, {
+    setup() {
+        super.setup(...arguments);
+        Object.assign(this.dynamicContent, {
+            [`.js_main_product ${SECONDARY_UOM_SELECTOR}`]: {
+                "t-on-change": this.onChangeAddQuantity,
+            },
         });
     },
-    _setValues: function () {
-        this.secondary_uom_qty = Number(this.$target.find(".secondary-quantity").val());
-        this.secondary_uom_factor = Number(
-            $("option:selected", this.$secondary_uom).data("secondary-uom-factor")
-        );
-        this.product_uom_factor = Number(
-            $("option:selected", this.$secondary_uom).data("product-uom-factor")
-        );
-        this.product_qty = Number($(".quantity").val());
-    },
 
-    _onChangeSecondaryUom: function (ev) {
-        let eventToUse = ev;
-        if (!eventToUse) {
-            // HACK: Create a fake event to locate the form on "onChangeAddQuantity"
-            // odoo method
-            eventToUse = jQuery.Event("fakeEvent");
-            eventToUse.currentTarget = $(".form-control.quantity");
+    /**
+     * Prices are always given for the product unit of measure, so the quantity
+     * sent to `get_combination_info` has to be converted from the secondary
+     * units typed by the customer.
+     *
+     * @override
+     */
+    _getOptionalCombinationInfoParam(product) {
+        const params = super._getOptionalCombinationInfoParam(...arguments);
+        const secondaryUom = getSelectedSecondaryUom(product);
+        if (secondaryUom) {
+            const quantity =
+                parseFloat(product.querySelector('input[name="add_qty"]')?.value) || 1;
+            params.add_qty = quantity * secondaryUom.factor;
+            params.uom_id = secondaryUom.uomId;
         }
-        this._setValues();
-        const factor = this.secondary_uom_factor * this.product_uom_factor;
-        this.$product_qty.val(this.secondary_uom_qty * factor);
-        this.onChangeAddQuantity(eventToUse);
+        return params;
     },
-    _onChangeProductQty: function () {
-        this._setValues();
-        const factor = this.secondary_uom_factor * this.product_uom_factor;
-        this.$secondary_uom_qty.val(this.product_qty / factor);
-    },
-});
 
-publicWidget.registry.sale_secondary_unit_cart = publicWidget.Widget.extend({
-    selector: ".oe_cart",
-    // eslint-disable-next-line no-unused-vars
-    init: function (parent, editableMode) {
-        this._super.apply(this, arguments);
-        this.$product_qty = null;
-        this.secondary_uom_qty = null;
-        this.secondary_uom_factor = null;
-        this.product_uom_factor = null;
-        this.product_qty = null;
-    },
-    start: function () {
-        var _this = this;
-        this.$target.on(
-            "change",
-            "input.js_secondary_quantity[data-line-id]",
-            function () {
-                _this._onChangeSecondaryUom(this);
-            }
-        );
-    },
-    _setValues: function (order_line) {
-        this.$product_qty = this.$target.find(
-            ".quantity[data-line-id=" + order_line.dataset.lineId + "]"
-        );
-        this.secondary_uom_qty = Number(order_line.value);
-        this.secondary_uom_factor = Number(order_line.dataset.secondaryUomFactor);
-        this.product_uom_factor = Number(order_line.dataset.productUomFactor);
-    },
-    _onChangeSecondaryUom: function (order_line) {
-        this._setValues(order_line);
-        const factor = this.secondary_uom_factor * this.product_uom_factor;
-        this.$product_qty.val(this.secondary_uom_qty * factor);
-        this.$product_qty.trigger("change");
-    },
-});
-
-publicWidget.registry.WebsiteSale.include({
-    _onChangeCombination: function (ev, $parent, combination) {
-        const quantity = $parent.find(".css_quantity:not(.secondary_qty)");
-        const res = this._super(...arguments);
-        if (combination.has_secondary_uom) {
-            quantity.removeClass("d-inline-flex").addClass("d-none");
-        } else {
-            quantity.removeClass("d-none").addClass("d-inline-flex");
+    /**
+     * Add the selected secondary unit to the payload and convert the quantity
+     * to the product unit of measure, which is what the cart works with.
+     *
+     * @override
+     */
+    _updateRootProduct(form) {
+        super._updateRootProduct(...arguments);
+        const secondaryUom = getSelectedSecondaryUom(form);
+        if (secondaryUom) {
+            this.rootProduct.quantity =
+                (this.rootProduct.quantity || 1) * secondaryUom.factor;
+            this.rootProduct.uomId = secondaryUom.uomId;
+            this.rootProduct.secondary_uom_id = secondaryUom.id;
         }
-        return res;
-    },
-    _submitForm: function () {
-        if (
-            !("secondary_uom_id" in this.rootProduct) &&
-            $(this.$target).find("#secondary_uom").length
-        ) {
-            this.rootProduct.secondary_uom_id = $(this.$target)
-                .find("#secondary_uom")
-                .val();
-            this.rootProduct.secondary_uom_qty = $(this.$target)
-                .find(".secondary-quantity")
-                .val();
-        }
-
-        this._super.apply(this, arguments);
     },
 });

@@ -1,2 +1,3 @@
-For define the secondary units, you should active *Manage multiples
-units of measure* on the user that will be responsable of this function.
+To define the secondary units, you should activate *Units of Measure & Packagings* in
+*Inventory \> Configuration \> Settings* for the user that will be
+responsible of this function.

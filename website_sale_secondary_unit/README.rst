@@ -21,19 +21,26 @@ Website Sale Secondary Unit
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/18.0/website_sale_secondary_unit
+    :target: https://github.com/OCA/e-commerce/tree/19.0/website_sale_secondary_unit
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-18-0/e-commerce-18-0-website_sale_secondary_unit
+    :target: https://translation.odoo-community.org/projects/e-commerce-19-0/e-commerce-19-0-website_sale_secondary_unit
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=18.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=19.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of saleorder_secondary_unit module
-to allow sell products in online store in secondary units defined.
+This module extends the functionality of ``sale_order_secondary_unit``
+to allow selling products in the online store using the secondary units
+defined on the product.
+
+Odoo ships a similar feature based on ``uom.uom`` records shared by all
+products (the *Packagings* field). Secondary units are instead defined
+per product and keep both quantities (product unit and secondary unit)
+on the sale order line, which is useful when each product has its own
+packing sizes.
 
 **Table of contents**
 
@@ -43,23 +50,32 @@ to allow sell products in online store in secondary units defined.
 Configuration
 =============
 
-For define the secondary units, you should active *Manage multiples
-units of measure* on the user that will be responsable of this function.
+To define the secondary units, you should activate *Units of Measure &
+Packagings* in *Inventory > Configuration > Settings* for the user that
+will be responsible of this function.
 
 Usage
 =====
 
 To use this module you need to:
 
-- Go to *'Website > Products > Products'*.
+- Go to *'Website > eCommerce > Products'*.
 - Select a template.
-- Set the secondary units that you need.
-- Go to Website Shop and buy this product, you will see a selectable
-  option with all secondary units defined in the product and visible in
-  website.
-- If you do not want to sell in a base product unit and only allow sell
-  in a secondary unit you can disable the option *'Allow to sell in unit
-  of measure'* in a product sale tab.
+- On the *General Information* tab, fill in the *Secondary Unit of
+  Measure* lines that you need and tick *Website published* on the ones
+  that must be offered in the shop.
+- Go to the Website Shop and open that product: next to the quantity
+  selector you will see a selectable option with all the secondary units
+  published for the product. The quantity you type is then counted in
+  the selected unit (e.g. ``2`` + ``Box 5 Units`` adds 10 units to the
+  cart).
+- If you do not want to sell in the base product unit and only allow
+  selling in a secondary unit, you can disable the option *'Allow to
+  sell in unit of measure'* in the *eCommerce Shop* section of the
+  product form.
+
+Each secondary unit gets its own cart line, so the same product can be
+bought in several units at once.
 
 Bug Tracker
 ===========
@@ -67,7 +83,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_secondary_unit%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_secondary_unit%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -102,6 +118,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/18.0/website_sale_secondary_unit>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/19.0/website_sale_secondary_unit>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

@@ -3,67 +3,62 @@
 from odoo import http
 from odoo.http import request
 
+from odoo.addons.website_sale.controllers.cart import Cart
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleSecondaryUnit(WebsiteSale):
-    @http.route()
-    def cart_update(self, product_id, add_qty=1, set_qty=0, **kw):
-        # Add secondary uom info to session
-        request.session.pop("secondary_uom_id", None)
-        if kw.get("secondary_uom_id"):
-            secondary_uom = request.env["product.secondary.unit"].browse(
-                int(kw["secondary_uom_id"])
-            )
-            request.session["secondary_uom_id"] = secondary_uom.id
-        return super().cart_update(product_id, add_qty=add_qty, set_qty=set_qty, **kw)
-
-    @http.route()
-    def cart_update_json(
-        self, product_id, line_id=None, add_qty=None, set_qty=None, display=True, **kw
-    ):
-        so_line = request.env["sale.order.line"].browse(line_id)
-        request.session.pop("secondary_uom_id", None)
-        if kw.get("secondary_uom_id"):
-            secondary_uom = request.env["product.secondary.unit"].browse(
-                int(kw["secondary_uom_id"])
-            )
-            request.session["secondary_uom_id"] = secondary_uom.id
-        if so_line.sudo().secondary_uom_id:
-            request.session["secondary_uom_id"] = so_line.sudo().secondary_uom_id.id
-        return super().cart_update_json(
-            product_id,
-            line_id=line_id,
-            add_qty=add_qty,
-            set_qty=set_qty,
-            display=display,
-            **kw,
-        )
-
-    def _prepare_product_values(self, product, category, search, **kwargs):
-        res = super()._prepare_product_values(product, category, search, **kwargs)
-        res["secondary_uom_ids"] = product.secondary_uom_ids.filtered(
-            lambda su: su.active and su.is_published
-        )
+    def _prepare_product_values(self, product, category, **kwargs):
+        res = super()._prepare_product_values(product, category, **kwargs)
+        res["secondary_uom_ids"] = product._get_website_secondary_uoms()
         return res
 
-    def _get_cart_notification_information(self, order, line_ids):
-        res = super()._get_cart_notification_information(order, line_ids)
-        for line in res.get("lines", []):
-            sale_line = request.env["sale.order.line"].browse(line["id"])
-            line["secondary_uom_name"] = ""
-            line["secondary_uom_qty"] = sale_line.secondary_uom_qty
-            secondary_uom = sale_line.secondary_uom_id
-            if not secondary_uom:
-                continue
-            factor = (
-                int(secondary_uom.factor) == secondary_uom.factor
-                and int(secondary_uom.factor)
-                or secondary_uom.factor
+
+class CartSecondaryUnit(Cart):
+    @http.route()
+    def update_cart(self, line_id, quantity, product_id=None, **kwargs):
+        """Translate the quantity typed by the customer into product units.
+
+        The cart quantity widget shows secondary units for the lines sold in
+        such units (see ``_get_displayed_quantity``), so the received quantity
+        has to be converted before hitting the standard cart logic, and the
+        returned one converted back.
+        """
+        order_sudo = request.cart
+        line = order_sudo.order_line.filtered(lambda sol: sol.id == line_id)[:1]
+        if not line and product_id:
+            line = order_sudo.order_line.filtered(
+                lambda sol: sol.product_id.id == product_id
+            )[:1]
+        secondary_uom = line.secondary_uom_id
+        if secondary_uom:
+            qty_base = float(quantity) * secondary_uom.factor
+            quantity = line.product_id.uom_id._compute_quantity(
+                qty_base, line.product_uom_id
             )
-            uom_name = secondary_uom.product_tmpl_id.sudo().uom_id.name
-            secondary_uom_name = f"{secondary_uom.name} {factor}"
-            if uom_name != secondary_uom.name:
-                secondary_uom_name += f" {uom_name}"
-            line["secondary_uom_name"] = secondary_uom_name
+        values = super().update_cart(
+            line_id=line_id, quantity=quantity, product_id=product_id, **kwargs
+        )
+        if secondary_uom and line.exists():
+            values["quantity"] = line._get_displayed_quantity()
+        return values
+
+    def _get_cart_notification_information(self, order, added_qty_per_line):
+        res = super()._get_cart_notification_information(order, added_qty_per_line)
+        for line_values in res.get("lines", []):
+            line = order.order_line.browse(line_values["id"])
+            if not line.secondary_uom_id:
+                continue
+            secondary_qty = line._convert_qty_to_secondary_uom(line_values["quantity"])
+            line_values["quantity"] = (
+                int(secondary_qty)
+                if int(secondary_qty) == secondary_qty
+                else secondary_qty
+            )
+        return res
+
+    def _get_additional_cart_notification_information(self, line):
+        res = super()._get_additional_cart_notification_information(line)
+        if line.secondary_uom_id:
+            res["uom_name"] = line.secondary_uom_id._get_website_display_name()
         return res

@@ -21,6 +21,7 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
                 "is_published": True,
                 "website_sequence": 1,
                 "type": "consu",
+                "uom_id": product_uom_unit.id,
             }
         )
         vals = {
@@ -43,12 +44,10 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
         )
         # Add group "Manage Multiple Units of Measure" to admin
         admin = cls.env.ref("base.user_admin")
-        admin.groups_id |= cls.env.ref("uom.group_uom")
-        # Force VAT to avoid error in the module that makes it required.
-        admin.partner_id.vat = "TEST12345678"
+        admin.group_ids |= cls.env.ref("uom.group_uom")
+        # Force a valid VAT to avoid errors in the modules that make it required.
+        admin.partner_id.vat = "BE0428759497"
 
     def test_ui_website(self):
         """Test frontend tour."""
-        self.start_tour(
-            "/shop", "website_sale_secondary_unit", login="admin", step_delay=1000
-        )
+        self.start_tour("/shop", "website_sale_secondary_unit", login="admin")
