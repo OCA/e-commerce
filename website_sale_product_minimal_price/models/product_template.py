@@ -177,7 +177,7 @@ class ProductTemplate(models.Model):
                     {
                         "min_qty": min_qty,
                         "price": new_price,
-                        "currency_id": product.currency_id.id,
+                        "currency_id": combination_info["currency"].id,
                     }
                 )
                 last_price = new_price
