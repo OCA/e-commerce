@@ -25,10 +25,10 @@
                                                     class="variant_price_extra"
                                                     style="white-space: nowrap;"
                                                 >
-                                                    + <t
-                                                        t-esc="column_header['price']"
-                                                        t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
-                                                    />
+                                                + <t
+                                                    t-esc="column_header['price']"
+                                                    t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                                                />
                                                 </span>
                                             </span>
                                         </t>
@@ -107,27 +107,12 @@
         customize_show="True"
     >
         <xpath
-            expr="//div[hasclass('js_product')]//t[@t-placeholder='select']//t[@t-set='ul_class']"
+            expr="//div[@id='o_wsale_product_details_content']//t[@t-set='ul_class']"
             position="attributes"
         >
             <attribute name="t-valuef">
                 flex-column #{'d-none' if product.product_add_mode == 'matrix' else ''}
             </attribute>
-        </xpath>
-        <xpath expr="//div[@id='add_to_cart_wrap']" position="after">
-            <a
-                t-if="product.product_add_mode == 'matrix'"
-                href="#modalMatrix"
-                data-bs-toggle="modal"
-                data-bs-target="#modalMatrix"
-                aria-expanded="false"
-                aria-controls="modalMatrix"
-                role="button"
-                class="btn btn-primary my-1 me-1 px-5 py-2 flex-grow-1 text-uppercase"
-            ><i class="fa fa-cart-plus mr-2" /> Configure options</a>
-        </xpath>
-        <xpath expr="//div[@id='add_to_cart_wrap']" position="attributes">
-            <attribute name="t-if">product.product_add_mode != 'matrix'</attribute>
         </xpath>
         <xpath expr="//section[@id='product_detail']">
             <div
@@ -155,24 +140,22 @@
                                 />
                             </div>
                             <div class="modal-body">
-                                    <input
+                                <input
                                     type="hidden"
                                     name="csrf_token"
                                     t-att-value="request.csrf_token()"
                                 />
+                                <t t-call="website_sale_product_matrix.product_matrix">
                                     <t
-                                    t-call="website_sale_product_matrix.product_matrix"
-                                >
-                                        <t
                                         t-set="website_sale_order"
-                                        t-value="website.sale_get_order()"
+                                        t-value="request.cart"
                                     />
-                                        <t
+                                    <t
                                         t-set="product_matrix"
                                         t-value="website_sale_order._get_matrix(product)"
                                     />
-                                        <t t-set="show_buy_button" t-value="True" />
-                                    </t>
+                                    <t t-set="show_buy_button" t-value="True" />
+                                </t>
                             </div>
                             <div class="modal-footer">
                                 <a
@@ -180,8 +163,8 @@
                                     class="btn btn-primary btn px-5 o_we_order_matrix"
                                     href="#"
                                 ><i
-                                        class="fa fa-shopping-cart me-2"
-                                    />UPDATE CART WITH OPTIONS</a>
+                                    class="fa fa-shopping-cart me-2"
+                                />UPDATE CART WITH OPTIONS</a>
                             </div>
                         </form>
                     </div>
@@ -199,17 +182,25 @@
         </xpath>
     </template>
     <template
-        id="add_to_cart_product_add_mode"
-        inherit_id="website_sale.add_to_cart_redirect"
-        name="Product Add Mode info"
-        priority="1"
+        id="cta_wrapper"
+        inherit_id="website_sale.cta_wrapper"
+        name="Product matrix CTA"
+        customize_show="True"
     >
-        <xpath expr="//t[@t-set='html_data']" position="after">
-            <t
-                t-if="product"
-                t-set="html_data"
-                t-value="dict(html_data, **{'data-product-add-mode': product.product_add_mode})"
-            />
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="after">
+            <a
+                t-if="product.product_add_mode == 'matrix'"
+                href="#modalMatrix"
+                data-bs-toggle="modal"
+                data-bs-target="#modalMatrix"
+                aria-expanded="false"
+                aria-controls="modalMatrix"
+                role="button"
+                class="btn btn-primary my-1 me-1 px-5 py-2 flex-grow-1 text-uppercase"
+            ><i class="fa fa-cart-plus me-2" /> Configure options</a>
+        </xpath>
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="attributes">
+            <attribute name="t-if">product.product_add_mode != 'matrix'</attribute>
         </xpath>
     </template>
 </odoo>

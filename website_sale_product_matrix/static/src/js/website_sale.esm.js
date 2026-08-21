@@ -1,27 +1,10 @@
-/** @odoo-module **/
 import publicWidget from "@web/legacy/js/public/public_widget";
 import wUtils from "@website/js/utils";
 
-// If next dependency is not declared publicWidget.registry.WebsiteSale will be
-// undefined
-import "@website_sale/js/website_sale";
-
-// TODO: Add logic to improve UX
-publicWidget.registry.WebsiteSale.include({
-    events: Object.assign({}, publicWidget.registry.WebsiteSale.prototype.events, {
+publicWidget.registry.WebsiteSaleProductMatrix = publicWidget.Widget.extend({
+    selector: "#product_detail",
+    events: {
         "click .o_we_order_matrix": "addToCartFromMatrix",
-    }),
-    /**
-     * Avoid stay on page when the matrix is loaded so we refresh the page every time
-     * @override
-     */
-    async start() {
-        await this._super.apply(this, arguments);
-        const html = document.documentElement;
-        if (Object.hasOwn(html.dataset, "productAddMode")) {
-            this.stayOnPageOption =
-                this.stayOnPageOption && html.dataset.productAddMode !== "matrix";
-        }
     },
     /**
      * Overridable method to add stuff to the grid

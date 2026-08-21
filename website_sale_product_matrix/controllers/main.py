@@ -15,10 +15,7 @@ class WebsiteSaleProductMatrix(WebsiteSale):
     )
     def cart_update_from_matrix(self, product_template_id, grid, **kw):
         """This route is called when adding a product to cart from the product matrix"""
-        sale_order = request.website.sale_get_order(force_create=True)
-        if sale_order.state != "draft":
-            request.session["sale_order_id"] = None
-            sale_order = request.website.sale_get_order(force_create=True)
+        sale_order = request.cart or request.website._create_cart()
         sale_order.update(
             {
                 "grid_product_tmpl_id": int(product_template_id),
