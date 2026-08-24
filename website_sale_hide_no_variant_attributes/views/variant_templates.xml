@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="website_sale_variants_hide_no_variant_attributes"
+        inherit_id="website_sale.variants"
+        name="Variant selector: hide non-variant-defining attributes"
+    >
+        <xpath
+            expr="//t[@t-set='has_configurable_attribute_line']"
+            position="attributes"
+        >
+            <attribute
+                name="t-value"
+            >any(ptal._is_configurable() for ptal in product.attribute_line_ids._without_no_variant_attributes())</attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-foreach='product.valid_product_template_attribute_line_ids']"
+            position="attributes"
+        >
+            <attribute
+                name="t-foreach"
+            >product.valid_product_template_attribute_line_ids._without_no_variant_attributes()</attribute>
+        </xpath>
+    </template>
+</odoo>
