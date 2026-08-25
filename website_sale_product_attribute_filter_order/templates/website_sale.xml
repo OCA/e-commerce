@@ -2,15 +2,12 @@
 <odoo>
     <template
         id="products_attributes"
-        inherit_id="website_sale.products_attributes"
+        inherit_id="website_sale.filter_pills_attributes"
         active="False"
         name="Product Attribute's Filters Marked First"
         priority="900"
     >
-        <xpath
-            expr="//div[@t-elif=&quot;a.display_type in ('radio', 'pills', 'multi')&quot;]//t[@t-foreach='a.value_ids']"
-            position="attributes"
-        >
+        <xpath expr="//t[@t-foreach='a.value_ids']" position="attributes">
             <attribute
                 name="t-foreach"
             >a.value_ids.sorted(key=lambda x: x.id in attrib_set, reverse=True)</attribute>
