@@ -15,7 +15,7 @@ class TestWebsiteSaleProductAttributeFilterOrder(HttpCase):
         cls.product_attribute = cls.env["product.attribute"].create(
             {
                 "name": "Test Color",
-                "display_type": "radio",
+                "display_type": "pills",
                 "create_variant": "no_variant",
             }
         )
@@ -72,7 +72,8 @@ class TestWebsiteSaleProductAttributeFilterOrder(HttpCase):
             "website_sale_product_attribute_filter_order.products_attributes"
         )
         self.assertEqual(
-            template.inherit_id.id, self.env.ref("website_sale.products_attributes").id
+            template.inherit_id.id,
+            self.env.ref("website_sale.filter_pills_attributes").id,
         )
         self.assertFalse(template.active)
 
