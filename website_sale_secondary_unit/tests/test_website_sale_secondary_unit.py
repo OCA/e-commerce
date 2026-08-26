@@ -42,6 +42,36 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
                 ],
             }
         )
+        # A product with optional products opens the configurator dialog when
+        # it is added to the cart, so it gets its own secondary units.
+        cls.optional_product_template = cls.env["product.template"].create(
+            {
+                "name": "Test optional product",
+                "is_published": True,
+                "type": "consu",
+                "uom_id": product_uom_unit.id,
+            }
+        )
+        cls.configurable_product_template = cls.env["product.template"].create(
+            {
+                "name": "Test configurable product",
+                "is_published": True,
+                "website_sequence": 2,
+                "type": "consu",
+                "uom_id": product_uom_unit.id,
+                "optional_product_ids": [
+                    Command.set(cls.optional_product_template.ids)
+                ],
+            }
+        )
+        configurable_vals = dict(
+            vals,
+            factor=3.0,
+            name="Pack",
+            product_tmpl_id=cls.configurable_product_template.id,
+        )
+        ProductSecondaryUnit.create(configurable_vals)
+        ProductSecondaryUnit.create(dict(configurable_vals, name="Box", factor=4.0))
         # Add group "Manage Multiple Units of Measure" to admin
         admin = cls.env.ref("base.user_admin")
         admin.group_ids |= cls.env.ref("uom.group_uom")
@@ -51,3 +81,11 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
     def test_ui_website(self):
         """Test frontend tour."""
         self.start_tour("/shop", "website_sale_secondary_unit", login="admin")
+
+    def test_ui_website_configurator(self):
+        """Test the secondary unit selector of the product configurator."""
+        self.start_tour(
+            "/shop",
+            "website_sale_secondary_unit_configurator",
+            login="admin",
+        )

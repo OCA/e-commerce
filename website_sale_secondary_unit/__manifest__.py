@@ -24,9 +24,10 @@
     "assets": {
         "web.assets_frontend": [
             "/website_sale_secondary_unit/static/src/js/**/*.esm.js",
+            "/website_sale_secondary_unit/static/src/js/**/*.xml",
         ],
         "web.assets_tests": [
-            "/website_sale_secondary_unit/static/tests/tours/website_sale_secondary_unit_tour.esm.js"
+            "/website_sale_secondary_unit/static/tests/tours/**/*.esm.js",
         ],
     },
 }

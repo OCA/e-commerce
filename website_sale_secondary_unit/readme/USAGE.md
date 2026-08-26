@@ -15,5 +15,8 @@ To use this module you need to:
   sell in unit of measure'* in the *eCommerce Shop* section of the
   product form.
 
+The same selector is shown in the *Configure* dialog that is opened for
+products having optional products or several variants.
+
 Each secondary unit gets its own cart line, so the same product can be
 bought in several units at once.

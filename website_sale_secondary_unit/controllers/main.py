@@ -5,6 +5,9 @@ from odoo.http import request
 
 from odoo.addons.website_sale.controllers.cart import Cart
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers.product_configurator import (
+    WebsiteSaleProductConfiguratorController,
+)
 
 
 class WebsiteSaleSecondaryUnit(WebsiteSale):
@@ -62,3 +65,63 @@ class CartSecondaryUnit(Cart):
         if line.secondary_uom_id:
             res["uom_name"] = line.secondary_uom_id._get_website_display_name()
         return res
+
+
+class ProductConfiguratorSecondaryUnit(WebsiteSaleProductConfiguratorController):
+    def _get_product_information(
+        self, product_template, combination, currency, pricelist, so_date, **kwargs
+    ):
+        """Let the customer pick a secondary unit in the product configurator."""
+        values = super()._get_product_information(
+            product_template, combination, currency, pricelist, so_date, **kwargs
+        )
+        if not request.is_frontend:
+            return values
+        secondary_uoms = product_template._get_website_secondary_uoms()
+        if not secondary_uoms:
+            return values
+        default_secondary_uom = product_template.sale_secondary_uom_id & secondary_uoms
+        if not default_secondary_uom and not product_template.allow_uom_sell:
+            default_secondary_uom = secondary_uoms[:1]
+        values.update(
+            allow_uom_sell=product_template.allow_uom_sell,
+            default_secondary_uom_id=default_secondary_uom.id,
+            secondary_uom_id=int(kwargs.get("secondary_uom_id") or 0),
+            secondary_uoms=[
+                {
+                    "id": secondary_uom.id,
+                    "display_name": secondary_uom._get_website_display_name(),
+                    "factor": secondary_uom.factor,
+                }
+                for secondary_uom in secondary_uoms
+            ],
+        )
+        return values
+
+    def _get_basic_product_information(
+        self,
+        product_or_template,
+        pricelist,
+        combination,
+        secondary_uom_id=None,
+        **kwargs,
+    ):
+        """Return the prices of one secondary unit when the customer picks one.
+
+        The configurator multiplies the price by the quantity, which is given in
+        the selected unit, just like the standard unit of measure selector does.
+        """
+        secondary_uom_id = int(secondary_uom_id or 0)
+        secondary_uom = request.env["product.secondary.unit"].browse(
+            secondary_uom_id or []
+        )
+        if secondary_uom:
+            kwargs["quantity"] = kwargs.get("quantity", 0.0) * secondary_uom.factor
+        values = super()._get_basic_product_information(
+            product_or_template, pricelist, combination, **kwargs
+        )
+        if secondary_uom:
+            for price_field in ("price", "strikethrough_price"):
+                if values.get(price_field):
+                    values[price_field] *= secondary_uom.factor
+        return values

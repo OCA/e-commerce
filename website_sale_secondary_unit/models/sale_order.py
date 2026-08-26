@@ -8,27 +8,32 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def _cart_add(self, product_id, quantity=1.0, *, uom_id=None, **kwargs):
-        """Force the default secondary unit on products not sold in their own unit.
+        """Convert the quantity, expressed in secondary units, to the product one.
 
-        The frontend always sends the quantity in the product unit of measure
-        along with the chosen ``secondary_uom_id``. When no secondary unit is
-        received (e.g. the "Add to cart" snippet or an express checkout), the
-        quantity is still expressed in secondary units for products that can't
-        be sold in their own unit, so it has to be converted here.
+        The frontend sends the quantity in the unit chosen by the customer along
+        with the corresponding ``secondary_uom_id``. Products that can't be sold
+        in their own unit fall back to their default secondary unit when none is
+        received (e.g. the "Add to cart" snippet or an express checkout).
         """
-        if "secondary_uom_id" not in kwargs:
-            product = self.env["product.product"].browse(product_id)
-            if not product.allow_uom_sell:
-                secondary_uom = (
-                    product.sale_secondary_uom_id
-                    or product._get_website_secondary_uoms()[:1]
-                )
-                if secondary_uom:
-                    kwargs["secondary_uom_id"] = secondary_uom.id
-                    quantity = float_round(
-                        quantity * secondary_uom.factor,
-                        precision_rounding=product.uom_id.rounding,
-                    )
+        if kwargs.get("linked_line_id"):
+            # `/shop/cart/add` forwards the values of the main product to the
+            # `_cart_add` call of its optional products, which are always added
+            # in their own unit of measure.
+            kwargs.pop("secondary_uom_id", None)
+        product = self.env["product.product"].browse(product_id)
+        if product and "secondary_uom_id" not in kwargs and not product.allow_uom_sell:
+            secondary_uom = (
+                product.sale_secondary_uom_id
+                or product._get_website_secondary_uoms()[:1]
+            )
+            kwargs["secondary_uom_id"] = secondary_uom.id
+        secondary_uom_id = int(kwargs.get("secondary_uom_id") or 0)
+        if secondary_uom_id:
+            secondary_uom = self.env["product.secondary.unit"].browse(secondary_uom_id)
+            quantity = float_round(
+                quantity * secondary_uom.factor,
+                precision_rounding=product.uom_id.rounding,
+            )
         return super()._cart_add(product_id, quantity, uom_id=uom_id, **kwargs)
 
     def _cart_find_product_line(

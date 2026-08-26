@@ -62,8 +62,8 @@ patch(WebsiteSale.prototype, {
     },
 
     /**
-     * Add the selected secondary unit to the payload and convert the quantity
-     * to the product unit of measure, which is what the cart works with.
+     * Add the selected secondary unit to the payload. The quantity is sent as
+     * typed by the customer, in secondary units, and converted by the server.
      *
      * @override
      */
@@ -71,8 +71,6 @@ patch(WebsiteSale.prototype, {
         super._updateRootProduct(...arguments);
         const secondaryUom = getSelectedSecondaryUom(form);
         if (secondaryUom) {
-            this.rootProduct.quantity =
-                (this.rootProduct.quantity || 1) * secondaryUom.factor;
             this.rootProduct.uomId = secondaryUom.uomId;
             this.rootProduct.secondary_uom_id = secondaryUom.id;
         }
