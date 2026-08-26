@@ -65,5 +65,4 @@ class TestUi(HttpCase):
             "/shop",
             "website_sale_menu_partner_top_selling",
             login="admin",
-            step_delay=100,
         )
