@@ -12,7 +12,7 @@ class WebsiteSale(WebsiteSale):
         auth="public",
         website=True,
     )
-    def user_regular_products(self, page=0, ppg=False, **kwargs):
+    def user_regular_products(self, page=0, **kwargs):
         if request.env.user.has_group("base.group_public"):
             return request.redirect("/web/login")
         website = request.env["website"].get_current_website()
@@ -27,8 +27,8 @@ class WebsiteSale(WebsiteSale):
         product_data = (
             request.env["sale.order.line"]
             .sudo()
-            .read_group(
-                [
+            ._read_group(
+                domain=[
                     (
                         "order_id.partner_id.commercial_partner_id",
                         "=",
@@ -47,40 +47,24 @@ class WebsiteSale(WebsiteSale):
                         [request.website.company_id.id, False],
                     ),
                 ],
-                ["product_id", "product_uom_qty:sum"],
-                ["product_id"],
-                orderby="product_uom_qty DESC",
+                groupby=["product_id"],
+                aggregates=["product_uom_qty:sum"],
             )
         )
-        top_product_ids = [
-            rec["product_id"][0] for rec in product_data if rec["product_id"]
-        ]
-        # Search for templates of best-selling products
-        product_templates = (
-            request.env["product.product"]
-            .sudo()
-            .search([("id", "in", top_product_ids)])
-        )
+        # Sum quantities per template (a template may have several variants sold)
         template_quantities = {}
-        for product in product_templates:
-            template_id = product.product_tmpl_id.id
-            if template_id not in template_quantities:
-                template_quantities[template_id] = 0
-            template_quantities[template_id] += next(
-                rec["product_uom_qty"]
-                for rec in product_data
-                if rec["product_id"][0] == product.id
-            )
+        for product, qty in product_data:
+            template = product.product_tmpl_id
+            template_quantities[template] = template_quantities.get(template, 0) + qty
         # Sort the templates by total quantity sold and limit
-        sorted_template_ids = sorted(
-            template_quantities.keys(),
-            key=lambda tmpl_id: template_quantities[tmpl_id],
-            reverse=True,
+        sorted_templates = sorted(
+            template_quantities, key=template_quantities.get, reverse=True
         )
-        limited_template_ids = sorted_template_ids[:param_limit]
-        templates = request.env["product.template"].sudo().browse(limited_template_ids)
+        templates = request.env["product.template"].concat(
+            *sorted_templates[:param_limit]
+        )
         # Pagination
-        ppg = ppg or 20
+        ppg = website.shop_ppg or 21
         total_products = len(templates)
         page_count = (total_products + ppg - 1) // ppg
         page = max(0, min(page, page_count - 1))
@@ -94,20 +78,27 @@ class WebsiteSale(WebsiteSale):
             scope=5,
             url_args=kwargs,
         )
-        pricelist = website.pricelist_id
-        # Try to fetch geoip based fpos or fallback on partner one
-        fiscal_position_sudo = website.fiscal_position_id.sudo()
-        products_prices = lazy(
-            lambda: products_on_page._get_sales_prices(pricelist, fiscal_position_sudo)
+        products_prices = lazy(lambda: products_on_page._get_sales_prices(website))
+        # Map each product to its variant, like WebsiteSale.shop() does, since our
+        # own product set differs from the one shop() computed for itself.
+        variants = (
+            request.env["product.product"]
+            .sudo()
+            .browse(
+                product._get_first_possible_variant_id() for product in products_on_page
+            )
         )
+        variants.fetch()
+        product_variants = dict(zip(products_on_page, variants, strict=False))
         # Shop context for the view
-        shop_context = self.shop(page=page, ppg=ppg, **kwargs)
+        shop_context = self.shop(page=page, **kwargs)
         shop_context.qcontext.update(
             {
                 "pager": pager,
                 "products": products_on_page,
                 "search_product": products_on_page,
                 "search_count": total_products,
+                "product_variants": product_variants,
                 "bins": lazy(
                     lambda: TableCompute().process(
                         products_on_page, ppg, website.shop_ppr or 4
