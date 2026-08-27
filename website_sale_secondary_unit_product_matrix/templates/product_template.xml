@@ -17,7 +17,7 @@
             <t t-set="uom_name" t-value="product_matrix.get('uom_name')" />
             <tr t-if="secondary_units">
                 <td t-att-colspan="len(product_matrix.get('header', []))">
-                    <div class="form-floating" t-if="secondary_units">
+                    <div class="form-floating">
                         <select
                             class="form-select o_matrix_secondary_unit"
                             id="secondary_unit"
@@ -26,19 +26,16 @@
                                 t-if="product_matrix.get('allow_uom_sell')"
                                 value=""
                                 t-att-selected="'selected' if not secondary_unit_id else None"
-                                placeholder="Secondary unit"
-                                class="font-italic"
-                            >
-                                <t t-esc="uom_name" />
-                            </option>
+                                class="fst-italic"
+                                t-out="uom_name"
+                            />
                             <option
                                 t-foreach="secondary_units"
                                 t-as="unit"
                                 t-att-value="unit['id']"
                                 t-att-selected="'selected' if secondary_unit_id == unit['id'] else None"
-                            >
-                                <t t-esc="unit['name']" />
-                            </option>
+                                t-out="unit['name']"
+                            />
                         </select>
                         <label for="secondary_unit">Select a unit of measure</label>
                     </div>
