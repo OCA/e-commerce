@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product matrix with secondary units in eCommerce",
-    "version": "17.0.1.0.2",
+    "version": "19.0.1.0.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/e-commerce",
@@ -19,6 +19,7 @@
     "assets": {
         "web.assets_frontend": [
             "website_sale_secondary_unit_product_matrix/static/src/js/**/*.js",
+            "website_sale_secondary_unit_product_matrix/static/src/js/**/*.xml",
         ],
     },
 }
