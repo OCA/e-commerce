@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: website_sale_product_matrix
 #: model_terms:ir.ui.view,arch_db:website_sale_product_matrix.cta_wrapper
-msgid "<i class=\"fa fa-cart-plus mr-2\"/> Configure options"
+msgid "<i class=\"fa fa-cart-plus me-2\"/> Configure options"
 msgstr ""
 
 #. module: website_sale_product_matrix
