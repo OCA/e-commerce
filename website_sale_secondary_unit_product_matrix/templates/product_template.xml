@@ -28,7 +28,8 @@
                                 t-att-selected="'selected' if not secondary_unit_id else None"
                                 placeholder="Secondary unit"
                                 class="font-italic"
-                            ><t t-esc="uom_name" />
+                            >
+                                <t t-esc="uom_name" />
                             </option>
                             <option
                                 t-foreach="secondary_units"
