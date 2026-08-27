@@ -14,21 +14,32 @@ class SaleOrder(models.Model):
         with the corresponding ``secondary_uom_id``. Products that can't be sold
         in their own unit fall back to their default secondary unit when none is
         received (e.g. the "Add to cart" snippet or an express checkout).
+
+        Callers that already know the quantity in the product unit of measure,
+        like the portal reorder, send it along with the secondary unit of the
+        original line setting ``qty_in_secondary_uom`` to ``False``, so neither
+        the conversion nor the default secondary unit are applied to it.
         """
+        qty_in_secondary_uom = kwargs.pop("qty_in_secondary_uom", True)
         if kwargs.get("linked_line_id"):
             # `/shop/cart/add` forwards the values of the main product to the
             # `_cart_add` call of its optional products, which are always added
             # in their own unit of measure.
             kwargs.pop("secondary_uom_id", None)
         product = self.env["product.product"].browse(product_id)
-        if product and "secondary_uom_id" not in kwargs and not product.allow_uom_sell:
+        if (
+            product
+            and qty_in_secondary_uom
+            and "secondary_uom_id" not in kwargs
+            and not product.allow_uom_sell
+        ):
             secondary_uom = (
                 product.sale_secondary_uom_id
                 or product._get_website_secondary_uoms()[:1]
             )
             kwargs["secondary_uom_id"] = secondary_uom.id
         secondary_uom_id = int(kwargs.get("secondary_uom_id") or 0)
-        if secondary_uom_id:
+        if secondary_uom_id and qty_in_secondary_uom:
             secondary_uom = self.env["product.secondary.unit"].browse(secondary_uom_id)
             quantity = float_round(
                 quantity * secondary_uom.factor,

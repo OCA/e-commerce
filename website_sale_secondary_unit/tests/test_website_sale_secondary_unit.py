@@ -78,6 +78,48 @@ class WebsiteSaleSecondaryUnitHttpCase(HttpCase):
         # Force a valid VAT to avoid errors in the modules that make it required.
         admin.partner_id.vat = "BE0428759497"
 
+    def test_reorder_from_portal_keeps_secondary_unit(self):
+        """Reordering an order keeps the secondary unit and quantity of its lines."""
+        # A product that can only be sold in secondary units is the worst case,
+        # as the reordered quantity was converted twice.
+        self.product_template.allow_uom_sell = False
+        product = self.product_template.product_variant_id
+        order = self.env["sale.order"].create(
+            {
+                "partner_id": self.env.ref("base.user_admin").partner_id.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "product_id": product.id,
+                            "secondary_uom_id": self.secondary_unit_box_5.id,
+                            "product_uom_qty": 10.0,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "product_id": product.id,
+                            "secondary_uom_id": self.secondary_unit_box_10.id,
+                            "product_uom_qty": 30.0,
+                        }
+                    ),
+                ],
+            }
+        )
+        order.action_confirm()
+        self.assertEqual(order.order_line.mapped("secondary_uom_qty"), [2.0, 3.0])
+        self.authenticate("admin", "admin")
+        self.make_jsonrpc_request("/my/orders/reorder", {"order_id": order.id})
+        cart = self.env["sale.order"].search(
+            [("website_id", "!=", False), ("id", "!=", order.id)], limit=1
+        )
+        self.assertEqual(len(cart.order_line), 2)
+        for line, original_line in zip(
+            cart.order_line.sorted("id"), order.order_line, strict=True
+        ):
+            self.assertEqual(line.secondary_uom_id, original_line.secondary_uom_id)
+            self.assertEqual(line.secondary_uom_qty, original_line.secondary_uom_qty)
+            self.assertEqual(line.product_uom_qty, original_line.product_uom_qty)
+
     def test_ui_website(self):
         """Test frontend tour."""
         self.start_tour("/shop", "website_sale_secondary_unit", login="admin")
