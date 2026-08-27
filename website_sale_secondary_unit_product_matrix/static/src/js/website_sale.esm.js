@@ -1,13 +1,16 @@
-/** @odoo-module **/
+/* Copyright 2024 Tecnativa - David Vidal
+ * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). */
+
+// If next dependency is not declared, publicWidget.registry.WebsiteSaleProductMatrix
+// will be undefined
+import "@website_sale_product_matrix/js/website_sale.esm";
 import publicWidget from "@web/legacy/js/public/public_widget";
 
-// If next dependency is not declared publicWidget.registry.WebsiteSale will be
-// undefined
-import "@website_sale/js/website_sale";
-
 // TODO: Add logic to improve UX
-publicWidget.registry.WebsiteSale.include({
+publicWidget.registry.WebsiteSaleProductMatrix.include({
     /**
+     * Send the unit selected for the whole matrix along with the grid changes.
+     *
      * @override
      */
     _parseGridChanges(product_template_id, $form) {
@@ -24,7 +27,7 @@ publicWidget.registry.WebsiteSale.include({
             null
         );
         grid.secondary_unit =
-            (selected_secondary_unit && parseInt(selected_secondary_unit)) || false;
+            (selected_secondary_unit && parseInt(selected_secondary_unit, 10)) || false;
         return grid;
     },
 });
