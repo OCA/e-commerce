@@ -1,6 +1,7 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo.tests import HttpCase, tagged
+from odoo.addons.website.tools import MockRequest
 
 
 @tagged("post_install", "-at_install")
@@ -53,3 +54,24 @@ class TestFrontend(HttpCase):
             [("id", "not in", existing_orders.ids)]
         )
         self.assertEqual(created_order.type_id, self.sale_type)
+
+    def test_prepare_sale_order_values(self):
+        self.partner.sale_type = self.sale_type
+        website = self.env["website"].get_current_website()
+        with MockRequest(self.env, website=website):
+            vals = website._prepare_sale_order_values(self.partner)
+            self.assertIn(
+                "type_id",
+                vals,
+                "The key 'type_id' should be in the returned values dictionary.",
+            )
+            self.assertEqual(
+                vals["type_id"],
+                self.sale_type.id,
+                f"The type_id in vals ({vals['type_id']}) should match the partner's type ({self.sale_type.id})",
+            )
+            order = self.env["sale.order"].create(vals)
+            self.assertTrue(
+                order.name.startswith("TSO"),
+                f"The sequence failed to apply. Expected prefix 'TSO', got '{order.name}'",
+            )
