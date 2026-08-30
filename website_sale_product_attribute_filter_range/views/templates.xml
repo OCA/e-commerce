@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 EthicHub
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Range filter template for a single attribute -->
+    <template id="filter_attribute_range" name="Filter Attribute by Range">
+        <t
+            t-set="is_disabled"
+            t-value="data['available_min'] == data['available_max']"
+        />
+        <div
+            t-attf-id="o_wsale_attr_range_option_#{attr_id}"
+            t-attf-class="o_wsale_attr_range_option position-relative {{_classes}} {{is_disabled and 'opacity-75 pe-none user-select-none'}}"
+        >
+            <t t-if="is_sidebar_collapsible">
+                <div class="accordion-item">
+                    <div class="accordion-header h6 mb-0">
+                        <button
+                            class="accordion-button px-0 bg-transparent shadow-none"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            t-attf-data-bs-target="#o_wsale_attr_range_inner_#{attr_id}"
+                            t-attf-aria-controls="o_wsale_attr_range_inner_#{attr_id}"
+                            aria-expanded="true"
+                        >
+                            <b t-out="data['attribute'].name" />
+                        </button>
+                    </div>
+                    <div
+                        t-attf-id="o_wsale_attr_range_inner_#{attr_id}"
+                        class="accordion-collapse collapse show"
+                    >
+                        <input
+                            type="range"
+                            multiple="multiple"
+                            t-attf-class="form-range range-with-input {{_classes_input}}"
+                            data-currency=""
+                            data-currency-position="after"
+                            t-att-data-url="keep(attrib_range=0)"
+                            t-att-data-attribute-id="attr_id"
+                            t-att-step="data['step']"
+                            t-att-min="'%f' % data['available_min']"
+                            t-att-max="'%f' % data['available_max']"
+                            t-att-value="'%f,%f' % (data['current_min'], data['current_max'])"
+                        />
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <label t-attf-class="h6 m-0 {{_classes_title}}">
+                    <b t-out="data['attribute'].name" />
+                </label>
+                <input
+                    type="range"
+                    multiple="multiple"
+                    t-attf-class="form-range range-with-input {{_classes_input}}"
+                    data-currency=""
+                    data-currency-position="after"
+                    t-att-data-url="keep(attrib_range=0)"
+                    t-att-data-attribute-id="attr_id"
+                    t-att-step="data['step']"
+                    t-att-min="'%f' % data['available_min']"
+                    t-att-max="'%f' % data['available_max']"
+                    t-att-value="'%f,%f' % (data['current_min'], data['current_max'])"
+                />
+            </t>
+        </div>
+    </template>
+
+    <!-- Snippet to render all range filters -->
+    <template id="range_filters_loop" name="Range Filters Loop">
+        <t t-if="range_filter_data">
+            <t t-foreach="range_filter_data" t-as="attr_id">
+                <t t-set="data" t-value="range_filter_data[attr_id]" />
+                <t
+                    t-call="website_sale_product_attribute_filter_range.filter_attribute_range"
+                />
+            </t>
+        </t>
+    </template>
+
+    <!-- Desktop sidebar: insert range filters AFTER standard attribute filters -->
+    <template
+        id="products_add_range_filters"
+        inherit_id="website_sale.products_attributes"
+        name="Attribute Range Filters in Shop Sidebar"
+    >
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="after">
+            <t t-call="website_sale_product_attribute_filter_range.range_filters_loop">
+                <t
+                    t-set="_classes"
+                    t-valuef="{{is_sidebar_collapsible and 'accordion accordion-flush'}} {{is_sidebar_collapsible and (opt_wsale_categories or len(attributes) > 0 or range_filter_data) and 'border-top'}}"
+                />
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Exclude range attributes from the product configurator on detail page -->
+    <template
+        id="variants_hide_range"
+        inherit_id="website_sale.variants"
+        name="Hide Range Attributes from Product Configurator"
+    >
+        <xpath
+            expr="//t[@t-foreach='product.valid_product_template_attribute_line_ids']"
+            position="attributes"
+        >
+            <attribute
+                name="t-foreach"
+            >product.valid_product_template_attribute_line_ids.filtered(lambda l: l.attribute_id.display_type != 'range')</attribute>
+        </xpath>
+    </template>
+
+    <!-- Mobile offcanvas: insert range filters AFTER standard attributes -->
+    <template
+        id="offcanvas_add_range_filters"
+        inherit_id="website_sale.o_wsale_offcanvas"
+        name="Attribute Range Filters in Offcanvas"
+    >
+        <xpath expr="//form[contains(@t-attf-class, 'js_attributes')]" position="after">
+            <t t-call="website_sale_product_attribute_filter_range.range_filters_loop">
+                <t
+                    t-set="_classes"
+                    t-valuef="o_wsale_offcanvas_title accordion accordion-flush px-4"
+                />
+                <t t-set="_classes_title" t-valuef="ms-n1 pt-3 pb-2" />
+                <t t-set="isOffcanvas" t-value="True" />
+            </t>
+        </xpath>
+    </template>
+</odoo>

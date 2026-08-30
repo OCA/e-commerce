@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 EthicHub
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="product_attribute_view_form" model="ir.ui.view">
+        <field name="name">product.attribute.form.range.filter</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form" />
+        <field name="arch" type="xml">
+            <!-- Show range step when display_type is 'range' -->
+            <field name="display_type" position="after">
+                <field name="website_range_step" invisible="display_type != 'range'" />
+            </field>
+            <!-- Lock create_variant when range (forced to no_variant by onchange) -->
+            <field name="create_variant" position="attributes">
+                <attribute name="readonly">
+                    number_related_products != 0 or display_type == 'multi' or display_type == 'range'
+                </attribute>
+            </field>
+            <!-- Add numeric_value column in attribute values list -->
+            <xpath
+                expr="//field[@name='value_ids']//field[@name='default_extra_price']"
+                position="before"
+            >
+                <field
+                    name="numeric_value"
+                    column_invisible="parent.display_type != 'range'"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

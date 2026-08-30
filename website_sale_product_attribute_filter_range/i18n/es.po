@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale_product_attribute_filter_range
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-01 00:00+0000\n"
+"PO-Revision-Date: 2025-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish <>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:product.attribute.value,field_description:website_sale_product_attribute_filter_range.field_product_attribute_value__numeric_value
+msgid "Numeric Value"
+msgstr "Valor numérico"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:product.attribute.value,help:website_sale_product_attribute_filter_range.field_product_attribute_value__numeric_value
+msgid ""
+"Numeric value used for range filtering on the website. Automatically "
+"computed from the value name if it contains a number."
+msgstr ""
+"Valor numérico utilizado para el filtrado por rango en el sitio web. Se "
+"calcula automáticamente a partir del nombre del valor si contiene un número."
+
+#. module: website_sale_product_attribute_filter_range
+#: model:product.attribute,field_description:website_sale_product_attribute_filter_range.field_product_attribute__website_range_step
+msgid "Range Step"
+msgstr "Incremento del rango"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:product.attribute,help:website_sale_product_attribute_filter_range.field_product_attribute__website_range_step
+msgid ""
+"Step increment for the range slider on the website shop. For example, 0.5 "
+"allows selecting 80.0, 80.5, 81.0, etc. Use 1 for integer steps."
+msgstr ""
+"Incremento del deslizador de rango en la tienda web. Por ejemplo, 0.5 "
+"permite seleccionar 80.0, 80.5, 81.0, etc. Use 1 para pasos enteros."
+
+#. module: website_sale_product_attribute_filter_range
+#: model:ir.model.fields.selection,name:website_sale_product_attribute_filter_range.selection__product_attribute__display_type__range
+msgid "Range Slider"
+msgstr "Deslizador de rango"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:ir.model.constraint,message:website_sale_product_attribute_filter_range.constraint_product_attribute__check_range_no_variant
+msgid "Range slider display type is not compatible with the creation of variants."
+msgstr "El tipo de visualización deslizador de rango no es compatible con la creación de variantes."
+
+#. module: website_sale_product_attribute_filter_range
+#: model:ir.ui.view,name:website_sale_product_attribute_filter_range.filter_attribute_range
+msgid "Filter Attribute by Range"
+msgstr "Filtrar atributo por rango"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:ir.ui.view,name:website_sale_product_attribute_filter_range.range_filters_loop
+msgid "Range Filters Loop"
+msgstr "Bucle de filtros de rango"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:ir.ui.view,name:website_sale_product_attribute_filter_range.products_add_range_filters
+msgid "Attribute Range Filters in Shop Sidebar"
+msgstr "Filtros de rango de atributos en la barra lateral"
+
+#. module: website_sale_product_attribute_filter_range
+#: model:ir.ui.view,name:website_sale_product_attribute_filter_range.offcanvas_add_range_filters
+msgid "Attribute Range Filters in Offcanvas"
+msgstr "Filtros de rango de atributos en el menú móvil"
