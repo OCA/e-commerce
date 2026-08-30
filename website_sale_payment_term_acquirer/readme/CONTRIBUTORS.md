@@ -1,0 +1,4 @@
+- Ooops404 \<https://ooops404.com\>
+- Cetmix \<https://cetmix.com\>
+- [PyTech](https://www.pytech.it):
+  - Simone Rubino \<<simone.rubino@pytech.it>\>
