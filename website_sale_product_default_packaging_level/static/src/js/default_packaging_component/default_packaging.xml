@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="website_sale_product_default_packaging_level.DefaultPackagingLevel">
+        <div>
+            <h6 class="attribute_name">Packaging: <t
+                t-out="this.state.default_product_packaging_level_name"
+            /> </h6>
+        </div>
+    </t>
+
+</templates>

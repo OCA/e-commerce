@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <template id="variants" inherit_id="website_sale.variants">
+        <t t-set="attribute_exclusions" position="after">
+            <div>
+                <owl-component
+                    t-if="combination_info.get('default_product_packaging_level_name')"
+                    name="website_sale_product_default_packaging_level.DefaultPackagingLevel"
+                    t-att-props="json.dumps({
+                        'default_product_packaging_level_name': combination_info['default_product_packaging_level_name'],
+                    })"
+                    class="d-flex o_not_editable"
+                />
+            </div>
+        </t>
+    </template>
+</odoo>
