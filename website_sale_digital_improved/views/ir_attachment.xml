@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="view_attachment_form" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/group" position="after">
+                <group
+                    name="website_sale_digital_improved"
+                    string="Digital Product"
+                    attrs="{'invisible': [('product_downloadable', '=', False)]}"
+                >
+                    <field name="product_downloadable" invisible="True" />
+                    <field name="product_mailable" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_document_file_kanban" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="mail.view_document_file_kanban" />
+        <field name="arch" type="xml">
+            <field name="id" position="after">
+                <field name="product_downloadable" />
+                <field name="product_mailable" />
+            </field>
+            <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
+                <div>
+                    <field
+                        name="product_mailable"
+                        widget="boolean_toggle"
+                        attrs="{'invisible': [('product_downloadable', '=', False)]}"
+                    />
+                    <label for="product_mailable">Attach to invoice mail</label>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</data>

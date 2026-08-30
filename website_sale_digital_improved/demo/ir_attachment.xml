@@ -1,0 +1,5 @@
+<odoo>
+    <record id="website_sale_digital.attach1" model="ir.attachment">
+        <field name="product_mailable" eval="True" />
+    </record>
+</odoo>

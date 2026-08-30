@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <template
+        id="sale_order_portal_content_inherit_website_sale_digital"
+        inherit_id="website_sale_digital.sale_order_portal_content_inherit_website_sale_digital"
+    >
+        <xpath
+            expr="//t[@t-foreach='attachments']//a[@role='menuitem']"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-href"
+                separator=" "
+                add="if not a.get('website_sale_digital_improved_url') else a['website_sale_digital_improved_url']"
+            />
+        </xpath>
+    </template>
+</data>
