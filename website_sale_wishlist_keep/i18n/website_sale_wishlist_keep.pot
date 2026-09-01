@@ -1,9 +1,10 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* website_sale_wishlist_keep
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,3 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: website_sale_wishlist_keep
+#: model_terms:ir.ui.view,arch_db:website_sale_wishlist_keep.wishlist_keep_checkbox
+msgid "Add product to my cart but keep it in my wishlist"
+msgstr ""
+
+#. module: website_sale_wishlist_keep
+#. odoo-javascript
+#: code:addons/website_sale_wishlist_keep/static/src/website_builder/wishlist_page_option.xml:0
+msgid "Keep items on wishlist"
+msgstr ""
