@@ -22,6 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[product_alias](product_alias/) | 18.0.1.0.0 | <a href='https://github.com/Kev-Roche'><img src='https://github.com/Kev-Roche.png' width='32' height='32' style='border-radius:50%;' alt='Kev-Roche'/></a> | Alias for each product attribute values's configuration
 [product_template_multi_link](product_template_multi_link/) | 18.0.1.0.1 |  | Product Multi Links (Template)
 [product_template_multi_link_date_span](product_template_multi_link_date_span/) | 18.0.1.0.0 |  | Add an optional date span for when a link is active.
 [product_variant_multi_link](product_variant_multi_link/) | 18.0.1.0.0 |  | Product Multi Links (Variant)
