@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (C) 2023 Akretion (<http://www.akretion.com>).
+     @author Kévin Roche <kevin.roche@akretion.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook" position="inside">
+                <page
+                    name="Alias"
+                    string="Alias"
+                    invisible="product_variant_count &lt;= 1"
+                >
+                    <field
+                        name="product_alias_ids"
+                        context="{'default_product_tmpl_id': id}"
+                    >
+                        <list editable="bottom">
+                            <field name="name" />
+                            <field name="attribute_value_ids" widget="many2many_tags" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
