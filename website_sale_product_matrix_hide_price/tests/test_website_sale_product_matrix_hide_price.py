@@ -4,8 +4,6 @@
 from odoo import Command
 from odoo.tests import HttpCase, tagged
 
-from odoo.addons.http_routing.models.ir_http import slug
-
 
 @tagged("post_install", "-at_install")
 class TestWebsiteSaleProductMatrixHidePrice(HttpCase):
@@ -77,7 +75,8 @@ class TestWebsiteSaleProductMatrixHidePrice(HttpCase):
         )
 
     def _get_product_page(self):
-        response = self.url_open(f"/shop/product/{slug(self.product)}")
+        slug = self.env["ir.http"]._slug(self.product)
+        response = self.url_open(f"/shop/product/{slug}")
         return response.text
 
     def test_matrix_add_to_cart_button_is_shown_when_price_is_visible(self):
