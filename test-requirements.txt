@@ -1,0 +1,1 @@
+odoo-addon-product_alias @ git+https://github.com/OCA/e-commerce.git@refs/pull/1206/head#subdirectory=product_alias
