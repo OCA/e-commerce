@@ -1,0 +1,1 @@
+Odoo removed the checkbox ‘Add product to my cart but keep it in my wishlist’ from the wishlist page in version 19.0. This module restores that checkbox and keeps it persistently checked in the wishlist. Unlike the standard Odoo behaviour prior to its removal, which unchecked it on exit, this functionality remembers the user's selection even after leaving the wishlist.
