@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Minimal Price Hide Price",
     "summary": "Hide the product price scale when website prices are hidden",
-    "version": "17.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
