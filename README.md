@@ -54,6 +54,7 @@ addon | version | maintainers | summary
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 19.0.1.0.0 |  | Display provisioning date for a product in shop online
 [website_sale_tax_selection](website_sale_tax_selection/) | 19.0.1.0.0 | <a href='https://github.com/yankinmax'><img src='https://github.com/yankinmax.png' width='32' height='32' style='border-radius:50%;' alt='yankinmax'/></a> | Select e-commerce tax display by website partner
 [website_sale_variant_extra_fields](website_sale_variant_extra_fields/) | 19.0.1.0.0 |  | Show variant fields and more field types in the product page extra fields
+[website_sale_wishlist_keep](website_sale_wishlist_keep/) | 19.0.1.0.0 |  | Allows to add products to my cart but keep it in my wishlist
 
 [//]: # (end addons)
 
