@@ -1,7 +1,8 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from odoo.http import request
 from odoo.tests import TransactionCase, tagged
+from odoo.tools import lazy
 
 
 @tagged("post_install", "-at_install")
@@ -48,10 +49,20 @@ class TestProductTemplateMinimalPrice(TransactionCase):
     def test_get_website_current_pricelist(self):
         from odoo.addons.website_sale.tests.common import MockRequest
 
+        pricelist = self.env["product.pricelist"].create({"name": "Request Pricelist"})
         with MockRequest(self.env, website=self.website):
-            request.pricelist = MagicMock()
+            # In Odoo 19 ``request.pricelist`` is a ``lazy()`` proxy. The method
+            # must return a materialised recordset, otherwise the in-place union
+            # in ``_get_pricelist_variant_items`` ("visited_pricelists |= ...")
+            # raises ``AttributeError: 'product.pricelist' object has no
+            # attribute '__ior__'``.
+            request.pricelist = lazy(lambda: pricelist)
             res = self.product_tmpl._get_website_current_pricelist()
-            self.assertEqual(res, request.pricelist)
+            self.assertEqual(res, pricelist)
+            # Regression: the result must support in-place set operations.
+            accumulator = self.env["product.pricelist"]
+            accumulator |= res
+            self.assertEqual(accumulator, pricelist)
         with patch.object(
             type(self.website), "_get_and_cache_current_pricelist"
         ) as mock_get_cache:
