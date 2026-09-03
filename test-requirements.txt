@@ -1,0 +1,1 @@
+odoo-addon-payment_sequra @ git+https://github.com/OCA/account-payment.git@refs/pull/901/head#subdirectory=payment_sequra
