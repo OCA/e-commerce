@@ -1,0 +1,1 @@
+odoo-addon-website-sale-product-minimal-price @ git+https://github.com/OCA/e-commerce.git@refs/pull/1300/head#subdirectory=website_sale_product_minimal_price
