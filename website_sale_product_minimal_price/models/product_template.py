@@ -9,6 +9,37 @@ from odoo.osv import expression
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    def _get_variants_price_extra_map(self, variants):
+        """Return ``{variant_id: price_extra}`` computed in a single SQL query.
+
+        Avoids the slow per-record ORM compute of the non-stored ``price_extra``
+        field for products with many variants.
+        """
+        result = {}
+        if not variants:
+            return result
+        # Resolve m2m table/columns from the field to avoid hardcoded names.
+        field = self.env["product.product"]._fields[
+            "product_template_attribute_value_ids"
+        ]
+        rel, col_variant, col_value = field.relation, field.column1, field.column2
+        self.env.cr.execute(
+            f"""
+            SELECT rel.{col_variant} AS variant_id,
+                   COALESCE(SUM(ptav.price_extra), 0.0) AS price_extra
+            FROM {rel} rel
+            JOIN product_template_attribute_value ptav
+                 ON ptav.id = rel.{col_value}
+            WHERE rel.{col_variant} IN %s
+            GROUP BY rel.{col_variant}
+            """,
+            (tuple(variants.ids),),
+        )
+        queried = dict(self.env.cr.fetchall())
+        for variant in variants:
+            result[variant.id] = queried.get(variant.id, 0.0)
+        return result
+
     def _get_product_subpricelists(self, pricelist):
         base_domain = pricelist._get_applicable_rules_domain(
             self, fields.Datetime.now()
@@ -48,29 +79,41 @@ class ProductTemplate(models.Model):
                 next_pricelists -= pricelist
         return res
 
-    def _get_cheapest_info(self, pricelist):
+    def _get_cheapest_info(self, pricelist, price_extra_map=None):
         """Helper method for getting the variant with lowest price."""
-        # TODO: Cache this method for getting better performance
         self.ensure_one()
         min_price = 99999999
         product_find = self.env["product.product"]
         add_qty = 0
         has_distinct_price = False
-        # Variants with extra price
-        variants_extra_price = self.product_variant_ids.filtered("price_extra")
-        variants_without_extra_price = self.product_variant_ids - variants_extra_price
         # Avoid compute prices when pricelist has not item variants defined
         variant_items = self._get_pricelist_variant_items(pricelist)
         if variant_items:
-            # Take into account only the variants defined in pricelist and one
-            # variant not defined to compute prices defined at template or
-            # category level. Maybe there is any definition on template that
-            # has cheaper price.
+            # Per-variant pricelist rules: price is not monotonic in
+            # price_extra, so evaluate all rule variants + one base variant +
+            # any variant with an extra price.
             variants = variant_items.mapped("product_id")
             products = variants + (self.product_variant_ids - variants)[:1]
+            products |= self.product_variant_ids.filtered("price_extra")
         else:
+            # No per-variant rules: price is monotonic in price_extra, so only
+            # the base, min-extra and max-extra variants can be cheapest/differ.
+            # price_extra is read in bulk (see _get_variants_price_extra_map).
+            extra_map = price_extra_map
+            if extra_map is None:
+                extra_map = self._get_variants_price_extra_map(self.product_variant_ids)
+            variants_with_extra = [
+                variant
+                for variant in self.product_variant_ids
+                if extra_map.get(variant.id)
+            ]
+            variants_without_extra_price = self.product_variant_ids.filtered(
+                lambda v: not extra_map.get(v.id)
+            )
             products = variants_without_extra_price[:1]
-        products |= variants_extra_price
+            if variants_with_extra:
+                variants_with_extra.sort(key=lambda v: extra_map.get(v.id) or 0.0)
+                products |= variants_with_extra[0] | variants_with_extra[-1]
         for product in products:
             for qty in [1, 99999999]:
                 product_price = product.with_context(
@@ -182,10 +225,16 @@ class ProductTemplate(models.Model):
     def _get_sales_prices(self, website):
         prices = super()._get_sales_prices(website)
         pricelist = website.pricelist_id
-        for template in self.filtered("is_published"):
+        published = self.filtered("is_published")
+        # Prefetch price_extra for every variant of the page in a single SQL
+        # query and share it with each template's _get_cheapest_info call.
+        price_extra_map = published._get_variants_price_extra_map(
+            published.product_variant_ids
+        )
+        for template in published:
             price_info = prices[template.id]
             product, add_qty, has_distinct_price = template._get_cheapest_info(
-                pricelist
+                pricelist, price_extra_map=price_extra_map
             )
             product_price_info = template._get_additionnal_combination_info(
                 product,
