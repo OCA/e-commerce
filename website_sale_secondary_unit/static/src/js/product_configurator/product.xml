@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2025 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<templates xml:space="preserve">
+    <t t-inherit="sale.Product" t-inherit-mode="extension">
+        <!-- Next to the quantity, as it is the unit that quantity is typed
+             in. Both are inline blocks aligned to the end of the cell, so the
+             selector wraps right above the quantity when there isn't enough
+             room for them side by side. -->
+        <xpath expr="//t[@t-set='isComboProduct']" position="after">
+            <select
+                t-if="hasSecondaryUoms"
+                name="secondary_uom_id"
+                class="form-select w-auto mw-100 mb-2 d-inline-block align-middle o_wsale_secondary_uom"
+                aria-label="Unit of measure"
+                t-on-change="selectSecondaryUoM"
+            >
+                <option
+                    t-if="this.props.allow_uom_sell"
+                    value="0"
+                    t-att-selected="!this.props.secondary_uom_id"
+                    t-out="this.props.uom.display_name"
+                />
+                <option
+                    t-foreach="this.props.secondary_uoms"
+                    t-as="secondaryUom"
+                    t-key="secondaryUom.id"
+                    t-att-value="secondaryUom.id"
+                    t-att-selected="secondaryUom.id === this.props.secondary_uom_id"
+                    t-out="secondaryUom.display_name"
+                />
+            </select>
+        </xpath>
+    </t>
+</templates>
