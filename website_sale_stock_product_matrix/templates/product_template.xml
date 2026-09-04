@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="product_matrix"
+        inherit_id="website_sale_product_matrix.product_matrix"
+        name="Product matrix with stock"
+    >
+        <xpath expr="//div[hasclass('css_quantity')]" position="before">
+            <t
+                t-set="combination"
+                t-value="request.env['product.template.attribute.value'].browse(cell['ptav_ids'])"
+            />
+            <t t-set="qty" t-value="cell['qty']" />
+            <t
+                t-set="combination_info"
+                t-value="product.with_context(website_sale_stock_get_quantity=True, product_matrix_cell=True)._get_combination_info(combination, add_qty=cell['qty'] or 1)"
+            />
+            <t t-set="free_qty" t-value="combination_info.get('free_qty', 0)" />
+            <t
+                t-set="disallow_out_of_stock"
+                t-value="product.is_storable and not product.allow_out_of_stock_order and free_qty &lt;= 0"
+            />
+        </xpath>
+        <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+            <attribute
+                name="t-if"
+            >cell.get('is_possible_combination') and not disallow_out_of_stock</attribute>
+        </xpath>
+        <!-- The "Not available" span used to be a plain t-else paired with the
+        css_quantity div's t-if. Since we insert content between them below,
+        that pairing would silently break (t-else would bind to whatever
+        element ends up immediately before it instead), so it needs its own
+        explicit, independent condition: only genuinely impossible
+        combinations are "not available" - being blocked by stock is a
+        different case, handled by the availability message. -->
+        <xpath
+            expr="//span[hasclass('o_matrix_nocontent_container')]"
+            position="attributes"
+        >
+            <attribute name="t-else" />
+            <attribute name="t-if">not cell.get('is_possible_combination')</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('css_quantity')]" position="after">
+            <t t-if="product.is_storable">
+                <div
+                    t-if="free_qty &lt;= 0"
+                    t-attf-class="availability_message_#{product.id}"
+                >
+                    <small
+                        class="text-danger"
+                        t-if="not is_html_empty(product.out_of_stock_message)"
+                        t-out="product.out_of_stock_message"
+                    />
+                    <small class="text-danger" t-else="">Out of Stock</small>
+                </div>
+                <div
+                    t-elif="product.show_availability"
+                    t-attf-class="availability_message_#{product.id}"
+                >
+                    <small class="text-success">
+                        <t t-esc="product._format_matrix_free_qty(free_qty)" />
+                        <t t-esc="product.uom_name" />
+                    </small>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
