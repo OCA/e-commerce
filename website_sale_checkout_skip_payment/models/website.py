@@ -13,6 +13,12 @@ class Website(models.Model):
             "Our team will check your order and send you payment information soon."
         )
 
+    website_sale_skip_payment_confirm = fields.Boolean(
+        string="Confirm the Sale Order when skipping payment",
+        help="Check this if you want to confirm the sale order when"
+        "the 'skip payment' option is activated on partner level.",
+    )
+
     website_sale_checkout_skip_message = fields.Text(
         string="Website Sale SKip Message",
         required=True,
