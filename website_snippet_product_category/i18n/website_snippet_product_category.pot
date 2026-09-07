@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,13 +22,18 @@ msgid ""
 msgstr ""
 
 #. module: website_snippet_product_category
+#: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_snippet_product_category
 #: model_terms:ir.ui.view,arch_db:website_snippet_product_category.product_public_category_form_view
 msgid "Empty means all websites"
 msgstr ""
 
 #. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal
-msgid "Metal Box"
+#: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__id
+msgid "ID"
 msgstr ""
 
 #. module: website_snippet_product_category
@@ -50,26 +55,6 @@ msgid ""
 msgstr ""
 
 #. module: website_snippet_product_category
-#: model:website.menu,name:website_snippet_product_category.snippet_product_category_demo_page_link
-msgid "Snippet Product Category Demo"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_spec_a
-msgid "Spec A"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_spec_b
-msgid "Spec B"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_metal_subspec_b_a
-msgid "SubSpec B - A"
-msgstr ""
-
-#. module: website_snippet_product_category
 #: model:ir.model,name:website_snippet_product_category.model_product_public_category
 msgid "Website Product Category"
 msgstr ""
@@ -77,9 +62,4 @@ msgstr ""
 #. module: website_snippet_product_category
 #: model:ir.model.fields,field_description:website_snippet_product_category.field_product_public_category__snippet_website_ids
 msgid "Websites for category snippet"
-msgstr ""
-
-#. module: website_snippet_product_category
-#: model:product.public.category,name:website_snippet_product_category.public_category_boxes_wooden
-msgid "Wooden Box"
 msgstr ""
