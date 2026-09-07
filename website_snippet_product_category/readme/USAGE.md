@@ -1,0 +1,33 @@
+1.  Go to website (frontend)
+2.  Press 'Edit' button
+3.  Drag the 'Product Category' snippet to the place of the website that
+    you want
+4.  Save changes
+
+## Theming
+
+CSS Classes:
+
+- `.categ_container` \> The container per master category
+- `.categ_scroll_wrapper` \> The scrollable container wrapper
+- `.categ_scroll` \> The scrollable container
+- `.categ_tree_level` \> The category row (image + text)
+- `.main_tree_level` \> The first category row level displayed
+- `.categ_link` \> The link of the category row
+- `.categ_img` \> The container of the icon of the category row
+
+You can use 'data-tree-level' attribute to select the category row of a
+selected level (1-4 by design).
+
+Also you can replace the entire template by setting the `data-template`
+attribute directly on the `.js_product_category` element, e.g. by
+inheriting the view where the snippet is placed:
+
+```xml
+<xpath expr="//div[hasclass('js_product_category')]" position="attributes">
+    <attribute name="data-template">my_module.my_custom_template</attribute>
+</xpath>
+```
+
+You only need know that the name of the variable that have all the
+categories is called `object`.
