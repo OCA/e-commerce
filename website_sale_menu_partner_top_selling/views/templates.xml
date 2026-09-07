@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="products_categories_top_user_selling"
+        inherit_id="website_sale.products_categories_list"
+        priority="999"
+    >
+        <xpath expr="//a[@t-att-href='keep(shop_path)']" position="attributes">
+            <attribute
+                name="t-attf-class"
+            >{{not category and not request.httprequest.path.startswith('/shop/my_regular_products') and 'text-decoration-underline'}} p-0</attribute>
+        </xpath>
+        <xpath expr="//a[@t-att-href='keep(shop_path)']/.." position="after">
+            <li class="nav-item mb-1">
+                <a
+                    href="/shop/my_regular_products"
+                    t-attf-class="{{request.httprequest.path.startswith('/shop/my_regular_products') and 'text-decoration-underline'}} p-0"
+                >My Regular Products</a>
+            </li>
+        </xpath>
+    </template>
+
+    <template
+        id="filmstrip_categories_top_user_selling"
+        inherit_id="website_sale.filmstrip_categories"
+        priority="999"
+    >
+        <xpath expr="//li[@t-foreach='entries']" position="before">
+            <li role="presentation">
+                <a
+                    href="/shop/my_regular_products"
+                    class="o_wsale_filmstrip_link d-block w-100 h-100 text-decoration-none"
+                    draggable="false"
+                    role="menuitem"
+                    aria-label="My Regular Products"
+                >
+                    <div
+                        t-attf-class="o_wsale_filmstrip_item position-relative d-flex w-100 h-100{{
+                            request.httprequest.path.startswith('/shop/my_regular_products') and ' active' or ''
+                        }}"
+                    >
+                        <div
+                            name="o_wsale_filmstrip_placeholder"
+                            class="o_wsale_filmstrip_image o_wsale_filmstrip_placeholder oe_img_bg o_bg_img_center rounded"
+                            role="img"
+                            aria-label="Category image"
+                        />
+                        <span>My Regular Products</span>
+                    </div>
+                </a>
+            </li>
+        </xpath>
+    </template>
+</odoo>
