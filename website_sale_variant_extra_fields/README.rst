@@ -42,9 +42,9 @@ This module removes both limitations:
 
 - product variant fields can be selected, in addition to product
   template fields;
-- more field types are supported: numbers, dates, datetimes, dropdown
-  (selection) values and linked records, in addition to char and binary
-  fields;
+- more field types are supported: multi-line text, numbers, dates,
+  datetimes, dropdown (selection) values and linked records, in addition
+  to char and binary fields;
 - when a variant field is selected, its value refreshes live on the
   product page as soon as the customer picks a different combination of
   attributes.
@@ -63,8 +63,8 @@ Usage
 1. Go to *Website > Configuration > Settings* and open the *Product Page
    Extra Fields* configuration of the website.
 2. Add a line and pick any field of a product or of a product variant.
-   Text, file, number, date, date and time, dropdown, and linked record
-   fields are available.
+   Text, multi-line text, file, number, date, date and time, dropdown,
+   and linked record fields are available.
 3. Go to the shop and open a product page. The label and the value of
    each selected field are displayed below the product details (if the
    field has a value on the displayed product or variant).

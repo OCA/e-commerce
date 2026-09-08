@@ -18,6 +18,7 @@ DUMMY_IMAGE = base64.b64encode(
 )
 
 NEW_TTYPES = [
+    "text",
     "integer",
     "float",
     "date",
@@ -118,6 +119,14 @@ class TestWebsiteSaleVariantExtraField(TransactionCase):
     def test_render_char_field(self):
         extra_field = self._create_extra_field("product.product", "default_code")
         self.assertEqual(extra_field._render_value(self.variant_1), "REF-1")
+
+    def test_render_text_field_keeps_line_breaks(self):
+        self.product_tmpl.description_sale = "First line\nSecond line"
+        extra_field = self._create_extra_field("product.template", "description_sale")
+        self.assertEqual(
+            extra_field._render_value(self.product_tmpl),
+            "First line<br>\nSecond line",
+        )
 
     def test_render_integer_field(self):
         self.variant_1.sequence = 42
