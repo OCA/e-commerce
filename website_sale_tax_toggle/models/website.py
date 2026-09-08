@@ -9,5 +9,6 @@ class Website(models.Model):
 
     tax_toggle_preactivated = fields.Boolean(
         default=False,
-        help="If enabled, the tax toggle will be active by default when entering the website.",
+        help="If enabled, the tax toggle will be active by default "
+        "when entering the website.",
     )

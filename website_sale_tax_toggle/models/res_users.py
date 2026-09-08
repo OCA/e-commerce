@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, models
 from odoo.http import request
-from odoo.tools import ormcache
 
 
 class ResUsers(models.Model):
@@ -25,11 +24,3 @@ class ResUsers(models.Model):
             )
             return group_ext_id != (tax_excluded if taxed else tax_included)
         return super().has_group(group_ext_id)
-
-    # HACK: To clear cache called from res.users write method
-    @api.model
-    @ormcache("self._uid", "group_ext_id")
-    def _has_group(self, group_ext_id):
-        return super()._has_group(group_ext_id)
-
-    has_group.clear_cache = _has_group.clear_cache
