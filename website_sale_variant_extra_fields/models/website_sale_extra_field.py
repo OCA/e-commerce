@@ -11,6 +11,7 @@ EXTRA_FIELD_MODELS = ["product.template", "product.product"]
 
 EXTRA_FIELD_TTYPES = [
     "char",
+    "text",
     "binary",
     "integer",
     "float",

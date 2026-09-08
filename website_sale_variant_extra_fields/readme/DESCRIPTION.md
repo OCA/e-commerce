@@ -8,9 +8,9 @@ This module removes both limitations:
 
 - product variant fields can be selected, in addition to product template
   fields;
-- more field types are supported: numbers, dates, datetimes, dropdown
-  (selection) values and linked records, in addition to char and binary
-  fields;
+- more field types are supported: multi-line text, numbers, dates, datetimes,
+  dropdown (selection) values and linked records, in addition to char and
+  binary fields;
 - when a variant field is selected, its value refreshes live on the product
   page as soon as the customer picks a different combination of attributes.
   - decimal numbers are displayed with the number of decimals configured for the
