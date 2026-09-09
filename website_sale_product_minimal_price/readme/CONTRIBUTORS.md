@@ -9,3 +9,7 @@
 - [Studio73](https://www.studio73.es):
 
     - Alex Garcia
+
+- [Akyado](https://www.akyado.com):
+
+    - Antoine Guex
