@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_public_category_form_view_smart_button" model="ir.ui.view">
+        <field name="name">product.public.category.form.inherit.smart.button</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/field[@name='image_1920']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button
+                        name="open_website_url"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-globe"
+                    >
+                        <span class="o_stat_text">Go to Website</span>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
