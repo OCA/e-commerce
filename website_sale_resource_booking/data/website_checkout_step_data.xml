@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="checkout_step_booking" model="website.checkout.step">
+        <field name="name">Schedule bookings</field>
+        <field name="sequence">125</field>
+        <field name="step_href">/shop/booking/1/schedule</field>
+        <field name="main_button_label">Schedule bookings</field>
+        <field name="back_button_label">Schedule bookings</field>
+    </record>
+</odoo>
