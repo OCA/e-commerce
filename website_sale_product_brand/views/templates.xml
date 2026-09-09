@@ -251,4 +251,18 @@
             </a>
         </xpath>
     </template>
+
+    <template
+        id="product_brand_description"
+        inherit_id="website_sale.product_title"
+        name="Product Page Brand Description"
+    >
+        <xpath expr="//div[@t-field='product.description_ecommerce']" position="after">
+            <div
+                t-if="product.product_brand_id.show_description_on_product_page and product.product_brand_id.website_description"
+                class="o_product_brand_description mb-3 text-muted"
+                t-field="product.product_brand_id.website_description"
+            />
+        </xpath>
+    </template>
 </odoo>
