@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ForgeFlow S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo noupdate="1">
+    <record id="mail_template_sale_quotation_skip_payment" model="mail.template">
+        <field name="name">Sales: Quotation Sent (Skip Payment)</field>
+        <field name="model_id" ref="sale.model_sale_order" />
+        <field
+            name="subject"
+        >{{ object.company_id.name }} Quotation (Ref {{ object.name or 'n/a' }})</field>
+        <field
+            name="email_from"
+        >{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+        <field name="partner_to" eval="False" />
+        <field name="use_default_to" eval="True" />
+        <field
+            name="description"
+        >Sent to website customers after a skip-payment checkout. The order remains a quotation.</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                    Hello
+                    <t t-out="object.partner_id.name or ''">Customer</t>,
+                    <br />
+                    <br />
+                    Thank you for your interest. We have received your request
+                    <span
+                    style="font-weight:bold;"
+                    t-out="object.name or ''"
+                >S00049</span>
+                    for a total of
+                    <span
+                    style="font-weight:bold;"
+                    t-out="format_amount(object.amount_total, object.currency_id) or ''"
+                >$ 10.00</span>.
+                    <br />
+                    <br />
+                    Your quotation is being reviewed by our team and you will receive
+                    a confirmation as soon as it is processed.
+                    <br />
+                    <br />
+                    You can review the details of your quotation at any time using the link below:
+                    <br />
+                    <br />
+                    <a
+                    t-att-href="object.get_portal_url()"
+                    style="background-color:#875A7B; padding: 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;"
+                >View your quotation</a>
+                    <br />
+                    <br />
+                    If you have any question, simply reply to this email.
+                    <br />
+                    <br />
+                    Best regards,
+                    <br />
+                    <t
+                    t-out="object.user_id.name or object.company_id.name or ''"
+                >Sales Team</t>
+                </p>
+            </div>
+        </field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete" eval="True" />
+    </record>
+</odoo>
