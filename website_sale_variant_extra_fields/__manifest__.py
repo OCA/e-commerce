@@ -4,7 +4,7 @@
     "name": "Website Sale Variant Extra Field",
     "summary": "Show variant fields and more field types in the product page "
     "extra fields",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
