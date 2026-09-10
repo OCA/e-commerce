@@ -1,0 +1,72 @@
+.o_wsale_assurance {
+    display: grid;
+    gap: 8px;
+    margin: 8px 0;
+
+    &.o_wsale_assurance-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &.o_wsale_assurance-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    &.o_wsale_assurance-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .o_wsale_assurance-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100%;
+        padding: 10px 8px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        background: rgba(0, 0, 0, 0.02);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        line-height: 1.35;
+    }
+
+    a.o_wsale_assurance-card:hover {
+        border-color: currentColor;
+    }
+
+    .o_wsale_assurance-icon {
+        display: block;
+        margin: 0 auto 6px;
+        line-height: 1;
+    }
+
+    i.o_wsale_assurance-icon {
+        font-size: 1.35rem;
+    }
+
+    img.o_wsale_assurance-icon,
+    svg.o_wsale_assurance-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    .o_wsale_assurance-name {
+        display: block;
+        font-weight: 700;
+    }
+
+    .o_wsale_assurance-subtitle {
+        display: block;
+        font-size: 0.85em;
+        opacity: 0.75;
+    }
+}
+
+@media (max-width: 575px) {
+    .o_wsale_assurance.o_wsale_assurance-cols-3,
+    .o_wsale_assurance.o_wsale_assurance-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix (https://www.domatix.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="assurance_terms" model="website.sale.assurance">
+        <field name="sequence">10</field>
+        <field name="name">Terms and Conditions</field>
+        <field name="icon">fa-book</field>
+        <field name="url">/terms</field>
+    </record>
+
+    <record id="assurance_guarantee" model="website.sale.assurance">
+        <field name="sequence">20</field>
+        <field name="name">30-day money-back guarantee</field>
+        <field name="subtitle">No questions asked</field>
+        <field name="icon">fa-shield</field>
+    </record>
+
+    <record id="assurance_shipping" model="website.sale.assurance">
+        <field name="sequence">30</field>
+        <field name="name">Shipping: 2-3 Business Days</field>
+        <field name="subtitle">Free over 39 €</field>
+        <field name="icon">fa-truck</field>
+    </record>
+</odoo>

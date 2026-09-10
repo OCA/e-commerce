@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix (https://www.domatix.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="group_website_sale_assurance_manager" model="res.groups">
+        <field name="name">Website eCommerce: Assurances Manager</field>
+        <field name="privilege_id" ref="website.res_groups_privilege_website" />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field
+            name="implied_by_ids"
+            eval="[(4, ref('base.group_system')), (4, ref('website.group_website_designer'))]"
+        />
+    </record>
+
+    <record id="website_sale_assurance_public" model="ir.model.access">
+        <field name="name">website.sale.assurance public read</field>
+        <field name="model_id" ref="model_website_sale_assurance" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+    <record id="website_sale_assurance_user" model="ir.model.access">
+        <field name="name">website.sale.assurance user read</field>
+        <field name="model_id" ref="model_website_sale_assurance" />
+        <field name="group_id" ref="base.group_user" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+    <record id="website_sale_assurance_manager" model="ir.model.access">
+        <field name="name">website.sale.assurance manager</field>
+        <field name="model_id" ref="model_website_sale_assurance" />
+        <field name="group_id" ref="group_website_sale_assurance_manager" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+    <record id="website_sale_assurance_config_manager" model="ir.model.access">
+        <field name="name">website.sale.assurance.config manager</field>
+        <field name="model_id" ref="model_website_sale_assurance_config" />
+        <field name="group_id" ref="group_website_sale_assurance_manager" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+</odoo>

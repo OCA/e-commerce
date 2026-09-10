@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix (https://www.domatix.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="website_sale_assurance_config_view_form" model="ir.ui.view">
+        <field name="name">website.sale.assurance.config.form</field>
+        <field name="model">website.sale.assurance.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="website_id" />
+                    <field
+                        name="assurance_columns"
+                        widget="radio"
+                        class="o_light_label"
+                    />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="website_sale_assurance_config_action" model="ir.actions.act_window">
+        <field name="name">Assurance Icons Settings</field>
+        <field name="res_model">website.sale.assurance.config</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_website_sale_assurance_config"
+        name="Assurance Icons Settings"
+        parent="website_sale.menu_ecommerce_settings"
+        action="website_sale_assurance_config_action"
+        sequence="170"
+    />
+</odoo>

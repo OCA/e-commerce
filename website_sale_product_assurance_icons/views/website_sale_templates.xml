@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix (https://www.domatix.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="product_terms_and_conditions"
+        inherit_id="website_sale.product_terms_and_conditions"
+        priority="100"
+    >
+        <xpath expr="//small[hasclass('text-muted')]" position="replace">
+            <t t-set="assurance_items" t-value="website._get_assurance_records()" />
+            <t t-if="assurance_items">
+                <div
+                    t-attf-class="o_wsale_assurance o_wsale_assurance-cols-#{website.assurance_columns or '4'}"
+                >
+                    <t t-foreach="assurance_items" t-as="assurance">
+                        <t
+                            t-call="website_sale_product_assurance_icons.assurance_card"
+                        />
+                    </t>
+                </div>
+            </t>
+            <small t-else="" class="text-muted mb-0">
+                <a href="/terms" class="o_translate_inline text-muted">
+                <u>Terms and Conditions</u>
+            </a>
+                <br />
+                30-day money-back guarantee
+                <br />
+                Shipping: 2-3 Business Days
+            </small>
+        </xpath>
+    </template>
+
+    <template id="assurance_card" name="Assurance Card">
+        <a
+            t-if="assurance.url"
+            t-att-href="assurance.url"
+            t-att-title="assurance.name"
+            class="o_wsale_assurance-card"
+        >
+            <t t-call="website_sale_product_assurance_icons.assurance_card_content" />
+        </a>
+        <div t-else="" t-att-title="assurance.name" class="o_wsale_assurance-card">
+            <t t-call="website_sale_product_assurance_icons.assurance_card_content" />
+        </div>
+    </template>
+
+    <template id="assurance_card_content" name="Assurance Card Content">
+        <img
+            t-if="assurance.image"
+            t-attf-src="/web/image/website.sale.assurance/#{assurance.id}/image"
+            t-att-alt="assurance.name"
+            class="o_wsale_assurance-icon"
+        />
+        <t t-elif="assurance.icon">
+            <i
+                t-if="assurance.icon.startswith('fa-')"
+                t-attf-class="o_wsale_assurance-icon fa #{assurance.icon}"
+            />
+            <i
+                t-else=""
+                class="o_wsale_assurance-icon"
+                t-att-data-lucide="assurance.icon"
+            />
+        </t>
+        <span class="o_wsale_assurance-name" t-esc="assurance.name" />
+        <span
+            t-if="assurance.subtitle"
+            class="o_wsale_assurance-subtitle"
+            t-esc="assurance.subtitle"
+        />
+    </template>
+</odoo>
