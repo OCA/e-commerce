@@ -1,21 +1,16 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
 
+
+@tagged("post_install", "-at_install")
 class UICase(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Remove this variable in v16 and put instead:
-        # from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
-        DISABLED_MAIL_CONTEXT = {
-            "tracking_disable": True,
-            "mail_create_nolog": True,
-            "mail_create_nosubscribe": True,
-            "mail_notrack": True,
-            "no_reset_password": True,
-        }
         cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         category_posted = cls.env["product.public.category"].create(
             {"name": "Category Test Posted", "sequence": 1}
@@ -32,7 +27,11 @@ class UICase(HttpCase):
                 "public_categ_ids": [category_posted.id],
             }
         )
-        cls.env.ref("website_sale.products_categories").active = True
+        website = cls.env["website"].get_current_website()
+        website_env = cls.env(context=dict(cls.env.context, website_id=website.id))
+        # Ensure both category views are available for the tour.
+        website_env.ref("website_sale.products_categories").active = True
+        website_env.ref("website_sale.products_categories_top").active = True
 
     def test_ui_website(self):
         """Test frontend tour."""
