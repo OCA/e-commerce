@@ -52,6 +52,7 @@ addon | version | maintainers | summary
 [website_sale_quick_checkout](website_sale_quick_checkout/) | 19.0.1.0.0 |  | Add a shortcut button to jump directly to the payment step
 [website_sale_require_legal](website_sale_require_legal/) | 19.0.1.0.2 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_resource_booking](website_sale_resource_booking/) | 19.0.1.0.0 | <a href='https://github.com/Yajo'><img src='https://github.com/Yajo.png' width='32' height='32' style='border-radius:50%;' alt='Yajo'/></a> | Let customers book resources temporarily before buying
+[website_sale_secondary_unit](website_sale_secondary_unit/) | 19.0.1.0.0 |  | Allow manage secondary units in website shop
 [website_sale_stock_available](website_sale_stock_available/) | 19.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 19.0.1.0.0 |  | Show the stock of products on the product previews
 [website_sale_stock_picking_policy](website_sale_stock_picking_policy/) | 19.0.1.0.1 |  | Let customers choose consolidated delivery at checkout
