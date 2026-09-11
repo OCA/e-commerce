@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Camptocamp SA
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Standalone wrapper so website_sale_product_document_type's grouping
+    body can be rendered for the AJAX refresh triggered by
+    /website_sale/get_combination_info, matching what that module renders
+    inline on initial page load. -->
+    <template id="product_documents_content_by_type">
+        <t t-if="product_documents">
+            <t
+                t-call="website_sale_product_document_type.product_documents_by_type_content"
+            />
+        </t>
+    </template>
+</odoo>
