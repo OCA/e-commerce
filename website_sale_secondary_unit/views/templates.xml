@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Product page: let the customer pick the unit he is buying in. The
+         quantity widget then counts the selected secondary units. -->
+    <template
+        id="cta_wrapper"
+        inherit_id="website_sale.cta_wrapper"
+        name="Select Secondary Unit"
+        priority="30"
+    >
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="inside">
+            <select
+                t-if="secondary_uom_ids"
+                name="secondary_uom_id"
+                class="form-select w-auto order-first o_wsale_secondary_uom"
+                aria-label="Unit of measure"
+                t-att-data-product-uom-id="product.uom_id.sudo().id"
+            >
+                <option
+                    t-if="product.allow_uom_sell"
+                    value="0"
+                    data-factor="1"
+                    t-att-selected="'selected' if not product.sudo().sale_secondary_uom_id else None"
+                    t-out="product.uom_id.sudo().name"
+                />
+                <t t-foreach="secondary_uom_ids" t-as="secondary_uom">
+                    <option
+                        t-att-value="secondary_uom.id"
+                        t-att-data-factor="secondary_uom.factor"
+                        t-att-selected="'selected' if product.sudo().sale_secondary_uom_id == secondary_uom else None"
+                        t-out="secondary_uom._get_website_display_name()"
+                    />
+                </t>
+            </select>
+        </xpath>
+    </template>
+    <!-- The displayed price always refers to the product unit of measure, so
+         make it explicit when several units are offered. -->
+    <template
+        id="product_price"
+        inherit_id="website_sale.product_price"
+        name="Secondary Unit Price Reference"
+    >
+        <xpath expr="//span[hasclass('oe_price')]" position="after">
+            <span
+                t-if="secondary_uom_ids"
+                class="css_editable_mode_hidden price_uom text-muted"
+            >/ <t t-out="product.uom_id.sudo().name" /></span>
+        </xpath>
+    </template>
+    <!-- Cart: show the secondary unit and the resulting product quantity -->
+    <template
+        id="cart_lines"
+        inherit_id="website_sale.cart_lines"
+        name="Secondary Unit Cart Lines"
+    >
+        <xpath
+            expr="//span[@t-out='line.product_uom_id.name']/.."
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >combination_name or line.secondary_uom_id or line.product_template_id._has_multiple_uoms()</attribute>
+        </xpath>
+        <xpath expr="//span[@t-out='line.product_uom_id.name']" position="after">
+            <t t-if="line.secondary_uom_id">
+                <span
+                    class="badge bg-light mb-1"
+                    t-out="line.secondary_uom_id._get_website_display_name()"
+                />
+                <span class="text-muted small mb-1">
+                    = <t
+                    t-out="int(line.product_uom_qty) if int(line.product_uom_qty) == line.product_uom_qty else line.product_uom_qty"
+                /> <t t-out="line.product_uom_id.sudo().name" />
+                </span>
+            </t>
+        </xpath>
+    </template>
+    <!-- Checkout summary -->
+    <template
+        id="cart_summary_content"
+        inherit_id="website_sale.cart_summary_content"
+        name="Secondary Unit Cart Summary"
+    >
+        <xpath expr="//t[@t-out='int(line.product_uom_qty)']" position="attributes">
+            <attribute name="t-out">int(line._get_displayed_quantity())</attribute>
+        </xpath>
+        <xpath
+            expr="//td[@name='website_sale_cart_summary_product_name']"
+            position="inside"
+        >
+            <span
+                t-if="line.secondary_uom_id"
+                class="badge mt-1 bg-light"
+                t-out="line.secondary_uom_id._get_website_display_name()"
+            />
+        </xpath>
+    </template>
+</odoo>
