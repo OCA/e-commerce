@@ -14,16 +14,13 @@ class ProductAttributeValues(WebsiteSale):
             ProductTemplateAttributeLine = request.env[
                 "product.template.attribute.line"
             ]
-            lines = ProductTemplateAttributeLine.search_read(
-                domain=[
+            lines = ProductTemplateAttributeLine.search(
+                [
                     ("product_tmpl_id", "in", search_product.ids),
                     ("attribute_id", "in", attributes.ids),
                     ("attribute_id.visibility", "=", "visible"),
-                ],
-                fields=["value_ids"],
+                ]
             )
-            used_value_ids = {
-                value_id for line in lines for value_id in line.get("value_ids", [])
-            }
+            used_value_ids = set(lines.value_ids.ids)
             res["attr_values_used_ids"] = used_value_ids
         return res
