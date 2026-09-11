@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="tax_toggle_template">
+        <t
+            t-set="taxed"
+            t-value="request.session.get('tax_toggle_taxed', request.env.user.with_context(skip_tax_toggle_check=True).has_group('account.group_show_line_subtotals_tax_included'))"
+        />
+        <div class="js_tax_toggle_management" data-controller="/website/tax_toggle">
+            <label class="o_switch o_switch_danger js_tax_toggle_btn">
+                <input type="checkbox" t-att-checked="taxed" />
+                <span />
+                <span>Show prices with taxes included</span>
+            </label>
+        </div>
+    </template>
+    <template
+        id="products"
+        inherit_id="website_sale.products"
+        active="True"
+        customize_show="True"
+        name="Taxes toggle"
+        priority="999"
+    >
+        <xpath expr="//div[hasclass('products_header')]" position="after">
+            <div class="row mt16 mb0">
+                <div class="col">
+                    <div class="pull-right">
+                        <t t-call="website_sale_tax_toggle.tax_toggle_template" />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template
+        id="product"
+        inherit_id="website_sale.product"
+        active="True"
+        customize_show="True"
+        name="Taxes toggle"
+        priority="999"
+    >
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="before">
+            <t t-call="website_sale_tax_toggle.tax_toggle_template" />
+        </xpath>
+    </template>
+
+    <!-- Add the tax_toggle_taxed in the t-cache key after all overrides -->
+    <template
+        id="products_tax_toggle_taxed"
+        inherit_id="website_sale.products"
+        priority="200"
+    >
+        <xpath
+            expr="//div[starts-with(@t-cache, 'pricelist,products')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-cache"
+                add="request.session.get('tax_toggle_taxed')"
+                separator=","
+            />
+        </xpath>
+    </template>
+    <template
+        id="product_tax_toggle_taxed"
+        inherit_id="website_sale.product"
+        priority="200"
+    >
+        <xpath
+            expr="//t[starts-with(@t-cache, 'pricelist,product')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-cache"
+                add="request.session.get('tax_toggle_taxed')"
+                separator=","
+            />
+        </xpath>
+    </template>
+</odoo>
