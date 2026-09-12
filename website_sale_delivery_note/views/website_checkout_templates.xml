@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template
+        id="delivery_note_input"
+        inherit_id="website_sale.checkout"
+        name="Delivery note"
+    >
+        <xpath expr="//div[@id='shop_checkout']" position="after">
+            <div class="mt-4">
+                <h4 class="text-uppercase small fs-6 fw-bold">Delivery note</h4>
+                <input
+                    id="o_delivery_note"
+                    name="delivery_note"
+                    type="text"
+                    class="form-control"
+                    placeholder="Add a note for the delivery carrier"
+                    t-att-value="order.delivery_note or ''"
+                />
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="delivery_note_recap"
+        inherit_id="website_sale.address_on_checkout"
+        name="Delivery note recap"
+    >
+        <xpath expr="//div[@id='delivery_and_billing']" position="inside">
+            <div t-if="order.delivery_note" class="mt-3">
+                <strong>Delivery note:</strong>
+                <span t-esc="order.delivery_note" class="ms-1" />
+            </div>
+        </xpath>
+    </template>
+</odoo>
