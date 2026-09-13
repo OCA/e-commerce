@@ -28,8 +28,11 @@ class ProductTemplate(models.Model):
         return self.env["product.pricelist"].browse(pricelist_ids)
 
     def _get_variants_from_pricelist(self, pricelist):
-        return pricelist.mapped("item_ids").filtered(
-            lambda i: i.product_id in self.product_variant_ids
+        return self.env["product.pricelist.item"].search(
+            [
+                ("pricelist_id", "in", pricelist.ids),
+                ("product_id.product_tmpl_id", "in", self.ids),
+            ]
         )
 
     def _get_pricelist_variant_items(self, pricelist):
@@ -49,42 +52,62 @@ class ProductTemplate(models.Model):
         return res
 
     def _get_cheapest_info(self, pricelist):
-        """Helper method for getting the variant with lowest price."""
-        # TODO: Cache this method for getting better performance
-        self.ensure_one()
-        min_price = 99999999
-        product_find = self.env["product.product"]
-        add_qty = 0
-        has_distinct_price = False
-        # Variants with extra price
-        variants_extra_price = self.product_variant_ids.filtered("price_extra")
-        variants_without_extra_price = self.product_variant_ids - variants_extra_price
-        # Avoid compute prices when pricelist has not item variants defined
+        """Get the variant with the lowest price for each template."""
+        products_by_template = {}
+        products = self.env["product.product"]
+        variant_items_by_template = {}
+        empty_items = self.env["product.pricelist.item"]
         variant_items = self._get_pricelist_variant_items(pricelist)
-        if variant_items:
-            # Take into account only the variants defined in pricelist and one
-            # variant not defined to compute prices defined at template or
-            # category level. Maybe there is any definition on template that
-            # has cheaper price.
-            variants = variant_items.mapped("product_id")
-            products = variants + (self.product_variant_ids - variants)[:1]
-        else:
-            products = variants_without_extra_price[:1]
-        products |= variants_extra_price
-        for product in products:
-            for qty in [1, 99999999]:
-                product_price = product.with_context(
-                    quantity=qty, pricelist=pricelist.id
-                )._get_contextual_price()
-                if product_price != min_price and min_price != 99999999:
-                    # Mark if there are different prices iterating over
-                    # variants and comparing qty 1 and maximum qty
-                    has_distinct_price = True
-                if product_price < min_price:
-                    min_price = product_price
-                    add_qty = qty
-                    product_find = product
-        return product_find, add_qty, has_distinct_price
+        for item in variant_items:
+            template_id = item.product_id.product_tmpl_id.id
+            variant_items_by_template[template_id] = (
+                variant_items_by_template.get(template_id, empty_items) | item
+            )
+        for template in self:
+            variants_extra_price = template.product_variant_ids.filtered("price_extra")
+            variants_without_extra_price = (
+                template.product_variant_ids - variants_extra_price
+            )
+            variant_items = variant_items_by_template.get(
+                template.id,
+                empty_items,
+            )
+            if variant_items:
+                variants = variant_items.mapped("product_id")
+                template_products = (
+                    variants + (template.product_variant_ids - variants)[:1]
+                )
+            else:
+                template_products = variants_without_extra_price[:1]
+            template_products |= variants_extra_price
+            products_by_template[template.id] = template_products
+            products |= template_products
+        prices_by_qty = {
+            qty: pricelist._get_products_price(products, qty) for qty in (1, 99999999)
+        }
+        result = {}
+        for template in self:
+            min_price = 99999999
+            product_find = self.env["product.product"]
+            add_qty = 0
+            has_distinct_price = False
+            for product in products_by_template[template.id]:
+                for qty in (1, 99999999):
+                    product_price = prices_by_qty[qty][product.id]
+                    if product_price != min_price and min_price != 99999999:
+                        has_distinct_price = True
+                    if product_price < min_price:
+                        min_price = product_price
+                        add_qty = qty
+                        product_find = product
+            result[template.id] = (
+                product_find,
+                add_qty,
+                has_distinct_price,
+            )
+        if len(self) == 1:
+            return result[self.id]
+        return result
 
     def _get_first_possible_combination(
         self, parent_combination=None, necessary_values=None
@@ -181,22 +204,54 @@ class ProductTemplate(models.Model):
 
     def _get_sales_prices(self, pricelist, fiscal_position):
         res = super()._get_sales_prices(pricelist, fiscal_position)
+        published_templates = self.filtered("is_published")
+        cheapest_info = published_templates._get_cheapest_info(pricelist)
+        if len(published_templates) == 1:
+            cheapest_info = {
+                published_templates.id: cheapest_info,
+            }
         website = (
             self.env["website"].get_current_website().with_context(**self.env.context)
         )
-        for template in self.filtered("is_published"):
-            price_info = res[template.id]
-            product, add_qty, has_distinct_price = template._get_cheapest_info(
-                pricelist
+        currency = website.currency_id
+        date = fields.Date.context_today(self)
+        products = self.env["product.product"]
+        products_by_qty = {}
+        for product, add_qty, _has_distinct_price in cheapest_info.values():
+            products |= product
+            products_by_qty.setdefault(add_qty, self.env["product.product"])
+            products_by_qty[add_qty] |= product
+        if pricelist.discount_policy == "without_discount":
+            display_prices = products._price_compute(
+                "list_price",
+                currency=currency,
+                date=date,
             )
-            product_price_info = template._get_additionnal_combination_info(
+        else:
+            display_prices = {}
+            for qty, qty_products in products_by_qty.items():
+                display_prices.update(
+                    pricelist._get_products_price(
+                        qty_products,
+                        qty,
+                        target_currency=currency,
+                    )
+                )
+        for template in published_templates:
+            product, _add_qty, has_distinct_price = cheapest_info[template.id]
+            product_taxes = product.sudo().taxes_id._filter_taxes_by_company(
+                self.env.company
+            )
+            taxes = fiscal_position.map_tax(product_taxes)
+            price = template._apply_taxes_to_price(
+                display_prices[product.id],
+                currency,
+                product_taxes,
+                taxes,
                 product,
-                quantity=add_qty,
-                date=fields.Date.context_today(self),
-                website=website,
             )
-            price_info.update(
+            res[template.id].update(
                 distinct_prices=has_distinct_price,
-                price=product_price_info["list_price"],
+                price=price,
             )
         return res
