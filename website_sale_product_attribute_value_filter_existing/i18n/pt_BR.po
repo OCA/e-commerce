@@ -12,3 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: website_sale_product_attribute_value_filter_existing
+#: model_terms:ir.ui.view,arch_db:website_sale_product_attribute_value_filter_existing.filter_radio_and_multi_attributes
+msgid "Search {{a.name}} ({{len(sorted_values)}})"
+msgstr ""
