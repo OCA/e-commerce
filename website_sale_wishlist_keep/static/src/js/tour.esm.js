@@ -48,6 +48,10 @@ registry.category("web_tour.tours").add("website_sale_wishlist_keep", {
             run: "click",
         },
         {
+            content: "The product has been added to the cart",
+            trigger: 'a[href="/shop/cart"] .my_cart_quantity:contains(1)',
+        },
+        {
             content: "Ensure that the option to keep in the wish list remains ticked.",
             trigger: "#b2b_wish:checked",
         },
