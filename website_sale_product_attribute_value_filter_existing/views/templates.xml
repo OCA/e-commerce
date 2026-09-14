@@ -16,15 +16,20 @@
         id="filter_radio_and_multi_attributes"
         inherit_id="website_sale.filter_radio_and_multi_attributes"
     >
-        <xpath expr="//div[@t-foreach='sorted_values[:8]']" position="attributes">
-            <attribute
-                name="t-if"
-            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        <xpath expr="//t[@t-set='sorted_values']" position="after">
+            <t
+                t-if="attr_values_used_ids"
+                t-set="sorted_values"
+                t-value="[v for v in sorted_values if v.id in attr_values_used_ids]"
+            />
         </xpath>
-        <xpath expr="//div[@t-foreach='sorted_values[8:]']" position="attributes">
+        <xpath
+            expr="//input[hasclass('o_wsale_attribute_search_bar')]"
+            position="attributes"
+        >
             <attribute
-                name="t-if"
-            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+                name="t-attf-placeholder"
+            >Search {{a.name}} ({{len(sorted_values)}})</attribute>
         </xpath>
     </template>
     <template
