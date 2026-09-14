@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-07-23 09:46+0000\n"
+"PO-Revision-Date: 2026-09-14 16:17+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -57,7 +57,7 @@ msgstr ""
 #. module: website_sale_tax_selection
 #: model:ir.model.fields.selection,name:website_sale_tax_selection.selection__res_partner__website_show_line_subtotals_tax_selection__tax_excluded
 msgid "Tax Excluded"
-msgstr "Tasse escluse"
+msgstr "Imponibile"
 
 #. module: website_sale_tax_selection
 #: model:ir.model.fields.selection,name:website_sale_tax_selection.selection__res_partner__website_show_line_subtotals_tax_selection__tax_included
