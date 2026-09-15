@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t t-inherit="website_sale.ProductsListPageOption" t-inherit-mode="extension">
+        <xpath expr="//BuilderRow[@label.translate='Price']" position="before">
+            <BuilderRow label.translate="Filters Marked First" level="1">
+                <BuilderCheckbox
+                    actionParam="{views: ['website_sale_product_attribute_filter_order.products_attributes']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+
+</templates>
