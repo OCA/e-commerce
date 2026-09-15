@@ -245,7 +245,7 @@ registry.category("web_tour.tours").add("website_sale_resource_booking", {
         // Integration with website_sale_vat_required
         {
             trigger: 'form.address_autoformat input[name="vat"]',
-            run: "edit US01234567891",
+            run: "edit BE0428759497",
         },
         {
             trigger: "a[name='website_sale_main_button']",
