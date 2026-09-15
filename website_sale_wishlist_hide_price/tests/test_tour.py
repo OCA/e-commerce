@@ -5,7 +5,7 @@ from odoo.tests import HttpCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestWebsiteSaleProductAttachmentTourl(HttpCase):
+class TestWebsiteSaleWishlistHidePriceTour(HttpCase):
     def setUp(self):
         super().setUp()
         product = self.env["product.product"].create(
@@ -25,5 +25,4 @@ class TestWebsiteSaleProductAttachmentTourl(HttpCase):
             "/shop",
             "website_sale_wishlist_hide_price_tour",
             login="wishlist_hide_price_user",
-            debug=True,
         )
