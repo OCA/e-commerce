@@ -2,3 +2,4 @@
 
 from . import test_website_sale_filter_brand
 from . import test_website_sale_brand_landing
+from . import test_website_sale_brand_product_page
