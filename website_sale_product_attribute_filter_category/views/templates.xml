@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Sergio Teruel
+     Copyright 2020 Tecnativa - Alexandre D. Díaz
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="products_attributes_categories"
+        inherit_id="website_sale.product_attribute_filters_form"
+        name="Attributes categories filters"
+        active="False"
+        customize_show="False"
+        priority="990"
+    >
+        <xpath expr="//t[@t-foreach='attributes']" position="replace">
+            <div class="website_sale_product_attribute_filter_category">
+                <h4>
+                    <i class="fa fa-filter" aria-hidden="true" />
+                    <span>Filters by category</span>
+                </h4>
+                <t t-foreach="attribute_categories" t-as="attr_category">
+                    <t
+                        t-set="attributes_filtered"
+                        t-value="attributes.filtered(lambda x: x.category_id.id == attr_category[0])"
+                    />
+                    <t
+                        t-set="display_category"
+                        t-value="any(len(a.value_ids) &gt; 1 for a in attributes_filtered)"
+                    />
+                    <t
+                        t-if="(not filtered_products or attributes_filtered) and display_category"
+                    >
+                        <t t-set="_cat_status" t-value="'inactive'" />
+                        <t
+                            t-foreach="attributes_filtered.mapped('value_ids')"
+                            t-as="v"
+                            t-if="v.id in attrib_set"
+                            t-set="_cat_status"
+                            t-value="'active'"
+                        />
+                        <t
+                            t-set="_cat_expand"
+                            t-value="_cat_status == 'active' or not attr_category[2]"
+                        />
+                        <div
+                            t-attf-class="accordion-item {{'border-top-0' if isMobile else 'nav-item mb-1 rounded-0'}}"
+                        >
+                            <h2
+                                t-if="isMobile"
+                                class="accordion-header mb-0"
+                                t-attf-id="o_wsale_offcanvas_category_{{attr_category[0] or 0}}_header"
+                            >
+                                <button
+                                    t-attf-class="o_wsale_offcanvas_title accordion-button rounded-0 {{'' if _cat_expand else 'collapsed'}}"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    t-attf-data-bs-target="#o_wsale_offcanvas_category_{{attr_category[0] or 0}}"
+                                    t-att-aria-expanded="_cat_expand"
+                                    t-attf-aria-controls="o_wsale_offcanvas_category_{{attr_category[0] or 0}}"
+                                >
+                                    <b t-out="attr_category[1]" />
+                                </button>
+                            </h2>
+                            <h6 t-else="" class="mb-0">
+                                <button
+                                    t-attf-class="accordion-button p-0 shadow-none bg-transparent {{'' if _cat_expand else 'collapsed'}}"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    t-attf-data-bs-target="#o_wsale_category_{{attr_category[0] or 0}}"
+                                    t-att-aria-expanded="_cat_expand"
+                                    t-attf-aria-controls="o_wsale_category_{{attr_category[0] or 0}}"
+                                >
+                                    <b t-out="attr_category[1]" />
+                                </button>
+                            </h6>
+                            <div
+                                t-attf-id="{{'o_wsale_offcanvas_category_' + str(attr_category[0] or 0) if isMobile else 'o_wsale_category_' + str(attr_category[0] or 0)}}"
+                                t-attf-class="accordion-collapse collapse {{'show' if _cat_expand else ''}}"
+                            >
+                                <div
+                                    t-attf-class="{{'accordion-body pt-0' if isMobile else 'ps-3 pt-2'}}"
+                                >
+                                    <t>$0</t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-foreach='attributes']" position="attributes">
+            <attribute name="t-foreach">attributes_filtered</attribute>
+        </xpath>
+    </template>
+</odoo>
