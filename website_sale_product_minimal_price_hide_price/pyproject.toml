@@ -1,0 +1,6 @@
+[project]
+name = "odoo-addon-website-sale-product-minimal-price-hide-price"
+
+[build-system]
+requires = ["whool"]
+build-backend = "whool.buildapi"
