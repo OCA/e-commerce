@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="sale.Product" t-inherit-mode="extension">
+        <QuantityButtons position="attributes">
+            <attribute name="isMultiple">this.props.is_multiple</attribute>
+            <attribute name="saleMultipleQty">this.props.sale_multiple_qty</attribute>
+            <attribute name="productUomId">this.props.product_uom_id</attribute>
+            <attribute name="currentUomId">this.props.uom.id</attribute>
+            <attribute name="isMainProduct">isMainProduct</attribute>
+        </QuantityButtons>
+    </t>
+</templates>
