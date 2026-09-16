@@ -20,6 +20,7 @@ class ProductBrand(models.Model):
     show_brand_name = fields.Boolean(default=True)
     show_brand_description = fields.Boolean(default=True)
     show_without_published_products = fields.Boolean(default=False)
+    show_description_on_product_page = fields.Boolean(default=False)
     align_brand_content = fields.Selection(
         selection=[
             ("left", "Left"),

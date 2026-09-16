@@ -122,6 +122,11 @@ available on every website.
 When a product has a brand with a logo configured, that logo is
 displayed on the product page and links to the brand's landing page.
 
+The brand's website description can also be shown on the product page,
+right below the product description. This is disabled by default: enable
+*Show description on product page* on the brand form (*Website* tab) for
+each brand where you want it.
+
 Bug Tracker
 ===========
 
