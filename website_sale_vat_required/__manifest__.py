@@ -11,6 +11,7 @@
     "website": "https://github.com/OCA/e-commerce",
     "license": "AGPL-3",
     "depends": ["website_sale", "base_vat"],
+    "data": ["views/portal_templates.xml"],
     "installable": True,
     "auto_install": False,
     "assets": {

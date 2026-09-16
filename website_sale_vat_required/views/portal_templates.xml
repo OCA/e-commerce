@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- The initial `required_fields` hidden input is a static literal in
+         portal.address_form_fields, so the VAT asterisk only appeared after a
+         failed submit (server-side validation) instead of on first render.
+         Reuse `show_vat`, already computed by `_prepare_address_form_values`,
+         to mark it required from the start too. -->
+    <template
+        id="address_form_fields_required_vat"
+        inherit_id="portal.address_form_fields"
+    >
+        <xpath expr="//input[@name='required_fields']" position="attributes">
+            <attribute
+                name="t-att-value"
+            >'name,email' + (',vat' if show_vat else '')</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -2,8 +2,6 @@
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
  */
 
-/** @odoo-module **/
-
 import * as tourUtils from "@website_sale/js/tours/tour_utils";
 import {registry} from "@web/core/registry";
 
@@ -66,7 +64,7 @@ registry.category("web_tour.tours").add("website_sale_vat_required_tour", {
         },
         {
             content: "VAT must be required",
-            trigger: 'input[name="vat"].is-invalid',
+            trigger: 'input[name="vat"]:invalid',
         },
         {
             content: "Fill VAT",

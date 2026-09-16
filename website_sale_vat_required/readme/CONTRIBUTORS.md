@@ -5,5 +5,8 @@
   > - Jairo Llopis
   > - Ernesto Tejeda
   > - Carlos Lopez
+  > - Cristina Hidalgo
 
 - Abraham Anes \<<abrahamanes@gmail.com>\>
+
+- ManfredNelvin \<<manfrednelvin@gmail.com>\>
