@@ -10,14 +10,13 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     def _get_variants_price_extra_map(self, variants):
-        """Return ``{variant_id: price_extra}`` computed in a single SQL query.
+        """Return ``{variant: price_extra}`` computed in a single SQL query.
 
         Avoids the slow per-record ORM compute of the non-stored ``price_extra``
         field for products with many variants.
         """
-        result = {}
         if not variants:
-            return result
+            return {}
         # Resolve m2m table/columns from the field to avoid hardcoded names.
         field = self.env["product.product"]._fields[
             "product_template_attribute_value_ids"
@@ -36,9 +35,7 @@ class ProductTemplate(models.Model):
             (tuple(variants.ids),),
         )
         queried = dict(self.env.cr.fetchall())
-        for variant in variants:
-            result[variant.id] = queried.get(variant.id, 0.0)
-        return result
+        return {variant: queried.get(variant.id, 0.0) for variant in variants}
 
     def _get_product_subpricelists(self, pricelist):
         base_domain = pricelist._get_applicable_rules_domain(
@@ -99,20 +96,14 @@ class ProductTemplate(models.Model):
             # No per-variant rules: price is monotonic in price_extra, so only
             # the base, min-extra and max-extra variants can be cheapest/differ.
             # price_extra is read in bulk (see _get_variants_price_extra_map).
-            extra_map = price_extra_map
-            if extra_map is None:
-                extra_map = self._get_variants_price_extra_map(self.product_variant_ids)
-            variants_with_extra = [
-                variant
-                for variant in self.product_variant_ids
-                if extra_map.get(variant.id)
-            ]
-            variants_without_extra_price = self.product_variant_ids.filtered(
-                lambda v: not extra_map.get(v.id)
-            )
-            products = variants_without_extra_price[:1]
+            if price_extra_map is None:
+                price_extra_map = self._get_variants_price_extra_map(
+                    self.product_variant_ids
+                )
+            variants_with_extra = self.product_variant_ids.filtered(price_extra_map.get)
+            products = (self.product_variant_ids - variants_with_extra)[:1]
             if variants_with_extra:
-                variants_with_extra.sort(key=lambda v: extra_map.get(v.id) or 0.0)
+                variants_with_extra = variants_with_extra.sorted(price_extra_map.get)
                 products |= variants_with_extra[0] | variants_with_extra[-1]
         for product in products:
             for qty in [1, 99999999]:
