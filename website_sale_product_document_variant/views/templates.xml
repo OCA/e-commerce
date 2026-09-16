@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="product_documents_variant_aware"
+        inherit_id="website_sale.product"
+        name="Product Page Documents Include Variant Documents"
+    >
+        <xpath expr="//t[@t-set='product_documents']" position="attributes">
+            <attribute
+                name="t-value"
+            >(product.sudo().product_document_ids | product_variant.sudo().product_document_ids).filtered(lambda doc: doc.shown_on_product_page)</attribute>
+        </xpath>
+        <!-- The base template hides the whole `#product_documents` node
+        with `t-if="product_documents"`, so it is entirely absent from the
+        DOM whenever the initial combination has nothing to show. The AJAX
+        refresh triggered when switching variant looks up that node by id
+        to inject the recomputed documents, so it must always be rendered.
+        Keep it visually equivalent to the previous "hidden" state with a
+        `d-none` class instead, matching the class the refresh JS itself
+        toggles. -->
+        <xpath expr="//div[@id='product_documents']" position="attributes">
+            <attribute name="t-if" />
+            <attribute
+                name="t-attf-class"
+            >o_wsale_product_details_content_section o_wsale_product_details_content_section_documents mb-4 {{'' if product_documents else 'd-none'}}</attribute>
+        </xpath>
+        <xpath expr="//div[@id='product_documents']/strong" position="attributes">
+            <attribute name="t-if">product_documents</attribute>
+        </xpath>
+        <xpath
+            expr="//div[@id='product_documents']/div[hasclass('list-group')]"
+            position="attributes"
+        >
+            <attribute name="t-if">product_documents</attribute>
+        </xpath>
+    </template>
+
+    <!-- Deliberately duplicates the markup from `website_sale.product`'s
+    `#product_documents` block: that block never exposes its inner content
+    under its own id, so there is nothing to call into. Giving it a stable
+    id here lets `ProductTemplate._get_variant_documents_html()` render it
+    standalone for the AJAX refresh triggered by
+    `/website_sale/get_combination_info`, matching what the base template
+    renders inline on initial page load. -->
+    <template id="product_documents_content">
+        <t t-if="product_documents">
+            <strong>Documents</strong>
+            <div class="list-group">
+                <t t-foreach="product_documents" t-as="document_sudo">
+                    <t
+                        t-set="attachment_sudo"
+                        t-value="document_sudo.ir_attachment_id"
+                    />
+                    <t
+                        t-set="target"
+                        t-value="attachment_sudo.type == 'url' and '_blank' or '_self'"
+                    />
+                    <t
+                        t-set="icon"
+                        t-value="attachment_sudo.type == 'url' and 'fa-link' or 'fa-download'"
+                    />
+                    <a
+                        class="list-group-item list-group-item-action"
+                        t-att-href="'/shop/' + slug(product) + '/document/' + str(document_sudo.id)"
+                        t-att-target="target"
+                    >
+                        <i t-att-class="'fa ' + icon + ' me-2'" />
+                        <t t-out="attachment_sudo.name" />
+                    </a>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>
