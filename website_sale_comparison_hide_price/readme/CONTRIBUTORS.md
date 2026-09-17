@@ -1,6 +1,7 @@
 - [Tecnativa](https://www.tecnativa.com/):
 
   - David Vidal
+  - Cristina Hidalgo
 
 - [InitOS](https://www.initos.com):
 

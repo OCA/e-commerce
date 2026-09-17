@@ -64,6 +64,7 @@ Contributors
 - `Tecnativa <https://www.tecnativa.com/>`__:
 
   - David Vidal
+  - Cristina Hidalgo
 
 - `InitOS <https://www.initos.com>`__:
 
