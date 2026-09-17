@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import base64
 
+from lxml import html
+
 from odoo.tests import HttpCase, tagged
 
 FAKE_CONTENT = base64.b64encode(b"fake document content")
@@ -78,4 +80,10 @@ class TestWebsiteSaleProductDocumentTypeHttp(HttpCase):
     def test_no_shown_documents_hides_section(self):
         self.authenticate(None, None)
         response = self.url_open(self.product_without_shown_documents.website_url)
-        self.assertNotIn('id="product_documents"', response.text)
+        documents_el = html.fromstring(response.content).get_element_by_id(
+            "product_documents", None
+        )
+        if documents_el is None:
+            return
+        self.assertIn("d-none", documents_el.get("class", ""))
+        self.assertFalse(documents_el.find_class("list-group"))

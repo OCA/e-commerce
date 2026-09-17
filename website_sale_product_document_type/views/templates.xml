@@ -77,7 +77,15 @@
         id="product_documents_by_type"
         inherit_id="website_sale.product"
         name="Product Page Documents Grouped by Type"
+        priority="20"
     >
+        <!-- website_sale_product_document_variant also sets the "t-if" on
+        these same two nodes (to include variant-specific documents in its
+        own flat list). Whichever inheriting view is combined last wins
+        that attribute, so both modules rendering side by side or the flat
+        list winning is a real risk if this module is combined first. Pin
+        a priority above the default (16) so this view is always combined
+        last and its own grouped-by-type rendering is what is shown. -->
         <xpath expr="//div[@id='product_documents']/strong" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
