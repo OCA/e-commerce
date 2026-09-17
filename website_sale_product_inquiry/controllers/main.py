@@ -51,7 +51,7 @@ class ProductInquiryController(http.Controller):
             "inquired_product_id": variant.id,
             "inquiry_type": inquiry_type,
             "description": description,
-            "type": "lead",
+            "type": self._lead_type(),
             "company_id": request.website.company_id.id,
         }
         salesperson_id = self._get_product_salesperson(variant)  # pylint: disable=assignment-from-none
@@ -71,6 +71,20 @@ class ProductInquiryController(http.Controller):
                     }
                 )
         return request.make_json_response({"success": True})
+
+    @staticmethod
+    def _lead_type():
+        """Lead or opportunity, following the CRM configuration.
+
+        Same rule as ``website_crm``: with the Leads setting off the pipeline
+        is the only CRM view left, so an inquiry created as a lead would reach
+        nobody.
+        """
+        team = request.website.sudo().crm_default_team_id
+        if team:
+            return "lead" if team.use_leads else "opportunity"
+        has_leads = request.env.user.has_group("crm.group_use_lead")
+        return "lead" if has_leads else "opportunity"
 
     def _get_product_salesperson(self, variant):
         """Return salesperson assignment for the lead.
