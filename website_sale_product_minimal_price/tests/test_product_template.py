@@ -217,8 +217,7 @@ class TestProductTemplateMinimalPrice(TransactionCase):
                 result = self.product_tmpl._search_render_results(
                     ["id", "name", "website_url"], mapping, "fa-shopping-cart", 5
                 )[0]
-
-        self.assertNotIn("From", result["price"])
+        self.assertIn("From", result["price"])
         self.assertIn("50.00", result["price"])
 
     def test_minimal_search_price_without_distinct_prices(self):
