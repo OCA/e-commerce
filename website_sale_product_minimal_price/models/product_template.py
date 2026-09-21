@@ -2,7 +2,9 @@
 # Copyright 2020 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import fields, models
+from markupsafe import Markup
+
+from odoo import _, fields, models
 from odoo.osv import expression
 
 
@@ -200,3 +202,32 @@ class ProductTemplate(models.Model):
                 price=product_price_info["list_price"],
             )
         return res
+
+    def _search_render_results(self, fetch_fields, mapping, icon, limit):
+        results_data = super()._search_render_results(
+            fetch_fields, mapping, icon, limit
+        )
+        if "detail" not in mapping:
+            return results_data
+        pricelist = self.env["website"].get_current_website().pricelist_id
+        for template, data in zip(self, results_data, strict=True):
+            product, add_qty, has_distinct_price = template._get_cheapest_info(
+                pricelist
+            )
+            if not product:
+                continue
+            combination_info = template._get_combination_info(
+                product_id=product.id,
+                add_qty=add_qty,
+            )
+            price, list_price = template._search_render_results_prices(
+                mapping, combination_info
+            )
+            data["price"] = (
+                Markup("%s %s") % (_("From"), price) if has_distinct_price else price
+            )
+            if list_price:
+                data["list_price"] = list_price
+            else:
+                data.pop("list_price", None)
+        return results_data
