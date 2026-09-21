@@ -17,8 +17,13 @@ msgstr ""
 "X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_product_minimal_price
-#. odoo-javascript
-#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
+#: model_terms:ir.ui.view,arch_db:website_sale_product_minimal_price.products_item
+msgid "<span>From</span>"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#. odoo-python
+#: code:addons/website_sale_product_minimal_price/models/product_template.py:0
 #, python-format
 msgid "From"
 msgstr "Dal"
