@@ -19,6 +19,13 @@ msgid "<span>From</span>"
 msgstr ""
 
 #. module: website_sale_product_minimal_price
+#. odoo-python
+#: code:addons/website_sale_product_minimal_price/models/product_template.py:0
+#, python-format
+msgid "From"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
 #. odoo-javascript
 #: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_price_scale.xml:0
 #, python-format
