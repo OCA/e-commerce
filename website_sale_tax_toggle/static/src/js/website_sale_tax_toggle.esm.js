@@ -4,7 +4,7 @@
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
 import {browser} from "@web/core/browser/browser";
-import publicWidget from "web.public.widget";
+import publicWidget from "@web/legacy/js/public/public_widget";
 
 publicWidget.registry.tax_toggle_button = publicWidget.Widget.extend({
     selector: ".js_tax_toggle_management",
