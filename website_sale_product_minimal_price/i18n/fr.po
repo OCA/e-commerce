@@ -17,16 +17,19 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: website_sale_product_minimal_price
-#. odoo-javascript
-#: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml:0
-#, python-format
+#: model_terms:ir.ui.view,arch_db:website_sale_product_minimal_price.products_item
+msgid "<span>From</span>"
+msgstr ""
+
+#. module: website_sale_product_minimal_price
+#. odoo-python
+#: code:addons/website_sale_product_minimal_price/models/product_template.py:0
 msgid "From"
 msgstr "À partir de"
 
 #. module: website_sale_product_minimal_price
 #. odoo-javascript
 #: code:addons/website_sale_product_minimal_price/static/src/xml/website_sale_product_price_scale.xml:0
-#, python-format
 msgid "Prices per quantity ("
 msgstr "Prix par quantité ("
 
