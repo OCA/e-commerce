@@ -13,7 +13,13 @@ class ProductTemplate(models.Model):
     def _get_website_current_pricelist(self, website=None):
         website = website or self.env["website"].get_current_website()
         if request and getattr(request, "pricelist", False):
-            return request.pricelist
+            # In Odoo 19 request.pricelist is a lazy() proxy
+            # (website_sale/models/ir_http.py). Returning it as-is makes the
+            # in-place union in _get_pricelist_variant_items
+            # ("visited_pricelists |= pricelist") delegate to
+            # product.pricelist.__ior__, which no longer exists on recordsets,
+            # raising AttributeError. Materialise it into a real recordset.
+            return self.env["product.pricelist"].browse(request.pricelist.ids)
         pricelist = website._get_and_cache_current_pricelist()
         if pricelist:
             return pricelist
