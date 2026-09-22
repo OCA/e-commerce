@@ -18,6 +18,7 @@
     "assets": {
         "web.assets_frontend": [
             "website_sale_product_matrix/static/src/js/**/*.js",
+            "website_sale_product_matrix/static/src/js/**/*.xml",
             "website_sale_product_matrix/static/src/scss/**/*.scss",
         ],
     },

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<templates xml:space="preserve">
+    <t t-name="website_sale_product_matrix.ProductMatrixDialog">
+        <Dialog
+            size="'xl'"
+            contentClass="'o_wsale_product_matrix_dialog'"
+            title.translate="Configure product options"
+        >
+            <div
+                t-ref="matrix"
+                t-on-click="onClickQuantityButton"
+                t-on-change="onChangeQuantity"
+                t-out="matrixHtml"
+            />
+            <t t-set-slot="footer">
+                <button
+                    name="website_sale_product_matrix_confirm_button"
+                    class="btn btn-primary"
+                    t-on-click="onConfirm"
+                >
+                    Confirm
+                </button>
+                <button class="btn btn-light" t-on-click="() => this.props.close()">
+                    Discard
+                </button>
+            </t>
+        </Dialog>
+    </t>
+</templates>
