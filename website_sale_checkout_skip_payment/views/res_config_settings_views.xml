@@ -6,6 +6,18 @@
         <field name="arch" type="xml">
             <xpath expr="//block[@id='website_shop_checkout']" position="inside">
                 <setting
+                    id="sale_checkout_skip_confirm"
+                    string="Sale Checkout Skip Confirm"
+                    help="Check this if you want to confirm the sale order when the 'skip payment' option is
+                     activated on partner level."
+                >
+                    <div class="content-group">
+                        <div class="row">
+                            <field name="website_sale_skip_payment_confirm" />
+                        </div>
+                    </div>
+                </setting>
+                <setting
                     id="sale_checkout_skip_message"
                     string="Sale Checkout Skip Message"
                     help="Message shown to the user when the purchase is finished"

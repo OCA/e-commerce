@@ -28,29 +28,13 @@
     </template>
     <template id="confirmation" inherit_id="website_sale.confirmation">
         <xpath
-            expr='//div[@t-if="tx_sudo.state in [&apos;pending&apos;, &apos;done&apos;]"]'
-            position="attributes"
-        >
-            <attribute
-                name="t-if"
-            >tx_sudo.state in ['pending', 'done'] or (website.checkout_skip_payment and order.state == 'sale')</attribute>
-        </xpath>
-        <xpath
-            expr='//t[@t-if="tx_sudo.state == &apos;done&apos;"]'
-            position="attributes"
-        >
-            <attribute
-                name="t-if"
-            >tx_sudo.state == 'done' or website.checkout_skip_payment</attribute>
-        </xpath>
-        <xpath
             expr="//t[@t-call='website_sale.payment_confirmation_status']"
             position="after"
         >
             <div
                 class="alert alert-info"
                 role="alert"
-                t-if="website.checkout_skip_payment"
+                t-if="order.website_payment_skipped"
             >
                 <span t-field="website.website_sale_checkout_skip_message" />
             </div>
@@ -60,7 +44,7 @@
             expr="//t[@t-call='website_sale.payment_confirmation_status']"
             position="attributes"
         >
-            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+            <attribute name="t-if">not order.website_payment_skipped</attribute>
         </xpath>
     </template>
     <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">

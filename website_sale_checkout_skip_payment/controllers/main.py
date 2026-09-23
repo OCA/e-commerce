@@ -24,14 +24,18 @@ class CheckoutSkipPaymentWebsite(WebsiteSale):
         if not request.website.checkout_skip_payment or not order_id:
             return super().shop_payment_confirmation(**post)
         order = request.env["sale.order"].sudo().browse(order_id)
+        confirm = request.website.website_sale_skip_payment_confirm
         try:
-            order.with_context(mark_so_as_sent=True)._send_order_confirmation_mail()
+            order.website_payment_skipped = True
+            # This could not finish (e.g.: sale_financial_risk exceeded)
+            if confirm:
+                order.with_context(send_email=True).action_confirm()
+            else:
+                order.with_context(mark_so_as_sent=True)._send_order_confirmation_mail()
         except Exception:
             return request.render(
                 "website_sale_checkout_skip_payment.confirmation_order_error"
             )
-        # This could not finish (e.g.: sale_financial_risk exceeded)
-        order.action_confirm()
         request.website.sale_reset()
         values = self._prepare_shop_payment_confirmation_values(order)
         return request.render("website_sale.confirmation", values)
