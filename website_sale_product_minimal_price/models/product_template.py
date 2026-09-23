@@ -2,6 +2,8 @@
 # Copyright 2020 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from markupsafe import Markup
+
 from odoo import fields, models
 from odoo.fields import Domain
 from odoo.http import request
@@ -210,7 +212,7 @@ class ProductTemplate(models.Model):
         for product, data in zip(self, results_data, strict=False):
             minimal_price = product._get_minimal_search_price(current_website, mapping)
             if minimal_price:
-                data["price"] = minimal_price
+                data["price"] = Markup("%s %s") % (self.env._("From"), minimal_price)
                 data.pop("list_price", None)
         return results_data
 
