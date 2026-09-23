@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="website_sale_dynamic_review_snippet.MessageReviewList">
+        <div
+            class="o-mail-MessageReviewList d-flex flex-column"
+            t-att-class="{ 'justify-content-center flex-grow-1': props.messages.length === 0 }"
+            t-ref="message-review-list"
+            t-if="props.messages.length > 0"
+        >
+            <div
+                class="mb-2"
+                t-foreach="props.messages"
+                t-as="message"
+                t-key="message.id"
+            >
+                <div class="py-2">
+                    <MessageReview
+                        hasActions="false"
+                        message="message"
+                        messageSearch="props.messageSearch"
+                    />
+                </div>
+            </div>
+            <span t-if="props.loadMore" t-ref="load-more">
+                <button
+                    class="btn btn-outline-secondary"
+                    t-on-click="() => this.loadMore()"
+                >
+                    Load More
+                </button>
+            </span>
+            <p
+                t-if="props.messages.length === 0"
+                t-esc="emptyText"
+                class="text-center fst-italic text-500 fs-6"
+            />
+        </div>
+        <div t-else="">
+            <div
+                class="o-mail-Thread-empty d-flex flex-column align-items-center justify-content-center text-muted h-100 opacity-75 p-4"
+            >
+                <span class="fs-1" style="filter: grayscale(1);">😶</span>
+                <span>There are no reviews</span>
+            </div>
+        </div>
+    </t>
+</templates>
