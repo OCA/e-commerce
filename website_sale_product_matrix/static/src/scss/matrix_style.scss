@@ -13,3 +13,8 @@
         width: 99%;
     }
 }
+// The same size as in the product page
+.modal-dialog:has(> .o_wsale_product_matrix_dialog) {
+    max-width: none;
+    width: 99%;
+}

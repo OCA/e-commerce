@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<templates xml:space="preserve">
+    <t t-inherit="sale.Product" t-inherit-mode="extension">
+        <xpath expr="//t[@t-foreach='this.props.attribute_lines']" position="after">
+            <table
+                t-if="isMatrixProduct &amp;&amp; this.props.matrix_lines &amp;&amp; this.props.matrix_lines.length"
+                class="table table-sm mb-0 o_wsale_product_matrix_lines"
+            >
+                <tbody>
+                    <tr
+                        t-foreach="this.props.matrix_lines"
+                        t-as="line"
+                        t-key="line_index"
+                    >
+                        <td t-out="line.name" />
+                        <td class="text-end text-nowrap" t-out="line.qty" />
+                        <td
+                            t-if="env.showPrice"
+                            class="text-end text-nowrap"
+                            t-out="getFormattedMatrixLinePrice(line)"
+                        />
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+        <!-- The price depends on the variants chosen in the matrix -->
+        <xpath
+            expr="//t[@name='sale_product_configurator_price']/.."
+            position="attributes"
+        >
+            <attribute name="t-if" add="!isMatrixProduct" separator=" &amp;&amp; " />
+        </xpath>
+        <QuantityButtons position="attributes">
+            <attribute name="t-if" add="!isMatrixProduct" separator=" &amp;&amp; " />
+        </QuantityButtons>
+        <xpath expr="//t[@t-set='isComboProduct']" position="after">
+            <button
+                t-if="isMatrixProduct"
+                type="button"
+                name="website_sale_product_matrix_configure_button"
+                class="btn btn-primary text-nowrap"
+                t-on-click="() => this.env.openProductMatrix(this.props.product_tmpl_id)"
+            >
+                <i class="fa fa-cart-plus me-2" />
+                Configure options
+            </button>
+        </xpath>
+    </t>
+</templates>
