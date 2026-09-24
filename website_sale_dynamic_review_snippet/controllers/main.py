@@ -16,6 +16,11 @@ class CustomerReview(Controller):
             ("model", "=", "product.template"),
             ("message_type", "=", "comment"),
             ("rating_value", ">=", 1),
+            (
+                "res_id",
+                "in",
+                request.env["product.template"]._search([("is_published", "=", True)]),
+            ),
         ]
         result = (
             request.env["mail.message"]
@@ -26,10 +31,16 @@ class CustomerReview(Controller):
         messages_vals_list = messages.portal_message_format(
             options={"rating_include": True}
         )
+        products = (
+            request.env["product.template"]
+            .sudo()
+            .browse([vals["res_id"] for vals in messages_vals_list])
+        )
+        product_by_id = {product.id: product for product in products}
         for vals in messages_vals_list:
-            record = request.env[vals["model"]].sudo().browse(vals["res_id"])
-            vals["thread"]["name"] = record.name
-            vals["website_url"] = record.website_url
+            product = product_by_id[vals["res_id"]]
+            vals["thread"]["name"] = product.name
+            vals["website_url"] = product.website_url
         return {
             **result,
             "data": {
@@ -44,7 +55,23 @@ class CustomerReview(Controller):
         request.env["res.users"]._init_store_data(store)
         if request.env.user.has_group("website.group_website_restricted_editor"):
             store.add(request.env.user.partner_id, {"is_user_publisher": True})
-        products = request.env["product.template"].search([("is_published", "=", True)])
+        reviewed_products = (
+            request.env["mail.message"]
+            .sudo()
+            ._search(
+                [
+                    ("model", "=", "product.template"),
+                    ("message_type", "=", "comment"),
+                    ("rating_value", ">=", 1),
+                ]
+            )
+        )
+        products = request.env["product.template"].search(
+            [
+                ("is_published", "=", True),
+                ("id", "in", reviewed_products.subselect("DISTINCT res_id")),
+            ]
+        )
         product_obj = request.env["product.template"]
         for product in products:
             thread = product_obj._get_thread_with_access(product.id, **kwargs)
