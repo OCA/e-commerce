@@ -50,7 +50,7 @@
                     and (
                         1
                         if line.product_uom_id != line.product_id.uom_id
-                        else line.product_id.sale_multiple_uom_id.factor
+                        else line._get_sale_multiple_step_qty()
                     )
                 ) or 1
             </attribute>

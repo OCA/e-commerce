@@ -176,3 +176,21 @@ class TestWebsiteSaleProductMultipleQTY(HttpCaseWithUserDemo):
         Using "admin" user in the tests for the checkout tour.
         """
         self.start_tour("/", "tour_shop_checkout_product_multiple_qty", login="admin")
+
+    def test_02_sale_multiple_step_in_product_uom(self):
+        """The step is expressed in the product UoM and keeps its decimals."""
+        kg = self.env.ref("uom.product_uom_kgm")
+        pack_of_2_5_kg = self.UoM.create(
+            {
+                "name": "Pack of 2.5 kg",
+                "relative_factor": 2.5,
+                "relative_uom_id": kg.id,
+            }
+        )
+        product = self.ProductTemplate.create({"name": "Powder", "uom_id": kg.id})
+        product.product_variant_id.sale_multiple_uom_id = pack_of_2_5_kg
+        vals = self.ProductTemplate._get_sale_multiple_vals(product, kg)
+        self.assertEqual(vals["sale_multiple_qty"], 2.5)
+        self.assertEqual(vals["uom_qty_step"], 2.5)
+        vals = self.ProductTemplate._get_sale_multiple_vals(product, pack_of_2_5_kg)
+        self.assertEqual(vals["uom_qty_step"], 1)

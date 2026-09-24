@@ -49,9 +49,16 @@ class ProductTemplate(models.Model):
                 result.update({"product_uom_id": product.uom_id.id})
             return result
 
+        # Express one sales multiple in the product UoM, keeping the decimals
+        # allowed by the UoM precision (e.g. 2.5 for a "Pack of 2.5 kg"
+        # on a product sold in kg).
+        sales_multiple_step = product.uom_id.round(
+            multiple_uom._compute_quantity(1.0, product.uom_id, round=False)
+        )
         # We want to return an integer to the quantity
-        # frontend input when page loads
-        sales_multiple_step = int(multiple_uom.factor)
+        # frontend input when page loads, if possible
+        if sales_multiple_step.is_integer():
+            sales_multiple_step = int(sales_multiple_step)
         uom_step = 1 if uom_is_packaging else sales_multiple_step
 
         result.update(
