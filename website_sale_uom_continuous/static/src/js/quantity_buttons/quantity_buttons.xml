@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="sale.QuantityButtons" t-inherit-mode="extension">
+        <!-- Accept decimal quantities, for continuous UoMs -->
+        <input name="sale_quantity" position="attributes">
+            <attribute name="step">any</attribute>
+        </input>
+    </t>
+</templates>
