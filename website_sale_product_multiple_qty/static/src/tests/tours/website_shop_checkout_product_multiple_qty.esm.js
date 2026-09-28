@@ -43,6 +43,10 @@ registry.category("web_tour.tours").add("tour_shop_checkout_product_multiple_qty
             trigger: "#cart_products input.js_quantity:value(10)",
         },
         {
+            content: "Cart: wait for the cart update (10)",
+            trigger: "sup.my_cart_quantity:text(10)",
+        },
+        {
             content: "Cart: click plus (10 -> 15)",
             trigger:
                 '#cart_products .o_cart_product .css_quantity[name="website_sale_cart_line_quantity"] a:has(i.oi.oi-plus)',
@@ -53,6 +57,10 @@ registry.category("web_tour.tours").add("tour_shop_checkout_product_multiple_qty
             trigger: "#cart_products input.js_quantity:value(15)",
         },
         {
+            content: "Cart: wait for the cart update (15)",
+            trigger: "sup.my_cart_quantity:text(15)",
+        },
+        {
             content: "Cart: click minus (15 -> 10)",
             trigger:
                 '#cart_products .o_cart_product .css_quantity[name="website_sale_cart_line_quantity"] a:has(i.oi.oi-minus)',
@@ -61,6 +69,10 @@ registry.category("web_tour.tours").add("tour_shop_checkout_product_multiple_qty
         {
             content: "Cart: qty is 10",
             trigger: "#cart_products input.js_quantity:value(10)",
+        },
+        {
+            content: "Cart: wait for the cart update (10)",
+            trigger: "sup.my_cart_quantity:text(10)",
         },
         {
             content: "Cart: manual input 21",
@@ -84,6 +96,10 @@ registry.category("web_tour.tours").add("tour_shop_checkout_product_multiple_qty
         {
             content: "Cart: qty is 25",
             trigger: "#cart_products input.js_quantity:value(25)",
+        },
+        {
+            content: "Cart: wait for the cart update (25)",
+            trigger: "sup.my_cart_quantity:text(25)",
         },
     ],
 });
