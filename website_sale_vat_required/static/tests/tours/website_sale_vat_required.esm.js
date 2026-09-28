@@ -6,7 +6,6 @@ import * as tourUtils from "@website_sale/js/tours/tour_utils";
 import {registry} from "@web/core/registry";
 
 registry.category("web_tour.tours").add("website_sale_vat_required_tour", {
-    test: true,
     url: "/shop",
     steps: () => [
         {
