@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="snippets"
+        inherit_id="website_sale.snippets"
+        name="e-commerce snippets"
+    >
+        <t t-snippet="website_sale.s_dynamic_snippet_products" position="after">
+            <t
+                t-snippet="website_sale_dynamic_review_snippet.s_dynamic_review_snippet"
+                group="products"
+                string="Product Reviews Snippet"
+            />
+        </t>
+    </template>
+
+    <template
+        id="s_dynamic_review_options"
+        inherit_id="website.snippet_options"
+        name="Product Reviews - Snippet Options"
+    >
+        <xpath expr="." position="inside">
+            <div data-selector=".s_customer_review">
+                <we-select
+                    string="Max Number of Reviews"
+                    data-attribute-name="maxNumberReviews"
+                    data-attribute-default-value="20"
+                >
+                    <we-button data-select-data-attribute="20">20</we-button>
+                    <we-button data-select-data-attribute="40">40</we-button>
+                    <we-button data-select-data-attribute="60">60</we-button>
+                    <we-button data-select-data-attribute="80">80</we-button>
+                    <we-button data-select-data-attribute="100">100</we-button>
+                </we-select>
+                <we-checkbox
+                    string="Two Columns"
+                    data-attribute-name="twoColumns"
+                    data-select-data-attribute="|true"
+                    data-attribute-default-value=""
+                />
+            </div>
+        </xpath>
+    </template>
+</odoo>
