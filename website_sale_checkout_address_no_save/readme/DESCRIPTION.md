@@ -1,0 +1,1 @@
+Adds a checkbox in /shop/address to avoid having to many address in /shop/checkout.
