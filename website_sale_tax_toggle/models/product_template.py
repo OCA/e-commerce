@@ -11,8 +11,6 @@ class ProductTemplate(models.Model):
     def _apply_taxes_to_price(
         self, price, currency, product_taxes, taxes, product_or_template
     ):
-        """Website prices follow the website setting, not the user groups
-        (which `res.users.has_group` overrides), so apply the toggle here."""
         taxed = request.session.get("tax_toggle_taxed") if request else None
         if taxed is None:
             return super()._apply_taxes_to_price(

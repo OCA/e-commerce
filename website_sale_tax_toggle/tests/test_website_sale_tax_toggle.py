@@ -4,6 +4,8 @@ from odoo.tests import tagged
 from odoo.tests.common import HttpCase
 
 from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from odoo.addons.website.tools import MockRequest
+from odoo.addons.website_sale_tax_toggle.controllers.main import WebsiteSaleTaxToggle
 
 
 @tagged("post_install", "-at_install")
@@ -47,3 +49,17 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
             tour_name="website_sale_tax_toggle",
             login="admin",
         )
+
+    def test_tax_toggle_route_initializes_session(self):
+        """Without value in the session, the route starts from the website setting.
+
+        ``_frontend_pre_dispatch`` already sets the value for HTTP requests, so
+        the controller is called directly.
+        """
+        website = self.env["website"].get_current_website()
+        for preactivated in (False, True):
+            website.tax_toggle_preactivated = preactivated
+            with MockRequest(self.env, website=website) as request:
+                taxed = WebsiteSaleTaxToggle().tax_toggle()
+                self.assertEqual(taxed, not preactivated)
+                self.assertEqual(request.session["tax_toggle_taxed"], taxed)
