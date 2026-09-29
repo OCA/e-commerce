@@ -11,14 +11,15 @@ publicWidget.registry.tax_toggle_button = publicWidget.Widget.extend({
     events: {
         "click .js_tax_toggle_btn": "_onPublishBtnClick",
     },
-    _onPublishBtnClick: function (ev) {
+    init() {
+        this._super(...arguments);
+        this.rpc = this.bindService("rpc");
+    },
+    async _onPublishBtnClick(ev) {
         ev.preventDefault();
         const $data = $(ev.currentTarget).parents(".js_tax_toggle_management:first");
-        this._rpc({
-            route: $data.data("controller"),
-        }).then(function (result) {
-            $data.find("input").prop("checked", result);
-            browser.location.reload();
-        });
+        const result = await this.rpc($data.data("controller"));
+        $data.find("input").prop("checked", result);
+        browser.location.reload();
     },
 });
