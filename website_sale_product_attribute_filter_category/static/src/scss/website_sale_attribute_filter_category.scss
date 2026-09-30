@@ -5,6 +5,10 @@
         display: flex;
     }
     .accordion-item {
-        border: 0 !important;
+        border-right: 0 !important;
+        border-left: 0 !important;
+    }
+    .accordion-item:last-child {
+        border-bottom: 0 !important;
     }
 }
