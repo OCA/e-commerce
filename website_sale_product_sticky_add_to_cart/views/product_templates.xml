@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Sticky add-to-cart bar rendered on the product page. It is hidden by a
+         CSS transform so it never affects page scrolling; the interaction
+         toggles its visibility past a scroll threshold and keeps the price in
+         sync with the variant selected on the page. -->
+    <template
+        id="website_sale_sticky_add_to_cart_bar"
+        inherit_id="website_sale.product"
+        customize_show="True"
+        name="Sticky Add to Cart Bar"
+    >
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <div
+                id="o_sticky_add_to_cart_bar"
+                class="o_sticky_add_to_cart_bar"
+                t-if="is_add_to_cart_possible and not combination_info['prevent_zero_price_sale']"
+            >
+                <div class="container o_sticky_add_to_cart_inner">
+                    <img
+                        t-att-src="website.image_url(product, 'image_128')"
+                        class="o_sticky_add_to_cart_img"
+                        alt=""
+                    />
+                    <span class="o_sticky_add_to_cart_name" t-out="product.name" />
+                    <span class="o_sticky_add_to_cart_price">
+                        <t
+                            t-out="combination_info['price']"
+                            t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                        />
+                    </span>
+                    <a
+                        href="#"
+                        role="button"
+                        class="btn btn-primary o_sticky_add_to_cart_add"
+                    >
+                        <i class="fa fa-shopping-cart me-2" />
+                        Add to cart
+                    </a>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
