@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Inject "Request Information" button into the CTA area -->
+    <template
+        id="product_inquiry_button"
+        inherit_id="website_sale.product"
+        name="Product Inquiry Button"
+    >
+        <xpath
+            expr="//div[hasclass('o_wsale_product_details_content_section_cta')]"
+            position="after"
+        >
+            <button
+                type="button"
+                class="btn btn-secondary flex-grow-1 flex-lg-grow-0 o_wsale_product_inquiry_btn"
+                data-bs-toggle="modal"
+                data-bs-target="#productInquiryModal"
+            >
+                <i class="fa fa-envelope me-2" />
+                Request Information
+            </button>
+        </xpath>
+    </template>
+
+    <!-- Inject the inquiry modal into the product page (outside the cart form) -->
+    <template
+        id="product_inquiry_modal"
+        inherit_id="website_sale.product"
+        name="Product Inquiry Modal"
+    >
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <div
+                class="modal fade"
+                id="productInquiryModal"
+                tabindex="-1"
+                aria-labelledby="productInquiryModalLabel"
+                aria-hidden="true"
+                t-att-data-variant-refs="','.join('%s:%s' % (v.id, v.default_code or '') for v in product.product_variant_ids)"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productInquiryModalLabel">
+                                <span t-out="product.name" />
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            />
+                        </div>
+                        <div class="modal-body">
+                            <div class="o_inquiry_success alert alert-success d-none">
+                                <strong
+                            >Thank you!</strong> We have received your request and will be in touch shortly.
+                            </div>
+                            <form id="productInquiryForm" novalidate="novalidate">
+                                <input
+                                    type="hidden"
+                                    name="product_id"
+                                    class="o_inquiry_product_id"
+                                    t-att-value="product.product_variant_id.id"
+                                />
+                                <!-- Contact details -->
+                                <h6
+                                    class="text-uppercase text-muted fw-bold mb-3"
+                                >Contact Details</h6>
+                                <div class="mb-3">
+                                    <label class="form-label" for="inquiryContactName">
+                                        Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="inquiryContactName"
+                                        name="contact_name"
+                                        required="required"
+                                        placeholder="Your name"
+                                        t-att-value="website.env.user.name if not website.env.user._is_public() else None"
+                                    />
+                                    <div
+                                        class="invalid-feedback"
+                                    >Please enter your name.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="inquiryEmail">
+                                        Email <span class="text-danger">*</span>
+                                    </label>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="inquiryEmail"
+                                        name="email"
+                                        required="required"
+                                        placeholder="Your email address"
+                                        t-att-value="website.env.user.email if not website.env.user._is_public() else None"
+                                    />
+                                    <div
+                                        class="invalid-feedback"
+                                    >Please enter a valid email address.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label
+                                        class="form-label"
+                                        for="inquiryCompany"
+                                    >Company</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="inquiryCompany"
+                                        name="company_name"
+                                        placeholder="Your company name"
+                                        t-att-value="(website.env.user.partner_id.company_id.name or website.env.user.partner_id.company_name) if not website.env.user._is_public() else None"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label
+                                        class="form-label"
+                                        for="inquiryPhone"
+                                    >Phone</label>
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        id="inquiryPhone"
+                                        name="phone"
+                                        placeholder="Your phone number"
+                                        t-att-value="website.env.user.partner_id.phone if not website.env.user._is_public() else None"
+                                    />
+                                </div>
+                                <!-- Product details -->
+                                <h6
+                                    class="text-uppercase text-muted fw-bold mb-3 mt-4"
+                                >Product Details</h6>
+                                <dl class="row mb-3">
+                                    <dt
+                                        class="col-sm-3 fw-normal text-muted"
+                                    >Item No.</dt>
+                                    <dd class="col-sm-9">
+                                        <span
+                                            class="o_inquiry_item_no"
+                                            t-out="product.product_variant_id.default_code or ''"
+                                        />
+                                    </dd>
+                                    <dt
+                                        class="col-sm-3 fw-normal text-muted"
+                                    >Product Name</dt>
+                                    <dd class="col-sm-9" t-out="product.name" />
+                                </dl>
+                                <!-- Request type -->
+                                <div class="mb-3">
+                                    <label
+                                        class="form-label fw-semibold"
+                                    >Request type</label>
+                                    <div class="d-flex flex-column gap-1">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="inquiry_type"
+                                                id="inquiryTypeMoreInfo"
+                                                value="more_info"
+                                                checked="checked"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="inquiryTypeMoreInfo"
+                                            >I'd like more information</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="inquiry_type"
+                                                id="inquiryTypeQuote"
+                                                value="quote"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="inquiryTypeQuote"
+                                            >I'd like a quote</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Question -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="inquiryQuestion">
+                                        Question <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea
+                                        class="form-control"
+                                        id="inquiryQuestion"
+                                        name="question"
+                                        rows="4"
+                                        required="required"
+                                        placeholder="Type your question (e.g. item price, available variants, units of measurement, etc.)"
+                                    />
+                                    <div
+                                        class="invalid-feedback"
+                                    >Please enter your question.</div>
+                                </div>
+                                <!-- Attachment -->
+                                <div class="mb-3">
+                                    <label
+                                        class="form-label"
+                                        for="inquiryAttachment"
+                                    >Attachments</label>
+                                    <input
+                                        type="file"
+                                        class="form-control"
+                                        id="inquiryAttachment"
+                                        name="attachment"
+                                    />
+                                </div>
+                                <div
+                                    class="o_inquiry_error alert alert-danger d-none"
+                                />
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary o_inquiry_cancel"
+                                data-bs-dismiss="modal"
+                            >Cancel</button>
+                            <button
+                                type="submit"
+                                form="productInquiryForm"
+                                class="btn btn-primary o_inquiry_submit"
+                            >Send Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

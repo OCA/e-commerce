@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="crm_lead_view_form_product_inquiry" model="ir.ui.view">
+        <field name="name">crm.lead.form.product.inquiry</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page/group" position="inside">
+                <group string="Product Inquiry" name="product_inquiry">
+                    <field name="inquired_product_id" />
+                    <field name="inquiry_type" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
