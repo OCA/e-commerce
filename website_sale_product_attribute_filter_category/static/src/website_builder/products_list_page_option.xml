@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="website_sale_product_attribute_filter_category.ProductsListPageOption"
+        t-inherit="website_sale.ProductsListPageOption"
+        t-inherit-mode="extension"
+    >
+        <BuilderRow label.translate="Collapse sidebar sections" position="before">
+            <BuilderRow
+                t-if="isActiveItem('attributes_opt') or isActiveItem('attributes_opt_top')"
+                label.translate="Group by categories"
+            >
+                <BuilderCheckbox
+                    id="'o_wsale_attributes_categories_opt'"
+                    action="'websiteConfig'"
+                    actionParam="{views: ['website_sale_product_attribute_filter_category.products_attributes_categories']}"
+                />
+            </BuilderRow>
+        </BuilderRow>
+    </t>
+</templates>
