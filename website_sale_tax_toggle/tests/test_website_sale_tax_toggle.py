@@ -52,5 +52,4 @@ class WebsiteSaleTaxesToggleHttpCase(HttpCase):
             url_path="/shop",
             tour_name="website_sale_tax_toggle",
             login="admin",
-            step_delay=100,
         )
