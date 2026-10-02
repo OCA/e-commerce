@@ -24,6 +24,6 @@ class WebsiteSnippetFilter(models.Model):
         # website.website_domain() may be called for non-product models such as
         # ir.ui.view. Clear the context from the product records to avoid
         # applying product-specific website_ids domains outside product searches.
-        if records:
+        if records and not is_sample:
             records = records.with_context(multi_website_domain=False)
         return super()._filter_records_to_values(records, is_sample)
