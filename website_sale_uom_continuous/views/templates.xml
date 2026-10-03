@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Applied after other modules changing the quantity, e.g. website_sale_secondary_unit -->
+    <template
+        id="cart_summary_content"
+        inherit_id="website_sale.cart_summary_content"
+        priority="99"
+    >
+        <!-- Show the decimals of lines in continuous UoMs:
+             https://github.com/odoo/odoo/blob/b3e4ddcbcc3a6a5a28f18f70342dcd584432faef/addons/website_sale/views/templates.xml#L3973 -->
+        <xpath
+            expr="//span[hasclass('o_cart_item_count')]/t[@t-out]"
+            position="attributes"
+        >
+            <attribute name="t-out">line._get_displayed_quantity()</attribute>
+        </xpath>
+    </template>
+    <template
+        id="quick_reorder_history"
+        inherit_id="website_sale.quick_reorder_history"
+    >
+        <!-- Suggest the previous quantity with its decimals, for continuous UoMs:
+             https://github.com/odoo/odoo/blob/b3e4ddcbcc3a6a5a28f18f70342dcd584432faef/addons/website_sale/views/templates.xml#L3276 -->
+        <xpath
+            expr="//input[hasclass('o_wsale_quick_reorder_qty_input')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-value"
+            >order_line._get_displayed_quantity()</attribute>
+        </xpath>
+    </template>
+</odoo>
