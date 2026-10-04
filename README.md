@@ -66,6 +66,7 @@ addon | version | maintainers | summary
 [website_sale_stock_product_matrix](website_sale_stock_product_matrix/) | 19.0.1.0.0 | <a href='https://github.com/pilarvargas-tecnativa'><img src='https://github.com/pilarvargas-tecnativa.png' width='32' height='32' style='border-radius:50%;' alt='pilarvargas-tecnativa'/></a> | Stock hints in eCommerce product matrix
 [website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 19.0.1.0.1 |  | Display provisioning date for a product in shop online
 [website_sale_tax_selection](website_sale_tax_selection/) | 19.0.1.0.0 | <a href='https://github.com/yankinmax'><img src='https://github.com/yankinmax.png' width='32' height='32' style='border-radius:50%;' alt='yankinmax'/></a> | Select e-commerce tax display by website partner
+[website_sale_uom_continuous](website_sale_uom_continuous/) | 19.0.1.0.0 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Sell decimal quantities of products in continuous UoMs (kg, L, m, ...)
 [website_sale_variant_extra_fields](website_sale_variant_extra_fields/) | 19.0.1.1.0 |  | Show variant fields and more field types in the product page extra fields
 [website_sale_vat_required](website_sale_vat_required/) | 19.0.1.0.1 |  | VAT number required in checkout form
 [website_sale_wishlist_hide_price](website_sale_wishlist_hide_price/) | 19.0.1.0.0 |  | Hide product prices on the shop
