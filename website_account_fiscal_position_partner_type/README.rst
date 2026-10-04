@@ -21,20 +21,23 @@ Website Account Fiscal Position Partner Type
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/16.0/website_account_fiscal_position_partner_type
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_account_fiscal_position_partner_type
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-16-0/e-commerce-16-0-website_account_fiscal_position_partner_type
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_account_fiscal_position_partner_type
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows e-commerce customers to select if they're end customers or companies.
+This module allows e-commerce customers to select if they're end
+customers or companies.
 
-This module has been designed to be used according the EU One-Stop-Shop in combination with l10n_eu_oss for helping to differentiate which taxes have to be applied.
+This module has been designed to be used according the EU One-Stop-Shop
+in combination with l10n_eu_oss for helping to differentiate which taxes
+have to be applied.
 
 **Table of contents**
 
@@ -44,16 +47,22 @@ This module has been designed to be used according the EU One-Stop-Shop in combi
 Configuration
 =============
 
-If you need to define a message to be shown on the registration page to provide information related to the Fiscal Position Types (B2B or B2C) you need to go to a website configuration form view and complete the HTML fields "B2B Information" and "B2C Information" displayed in the B2B/B2C Website Info tab.
+If you need to define a message to be shown on the registration page to
+provide information related to the Fiscal Position Types (B2B or B2C)
+you need to go to a website configuration form view and complete the
+HTML fields "B2B Information" and "B2C Information" displayed in the
+B2B/B2C Website Info tab.
 
 Usage
 =====
 
 After allowing e-commerce customers to a free sign up:
 
-#. Once the customer wants to buy a product in the e-commerce, he/she will have to specify the partner type field (End customer/company) before finishing the checkout.
-
-#. Depending on the partner type, the applied taxes to the products may change.
+1. Once the customer wants to buy a product in the e-commerce, he/she
+   will have to specify the partner type field (End customer/company)
+   before finishing the checkout.
+2. Depending on the partner type, the applied taxes to the products may
+   change.
 
 Bug Tracker
 ===========
@@ -61,7 +70,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_account_fiscal_position_partner_type%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_account_fiscal_position_partner_type%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -69,25 +78,25 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Sygel Technology
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Sygel <https://www.sygel.es>`_:
+- `Sygel <https://www.sygel.es>`__:
 
-    * Harald Panten
-    * Valentin Vinagre
-    * Manuel Regidor
+     - Harald Panten
+     - Valentin Vinagre
+     - Manuel Regidor
 
-* `Trey <https://www.trey.es>`_:
+- `Trey <https://www.trey.es>`__:
 
-  * Vicent Cubells
+  - Vicent Cubells
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -107,6 +116,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-cubells| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/16.0/website_account_fiscal_position_partner_type>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_account_fiscal_position_partner_type>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

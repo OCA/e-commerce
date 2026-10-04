@@ -8,7 +8,6 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class CustomerPortal(CustomerPortal):
-
     CustomerPortal.OPTIONAL_BILLING_FIELDS += ["fiscal_position_type"]
 
     def details_form_validate(self, data):

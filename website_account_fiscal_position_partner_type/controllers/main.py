@@ -10,7 +10,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 class WebsiteSale(WebsiteSale):
     def values_postprocess(self, order, mode, values, errors, error_msg):
-        new_values, errors, error_msg = super(WebsiteSale, self).values_postprocess(
+        new_values, errors, error_msg = super().values_postprocess(
             order=order, mode=mode, values=values, errors=errors, error_msg=error_msg
         )
         if mode[1] in ("billing") and values.get("fiscal_position_type", False):
@@ -53,7 +53,7 @@ class WebsiteSale(WebsiteSale):
 
     @http.route()
     def address(self, **kw):
-        res = super(WebsiteSale, self).address(**kw)
+        res = super().address(**kw)
         if res.qcontext:
             mode = res.qcontext.get("mode", False)
             if mode and mode[1] == "billing":
