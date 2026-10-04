@@ -3,7 +3,7 @@
 
 {
     "name": "Website Account Fiscal Position Partner Type",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Sygel Technology," "Odoo Community Association (OCA)",
