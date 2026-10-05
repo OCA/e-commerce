@@ -6,16 +6,7 @@
         name="Product matrix with stock"
     >
         <xpath expr="//div[hasclass('css_quantity')]" position="before">
-            <t
-                t-set="combination"
-                t-value="request.env['product.template.attribute.value'].browse(cell['ptav_ids'])"
-            />
-            <t t-set="qty" t-value="cell['qty']" />
-            <t
-                t-set="combination_info"
-                t-value="product.with_context(website_sale_stock_get_quantity=True, product_matrix_cell=True)._get_combination_info(combination, add_qty=cell['qty'] or 1)"
-            />
-            <t t-set="free_qty" t-value="combination_info['free_qty']" />
+            <t t-set="free_qty" t-value="cell['free_qty']" />
             <t
                 t-set="disallow_out_of_stock"
                 t-value="product.type == 'product' and not product.allow_out_of_stock_order and free_qty &lt;= 0"
