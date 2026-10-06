@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ForgeFlow S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template id="confirmation" inherit_id="website_sale.confirmation" priority="30">
+        <!-- The print link lives in a flex container shown only when the order
+             is paid or confirmed. Skip-payment quotations stay in draft, so we
+             must broaden the condition to include them. -->
+        <xpath expr="//a[@href='/shop/print']/.." position="attributes">
+            <attribute
+                name="t-if"
+                separator="or"
+                add="website.checkout_skip_payment and order.is_skip_payment_quotation"
+            />
+        </xpath>
+    </template>
+</odoo>
