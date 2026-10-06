@@ -76,7 +76,7 @@ class ProductTemplate(models.Model):
             product = self.sudo()
         website = self.env["website"].get_current_website()
         provisioning_date = False
-        free_qty = website._get_product_available_qty(product)
+        free_qty = combination_info["free_qty"]
         if product.show_next_provisioning_date and free_qty <= 0:
             company = website.company_id
             provisioning_date = product._get_next_provisioning_date(company)
