@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
-<title>README.rst</title>
+<title>Website Sale Hide No Variant Attributes</title>
 <style type="text/css">
 
 /*
@@ -386,6 +386,14 @@ for</em> rule, even though the informational attribute itself is never shown
 to the shopper as a selectable option — resulting in a visible option
 being grayed out because of an attribute the shopper cannot see, with a
 tooltip naming it.</p>
+<p>For the same reason, informational values never make a product
+unsellable: when their exclusion rules leave no complete combination
+(e.g. an informational attribute whose only value is excluded for some
+variants), the product page still offers the variants allowed by the
+variant-defining attributes, instead of “This product has no valid
+combination”. The same fallback applies to the first combination of the
+product wherever it is used, e.g. the shop grid or the backend product
+configurator.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
