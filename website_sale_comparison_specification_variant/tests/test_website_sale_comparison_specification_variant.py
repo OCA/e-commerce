@@ -1,6 +1,7 @@
 # Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from lxml import html
 
 from odoo.fields import Command
 from odoo.tests import TransactionCase, tagged
@@ -432,3 +433,28 @@ class TestWebsiteSaleComparisonSpecificationExclusion(TransactionCase):
 
         self.assertIn(composition, categories_size_1)
         self.assertNotIn(composition, categories_size_2)
+
+    def test_specs_accordion_html_refreshes_every_category(self):
+        """Every category of the accordion is refreshed on a variant change.
+
+        Scenario:
+            1. Same product as above: its Composition category comes first,
+               then the category of its Size.
+            2. Choose Size 1 on the product page, with the specifications
+               shown as an accordion.
+        Expected:
+            - Both categories are sent back to the page, each with its
+              position, the first one included: the page only refreshes the
+              categories it can find by their position.
+        """
+        product, size_1, _size_2, _composition = (
+            self._create_sized_product_with_composition_exclusions()
+        )
+
+        accordion_html = product._get_specs_accordion_html(size_1)
+
+        positions = [
+            element.get("data-category-index")
+            for element in html.fragments_fromstring(str(accordion_html))
+        ]
+        self.assertEqual(positions, ["0", "1"])

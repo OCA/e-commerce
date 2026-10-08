@@ -98,8 +98,10 @@
     open/collapsed state survives the AJAX refresh. -->
     <template id="product_specifications_accordion_content">
         <t t-foreach="attrib_categories" t-as="category">
+            <!-- As text: QWeb leaves out an attribute valued 0, which would
+            leave the first category out of the refresh -->
             <div
-                t-att-data-category-index="category_index"
+                t-att-data-category-index="str(category_index)"
                 t-att-data-empty="not attrib_categories[category]._filter_displayed_in_specs_table(combination, attribute_exclusions)"
             >
                 <t t-call="website_sale_comparison.specifications_table">
