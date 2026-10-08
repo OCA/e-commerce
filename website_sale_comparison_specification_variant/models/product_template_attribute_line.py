@@ -23,10 +23,22 @@ class ProductTemplateAttributeLine(models.Model):
             exclusions = self.product_tmpl_id._get_display_attribute_exclusions()
         other_ids = set(combination.ids) - set(self.product_template_value_ids.ids)
         displayed_value_ids = set()
-        for ptav in self.product_template_value_ids:
+        for ptav in self.product_template_value_ids._only_active():
             conflicts = any(
                 other_id in exclusions.get(ptav.id, []) for other_id in other_ids
             )
             if not conflicts:
                 displayed_value_ids.add(ptav.product_attribute_value_id.id)
         return self.env["product.attribute.value"].browse(displayed_value_ids).exists()
+
+    def _filter_displayed_in_specs_table(self, combination, exclusions=None):
+        """Return the lines showing at least one value for `combination`
+        (see `_get_display_value_ids`).
+
+        The specs table must not list an attribute none of whose values
+        applies to the selected variant, e.g. an informational attribute
+        whose values are all excluded for it.
+        """
+        return self.filtered(
+            lambda line: line._get_display_value_ids(combination, exclusions)
+        )

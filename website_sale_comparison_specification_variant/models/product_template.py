@@ -44,6 +44,13 @@ class ProductTemplate(models.Model):
         render_context = self._get_specs_render_context(combination)
         if render_context is None:
             return None
+        # The table is rendered anew, so it can drop the lines with nothing to
+        # show, and the categories left empty; the accordion only refreshes the
+        # categories it already shows, see `_get_specs_accordion_html`.
+        lines = self.valid_product_template_attribute_line_ids
+        render_context["attrib_categories"] = lines._filter_displayed_in_specs_table(
+            combination, render_context["attribute_exclusions"]
+        )._prepare_categories_for_display_in_specs_table()
         return self.env["ir.qweb"]._render(
             "website_sale_comparison_specification_variant"
             ".product_specifications_content",
