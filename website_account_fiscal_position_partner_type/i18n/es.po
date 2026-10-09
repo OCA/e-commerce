@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_account_fiscal_position_partner_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-03-20 20:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:website_account_fiscal_position_partner_type.field_website__b2b_information
+msgid "B2B Information"
+msgstr "Información B2B"
+
+#. module: website_account_fiscal_position_partner_type
+#: model_terms:ir.ui.view,arch_db:website_account_fiscal_position_partner_type.website_account_fiscal_position_partner_type_view_website_form
+msgid "B2B/B2C Website Info"
+msgstr "Información del sitio Web B2B/B2C"
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model.fields,field_description:website_account_fiscal_position_partner_type.field_website__b2c_information
+msgid "B2C Information"
+msgstr "Información B2C"
+
+#. module: website_account_fiscal_position_partner_type
+#: code:addons/website_account_fiscal_position_partner_type/controllers/portal.py:0
+#, python-format
+msgid ""
+"Changing Partner Type is not allowed once document(s) have been issued for "
+"your account. Please contact us directly for this operation."
+msgstr ""
+"No se permite cambiar el tipo de socio una vez que se han emitido los "
+"documentos para su cuenta. Póngase en contacto con nosotros directamente "
+"para realizar esta operación."
+
+#. module: website_account_fiscal_position_partner_type
+#: code:addons/website_account_fiscal_position_partner_type/controllers/main.py:0
+#, python-format
+msgid ""
+"Changing partner type is not allowed once invoices have been issued for your "
+"account. Please contact us directly for this operation."
+msgstr ""
+"No se permite cambiar el tipo de socio una vez emitidas las facturas de su "
+"cuenta. Póngase en contacto con nosotros directamente para realizar esta "
+"operación."
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model,name:website_account_fiscal_position_partner_type.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_account_fiscal_position_partner_type
+#: model_terms:ir.ui.view,arch_db:website_account_fiscal_position_partner_type.address_fiscal_position_type
+#: model_terms:ir.ui.view,arch_db:website_account_fiscal_position_partner_type.website_account_fiscal_position_partner_type_auth_signup
+#: model_terms:ir.ui.view,arch_db:website_account_fiscal_position_partner_type.website_checkoout_second_lastname_portal_my_details
+msgid "Partner Type"
+msgstr "Tipo de cliente"
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model,name:website_account_fiscal_position_partner_type.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: website_account_fiscal_position_partner_type
+#: model:ir.model,name:website_account_fiscal_position_partner_type.model_website
+msgid "Website"
+msgstr "Sitio Web"
