@@ -11,6 +11,15 @@
                     <group>
                         <field name="name" />
                         <field name="id" />
+                         <label for="affiliate_link" />
+                        <div class="o_row" name="affiliate_link_row">
+                            <field name="affiliate_link" widget="url" readonly="1" />
+                            <field
+                                name="affiliate_link"
+                                widget="CopyClipboardButton"
+                                nolabel="1"
+                            />
+                        </div>
                     </group>
                     <group col="4">
                         <field name="company_id" />

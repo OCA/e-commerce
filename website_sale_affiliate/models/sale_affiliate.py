@@ -65,6 +65,11 @@ class Affiliate(models.Model):
         help="Sale count / Request count",
     )
 
+    affiliate_link = fields.Char(
+        compute="_compute_affiliate_link",
+        help="Copy this link to share your affiliate reference.",
+    )
+
     @api.depends("request_ids", "request_ids.sale_ids")
     def _compute_sales_per_request(self):
         for record in self:
@@ -127,3 +132,13 @@ class Affiliate(models.Model):
                 }
             )
         return matching_request
+
+    def _compute_affiliate_link(self):
+        base_url = (
+            self.env["ir.config_parameter"].sudo().get_param("web.base.url", default="")
+        )
+        for record in self:
+            if record.exists():
+                record.affiliate_link = f"{base_url}/shop?aff_ref={record.id}"
+            else:
+                record.affiliate_link = ""
