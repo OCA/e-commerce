@@ -6,11 +6,13 @@ from odoo.tests import Form, HttpCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestWebsiteSaleProductAccessory(HttpCase):
+class TestWebsiteSaleProductAccessory(
+    HttpCase,
+):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.website = cls.env.ref("website.default_website")
+        cls.website = cls.env.ref("base.default_website")
         cls.main_product = cls.env["product.template"].create(
             {
                 "name": "Test Main Product",
