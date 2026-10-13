@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2026 ForgeFlow S.L. (https://www.forgeflow.com)
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -31,7 +31,7 @@
                             <a t-att-href="accessory.website_url" class="flex-shrink-0">
                                 <div
                                     t-field="accessory.image_128"
-                                    t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'border rounded'}"
+                                    t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'o_image_64_max border rounded'}"
                                 />
                             </a>
                             <div

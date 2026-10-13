@@ -4,7 +4,7 @@
 {
     "name": "Website Sale Product Accessory",
     "summary": "Display suggested accessory products on the website product page",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "maintainers": ["JordiBForgeFlow"],
     "website": "https://github.com/OCA/e-commerce",
