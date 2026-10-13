@@ -5,3 +5,5 @@
 - `Tecnativa <https://www.tecnativa.com>`__:
 
      - Pilar Vargas
+- Sudhir Arya\<<sudhir@erpharbor.com>\>
+  

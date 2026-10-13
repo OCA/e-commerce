@@ -8,7 +8,7 @@ class TestWebsiteSaleBarcodeSearch(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.website = cls.env.ref("website.default_website")
+        cls.website = cls.env.ref("base.default_website")
         cls.product = cls.env["product.product"].create(
             {
                 "name": "Barcode searchable product",
@@ -28,12 +28,14 @@ class TestWebsiteSaleBarcodeSearch(BaseCommon):
                 "displayDescription": False,
                 "displayExtraLink": False,
                 "displayDetail": False,
+                "display_currency": self.website.currency_id,
             },
         )
 
         records, count = self.env["product.template"]._search_fetch(
             search_detail,
             self.product.barcode,
+            offset=0,
             limit=5,
             order="",
         )
