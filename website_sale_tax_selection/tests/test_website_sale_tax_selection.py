@@ -1,8 +1,7 @@
 # Copyright 2026 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from datetime import datetime
-
+from odoo import fields
 from odoo.fields import Command
 from odoo.tests import tagged
 
@@ -11,6 +10,12 @@ from odoo.addons.website_sale.tests.common import MockRequest, WebsiteSaleCommon
 
 @tagged("post_install", "-at_install")
 class TestWebsiteSaleTaxSelection(WebsiteSaleCommon):
+    _test_user_groups = (
+        "base.group_user",
+        "base.group_partner_manager",
+        "account.group_account_manager",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -30,6 +35,7 @@ class TestWebsiteSaleTaxSelection(WebsiteSaleCommon):
                 "login": "website_tax_selection_user",
                 "email": "website-tax-selection-user@example.com",
                 "partner_id": cls.contact_partner.id,
+                "group_ids": [Command.set([cls.env.ref("base.group_portal").id])],
             }
         )
 
@@ -140,15 +146,16 @@ class TestWebsiteSaleTaxSelection(WebsiteSaleCommon):
         product = self._create_product(list_price=100, taxes_id=[Command.link(tax.id)])
         website = self._get_website_for_user(self.public_user)
 
-        with MockRequest(website.env, website=website):
-            configurator_price = website.env[
+        with MockRequest(website.env, website=website) as request:
+            configurator_price = request.env[
                 "product.template"
             ]._get_configurator_display_price(
-                product_or_template=product.with_env(website.env),
+                product_or_template=product.with_env(request.env),
                 quantity=1,
-                date=datetime(2000, 1, 1),
+                date=fields.Datetime.to_datetime("2000-01-01 00:00:00"),
                 currency=self.currency,
-                pricelist=self.pricelist,
+                pricelist=self.env["product.pricelist"],
+                # pricelist=self.pricelist,
             )
 
         self.assertEqual(configurator_price[0], 110)

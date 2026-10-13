@@ -4,7 +4,7 @@
 {
     "name": "Website Sale Tax Selection",
     "summary": "Select e-commerce tax display by website partner",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
