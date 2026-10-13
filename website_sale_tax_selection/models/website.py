@@ -10,9 +10,7 @@ class Website(models.Model):
 
     # OVERRIDE: make the tax display dynamic so the current website partner can
     # specify a value that takes precedence over the standard website behavior.
-    show_line_subtotals_tax_selection = fields.Selection(
-        store=False,
-    )
+    show_line_subtotals_tax_selection = fields.Selection(store=False, precompute=False)
 
     @api.depends("company_id.account_fiscal_country_id")
     @api.depends_context("uid")
