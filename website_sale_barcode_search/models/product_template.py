@@ -8,8 +8,11 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     @api.model
-    def _search_fetch(self, search_detail, search, limit, order):
-        records, count = super()._search_fetch(search_detail, search, limit, order)
+    def _search_fetch(self, search_detail, search, offset, limit, order):
+
+        records, count = super()._search_fetch(
+            search_detail, search, offset, limit, order
+        )
         base_domain = search_detail.get("base_domain")
         base_domain.append([("barcode", "ilike", search)])
         domain = Domain.AND(base_domain)
