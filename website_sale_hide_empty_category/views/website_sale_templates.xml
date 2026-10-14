@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2017 LasLabs Inc.
      Copyright 2020 Radovan Skolnik <radovan@skolnik.info>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 -->
 <odoo>
     <template
-        inherit_id="website_sale.categories_recursive"
         id="hide_categories_recursive"
+        inherit_id="website_sale.categories_recursive"
         name="Hide Empty Category list"
     >
         <xpath
@@ -19,8 +19,8 @@
         </xpath>
     </template>
     <template
-        inherit_id="website_sale.dynamic_filter_template_product_public_category_default"
         id="hide_categories_snippet_recursive"
+        inherit_id="website_sale.dynamic_filter_template_product_public_category_default"
         name="Hide Empty Category Snippet list"
     >
         <xpath expr="//div[@name='category_item']" position="attributes">
@@ -30,8 +30,8 @@
         </xpath>
     </template>
     <template
-        inherit_id="website_sale.option_collapse_categories_recursive"
         id="hide_categories_collapse_recursive"
+        inherit_id="website_sale.option_collapse_categories_recursive"
         name="Hide Empty Category Collapsible list"
     >
         <xpath expr="//t[@t-if='children']" position="attributes">
@@ -47,8 +47,8 @@
         </xpath>
     </template>
     <template
-        inherit_id="website_sale.products_categories_list"
         id="hide_categories_recursive_helper"
+        inherit_id="website_sale.products_categories_list"
         name="Hide Empty Category list"
         customize_show="True"
         active="True"
@@ -58,8 +58,8 @@
         </xpath>
     </template>
     <template
-        inherit_id="website_sale.filmstrip_categories"
         id="hide_filmstrip_categories"
+        inherit_id="website_sale.filmstrip_categories"
         name="Hide Empty Category Filmstrip"
         customize_show="True"
         active="True"

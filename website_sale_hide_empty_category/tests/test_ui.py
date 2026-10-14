@@ -2,7 +2,7 @@
 
 from odoo.tests.common import HttpCase, tagged
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 
 
 @tagged("post_install", "-at_install")
@@ -10,7 +10,7 @@ class UICase(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CREATE_CONTEXT))
         category_posted = cls.env["product.public.category"].create(
             {"name": "Category Test Posted", "sequence": 1}
         )
