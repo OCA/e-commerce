@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="link_cross_selling_1" model="product.template.link">
+        <field
+            name="left_product_tmpl_id"
+            ref="product.product_product_7_product_template"
+        />
+        <field
+            name="right_product_tmpl_id"
+            ref="product.product_product_9_product_template"
+        />
+        <field
+            name="type_id"
+            ref="product_template_multi_link.product_template_link_type_cross_selling"
+        />
+    </record>
+</odoo>
