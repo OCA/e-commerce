@@ -132,25 +132,25 @@ class ProductTemplateLink(models.Model):
         return query, query_args
 
     def _check_products_query_params(self):
-        return dict(
-            main_select_columns="""
+        return {
+            "main_select_columns": """
                 id,
                 left_product_tmpl_id,
                 right_product_tmpl_id,
                 type_id
             """,
-            l2_join_where_clause="""
+            "l2_join_where_clause": """
             right_product_tmpl_id = l1.left_product_tmpl_id
             AND left_product_tmpl_id = l1.right_product_tmpl_id
             AND type_id = l1.type_id
         """,
-            l3_join_where_clause="""
+            "l3_join_where_clause": """
             left_product_tmpl_id = l1.left_product_tmpl_id
             AND right_product_tmpl_id = l1.right_product_tmpl_id
             AND type_id = l1.type_id
             AND id != l1.id
         """,
-        )
+        }
 
     def _duplicate_link_error_msg(self):
         return f"""(
