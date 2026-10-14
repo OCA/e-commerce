@@ -1,0 +1,6 @@
+id,name,model_id,group_id/id,operation,domain
+access_product_template_link_employee,product template link employee,product.template.link,base.group_user,r,
+access_product_template_link_sale_manager,product template link sale manager,product.template.link,sales_team.group_sale_manager,crud,
+access_product_template_linker,access_product_template_linker,product.template.linker,base.group_user,crud,
+product_template_link_type_access_read,product.template.link.type access read,product.template.link.type,base.group_user,r,
+product_template_link_type_access_manage,product.template.link.type access manager,product.template.link.type,sales_team.group_sale_manager,crud,

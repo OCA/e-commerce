@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2019 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
     <record
-        model="product.template.link.type"
         id="product_template_link_type_cross_selling"
+        model="product.template.link.type"
     >
         <field name="name">Cross Selling</field>
         <field name="code">cross-selling</field>
     </record>
     <record
-        model="product.template.link.type"
         id="product_template_link_type_up_selling"
+        model="product.template.link.type"
     >
         <field name="name">Up Selling</field>
         <field name="code">up-selling</field>
