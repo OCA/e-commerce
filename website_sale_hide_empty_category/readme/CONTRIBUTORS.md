@@ -1,0 +1,9 @@
+- Ted Salmon \<<tsalmon@laslabs.com>\>
+- [Tecnativa](https://www.tecnativa.com):
+  - Carlos Roca
+  - Pilar Vargas
+- Radovan Skolnik \<<radovan@skolnik.info>\>
+- [CIT-Services](cit-services.eu)
+  - Prayag \<<prayag.k@cit-services.eu>\>
+- Sudhir Arya\<<sudhir@erpharbor.com>\>
+  
