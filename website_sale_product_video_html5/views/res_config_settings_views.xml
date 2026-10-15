@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Bosd
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.product.video.html5</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='product_attributes_setting']" position="after">
+                <setting
+                    id="product_video_html5_setting"
+                    string="Self-hosted product videos"
+                    help="Product video URLs ending in .mp4, .webm, .ogv or .m4v are always accepted. List here the hosts serving videos from URLs without a file extension."
+                >
+                    <field
+                        name="product_video_allowed_hosts"
+                        placeholder="res.cloudinary.com, cdn.example.com"
+                    />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
