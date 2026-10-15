@@ -1,6 +1,7 @@
 # Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from lxml import html
 
 from odoo.fields import Command
 from odoo.tests import TransactionCase, tagged
@@ -318,3 +319,142 @@ class TestWebsiteSaleComparisonSpecificationExclusion(TransactionCase):
         specs_html = product._get_specs_table_html(size_1 + weight_1)
 
         self.assertNotIn("Engraving", specs_html)
+
+    @classmethod
+    def _create_sized_product_with_composition_exclusions(cls):
+        """A product in Size 1 and Size 2, whose Composition category holds a
+        Material (single value Wood) and a Color (Red, Blue): all of them
+        are excluded for Size 2, so nothing of that category applies to it."""
+        composition = cls.env["product.attribute.category"].create(
+            {"name": "Composition"}
+        )
+        size_attribute = cls.env["product.attribute"].create(
+            {
+                "name": "Size",
+                "value_ids": [
+                    Command.create({"name": "Size 1"}),
+                    Command.create({"name": "Size 2"}),
+                ],
+            }
+        )
+        material_attribute, color_attribute = cls.env["product.attribute"].create(
+            [
+                {
+                    "name": "Material",
+                    "create_variant": "no_variant",
+                    "category_id": composition.id,
+                    "value_ids": [Command.create({"name": "Wood"})],
+                },
+                {
+                    "name": "Color",
+                    "create_variant": "no_variant",
+                    "category_id": composition.id,
+                    "value_ids": [
+                        Command.create({"name": "Red"}),
+                        Command.create({"name": "Blue"}),
+                    ],
+                },
+            ]
+        )
+        product = cls.env["product.template"].create(
+            {
+                "name": "Dowel",
+                "attribute_line_ids": [
+                    Command.create(
+                        {
+                            "attribute_id": attribute.id,
+                            "value_ids": [Command.set(attribute.value_ids.ids)],
+                        }
+                    )
+                    for attribute in (
+                        size_attribute,
+                        material_attribute,
+                        color_attribute,
+                    )
+                ],
+            }
+        )
+        size_line, material_line, color_line = product.attribute_line_ids
+        size_1, size_2 = size_line.product_template_value_ids
+        for ptav in (material_line | color_line).product_template_value_ids:
+            ptav.exclude_for = [
+                Command.create(
+                    {
+                        "product_tmpl_id": product.id,
+                        "value_ids": [Command.link(size_2.id)],
+                    }
+                )
+            ]
+        return product, size_1, size_2, composition
+
+    def test_displayed_lines_skip_lines_without_values(self):
+        """An attribute none of whose values applies to a variant is not listed.
+
+        Scenario:
+            1. A product comes in Size 1 and Size 2.
+            2. Its Material (only Wood) and its Color (Red, Blue) are all
+               excluded for Size 2.
+            3. List the attributes to show in the specifications of each size.
+        Expected:
+            - Size 1 lists Size, Material and Color.
+            - Size 2 only lists Size.
+        """
+        product, size_1, size_2, _composition = (
+            self._create_sized_product_with_composition_exclusions()
+        )
+        lines = product.attribute_line_ids
+        size_line = size_1.attribute_line_id
+
+        self.assertEqual(lines._filter_displayed_in_specs_table(size_1), lines)
+        self.assertEqual(lines._filter_displayed_in_specs_table(size_2), size_line)
+
+    def test_specs_categories_skip_empty_categories(self):
+        """A category with no attribute to show for a variant is not listed.
+
+        Scenario:
+            1. Same product as above, Material and Color being in the
+               Composition category.
+            2. List the categories of the specifications table of each size.
+        Expected:
+            - Size 1 lists the Composition category.
+            - Size 2 does not.
+        """
+        product, size_1, size_2, composition = (
+            self._create_sized_product_with_composition_exclusions()
+        )
+        lines = product.attribute_line_ids
+
+        categories_size_1 = lines._filter_displayed_in_specs_table(
+            size_1
+        )._prepare_categories_for_display_in_specs_table()
+        categories_size_2 = lines._filter_displayed_in_specs_table(
+            size_2
+        )._prepare_categories_for_display_in_specs_table()
+
+        self.assertIn(composition, categories_size_1)
+        self.assertNotIn(composition, categories_size_2)
+
+    def test_specs_accordion_html_refreshes_every_category(self):
+        """Every category of the accordion is refreshed on a variant change.
+
+        Scenario:
+            1. Same product as above: its Composition category comes first,
+               then the category of its Size.
+            2. Choose Size 1 on the product page, with the specifications
+               shown as an accordion.
+        Expected:
+            - Both categories are sent back to the page, each with its
+              position, the first one included: the page only refreshes the
+              categories it can find by their position.
+        """
+        product, size_1, _size_2, _composition = (
+            self._create_sized_product_with_composition_exclusions()
+        )
+
+        accordion_html = product._get_specs_accordion_html(size_1)
+
+        positions = [
+            element.get("data-category-index")
+            for element in html.fragments_fromstring(str(accordion_html))
+        ]
+        self.assertEqual(positions, ["0", "1"])
