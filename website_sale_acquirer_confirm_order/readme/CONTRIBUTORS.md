@@ -2,3 +2,5 @@
   - Pilar Vargas
 - [Studio73](https://www.studio73.es):
   - Arantxa Gandia
+- Sudhir Arya\<<sudhir@erpharbor.com>\>
+  
