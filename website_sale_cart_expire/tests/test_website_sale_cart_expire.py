@@ -2,7 +2,7 @@
 # @author Iván Todorovich <ivan.todorovich@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from freezegun import freeze_time
 
@@ -12,12 +12,18 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestWebsiteSaleCartExpire(BaseCommon):
+    _test_user_groups = (
+        "base.group_system",
+        "sales_team.group_sale_manager",
+        "account.group_account_invoice",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.tx_counter = 0
         # Websites
-        cls.website_1 = cls.env.ref("website.default_website")
+        cls.website_1 = cls.env.ref("base.default_website")
         cls.website_2 = cls.env["website"].create(
             {"name": "My Website 2", "sequence": 20}
         )
@@ -36,8 +42,9 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         cls.order_3 = cls._create_cart_order()
         cls.order_4 = cls._create_cart_order()
         cls.orders = cls.order_1 | cls.order_2 | cls.order_3 | cls.order_4
+        provider = cls.env.ref("payment.payment_provider_transfer")
         cls.payment_method = cls.env["payment.method"].create(
-            {"name": "Test_method", "code": "123"}
+            {"name": "Test_method", "code": "123", "provider_id": provider.id}
         )
 
     @classmethod
@@ -68,11 +75,11 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         provider = self.env.ref("payment.payment_provider_transfer")
         provider.write(
             {
-                "state": "enabled",
+                # "state": "enabled",
                 "is_published": True,
             }
         )
-        provider._transfer_ensure_pending_msg_is_set()
+        # provider._transfer_ensure_pending_msg_is_set()
         return self.env["payment.transaction"].create(
             {
                 "provider_id": provider.id,
@@ -99,7 +106,7 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         for order in self.orders:
             self.assertEqual(order.state, "draft")
         # Case 2: We have reached website 2 expire date
-        with freeze_time(datetime.now() + timedelta(hours=3)):
+        with freeze_time(datetime.now(timezone.utc) + timedelta(hours=3)):
             self.env["website"]._scheduler_website_expire_cart()
         for order in self.orders:
             self.assertEqual(order.state, "cancel")
@@ -107,14 +114,14 @@ class TestWebsiteSaleCartExpire(BaseCommon):
     def test_expire_scheduler_multi_website(self):
         # For this test, we split the orders among the 2 websites
         (self.order_1 | self.order_2).write({"website_id": self.website_1.id})
-        with freeze_time(datetime.now() + timedelta(hours=3)):
+        with freeze_time(datetime.now(timezone.utc) + timedelta(hours=3)):
             self.env["website"]._scheduler_website_expire_cart()
         self.assertEqual(self.order_1.state, "draft", "No expire delay on website 1")
         self.assertEqual(self.order_2.state, "draft", "No expire delay on website 1")
         self.assertEqual(self.order_3.state, "cancel", "Should've been cancelled")
         self.assertEqual(self.order_4.state, "cancel", "Should've been cancelled")
 
-    @freeze_time(datetime.now() + timedelta(hours=3))
+    @freeze_time(datetime.now(timezone.utc) + timedelta(hours=3))
     def test_expire_scheduler_ignore_sent_quotation(self):
         """Test that sent quotations aren't cancelled
 
@@ -125,18 +132,18 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         self.env["website"]._scheduler_website_expire_cart()
         self.assertNotEqual(self.order_1.state, "cancel")
 
-    @freeze_time(datetime.now() + timedelta(hours=3))
+    @freeze_time(datetime.now(timezone.utc) + timedelta(hours=3))
     def test_expire_scheduler_ignore_in_payment(self):
         """Carts with a payment transaction in progress shouldn't expire"""
         if self.env["ir.module.module"]._get("payment_custom").state != "installed":
             self.skipTest("Transfer provider is not installed")
         self._create_payment_transaction(self.order_1)
         tx_2 = self._create_payment_transaction(self.order_2)
-        tx_2._set_pending()
+        tx_2.with_context(payment_safe_write=True)._set_pending()
         tx_3 = self._create_payment_transaction(self.order_3)
-        tx_3._set_canceled()
+        tx_3.with_context(payment_safe_write=True)._set_canceled()
         tx_4 = self._create_payment_transaction(self.order_4)
-        tx_4._set_error("Something went wrong")
+        tx_4.with_context(payment_safe_write=True)._set_error("Something went wrong")
         # Carts with transactions in progress are not canceled
         # Even those with 'draft' or 'error' transactions, because
         # the timer is reseted whenever a tx state changes.
@@ -147,7 +154,7 @@ class TestWebsiteSaleCartExpire(BaseCommon):
         self.assertNotEqual(self.order_4.state, "cancel")
         # In case of error, another transaction can be initialized
         # However for order_1, no more activity was detected, so it's canceled
-        with freeze_time(datetime.now() + timedelta(hours=3)):
+        with freeze_time(datetime.now(timezone.utc) + timedelta(hours=3)):
             self._create_payment_transaction(self.order_4)
             self.env["website"]._scheduler_website_expire_cart()
         self.assertEqual(self.order_1.state, "cancel")
