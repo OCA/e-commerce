@@ -26,5 +26,5 @@ class WebsiteSale(WebsiteSale):
             ):
                 return res
             order.action_confirm()
-            request.website.sale_reset()
+            request.env.website.sale_reset()
         return res

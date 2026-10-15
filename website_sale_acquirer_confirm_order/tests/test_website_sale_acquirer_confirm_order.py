@@ -13,11 +13,10 @@ class WebsiteSaleHttpCase(HttpCase):
         self.provider = self.env.ref("payment.payment_provider_transfer")
         self.provider.write(
             {
-                "state": "enabled",
                 "is_published": True,
+                "confirm_order": False,
             }
         )
-        self.provider._transfer_ensure_pending_msg_is_set()
         self.partner = self.env.ref("base.partner_admin")
         # VAT required by the module website_sale_vat_required
         self.partner.vat = "US01234567891"
@@ -40,7 +39,7 @@ class WebsiteSaleHttpCase(HttpCase):
             [("name", "=", "Customizable Desk")], limit=1
         )
         if not desk_product:
-            self.env["product.template"].create(
+            desk_product = self.env["product.template"].create(
                 {
                     "name": "Customizable Desk",
                     "type": "consu",
@@ -48,6 +47,8 @@ class WebsiteSaleHttpCase(HttpCase):
                     "is_published": True,
                 }
             )
+        else:
+            desk_product.is_published = True
         self.start_tour(
             "/shop",
             "website_sale_acquirer_confirm_order",
