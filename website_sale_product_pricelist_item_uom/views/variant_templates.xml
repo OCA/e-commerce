@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <template id="variants" inherit_id="website_sale.variants">
+        <!-- The packaging title is now inline, restore the spacing below it -->
+        <xpath expr="//t[@t-foreach='product_uoms']/parent::ul" position="attributes">
+            <attribute name="class" add="mt-2" separator=" " />
+        </xpath>
+        <!-- Marker class used by the hover interaction -->
+        <xpath expr="//input[@name='uom_id']/parent::li" position="attributes">
+            <attribute name="t-attf-class" add="o_packaging_button" separator=" " />
+        </xpath>
+        <xpath expr="//input[@name='uom_id']" position="attributes">
+            <attribute
+                name="t-att-data-packaging-price"
+            >combination_info.get('packaging_prices', {}).get(uom.id, False)</attribute>
+        </xpath>
+    </template>
+
+    <template id="packaging_title" inherit_id="website_sale.packaging_title">
+        <xpath expr="//h6" position="attributes">
+            <attribute name="class">attribute_name d-inline</attribute>
+        </xpath>
+        <xpath expr="//h6" position="after">
+            <span name="packaging_price" class="d-inline-flex d-none text-muted">
+                -
+                <p
+                name="packaging_price_value"
+                class="mb-0 ms-1"
+                t-out="combination_info.get('packaging_prices', {}).get(product.uom_id.id, False)"
+                t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+            />
+                /
+                <p t-field="product.uom_name" class="mb-0" />
+            </span>
+        </xpath>
+    </template>
+</odoo>
