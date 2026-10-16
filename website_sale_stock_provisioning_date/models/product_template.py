@@ -48,6 +48,9 @@ class ProductTemplate(models.Model):
             template.free_qty = res[template.id]["free_qty"]
         return result
 
+    def _get_free_qty(self, *, warehouse_id=None, **_kwargs):
+        return self.with_context(warehouse_id=warehouse_id).sudo().free_qty
+
     def _get_next_provisioning_date(self, company):
         return self.product_variant_ids._get_next_provisioning_date(company)
 
@@ -74,9 +77,25 @@ class ProductTemplate(models.Model):
             )
         else:
             product = self.sudo()
-        website = self.env["website"].get_current_website()
+        # website = self.env["website"].get_current_website()
+        website = (
+            self.env.website
+            or self.env["website"].browse(self.env.context.get("host_id"))
+            or self.env.ref("base.default_website", raise_if_not_found=False)
+            or self.env["website"].search([], limit=1)
+        )
         provisioning_date = False
-        free_qty = website._get_product_available_qty(product)
+        free_qty = (
+            website._get_product_available_qty(product)
+            if website
+            else (
+                product._get_free_qty()
+                if hasattr(product, "_get_free_qty")
+                else product.free_qty
+            )
+        )
+
+        # free_qty = website._get_product_available_qty(product)
         if product.show_next_provisioning_date and free_qty <= 0:
             company = website.company_id
             provisioning_date = product._get_next_provisioning_date(company)
