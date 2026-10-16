@@ -15,7 +15,10 @@ class ProductTemplate(models.Model):
         uom_id=False,
         only_template=False,
     ):
-        template = self.with_context(website_sale_stock_available=True)
+        template = self
+        # Allow other modules to explicitly disable this context flag.
+        if "website_sale_stock_available" not in self.env.context:
+            template = self.with_context(website_sale_stock_available=True)
         return super(ProductTemplate, template)._get_combination_info(
             combination=combination,
             product_id=product_id,
