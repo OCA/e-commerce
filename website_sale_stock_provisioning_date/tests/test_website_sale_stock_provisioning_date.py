@@ -1,7 +1,8 @@
 # Copyright 2020 Tecnativa - Ernesto Tejeda
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from datetime import datetime, timedelta
+from datetime import timedelta
 
+from odoo import fields
 from odoo.tests import Form, HttpCase, tagged
 
 
@@ -38,7 +39,7 @@ class WebsiteSaleStockProvisioningDate(HttpCase):
             move.product_uom_qty = 10
         picking = picking_form.save()
         picking_form = Form(picking)
-        picking_form.scheduled_date = datetime.now() + timedelta(days=2)
+        picking_form.scheduled_date = fields.Datetime.now() + timedelta(days=2)
         picking = picking_form.save()
         picking.action_confirm()
 
