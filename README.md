@@ -55,9 +55,9 @@ addon | version | maintainers | summary
 [website_sale_product_sort](website_sale_product_sort/) | 18.0.1.0.0 |  | Allow to define default sort criteria for e-commerce
 [website_sale_require_legal](website_sale_require_legal/) | 18.0.1.0.2 |  | Force the user to accept legal tems to buy in the web shop
 [website_sale_secondary_unit](website_sale_secondary_unit/) | 18.0.1.0.2 |  | Allow manage secondary units in website shop
-[website_sale_stock_available](website_sale_stock_available/) | 18.0.1.0.0 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
+[website_sale_stock_available](website_sale_stock_available/) | 18.0.1.0.1 |  | Display 'Available to promise' in shop online instead of 'Free To Use Quantity'
 [website_sale_stock_list_preview](website_sale_stock_list_preview/) | 18.0.1.0.0 |  | Show the stock of products on the product previews
-[website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 18.0.1.0.2 |  | Display provisioning date for a product in shop online
+[website_sale_stock_provisioning_date](website_sale_stock_provisioning_date/) | 18.0.1.0.3 |  | Display provisioning date for a product in shop online
 [website_sale_suggest_create_account](website_sale_suggest_create_account/) | 18.0.1.0.0 |  | Suggest users to create an account when buying in the website
 [website_sale_tax_toggle](website_sale_tax_toggle/) | 18.0.1.0.0 |  | Allow display price in Shop with or without taxes
 [website_sale_vat_required](website_sale_vat_required/) | 18.0.1.0.1 |  | VAT number required in checkout form
