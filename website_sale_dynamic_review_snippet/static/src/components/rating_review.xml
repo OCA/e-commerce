@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="website_sale_dynamic_review_snippet.RatingReview">
+        <div class="my-2">
+            <t t-call="portal_rating.rating_card">
+                <t t-set="two_columns" t-value="props.twoColumns" />
+                <t t-set="rating_stats" t-value="ratingStats" />
+                <t t-set="selected_rating" t-value="props.selectedRating" />
+            </t>
+        </div>
+    </t>
+</templates>
