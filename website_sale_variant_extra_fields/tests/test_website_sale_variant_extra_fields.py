@@ -6,11 +6,11 @@ from datetime import date
 
 from odoo.fields import Command
 from odoo.tests import TransactionCase, tagged
-from odoo.tools import format_date
+from odoo.tools import BinaryBytes, format_date
 
 from odoo.addons.website_sale.tests.common import MockRequest
 
-DUMMY_IMAGE = base64.b64encode(
+DUMMY_IMAGE = BinaryBytes(
     base64.b64decode(
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8Dw"
         "HwAFAAH/q842iQAAAABJRU5ErkJggg=="
@@ -35,7 +35,8 @@ class TestWebsiteSaleVariantExtraField(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.website = cls.env["website"].get_current_website()
+        cls.website = cls.env.ref("base.default_website")
+        cls.env = cls.env(context=dict(cls.env.context, website_id=cls.website.id))
         # Start from a clean configuration: the database may already have extra
         # fields configured, which would pollute the payload assertions.
         cls.website.shop_extra_field_ids.unlink()
@@ -194,7 +195,7 @@ class TestWebsiteSaleVariantExtraField(TransactionCase):
     def test_render_one2many_field(self):
         pricelist_1 = self.env["product.pricelist"].create({"name": "Test Pricelist A"})
         pricelist_2 = self.env["product.pricelist"].create({"name": "Test Pricelist B"})
-        rule_1, rule_2 = self.env["product.pricelist.item"].create(
+        self.env["product.pricelist.item"].create(
             [
                 {
                     "pricelist_id": pricelist_1.id,
@@ -215,7 +216,7 @@ class TestWebsiteSaleVariantExtraField(TransactionCase):
         extra_field = self._create_extra_field("product.product", "pricelist_rule_ids")
         self.assertEqual(
             extra_field._render_value(self.variant_1),
-            ", ".join((rule_1 + rule_2).mapped("display_name")),
+            ", ".join(self.variant_1.pricelist_rule_ids.mapped("display_name")),
         )
 
     def test_render_binary_field(self):

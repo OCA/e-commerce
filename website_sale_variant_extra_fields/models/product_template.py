@@ -15,6 +15,7 @@ class ProductTemplate(models.Model):
         uom_id=False,
         only_template=False,
     ):
+
         combination_info = super()._get_combination_info(
             combination=combination,
             product_id=product_id,
@@ -22,7 +23,7 @@ class ProductTemplate(models.Model):
             uom_id=uom_id,
             only_template=only_template,
         )
-        website = self.env["website"].get_current_website()
+        website = self.env.website
         extra_fields = website.shop_extra_field_ids.filtered("is_variant_field")
         if not extra_fields:
             return combination_info
