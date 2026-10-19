@@ -1,8 +1,8 @@
 /* Copyright 2026 Camptocamp SA
  * License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
 
-import {patch} from "@web/core/utils/patch";
 import {WebsiteSale} from "@website_sale/interactions/website_sale";
+import {patch} from "@web/core/utils/patch";
 
 patch(WebsiteSale.prototype, {
     _onChangeCombination(ev, parent, combination) {
