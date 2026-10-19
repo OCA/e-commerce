@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="sequra_js_loader" inherit_id="website.layout" name="SeQura JS Loader">
+        <xpath expr="//head" position="inside">
+            <t
+                t-set="sequra_provider"
+                t-value="request.env['payment.provider'].sudo().search([('code', '=', 'sequra'), ('state', '!=', 'disabled'), ('website_id', 'in', [False, request.website.id])], limit=1)"
+            />
+            <t
+                t-if="sequra_provider and sequra_provider.sequra_merchant_id and sequra_provider.sequra_asset_key"
+            >
+                <script type="text/javascript">
+var sequraConfigParams = {
+    merchant: "<t t-esc="sequra_provider.sequra_merchant_id" />",
+    assetKey: "<t t-esc="sequra_provider.sequra_asset_key" />",
+    products: ["pp3"],
+    scriptUri: "<t t-esc="sequra_provider.sequra_script_uri" />",
+};
+(function (i, s, o, g, r, a, m) {
+    i["SequraConfiguration"] = g;
+    i["SequraOnLoad"] = [];
+    i[r] = {};
+    i[r][a] = function (callback) {
+        i["SequraOnLoad"].push(callback);
+    };
+    (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+    a.async = 1;
+    a.src = g.scriptUri;
+    m.parentNode.insertBefore(a, m);
+})(window, document, "script", sequraConfigParams, "Sequra", "onLoad");
+                </script>
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="product_sequra_simulator"
+        inherit_id="website_sale.product"
+        name="Product SeQura Simulator"
+    >
+        <xpath expr="//t[@t-call='website_sale.product_price']" position="after">
+            <t t-set="seq_amount" t-value="int(combination_info.get('price') * 100)" />
+            <t t-if="combination_info.get('price') >= 50">
+                <div
+                    class="sequra-promotion-widget"
+                    t-att-data-amount="seq_amount"
+                    data-product="pp3"
+                    data-alignment="left"
+                />
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="cart_total_sequra_simulator"
+        inherit_id="website_sale.total"
+        name="Cart Total SeQura Simulator"
+    >
+        <xpath expr="//div[@id='cart_total']" position="inside">
+            <t
+                t-set="cart_amount"
+                t-value="int(website_sale_order.amount_total * 100)"
+            />
+            <t t-if="website_sale_order.amount_total >= 50">
+                <div
+                    class="sequra-promotion-widget"
+                    t-att-data-amount="cart_amount"
+                    data-product="pp3"
+                    data-alignment="left"
+                />
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="payment_form_sequra_filter"
+        inherit_id="payment.form"
+        name="Hide SeQura for amounts below minimum"
+    >
+        <xpath
+            expr="//div[@id='o_payment_methods']//li[@name='o_payment_option']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not (pm_sudo.provider_ids.filtered(lambda p: p in providers_sudo and p.code == 'sequra') and amount and amount &lt; 50)</attribute>
+        </xpath>
+    </template>
+</odoo>
