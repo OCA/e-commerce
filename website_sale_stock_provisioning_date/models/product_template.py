@@ -59,7 +59,10 @@ class ProductTemplate(models.Model):
         uom_id=False,
         only_template=False,
     ):
-        combination_info = super()._get_combination_info(
+        combination_info = super(
+            ProductTemplate,
+            self.with_context(website_sale_stock_available=False),
+        )._get_combination_info(
             combination=combination,
             product_id=product_id,
             add_qty=add_qty,
@@ -76,10 +79,14 @@ class ProductTemplate(models.Model):
             product = self.sudo()
         website = self.env["website"].get_current_website()
         provisioning_date = False
-        free_qty = website._get_product_available_qty(product)
-        if product.show_next_provisioning_date and free_qty <= 0:
-            company = website.company_id
-            provisioning_date = product._get_next_provisioning_date(company)
-            provisioning_date = format_date(self.env, provisioning_date)
+        if product.show_next_provisioning_date:
+            if "free_qty" in combination_info:
+                free_qty = combination_info["free_qty"]
+            else:
+                free_qty = website._get_product_available_qty(product)
+            if free_qty <= 0:
+                company = website.company_id
+                provisioning_date = product._get_next_provisioning_date(company)
+                provisioning_date = format_date(self.env, provisioning_date)
         combination_info.update(provisioning_date=provisioning_date)
         return combination_info
