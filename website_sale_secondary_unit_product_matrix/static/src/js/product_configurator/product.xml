@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Tecnativa - Carlos Roca
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<templates xml:space="preserve">
+    <t t-inherit="sale.Product" t-inherit-mode="extension">
+        <!-- As in the product page, the unit is chosen in the matrix -->
+        <xpath expr="//select[hasclass('o_wsale_secondary_uom')]" position="attributes">
+            <attribute name="t-if" add="!isMatrixProduct" separator=" &amp;&amp; " />
+        </xpath>
+        <!-- The unit chosen in the matrix applies to all of its variants -->
+        <xpath
+            expr="//table[hasclass('o_wsale_product_matrix_lines')]//td[@t-out='line.qty']"
+            position="after"
+        >
+            <td
+                t-if="matrixUomName"
+                class="text-nowrap o_wsale_product_matrix_line_uom"
+                t-out="matrixUomName"
+            />
+        </xpath>
+    </t>
+</templates>
