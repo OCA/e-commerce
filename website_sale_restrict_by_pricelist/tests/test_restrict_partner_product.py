@@ -139,7 +139,7 @@ class TestRestrictPartnerProduct(HttpCase):
         self.portal_partner.invalidate_recordset()
         self.assertTrue(
             bool(self.portal_partner.restrict_products_for_all_users),
-            "Expected False when restrict_products is enabled",
+            "Expected True when restrict_products is enabled",
         )
         self.env["ir.config_parameter"].sudo().set_param(
             "website_sale_restrict_by_pricelist.restrict_products", ""
@@ -148,7 +148,7 @@ class TestRestrictPartnerProduct(HttpCase):
         self.portal_partner.invalidate_recordset()
         self.assertFalse(
             bool(self.portal_partner.restrict_products_for_all_users),
-            "Expected True when restrict_products is disabled",
+            "Expected False when restrict_products is disabled",
         )
 
     def test_portal_user_sees_products(self):
@@ -188,3 +188,14 @@ class TestRestrictPartnerProduct(HttpCase):
             bool(admin_partner.restrict_products_for_all_users),
             "Internal users should not have product restrictions",
         )
+
+    def test_admin_shop_sees_products(self):
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_restrict_by_pricelist.restrict_products", "True"
+        )
+        self.authenticate("admin", "admin")
+        response = self.url_open("/shop?search=Test+Product")
+        self.assertEqual(response.status_code, 200)
+        content = response.content.decode("utf-8")
+        self.assertIn(self.product_tmpl_1.name, content)
+        self.assertIn(self.product_tmpl_2.name, content)

@@ -44,10 +44,11 @@ odoo.define("website_sale_cart_expire", (require) => {
          * @param {String|Date} expireDate
          */
         _setExpirationDate: function (expireDate) {
-            if (typeof expireDate === "string") {
-                expireDate = time.str_to_datetime(expireDate);
+            let formattedExpireDate = expireDate;
+            if (typeof formattedExpireDate === "string") {
+                formattedExpireDate = time.str_to_datetime(formattedExpireDate);
             }
-            this.expireDate = expireDate ? moment(expireDate) : false;
+            this.expireDate = formattedExpireDate ? moment(formattedExpireDate) : false;
         },
         /**
          * @returns {Number}
@@ -83,7 +84,10 @@ odoo.define("website_sale_cart_expire", (require) => {
             }
         },
         /**
-         * Updates the remaining time on the dom
+         * Updates the remaining time on the dom.
+         *
+         * @param {Number} remainingMs - Remaining time in milliseconds.
+         * @returns {void}
          */
         _renderTimer: function (remainingMs) {
             const remainingMsRounded = Math.ceil(remainingMs / 1000) * 1000;

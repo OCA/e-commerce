@@ -1,0 +1,1 @@
+If you need to define a message to be shown on the registration page to provide information related to the Fiscal Position Types (B2B or B2C) you need to go to a website configuration form view and complete the HTML fields "B2B Information" and "B2C Information" displayed in the B2B/B2C Website Info tab.

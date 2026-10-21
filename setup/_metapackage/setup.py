@@ -9,9 +9,11 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-product_template_multi_link>=16.0dev,<16.1dev',
+        'odoo-addon-website_account_fiscal_position_partner_type>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_attribute_filter_form_submit>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_attribute_filter_multiselect>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_cart_expire>=16.0dev,<16.1dev',
+        'odoo-addon-website_sale_cart_selectable>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_category_breadcrumb>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_checkout_skip_payment>=16.0dev,<16.1dev',
         'odoo-addon-website_sale_comparison_hide_price>=16.0dev,<16.1dev',

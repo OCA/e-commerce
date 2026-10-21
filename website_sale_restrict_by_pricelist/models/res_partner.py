@@ -1,7 +1,7 @@
 # Copyright 2025 APSL-Nagarro Antoni Marroig
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.tools import str2bool
 
 
@@ -15,6 +15,7 @@ class ResPartner(models.Model):
         compute="_compute_restrict_products_for_all_users", store=False
     )
 
+    @api.depends_context("uid")
     def _compute_restrict_products_for_all_users(self):
         param_value = str2bool(
             self.env["ir.config_parameter"].sudo().get_param(

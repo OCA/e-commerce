@@ -38,9 +38,7 @@ class UICase(HttpCase):
         # Create a dummy payment provider to ensure that the tour has at least one
         # available to it.
         arch = """
-        <form action="dummy" method="post">
-            <input type="hidden" name="view_id" t-att-value="viewid"/>
-            <input type="hidden" name="user_id" t-att-value="user_id.id"/>
+        <form action="/shop/payment/validate" method="get">
         </form>
         """
         redirect_form = self.env["ir.ui.view"].create(
