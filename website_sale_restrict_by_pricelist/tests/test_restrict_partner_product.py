@@ -1,7 +1,12 @@
 # Copyright 2025 APSL-Nagarro Antoni Marroig
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from types import SimpleNamespace
+from unittest.mock import patch
+
 from odoo.tests.common import HttpCase
+
+from ..controllers import main
 
 
 class TestRestrictPartnerProduct(HttpCase):
@@ -67,6 +72,63 @@ class TestRestrictPartnerProduct(HttpCase):
                 ],
             }
         )
+
+    def _lookup_products(self, products):
+        controller = main.WebsiteSaleRestrictByPricelistController()
+        portal_env = self.env(user=self.portal_user.id)
+        with patch.object(main, "request", SimpleNamespace(env=portal_env)):
+            with patch.object(
+                main.WebsiteSale,
+                "_shop_lookup_products",
+                return_value=("corrected search", len(products), products),
+            ) as lookup:
+                result = controller._shop_lookup_products(
+                    set(), {}, {}, "search", self.env["website"]
+                )
+        lookup.assert_called_once_with(set(), {}, {}, "search", self.env["website"])
+        return result
+
+    def test_shop_lookup_restricts_products(self):
+        self.portal_user.property_product_pricelist = self.pricelist
+        self.portal_user.restrict_products = True
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_restrict_by_pricelist.restrict_products", "False"
+        )
+        self.pricelist.item_ids.filtered(
+            lambda item: item.product_tmpl_id == self.product_tmpl_2
+        ).unlink()
+        products = self.product_tmpl_2 | self.product_tmpl_1
+        term, count, result = self._lookup_products(products)
+        self.assertEqual(term, "corrected search")
+        self.assertEqual(count, 1)
+        self.assertEqual(result, self.product_tmpl_1)
+
+        term, count, result = self._lookup_products(self.product_tmpl_2)
+        self.assertEqual(count, 0)
+        self.assertFalse(result)
+
+    def test_shop_lookup_without_restriction(self):
+        self.portal_user.restrict_products = False
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_restrict_by_pricelist.restrict_products", "False"
+        )
+        products = self.product_tmpl_2 | self.product_tmpl_1
+        term, count, result = self._lookup_products(products)
+        self.assertEqual(term, "corrected search")
+        self.assertEqual(count, 2)
+        self.assertEqual(result, products)
+
+    def test_shop_lookup_global_restriction(self):
+        self.portal_user.property_product_pricelist = self.pricelist
+        self.portal_user.restrict_products = False
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_restrict_by_pricelist.restrict_products", "True"
+        )
+        self.pricelist.item_ids.unlink()
+        term, count, result = self._lookup_products(self.product_tmpl_1)
+        self.assertEqual(term, "corrected search")
+        self.assertEqual(count, 0)
+        self.assertFalse(result)
 
     # Set the parameter to True
     def test_restrict_products_param_enabled(self):

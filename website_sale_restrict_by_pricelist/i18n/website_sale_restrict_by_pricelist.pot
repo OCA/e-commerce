@@ -26,13 +26,13 @@ msgstr ""
 #. module: website_sale_restrict_by_pricelist
 #: model:ir.model.fields,help:website_sale_restrict_by_pricelist.field_res_config_settings__restrict_products_for_all_users
 msgid ""
-"Enable to restrict products base on the assigned pricelist of all users."
+"Enable to restrict products based on the assigned pricelist of all users."
 msgstr ""
 
 #. module: website_sale_restrict_by_pricelist
 #: model:ir.model.fields,help:website_sale_restrict_by_pricelist.field_res_partner__restrict_products
 #: model:ir.model.fields,help:website_sale_restrict_by_pricelist.field_res_users__restrict_products
-msgid "Enable to restrict products base on the assigned pricelist."
+msgid "Enable to restrict products based on the assigned pricelist."
 msgstr ""
 
 #. module: website_sale_restrict_by_pricelist
@@ -50,5 +50,5 @@ msgstr ""
 
 #. module: website_sale_restrict_by_pricelist
 #: model_terms:ir.ui.view,arch_db:website_sale_restrict_by_pricelist.res_config_settings_view_form
-msgid "Restrict products base on the assigned pricelist of all users"
+msgid "Restrict products based on the assigned pricelist of all users"
 msgstr ""

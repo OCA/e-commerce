@@ -1,97 +1,79 @@
 # Copyright 2025 APSL-Nagarro Antoni Marroig
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import http
-from odoo.http import request
-from odoo.tools.func import lazy
+from odoo.http import request  # type: ignore[import]
+from odoo.tools import str2bool  # type: ignore[import]
 
-from odoo.addons.http_routing.models.ir_http import slug
-from odoo.addons.website_sale.controllers.main import TableCompute, WebsiteSale
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSaleRestrictPartnerProductController(WebsiteSale):
-    def _get_portal_restricted_products(self, search_product, product_count):
-
-        restrict_products_for_all_users = (
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param(
+class WebsiteSaleRestrictByPricelistController(WebsiteSale):
+    def _is_restriction_enabled_for_user(self):
+        user = request.env.user
+        restrict_products_for_all_users = str2bool(
+            request.env["ir.config_parameter"].sudo().get_param(
                 "website_sale_restrict_by_pricelist.restrict_products",
-                default="",
+                default="False",
             )
         )
-        if request.env.user.has_group("base.group_portal") and (
-            request.env.user.restrict_products or bool(restrict_products_for_all_users)
-        ):
-            pricelist = request.env.user.property_product_pricelist
-            if pricelist:
-                products = pricelist.item_ids.mapped("product_tmpl_id")
-                products = products.filtered(lambda p: p.is_published)
-            else:
-                products = request.env["product.template"].browse()
-            return products, len(products)
-        return (
-            search_product,
-            product_count,
+        return user.has_group("base.group_portal") and (
+            user.restrict_products or restrict_products_for_all_users
         )
 
-    @http.route()
-    def shop(
-        self,
-        page=0,
-        category=None,
-        search="",
-        min_price=0.0,
-        max_price=0.0,
-        ppg=False,
-        **post,
+    def _get_allowed_product_domain(self):
+        if not self._is_restriction_enabled_for_user():
+            return []
+
+        pricelist = request.env.user.property_product_pricelist
+        if not pricelist:
+            return [("id", "=", 0)]
+
+        items = pricelist.item_ids
+        if not items:
+            return [("id", "=", 0)]
+
+        # A global item means "all products"; no additional product-id restriction.
+        if items.filtered(lambda item: item.applied_on == "3_global"):
+            return []
+
+        allowed_templates = request.env["product.template"]
+        product_items = items.filtered(lambda item: item.applied_on == "1_product")
+        allowed_templates |= product_items.mapped("product_tmpl_id")
+
+        variant_items = items.filtered(lambda item: item.applied_on == "0_product_variant")
+        allowed_templates |= variant_items.mapped("product_id.product_tmpl_id")
+
+        category_items = items.filtered(
+            lambda item: item.applied_on == "2_product_category"
+        )
+        category_ids = category_items.mapped("categ_id").ids
+        if category_ids:
+            allowed_templates |= request.env["product.template"].search(
+                [("categ_id", "child_of", category_ids)]
+            )
+
+        if not allowed_templates:
+            return [("id", "=", 0)]
+
+        return [("id", "in", allowed_templates.ids)]
+
+    def _shop_lookup_products(self, attrib_set, options, post, search, website):
+        fuzzy_search_term, product_count, search_product = super()._shop_lookup_products(
+            attrib_set, options, post, search, website
+        )
+        allowed_domain = self._get_allowed_product_domain()
+        if allowed_domain:
+            search_product = search_product.filtered_domain(allowed_domain)
+            product_count = len(search_product)
+        return fuzzy_search_term, product_count, search_product
+
+    def _get_search_domain(  # type: ignore[override]
+        self, search, category, attrib_values, search_in_description=True
     ):
-        res = super().shop(
-            page=page,
-            category=category,
-            search=search,
-            min_price=min_price,
-            max_price=max_price,
-            ppg=ppg,
-            **post,
+        domain = super()._get_search_domain(
+            search, category, attrib_values, search_in_description=search_in_description
         )
-        url = "/shop"
-        if res.qcontext["category"]:
-            url = "/shop/category/%s" % slug(res.qcontext["category"])
-        (
-            res.qcontext["search_product"],
-            res.qcontext["product_count"],
-        ) = self._get_portal_restricted_products(
-            res.qcontext["search_product"], len(res.qcontext["search_product"])
-        )
-        res.qcontext["pager"] = request.website.pager(
-            url=url,
-            total=res.qcontext["product_count"],
-            page=page,
-            step=res.qcontext["ppg"],
-            scope=5,
-            url_args=post,
-        )
-        offset = res.qcontext["pager"]["offset"]
-        res.qcontext["products"] = res.qcontext["search_product"][
-            offset : offset + res.qcontext["ppg"]
-        ]
-        res.qcontext["bins"] = TableCompute().process(
-            res.qcontext["products"], res.qcontext["ppg"], res.qcontext["ppr"]
-        )
-
-        # Recalculate prices for filtered products to avoid KeyError
-        pricelist = res.qcontext.get("pricelist")
-        if pricelist and res.qcontext["search_product"]:
-            # Get all filtered products (search_product contains the filtered results)
-            filtered_products = res.qcontext["search_product"]
-            # Recalculate prices only for the filtered products
-            products_prices = lazy(
-                lambda: filtered_products._get_sales_prices(pricelist)
-            )
-            # Update the function to use the recalculated prices
-            res.qcontext["get_product_prices"] = lambda product: lazy(
-                lambda: products_prices[product.id]
-            )
-
-        return res
+        allowed_domain = self._get_allowed_product_domain()
+        if not allowed_domain:
+            return domain
+        return domain + allowed_domain

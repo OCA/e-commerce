@@ -17,7 +17,7 @@
                     <div class="o_setting_right_pane">
                         <label for="restrict_products_for_all_users" />
                         <div class="text-muted">
-                            Restrict products base on the assigned pricelist of all users
+                            Restrict products based on the assigned pricelist of all users
                         </div>
                     </div>
                 </div>

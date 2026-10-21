@@ -1,0 +1,13 @@
+https://github.com/OCA/e-commerce/pull/1166
+
+Thanks for the detailed review.
+I have applied the requested high-priority changes:
+
+Reworked the implementation to use _get_search_domain instead of post-processing shop(), so search/category/price filters, pagination, and pricing stay consistent with core behavior.
+Fixed boolean parsing for the global setting using str2bool with default="False" (avoids the bool("False") issue).
+Extended pricelist handling to cover all applied_on types: 1_product, 0_product_variant, 2_product_category, and 3_global.
+Renamed the controller class to match the current module naming.
+Fixed wording typos ("base on" -> "based on") in Python, XML, and translation templates.
+Note: I did not apply the automated suggestion about adding this module as a dependency of website_sale, because the correct relationship is this addon depending on website_sale (not the other way around).
+
+Please re-review when you have time. Thanks again.

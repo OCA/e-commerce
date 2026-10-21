@@ -6,3 +6,7 @@ Additionally, you can restrict product visibility for all portal users by going 
 4. Go to: Website > Shop.
 
 Only the products defined in the assigned pricelist will be visible in the shop for that user.
+
+The restriction applies before pagination, including the product count and
+attribute filters, whether or not the shop's price filter is enabled. Search,
+category and attribute filters still apply within the allowed products.
