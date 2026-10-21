@@ -20,6 +20,7 @@ class TestWebsiteSaleStockPickingPolicy(BaseCommon):
         "odoo.addons.website_sale_stock_picking_policy.controllers.main."
         "WebsiteSale._prepare_checkout_page_values"
     )
+    _test_user_groups = ("sales_team.group_sale_manager",)
 
     @classmethod
     def setUpClass(cls):
@@ -97,6 +98,5 @@ class TestWebsiteSaleStockPickingPolicy(BaseCommon):
 
     def test_update_picking_policy_without_cart_raises(self):
         """A missing cart should raise a user-facing error."""
-        with self._mock_request(cart=False):
-            with self.assertRaises(UserError):
-                self.controller.update_picking_policy("one")
+        with self._mock_request(cart=False), self.assertRaises(UserError):
+            self.controller.update_picking_policy("one")
