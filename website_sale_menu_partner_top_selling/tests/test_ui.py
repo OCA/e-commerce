@@ -3,7 +3,7 @@
 
 from odoo.tests.common import HttpCase, tagged
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 
 
 @tagged("post_install", "-at_install")
@@ -11,9 +11,9 @@ class TestUi(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CREATE_CONTEXT))
         cls.env.ref("website_sale.products_categories").active = True
-        cls.env["ir.config_parameter"].sudo().set_param(
+        cls.env["ir.config_parameter"].sudo().set_int(
             "website_sale_menu_partner_top_selling.limit", 2
         )
         cls.admin_user = cls.env.ref("base.user_admin")
