@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ===========================================
 eCommerce Confirm Order By Payment Provider
 ===========================================
@@ -17,7 +13,7 @@ eCommerce Confirm Order By Payment Provider
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
@@ -65,7 +61,9 @@ Usage
 2. Enable the *Confirm Order Automatically* option for the desired
    payment method.
 3. When a customer completes a sale using that payment method, the order
-   will be automatically confirmed after payment validation.
+   will be automatically confirmed once the transaction is processed,
+   even if the customer leaves the payment status page before being
+   redirected to the confirmation page.
 
 Bug Tracker
 ===========
@@ -91,6 +89,7 @@ Contributors
 - `Tecnativa <https://www.tecnativa.com>`__:
 
   - Pilar Vargas
+  - Sergio Teruel
 
 Maintainers
 -----------
