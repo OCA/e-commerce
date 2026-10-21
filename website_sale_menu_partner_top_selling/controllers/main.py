@@ -15,11 +15,11 @@ class WebsiteSale(WebsiteSale):
     def user_regular_products(self, page=0, **kwargs):
         if request.env.user.has_group("base.group_public"):
             return request.redirect("/web/login")
-        website = request.env["website"].get_current_website()
+        website = request.env.website
         param_limit = int(
             request.env["ir.config_parameter"]
             .sudo()
-            .get_param("website_sale_menu_partner_top_selling.limit", 10)
+            .get_int("website_sale_menu_partner_top_selling.limit", 10)
         )
         # Get best-selling products from the user
         partner = request.env.user.partner_id
@@ -39,12 +39,12 @@ class WebsiteSale(WebsiteSale):
                     (
                         "product_id.product_tmpl_id.website_id",
                         "in",
-                        [request.website.id, False],
+                        [website.id, False],
                     ),
                     (
                         "product_id.product_tmpl_id.company_id",
                         "in",
-                        [request.website.company_id.id, False],
+                        [website.company_id.id, False],
                     ),
                 ],
                 groupby=["product_id"],
@@ -61,7 +61,7 @@ class WebsiteSale(WebsiteSale):
             template_quantities, key=template_quantities.get, reverse=True
         )
         templates = request.env["product.template"].concat(
-            *sorted_templates[:param_limit]
+            sorted_templates[:param_limit]
         )
         # Pagination
         ppg = website.shop_ppg or 21
@@ -70,7 +70,7 @@ class WebsiteSale(WebsiteSale):
         page = max(0, min(page, page_count - 1))
         offset = page * ppg
         products_on_page = templates[offset : offset + ppg]
-        pager = request.website.pager(
+        pager = website.pager(
             url="/shop/my_regular_products",
             total=total_products,
             page=page + 1,
@@ -78,7 +78,13 @@ class WebsiteSale(WebsiteSale):
             scope=5,
             url_args=kwargs,
         )
-        products_prices = lazy(lambda: products_on_page._get_sales_prices(website))
+        products_prices = lazy(
+            lambda: products_on_page._get_sales_prices(
+                request.pricelist.with_context(**self.env.context),
+                request.fiscal_position.with_context(**self.env.context),
+                website.with_context(**self.env.context),
+            )
+        )
         # Map each product to its variant, like WebsiteSale.shop() does, since our
         # own product set differs from the one shop() computed for itself.
         variants = (

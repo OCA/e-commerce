@@ -1,16 +1,22 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <template id="products" inherit_id="website_sale.products" priority="999">
+        <xpath expr="//t[@t-set='hasLeftColumn']" position="after">
+            <t t-set="hasLeftColumn" t-value="hasLeftColumn or opt_wsale_categories" />
+        </xpath>
+    </template>
+
     <template
         id="products_categories_top_user_selling"
         inherit_id="website_sale.products_categories_list"
         priority="999"
     >
-        <xpath expr="//a[@t-att-href='keep(shop_path)']" position="attributes">
+        <xpath expr="//a[contains(@t-att-href, 'shop_path')]" position="attributes">
             <attribute
                 name="t-attf-class"
             >{{not category and not request.httprequest.path.startswith('/shop/my_regular_products') and 'text-decoration-underline'}} p-0</attribute>
         </xpath>
-        <xpath expr="//a[@t-att-href='keep(shop_path)']/.." position="after">
+        <xpath expr="//a[contains(@t-att-href, 'shop_path')]/.." position="after">
             <li class="nav-item mb-1">
                 <a
                     href="/shop/my_regular_products"
