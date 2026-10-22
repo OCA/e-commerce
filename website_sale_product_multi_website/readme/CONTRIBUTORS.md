@@ -3,5 +3,6 @@
 - Juan Jose Scarafia
 - lav-adhoc
 - Manuela Cepeda
+- Juan Rivero
 - Tecnativa (\<<https://www.tecnativa.com>\>):
   - Pilar Vargas

@@ -1,6 +1,9 @@
 # Copyright 2026 Tecnativa - Pilar Vargas
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+from psycopg2 import IntegrityError
+
 from odoo.tests import HttpCase, tagged
+from odoo.tools import mute_logger
 
 
 @tagged("post_install", "-at_install")
@@ -34,34 +37,35 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
 
     def test_01_product_without_websites_is_available_on_all_websites(self):
         # Check that a product without website_ids is available on all websites
-        for website in (self.website0, self.website1, self.website2):
+        product_url = self.product_template.website_url
+        for website, host in (
+            (self.website0, self.website0_host),
+            (self.website1, self.website1_host),
+            (self.website2, self.website2_host),
+        ):
             product = self.product_template.with_context(website_id=website.id)
-            self.assertTrue(
-                product.website_published,
-            )
-            self.assertTrue(
-                product.can_access_from_current_website(website_id=website.id)
-            )
+            self.assertTrue(product.website_published)
+            response = self.url_open(product_url, headers={"Host": host})
+            self.assertEqual(response.status_code, 200)
 
     def test_02_product_is_only_available_on_assigned_websites(self):
         # Assign the product to only one website
         self.product_template.website_ids = [(6, 0, self.website1.ids)]
-        # Check that the product is only available on the assigned website
-        self.assertTrue(
-            self.product_template.can_access_from_current_website(
-                website_id=self.website1.id
-            )
-        )
-        self.assertFalse(
-            self.product_template.can_access_from_current_website(
-                website_id=self.website0.id
-            )
-        )
-        self.assertFalse(
-            self.product_template.can_access_from_current_website(
-                website_id=self.website2.id
-            )
-        )
+        product_url = self.product_template.website_url
+        # The product page answers on the assigned website
+        product = self.product_template.with_context(website_id=self.website1.id)
+        self.assertTrue(product.website_published)
+        response = self.url_open(product_url, headers={"Host": self.website1_host})
+        self.assertEqual(response.status_code, 200)
+        # ... and is not reachable from the others
+        for website, host in (
+            (self.website0, self.website0_host),
+            (self.website2, self.website2_host),
+        ):
+            product = self.product_template.with_context(website_id=website.id)
+            self.assertFalse(product.website_published)
+            response = self.url_open(product_url, headers={"Host": host})
+            self.assertEqual(response.status_code, 404)
 
     def test_03_product_is_visible_only_on_assigned_website_shop(self):
         self.product_template.website_ids = self.website1
@@ -106,9 +110,9 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
         )
 
     def test_07_accessory_domain_does_not_raise_for_public_user(self):
-        # Regression test: website_domain()'s website_ids condition used to be
-        # evaluated in-memory (filtered_domain) by _get_website_accessory_product,
-        # which raised an AccessError for the public user instead of silently
+        # Regression test: the website_ids condition used to be evaluated
+        # in-memory (filtered_domain) by _get_website_accessory_product, which
+        # raised an AccessError for the public user instead of silently
         # filtering out the accessory it can't read (unpublished).
         published_accessory = self.env["product.template"].create(
             {"name": "Published accessory", "is_published": True, "list_price": 5}
@@ -124,3 +128,56 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
             self.env.ref("base.public_user")
         )._get_website_accessory_product()
         self.assertEqual(accessories, published_accessory.product_variant_ids)
+
+    def test_08_website_id_answers_the_website_being_browsed(self):
+        # website_id is what the core reads to match a record against the
+        # current website, so it must answer that website whenever the product
+        # is assigned to it, not just the first one of website_ids.
+        self.product_template.website_ids = self.website1 + self.website2
+        for website in (self.website1, self.website2):
+            product = self.product_template.with_context(website_id=website.id)
+            self.assertEqual(product.website_id, website)
+        # Browsing a website the product is not assigned to keeps the first one
+        product = self.product_template.with_context(website_id=self.website0.id)
+        self.assertEqual(product.website_id, self.website1)
+
+    def test_09_search_by_website_id_uses_website_ids(self):
+        # The core searches products by website_id; the search method has to
+        # answer from website_ids, with an empty website_ids meaning "every
+        # website".
+        self.product_template.website_ids = self.website1
+        unrestricted = self.env["product.template"].create(
+            {"name": "On every website", "is_published": True, "list_price": 5}
+        )
+        on_website1 = self.env["product.template"].search(
+            self.website1.website_domain()
+        )
+        self.assertIn(self.product_template, on_website1)
+        self.assertIn(unrestricted, on_website1)
+        on_website0 = self.env["product.template"].search(
+            self.website0.website_domain()
+        )
+        self.assertNotIn(self.product_template, on_website0)
+        self.assertIn(unrestricted, on_website0)
+
+    def test_10_a_website_in_use_cannot_be_deleted(self):
+        # website_ids is restrict: cascading would empty it silently, and a
+        # product that was exclusive to the deleted website would end up
+        # published on every remaining one.
+        self.product_template.website_ids = self.website1
+        with (
+            self.assertRaises(IntegrityError),
+            mute_logger("odoo.sql_db"),
+            self.env.cr.savepoint(),
+        ):
+            self.website1.unlink()
+
+    def test_11_search_by_website_id_supports_other_operators(self):
+        # A custom filter on the product list builds domains such as
+        # ('website_id', 'ilike', ...); they have to reach website_ids
+        # instead of raising.
+        self.product_template.website_ids = self.website1
+        found = self.env["product.template"].search(
+            [("website_id", "ilike", self.website1.name)]
+        )
+        self.assertIn(self.product_template, found)

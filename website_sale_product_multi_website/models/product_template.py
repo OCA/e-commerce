@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
-from odoo.http import request
+from odoo.fields import Domain
 
 
 class ProductTemplate(models.Model):
@@ -12,6 +12,11 @@ class ProductTemplate(models.Model):
         "product_template_id",
         "website_id",
         string="Websites",
+        # restrict, like the foreign key of the website_id this replaces:
+        # cascading would silently empty website_ids when a website is
+        # deleted, and an empty website_ids publishes the product on every
+        # remaining website instead of none.
+        ondelete="restrict",
         help="Restrict the product to the selected websites. Leave empty to "
         "make it available on all websites.",
     )
@@ -19,45 +24,49 @@ class ProductTemplate(models.Model):
         "website",
         compute="_compute_website_id",
         inverse="_inverse_website_id",
-        store=True,
+        search="_search_website_id",
+        store=False,
     )
 
     @api.depends("website_ids")
+    @api.depends_context("website_id")
     def _compute_website_id(self):
+        # The core reads website_id to decide whether a record belongs to the
+        # website being browsed: ir.http._pre_dispatch() returns a 404 when it
+        # differs, and _compute_website_published() unpublishes it. Answer with
+        # the current website whenever the product is assigned to it, so a
+        # product on several websites matches on each one instead of only on
+        # the first. sudo(): website_ids is not readable by the public user,
+        # and this is also evaluated in memory by filtered_domain() on the
+        # accessory and alternative products.
+        current_website_id = self.env.context.get("website_id")
         for record in self:
-            record.website_id = record.website_ids[:1]
+            website_ids = record.sudo().website_ids
+            record.website_id = (
+                current_website_id
+                if current_website_id in website_ids.ids
+                else website_ids[:1].id
+            )
 
     def _inverse_website_id(self):
         for record in self:
             if record.website_id and record.website_id not in record.website_ids:
                 record.website_ids = [(4, record.website_id.id)]
 
-    def can_access_from_current_website(self, website_id=False):
-        # We overwrite this method completely in order to
-        # use the website_ids logic instead of website_id
-        website_id = website_id or request.env["website"].get_current_website().id
-        for record in self:
-            website_ids = record.sudo().website_ids.ids
-            if website_ids and website_id not in website_ids:
-                return False
-        return True
-
-    @api.depends("is_published", "website_ids")
-    @api.depends_context("website_id")
-    def _compute_website_published(self):
-        # We overwrite this method completely in order to
-        # use the website_ids logic instead of website_id
-        current_website_id = self.env.context.get("website_id")
-        for record in self:
-            website_ids = record.sudo().website_ids
-            record.website_published = record.is_published and (
-                not current_website_id
-                or not website_ids
-                or current_website_id in website_ids.ids
-            )
-
-    def _search_website_published(self, operator, value):
-        # Search with the multi_website_domain context.
-        return super(
-            ProductTemplate, self.with_context(multi_website_domain=True)
-        )._search_website_published(operator, value)
+    def _search_website_id(self, operator, value):
+        # Same reason as the compute: the core restricts records through
+        # website_id (website_domain(), _search_website_published()), while
+        # here the restriction lives in website_ids.
+        if operator != "in":
+            # Anything else (a custom filter on the website name, a path such
+            # as website_id.company_id) reads the same on website_ids.
+            return Domain("website_ids", operator, value)
+        # An empty website_ids means the product is available on every
+        # website, which is what website_id being unset used to mean.
+        website_ids = [website_id for website_id in value if website_id]
+        domain = (
+            Domain("website_ids", "in", website_ids) if website_ids else Domain.FALSE
+        )
+        if False in value:
+            domain |= Domain("website_ids", "=", False)
+        return domain
