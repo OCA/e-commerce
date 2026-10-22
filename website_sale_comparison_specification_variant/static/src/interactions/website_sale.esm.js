@@ -56,6 +56,8 @@ patch(WebsiteSale.prototype, {
             );
             if (accordionBodyEl) {
                 setElementContent(accordionBodyEl, markup(categoryEl.innerHTML));
+                accordionBodyEl.closest(".accordion-item").hidden =
+                    "empty" in categoryEl.dataset;
             }
         });
     },
