@@ -7,7 +7,7 @@ registry.category("web_tour.tours").add("website_sale_checkout_skip_payment", {
         ...tourUtils.searchProduct("Test Product", {select: true}),
         {
             content: "Add to cart",
-            trigger: "#add_to_cart",
+            trigger: "#add_to_cart_wrap button",
             run: "click",
         },
         tourUtils.goToCart({quantity: 1}),

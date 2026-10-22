@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!-- Copyright 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
          License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
@@ -26,9 +26,9 @@
             position="after"
         >
             <div
+                t-if="website.checkout_skip_payment"
                 class="alert alert-info"
                 role="alert"
-                t-if="website.checkout_skip_payment"
             >
                 <span t-field="website.website_sale_checkout_skip_message" />
             </div>
@@ -41,16 +41,7 @@
             <attribute name="t-if">not website.checkout_skip_payment</attribute>
         </xpath>
     </template>
-    <template
-        id="payment_confirmation_status"
-        inherit_id="website_sale.payment_confirmation_status"
-    >
-        <t t-if="tx_sudo.state == 'done'" position="attributes">
-            <attribute
-                name="t-if"
-            >tx_sudo.state == 'done' or website.checkout_skip_payment</attribute>
-        </t>
-    </template>
+
     <template id="navigation_buttons" inherit_id="website_sale.navigation_buttons">
         <xpath expr="//t[@t-call='payment.express_checkout']" position="attributes">
             <attribute

@@ -9,3 +9,5 @@
   - Miguel Gandia \<<miguel@studio73.es>\>
 - [NICO SOLUTIONS - ENGINEERING & IT](https://www.nico-solutions.de):
   - Nils Coenen \<<nils.coenen@nico-solutions.de>\>
+- Sudhir Arya\<<sudhir@erpharbor.com>\>
+  
