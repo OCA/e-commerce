@@ -139,3 +139,33 @@ class TestFrontend(HttpCase):
             )
 
         self.assertEqual(capture.records.type_id, self.sale_type)
+
+    def test_website_sale_type_kept_on_partner_change(self):
+        """Website orders keep the website sale type when the partner changes.
+
+        Scenario:
+            1. Set a sale order type on the website, none on the contacts.
+            2. Create an order from the website.
+            3. Set the customer again, as the checkout does, then another one.
+        Expected:
+            - The order keeps the website sale order type.
+        """
+        self.website.sale_type_id = self.sale_type
+        self.partner.sale_type = False
+        other_partner = self.env["res.partner"].create({"name": "Other Customer"})
+        order = self.env["sale.order"].create(
+            {"partner_id": self.partner.id, "website_id": self.website.id}
+        )
+        self.assertEqual(order.type_id, self.sale_type)
+        order.partner_id = self.partner
+        self.assertEqual(order.type_id, self.sale_type)
+        order.partner_id = other_partner
+        self.assertEqual(order.type_id, self.sale_type)
+
+    def test_partner_sale_type_on_order_without_website(self):
+        """Orders not created from a website follow the partner sale type."""
+        self.website.sale_type_id = self.sale_type
+        partner_sale_type = self.sale_type.copy({"name": "Partner Sale Order Type"})
+        self.partner.sale_type = partner_sale_type
+        order = self.env["sale.order"].create({"partner_id": self.partner.id})
+        self.assertEqual(order.type_id, partner_sale_type)
