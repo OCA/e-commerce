@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="products_add_to_cart" inherit_id="website_sale.shop_product_buttons">
+        <!-- Add quantity selector -->
+        <xpath
+            expr="//button[hasclass('o_wsale_product_btn_primary')]"
+            position="before"
+        >
+            <t t-set="minimum_qty" t-value="product.minimum_quantity or 1" />
+            <div class="css_quantity input-group mb-1 d-inline-flex">
+                <button
+                    type="button"
+                    name="minus_button"
+                    class="btn btn-secondary"
+                    aria-label="Remove one"
+                    title="Remove one"
+                >
+                    <i class="oi" data-icon="remove" role="presentation" />
+                </button>
+                <input
+                    type="text"
+                    class="js_quantity form-control quantity text-center"
+                    t-att-data-min="minimum_qty"
+                    name="add_qty"
+                    t-att-value="add_qty or minimum_qty"
+                    aria-label="Quantity"
+                />
+                <button
+                    type="button"
+                    name="plus_button"
+                    class="btn btn-secondary"
+                    aria-label="Add one"
+                    title="Add one"
+                >
+                    <i class="oi" data-icon="add" role="presentation" />
+                </button>
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="always_display_qty_buttons"
+        inherit_id="website_sale.products_item"
+        name="Always display qty buttons"
+        customize_show="True"
+        priority="100"
+        active="True"
+    >
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="class" add="o_wsale_product_btn_custom" separator=" " />
+        </xpath>
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">
+            <attribute name="class" separator=" " remove="d-flex gap-2" />
+        </xpath>
+    </template>
+</odoo>

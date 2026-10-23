@@ -1,0 +1,19 @@
+.oe_product_cart {
+    .o_wsale_product_btn {
+        input {
+            transform: scale(1);
+            transition: transform ease 200ms 0s;
+        }
+    }
+}
+.o_wsale_product_btn_custom {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+
+    // The theme hides the tile actions by fading the buttons, not the row.
+    .btn {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
