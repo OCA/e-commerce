@@ -3,7 +3,7 @@
 {
     "name": "Website Sale Product Cart Quantity",
     "summary": "Allows to add to cart from product items a custom quantity.",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "website": "https://github.com/OCA/e-commerce",
     "maintainers": ["CarlosRoca13"],
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -14,7 +14,8 @@
     "data": ["views/templates.xml"],
     "assets": {
         "web.assets_frontend": [
-            "website_sale_product_item_cart_custom_qty/static/src/scss/add_to_cart.scss"
+            "website_sale_product_item_cart_custom_qty/static/src/scss/add_to_cart.scss",
+            "website_sale_product_item_cart_custom_qty/static/src/interactions/product_tile_quantity.esm.js",
         ],
         "web.assets_tests": [
             "website_sale_product_item_cart_custom_qty/static/src/js/tour.esm.js"

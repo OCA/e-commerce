@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="products_add_to_cart" inherit_id="website_sale.shop_product_buttons">
         <!-- Add quantity selector -->
@@ -6,31 +6,34 @@
             expr="//button[hasclass('o_wsale_product_btn_primary')]"
             position="before"
         >
+            <t t-set="minimum_qty" t-value="product.minimum_quantity or 1" />
             <div class="css_quantity input-group mb-1 d-inline-flex">
-                <a
-                    href="#"
-                    class="btn btn-secondary js_add_cart_json"
+                <button
+                    type="button"
+                    name="minus_button"
+                    class="btn btn-secondary"
                     aria-label="Remove one"
                     title="Remove one"
-                    name="remove_one"
                 >
-                    <i class="fa fa-minus" />
-                </a>
+                    <i class="oi" data-icon="remove" role="presentation" />
+                </button>
                 <input
                     type="text"
                     class="js_quantity form-control quantity text-center"
-                    data-min="1"
+                    t-att-data-min="minimum_qty"
                     name="add_qty"
-                    t-att-value="add_qty or 1"
+                    t-att-value="add_qty or minimum_qty"
+                    aria-label="Quantity"
                 />
-                <a
-                    href="#"
-                    class="btn btn-secondary js_add_cart_json"
+                <button
+                    type="button"
+                    name="plus_button"
+                    class="btn btn-secondary"
                     aria-label="Add one"
                     title="Add one"
                 >
-                    <i class="fa fa-plus" />
-                </a>
+                    <i class="oi" data-icon="add" role="presentation" />
+                </button>
             </div>
         </xpath>
     </template>

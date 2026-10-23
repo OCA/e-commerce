@@ -12,12 +12,12 @@ registry.category("web_tour.tours").add("website_sale_product_item_cart_custom_q
         },
         {
             trigger:
-                ".oe_product_cart:contains('Test Product') a[title='Add one']:not(:visible), .oe_product_cart:contains('Test Product') a[title='Add one']",
+                ".oe_product_cart:contains('Test Product') button[title='Add one']:not(:visible), .oe_product_cart:contains('Test Product') button[title='Add one']",
             run: "click",
         },
         {
             trigger:
-                ".oe_product_cart:contains('Test Product') button[title='Add to cart'], .oe_product_cart:contains('Test Product') a[title='Add to cart']",
+                ".oe_product_cart:contains('Test Product') button[title='Add to cart']",
             run: "click",
         },
         {

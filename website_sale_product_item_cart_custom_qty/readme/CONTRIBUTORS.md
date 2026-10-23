@@ -7,3 +7,7 @@
 
   > - Ivan Sokolov
   > - Dessan Hemrayev
+
+- [Adhoc](https://www.adhoc.com.ar):
+
+  > - Juan Rivero

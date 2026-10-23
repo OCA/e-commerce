@@ -10,4 +10,10 @@
     opacity: 1 !important;
     visibility: visible !important;
     display: flex !important;
+
+    // The theme hides the tile actions by fading the buttons, not the row.
+    .btn {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 }
