@@ -2,7 +2,10 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
 import json
+from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
+
+import requests
 
 from odoo.exceptions import AccessError, ValidationError
 from odoo.tests import tagged
@@ -11,11 +14,21 @@ from odoo.tools import mute_logger
 from .. import const
 from .common import PayplugCommon
 
+TX_LOGGER = "odoo.addons.payment_payplug.models.payment_transaction"
 LOGGERS = (
-    "odoo.addons.payment_payplug.models.payment_transaction",
+    TX_LOGGER,
     "odoo.addons.payment.models.payment_provider",
     "odoo.addons.payment.models.payment_transaction",
 )
+
+
+def _make_response(status_code, body):
+    """Return a `requests` response with the given status and body (bytes or JSON)."""
+    response = requests.models.Response()
+    response.status_code = status_code
+    response.encoding = "utf-8"
+    response._content = body if isinstance(body, bytes) else json.dumps(body).encode()
+    return response
 
 
 @tagged("post_install", "-at_install", "payment_payplug")
@@ -71,6 +84,39 @@ class TestPayplugProvider(PayplugCommon):
             self.payplug._build_request_url("payments"),
             "https://api.payplug.com/v1/payments",
         )
+
+    def test_other_providers_are_not_affected(self):
+        other = self.dummy_provider
+        self.assertEqual(other._get_default_payment_method_codes(), set())
+        self.assertEqual(other._build_request_url("payments"), "")
+        # The Payplug credentials are never sent to another provider.
+        self.assertEqual(other._build_request_headers("GET", "payments", None), {})
+        response = _make_response(
+            400, {"message": "Invalid parameters.", "details": {"amount": "Too low."}}
+        )
+        self.assertEqual(other._parse_response_error(response), response.text)
+        self.assertEqual(
+            self.payplug._parse_response_error(response),
+            "Invalid parameters. {'amount': 'Too low.'}",
+        )
+
+    @mute_logger(*LOGGERS)
+    def test_error_response_without_json_object(self):
+        # E.g. the HTML page of a proxy, or an unexpected JSON value.
+        for body, expected in (
+            (b"<html>502 Bad Gateway</html>", "<html>502 Bad Gateway</html>"),
+            (["unexpected"], '["unexpected"]'),
+            ({"object": "error"}, '{"object": "error"}'),
+        ):
+            with self.subTest(body=body):
+                response = _make_response(502, body)
+                self.assertEqual(self.payplug._parse_response_error(response), expected)
+        response = _make_response(502, b"<html>502 Bad Gateway</html>")
+        with (
+            patch.object(requests, "request", return_value=response),
+            self.assertRaisesRegex(ValidationError, "502 Bad Gateway"),
+        ):
+            self.payplug._send_api_request("GET", "payments/pay_unknown")
 
 
 @tagged("post_install", "-at_install", "payment_payplug")
@@ -242,6 +288,131 @@ class TestPayplugPayment(PayplugCommon):
         tx._process("payplug", dict(payment, is_live=True))
         self.assertEqual(tx.state, "error")
 
+    @mute_logger(*LOGGERS)
+    def test_other_object_than_payment_sets_error(self):
+        tx, _values = self._create_payplug_payment()
+        payment = self.fake_payplug.mark_paid(tx.provider_reference)
+        tx._process("payplug", dict(payment, object="refund"))
+        self.assertEqual(tx.state, "error")
+        self.assertIn("not a payment", tx.state_message)
+
+    @mute_logger(*LOGGERS)
+    def test_payment_id_mismatch_sets_error(self):
+        tx, _values = self._create_payplug_payment()
+        payment = self.fake_payplug.mark_paid(tx.provider_reference)
+        tx._process("payplug", dict(payment, id="pay_another_payment"))
+        self.assertEqual(tx.state, "error")
+        self.assertIn("payment id does not match", tx.state_message)
+
+    @mute_logger(*LOGGERS)
+    def test_missing_payment_page_url_sets_error(self):
+        payment_data = {"id": "pay_without_url", "object": "payment"}
+        with patch.object(
+            type(self.payplug), "_send_api_request", return_value=payment_data
+        ):
+            tx, _values = self._create_payplug_payment()
+        self.assertEqual(tx.state, "error")
+        self.assertIn("did not return any payment page URL", tx.state_message)
+        # The payment id is kept, to match the later notifications of the payment.
+        self.assertEqual(tx.provider_reference, "pay_without_url")
+
+    def test_empty_customer_values_are_not_sent(self):
+        self.partner.write({"phone": False, "street2": False, "city": "X" * 150})
+        self._create_payplug_payment()
+        billing = self._last_request()[3]["billing"]
+        self.assertNotIn("mobile_phone_number", billing)
+        self.assertNotIn("landline_phone_number", billing)
+        self.assertNotIn("address2", billing)
+        self.assertEqual(billing["city"], "X" * const.FIELD_MAX_LENGTHS["city"])
+        self.assertIsNone(self.env["payment.transaction"]._payplug_format_phone(False))
+
+    def test_fetch_without_payplug_id_sends_no_request(self):
+        tx = self._create_transaction("redirect")
+        with self.assertLogs(TX_LOGGER, "WARNING") as logs:
+            tx._payplug_fetch_and_process()
+        self.assertIn("has no Payplug payment id", logs.output[0])
+        self.assertEqual(tx.state, "draft")
+        self.assertFalse(self.fake_payplug.state.requests)
+
+    @mute_logger(*LOGGERS)
+    def test_cancellation_without_payment_or_once_processed_sends_no_request(self):
+        draft_tx = self._create_transaction("redirect")  # No payment on Payplug.
+        draft_tx._payplug_abort_and_process()
+        self.assertEqual(draft_tx.state, "draft")
+        self.assertFalse(self.fake_payplug.state.requests)
+
+        tx, _values = self._create_payplug_payment(reference="paid-reference")
+        self.fake_payplug.mark_paid(tx.provider_reference)
+        tx._payplug_fetch_and_process()
+        self.assertEqual(tx.state, "done")
+        requests_count = len(self.fake_payplug.state.requests)
+        # E.g. the customer opens the cancel URL after paying.
+        tx._payplug_abort_and_process()
+        self.assertEqual(tx.state, "done")
+        self.assertEqual(len(self.fake_payplug.state.requests), requests_count)
+
+    def test_other_providers_transactions_are_not_affected(self):
+        payplug_like_data = {
+            "reference": "dummy-reference",
+            "object": "payment",
+            "is_paid": True,
+            "amount": 4990,
+            "currency": "EUR",
+            "metadata": {"odoo_reference": "another-reference"},
+        }
+        tx_model = self.env["payment.transaction"]
+        self.assertEqual(
+            tx_model._extract_reference("none", payplug_like_data), "dummy-reference"
+        )
+        dummy_tx = self._create_transaction(
+            "redirect",
+            provider_id=self.dummy_provider.id,
+            payment_method_id=self.dummy_provider.payment_method_ids[:1].id,
+            reference="dummy-reference",
+        )
+        self.assertEqual(dummy_tx._get_specific_rendering_values({}), {})
+        self.assertEqual(dummy_tx._extract_amount_data(payplug_like_data), {})
+        dummy_tx._apply_updates(payplug_like_data)
+        self.assertEqual(dummy_tx.state, "draft")
+        dummy_tx._send_refund_request()
+        self.assertFalse(self.fake_payplug.state.requests)
+
+
+@tagged("post_install", "-at_install", "payment_payplug")
+class TestPayplugRefreshStatus(PayplugCommon):
+    @mute_logger(*LOGGERS)
+    def test_refresh_status(self):
+        tx, _values = self._create_payplug_payment()
+        self.fake_payplug.mark_paid(tx.provider_reference)
+        dummy_tx = self._create_transaction(
+            "redirect",
+            provider_id=self.dummy_provider.id,
+            payment_method_id=self.dummy_provider.payment_method_ids[:1].id,
+            reference="dummy-reference",
+        )
+        action = (tx + dummy_tx).action_payplug_refresh_status()
+        self.assertEqual(action, {"type": "ir.actions.client", "tag": "soft_reload"})
+        self.assertEqual(tx.state, "done")
+        self.assertEqual(dummy_tx.state, "draft")
+        # The creation and one reading, for the Payplug transaction only.
+        self.assertEqual(len(self.fake_payplug.state.requests), 2)
+
+    @mute_logger(*LOGGERS)
+    def test_refresh_status_reports_api_errors(self):
+        tx, _values = self._create_payplug_payment()
+        del self.fake_payplug.state.payments[tx.provider_reference]
+        action = tx.action_payplug_refresh_status()
+        self.assertEqual(action["tag"], "display_notification")
+        self.assertEqual(action["params"]["type"], "danger")
+        self.assertIn("could not be found", action["params"]["message"])
+        self.assertEqual(tx.state, "draft")
+
+    def test_refresh_status_requires_write_access(self):
+        tx, _values = self._create_payplug_payment()
+        with self.assertRaises(AccessError):
+            tx.with_user(self.internal_user).action_payplug_refresh_status()
+        self.assertEqual(len(self.fake_payplug.state.requests), 1)
+
 
 @tagged("post_install", "-at_install", "payment_payplug")
 class TestPayplugRefund(PayplugCommon):
@@ -297,3 +468,28 @@ class TestPayplugRefund(PayplugCommon):
         refund_tx = tx.child_transaction_ids
         self.assertEqual(refund_tx.state, "error")
         self.assertFalse(self.fake_payplug.state.refunds)
+
+    @mute_logger(*LOGGERS)
+    def test_refund_data_not_matching_the_refund_sets_error(self):
+        tx = self._create_paid_transaction()
+        for name, changes in (
+            ("object", {"object": "payment"}),
+            ("payment", {"payment_id": "pay_another_payment"}),
+            ("id", {"id": "re_another_refund"}),
+            ("environment", {"is_live": True}),
+        ):
+            with self.subTest(name=name):
+                refund_tx = tx._create_child_transaction(10.0, is_refund=True)
+                refund = self.fake_payplug.create_refund(
+                    tx.provider_reference,
+                    1000,
+                    metadata={"odoo_reference": refund_tx.reference},
+                )
+                refund_tx.provider_reference = refund["id"]
+                refund_tx._process("payplug", dict(refund, **changes))
+                self.assertEqual(refund_tx.state, "error")
+                self.assertIn(
+                    "environment" if name == "environment" else "does not match",
+                    refund_tx.state_message,
+                )
+                self.assertEqual(refund_tx.provider_reference, refund["id"])

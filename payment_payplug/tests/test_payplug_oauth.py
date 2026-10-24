@@ -259,6 +259,52 @@ class TestPayplugOAuth2(PayplugOAuth2Common):
             self.payplug._payplug_get_access_token()
         self.assertEqual(len(self._token_requests()), 2)
 
+    def test_blank_credentials_are_refused_before_any_request(self):
+        self.payplug.payplug_client_secret = "   "
+        with self.assertRaisesRegex(
+            ValidationError, "client ID and secret are not set"
+        ):
+            self.payplug._payplug_get_access_token()
+        self.assertFalse(self._token_requests())
+
+    @mute_logger(*LOGGERS)
+    def test_token_request_refused(self):
+        # The fake server refuses an unknown audience with an `invalid_request` error.
+        self.env["ir.config_parameter"].sudo().set_param(
+            const.TOKEN_AUDIENCE_PARAM, "https://audience.example.com"
+        )
+        with self.assertRaisesRegex(
+            ValidationError, r"refused the access token request \(HTTP 400 invalid_req"
+        ):
+            self.payplug._payplug_get_access_token()
+        self.assertEqual(len(self._token_requests()), 1)
+        self.assertFalse(oauth.TOKEN_CACHE.keys())
+
+    @mute_logger(*LOGGERS)
+    def test_unexpected_token_error_code_is_not_shown(self):
+        response = Mock(ok=False, status_code=400)
+        for content in (
+            {"error": "<b>Forged</b> error"},
+            {"error": 42},
+            ["invalid_request"],
+            ValueError,  # Not JSON.
+        ):
+            if content is ValueError:
+                response.json.side_effect = ValueError
+            else:
+                response.json.return_value = content
+            with (
+                self.subTest(content=content),
+                patch(REQUESTS_POST, return_value=response),
+                self.assertRaises(ValidationError) as error,
+            ):
+                self.payplug._payplug_get_access_token()
+            message = str(error.exception)
+            self.assertIn("refused the access token request (HTTP 400", message)
+            self.assertNotIn("Forged", message)
+            self.assertNotIn("42", message)
+            self.assertNotIn("invalid_request", message)
+
     @mute_logger(*LOGGERS)
     def test_token_endpoint_unavailable(self):
         self.fake_payplug.state.token_failure_status = 503
