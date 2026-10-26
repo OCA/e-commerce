@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-e-commerce"
-version = "19.0.20261004.0"
+version = "19.0.20261026.0"
 dependencies = [
     "odoo-addon-product_template_multi_link==19.0.*",
     "odoo-addon-product_template_multi_link_date_span==19.0.*",
@@ -9,6 +9,7 @@ dependencies = [
     "odoo-addon-website_sale_b2x_alt_price==19.0.*",
     "odoo-addon-website_sale_barcode_search==19.0.*",
     "odoo-addon-website_sale_cart_expire==19.0.*",
+    "odoo-addon-website_sale_category_smart_button==19.0.*",
     "odoo-addon-website_sale_charge_payment_fee==19.0.*",
     "odoo-addon-website_sale_checkout_skip_payment==19.0.*",
     "odoo-addon-website_sale_comparison_hide_price==19.0.*",
