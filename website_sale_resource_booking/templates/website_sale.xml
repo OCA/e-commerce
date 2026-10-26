@@ -13,9 +13,9 @@
                 <i class="fa fa-calendar-check-o" />
                 From the cart, you will be able to make a pre-reservation, which will expire
                 <strong
-                    t-field="product.resource_booking_expiration"
-                    t-options='{"widget": "relative"}'
-                />
+                t-field="product.resource_booking_expiration"
+                t-options='{"widget": "relative"}'
+            />
             </div>
         </xpath>
     </template>
@@ -66,9 +66,9 @@
             <div class="alert alert-warning">
                 If unpaid, this pre-reservation will expire
                 <strong
-                    t-field="booking.sale_order_line_id.product_id.resource_booking_expiration"
-                    t-options='{"widget": "relative"}'
-                />
+                t-field="booking.sale_order_line_id.product_id.resource_booking_expiration"
+                t-options='{"widget": "relative"}'
+            />
             </div>
         </xpath>
     </template>
