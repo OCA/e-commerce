@@ -1,17 +1,17 @@
 # Copyright 2021 Tecnativa - Jairo Llopis
-# Copyright 2025 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import models
+from odoo import api, models
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    @api.onchange("partner_id")
     def _onchange_partner_id_warning(self):
-        """Update bookings partner when user creates account in checkout wizard."""
+        """Update booking partner when user creates accounts in checkout wizard."""
         result = super()._onchange_partner_id_warning()
-        # Avoid sending calendar invites if user is in eCommerce checkout
+        # Avoid sending calendar invites if a user is in eCommerce checkout
         _self = self.with_context(dont_notify=True)
         for order in _self:
             # We only care about eCommerce orders

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Tecnativa - Jairo Llopis
+     Copyright 2026 CIT Services
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<data>
+    <record id="product_product_form_view" model="ir.ui.view">
+        <field name="name">Display booking expiration in variant form</field>
+        <field name="model">product.product</field>
+        <field
+            name="inherit_id"
+            ref="sale_resource_booking.product_product_form_view"
+        />
+        <field name="arch" type="xml">
+            <group name="booking" position="inside">
+                <field
+                    name="resource_booking_timeout"
+                    widget="float_time"
+                    invisible="not resource_booking_type_id"
+                    groups="resource_booking.group_user"
+                />
+            </group>
+        </field>
+    </record>
+
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="name">product.product.list.website.sale.resource.booking</field>
+        <field name="model">product.product</field>
+        <field
+            name="inherit_id"
+            ref="sale_resource_booking.product_product_tree_view"
+        />
+        <field name="arch" type="xml">
+            <field name="resource_booking_type_combination_rel_id" position="after">
+                <field
+                    name="resource_booking_timeout"
+                    widget="float_time"
+                    optional="hide"
+                    groups="resource_booking.group_user"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="name">Display booking expiration in easy edit form</field>
+        <field name="model">product.product</field>
+        <field
+            name="inherit_id"
+            ref="sale_resource_booking.product_variant_easy_edit_view"
+        />
+        <field name="arch" type="xml">
+            <group name="booking" position="inside">
+                <field
+                    name="resource_booking_timeout"
+                    widget="float_time"
+                    invisible="not resource_booking_type_id"
+                    groups="resource_booking.group_user"
+                />
+            </group>
+        </field>
+    </record>
+</data>

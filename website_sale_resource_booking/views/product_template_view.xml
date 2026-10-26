@@ -18,6 +18,13 @@
                     groups="resource_booking.group_user"
                 />
             </group>
+            <xpath expr="//group[@name='variant_bookings']//list" position="inside">
+                <field
+                    name="resource_booking_timeout"
+                    widget="float_time"
+                    invisible="not resource_booking_type_id"
+                />
+            </xpath>
         </field>
     </record>
 </data>

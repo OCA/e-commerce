@@ -5,17 +5,18 @@
     <!-- Inform buyer about the upcoming reservation step -->
     <template id="product" inherit_id="website_sale.product">
         <xpath expr="//a[@id='add_to_cart']" position="before">
+            <t t-set="booking_product" t-value="product_variant or product" />
             <div
-                t-if="product.resource_booking_type_id"
+                t-if="booking_product.resource_booking_type_id"
                 role="alert"
                 class="alert alert-info mt8 mb0"
             >
                 <i class="fa fa-calendar-check-o" />
                 From the cart, you will be able to make a pre-reservation, which will expire
                 <strong
-                t-field="product.resource_booking_expiration"
-                t-options='{"widget": "relative"}'
-            />
+                    t-field="booking_product.resource_booking_expiration"
+                    t-options='{"widget": "relative"}'
+                />
             </div>
         </xpath>
     </template>
