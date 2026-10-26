@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_category_smart_button
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_category_smart_button
+#: model_terms:ir.ui.view,arch_db:website_sale_category_smart_button.product_public_category_form_view_smart_button
+msgid "<span class=\"o_stat_text\">Go to Website</span>"
+msgstr ""
+
+#. module: website_sale_category_smart_button
+#: model:ir.model.fields,field_description:website_sale_category_smart_button.field_product_public_category__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_sale_category_smart_button
+#: model:ir.model.fields,field_description:website_sale_category_smart_button.field_product_public_category__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_category_smart_button
+#: model:ir.model,name:website_sale_category_smart_button.model_product_public_category
+msgid "Website Product Category"
+msgstr ""
+
+#. module: website_sale_category_smart_button
+#: model:ir.model.fields,field_description:website_sale_category_smart_button.field_product_public_category__website_url
+msgid "Website URL"
+msgstr ""
