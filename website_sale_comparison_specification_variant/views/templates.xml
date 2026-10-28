@@ -11,6 +11,12 @@
                 t-set="attribute_exclusions"
                 t-value="product._get_display_attribute_exclusions()"
             />
+            <!-- Skip the lines with nothing to show for the variant, and the
+            categories left empty -->
+            <t
+                t-set="attrib_categories"
+                t-value="product.valid_product_template_attribute_line_ids._filter_displayed_in_specs_table(combination, attribute_exclusions)._prepare_categories_for_display_in_specs_table()"
+            />
         </xpath>
     </template>
 
@@ -25,6 +31,16 @@
                 t-value="product._get_display_attribute_exclusions()"
             />
         </xpath>
+        <!-- Hide the categories with nothing to show for the variant: they stay
+        rendered, as the refresh on variant change only updates the existing ones -->
+        <xpath
+            expr="//t[@t-foreach='attrib_categories']/div[hasclass('accordion-item')]"
+            position="attributes"
+        >
+            <attribute
+                name="t-att-hidden"
+            >not attrib_categories[category]._filter_displayed_in_specs_table(combination, attribute_exclusions)</attribute>
+        </xpath>
     </template>
 
     <template
@@ -35,6 +51,24 @@
             <attribute
                 name="t-foreach"
             >ptal._get_display_value_ids(combination, attribute_exclusions)</attribute>
+        </xpath>
+        <!-- Only list the lines with something to show for the variant: the
+        accordion keeps all of them, see `accordion_specs_item_specification_exclusion` -->
+        <xpath expr="//table/*[1]" position="before">
+            <t
+                t-set="displayed_lines"
+                t-value="attrib_categories[category]._filter_displayed_in_specs_table(combination, attribute_exclusions)"
+            />
+        </xpath>
+        <xpath expr="//tr[@t-as='ptal']" position="attributes">
+            <attribute
+                name="t-foreach"
+            >displayed_lines.filtered(lambda l: len(l.value_ids) > 1)</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='single_value_attributes']" position="attributes">
+            <attribute
+                name="t-value"
+            >displayed_lines._prepare_single_value_including_multi_type_for_display()</attribute>
         </xpath>
     </template>
 
@@ -64,7 +98,12 @@
     open/collapsed state survives the AJAX refresh. -->
     <template id="product_specifications_accordion_content">
         <t t-foreach="attrib_categories" t-as="category">
-            <div t-att-data-category-index="category_index">
+            <!-- As text: QWeb leaves out an attribute valued 0, which would
+            leave the first category out of the refresh -->
+            <div
+                t-att-data-category-index="str(category_index)"
+                t-att-data-empty="not attrib_categories[category]._filter_displayed_in_specs_table(combination, attribute_exclusions)"
+            >
                 <t t-call="website_sale_comparison.specifications_table">
                     <t t-set="is_accordion" t-value="True" />
                 </t>

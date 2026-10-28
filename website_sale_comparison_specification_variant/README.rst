@@ -43,7 +43,10 @@ such an attribute, and never updates when the customer changes the
 selected variant. This module makes it show only the value(s) actually
 compatible with the combination currently selected on the page, and
 refreshes it when the customer changes variant. This applies to every
-attribute type, not only non-variant-defining ("informative") ones.
+attribute type, not only non-variant-defining ("informative") ones. On
+the product page, an attribute with no value left for the selected
+variant is not listed, and neither is a category left without
+attributes.
 
 The comparison page (``/shop/compare``) is covered too: for each
 compared product, a non-variant-defining attribute only lists the
