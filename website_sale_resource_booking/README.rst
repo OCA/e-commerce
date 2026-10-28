@@ -101,6 +101,10 @@ Contributors
   - Stefan Ungureanu
   - Víctor Martínez
 
+- `CIT services <https://cit-services.in/>`__:
+
+  - Anusha
+
 Maintainers
 -----------
 

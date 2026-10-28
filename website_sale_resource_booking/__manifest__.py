@@ -14,6 +14,7 @@
     "data": [
         "data/ir_cron_data.xml",
         "templates/website_sale.xml",
+        "views/product_product_views.xml",
         "views/product_template_view.xml",
     ],
     "assets": {
