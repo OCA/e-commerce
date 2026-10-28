@@ -11,12 +11,15 @@ class SaleOrderLine(models.Model):
         """On eCommerce, a draft SO produces pending/scheduled bookings."""
         result = super()._sync_resource_bookings()
         # Do not alter backend behavior
-        for line in self.with_context(active_test=False):
+        for line in self.sudo().with_context(active_test=False):
             order = line.order_id
             # We only care about eCommerce orders
             if not order.website_id:
                 continue
             bookings = line.resource_booking_ids
+            # If not a bookable product and no bookings, nothing to do
+            if not line.product_id.resource_booking_type_id and not bookings:
+                continue
             # If paid, create missing partners
             if order.state == "sale":
                 bookings.with_company(order.company_id.id)._confirm_prereservation()
@@ -58,11 +61,11 @@ class SaleOrderLine(models.Model):
                         }
                     )
             # Add/remove bookings if needed
-            self.env["resource.booking"]._cron_cancel_expired(
+            line.env["resource.booking"].sudo()._cron_cancel_expired(
                 [("id", "in", bookings.ids)]
             )
             expected_amount = int(line.product_uom_qty) if values["type_id"] else 0
-            self.with_context(**context)._add_or_cancel_bookings(
+            line.with_context(**context)._add_or_cancel_bookings(
                 bookings, expected_amount, values
             )
         return result

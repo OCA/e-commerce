@@ -3,7 +3,7 @@
 {
     "name": "Sell resource booking products in your eCommerce",
     "summary": "Let customers book resources temporarily before buying",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "development_status": "Beta",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
@@ -18,7 +18,7 @@
     ],
     "assets": {
         "web.assets_tests": [
-            "/website_sale_resource_booking/static/tests/tours/tour.esm.js",
+            "website_sale_resource_booking/static/tests/tours/tour.esm.js",
         ],
     },
 }

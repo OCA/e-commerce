@@ -1,8 +1,6 @@
 # Copyright 2021 Tecnativa - Jairo Llopis
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
 from odoo import api, fields, models
-from odoo.tests.common import Form
 
 
 class ResourceBooking(models.Model):
@@ -71,16 +69,14 @@ class ResourceBooking(models.Model):
         affected.action_confirm()
         # Notify them
         for booking in affected:
-            share_f = Form(
-                self.env["portal.share"].with_context(
-                    active_id=booking.id,
-                    active_ids=booking.ids,
-                    active_model=booking._name,
-                    default_note=booking.requester_advice,
-                    default_partner_ids=[(4, booking.partner_id.id, 0)],
-                )
+            share = self.env["portal.share"].create(
+                {
+                    "res_model": booking._name,
+                    "res_id": booking.id,
+                    "partner_ids": [fields.Command.link(booking.partner_id.id)],
+                    "note": booking.requester_advice,
+                }
             )
-            share = share_f.save()
             # Put invitations in mail queue
             share.with_context(
                 mail_notify_force_send=False, mail_create_nosubscribe=True
@@ -90,12 +86,16 @@ class ResourceBooking(models.Model):
     def _cron_cancel_expired(self, domain=None):
         """Autocancel expired bookings."""
         domain = domain or []
-        expired = self.with_context(no_mail_to_attendees=True).search(
-            [
-                ("expiration", "<", fields.Datetime.now()),
-                ("state", "in", ("pending", "scheduled")),
-            ]
-            + domain
+        expired = (
+            self.sudo()
+            .with_context(no_mail_to_attendees=True)
+            .search(
+                [
+                    ("expiration", "<", fields.Datetime.now()),
+                    ("state", "in", ("pending", "scheduled")),
+                ]
+                + domain
+            )
         )
         expired.action_cancel()
 

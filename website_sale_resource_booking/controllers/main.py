@@ -1,6 +1,6 @@
 # Copyright 2021 Tecnativa - Jairo Llopis
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from datetime import datetime
+from datetime import timezone
 from urllib.parse import quote_plus
 
 from dateutil.parser import isoparse
@@ -8,16 +8,17 @@ from dateutil.parser import isoparse
 from odoo import _
 from odoo.exceptions import ValidationError
 from odoo.http import request, route
-from odoo.tests.common import Form
 
-from ...website_sale.controllers import main
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
-class WebsiteSale(main.WebsiteSale):
+class WebsiteSale(WebsiteSale):
     def _get_bookings(self):
         """Obtain bookings from current cart."""
         order = request.website.sale_get_order()
-        order = order.with_context(active_test=False)
+        if not order:
+            return request.env["resource.booking"]
+        order = order.sudo().with_context(active_test=False)
         return order.mapped("order_line.resource_booking_ids")
 
     def _get_indexed_booking(self, index):
@@ -40,14 +41,14 @@ class WebsiteSale(main.WebsiteSale):
             booking.sale_order_line_id._sync_resource_bookings()  # re-active
             return request.redirect(url)
 
-    def checkout_redirection(self, order):
-        """Redirect to scheduling bookings if still not done."""
-        order.order_line._sync_resource_bookings()
-        bookings = order.mapped("order_line.resource_booking_ids")
+    def _check_cart(self, order_sudo):
+        if redirection := super()._check_cart(order_sudo):
+            return redirection
+        order_sudo.order_line._sync_resource_bookings()
+        bookings = order_sudo.mapped("order_line.resource_booking_ids")
         for booking in bookings:
             if booking.state == "pending":
                 return request.redirect("/shop/booking/1/schedule")
-        return super().checkout_redirection(order)
 
     @route(
         [
@@ -116,12 +117,16 @@ class WebsiteSale(main.WebsiteSale):
         if redirection:
             return redirection
         when_tz_aware = isoparse(when)
-        when_naive = datetime.utcfromtimestamp(when_tz_aware.timestamp())
+        when_naive = when_tz_aware.astimezone(timezone.utc).replace(tzinfo=None)
         try:
-            with Form(booking_sudo) as booking_form:
-                booking_form.start = when_naive
+            booking_sudo.start = when_naive
         except ValidationError as error:
-            url = f"/shop/booking/{index}/schedule?error={quote_plus(error.name)}"
+            error_msg = (
+                error.name
+                if hasattr(error, "name")
+                else (error.args[0] if error.args else str(error))
+            )
+            url = f"/shop/booking/{index}/schedule?error={quote_plus(error_msg)}"
             return request.redirect(url)
         # Store partner info to autocreate and autoconfirm later
         product = booking_sudo.sale_order_line_id.product_id
