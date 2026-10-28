@@ -18,7 +18,7 @@ class ProductTemplate(models.Model):
         "Free To Use Quantity ",
         compute="_compute_quantities",
         search="_search_free_qty",
-        digits="Product Unit of Measure",
+        digits="Product Unit",
         compute_sudo=False,
     )
 
