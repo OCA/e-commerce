@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record model="ir.model.access" id="access_product_packaging_public_employee">
+        <field name="name">access_product_packaging_public_employee</field>
+        <field name="model_id" ref="product.model_product_packaging" />
+        <field name="group_id" ref="base.group_user" />
+        <field name="perm_read">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_write">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <record model="ir.model.access" id="access_product_packaging_public_public">
+        <field name="name">access_product_packaging_public_public</field>
+        <field name="model_id" ref="product.model_product_packaging" />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_write">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <record model="ir.model.access" id="access_product_packaging_public_portal">
+        <field name="name">access_product_packaging_public_portal</field>
+        <field name="model_id" ref="product.model_product_packaging" />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_write">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <record model="ir.model.access" id="access_product_packaging_level_public_employee">
+        <field name="name">access_product_packaging_level_public_employee</field>
+        <field
+            name="model_id"
+            ref="product_packaging_level.model_product_packaging_level"
+        />
+        <field name="group_id" ref="base.group_user" />
+        <field name="perm_read">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_write">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <record model="ir.model.access" id="access_product_packaging_level_public_public">
+        <field name="name">access_product_packaging_level_public_public</field>
+        <field
+            name="model_id"
+            ref="product_packaging_level.model_product_packaging_level"
+        />
+        <field name="group_id" ref="base.group_public" />
+        <field name="perm_read">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_write">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <record model="ir.model.access" id="access_product_packaging_level_public_portal">
+        <field name="name">access_product_packaging_level_public_portal</field>
+        <field
+            name="model_id"
+            ref="product_packaging_level.model_product_packaging_level"
+        />
+        <field name="group_id" ref="base.group_portal" />
+        <field name="perm_read">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_write">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+</odoo>
