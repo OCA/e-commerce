@@ -11,7 +11,7 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
         },
         {
             trigger:
-                ".o_wsale_product_information:contains('Only 30 Units left in stock.')",
+                "#product_details #product_stock_availability:contains('Only 30 Units left in stock.')",
         },
         {
             trigger: "a[href='/shop']",
@@ -24,7 +24,7 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
         },
         {
             trigger:
-                ".o_wsale_product_information:contains('Only 5 Units left in stock.')",
+                "#product_details #product_stock_availability:contains('Only 5 Units left in stock.')",
         },
         {
             trigger: "a[href='/shop']",
