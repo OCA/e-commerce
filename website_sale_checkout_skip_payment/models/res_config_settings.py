@@ -6,6 +6,10 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    website_sale_skip_payment_confirm = fields.Boolean(
+        related="website_id.website_sale_skip_payment_confirm",
+        readonly=False,
+    )
     website_sale_checkout_skip_message = fields.Text(
         "Website Sale Checkout Skip Message",
         related="website_id.website_sale_checkout_skip_message",
