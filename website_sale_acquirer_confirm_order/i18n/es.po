@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_acquirer_confirm_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-11 06:50+0000\n"
+"PO-Revision-Date: 2026-05-11 06:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model.fields,field_description:website_sale_acquirer_confirm_order.field_payment_provider__confirm_order
+msgid "Confirm Order Automatically"
+msgstr "Confirmar pedido automáticamente"
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model.fields,field_description:website_sale_acquirer_confirm_order.field_payment_provider__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model.fields,field_description:website_sale_acquirer_confirm_order.field_payment_provider__id
+msgid "ID"
+msgstr ""
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model.fields,help:website_sale_acquirer_confirm_order.field_payment_provider__confirm_order
+msgid ""
+"If enabled, orders paid with this method will be automatically confirmed."
+msgstr ""
+"Si se activa esta opción, los pedidos pagados con este método se confirmarán automáticamente."
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model,name:website_sale_acquirer_confirm_order.model_payment_provider
+msgid "Payment Provider"
+msgstr "Método de pago"
