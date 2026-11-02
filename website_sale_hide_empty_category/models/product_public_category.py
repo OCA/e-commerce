@@ -13,7 +13,16 @@ class ProductPublicCategory(models.Model):
         recursive=True,
     )
 
-    @api.depends("product_tmpl_ids", "child_id.has_product_recursive")
+    @api.depends(
+        "product_tmpl_ids",
+        # Fields of website.sale_product_domain(): publishing or archiving a
+        # product must refresh the values cached in the same transaction
+        "product_tmpl_ids.active",
+        "product_tmpl_ids.is_published",
+        "product_tmpl_ids.sale_ok",
+        "product_tmpl_ids.website_id",
+        "child_id.has_product_recursive",
+    )
     @api.depends_context("website_id")
     def _compute_has_product_recursive(self):
         website = self.env["website"].get_current_website()
@@ -31,6 +40,8 @@ class ProductPublicCategory(models.Model):
                 for category_id in category.parent_path.split("/")
                 if category_id
             )
+        # A recursive field is computed for one record at a time: fill the
+        # cache of every category of the website to run these searches once
         categories = self.search(website.website_domain()) | self
         self.env.cache.update_raw(
             categories,
