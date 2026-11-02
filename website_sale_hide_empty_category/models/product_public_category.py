@@ -13,27 +13,37 @@ class ProductPublicCategory(models.Model):
         recursive=True,
     )
 
-    @api.depends("product_tmpl_ids", "child_id.has_product_recursive")
+    @api.depends(
+        "product_tmpl_ids",
+        # Fields of website.sale_product_domain(): publishing or archiving a
+        # product must refresh the values cached in the same transaction
+        "product_tmpl_ids.active",
+        "product_tmpl_ids.company_id",
+        "product_tmpl_ids.is_published",
+        "product_tmpl_ids.sale_ok",
+        "product_tmpl_ids.service_tracking",
+        "product_tmpl_ids.website_id",
+        "child_id.has_product_recursive",
+    )
     @api.depends_context("website_id")
     def _compute_has_product_recursive(self):
         website = self.env["website"].get_current_website()
-        website_domain = website.sale_product_domain()
-        data = self.env["product.template"]._read_group(
-            domain=website_domain,
-            groupby=["public_categ_ids"],
+        product_domain = website.sale_product_domain()
+        categories_with_products = self.search(
+            [
+                ("website_id", "in", [False, website.id]),
+                ("product_tmpl_ids", "any", product_domain),
+            ]
         )
         used_category_ids = set()
-        for group in data:
-            category = group[0]
-            if not category or (category.website_id and category.website_id != website):
-                continue
+        for category in categories_with_products:
             used_category_ids.update(
                 int(category_id)
                 for category_id in category.parent_path.split("/")
                 if category_id
             )
-        # TODO: Filter categories before split in c to avoid cache because compute is
-        #  called with only one category
+        # A recursive field is computed for one record at a time: fill the
+        # cache of every category of the website to run these searches once
         categories = self.search(website.website_domain()) | self
         self.env.cache.update_raw(
             categories,
