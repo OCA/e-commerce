@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="website_sale_dynamic_review_snippet.PortalReview">
+        <div>
+            <RatingReview
+                messages="state.messages"
+                selectedRating="state.selectedRating"
+                setStar.bind="setStar"
+                resetStars.bind="resetStars"
+                twoColumns="props.twoColumns"
+            />
+            <MessageReviewList
+                loadMore="state.loadMore"
+                messages="state.searchedMessage"
+                onLoadMoreVisible.bind="onLoadMoreVisible"
+            />
+            <div class="position-fixed" style="z-index:1030">
+                <OverlayContainer overlays="overlayService.overlays" />
+            </div>
+        </div>
+    </t>
+</templates>
