@@ -17,10 +17,14 @@
     "data": ["views/templates.xml"],
     "assets": {
         "web.assets_tests": [
-            "/website_sale_product_attribute_value_filter_existing/static/src/js/"
-            "website_sale_product_attribute_value_filter_existing_tour.esm.js",
-            "/website_sale_product_attribute_value_filter_existing/static/src/js/"
-            "website_sale_product_attribute_value_filter_existing_search_desk_tour.esm.js",
+            (
+                "/website_sale_product_attribute_value_filter_existing/static/src/js/"
+                "website_sale_product_attribute_value_filter_existing_tour.esm.js"
+            ),
+            (
+                "/website_sale_product_attribute_value_filter_existing/static/src/js/"
+                "website_sale_product_attribute_value_filter_existing_search_desk_tour.esm.js"
+            ),
         ]
     },
 }
