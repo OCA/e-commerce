@@ -13,7 +13,6 @@ class UICase(HttpCase):
                 "name": "Test Product 1",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
                 "allow_out_of_stock_order": True,
                 "show_availability": True,
@@ -25,7 +24,6 @@ class UICase(HttpCase):
                 "name": "Test Product 2",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
                 "allow_out_of_stock_order": False,
                 "show_availability": True,
@@ -36,7 +34,6 @@ class UICase(HttpCase):
                 "name": "Test Product 3",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
                 "allow_out_of_stock_order": False,
                 "show_availability": True,
@@ -48,7 +45,6 @@ class UICase(HttpCase):
                 "name": "Test Product 4",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
                 "out_of_stock_message": "test message",
             }
@@ -58,7 +54,6 @@ class UICase(HttpCase):
                 "name": "Test Product 5",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
             }
         )
@@ -67,7 +62,6 @@ class UICase(HttpCase):
                 "name": "Test Product 6",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
                 "allow_out_of_stock_order": True,
                 "show_availability": True,
@@ -79,7 +73,6 @@ class UICase(HttpCase):
                 "name": "Test Product 7",
                 "is_published": True,
                 "website_sequence": 1,
-                "type": "consu",
                 "is_storable": True,
                 "allow_out_of_stock_order": False,
                 "show_availability": True,
@@ -104,17 +97,14 @@ class UICase(HttpCase):
                 },
             ]
         )
-        # Ensure website lang is en_US.
-        website = cls.env["website"].get_current_website()
-        en_us = (
-            cls.env["res.lang"]
-            .with_context(active_test=False)
-            .search([("code", "=", "en_US")])
-        )
-        wiz = cls.env["base.language.install"].create({"lang_ids": en_us.ids})
-        wiz.website_ids = website
-        wiz.lang_install()
-        website.default_lang_id = cls.env.ref("base.lang_en")
+        # Ensure website lang is en_US without breaking the test cursor.
+        website = cls.env["website"].search([], limit=1)
+        en_us = cls.env.ref("base.lang_en")
+
+        if not en_us.active:
+            en_us.active = True
+
+        website.default_lang_id = en_us
 
     def test_ui_website(self):
         """Test frontend tour."""

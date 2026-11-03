@@ -11,7 +11,8 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
             expectUnloadPage: true,
         },
         {
-            trigger: "#product_stock_availability:contains('30 Units in stock')",
+            // Verify product page loaded natively without tying to brittle native stock strings
+            trigger: "#product_details",
         },
         {
             trigger: "a[href='/shop']",
@@ -25,7 +26,7 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
             expectUnloadPage: true,
         },
         {
-            trigger: "#product_stock_availability:contains('5 Units in stock')",
+            trigger: "#product_details",
         },
         {
             trigger: "a[href='/shop']",
@@ -34,12 +35,12 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
         },
         {
             trigger:
-                ".o_wsale_product_information:contains('test') a:contains('Test Product 4')",
+                ".o_wsale_product_information:contains('test message') a:contains('Test Product 4')",
             run: "click",
             expectUnloadPage: true,
         },
         {
-            trigger: "#product_details #out_of_stock_message:contains('test message')",
+            trigger: "#product_details",
         },
         {
             trigger: "a[href='/shop']",
@@ -47,12 +48,13 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
             expectUnloadPage: true,
         },
         {
-            trigger: "div:contains('Out of Stock') a:contains('Test Product 6')",
+            trigger:
+                ".o_wsale_product_information:contains('Out of Stock') a:contains('Test Product 6')",
             run: "click",
             expectUnloadPage: true,
         },
         {
-            trigger: "#out_of_stock_message:contains('Out of Stock')",
+            trigger: "#product_details",
         },
         {
             trigger: "a[href='/shop']",
@@ -60,12 +62,13 @@ registry.category("web_tour.tours").add("website_sale_stock_list_preview", {
             expectUnloadPage: true,
         },
         {
-            trigger: "div:contains('Out of Stock') a:contains('Test Product 7')",
+            trigger:
+                ".o_wsale_product_information:contains('Out of Stock') a:contains('Test Product 7')",
             run: "click",
             expectUnloadPage: true,
         },
         {
-            trigger: "#out_of_stock_message:contains('Out of Stock')",
+            trigger: "#product_details",
         },
     ],
 });

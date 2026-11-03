@@ -3,3 +3,5 @@
     - Sergio Teruel \<sergio.teruel@tecnativa.com\>
     - Carlos Dauden \<carlos.dauden@tecnativa.com\>
     - Pilar Vargas
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia
