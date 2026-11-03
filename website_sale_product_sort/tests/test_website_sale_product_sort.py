@@ -59,12 +59,14 @@ class TestWebsiteSaleProductSort(BaseCommon):
         self.assertEqual(order, "is_published desc, name desc, id desc")
 
     def test_get_search_order_delegates_to_super(self):
-        with MockRequest(self.env, website=self.website):
-            with patch(
+        with (
+            MockRequest(self.env, website=self.website),
+            patch(
                 "odoo.addons.website_sale.controllers.main.WebsiteSale._get_search_order",
                 return_value="super-order",
-            ) as mock_super:
-                order = self.controller._get_search_order({"order": "name asc"})
+            ) as mock_super,
+        ):
+            order = self.controller._get_search_order({"order": "name asc"})
 
         mock_super.assert_called_once_with({"order": "name asc"})
         self.assertEqual(order, "super-order")
@@ -72,23 +74,27 @@ class TestWebsiteSaleProductSort(BaseCommon):
     def test_shop_sets_default_order_in_qcontext(self):
         self.website.default_product_sort_criteria = "list_price desc"
 
-        with MockRequest(self.env, website=self.website):
-            with patch(
+        with (
+            MockRequest(self.env, website=self.website),
+            patch(
                 "odoo.addons.website_sale.controllers.main.WebsiteSale.shop",
                 return_value=MockResponse(qcontext={}),
-            ):
-                response = self.controller.shop()
+            ),
+        ):
+            response = self.controller.shop()
 
         self.assertEqual(response.qcontext["order"], "list_price desc")
 
     def test_shop_keeps_explicit_order_in_qcontext(self):
         self.website.default_product_sort_criteria = "list_price desc"
 
-        with MockRequest(self.env, website=self.website):
-            with patch(
+        with (
+            MockRequest(self.env, website=self.website),
+            patch(
                 "odoo.addons.website_sale.controllers.main.WebsiteSale.shop",
                 return_value=MockResponse(qcontext={}),
-            ):
-                response = self.controller.shop(order="name asc")
+            ),
+        ):
+            response = self.controller.shop(order="name asc")
 
         self.assertEqual(response.qcontext["order"], "name asc")
