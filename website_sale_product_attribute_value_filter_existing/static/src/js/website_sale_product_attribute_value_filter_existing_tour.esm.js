@@ -3,7 +3,6 @@ import {registry} from "@web/core/registry";
 registry
     .category("web_tour.tours")
     .add("website_sale_product_attribute_value_filter_existing", {
-        url: "/shop",
         steps: () => [
             // No product has the yellow colour attribute defined.
             // When enter to "/shop" the attribute "test yellow" should not appear in the list of filters by attribute.

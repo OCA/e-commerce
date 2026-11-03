@@ -6,3 +6,6 @@
 
 - [Trobz](https://trobz.com):
   - Hoang Diep \<<hoang@trobz.com>\>
+
+- [ADHOC](https://www.adhoc.com.ar):
+  - Juan Rivero

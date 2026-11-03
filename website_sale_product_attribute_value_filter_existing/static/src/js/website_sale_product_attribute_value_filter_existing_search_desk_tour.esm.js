@@ -3,11 +3,10 @@ import {registry} from "@web/core/registry";
 registry
     .category("web_tour.tours")
     .add("website_sale_product_attribute_value_filter_existing_search_desk", {
-        url: "/shop?search=Test+Product+1",
         steps: () => [
-            // After searching, the attributes "test red" and "test green" must be present.
-            // "Test yellow" should not be present as it is not used in any product and
-            // "test blue" should not be present as it is not used in the products shown.
+            // After searching for "Alpha", only that product is listed. Its values
+            // "test red" and "test green" must be present; "test blue" must not, since
+            // it is only used by "Beta", and "Test yellow" is used by no product.
             {
                 content:
                     "Ensure 'test red' and 'test green' attributes are present while 'Test yellow' and 'test blue' are not.",

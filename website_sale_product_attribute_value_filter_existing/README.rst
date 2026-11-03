@@ -32,13 +32,34 @@ Website Sale Attribute Value Existing
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of website sale module to allow
-hide product attributes values which exist but not used on any variants.
+This module extends the functionality of website sale module to keep the
+attribute filters in sync with the values the visitor already chose.
+
+Odoo already hides the attribute values that no displayed product uses,
+but it computes that list ignoring the chosen values. So, after
+filtering by a value, the panel still offers values that belong to
+products that are no longer listed. This module narrows those down as
+well, and hides an attribute whose values are all gone.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Configuration
+=============
+
+- Go to Website Shop
+- Active product attributes filter on theme panel option of shopping
+  page
+
+  - Click edit button on shopping page (or directly go url:
+    http://{your-domain}/@/shop)
+  - On tab ``Customize``, enable attributes filter to show attribute
+    values left of the layout.
+
+- The panel only offers the attribute values used by the products it
+  lists, including after filtering by a value.
 
 Bug Tracker
 ===========
@@ -71,6 +92,10 @@ Contributors
 - `Trobz <https://trobz.com>`__:
 
   - Hoang Diep <hoang@trobz.com>
+
+- `ADHOC <https://www.adhoc.com.ar>`__:
+
+  - Juan Rivero
 
 Other credits
 -------------
