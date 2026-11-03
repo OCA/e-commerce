@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="product_price" inherit_id="website_sale.product_price">
         <xpath expr="//div[@name='product_price']" position="attributes">
@@ -26,12 +26,12 @@
         <xpath expr="//a[@id='add_to_cart']" position="before">
             <t t-set="user_authenticated" t-value="user_id != website.user_id" />
             <div
-                class="alert alert-info"
                 t-if="(product.website_hide_price or website.website_hide_price) and (product.website_hide_price_message or website.website_hide_price_default_message) and user_authenticated"
+                class="alert alert-info"
             >
                 <i class="fa fa-info-circle" />
                 <span
-                    t-esc="product.website_hide_price_message or website.website_hide_price_default_message"
+                    t-out="product.website_hide_price_message or website.website_hide_price_default_message"
                 />
             </div>
         </xpath>
