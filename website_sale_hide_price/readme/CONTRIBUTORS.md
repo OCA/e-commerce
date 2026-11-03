@@ -11,3 +11,5 @@
   - Sylvain Van Hoof
 - [Kencove](https://kencove.com):
   - Mohamed Alkobrosli
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia
