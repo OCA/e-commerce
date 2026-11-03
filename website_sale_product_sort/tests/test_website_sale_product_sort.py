@@ -20,10 +20,16 @@ class MockResponse(Response):
 
 @tagged("post_install", "-at_install")
 class TestWebsiteSaleProductSort(BaseCommon):
+    _test_user_groups = (
+        "base.group_user",
+        "website.group_website_designer",
+        "base.group_system",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.website = cls.env.ref("website.default_website")
+        cls.website = cls.env.ref("base.default_website")
         cls.controller = WebsiteSaleController()
 
     def test_get_product_sort_criterias(self):

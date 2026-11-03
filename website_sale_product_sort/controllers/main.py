@@ -12,16 +12,14 @@ class WebsiteSale(WebsiteSale):
         """We can configure default sort criteria for every website"""
         if post.get("order"):
             return super()._get_search_order(post)
-        order = request.website.default_product_sort_criteria
+        order = request.env.website.default_product_sort_criteria
         return f"is_published desc, {order}, id desc"
 
     @http.route(type="http")
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
+    def shop(self, page=0, category=None, search="", **post):
         """Transfer custom sort order to QWeb templates."""
-        response = super().shop(
-            page=page, category=category, search=search, ppg=ppg, **post
-        )
+        response = super().shop(page=page, category=category, search=search, **post)
         response.qcontext["order"] = (
-            post.get("order") or request.website.default_product_sort_criteria
+            post.get("order") or request.env.website.default_product_sort_criteria
         )
         return response
