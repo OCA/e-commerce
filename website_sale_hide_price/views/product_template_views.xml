@@ -4,9 +4,12 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="website_sale.product_template_form_view" />
         <field name="arch" type="xml">
-            <group name="extra_info" position="inside">
+            <group name="shop" position="inside">
                 <field name="website_hide_price" />
-                <field name="website_hide_price_message" />
+                <field
+                    name="website_hide_price_message"
+                    invisible="not website_hide_price"
+                />
             </group>
         </field>
     </record>

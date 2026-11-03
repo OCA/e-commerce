@@ -1,8 +1,7 @@
 # Copyright 2017 Tecnativa - David Vidal
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
-from odoo.http import request
+from odoo import api, fields, models
 
 
 class Website(models.Model):
@@ -21,9 +20,13 @@ class Website(models.Model):
         translate=True,
     )
 
+    @api.depends_context("uid")
+    @api.depends("website_hide_price")
     def _compute_website_show_price(self):
+        # The value depends on the partner of the user in the environment, so it
+        # must be cached per uid, not shared between users of the same transaction.
         for rec in self:
             rec.website_show_price = (
                 not rec.website_hide_price
-                and request.env.user.partner_id.website_show_price
+                and rec.env.user.partner_id.website_show_price
             )
