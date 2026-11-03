@@ -89,6 +89,7 @@ Contributors
 
   - Carlos Roca
   - Pilar Vargas
+  - Carlos Dauden
 
 - Radovan Skolnik <radovan@skolnik.info>
 

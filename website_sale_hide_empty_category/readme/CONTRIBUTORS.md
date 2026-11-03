@@ -2,4 +2,5 @@
 - [Tecnativa](https://www.tecnativa.com):
   - Carlos Roca
   - Pilar Vargas
+  - Carlos Dauden
 - Radovan Skolnik \<<radovan@skolnik.info>\>
