@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="acquirer_view_form" model="ir.ui.view">
+        <field name="name">payment.acquirer.inherit.form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form" />
+        <field name="arch" type="xml">
+            <group name="payment_form" position="inside">
+                <field name="display_main_payment_term" />
+                <field name="payment_term_id" invisible="display_main_payment_term" />
+            </group>
+        </field>
+    </record>
+</odoo>
