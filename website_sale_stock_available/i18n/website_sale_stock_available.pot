@@ -17,6 +17,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_stock_available.field_product_product__display_name
 #: model:ir.model.fields,field_description:website_sale_stock_available.field_product_template__display_name
 #: model:ir.model.fields,field_description:website_sale_stock_available.field_sale_order__display_name
+#: model:ir.model.fields,field_description:website_sale_stock_available.field_website__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -24,6 +25,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_stock_available.field_product_product__id
 #: model:ir.model.fields,field_description:website_sale_stock_available.field_product_template__id
 #: model:ir.model.fields,field_description:website_sale_stock_available.field_sale_order__id
+#: model:ir.model.fields,field_description:website_sale_stock_available.field_website__id
 msgid "ID"
 msgstr ""
 
@@ -40,4 +42,9 @@ msgstr ""
 #. module: website_sale_stock_available
 #: model:ir.model,name:website_sale_stock_available.model_sale_order
 msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_stock_available
+#: model:ir.model,name:website_sale_stock_available.model_website
+msgid "Website"
 msgstr ""
