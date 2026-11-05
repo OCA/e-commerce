@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from datetime import datetime, timedelta
 
+from odoo import Command
 from odoo.tests import Form, HttpCase, tagged
 
 
@@ -41,6 +42,18 @@ class WebsiteSaleStockProvisioningDate(HttpCase):
         picking_form.scheduled_date = datetime.now() + timedelta(days=2)
         picking = picking_form.save()
         picking.action_confirm()
+        # The incoming units are already sold, so the product stays sold out
+        # also when the forecasted quantity is shown as available
+        # (website_sale_stock_available)
+        sale = cls.env["sale.order"].create(
+            {
+                "partner_id": cls.env["res.partner"].create({"name": "Customer"}).id,
+                "order_line": [
+                    Command.create({"product_id": product.id, "product_uom_qty": 10})
+                ],
+            }
+        )
+        sale.action_confirm()
 
         cls.warehouse_1 = cls.env["stock.warehouse"].search(
             [("company_id", "=", cls.env.company.id)]

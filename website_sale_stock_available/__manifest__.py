@@ -14,5 +14,10 @@
         "website_sale_stock",
     ],
     "data": [],
+    "assets": {
+        "web.assets_tests": [
+            "website_sale_stock_available/static/tests/tours/*.esm.js",
+        ],
+    },
     "installable": True,
 }
