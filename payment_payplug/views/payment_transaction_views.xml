@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Sébastien Berger (sbinfo67)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0). -->
+<odoo>
+    <record id="payment_transaction_form" model="ir.ui.view">
+        <field name="name">Payplug Transaction Form</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_form" />
+        <field name="arch" type="xml">
+            <button name="action_post_process" position="before">
+                <button
+                    string="Check Status on Payplug"
+                    help="Fetch the status of this transaction from Payplug and update it."
+                    type="object"
+                    name="action_payplug_refresh_status"
+                    invisible="provider_code != 'payplug' or not provider_reference or state not in ('draft', 'pending', 'error')"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>

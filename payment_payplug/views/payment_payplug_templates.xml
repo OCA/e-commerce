@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Sébastien Berger (sbinfo67)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0). -->
+<odoo>
+    <template id="redirect_form">
+        <!-- Payplug generates a unique payment page URL for each payment. -->
+        <form t-att-action="api_url" method="get">
+            <t t-foreach="url_params or {}" t-as="param">
+                <input
+                    type="hidden"
+                    t-att-name="param"
+                    t-att-value="url_params[param]"
+                />
+            </t>
+        </form>
+    </template>
+</odoo>
