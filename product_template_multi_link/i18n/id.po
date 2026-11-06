@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 11:28+0000\n"
-"PO-Revision-Date: 2026-02-25 07:29+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-11-06 07:46+0000\n"
+"Last-Translator: Yazid Bustomi <bustomi024@gmail.com>\n"
 "Language-Team: Indonesian (https://www.transifex.com/oca/teams/23907/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -22,17 +22,17 @@ msgstr ""
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
 msgid "Create links"
-msgstr ""
+msgstr "Buat Link"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
 msgid "Create links?"
-msgstr ""
+msgstr "Buat Beberapa Link?"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__create_uid
@@ -52,7 +52,7 @@ msgstr "Dibuat pada"
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_cross_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_cross_selling
 msgid "Cross Selling"
-msgstr ""
+msgstr "Penjualanan Silang"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__display_name
@@ -64,7 +64,7 @@ msgstr "Nama Tampilan"
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 msgid "Group By"
-msgstr ""
+msgstr "Kelompokkan Berdasarkan"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__id
@@ -77,17 +77,17 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__link_type_inverse_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__inverse_name
 msgid "Inverse Name"
-msgstr ""
+msgstr "Nama Terbalik"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__is_link_active
 msgid "Is Link Active"
-msgstr ""
+msgstr "Link ini aktif"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__is_symmetric
 msgid "Is Symmetric"
-msgstr ""
+msgstr "Bersifat Simetris"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__write_uid
@@ -106,69 +106,69 @@ msgstr "Diperbaharui pada"
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__left_product_img
 msgid "Left Product Image"
-msgstr ""
+msgstr "Gambar Produk sebelah kiri"
 
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_code_uniq
 msgid "Link code already exists !"
-msgstr ""
+msgstr "kode tautan sudah ada !"
 
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_inverse_code_uniq
 msgid "Link inverse code already exists !"
-msgstr ""
+msgstr "kebalikan kode sudah ada !"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields.selection,name:product_template_multi_link.selection__product_template_linker__operation_type__link
 msgid "Link these products"
-msgstr ""
+msgstr "tautkan produk ini"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__type_id
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__type_id
 msgid "Link type"
-msgstr ""
+msgstr "tipe tautan"
 
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_inverse_name_uniq
 msgid "Link type inverse name already exists !"
-msgstr ""
+msgstr "nama link tautan terbalik sudah ada !"
 
 #. module: product_template_multi_link
 #: model:ir.model.constraint,message:product_template_multi_link.constraint_product_template_link_type_name_uniq
 msgid "Link type name already exists !"
-msgstr ""
+msgstr "nama jenis tautan sudah ada !"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__right_product_tmpl_id
 msgid "Linked Product"
-msgstr ""
+msgstr "tautan produk"
 
 #. module: product_template_multi_link
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_demo_range
 msgid "Lower Range"
-msgstr ""
+msgstr "rentang bawah"
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_linker_action
 msgid "Manage Product Links"
-msgstr ""
+msgstr "kelolah tautan produk"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__manual_inverse_code
 msgid "Manual Inverse Code"
-msgstr ""
+msgstr "kode dibalik manual"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__manual_inverse_name
 msgid "Manual Inverse Name"
-msgstr ""
+msgstr "nama dibalik manual"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__link_type_name
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__name
 msgid "Name"
-msgstr ""
+msgstr "nama"
 
 #. module: product_template_multi_link
 #. odoo-python
@@ -177,18 +177,21 @@ msgid ""
 "Only one link with the same type is allowed between 2 products. \n"
 " %s"
 msgstr ""
+"Hanya satu tautan dengan jenis yang sama yang diperbolehkan di antara 2 "
+"produk.\n"
+".%s"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__operation_type
 msgid "Operation"
-msgstr ""
+msgstr "operasi"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link_kanban
 msgid "Product"
-msgstr ""
+msgstr "produk"
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.action_product_template_link
@@ -198,52 +201,52 @@ msgstr ""
 #: model:ir.ui.menu,name:product_template_multi_link.menu_product_template_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 msgid "Product Links"
-msgstr ""
+msgstr "link produk"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_product__product_template_link_count
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template__product_template_link_count
 msgid "Product Links Count"
-msgstr ""
+msgstr "jumlah link produk"
 
 #. module: product_template_multi_link
 #: model:ir.actions.act_window,name:product_template_multi_link.product_template_link_type_act_window
 #: model:ir.model,name:product_template_multi_link.model_product_template_link_type
 #: model:ir.ui.menu,name:product_template_multi_link.product_template_link_type_menu
 msgid "Product Template Link Type"
-msgstr ""
+msgstr "Tipe Tautan Templat Produk"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_link
 msgid "Product link"
-msgstr ""
+msgstr "link produk"
 
 #. module: product_template_multi_link
 #. odoo-python
 #: code:addons/product_template_multi_link/models/product_template.py:0
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_product_link_form
 msgid "Product links"
-msgstr ""
+msgstr "link produk"
 
 #. module: product_template_multi_link
 #: model:ir.model,name:product_template_multi_link.model_product_template_linker
 msgid "Product template linker wizard"
-msgstr ""
+msgstr "Wizard penaut templat produk"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 msgid "Product template links"
-msgstr ""
+msgstr "link templat produk"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_linker__product_ids
 msgid "Products"
-msgstr ""
+msgstr "produk"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields.selection,name:product_template_multi_link.selection__product_template_linker__operation_type__unlink
 msgid "Remove existing links"
-msgstr ""
+msgstr "Hapus tautan yang ada"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_linker__operation_type
@@ -252,41 +255,45 @@ msgid ""
 "products;\n"
 "Link these products: will link all selected products together."
 msgstr ""
+"Hapus tautan yang ada: akan menghapus semua tautan yang ada pada setiap "
+"produk yang dipilih;\n"
+"Tautkan produk-produk ini: akan menautkan semua produk yang dipilih satu "
+"sama lain."
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
 msgid "Remove links"
-msgstr ""
+msgstr "hapus link"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_linker_form_view
 msgid "Remove links?"
-msgstr ""
+msgstr "hapus link ?"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__right_product_img
 msgid "Right Product Image"
-msgstr ""
+msgstr "gambar produk dikanan"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link__left_product_tmpl_id
 msgid "Source Product"
-msgstr ""
+msgstr "sumber produk"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__code
 msgid "Technical code"
-msgstr ""
+msgstr "teknik code"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,field_description:product_template_multi_link.field_product_template_link_type__inverse_code
 msgid "Technical code (inverse)"
-msgstr ""
+msgstr "teknik kode (kebalikan)"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type__is_symmetric
 msgid "The relation meaning is the same from each side of the relation"
-msgstr ""
+msgstr "Arti relasi tersebut sama dari kedua sisi relasi tersebut"
 
 #. module: product_template_multi_link
 #: model:ir.model.fields,help:product_template_multi_link.field_product_template_link_type__code
@@ -295,28 +302,30 @@ msgid ""
 "This code allows to provide a technical code to externalsystems identifying "
 "this link type"
 msgstr ""
+"Kode ini memungkinkan penyediaan kode teknis kepada sistem eksternal untuk "
+"mengidentifikasi jenis tautan ini"
 
 #. module: product_template_multi_link
 #: model_terms:ir.ui.view,arch_db:product_template_multi_link.product_template_link__search
 msgid "Type"
-msgstr ""
+msgstr "tipe"
 
 #. module: product_template_multi_link
 #: model:product.template.link.type,inverse_name:product_template_multi_link.product_template_link_type_up_selling
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_up_selling
 msgid "Up Selling"
-msgstr ""
+msgstr "menjual"
 
 #. module: product_template_multi_link
 #: model:product.template.link.type,name:product_template_multi_link.product_template_link_type_demo_range
 msgid "Upper Range"
-msgstr ""
+msgstr "rentang atas"
 
 #. module: product_template_multi_link
 #. odoo-python
 #: code:addons/product_template_multi_link/models/product_template_link.py:0
 msgid "You can only create a link between 2 different products"
-msgstr ""
+msgstr "Anda hanya dapat membuat tautan antara 2 produk yang berbeda"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Terakhir Dimodifikasi pada"
