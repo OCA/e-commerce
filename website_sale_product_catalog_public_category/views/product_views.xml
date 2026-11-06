@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Tecnativa - Carlos Dauden
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="product_view_search_catalog" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_view_search_catalog" />
+        <field name="arch" type="xml">
+            <xpath expr="//searchpanel/field[@name='categ_id']" position="after">
+                <field
+                    name="public_categ_id"
+                    string="Website Category"
+                    icon="fa-th-list"
+                    limit="0"
+                />
+            </xpath>
+            <!-- Hidden instead of replaced: other modules anchor on it -->
+            <xpath expr="//searchpanel/field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
