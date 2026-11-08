@@ -1,6 +1,6 @@
 # Copyright 2021 Tecnativa - Jairo Llopis
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from datetime import datetime
+from datetime import UTC, datetime
 from urllib.parse import quote_plus
 
 from dateutil.parser import isoparse
@@ -80,7 +80,7 @@ class WebsiteSale(main.WebsiteSale):
             return redirection
         count = len(bookings)
         values = booking.with_context(
-            tz=booking.type_id.resource_calendar_id.tz
+            tz=booking.type_id._booking_timezone()
         )._get_calendar_context(year, month)
         values.update(
             {
@@ -122,7 +122,9 @@ class WebsiteSale(main.WebsiteSale):
         if redirection:
             return redirection
         when_tz_aware = isoparse(when)
-        when_naive = datetime.utcfromtimestamp(when_tz_aware.timestamp())
+        when_naive = datetime.fromtimestamp(when_tz_aware.timestamp(), UTC).replace(
+            tzinfo=None
+        )
         try:
             with Form(booking_sudo) as booking_form:
                 booking_form.start = when_naive

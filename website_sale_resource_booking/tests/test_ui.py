@@ -11,7 +11,6 @@ from odoo import Command
 from odoo.tests import Form, HttpCase, new_test_user, tagged
 from odoo.tools import mute_logger
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
 
 from ...resource_booking.tests.common import create_test_data
 

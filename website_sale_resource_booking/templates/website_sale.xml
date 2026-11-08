@@ -4,13 +4,13 @@
 <data>
     <!-- Inform buyer about the upcoming reservation step -->
     <template id="product" inherit_id="website_sale.cta_wrapper">
-        <xpath expr="//a[@id='add_to_cart']" position="before">
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
             <div
                 t-if="product.resource_booking_type_id"
                 role="alert"
                 class="alert alert-info mt8 mb0"
             >
-                <i class="fa fa-calendar-check-o" />
+                <i class="oi" data-icon="event_available" />
                 From the cart, you will be able to make a pre-reservation, which will expire
                 <strong
                 t-field="product.resource_booking_expiration"
@@ -25,6 +25,11 @@
         primary="True"
         inherit_id="resource_booking.scheduling_calendar"
     >
+        <!-- The eCommerce flow must post to its own confirm route, not the
+             portal one inherited from resource_booking. -->
+        <xpath expr="//form[hasclass('modal')]" position="attributes">
+            <attribute name="t-attf-action">/shop/booking/#{booking_index}/confirm</attribute>
+        </xpath>
         <!-- Ask partner data before confirmation -->
         <xpath expr="//div[hasclass('modal-body')]//p" position="before">
             <p>Please indicate the <strong>attendee</strong> details:</p>
@@ -101,7 +106,7 @@
                                     href="/shop/cart"
                                     class="btn btn-secondary mb32"
                                 >
-                                    <i class="fa fa-chevron-left" />
+                                    <i class="oi" data-icon="chevron_left" />
                                     <span>Return to Cart</span>
                                 </a>
                             </div>
