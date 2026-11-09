@@ -1,5 +1,6 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import odoo
 from odoo.tests import HttpCase, RecordCapturer, tagged
 
 
@@ -133,26 +134,35 @@ class TestFrontend(HttpCase):
 
         self.assertEqual(capture.records.type_id, self.sale_type)
 
-    def test_website_sale_type_kept_on_partner_change(self):
+    def test_website_sale_type_kept_on_login(self):
         """Website orders keep the website sale type when the partner changes.
 
         Scenario:
             1. Set a sale order type on the website, none on the contacts.
-            2. Create an order from the website.
-            3. Set the customer again, as the checkout does, then another one.
+            2. As a public user, add a product to the cart.
+            3. Log in and open the cart: website_sale sets the logged-in
+               customer on the anonymous cart.
         Expected:
             - The order keeps the website sale order type.
         """
         self.website.sale_type_id = self.sale_type
         self.partner.sale_type = False
-        other_partner = self.env["res.partner"].create({"name": "Other Customer"})
-        order = self.env["sale.order"].create(
-            {"partner_id": self.partner.id, "website_id": self.website.id}
-        )
+        with RecordCapturer(self.env["sale.order"], []) as capture:
+            self.make_jsonrpc_request(
+                "/shop/cart/update_json",
+                {
+                    "product_id": self.product_template.product_variant_id.id,
+                    "add_qty": 1,
+                },
+            )
+        order = capture.records
         self.assertEqual(order.type_id, self.sale_type)
-        order.partner_id = self.partner
-        self.assertEqual(order.type_id, self.sale_type)
-        order.partner_id = other_partner
+        # The cart of the anonymous session is kept on login
+        self.authenticate("admin", "admin")
+        self.session["sale_order_id"] = order.id
+        odoo.http.root.session_store.save(self.session)
+        self.url_open("/shop/cart")
+        self.assertEqual(order.partner_id, self.partner)
         self.assertEqual(order.type_id, self.sale_type)
 
     def test_partner_sale_type_on_order_without_website(self):
