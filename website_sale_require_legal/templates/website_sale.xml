@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2017 Tecnativa - Jairo Llopis <jairo.llopis@tecnativa.com>
      Copyright 2019 Tecnativa - Cristina Martin R
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
@@ -6,10 +6,10 @@
     <template id="accept_input">
         <div class="col-lg-12 mb-2">
             <input
+                id="accepted_legal_terms"
                 t-attf-class="form-check-input position-relative ms-0 me-1"
                 type="checkbox"
                 name="accepted_legal_terms"
-                id="accepted_legal_terms"
                 required="required"
             />
             <label for="accepted_legal_terms" class="control-label form-check-label">
