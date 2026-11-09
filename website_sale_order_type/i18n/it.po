@@ -44,6 +44,11 @@ msgid "Sale Type"
 msgstr "Tipo vendita"
 
 #. module: website_sale_order_type
+#: model:ir.model,name:website_sale_order_type.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: website_sale_order_type
 #: model:ir.model,name:website_sale_order_type.model_website
 msgid "Website"
 msgstr "Sito web"
