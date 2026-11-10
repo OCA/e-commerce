@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-16 01:57+0000\n"
-"PO-Revision-Date: 2023-05-25 12:10+0000\n"
+"PO-Revision-Date: 2026-11-10 13:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -17,51 +17,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_accept_language
 msgid "Accept language"
-msgstr ""
+msgstr "Lingua accettata"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_affiliate_id
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Affiliate"
-msgstr ""
+msgstr "Affiliato"
 
 #. module: website_sale_affiliate
 #: model:ir.ui.menu,name:website_sale_affiliate.sale_affiliate_category
 msgid "Affiliate Program"
-msgstr ""
+msgstr "Programma di affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_request_view_form
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_order_view_form
 msgid "Affiliate Request"
-msgstr ""
+msgstr "Richiesta di affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.actions.act_window,name:website_sale_affiliate.sale_affiliate_request_action
 #: model:ir.ui.menu,name:website_sale_affiliate.sale_affiliate_request_menu
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_request_view_tree
 msgid "Affiliate Requests"
-msgstr ""
+msgstr "Richieste di affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_order_affiliate_request_id
 msgid "Affiliate request"
-msgstr ""
+msgstr "Richiesta di affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_order_affiliate_request_id
 msgid "Affiliate request associated with sale order"
-msgstr ""
+msgstr "Richiesta di affiliazione associata all'ordine di vendita"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_affiliate_id
 msgid "Affiliate that referred request"
-msgstr ""
+msgstr "Affiliato che ha inviato la richiesta"
 
 #. module: website_sale_affiliate
 #: model:ir.actions.act_window,name:website_sale_affiliate.sale_affiliate_action
@@ -70,37 +70,37 @@ msgstr ""
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_search
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_tree
 msgid "Affiliates"
-msgstr ""
+msgstr "Affiliati"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_sales_per_request
 msgid "Average Sales per Request"
-msgstr ""
+msgstr "Vendite medie per richiesta"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_ip
 msgid "Client IP"
-msgstr ""
+msgstr "IP client"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_company_id
 msgid "Company"
-msgstr ""
+msgstr "Azienda"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_company_id
 msgid "Company for affiliation"
-msgstr ""
+msgstr "Azienda per l'affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_conversion_rate
 msgid "Conversion Rate"
-msgstr ""
+msgstr "Tasso di conversione"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_conversion_rate
 msgid "Conversion count / Request count"
-msgstr ""
+msgstr "Conteggio conversioni / Conteggio richieste"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_create_uid
@@ -117,12 +117,12 @@ msgstr "Creato il"
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_date
 msgid "Date and time of initial request"
-msgstr ""
+msgstr "Data e ora della richiesta iniziale"
 
 #. module: website_sale_affiliate
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_request_view_form
 msgid "Details"
-msgstr ""
+msgstr "Dettagli"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_display_name
@@ -133,7 +133,7 @@ msgstr "Nome visualizzato"
 #. module: website_sale_affiliate
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Form Name"
-msgstr ""
+msgstr "Nome modulo"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_id
@@ -148,6 +148,9 @@ msgid ""
 "counted as a qualified conversion in the event of a new sale. Use negative "
 "numbers to indicate infinity."
 msgstr ""
+"Se la richiesta è già associata a questo numero di vendite, non verrà "
+"conteggiata come conversione qualificata in caso di una nuova vendita. Usare "
+"numeri negativi per indicare infinito."
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_valid_hours
@@ -156,6 +159,9 @@ msgid ""
 "qualified conversion if a sale takes place. Use negative numbers to indicate "
 "infinity."
 msgstr ""
+"Se la richiesta è più vecchia di questo numero di ore, non verrà conteggiata "
+"come conversione qualificata se avviene una vendita. Usare numeri negativi "
+"per indicare infinito."
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate___last_update
@@ -179,7 +185,7 @@ msgstr "Ultimo aggiornamento il"
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_name
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_name
@@ -188,115 +194,120 @@ msgid ""
 "Otherwise, name is determined by the sequence selected in the parent "
 "affiliate record"
 msgstr ""
+"Il nome corrisponde al valore \"aff_key\" dell'URL utilizzato, se presente. "
+"Altrimenti, il nome è determinato dalla sequenza selezionata nel record "
+"affiliato padre"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_partner_id
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_partner_id
 msgid "Partner associated with affiliation"
-msgstr ""
+msgstr "Partner associato all'affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_sale_ids
 msgid "Qualified conversions generated as a result of affiliate request"
 msgstr ""
+"Conversioni qualificate generate come risultato della richiesta di "
+"affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_referrer
 msgid "Referrer"
-msgstr ""
+msgstr "Referrer"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_accept_language
 msgid "Request session accept language"
-msgstr ""
+msgstr "Lingua accettata della sessione di richiesta"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_referrer
 msgid "Request session referrer header"
-msgstr ""
+msgstr "Intestazione referrer della sessione di richiesta"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_user_agent
 msgid "Request session user agent"
-msgstr ""
+msgstr "User agent della sessione di richiesta"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_ids
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Requests"
-msgstr ""
+msgstr "Richieste"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_request_ids
 msgid "Requests generated by the affiliate"
-msgstr ""
+msgstr "Richieste generate dall'affiliato"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_sales_per_request
 msgid "Sale count / Request count"
-msgstr ""
+msgstr "Conteggio vendite / Conteggio richieste"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_sale_ids
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_request_view_form
 msgid "Sales"
-msgstr ""
+msgstr "Vendite"
 
 #. module: website_sale_affiliate
 #: model:ir.model,name:website_sale_affiliate.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Ordine di vendita"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_sequence_id
 msgid "Sequence"
-msgstr ""
+msgstr "Sequenza"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,help:website_sale_affiliate.field_sale_affiliate_sequence_id
 msgid "Sequence to use for affiliate request naming"
-msgstr ""
+msgstr "Sequenza da usare per la denominazione delle richieste di affiliazione"
 
 #. module: website_sale_affiliate
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_date
 msgid "Start Date"
-msgstr ""
+msgstr "Data inizio"
 
 #. module: website_sale_affiliate
 #: model:ir.ui.view,arch_db:website_sale_affiliate.sale_affiliate_view_form
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiche"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_request_user_agent
 msgid "User agent"
-msgstr ""
+msgstr "User agent"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_valid_hours
 msgid "Valid hours"
-msgstr ""
+msgstr "Ore valide"
 
 #. module: website_sale_affiliate
 #: model:ir.model.fields,field_description:website_sale_affiliate.field_sale_affiliate_valid_sales
 msgid "Valid sales"
-msgstr ""
+msgstr "Vendite valide"
 
 #. module: website_sale_affiliate
 #: model:ir.model,name:website_sale_affiliate.model_sale_affiliate
 msgid "sale.affiliate"
-msgstr ""
+msgstr "sale.affiliate"
 
 #. module: website_sale_affiliate
 #: model:ir.model,name:website_sale_affiliate.model_sale_affiliate_request
 msgid "sale.affiliate.request"
-msgstr ""
+msgstr "sale.affiliate.request"
