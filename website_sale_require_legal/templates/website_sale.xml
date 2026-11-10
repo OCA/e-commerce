@@ -4,15 +4,15 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template id="accept_input">
-        <div class="col-lg-12 mb-2">
+        <div class="form-check mb-2">
             <input
                 id="accepted_legal_terms"
-                t-attf-class="form-check-input position-relative ms-0 me-1"
+                t-attf-class="form-check-input"
                 type="checkbox"
                 name="accepted_legal_terms"
                 required="required"
             />
-            <label for="accepted_legal_terms" class="control-label form-check-label">
+            <label for="accepted_legal_terms" class="form-check-label">
                 I agree to the <a
                 target="_BLANK"
                 href="/terms"

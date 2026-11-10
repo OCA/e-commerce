@@ -5,57 +5,46 @@
 import * as tourUtils from "@website_sale/js/tours/tour_utils";
 import {registry} from "@web/core/registry";
 
-registry.category("web_tour.tours").add("website_sale_require_legal_with_payment", {
-    url: "/shop",
-    steps: () => [
-        ...tourUtils.searchProduct("Legal Test Product", {select: true}),
+function fillAddressAndAcceptLegalTerms() {
+    return [
         {
-            content: "click on add to cart",
-            trigger: "#product_detail form #add_to_cart",
-            run: "click",
+            content: "Select the address country",
+            trigger: "#o_country_id",
+            run: "selectByLabel Belgium",
         },
-        tourUtils.goToCart(),
-        tourUtils.goToCheckout(),
-        // Fill all required fields except legal terms acceptance
-        {
-            content: "Fulfill delivery address form",
-            trigger: 'select[name="country_id"]',
-            run: "selectByLabel Spain",
-        },
-        {
-            trigger: `input[name="name"]`,
-            run: "edit ghi",
-        },
-        {
-            trigger: `input[name="phone"]`,
-            run: "edit 99999999",
-        },
-        {
-            trigger: `input[name="vat"]`,
-            run: "edit BE0428759497",
-        },
-        {
-            trigger: `input[name="street"]`,
-            run: "edit Castle St., 1",
-        },
-        {
-            trigger: `input[name="city"]`,
-            run: "edit Mushroom Kingdom",
-        },
-        {
-            trigger: `input[name="zip"]`,
-            run: "edit 100",
-        },
-        {
-            trigger: `input[name="email"]`,
-            run: "edit super_mario@odoo.com",
-        },
+        ...Object.entries({
+            name: "Super Mario",
+            phone: "99999999",
+            email: "super_mario@odoo.com",
+            street: "Castle St., 1",
+            city: "Brussels",
+            zip: "1000",
+        }).map(([name, value]) => ({
+            trigger: `form.address_autoformat input[name="${name}"]`,
+            run: `edit ${value}`,
+        })),
         {
             content: "Try to continue without accepting legal terms",
             trigger: "a[name='website_sale_main_button']",
             run: "click",
         },
         {
+            content: "Check that only legal terms acceptance prevents submission",
+            trigger: "#accepted_legal_terms:invalid",
+            run() {
+                const invalidFields = document.querySelectorAll(
+                    "form.address_autoformat :invalid"
+                );
+                if (
+                    invalidFields.length !== 1 ||
+                    invalidFields[0].id !== "accepted_legal_terms"
+                ) {
+                    throw new Error("Only legal terms acceptance should be missing");
+                }
+            },
+        },
+        {
+            content: "Accept legal terms",
             trigger: "#accepted_legal_terms",
             run: "click",
         },
@@ -65,10 +54,21 @@ registry.category("web_tour.tours").add("website_sale_require_legal_with_payment
             run: "click",
             expectUnloadPage: true,
         },
+    ];
+}
+
+registry.category("web_tour.tours").add("website_sale_require_legal_with_payment", {
+    url: "/shop",
+    steps: () => [
+        ...tourUtils.searchProduct("Legal Test Product", {select: true}),
+        ...tourUtils.addToCartFromProductPage(),
+        tourUtils.goToCart(),
+        tourUtils.goToCheckout(),
+        ...fillAddressAndAcceptLegalTerms(),
         tourUtils.confirmOrder(),
         // If I can proceed to payment, it's because the form validated fine
         {
-            trigger: "#website_sale_tc_checkbox",
+            trigger: "#website_sale_tc_checkbox:visible",
             run: "click",
         },
         ...tourUtils.payWithTransfer({
@@ -83,62 +83,10 @@ registry.category("web_tour.tours").add("website_sale_require_legal", {
     url: "/shop",
     steps: () => [
         ...tourUtils.searchProduct("Legal Test Product", {select: true}),
-        {
-            content: "click on add to cart",
-            trigger: "#product_detail form #add_to_cart",
-            run: "click",
-        },
+        ...tourUtils.addToCartFromProductPage(),
         tourUtils.goToCart(),
         tourUtils.goToCheckout(),
-        // Fill all required fields except legal terms acceptance
-        {
-            content: "Fulfill delivery address form",
-            trigger: 'select[name="country_id"]',
-            run: "selectByLabel Spain",
-        },
-        {
-            trigger: `input[name="name"]`,
-            run: "edit ghi",
-        },
-        {
-            trigger: `input[name="phone"]`,
-            run: "edit 99999999",
-        },
-        {
-            trigger: `input[name="vat"]`,
-            run: "edit BE0428759497",
-        },
-        {
-            trigger: `input[name="street"]`,
-            run: "edit Castle St., 1",
-        },
-        {
-            trigger: `input[name="city"]`,
-            run: "edit Mushroom Kingdom",
-        },
-        {
-            trigger: `input[name="zip"]`,
-            run: "edit 100",
-        },
-        {
-            trigger: `input[name="email"]`,
-            run: "edit super_mario@odoo.com",
-        },
-        {
-            content: "Try to continue without accepting legal terms",
-            trigger: "a[name='website_sale_main_button']",
-            run: "click",
-        },
-        {
-            trigger: "#accepted_legal_terms",
-            run: "click",
-        },
-        {
-            content: "Continue after accepting legal terms",
-            trigger: "a[name='website_sale_main_button']",
-            run: "click",
-            expectUnloadPage: true,
-        },
+        ...fillAddressAndAcceptLegalTerms(),
         tourUtils.confirmOrder(),
     ],
 });

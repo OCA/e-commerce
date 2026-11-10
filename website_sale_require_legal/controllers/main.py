@@ -33,7 +33,7 @@ class WebsiteSale(main.WebsiteSale):
         )
         if (
             not kwargs.get("accepted_legal_terms")
-            and request.website.viewref(
+            and request.env.website.viewref(
                 "website_sale_require_legal.address_require_legal"
             ).active
         ):
@@ -107,7 +107,7 @@ class PaymentPortal(PaymentPortal):
         """
         result = super().shop_payment_transaction(order_id, access_token, **kwargs)
         # If the "Accept Terms & Conditions" view is disabled, we log nothing
-        if not request.website.viewref(
+        if not request.env.website.viewref(
             "website_sale.accept_terms_and_conditions"
         ).active:
             return result

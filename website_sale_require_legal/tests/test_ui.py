@@ -18,7 +18,7 @@ class UICase(HttpCase):
     def setUp(self):
         """Ensure website lang is en_US."""
         super().setUp()
-        website = self.env["website"].get_current_website()
+        website = self.env.website
         en_US = (
             self.env["res.lang"]
             .with_context(active_test=False)
@@ -57,22 +57,18 @@ class UICase(HttpCase):
             self.start_tour(
                 "/shop",
                 "website_sale_require_legal",
-                stepDelay=100,
                 login="super_mario",
             )
         else:
             transfer_provider = self.env.ref("payment.payment_provider_transfer")
             transfer_provider.write(
                 {
-                    "state": "enabled",
                     "is_published": True,
                 }
             )
-            transfer_provider._transfer_ensure_pending_msg_is_set()
             self.start_tour(
                 "/shop",
                 "website_sale_require_legal_with_payment",
-                stepDelay=100,
                 login="super_mario",
             )
             order = self.env["sale.order"].search(
