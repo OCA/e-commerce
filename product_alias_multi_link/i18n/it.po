@@ -6,40 +6,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-11-11 12:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: product_alias_multi_link
 #: model_terms:ir.ui.view,arch_db:product_alias_multi_link.product_template_link__search
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #. module: product_alias_multi_link
 #: model:ir.model.fields,field_description:product_alias_multi_link.field_product_template_link__right_product_alias_id
 msgid "Linked Alias"
-msgstr ""
+msgstr "Alias collegato"
 
 #. module: product_alias_multi_link
 #: model:ir.model,name:product_alias_multi_link.model_product_alias
 msgid "Product Alias"
-msgstr ""
+msgstr "Alias prodotto"
 
 #. module: product_alias_multi_link
 #: model:ir.model.fields,field_description:product_alias_multi_link.field_product_alias__product_alias_link_ids
 msgid "Product Alias Links"
-msgstr ""
+msgstr "Collegamenti alias prodotto"
 
 #. module: product_alias_multi_link
 #: model:ir.model,name:product_alias_multi_link.model_product_template_link
 msgid "Product link"
-msgstr ""
+msgstr "Collegamento prodotto"
 
 #. module: product_alias_multi_link
 #: model:ir.model.fields,field_description:product_alias_multi_link.field_product_template_link__left_product_alias_id
 msgid "Source Alias"
-msgstr ""
+msgstr "Alias origine"
