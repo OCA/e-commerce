@@ -1,0 +1,704 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>Payment Provider: Payplug</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<a class="reference external image-reference" href="https://odoo-community.org/get-involved?utm_source=readme">
+<img alt="Odoo Community Association" src="https://odoo-community.org/readme-banner-image" />
+</a>
+<div class="section" id="payment-provider-payplug">
+<h1>Payment Provider: Payplug</h1>
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:8e9ac986b57d3094891d8dc40a31dccf61e1e548b335229055e03dd09c19c5db
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/e-commerce/tree/19.0/payment_payplug"><img alt="OCA/e-commerce" src="https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/e-commerce-19-0/e-commerce-19-0-payment_payplug"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&amp;target_branch=19.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>Ce module ajoute <a class="reference external" href="https://www.payplug.com/">Payplug</a> comme
+fournisseur de paiement au cadre de paiement d’Odoo (module
+<tt class="docutils literal">payment</tt>).</p>
+<p>Le client est redirigé vers la page de paiement hébergée par Payplug,
+puis revient sur Odoo. Le module gère :</p>
+<ul class="simple">
+<li>le paiement en ligne sur le site web (panier et validation de
+commande) ;</li>
+<li>le paiement des factures depuis le portail client et par lien de
+paiement ;</li>
+<li>les notifications serveur de Payplug (paiements et remboursements) ;</li>
+<li>les remboursements totaux et partiels depuis Odoo, et ceux faits
+depuis le portail Payplug ;</li>
+<li>les annulations, les échecs et les paiements expirés.</li>
+</ul>
+<p>Payplug n’accepte que l’euro : le fournisseur n’est proposé que pour les
+paiements en EUR.</p>
+<p>Le module appelle directement l’API REST de Payplug avec <tt class="docutils literal">requests</tt> ;
+il ne demande aucune bibliothèque Python supplémentaire.</p>
+<p><strong>Avertissement :</strong> ce module est un développement indépendant. Il n’est
+ni affilié à Payplug, ni approuvé par Payplug. « Payplug » est une
+marque de son propriétaire.</p>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#installation" id="toc-entry-1">Installation</a></li>
+<li><a class="reference internal" href="#configuration" id="toc-entry-2">Configuration</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-3">Usage</a></li>
+<li><a class="reference internal" href="#development" id="toc-entry-4">Development</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-5">Known issues / Roadmap</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-6">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-7">19.0.1.1.0 (2026-10-24)</a></li>
+<li><a class="reference internal" href="#section-2" id="toc-entry-8">19.0.1.0.0 (2026-10-24)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-9">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-10">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-11">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-12">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-13">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2><a class="toc-backref" href="#toc-entry-1">Installation</a></h2>
+<p>Le module dépend des modules standard <tt class="docutils literal">payment</tt> et <tt class="docutils literal">account_payment</tt>
+(installés avec la Facturation ou le site e-commerce). Il ne demande
+aucune bibliothèque Python supplémentaire.</p>
+<ol class="arabic simple">
+<li>Placez le dossier <tt class="docutils literal">payment_payplug</tt> dans un chemin d’extensions
+(<tt class="docutils literal">addons_path</tt>) d’Odoo 19, ou installez le paquet Python construit
+avec <tt class="docutils literal">pyproject.toml</tt>.</li>
+<li>Redémarrez Odoo, mettez à jour la liste des applications, puis
+installez <em>Payment Provider: Payplug</em>.</li>
+</ol>
+<p>Le fournisseur <em>Payplug</em> est créé désactivé, pour chaque société.</p>
+<p>À la désinstallation, comme pour les fournisseurs standard, Odoo refuse
+de continuer si des paiements comptables ont été faits avec Payplug. Un
+fournisseur qui n’a que des transactions sans paiement est conservé
+(désactivé, sans code) pour garder ces transactions lisibles ; sinon il
+est supprimé.</p>
+</div>
+<div class="section" id="configuration">
+<h2><a class="toc-backref" href="#toc-entry-2">Configuration</a></h2>
+<p><strong>Clés Payplug</strong></p>
+<p>Le module accepte deux méthodes d’authentification, au choix dans le
+champ <em>Authentification</em> de l’onglet <em>Identifiants</em> :</p>
+<ul class="simple">
+<li><strong>Clé API</strong> (par défaut) : la clé secrète du compte est envoyée à
+chaque requête ;</li>
+<li><strong>OAuth2</strong> : Odoo échange un identifiant client (<em>client ID</em>) et un
+secret client (<em>client secret</em>) contre des jetons d’accès valables 5
+minutes, demandés et renouvelés automatiquement. Le secret ne circule
+que vers le serveur d’autorisation de Payplug.</li>
+</ul>
+<ol class="arabic">
+<li><p class="first">Dans le portail Payplug, à la rubrique des clés d’API, générez une
+clé en environnement <strong>Test</strong> et, plus tard, une clé en environnement
+<strong>Live</strong> :</p>
+<ul class="simple">
+<li>pour la méthode <em>Clé API</em>, une clé de type <strong>API Key</strong> (clé
+secrète). Les clés actuelles sont des jetons JWT (<tt class="docutils literal"><span class="pre">eyJ...</span></tt>) ; les
+anciennes clés <tt class="docutils literal"><span class="pre">sk_test_...</span></tt> et <tt class="docutils literal"><span class="pre">sk_live_...</span></tt> sont aussi
+acceptées ;</li>
+<li>pour la méthode <em>OAuth2</em>, une clé de type <strong>OAuth2</strong>. Le portail
+affiche son <em>client ID</em> et son <em>client secret</em> ; notez le secret
+aussitôt, il n’est montré qu’une fois.</li>
+</ul>
+<p>La clé publique n’est pas utilisée : le module ne passe que par la
+page de paiement hébergée.</p>
+</li>
+<li><p class="first">Dans Odoo, ouvrez <em>Facturation (ou Comptabilité) &gt; Configuration &gt;
+Fournisseurs de paiement</em> et choisissez <strong>Payplug</strong>.</p>
+</li>
+<li><p class="first">Dans l’onglet <em>Identifiants</em>, choisissez la méthode
+d’authentification, puis collez la clé secrète (<em>Clé API</em>) ou le
+<em>client ID</em> et le <em>client secret</em> (<em>OAuth2</em>). Seuls les
+administrateurs (groupe <em>Paramètres</em>) peuvent les lire ou les
+modifier.</p>
+</li>
+<li><p class="first">Réglez l’état :</p>
+<ul class="simple">
+<li><strong>Mode test</strong> avec une clé de l’environnement Test : aucun débit
+réel ;</li>
+<li><strong>Activé</strong> avec une clé de l’environnement Live : paiements réels.</li>
+</ul>
+<p>Pour une ancienne clé <tt class="docutils literal"><span class="pre">sk_...</span></tt>, Odoo refuse une clé de production
+en mode test et une clé de test sur un fournisseur activé. Pour une
+clé JWT, l’accord entre le mode et la clé est vérifié à chaque
+paiement : un paiement dont le mode ne correspond pas est refusé. En
+OAuth2, l’environnement du jeton (<em>scope</em> <tt class="docutils literal">test</tt>) est en plus
+vérifié à chaque requête : en mode test, seul un jeton de
+l’environnement Test est accepté ; sur un fournisseur activé, un
+jeton de test est refusé.</p>
+<p>Pour passer de Test à Live en OAuth2, remplacez le <em>client ID</em> et le
+<em>client secret</em> par ceux de la clé Live en même temps que vous
+activez le fournisseur.</p>
+</li>
+<li><p class="first">Dans l’onglet <em>Configuration</em>, vérifiez le journal de paiement et les
+moyens de paiement. Par défaut, seul <em>Carte</em> (CB, Visa, Mastercard)
+est activé. Bancontact, iDEAL et MyBank sont proposés, mais ne les
+activez qu’après les avoir fait ouvrir sur votre compte Payplug.</p>
+</li>
+<li><p class="first">Publiez le fournisseur pour qu’il apparaisse sur le site web.</p>
+</li>
+</ol>
+<p><strong>Adresse de notification (webhook)</strong></p>
+<p>Le module donne à Payplug, pour chaque paiement, l’adresse
+<tt class="docutils literal"><span class="pre">https://&lt;votre-domaine&gt;/payment/payplug/webhook</span></tt>. Il n’y a rien à
+saisir dans le portail Payplug, mais cette adresse doit être joignable
+depuis Internet en HTTPS :</p>
+<ul class="simple">
+<li>ne la protégez pas par une authentification, un filtrage IP ou une
+règle de pare-feu (WAF, fail2ban, Cloudflare…) qui bloquerait les
+requêtes POST de Payplug ;</li>
+<li>vérifiez le paramètre système <tt class="docutils literal">web.base.url</tt> (ou le domaine du site
+web) : c’est lui qui sert à construire les adresses de retour et de
+notification.</li>
+</ul>
+<p>Les retours du client passent par <tt class="docutils literal">/payment/payplug/return</tt> et
+<tt class="docutils literal">/payment/payplug/cancel</tt>.</p>
+<p><strong>Jetons d’accès OAuth2</strong></p>
+<p>Un jeton dure 5 minutes ; Odoo le garde en mémoire et en demande un
+nouveau une minute avant son expiration. Les jetons ne sont jamais
+écrits en base ni dans les journaux ; chaque processus (worker) d’Odoo
+demande les siens. Si Payplug refuse un jeton (HTTP 401), Odoo l’oublie,
+en demande un autre et renvoie la requête une seule fois. Après une
+modification des identifiants, chaque processus demande un nouveau jeton
+dès sa requête suivante ; après un changement d’état, le jeton en
+mémoire est de nouveau confronté au mode du fournisseur.</p>
+<p><strong>Paramètres système réservés aux tests</strong></p>
+<p>Ils ne servent qu’à pointer vers un faux serveur de test ; ne les créez
+pas en production.</p>
+<ul class="simple">
+<li><tt class="docutils literal">payment_payplug.api_base_url</tt> remplace l’adresse de l’API Payplug
+(<tt class="docutils literal"><span class="pre">https://api.payplug.com/v1/</span></tt> par défaut) ;</li>
+<li><tt class="docutils literal">payment_payplug.token_url</tt> remplace l’adresse du point d’obtention
+des jetons OAuth2 (par défaut <tt class="docutils literal">/oauth2/token</tt> sur l’hôte de l’API,
+soit <tt class="docutils literal"><span class="pre">https://api.payplug.com/oauth2/token</span></tt>) ;</li>
+<li><tt class="docutils literal">payment_payplug.token_audience</tt> remplace l’audience demandée pour
+les jetons (<tt class="docutils literal"><span class="pre">https://www.payplug.com</span></tt> par défaut).</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#toc-entry-3">Usage</a></h2>
+<p><strong>Paiement sur le site web ou depuis le portail</strong></p>
+<p>Le client choisit <em>Carte</em> (ou un autre moyen activé), est redirigé vers
+la page Payplug, paie, puis revient sur la page d’état du paiement
+d’Odoo. La commande ou la facture est confirmée dès qu’Odoo a relu le
+paiement auprès de Payplug, soit au retour du client, soit à la
+réception de la notification.</p>
+<p>Si le client clique sur <em>Annuler</em> sur la page Payplug, le paiement est
+abandonné chez Payplug et la transaction passe à l’état <em>Annulée</em>. Un
+paiement refusé passe à l’état <em>Erreur</em> avec le motif donné par Payplug
+; un paiement jamais terminé est annulé quand Payplug signale son
+expiration (environ 15 minutes).</p>
+<p><strong>Remboursement</strong></p>
+<p>Depuis le paiement (<em>Comptabilité &gt; Clients &gt; Paiements</em>), ou depuis la
+facture via son paiement, cliquez sur <em>Rembourser</em> et indiquez le
+montant (total ou partiel). Odoo demande le remboursement à Payplug,
+crée une transaction de remboursement liée à la transaction d’origine,
+puis le paiement comptable négatif correspondant.</p>
+<p>Un remboursement fait directement dans le portail Payplug est aussi
+enregistré dans Odoo, à la réception de sa notification.</p>
+<p>Payplug n’accepte pas de remboursement inférieur à 0,10 €.</p>
+<p><strong>Vérifier une transaction</strong></p>
+<p>Sur une transaction Payplug en attente ou en erreur, le bouton <em>Vérifier
+le statut sur Payplug</em> relit le paiement auprès de Payplug et met la
+transaction à jour (utile si une notification n’a pas pu arriver).</p>
+</div>
+<div class="section" id="development">
+<h2><a class="toc-backref" href="#toc-entry-4">Development</a></h2>
+<p>Les tests automatiques (<tt class="docutils literal"><span class="pre">--test-tags</span> /payment_payplug</tt>) n’appellent
+jamais l’API Payplug : ils démarrent un faux serveur Payplug local
+(<tt class="docutils literal">tests/fake_payplug.py</tt>) et y font pointer le module par le paramètre
+système <tt class="docutils literal">payment_payplug.api_base_url</tt>.</p>
+<p>Le même faux serveur sert aux essais manuels de bout en bout, avec une
+page de paiement factice (boutons <em>Payer</em>, <em>Refuser</em>, <em>Annuler</em>) et
+l’envoi des notifications :</p>
+<pre class="code shell literal-block">
+python3<span class="w"> </span>payment_payplug/tests/fake_payplug.py<span class="w"> </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--port<span class="w"> </span><span class="m">8765</span>
+</pre>
+<p>Sur une base de test, créez alors le paramètre système
+<tt class="docutils literal">payment_payplug.api_base_url</tt> avec la valeur
+<tt class="docutils literal"><span class="pre">http://127.0.0.1:8765/v1/</span></tt>, et saisissez une clé quelconque
+commençant par <tt class="docutils literal">sk_test_</tt>. <tt class="docutils literal">POST <span class="pre">/_control/refund/&lt;id</span> du paiement&gt;</tt>
+(corps <tt class="docutils literal">{&quot;amount&quot;: 1000}</tt>) simule un remboursement fait depuis le
+portail Payplug.</p>
+<p>Pour essayer la méthode OAuth2, le faux serveur répond aussi sur
+<tt class="docutils literal">POST /oauth2/token</tt> (authentification <em>Basic</em>,
+<tt class="docutils literal">grant_type=client_credentials</tt>, audience <tt class="docutils literal"><span class="pre">https://www.payplug.com</span></tt>)
+avec deux clients factices : <tt class="docutils literal">fake_client_test</tt> /
+<tt class="docutils literal">fake_client_secret_test</tt> (jetons de test) et <tt class="docutils literal">fake_client_live</tt> /
+<tt class="docutils literal">fake_client_secret_live</tt> (jetons Live). L’adresse du point de jeton
+se déduit de <tt class="docutils literal">payment_payplug.api_base_url</tt> ; il n’y a rien d’autre à
+régler.</p>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h2><a class="toc-backref" href="#toc-entry-5">Known issues / Roadmap</a></h2>
+<ul class="simple">
+<li>Connexion « avec son compte Payplug » (OAuth2 <em>authorization code</em> +
+PKCE, chemin <tt class="docutils literal">/oauth2/auth</tt>) : hors périmètre. Ce flux demande un
+client enregistré par Payplug avec une adresse de rappel ; le module
+se limite au flux <em>client credentials</em> avec une clé OAuth2 créée dans
+le portail.</li>
+<li>Prévu pour une version 3 : paiement en un clic (carte enregistrée),
+paiement fractionné, paiement différé, Apple Pay et paiement intégré.</li>
+<li>Paiement en plusieurs fois (Oney 3x/4x) : non pris en charge. Il
+demande le panier détaillé (<tt class="docutils literal">payment_context</tt>), une autorisation
+puis une capture, et des montants entre 100 € et 3 000 €.</li>
+<li>Enregistrement de la carte (jetons) et paiements récurrents : non pris
+en charge.</li>
+<li>Capture différée (autorisation puis capture manuelle) : non prise en
+charge.</li>
+<li>Apple Pay et le paiement intégré (<em>Integrated Payment</em>, champs de
+carte dans la page Odoo) : non pris en charge ; seule la page hébergée
+est utilisée.</li>
+<li>Les marques de carte renvoyées par Payplug (<tt class="docutils literal">card.brand</tt>) ne sont
+connues que par la documentation ; à vérifier avec de vraies
+transactions de test.</li>
+<li>Satispay, Scalapay et Wero n’ont pas de moyen de paiement
+correspondant dans Odoo 19 : ils ne sont pas proposés.</li>
+</ul>
+<p>À vérifier avec de vraies clés de test Payplug (non vérifié, faute de
+compte) :</p>
+<ul class="simple">
+<li>le format exact des notifications (paiement et remboursement), en
+particulier la présence de <tt class="docutils literal">payment_id</tt> dans celles des
+remboursements ;</li>
+<li>le code HTTP attendu par Payplug en réponse aux notifications, et s’il
+les renvoie après une erreur (le module répond 503 quand il ne peut
+pas relire le paiement) ;</li>
+<li>l’acceptation des champs <tt class="docutils literal">billing</tt> / <tt class="docutils literal">shipping</tt> envoyés (langue,
+téléphone, pays) ;</li>
+<li>l’abandon (<tt class="docutils literal">aborted</tt>) d’un paiement quand le client clique sur
+<em>Annuler</em> ;</li>
+<li>les valeurs de <tt class="docutils literal">card.brand</tt> (Visa, Mastercard, CB…) ;</li>
+<li>Bancontact, iDEAL et MyBank, qui demandent une activation sur le
+compte Payplug ;</li>
+<li>en OAuth2 : la valeur du <em>scope</em> des jetons de l’environnement Live
+(<tt class="docutils literal">live</tt> est supposé ; une autre valeur est tolérée sur un
+fournisseur activé, le mode de chaque paiement restant vérifié).</li>
+</ul>
+</div>
+<div class="section" id="changelog">
+<h2><a class="toc-backref" href="#toc-entry-6">Changelog</a></h2>
+<div class="section" id="section-1">
+<h3><a class="toc-backref" href="#toc-entry-7">19.0.1.1.0 (2026-10-24)</a></h3>
+<ul class="simple">
+<li>Authentification OAuth2 (<em>client credentials</em>) au choix, à côté de la
+clé API : jetons d’accès de 5 minutes gardés en mémoire et renouvelés
+automatiquement, nouvelle demande et renvoi unique de la requête si
+Payplug refuse le jeton, contrôle de l’environnement (Test ou Live) du
+jeton.</li>
+</ul>
+</div>
+<div class="section" id="section-2">
+<h3><a class="toc-backref" href="#toc-entry-8">19.0.1.0.0 (2026-10-24)</a></h3>
+<ul class="simple">
+<li>Première version : paiement par la page hébergée Payplug,
+notifications, remboursements totaux et partiels, paiement des
+factures.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="bug-tracker">
+<h2><a class="toc-backref" href="#toc-entry-9">Bug Tracker</a></h2>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/e-commerce/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/e-commerce/issues/new?body=module:%20payment_payplug%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h2><a class="toc-backref" href="#toc-entry-10">Credits</a></h2>
+<div class="section" id="authors">
+<h3><a class="toc-backref" href="#toc-entry-11">Authors</a></h3>
+<ul class="simple">
+<li>Sébastien Berger (sbinfo67)</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h3><a class="toc-backref" href="#toc-entry-12">Contributors</a></h3>
+<ul class="simple">
+<li>Sébastien Berger &lt;<a class="reference external" href="mailto:contact&#64;sbinfo.pro">contact&#64;sbinfo.pro</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h3><a class="toc-backref" href="#toc-entry-13">Maintainers</a></h3>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainer</a>:</p>
+<p><a class="reference external image-reference" href="https://github.com/sbinfo67"><img alt="sbinfo67" src="https://github.com/sbinfo67.png?size=40px" /></a></p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/e-commerce/tree/19.0/payment_payplug">OCA/e-commerce</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
