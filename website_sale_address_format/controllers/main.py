@@ -12,4 +12,5 @@ class WebsiteSale(WebsiteSale):
         res = super().shop_country_info(country, address_type, **kw)
         if country.online_address_format:
             res["fields"] = country.get_online_address_fields()
+            res["online_address_format"] = True
         return res

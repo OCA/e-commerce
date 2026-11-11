@@ -14,6 +14,9 @@
         "web.assets_frontend": [
             "website_sale_address_format/static/src/js/website_sale_address_format.esm.js",
         ],
+        "web.assets_tests": [
+            "website_sale_address_format/static/tests/tours/*.esm.js",
+        ],
     },
     "maintainers": ["yostashiro", "Aungkokolin1997"],
     "installable": True,

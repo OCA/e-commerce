@@ -7,6 +7,22 @@ import {rpc} from "@web/core/network/rpc";
 publicWidget.registry.websiteSaleAddress =
     publicWidget.registry.websiteSaleAddress.extend({
         /**
+         * Return the form input name for an address format field.
+         *
+         * @private
+         * @param {String} fname
+         */
+        _getInputName(fname) {
+            const inputNames = {
+                state_code: "state_id",
+                state_name: "state_id",
+                country_code: "country_id",
+                country_name: "country_id",
+            };
+            return inputNames[fname] || fname;
+        },
+
+        /**
          * @private
          */
         async _changeCountry(init = false) {
@@ -42,56 +58,38 @@ publicWidget.registry.websiteSaleAddress =
                     });
                     this._showInput("state_id");
                 } else {
+                    // Empty existing options, only keep the placeholder.
+                    selectStates.options.length = 1;
                     this._hideInput("state_id");
                 }
             }
 
             // Manage fields order / visibility
             if (data.fields) {
-                // [CUSTOM][DEL] Following 5 lines
-                // if (data.zip_before_city) {
-                //     this._getInputDiv('zip').after(this._getInputDiv('city'));
-                // } else {
-                //     this._getInputDiv('zip').before(this._getInputDiv('city'));
-                // }
-                // [CUSTOM][ADD] Following 11 lines: sort fields according to
-                // online_address_format of the country
+                // [CUSTOM] Order and show fields as in the country's address format
+                const inputNames = [
+                    ...new Set(data.fields.map((fname) => this._getInputName(fname))),
+                ].filter((name) => this.addressForm[name]);
                 let prev = this._getInputDiv("street");
-                for (const fname of data.fields) {
-                    let key = fname.split("_")[0];
-                    if (key === "state") key = "state_id";
-                    if (key === "country") key = "country_id";
-                    const el = this._getInputDiv(key);
-                    if (el) {
-                        prev.after(el);
-                        prev = el;
-                    }
+                for (const name of inputNames) {
+                    const el = this._getInputDiv(name);
+                    prev.after(el);
+                    prev = el;
                 }
-                // [CUSTOM][DEL] Following line
-                // var all_fields = ['street', 'zip', 'city'];
-                // [CUSTOM][ADD] street2 and state_code
-                var all_fields = [
-                    "street",
-                    "street2",
-                    "zip",
-                    "city",
-                    "state_code",
-                    "state_name",
-                ];
-                // [EDIT] Following 13 lines
-                const toInputName = (fname) => {
-                    const key = fname.split("_")[0];
-                    if (key === "state") return "state_id";
-                    return key;
-                };
-                all_fields.forEach((fname) => {
-                    const input = toInputName(fname);
-                    if (data.fields.includes(fname)) {
-                        this._showInput(input);
+                // A hidden required field would block the checkout.
+                const isHidden = (name) =>
+                    !inputNames.includes(name) && !data.required_fields.includes(name);
+                ["street", "street2", "zip", "city"].forEach((name) => {
+                    if (isHidden(name)) {
+                        this._hideInput(name);
                     } else {
-                        this._hideInput(input);
+                        this._showInput(name);
                     }
                 });
+                // The state block above decides whether the country has states.
+                if (data.online_address_format && isHidden("state_id")) {
+                    this._hideInput("state_id");
+                }
             }
 
             const required_fields = this.addressForm.querySelectorAll(":required");
