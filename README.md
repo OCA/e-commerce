@@ -18,7 +18,11 @@ e-commerce
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[website_sale_require_legal](website_sale_require_legal/) | 20.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
 
 [//]: # (end addons)
 
