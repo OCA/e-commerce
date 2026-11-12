@@ -1,7 +1,9 @@
 # Copyright 20202520 Tecnativa - Pilar Vargas
+# Copyright 2026 Tecnativa - Adasat Torres
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, models
 from odoo.http import request
+from odoo.modules import module
 from odoo.tools import config
 
 
@@ -13,27 +15,28 @@ class ProductTemplate(models.Model):
         self,
         price,
         currency,
-        product_taxes,
-        taxes,
-        product_or_template,
+        *,
+        product=None,
+        product_taxes=None,
+        taxes=None,
+        tax_display=None,
         website=None,
     ):
-        res = super()._apply_taxes_to_price(
-            price, currency, product_taxes, taxes, product_or_template, website
-        )
-        test_condition = not config["test_enable"] or (
+        if not config["test_enable"] or (
             config["test_enable"]
-            and self.env.context.get("test_website_sale_tax_toggle")
-        )
-        if not website or not test_condition:
-            return res
-        price = self.env["product.product"]._get_tax_included_unit_price_from_price(
+            and module.current_test.test_module == "website_sale_tax_toggle"
+        ):
+            tax_display = (
+                "total_included"
+                if request.session.get("tax_toggle_taxed", False)
+                else "total_excluded"
+            )
+        return super()._apply_taxes_to_price(
             price,
-            product_taxes,
-            product_taxes_after_fp=taxes,
+            currency,
+            product=product,
+            product_taxes=product_taxes,
+            taxes=taxes,
+            tax_display=tax_display,
+            website=website,
         )
-        show_tax = request.session.get("tax_toggle_taxed")
-        tax_display = "total_included" if show_tax else "total_excluded"
-        return taxes.compute_all(
-            price, currency, 1, product_or_template, self.env.user.partner_id
-        )[tax_display]

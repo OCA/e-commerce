@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="website_sale_tax_toggle.ProductsListPageOption"
+        t-inherit="website_sale.ProductsListPageOption"
+        t-inherit-mode="extension"
+    >
+        <xpath
+            expr="//t[@t-name='website_sale.ProductsListPageOption']/BuilderRow[last()]"
+            position="after"
+        >
+            <BuilderRow label.translate="Taxes toggle">
+                <BuilderCheckbox
+                    action="'websiteConfig'"
+                    actionParam="{views: ['website_sale_tax_toggle.products']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+
+    <t
+        t-name="website_sale_tax_toggle.ProductPageOption"
+        t-inherit="website_sale.ProductPageOption"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//BuilderRow[@label.translate='Tax Indication']" position="after">
+            <BuilderRow label.translate="Taxes toggle">
+                <BuilderCheckbox
+                    action="'websiteConfig'"
+                    actionParam="{views: ['website_sale_tax_toggle.product']}"
+                />
+            </BuilderRow>
+        </xpath>
+    </t>
+</templates>
