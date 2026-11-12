@@ -30,6 +30,11 @@ class WebsiteSaleHttpCase(odoo.tests.HttpCase):
             request.session.uid = False
             self.assertFalse(website.checkout_skip_payment)
 
+    def test_checkout_skip_payment_without_request(self):
+        """The field can be computed outside a request (cron, export, script)"""
+        websites = self.env["website"].search([])
+        self.assertEqual(set(websites.mapped("checkout_skip_payment")), {False})
+
     def test_ui_website(self):
         """Test frontend tour."""
         self.start_tour("/", "website_sale_checkout_skip_payment", login="admin")
