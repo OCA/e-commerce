@@ -35,7 +35,9 @@ class Website(models.Model):
 
     def _compute_checkout_skip_payment(self):
         for rec in self:
-            if request.session.uid:
+            # Outside a request (cron, server action, script) there is no
+            # visitor, so no payment to skip
+            if request and request.session.uid:
                 rec.checkout_skip_payment = (
                     request.env.user.partner_id.skip_website_checkout_payment
                 )
