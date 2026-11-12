@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Domatix
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template id="product_compare_price" inherit_id="website_sale.product_price">
+        <!-- Keep the native template-level "Compare to Price" strikethrough
+             only when the variant reference price is not shown by this module,
+             so a single crossed-out price is displayed at a time. -->
+        <xpath expr="//del[hasclass('oe_compare_list_price')]" position="attributes">
+            <attribute
+                name="t-if"
+            >combination_info.get('compare_list_price') and combination_info.get('compare_list_price') &gt; combination_info.get('price') and not combination_info.get('has_compare_price')</attribute>
+        </xpath>
+        <!-- Compare price block appended to the sale price. Nodes are always
+             rendered and toggled, so the frontend can keep them in sync when
+             the shopper changes the selected variant. -->
+        <xpath expr="//div[@name='product_price_container']" position="inside">
+            <span
+                t-attf-class="oe_compare_price_block ms-1 {{'d-none' if not (combination_info.get('has_compare_price') or combination_info.get('compare_save_text')) else ''}}"
+            >
+                <del
+                    t-attf-class="oe_compare_price_del text-muted me-1 {{'d-none' if not combination_info.get('has_compare_price') else ''}}"
+                >
+                    <span
+                        class="oe_compare_price_value"
+                        t-esc="combination_info.get('compare_price_formatted') or ''"
+                    />
+                </del>
+                <span
+                    t-attf-class="oe_compare_badge badge text-bg-danger ms-1 {{'d-none' if not combination_info.get('compare_badge_text') else ''}}"
+                    t-esc="combination_info.get('compare_badge_text') or ''"
+                />
+                <span
+                    t-attf-class="oe_compare_save text-danger ms-1 fw-semibold text-nowrap {{'d-none' if not combination_info.get('compare_save_text') else ''}}"
+                    t-esc="combination_info.get('compare_save_text') or ''"
+                />
+            </span>
+        </xpath>
+    </template>
+</odoo>
