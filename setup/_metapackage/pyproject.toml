@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-e-commerce"
-version = "20.0.20261112.0"
+version = "20.0.20261113.0"
 dependencies = [
     "odoo-addon-website_sale_require_legal==20.0.*",
+    "odoo-addon-website_sale_tax_toggle==20.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",

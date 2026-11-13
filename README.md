@@ -23,6 +23,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [website_sale_require_legal](website_sale_require_legal/) | 20.0.1.0.0 |  | Force the user to accept legal tems to buy in the web shop
+[website_sale_tax_toggle](website_sale_tax_toggle/) | 20.0.1.0.0 |  | Allow display price in Shop with or without taxes
 
 [//]: # (end addons)
 
