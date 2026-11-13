@@ -4,7 +4,7 @@
     "name": "eCommerce Confirm Order By Payment Provider",
     "summary": "eCommerce Confirm Order By Payment Provider",
     "author": "Tecnativa, Odoo Community Association (OCA)",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "category": "Website/Website",
     "website": "https://github.com/OCA/e-commerce",
     "maintainers": ["pilarvargas-tecnativa"],
