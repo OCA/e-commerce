@@ -14,6 +14,7 @@
     "data": [
         "views/res_company_views.xml",
         "views/res_config_settings_views.xml",
+        "views/portal_my_home.xml",
         "views/templates.xml",
     ],
     "assets": {

@@ -28,6 +28,13 @@
                 >
                     <field name="regular_products_menu_label" />
                 </setting>
+                <setting
+                    id="regular_products_portal_card"
+                    string="Customer Portal Card"
+                    help="Show a 'My Regular Products' card on the customer portal home page."
+                >
+                    <field name="regular_products_portal_card" />
+                </setting>
             </xpath>
         </field>
     </record>

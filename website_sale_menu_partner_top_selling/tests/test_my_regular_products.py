@@ -160,3 +160,25 @@ class TestMyRegularProducts(HttpCase):
         self.authenticate("admin", "admin")
         response = self.url_open("/shop")
         self.assertIn("Bought Before", response.text)
+
+    def test_portal_card_is_hidden_by_default(self):
+        """As a customer, I don't see a card for my regular products on my
+        portal home page until the shop manager enables it."""
+        portal_group = self.env.ref("base.group_portal")
+        portal_user = self.env["res.users"].create(
+            {
+                "name": "Portal User",
+                "login": "portal_user",
+                "password": "portal_user",
+                "group_ids": [Command.set(portal_group.ids)],
+            }
+        )
+        self.authenticate(portal_user.login, "portal_user")
+        response = self.url_open("/my")
+        self.assertNotIn("/shop/my_regular_products", response.text)
+
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card", "True"
+        )
+        response = self.url_open("/my")
+        self.assertIn("/shop/my_regular_products", response.text)

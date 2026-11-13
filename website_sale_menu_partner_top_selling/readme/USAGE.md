@@ -11,3 +11,6 @@ all variants of a product are added together.
 Only confirmed sales orders are taken into account. Quotations and
 cancelled orders are not counted. If a period in days is configured, only
 orders from that period are counted.
+
+If the *Customer Portal Card* setting is enabled, a card linking to the
+page is shown on the customer portal home page (*My Account*).
