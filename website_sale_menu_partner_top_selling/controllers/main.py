@@ -23,14 +23,14 @@ class WebsiteSale(WebsiteSale):
         # Pagination
         total_products = len(templates)
         ppg = website.shop_ppg or 21
-        page_count = (total_products + ppg - 1) // ppg
-        page = max(0, min(page, page_count - 1))
-        offset = page * ppg
+        page_count = (total_products + ppg - 1) // ppg or 1
+        page = max(1, min(page or 1, page_count))
+        offset = (page - 1) * ppg
         products_on_page = templates[offset : offset + ppg]
         pager = request.website.pager(
             url="/shop/my_regular_products",
             total=total_products,
-            page=page + 1,
+            page=page,
             step=ppg,
             scope=5,
             url_args=kwargs,
@@ -48,7 +48,7 @@ class WebsiteSale(WebsiteSale):
         variants.fetch()
         product_variants = dict(zip(products_on_page, variants, strict=False))
         # Shop context for the view
-        shop_context = self.shop(page=page, **kwargs)
+        shop_context = self.shop(page=0, **kwargs)
         shop_context.qcontext.update(
             {
                 "pager": pager,
@@ -68,3 +68,4 @@ class WebsiteSale(WebsiteSale):
             }
         )
         return request.render("website_sale.products", shop_context.qcontext)
+
