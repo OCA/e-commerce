@@ -69,3 +69,10 @@ class WebsiteSale(WebsiteSale):
         )
         return request.render("website_sale.products", shop_context.qcontext)
 
+    def _get_additional_shop_values(self, values, **kwargs):
+        values = super()._get_additional_shop_values(values, **kwargs)
+        website = request.env["website"].get_current_website()
+        values["my_regular_products_label"] = (
+            website._get_my_regular_products_menu_label()
+        )
+        return values

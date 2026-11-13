@@ -16,3 +16,8 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="website_sale_menu_partner_top_selling.period_days",
         help="Only count orders from the last days. Set to 0 to count all orders.",
     )
+    regular_products_menu_label = fields.Char(
+        string="Regular Products Menu Label",
+        related="website_id.company_id.regular_products_menu_label",
+        readonly=False,
+    )
