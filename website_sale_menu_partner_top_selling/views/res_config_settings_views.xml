@@ -14,6 +14,27 @@
                 >
                     <field name="regular_products_limit" />
                 </setting>
+                <setting
+                    id="regular_products_period_days"
+                    string="Regular Products Period (Days)"
+                    help="Only count orders from the last days. Set to 0 to count all orders."
+                >
+                    <field name="regular_products_period_days" />
+                </setting>
+                <setting
+                    id="regular_products_menu_label"
+                    string="Regular Products Menu Label"
+                    help="Label of the 'My Regular Products' link in the shop and of the card on the customer portal. It can be translated."
+                >
+                    <field name="regular_products_menu_label" />
+                </setting>
+                <setting
+                    id="regular_products_portal_card"
+                    string="Customer Portal Card"
+                    help="Show a 'My Regular Products' card on the customer portal home page."
+                >
+                    <field name="regular_products_portal_card" />
+                </setting>
             </xpath>
         </field>
     </record>

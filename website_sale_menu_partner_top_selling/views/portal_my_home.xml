@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_my_home_my_regular_products"
+        name="My Regular Products"
+        inherit_id="portal.portal_my_home"
+    >
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t t-if="my_regular_products_card_enabled">
+                <t t-call="portal.portal_docs_entry">
+                    <t
+                        t-set="icon"
+                        t-value="'/website_sale_menu_partner_top_selling/static/src/img/my_regular_products.svg'"
+                    />
+                    <t t-set="title" t-value="my_regular_products_label" />
+                    <t t-set="url" t-value="'/shop/my_regular_products'" />
+                    <t t-set="text">Products you bought before, to buy again</t>
+                    <t
+                        t-set="placeholder_count"
+                        t-value="'my_regular_products_count'"
+                    />
+                    <t t-set="show_count" t-value="True" />
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

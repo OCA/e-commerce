@@ -15,7 +15,8 @@
                 <a
                     href="/shop/my_regular_products"
                     t-attf-class="{{request.httprequest.path.startswith('/shop/my_regular_products') and 'text-decoration-underline'}} p-0"
-                >My Regular Products</a>
+                    t-out="my_regular_products_label or 'My Regular Products'"
+                />
             </li>
         </xpath>
     </template>
@@ -32,7 +33,7 @@
                     class="o_wsale_filmstrip_link d-block w-100 h-100 text-decoration-none"
                     draggable="false"
                     role="menuitem"
-                    aria-label="My Regular Products"
+                    t-att-aria-label="my_regular_products_label or 'My Regular Products'"
                 >
                     <div
                         t-attf-class="o_wsale_filmstrip_item position-relative d-flex w-100 h-100{{
@@ -45,7 +46,9 @@
                             role="img"
                             aria-label="Category image"
                         />
-                        <span>My Regular Products</span>
+                        <span
+                            t-out="my_regular_products_label or 'My Regular Products'"
+                        />
                     </div>
                 </a>
             </li>
