@@ -1,6 +1,7 @@
 # Copyright 2024 Tecnativa - Pilar Vargas
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import json
 import logging
 from datetime import timedelta
 
@@ -112,6 +113,38 @@ class TestMyRegularProducts(HttpCase):
         self.assertIn(self.products["Alpha Product"].product_tmpl_id, templates)
         self.assertNotIn(self.products["Echo Product"].product_tmpl_id, templates)
 
+        # The portal card badge counts products a customer can buy again:
+        # unpublished products are excluded even for internal users.
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card", "True"
+        )
+        response = self.url_open(
+            "/my/counters",
+            data=json.dumps(
+                {
+                    "jsonrpc": "2.0",
+                    "method": "call",
+                    "id": 1,
+                    "params": {"counters": ["my_regular_products_count"]},
+                }
+            ),
+            headers={"Content-Type": "application/json"},
+        )
+        expected = len(
+            self.partner._get_my_regular_products(website).filtered("is_published")
+        )
+        self.assertEqual(
+            response.json()["result"]["my_regular_products_count"], expected
+        )
+        # Echo Product is bought but not published: it must not be counted.
+        # Browse the website as an internal user so unpublished products are
+        # included in the total, like they are for the shop itself.
+        admin_website = self.env["website"].search([], limit=1)
+        self.assertLess(
+            response.json()["result"]["my_regular_products_count"],
+            len(self.partner._get_my_regular_products(admin_website)),
+        )
+
     def test_page_is_limited_to_configured_number_of_products(self):
         """As a shop manager, I can limit how many regular products are
         displayed on the page."""
@@ -165,3 +198,86 @@ class TestMyRegularProducts(HttpCase):
         self.authenticate("admin", "admin")
         response = self.url_open("/shop")
         self.assertIn("Bought Before", response.text)
+
+    def test_portal_card_is_hidden_by_default(self):
+        """As a customer, I don't see a card for my regular products on my
+        portal home page until the shop manager enables it."""
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card", "False"
+        )
+        portal_group = self.env.ref("base.group_portal")
+        portal_user = self.env["res.users"].create(
+            {
+                "name": "Portal User",
+                "login": "portal_user",
+                "password": "portal_user",
+                "group_ids": [Command.set(portal_group.ids)],
+            }
+        )
+        self.authenticate(portal_user.login, "portal_user")
+        response = self.url_open("/my")
+        self.assertNotIn("/shop/my_regular_products", response.text)
+
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card", "True"
+        )
+        response = self.url_open("/my")
+        self.assertIn("/shop/my_regular_products", response.text)
+        self.assertIn("Products you bought before, to buy again", response.text)
+
+        # The card description is configurable per company.
+        self.env.company.regular_products_card_text = "Buy them again"
+        response = self.url_open("/my")
+        self.assertIn("Buy them again", response.text)
+
+    def test_portal_card_position_is_configurable(self):
+        """As a shop manager, I can choose where the 'My Regular Products'
+        card is displayed on the customer portal home page."""
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card", "True"
+        )
+        portal_group = self.env.ref("base.group_portal")
+        portal_user = self.env["res.users"].create(
+            {
+                "name": "Portal User",
+                "login": "portal_user",
+                "password": "portal_user",
+                "group_ids": [Command.set(portal_group.ids)],
+            }
+        )
+        self.authenticate(portal_user.login, "portal_user")
+
+        def card_snippet(html):
+            index = html.index('href="/shop/my_regular_products"')
+            start = html.rfind("o_portal_index_card", 0, index)
+            return html[start:index]
+
+        # Top banner (default): a full-width card in the top section.
+        html = self.url_open("/my").text
+        self.assertIn("col-12", card_snippet(html))
+        self.assertLess(
+            html.index("/shop/my_regular_products"), html.index("/my/orders")
+        )
+
+        # Inline: a half-width card right before the Orders card.
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card_position",
+            "inline",
+        )
+        html = self.url_open("/my").text
+        self.assertIn("col-md-6", card_snippet(html))
+        self.assertLess(
+            html.index("/shop/my_regular_products"), html.index("/my/orders")
+        )
+
+        # Bottom banner: a full-width card after the common category.
+        self.env["ir.config_parameter"].sudo().set_param(
+            "website_sale_menu_partner_top_selling.portal_card_position",
+            "bottom",
+        )
+        html = self.url_open("/my").text
+        self.assertIn("col-12", card_snippet(html))
+        self.assertGreater(
+            html.index("/shop/my_regular_products"),
+            html.index('id="portal_common_category"'),
+        )

@@ -26,3 +26,21 @@ class ResConfigSettings(models.TransientModel):
         related="website_id.company_id.regular_products_card_text",
         readonly=False,
     )
+    regular_products_portal_card = fields.Boolean(
+        string="Customer Portal Card",
+        default=False,
+        config_parameter="website_sale_menu_partner_top_selling.portal_card",
+        help="Show a 'My Regular Products' card on the customer portal home page.",
+    )
+    regular_products_portal_card_position = fields.Selection(
+        string="Portal Card Position",
+        selection=[
+            ("top", "Top banner"),
+            ("bottom", "Bottom banner"),
+            ("inline", "Inline (before Orders)"),
+        ],
+        default="top",
+        config_parameter="website_sale_menu_partner_top_selling.portal_card_position",
+        help="Where to display the 'My Regular Products' card on the customer "
+        "portal home page.",
+    )

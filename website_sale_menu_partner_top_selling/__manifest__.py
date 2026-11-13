@@ -14,9 +14,13 @@
     "data": [
         "views/res_company_views.xml",
         "views/res_config_settings_views.xml",
+        "views/portal_my_home.xml",
         "views/templates.xml",
     ],
     "assets": {
+        "web.assets_frontend": [
+            "website_sale_menu_partner_top_selling/static/src/interactions/**/*",
+        ],
         "web.assets_tests": [
             "website_sale_menu_partner_top_selling/static/src/js/tours/*.esm.js"
         ],
