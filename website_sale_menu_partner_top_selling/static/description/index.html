@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
-<title>README.rst</title>
+<title>Website Sale Menu Partner Top Selling</title>
 <style type="text/css">
 
 /*
@@ -393,23 +393,48 @@ user and his company in the online shop.</p>
 </div>
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#toc-entry-1">Configuration</a></h2>
-<p>The module allows you to configure the number of products to be
-displayed by means of a configuration parameter.</p>
-<p>Limit settings:</p>
-<p>Go to Settings &gt; Website &gt; Products and adjust the value in the
-corresponding field to set the maximum number of products to be
-displayed on the regular products page. The category panel must also be
-active in /shop.</p>
+<p>To set the maximum number of products shown on the <em>My Regular Products</em>
+page:</p>
+<ol class="arabic simple">
+<li>Go to <em>Website &gt; Configuration &gt; Settings</em>, <em>eCommerce</em> section.</li>
+<li>Set <em>Regular Products Limit</em>. The default is 10.</li>
+</ol>
+<p>The limit is stored in the
+<tt class="docutils literal">website_sale_menu_partner_top_selling.limit</tt> system parameter and is
+shared by all websites.</p>
+<p>The <em>Regular Products Period (Days)</em> setting limits how far back orders
+are counted: only orders from the last days are taken into account. The
+default is 0, which counts all orders. It is stored in the
+<tt class="docutils literal">website_sale_menu_partner_top_selling.period_days</tt> system parameter.</p>
+<p>The <em>Regular Products Menu Label</em> setting changes the label of the link
+to the page in the shop and of the card on the customer portal. It is
+translatable.</p>
+<p>The <em>Customer Portal Card</em> setting shows a card linking to the page on
+the customer portal home page. It is disabled by default.</p>
+<p>For the <em>My Regular Products</em> link to appear in <em>/shop</em>, enable either
+the categories sidebar or the top categories bar. The top categories bar
+is only displayed when the shop has eCommerce categories.</p>
 </div>
 <div class="section" id="usage">
 <h2><a class="toc-backref" href="#toc-entry-2">Usage</a></h2>
-<p>Regular products can be viewed by accessing the URL
-/shop/my_regular_products on the website.</p>
-<p>This URL can be accessed from <em>/shop</em> by clicking on <em>My regular
-products</em> in the category menu.</p>
-<p>The page will display the products regularly purchased by the user’s
-company’s customers, sorted by the number of units sold in descending
-order.</p>
+<ol class="arabic simple">
+<li>Log in to the website and go to <em>/shop</em>.</li>
+<li>Click the <em>My Regular Products</em> link (or the configured label) in the
+categories sidebar or in the top categories bar, or open
+<em>/shop/my_regular_products</em> directly. Anonymous visitors are
+redirected to the login page.</li>
+</ol>
+<p>The page lists the published products ordered by your company (all
+contacts of the same commercial partner), sorted by total ordered
+quantity in descending order, up to the configured limit. Quantities of
+all variants of a product are added together.</p>
+<p>Only confirmed sales orders are taken into account. Quotations and
+cancelled orders are not counted. If a period in days is configured,
+only orders from that period are counted. If
+<tt class="docutils literal">website_sale_menu_partner_top_selling_pos</tt> is installed, paid Point
+of Sale orders are counted as well.</p>
+<p>If the <em>Customer Portal Card</em> setting is enabled, a card linking to the
+page is shown on the customer portal home page (<em>My Account</em>).</p>
 </div>
 <div class="section" id="bug-tracker">
 <h2><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h2>
