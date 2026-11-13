@@ -33,3 +33,8 @@ msgstr ""
 #: model:ir.model,name:website_sale_acquirer_confirm_order.model_payment_provider
 msgid "Payment Provider"
 msgstr "Fornitore pagamento"
+
+#. module: website_sale_acquirer_confirm_order
+#: model:ir.model,name:website_sale_acquirer_confirm_order.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
