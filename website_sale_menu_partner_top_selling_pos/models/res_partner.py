@@ -9,7 +9,7 @@ class ResPartner(models.Model):
 
     def _get_my_regular_products_quantities(self):
         quantities = super()._get_my_regular_products_quantities()
-        partner = self.commercial_partner_id or self
+        partner = self.sudo().commercial_partner_id or self
         domain = [
             (
                 "order_id.partner_id.commercial_partner_id",
