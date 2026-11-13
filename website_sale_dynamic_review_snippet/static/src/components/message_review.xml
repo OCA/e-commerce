@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t
+        t-name="website_sale_dynamic_review_snippet.MessageReview"
+        t-inherit="mail.Message"
+        t-inherit-mode="primary"
+    >
+        <small t-if="isPersistentMessageFromAnotherThread" position="attributes">
+            <attribute name="t-on-click.prevent" remove="openRecord" />
+        </small>
+        <a t-if="message.thread.displayName" position="attributes">
+            <attribute name="target">_blank</attribute>
+        </a>
+    </t>
+
+</templates>
