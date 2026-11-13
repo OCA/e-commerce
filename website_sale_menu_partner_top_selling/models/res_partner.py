@@ -34,7 +34,7 @@ class ResPartner(models.Model):
         to add their own sources.
         """
         self.ensure_one()
-        partner = self.commercial_partner_id or self
+        partner = self.sudo().commercial_partner_id or self
         domain = [
             (
                 "order_id.partner_id.commercial_partner_id",

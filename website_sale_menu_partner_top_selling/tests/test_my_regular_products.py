@@ -105,7 +105,7 @@ class TestMyRegularProducts(HttpCase):
                 "group_ids": [Command.link(self.env.ref("base.group_portal").id)],
             }
         )
-        website = self.env["website"].search([], limit=1)
+        website = self.env["website"].with_user(portal_user).search([], limit=1)
         templates = self.partner.with_user(portal_user)._get_my_regular_products(
             website
         )
