@@ -21,6 +21,20 @@
                 >
                     <field name="regular_products_period_days" />
                 </setting>
+                <setting
+                    id="regular_products_menu_label"
+                    string="Regular Products Menu Label"
+                    help="Label of the 'My Regular Products' link in the shop and of the card on the customer portal. It can be translated."
+                >
+                    <field name="regular_products_menu_label" />
+                </setting>
+                <setting
+                    id="regular_products_card_text"
+                    string="Regular Products Card Text"
+                    help="Description of the 'My Regular Products' card on the customer portal. It can be translated."
+                >
+                    <field name="regular_products_card_text" />
+                </setting>
             </xpath>
         </field>
     </record>

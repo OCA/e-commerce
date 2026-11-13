@@ -151,3 +151,17 @@ class TestMyRegularProducts(HttpCase):
         html = response.text
         self.assertNotIn("Alpha Product", html)
         self.assertIn("Bravo Product", html)
+
+    def test_menu_label_is_configurable(self):
+        """As a shop manager, I can change the label of the link to my
+        regular products in the shop."""
+        # The label is a translated field: set it in every installed
+        # language so the page renders it whatever the website language is.
+        for code, _name in self.env["res.lang"].get_installed():
+            self.env.company.with_context(
+                lang=code
+            ).regular_products_menu_label = "Bought Before"
+
+        self.authenticate("admin", "admin")
+        response = self.url_open("/shop")
+        self.assertIn("Bought Before", response.text)
