@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2019 Tecnativa - Victor M.M. Torres
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template
+        id="filter_select_attributes"
+        inherit_id="website_sale.filter_select_attributes"
+    >
+        <xpath
+            expr="//t[@t-foreach='pavs_per_attribute[a]']/option"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+    </template>
+    <template
+        id="filter_radio_and_multi_attributes"
+        inherit_id="website_sale.filter_radio_and_multi_attributes"
+    >
+        <xpath expr="//t[@t-set='sorted_values']" position="after">
+            <t
+                t-if="attr_values_used_ids"
+                t-set="sorted_values"
+                t-value="[v for v in sorted_values if v.id in attr_values_used_ids]"
+            />
+        </xpath>
+    </template>
+    <template
+        id="product_attribute_filters_form"
+        inherit_id="website_sale.product_attribute_filters_form"
+    >
+        <!-- Until 19.0 `attributes` was built with the chosen values applied,
+             so an attribute left without usable values never reached the loop. -->
+        <xpath expr="//t[@t-foreach='attributes']/div" position="attributes">
+            <attribute
+                name="t-if"
+                add="(not attr_values_used_ids or any(v.id in attr_values_used_ids for v in current_attribute_pavs))"
+                separator="and"
+            />
+        </xpath>
+    </template>
+    <template
+        id="filter_pills_attributes"
+        inherit_id="website_sale.filter_pills_attributes"
+    >
+        <xpath
+            expr="//t[@t-foreach='pavs_per_attribute[a]']/input"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+        <xpath
+            expr="//t[@t-foreach='pavs_per_attribute[a]']/label"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+    </template>
+
+    <template
+        id="filter_color_attributes"
+        inherit_id="website_sale.filter_color_attributes"
+    >
+        <xpath
+            expr="//t[@t-foreach='pavs_per_attribute[a]']/label"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+    </template>
+    <template
+        id="filter_image_attributes"
+        inherit_id="website_sale.filter_image_attributes"
+    >
+        <xpath
+            expr="//t[@t-foreach='pavs_per_attribute[a]']/label"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not attr_values_used_ids or v.id in attr_values_used_ids</attribute>
+        </xpath>
+    </template>
+</odoo>
