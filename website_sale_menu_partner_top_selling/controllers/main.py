@@ -1,3 +1,6 @@
+# Copyright 2024 Tecnativa - Pilar Vargas
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 from odoo import http
 from odoo.http import request
 from odoo.tools import lazy
@@ -16,56 +19,10 @@ class WebsiteSale(WebsiteSale):
         if request.env.user.has_group("base.group_public"):
             return request.redirect("/web/login")
         website = request.env["website"].get_current_website()
-        param_limit = int(
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("website_sale_menu_partner_top_selling.limit", 10)
-        )
-        # Get best-selling products from the user
-        partner = request.env.user.partner_id
-        company_partner = partner.commercial_partner_id or partner
-        product_data = (
-            request.env["sale.order.line"]
-            .sudo()
-            ._read_group(
-                domain=[
-                    (
-                        "order_id.partner_id.commercial_partner_id",
-                        "=",
-                        company_partner.id,
-                    ),
-                    ("order_id.state", "in", ["sale", "done"]),
-                    ("product_id.product_tmpl_id.website_published", "=", True),
-                    (
-                        "product_id.product_tmpl_id.website_id",
-                        "in",
-                        [request.website.id, False],
-                    ),
-                    (
-                        "product_id.product_tmpl_id.company_id",
-                        "in",
-                        [request.website.company_id.id, False],
-                    ),
-                ],
-                groupby=["product_id"],
-                aggregates=["product_uom_qty:sum"],
-            )
-        )
-        # Sum quantities per template (a template may have several variants sold)
-        template_quantities = {}
-        for product, qty in product_data:
-            template = product.product_tmpl_id
-            template_quantities[template] = template_quantities.get(template, 0) + qty
-        # Sort the templates by total quantity sold and limit
-        sorted_templates = sorted(
-            template_quantities, key=template_quantities.get, reverse=True
-        )
-        templates = request.env["product.template"].concat(
-            *sorted_templates[:param_limit]
-        )
+        templates = request.env.user.partner_id._get_my_regular_products(website)
         # Pagination
-        ppg = website.shop_ppg or 21
         total_products = len(templates)
+        ppg = website.shop_ppg or 21
         page_count = (total_products + ppg - 1) // ppg
         page = max(0, min(page, page_count - 1))
         offset = page * ppg

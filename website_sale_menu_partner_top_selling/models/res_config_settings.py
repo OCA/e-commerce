@@ -10,3 +10,9 @@ class ResConfigSettings(models.TransientModel):
     regular_products_limit = fields.Integer(
         default=10, config_parameter="website_sale_menu_partner_top_selling.limit"
     )
+    regular_products_period_days = fields.Integer(
+        string="Regular Products Period (Days)",
+        default=0,
+        config_parameter="website_sale_menu_partner_top_selling.period_days",
+        help="Only count orders from the last days. Set to 0 to count all orders.",
+    )

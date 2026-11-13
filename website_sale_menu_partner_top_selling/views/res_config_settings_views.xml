@@ -14,6 +14,13 @@
                 >
                     <field name="regular_products_limit" />
                 </setting>
+                <setting
+                    id="regular_products_period_days"
+                    string="Regular Products Period (Days)"
+                    help="Only count orders from the last days. Set to 0 to count all orders."
+                >
+                    <field name="regular_products_period_days" />
+                </setting>
             </xpath>
         </field>
     </record>
