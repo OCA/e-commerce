@@ -32,8 +32,10 @@ Website Sale Menu Partner Top Selling
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows you to display the products purchased regularly by a
-user and his company in the online shop.
+This module adds a *My Regular Products* page to the online shop. It
+lists the products most ordered by the logged-in user's company (the
+commercial partner and all its contacts), ranked by the total quantity
+on confirmed sales orders.
 
 **Table of contents**
 
@@ -43,28 +45,35 @@ user and his company in the online shop.
 Configuration
 =============
 
-The module allows you to configure the number of products to be
-displayed by means of a configuration parameter.
+To set the maximum number of products shown on the *My Regular Products*
+page:
 
-Limit settings:
+1. Go to *Website > Configuration > Settings*, *eCommerce* section.
+2. Set *Regular Products Limit*. The default is 10.
 
-Go to Settings > Website > Products and adjust the value in the
-corresponding field to set the maximum number of products to be
-displayed on the regular products page. The category panel must also be
-active in /shop.
+The limit is stored in the
+``website_sale_menu_partner_top_selling.limit`` system parameter and is
+shared by all websites.
+
+For the *My Regular Products* link to appear in */shop*, enable either
+the categories sidebar or the top categories bar. The top categories bar
+is only displayed when the shop has eCommerce categories.
 
 Usage
 =====
 
-Regular products can be viewed by accessing the URL
-/shop/my_regular_products on the website.
+1. Log in to the website and go to */shop*.
+2. Click *My Regular Products* in the categories sidebar or in the top
+   categories bar, or open */shop/my_regular_products* directly.
+   Anonymous visitors are redirected to the login page.
 
-This URL can be accessed from */shop* by clicking on *My regular
-products* in the category menu.
+The page lists the published products ordered by your company (all
+contacts of the same commercial partner), sorted by total ordered
+quantity in descending order, up to the configured limit. Quantities of
+all variants of a product are added together.
 
-The page will display the products regularly purchased by the user's
-company's customers, sorted by the number of units sold in descending
-order.
+Only confirmed sales orders are taken into account. Quotations,
+cancelled orders and Point of Sale orders are not counted.
 
 Bug Tracker
 ===========

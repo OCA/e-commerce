@@ -1,9 +1,12 @@
-The module allows you to configure the number of products to be
-displayed by means of a configuration parameter.
+To set the maximum number of products shown on the *My Regular
+Products* page:
 
-Limit settings:
+1.  Go to *Website \> Configuration \> Settings*, *eCommerce* section.
+2.  Set *Regular Products Limit*. The default is 10.
 
-Go to Settings \> Website \> Products and adjust the value in the
-corresponding field to set the maximum number of products to be
-displayed on the regular products page. The category panel must also be
-active in /shop.
+The limit is stored in the `website_sale_menu_partner_top_selling.limit`
+system parameter and is shared by all websites.
+
+For the *My Regular Products* link to appear in */shop*, enable either
+the categories sidebar or the top categories bar. The top categories bar
+is only displayed when the shop has eCommerce categories.
