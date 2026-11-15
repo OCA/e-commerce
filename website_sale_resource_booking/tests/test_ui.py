@@ -14,6 +14,17 @@ from odoo.tools import mute_logger
 
 from ...resource_booking.tests.common import create_test_data
 
+# Odoo 20 removed the ``DISABLED_MAIL_CONTEXT`` helper from
+# ``odoo.addons.base.tests.common``; keep the 19.0 values locally so the UI
+# test does not send mail while creating bookings.
+DISABLED_MAIL_CONTEXT = {
+    "tracking_disable": True,
+    "mail_create_nolog": True,
+    "mail_create_nosubscribe": True,
+    "mail_notrack": True,
+    "no_reset_password": True,
+}
+
 
 @tagged("post_install", "-at_install")
 class UICase(HttpCase):
