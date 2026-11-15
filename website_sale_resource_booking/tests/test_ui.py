@@ -107,7 +107,8 @@ class UICase(HttpCase):
     @mute_logger("odoo.models.unlink")
     def test_expiration_cron(self):
         """Abandoned cart expires bookings."""
-        website = self.env["website"].get_current_website()
+        # Odoo 20 removed website.get_current_website(): take the first website
+        website = self.env["website"].search([], limit=1)
         cron = self.browse_ref("website_sale_resource_booking.cron_expire")
         # Set product expiration to 2 second (approx... you know... floats)
         self.product.resource_booking_timeout = 2 / 60 / 60
