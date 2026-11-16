@@ -87,7 +87,7 @@
                             <t t-call="website_sale.wizard_checkout" />
                         </div>
                         <div class="col-12 col-xl order-xl-1 oe_cart">
-                            <h3 t-esc="wizard_title" />
+                            <h3 t-out="wizard_title" />
                             <div
                                 class="oe_structure"
                                 id="oe_structure_website_sale_resource_booking_10"

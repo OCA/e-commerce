@@ -109,3 +109,17 @@ class ResourceBooking(models.Model):
             {"prereserved_name": False, "prereserved_email": False, "expiration": False}
         )
         return super().action_cancel()
+
+    def get_portal_url(self, suffix=None, **kwargs):
+        """Keep the shopper inside the eCommerce wizard.
+
+        ``access_url`` is a computed field cached per record: when it has
+        already been read without ``checkout_booking_index``, the calendar's
+        month links fall back to the portal route. Build the shop URL here
+        instead of relying on that cache.
+        """
+        index = self.env.context.get("checkout_booking_index")
+        if not (index and len(self) == 1):
+            return super().get_portal_url(suffix=suffix, **kwargs)
+        token = self.sudo()._portal_ensure_token()
+        return f"/shop/booking/{index}{suffix or ''}?access_token={token}"
