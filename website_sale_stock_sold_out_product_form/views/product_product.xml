@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="product_product_form_view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <header position="after">
+                <div
+                    class="alert alert-danger text-center"
+                    invisible="not is_published or not is_sold_out"
+                    role="alert"
+                >
+                    <i class="fa fa-exclamation"> Sold out</i>
+                </div>
+            </header>
+        </field>
+    </record>
+</odoo>
