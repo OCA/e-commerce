@@ -29,7 +29,7 @@ registry.category("web_tour.tours").add("website_sale_resource_booking", {
         },
         // Add one more
         {
-            trigger: ".css_quantity button[name='sale_quantity_button_plus']",
+            trigger: ".css_quantity button:last-of-type",
             run: "click",
         },
         // When there's 2 products, add another one
@@ -42,7 +42,7 @@ registry.category("web_tour.tours").add("website_sale_resource_booking", {
             },
         },
         {
-            trigger: ".css_quantity button[name='sale_quantity_button_plus']",
+            trigger: ".css_quantity button:last-of-type",
             run: "click",
         },
         // When there's 3 products, add to cart
