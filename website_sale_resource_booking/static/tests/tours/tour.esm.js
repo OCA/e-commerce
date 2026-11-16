@@ -55,7 +55,7 @@ registry.category("web_tour.tours").add("website_sale_resource_booking", {
             },
         },
         {
-            trigger: "#add_to_cart",
+            trigger: 'button[name="add_to_cart"]',
             run: "click",
         },
         tourUtils.goToCart({quantity: 4}),
