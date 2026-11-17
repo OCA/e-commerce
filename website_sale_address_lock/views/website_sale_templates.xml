@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Binhex <https://www.binhex.cloud>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="row_addresses" inherit_id="website_sale.row_addresses">
+        <xpath expr="//a[hasclass('o_wsale_add_address')]" position="attributes">
+            <attribute
+                name="t-if"
+            >not order.partner_id.commercial_partner_id.website_address_lock</attribute>
+        </xpath>
+    </template>
+    <template id="checkout" inherit_id="website_sale.checkout">
+        <xpath expr="//h3" position="after">
+            <div
+                t-if="order.partner_id.commercial_partner_id.website_address_lock"
+                class="alert alert-info"
+                role="alert"
+            >
+                Your addresses are managed by your company. Please contact us to change them.
+            </div>
+            <div
+                t-if="address_lock_incomplete"
+                class="alert alert-warning"
+                role="alert"
+            >
+                The address of your company is incomplete. Please contact us to complete it before placing an order.
+            </div>
+        </xpath>
+    </template>
+</odoo>
