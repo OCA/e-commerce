@@ -34,7 +34,8 @@ class WebsiteSaleFee(WebsiteSale):
                 ][:1]
                 if len(_selected_provider) > 0:
                     selected_provider = _selected_provider[0]
-            order.sudo().update_fee_line(selected_provider.sudo())
+            if selected_provider:
+                order.sudo().update_fee_line(selected_provider.sudo())
         res = super().shop_payment(**post)
         if payment_option_id:
             res.qcontext["selected_payment_method"] = int(payment_option_id)
