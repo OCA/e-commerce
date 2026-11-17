@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2021 Tecnativa - Jairo Llopis
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <data noupdate="1">
-    <record forcecreate="True" id="cron_expire" model="ir.cron">
+    <record id="cron_expire" forcecreate="True" model="ir.cron">
         <field name="name">Auto-cancel expired resource bookings</field>
         <field name="model_id" ref="resource_booking.model_resource_booking" />
         <field name="state">code</field>
