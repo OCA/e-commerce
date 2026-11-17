@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Binhex <https://www.binhex.cloud>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="portal_my_details_fields"
+        inherit_id="portal.portal_my_details_fields"
+    >
+        <xpath expr="//div[@t-if='error_message']" position="after">
+            <div
+                t-if="website_address_lock and not (partner.email and partner.phone)"
+                class="alert alert-warning"
+                role="alert"
+            >
+                Please complete your email and phone to continue with your order.
+            </div>
+        </xpath>
+        <xpath expr="//input[@name='street']/.." position="attributes">
+            <attribute name="t-if">not website_address_lock</attribute>
+        </xpath>
+        <xpath expr="//input[@name='city']/.." position="attributes">
+            <attribute name="t-if">not website_address_lock</attribute>
+        </xpath>
+        <xpath expr="//input[@name='zipcode']/.." position="attributes">
+            <attribute name="t-if">not website_address_lock</attribute>
+        </xpath>
+        <xpath expr="//select[@name='country_id']/.." position="attributes">
+            <attribute name="t-if">not website_address_lock</attribute>
+        </xpath>
+        <xpath expr="//select[@name='state_id']/.." position="attributes">
+            <attribute name="t-if">not website_address_lock</attribute>
+        </xpath>
+        <xpath expr="//select[@name='state_id']/.." position="after">
+            <div t-if="website_address_lock" class="mb-3 col-12">
+                <label class="col-form-label">Address</label>
+                <div
+                    t-out="partner"
+                    t-options="{'widget': 'contact', 'fields': ['address'], 'no_marker': True}"
+                />
+                <div class="alert alert-info mt-2" role="alert">
+                    Your addresses are managed by your company. Please contact us to change them.
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
