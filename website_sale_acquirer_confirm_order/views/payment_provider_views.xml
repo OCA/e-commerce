@@ -5,12 +5,12 @@
         <field name="model">payment.provider</field>
         <field name="inherit_id" ref="payment.payment_provider_form" />
         <field name="arch" type="xml">
-            <field name="allow_express_checkout" position="after">
+            <group name="payment_form" position="inside">
                 <field
                     name="confirm_order"
                     invisible="code not in ['transfer', 'custom']"
                 />
-            </field>
+            </group>
         </field>
     </record>
 </odoo>

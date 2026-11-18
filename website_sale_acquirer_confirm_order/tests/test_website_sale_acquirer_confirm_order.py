@@ -3,7 +3,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import Command
 from odoo.tests import tagged
-from odoo.tests.common import HttpCase, TransactionCase
+from odoo.tests.common import HttpCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("post_install", "-at_install")
@@ -61,7 +63,7 @@ class WebsiteSaleHttpCase(HttpCase):
         self.assertEqual(last_order_confirm.state, "sale")
 
 
-class TestPaymentTransactionConfirmOrder(TransactionCase):
+class TestPaymentTransactionConfirmOrder(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -97,16 +99,14 @@ class TestPaymentTransactionConfirmOrder(TransactionCase):
         return order, tx
 
     def test_confirm_order_without_reaching_confirmation_page(self):
-        """The customer leaves before /shop/confirmation: post-processing the
-        transaction (as the payment cron does) confirms the order."""
+        """The customer leaves before /shop/confirmation: setting the transaction
+        pending confirms the order."""
         order, tx = self._checkout_with_transfer()
         self.assertEqual(tx.state, "pending")
-        tx._post_process()
-        self.assertTrue(tx.is_post_processed)
         self.assertEqual(order.state, "sale")
 
     def test_no_confirm_order_disabled(self):
         self.provider.confirm_order = False
         order, tx = self._checkout_with_transfer()
-        tx._post_process()
+        self.assertEqual(tx.state, "pending")
         self.assertEqual(order.state, "sent")

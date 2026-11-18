@@ -7,17 +7,15 @@ from odoo import models
 class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
 
-    def _post_process(self):
-        # Confirm the orders when the pending transaction is post-processed, so
-        # they are confirmed even if the customer never reaches the confirmation page
-        # (skip link, closed tab), as the post-processing cron also covers them.
-        res = super()._post_process()
-        txs = self.filtered(
-            lambda tx: tx.state == "pending"
-            and tx.operation != "validation"
-            and tx.provider_id.confirm_order
+    def _set_pending(self, state_message=None, **kwargs):
+        # Confirm the orders as soon as the transaction is set pending, so they are
+        # confirmed even if the customer never reaches the confirmation page
+        # (skip link, closed tab): pending transactions are never post-processed.
+        txs_to_process = super()._set_pending(state_message=state_message, **kwargs)
+        txs = txs_to_process.filtered(
+            lambda tx: tx.operation != "validation" and tx.provider_id.confirm_order
         )
         txs.sale_order_ids.filtered(
             lambda so: so.state in ("draft", "sent")
         ).action_confirm()
-        return res
+        return txs_to_process

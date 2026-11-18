@@ -21,13 +21,13 @@ eCommerce Confirm Order By Payment Provider
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/18.0/website_sale_acquirer_confirm_order
+    :target: https://github.com/OCA/e-commerce/tree/17.0/website_sale_acquirer_confirm_order
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-18-0/e-commerce-18-0-website_sale_acquirer_confirm_order
+    :target: https://translation.odoo-community.org/projects/e-commerce-17-0/e-commerce-17-0-website_sale_acquirer_confirm_order
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=18.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -61,9 +61,9 @@ duplicate or premature confirmations.
 Usage
 =====
 
-1. Go to **Payment Methods** in the admin panel.
+1. Go to **Payment Providers** in the admin panel.
 2. Enable the *Confirm Order Automatically* option for the desired
-   payment method.
+   payment provider.
 3. When a customer completes a sale using that payment method, the order
    will be automatically confirmed once the transaction is processed,
    even if the customer leaves the payment status page before being
@@ -75,7 +75,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_acquirer_confirm_order%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_acquirer_confirm_order%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -94,6 +94,10 @@ Contributors
 
   - Pilar Vargas
   - Sergio Teruel
+
+- `Binhex <https://www.binhex.cloud>`__:
+
+  - Edilio Escalona Almira e.escalona@binhex.cloud
 
 Maintainers
 -----------
@@ -116,6 +120,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-pilarvargas-tecnativa| 
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/18.0/website_sale_acquirer_confirm_order>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/17.0/website_sale_acquirer_confirm_order>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

@@ -1,1 +1,2 @@
+from . import test_shop_payment_confirmation
 from . import test_website_sale_acquirer_confirm_order

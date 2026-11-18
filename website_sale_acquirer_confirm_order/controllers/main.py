@@ -22,7 +22,7 @@ class WebsiteSale(WebsiteSale):
             if (
                 not last_tx
                 or not last_tx.provider_id.confirm_order
-                or order.state == "sale"
+                or not order._can_be_confirmed()
             ):
                 return res
             order.action_confirm()
