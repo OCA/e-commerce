@@ -1,6 +1,10 @@
 # Copyright 2026 Tecnativa - Pilar Vargas
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+from urllib.parse import parse_qs, urlsplit
+
 from odoo.tests import HttpCase, tagged
+
+from odoo.addons.website.models.mixins import WebsitePublishedMultiMixin
 
 
 @tagged("post_install", "-at_install")
@@ -13,13 +17,13 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
         cls.website1_host = "web1.local"
         cls.website2_host = "web2.local"
         cls.website0 = cls.env["website"].create(
-            {"name": "web0", "domain": cls.website0_host}
+            {"name": "web0", "domain": cls.website0_host, "sequence": 10}
         )
         cls.website1 = cls.env["website"].create(
-            {"name": "web1", "domain": cls.website1_host}
+            {"name": "web1", "domain": cls.website1_host, "sequence": 20}
         )
         cls.website2 = cls.env["website"].create(
-            {"name": "web2", "domain": cls.website2_host}
+            {"name": "web2", "domain": cls.website2_host, "sequence": 30}
         )
 
         # Create a product template
@@ -124,3 +128,127 @@ class TestWebsiteSaleProductMultiWebsite(HttpCase):
             self.env.ref("base.public_user")
         )._get_website_accessory_product()
         self.assertEqual(accessories, published_accessory.product_variant_ids)
+
+    def _assert_website_action(self, record, website):
+        action = record.open_website_url()
+        if website.domain:
+            self.assertEqual(action["type"], "ir.actions.act_url")
+            self.assertEqual(action["target"], "self")
+            parsed = urlsplit(action["url"])
+            self.assertEqual(parsed.netloc, urlsplit(website.domain).netloc)
+            self.assertEqual(parsed.path, "/odoo/action-website.website_preview")
+            self.assertEqual(
+                parse_qs(parsed.query),
+                {"path": [record.website_url], "website_id": [str(website.id)]},
+            )
+        else:
+            self.assertEqual(action["type"], "ir.actions.client")
+            self.assertEqual(action["tag"], "website_preview")
+            self.assertEqual(
+                action["params"],
+                {
+                    "path": record.website_url,
+                    "enable_editor": False,
+                    "website_id": website.id,
+                },
+            )
+
+    def test_open_single_website(self):
+        self.product_template.website_ids = self.website1
+        self._assert_website_action(self.product_template, self.website1)
+
+    def test_open_multiple_websites_ignores_stored_website(self):
+        product = self.product_template
+        # Reproduce assigning one website, then adding earlier websites.
+        product.website_ids = self.website2
+        product.website_ids = self.website2 + self.website1 + self.website0
+        product.website_id = self.website2
+        self.assertEqual(product.website_id, self.website2)
+        self._assert_website_action(product, self.website0)
+        # Sequence changes must be reflected without recomputing website_id.
+        self.website1.sequence = 5
+        self._assert_website_action(product, self.website1)
+        self.assertEqual(product.website_id, self.website2)
+
+    def test_open_context_website(self):
+        product = self.product_template
+        product.website_ids = self.website0 + self.website2
+        self._assert_website_action(
+            product.with_context(website_id=self.website2.id), self.website2
+        )
+        self._assert_website_action(
+            product.with_context(website_id=self.website1.id), self.website0
+        )
+
+    def test_open_websites_with_equal_sequences(self):
+        self.website1.sequence = self.website0.sequence
+        self.product_template.website_ids = self.website1 + self.website0
+        self.product_template.website_id = self.website1
+        self._assert_website_action(self.product_template, self.website0)
+
+    def test_open_website_without_domain(self):
+        self.website1.domain = False
+        self.product_template.website_ids = self.website1
+        self._assert_website_action(self.product_template, self.website1)
+
+    def test_open_without_websites_uses_standard_action(self):
+        for website in (self.website0, self.website1):
+            product = self.product_template.with_context(website_id=website.id)
+            self.assertEqual(
+                product.open_website_url(),
+                WebsitePublishedMultiMixin.open_website_url(product),
+            )
+            variant = product.product_variant_id
+            action = variant.open_website_url()
+            expected = WebsitePublishedMultiMixin.open_website_url(product)
+            expected["url"] = variant.website_url
+            self.assertEqual(action, expected)
+
+    def test_open_variant_preserves_website_and_attributes(self):
+        attribute = self.env["product.attribute"].create(
+            {
+                "name": "Navigation attribute",
+                "value_ids": [(0, 0, {"name": "First"}), (0, 0, {"name": "Second"})],
+            }
+        )
+        product = self.product_template
+        product.attribute_line_ids = [
+            (
+                0,
+                0,
+                {
+                    "attribute_id": attribute.id,
+                    "value_ids": [(6, 0, attribute.value_ids.ids)],
+                },
+            )
+        ]
+        product.website_ids = self.website0 + self.website1
+        variant = product.product_variant_ids[0].with_context(
+            website_id=self.website1.id
+        )
+        self.assertIn("attribute_values=", variant.website_url)
+        self._assert_website_action(variant, self.website1)
+        self.website1.domain = False
+        self._assert_website_action(variant, self.website1)
+
+    def test_navigation_preserves_publication_and_visibility(self):
+        product = self.product_template
+        product.website_ids = self.website1 + self.website2
+        product.is_published = False
+        self._assert_website_action(product, self.website1)
+        self.assertFalse(product.is_published)
+        for website in (self.website0, self.website1, self.website2):
+            self.assertFalse(
+                product.with_context(website_id=website.id).website_published
+            )
+        product.is_published = True
+        self._assert_website_action(product, self.website1)
+        self.assertEqual(product.website_ids, self.website1 + self.website2)
+        for website in (self.website0, self.website1, self.website2):
+            allowed = website != self.website0
+            self.assertEqual(
+                product.with_context(website_id=website.id).website_published, allowed
+            )
+            self.assertEqual(
+                product.can_access_from_current_website(website.id), allowed
+            )

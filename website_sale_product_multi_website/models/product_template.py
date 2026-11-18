@@ -1,6 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
 from odoo.http import request
+from odoo.tools.urls import urljoin as url_join
 
 
 class ProductTemplate(models.Model):
@@ -61,3 +62,29 @@ class ProductTemplate(models.Model):
         return super(
             ProductTemplate, self.with_context(multi_website_domain=True)
         )._search_website_published(operator, value)
+
+    def open_website_url(self):
+        self.ensure_one()
+        if not self.website_ids:
+            return super().open_website_url()
+        return self._get_multi_website_action(self.website_url)
+
+    def _get_multi_website_action(self, url):
+        self.ensure_one()
+        websites = self.website_ids
+        website = (
+            websites.filtered(
+                lambda website: website.id == self.env.context.get("website_id")
+            )
+            or websites.sorted(lambda website: (website.sequence, website.id))[:1]
+        )
+        if website.domain:
+            action_url = self.env["website"].get_client_action_url(url)
+            return {
+                "type": "ir.actions.act_url",
+                "url": url_join(
+                    website.domain, f"{action_url}&website_id={website.id}"
+                ),
+                "target": "self",
+            }
+        return self.env["website"].get_client_action(url, False, website.id)
