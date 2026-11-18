@@ -92,6 +92,10 @@ class WebsiteSale(WebsiteSale):
         product_variants = dict(zip(products_on_page, variants, strict=False))
         # Shop context for the view
         shop_context = self.shop(page=0, **kwargs)
+        if shop_context.status_code != 200:
+            # shop() redirected (e.g. deprecated ``category`` query param or no
+            # eCommerce access): there is no qcontext to extend, follow it.
+            return shop_context
         shop_context.qcontext.update(
             {
                 "pager": pager,
