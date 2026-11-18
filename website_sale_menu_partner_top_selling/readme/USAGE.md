@@ -1,9 +1,12 @@
-Regular products can be viewed by accessing the URL
-/shop/my_regular_products on the website.
+1.  Log in to the website and go to */shop*.
+2.  Click *My Regular Products* in the categories sidebar or in the top
+    categories bar, or open */shop/my_regular_products* directly.
+    Anonymous visitors are redirected to the login page.
 
-This URL can be accessed from */shop* by clicking on *My regular
-products* in the category menu.
+The page lists the published products ordered by your company (all
+contacts of the same commercial partner), sorted by total ordered
+quantity in descending order, up to the configured limit. Quantities of
+all variants of a product are added together.
 
-The page will display the products regularly purchased by the user's
-company's customers, sorted by the number of units sold in descending
-order.
+Only confirmed sales orders are taken into account. Quotations,
+cancelled orders and Point of Sale orders are not counted.

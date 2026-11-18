@@ -1,2 +1,4 @@
-This module allows you to display the products purchased regularly by a
-user and his company in the online shop.
+This module adds a *My Regular Products* page to the online shop. It
+lists the products most ordered by the logged-in user's company (the
+commercial partner and all its contacts), ranked by the total quantity
+on confirmed sales orders.
