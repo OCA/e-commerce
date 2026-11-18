@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="products_attributes"
+        inherit_id="website_sale.filter_pills_attributes"
+        active="False"
+        name="Product Attribute's Filters Marked First"
+        priority="900"
+    >
+        <xpath expr="//t[@t-foreach='pavs_per_attribute[a]']" position="attributes">
+            <attribute
+                name="t-foreach"
+            >pavs_per_attribute[a].sorted(key=lambda x: x.id in attrib_set, reverse=True)</attribute>
+        </xpath>
+    </template>
+</odoo>
