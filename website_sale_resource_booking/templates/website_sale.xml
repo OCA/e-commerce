@@ -28,7 +28,9 @@
         <!-- The eCommerce flow must post to its own confirm route, not the
              portal one inherited from resource_booking. -->
         <xpath expr="//form[hasclass('modal')]" position="attributes">
-            <attribute name="t-attf-action">/shop/booking/#{booking_index}/confirm</attribute>
+            <attribute
+                name="t-attf-action"
+            >/shop/booking/#{booking_index}/confirm</attribute>
         </xpath>
         <!-- Ask partner data before confirmation -->
         <xpath expr="//div[hasclass('modal-body')]//p" position="before">

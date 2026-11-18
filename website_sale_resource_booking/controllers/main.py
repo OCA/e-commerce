@@ -7,7 +7,6 @@ from dateutil.parser import isoparse
 
 from odoo.exceptions import ValidationError
 from odoo.http import request, route
-from odoo.tests import Form
 
 from ...website_sale.controllers import main
 
@@ -125,9 +124,13 @@ class WebsiteSale(main.WebsiteSale):
         when_naive = datetime.fromtimestamp(when_tz_aware.timestamp(), UTC).replace(
             tzinfo=None
         )
+        # Écriture directe plutôt que `Form` : le modèle n'a aucun onchange sur
+        # `start`, et `write` déclenche la même validation — c'est elle qui lève
+        # `ValidationError`, et elle est captée pareil. `odoo.tests` ne doit
+        # jamais être importé par du code de production : Odoo journalise une
+        # ERROR à chaque chargement du registre.
         try:
-            with Form(booking_sudo) as booking_form:
-                booking_form.start = when_naive
+            booking_sudo.write({"start": when_naive})
         except ValidationError as error:
             url = f"/shop/booking/{index}/schedule?error={quote_plus(error.name)}"
             return request.redirect(url)

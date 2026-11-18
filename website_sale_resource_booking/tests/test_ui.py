@@ -11,7 +11,6 @@ from odoo import Command
 from odoo.tests import Form, HttpCase, new_test_user, tagged
 from odoo.tools import mute_logger
 
-
 from ...resource_booking.tests.common import create_test_data
 
 # Odoo 20 removed the ``DISABLED_MAIL_CONTEXT`` helper from
@@ -95,12 +94,18 @@ class UICase(HttpCase):
                 "Invitation to Mr. B - Test resource booking type",
                 "Invitation to Mr. C - Test resource booking type",
                 # Portal invitations with tokenized link
-                "Invitation to access Mr. A - Test resource booking type "
-                "- 03/01/2021 at (09:00 AM To 09:30 AM) (UTC)",
-                "Invitation to access Mr. B - Test resource booking type "
-                "- 03/01/2021 at (09:00 AM To 09:30 AM) (UTC)",
-                "Invitation to access Mr. C - Test resource booking type "
-                "- 03/01/2021 at (09:30 AM To 10:00 AM) (UTC)",
+                (
+                    "Invitation to access Mr. A - Test resource booking type "
+                    "- 03/01/2021 at (09:00 AM To 09:30 AM) (UTC)"
+                ),
+                (
+                    "Invitation to access Mr. B - Test resource booking type "
+                    "- 03/01/2021 at (09:00 AM To 09:30 AM) (UTC)"
+                ),
+                (
+                    "Invitation to access Mr. C - Test resource booking type "
+                    "- 03/01/2021 at (09:30 AM To 10:00 AM) (UTC)"
+                ),
             },
         )
 
@@ -130,7 +135,9 @@ class UICase(HttpCase):
         )
         self.assertEqual(len(order.resource_booking_ids), 2)
         # Emulate the user prereserved both bookings
-        dt = datetime(2021, 3, 1, 9)
+        # Odoo stocke les dates en UTC naïf ; un fuseau ici décalerait la
+        # valeur envoyée et fausserait le test.
+        dt = datetime(2021, 3, 1, 9)  # noqa: DTZ001
         bookings = order.resource_booking_ids
         for booking in bookings:
             with Form(booking) as booking_f:
