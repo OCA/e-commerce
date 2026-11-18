@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        `website_sale.empty_public_categories_rule` restricts public and portal
+        visitors to categories holding a published product. Record rules bound
+        to groups are OR-ed together (see `ir.rule._compute_domain`), so adding
+        a second rule on the same groups widens the first one instead of
+        fighting it, and leaves the core record untouched on uninstall.
+    -->
+    <record id="show_empty_public_categories_rule" model="ir.rule">
+        <field
+            name="name"
+        >Show flagged empty eCommerce categories to public/portal users</field>
+        <field name="model_id" ref="website_sale.model_product_public_category" />
+        <field name="domain_force">[('show_when_empty', '=', True)]</field>
+        <field
+            name="groups"
+            eval="[
+                Command.link(ref('base.group_public')),
+                Command.link(ref('base.group_portal')),
+            ]"
+        />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+</odoo>
