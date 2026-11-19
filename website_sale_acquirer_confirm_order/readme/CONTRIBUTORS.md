@@ -1,0 +1,5 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Pilar Vargas
+  - Sergio Teruel
+- [Binhex](https://www.binhex.cloud):
+  - Edilio Escalona Almira <e.escalona@binhex.cloud>
