@@ -1,0 +1,1 @@
+odoo-addon-product-supplierinfo-stock-availability @ git+https://github.com/OCA/product-attribute@refs/pull/2463/head#subdirectory=product_supplierinfo_stock_availability
