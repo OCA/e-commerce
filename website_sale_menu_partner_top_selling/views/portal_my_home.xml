@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="portal_my_regular_products_card" name="My Regular Products Card">
+        <t t-set="show_count" t-value="my_regular_products_card_position != 'inline'" />
+        <t t-call="portal.portal_docs_entry">
+            <t
+                t-set="icon"
+                t-value="'/website_sale_menu_partner_top_selling/static/src/img/my_regular_products.svg'"
+            />
+            <t t-set="title" t-value="my_regular_products_label" />
+            <t t-set="url" t-value="'/shop/my_regular_products'" />
+            <t t-set="text" t-value="my_regular_products_card_text" />
+            <t t-set="placeholder_count" t-value="'my_regular_products_count'" />
+        </t>
+    </template>
+    <template
+        id="portal_my_home_my_regular_products"
+        name="My Regular Products"
+        inherit_id="portal.portal_my_home"
+    >
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t
+                t-if="my_regular_products_card_enabled and my_regular_products_card_position == 'top'"
+            >
+                <t
+                    t-call="website_sale_menu_partner_top_selling.portal_my_regular_products_card"
+                />
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='portal_common_category']" position="after">
+            <t
+                t-if="my_regular_products_card_enabled and my_regular_products_card_position == 'bottom'"
+            >
+                <div class="o_portal_category row g-2 mt-3">
+                    <t
+                        t-call="website_sale_menu_partner_top_selling.portal_my_regular_products_card"
+                    />
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <!-- This template needs a priority higher than sale's portal_my_home_sale
+         (20) so the '/my/orders' entry already exists in the arch. -->
+    <template
+        id="portal_my_home_my_regular_products_inline"
+        name="My Regular Products Inline"
+        inherit_id="portal.portal_my_home"
+        priority="25"
+    >
+        <xpath
+            expr="//t[@t-call='portal.portal_docs_entry'][.//t[@t-set='url' and @t-value=&quot;'/my/orders'&quot;]]"
+            position="before"
+        >
+            <t
+                t-if="my_regular_products_card_enabled and my_regular_products_card_position == 'inline'"
+            >
+                <t
+                    t-call="website_sale_menu_partner_top_selling.portal_my_regular_products_card"
+                />
+            </t>
+        </xpath>
+    </template>
+</odoo>
