@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_sale_tax_toggle
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-09 20:29+0000\n"
+"PO-Revision-Date: 2025-04-11 11:24+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: website_sale_tax_toggle
+#: model_terms:ir.ui.view,arch_db:website_sale_tax_toggle.tax_toggle_template
+msgid ""
+"<span/>\n"
+"                <span>Show prices with taxes included</span>"
+msgstr ""
+"<span/>\n"
+"                <span>Visualizza prezzi con le imposte incluse</span>"
+
+#. module: website_sale_tax_toggle
+#: model:ir.model,name:website_sale_tax_toggle.model_ir_http
+msgid "HTTP Routing"
+msgstr "Instradamento HTTP"
+
+#. module: website_sale_tax_toggle
+#: model:ir.model.fields,help:website_sale_tax_toggle.field_website__tax_toggle_preactivated
+msgid ""
+"If enabled, the tax toggle will be active by default when entering the "
+"website."
+msgstr ""
+"Se abilitata, la funzione di attivazione/disattivazione delle imposte sarà "
+"attiva per impostazione predefinita quando si accede al sito web."
+
+#. module: website_sale_tax_toggle
+#: model:ir.model.fields,field_description:website_sale_tax_toggle.field_website__tax_toggle_preactivated
+msgid "Tax Toggle Preactivated"
+msgstr "Tasse attivate per impostazione predefinita"
+
+#. module: website_sale_tax_toggle
+#: model:ir.model,name:website_sale_tax_toggle.model_res_users
+msgid "User"
+msgstr "Utente"
+
+#. module: website_sale_tax_toggle
+#: model:ir.model,name:website_sale_tax_toggle.model_website
+msgid "Website"
+msgstr "Sito web"
