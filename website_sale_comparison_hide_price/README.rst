@@ -77,6 +77,7 @@ Contributors
 - `ForgeFlow <https://www.forgeflow.com>`__:
 
      - Jasmin Solanki <jasmin.solanki@forgeflow.com>
+     - Marc Gimeno <marc.gimeno@forgeflow.com>
 
 Maintainers
 -----------
