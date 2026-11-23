@@ -11,3 +11,6 @@
   - Sylvain Van Hoof
 - [Kencove](https://kencove.com):
   - Mohamed Alkobrosli
+- [ForgeFlow](https://www.forgeflow.com):
+  - Marina Alapont \<<marina.alapont@forgeflow.com>\>
+  - Marc Gimeno \<<marc.gimeno@forgeflow.com>\>
