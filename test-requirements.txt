@@ -1,0 +1,1 @@
+odoo-addon-sale_resource_booking @ git+https://github.com/OCA/sale-workflow.git@refs/pull/4689/head#subdirectory=sale_resource_booking

@@ -1,0 +1,6 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Jairo Llopis
+  - Stefan Ungureanu
+  - Víctor Martínez
+- [CIT services](https://cit-services.in/):
+  - Anusha
