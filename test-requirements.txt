@@ -1,0 +1,3 @@
+odoo-addon-product-packaging-level @ git+https://github.com/OCA/product-attribute@refs/pull/2061/head#subdirectory=product_packaging_level
+odoo-addon-sale-product-default-packaging-level @ git+https://github.com/OCA/sale-workflow@refs/pull/4421/head#subdirectory=sale_product_default_packaging_level
+odoo-addon-website-sale-product-packaging-level-access @ git+https://github.com/OCA/e-commerce@refs/pull/1252/head#subdirectory=website_sale_product_packaging_level_access
