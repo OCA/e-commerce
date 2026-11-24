@@ -66,3 +66,40 @@ class TestUi(HttpCase):
             "website_sale_menu_partner_top_selling",
             login="admin",
         )
+
+    def test_pagination(self):
+        """As a customer, page N of my regular products shows the Nth page of
+        products, and an out-of-range page is clamped to the last one."""
+        # Two regular products (limit is 2 in setUpClass), one per page.
+        website = self.env["website"].search([], limit=1)
+        website.shop_ppg = 1
+        self.authenticate("admin", "admin")
+
+        # Products are sorted by purchased quantity, descending: the top two
+        # are Product 5 (90) and Product 3 (70).
+        first_page = self.url_open("/shop/my_regular_products/page/1").text
+        self.assertIn("Product 5", first_page)
+        self.assertNotIn("Product 3", first_page)
+
+        second_page = self.url_open("/shop/my_regular_products/page/2").text
+        self.assertIn("Product 3", second_page)
+        self.assertNotIn("Product 5", second_page)
+
+        # There are only two pages: page 99 shows the last one.
+        clamped_page = self.url_open("/shop/my_regular_products/page/99").text
+        self.assertIn("Product 3", clamped_page)
+        self.assertNotIn("Product 5", clamped_page)
+
+    def test_category_query_param_redirects(self):
+        """As a customer, the deprecated ``category`` query parameter on my
+        regular products redirects to the shop category page instead of
+        failing."""
+        category = self.env["product.public.category"].create({"name": "Shoes"})
+        self.authenticate("admin", "admin")
+
+        response = self.url_open(
+            f"/shop/my_regular_products?category={category.id}",
+            allow_redirects=False,
+        )
+        self.assertEqual(response.status_code, 301)
+        self.assertIn("/shop/category/", response.headers["Location"])
