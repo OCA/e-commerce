@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Manuel Regidor <manuel.regidor@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record
+        id="website_account_fiscal_position_partner_type_view_website_form"
+        model="ir.ui.view"
+    >
+        <field
+            name="name"
+        >website.account.fiscal.position.partner.type.view.website.form</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page
+                    string="B2B/B2C Website Info"
+                    groups="website.group_website_designer"
+                >
+                    <group>
+                        <field
+                            name="b2b_information"
+                            widget="html"
+                            options="{'codeview': true }"
+                        />
+                        <field
+                            name="b2c_information"
+                            widget="html"
+                            options="{'codeview': true }"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

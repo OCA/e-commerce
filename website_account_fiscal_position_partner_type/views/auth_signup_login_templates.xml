@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2023 Manuel Regidor <manuel.regidor@sygel.es>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <template
+        id="website_account_fiscal_position_partner_type_auth_signup"
+        inherit_id="auth_signup.fields"
+    >
+        <xpath expr="//div[hasclass('field-login')]" position="after">
+            <div class="form-group field-fiscalpositiontype">
+                <label
+                    class="col-form-label"
+                    for="fiscal_position_type"
+                >Partner Type</label>
+                <select
+                    id="fiscal_position_type"
+                    name="fiscal_position_type"
+                    class="form-control"
+                    t-att-disabled="'1' if only_passwords else None"
+                >
+                    <t t-foreach="fiscpostypevalues" t-as="fptv">
+                        <option
+                            t-att-selected="fiscal_position_type_selected == fptv"
+                            t-att-value="fptv"
+                        >
+                            <t t-esc="fiscpostypevalues[fptv]" />
+                        </option>
+                    </t>
+                </select>
+                <div
+                    t-att-style="'display: none;' if fiscal_position_type_selected != 'b2b' else null"
+                    id="b2b_name_instructions"
+                ><t t-out="website.b2b_information" /></div>
+                <div
+                    t-att-style="'display: none;' if fiscal_position_type_selected != 'b2c' else null"
+                    id="b2c_name_instructions"
+                ><t t-out="website.b2c_information" /></div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
