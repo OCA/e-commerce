@@ -18,6 +18,7 @@
         "views/website_sale_template.xml",
         "views/partner_view.xml",
         "views/res_config_settings_views.xml",
+        "views/sale_order.xml",
     ],
     "assets": {
         "web.assets_tests": [
