@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "website": "https://github.com/OCA/e-commerce",
     "category": "Website",
-    "maintainers": ["pilarvargas-tecnativa"],
+    "maintainers": ["pilarvargas-tecnativa", "sergio-teruel", "carlosdauden"],
     "depends": [
         "website_sale_product_matrix",
         "sale_product_matrix_secondary_unit",
