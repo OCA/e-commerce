@@ -16,6 +16,7 @@ class ProductProduct(models.Model):
         search="_search_public_categ_id",
     )
 
+    @api.depends("public_categ_ids")
     def _compute_public_categ_id(self):
         for product in self:
             product.public_categ_id = product.public_categ_ids[:1]
