@@ -11,13 +11,14 @@ class WebsiteSaleComparisonHidePrice(WebsiteSaleProductComparison):
     @route()
     def get_product_data(self, product_ids):
         product_data = super().get_product_data(product_ids)
-        website = request.website
         products = request.env["product.product"].search([("id", "in", product_ids)])
         products_by_id = {p.id: p for p in products}
         for item in product_data:
-            product = products_by_id.get(item["id"])
-            item["website_hide_price"] = bool(
-                not website.website_show_price
-                or (product and product.website_hide_price)
-            )
+            product = products_by_id[item["id"]]
+            hide_price = product.product_tmpl_id._website_price_hidden()
+            item["website_hide_price"] = hide_price
+            if hide_price:
+                # Never send a hidden price to the browser
+                item["price"] = 0.0
+                item.pop("strikethrough_price", None)
         return product_data

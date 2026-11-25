@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
-<title>README.rst</title>
+<title>Website Sale Hide Price</title>
 <style type="text/css">
 
 /*
@@ -376,6 +376,20 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/license-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/e-commerce/tree/19.0/website_sale_hide_price"><img alt="OCA/e-commerce" src="https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/e-commerce-19-0/e-commerce-19-0-website_sale_hide_price"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/e-commerce&amp;target_branch=19.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This module allows to have hidden product prices on the website store.</p>
+<p>The prices are also hidden server-side, so they cannot be read from the
+page source or the JSON routes. When the price is hidden for the
+visitor:</p>
+<ul class="simple">
+<li><tt class="docutils literal">/website_sale/get_combination_info</tt> returns the prices (and the
+price sent to Google Analytics) as 0.0, with <tt class="docutils literal">website_hide_price</tt>
+set.</li>
+<li>The product JSON-LD markup has no price.</li>
+<li>The product cannot be added to the cart, and the product and combo
+configurators are refused. The product configurator also returns 0.0
+for optional products with a hidden price, and the product is not
+offered as a suggested accessory in the cart.</li>
+<li>The <tt class="docutils literal">/shop</tt> price filter and the sorting by price are ignored.</li>
+</ul>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -444,6 +458,12 @@ forbidden items if any.</p>
 <li>This module is incompatible with the website_sale_stock_force_block
 module because it makes changes to the same attributes in the
 website_sale.products_add_to_cart template.</li>
+<li>The <tt class="docutils literal">/shop</tt> price filter and sorting are only ignored when the
+prices are hidden for the whole website or the visitor, not when only
+some products hide their price.</li>
+<li>Other routes that send prices, such as the product matrix of
+<tt class="docutils literal">website_sale_product_matrix</tt> or the Google Merchant Center feed,
+are not covered.</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
@@ -486,6 +506,11 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </li>
 <li><a class="reference external" href="https://kencove.com">Kencove</a>:<ul>
 <li>Mohamed Alkobrosli</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.forgeflow.com">ForgeFlow</a>:<ul>
+<li>Marina Alapont &lt;<a class="reference external" href="mailto:marina.alapont&#64;forgeflow.com">marina.alapont&#64;forgeflow.com</a>&gt;</li>
+<li>Marc Gimeno &lt;<a class="reference external" href="mailto:marc.gimeno&#64;forgeflow.com">marc.gimeno&#64;forgeflow.com</a>&gt;</li>
 </ul>
 </li>
 </ul>

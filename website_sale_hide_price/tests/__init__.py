@@ -1,0 +1,2 @@
+from . import test_website_sale_hide_price_server_side
+from . import test_website_sale_hide_price_json
