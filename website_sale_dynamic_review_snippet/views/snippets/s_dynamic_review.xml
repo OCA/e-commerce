@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="s_dynamic_review_snippet" name="Product Reviews Snippet">
+        <section
+            class="s_customer_review o_dynamic_empty container pt32 pb32"
+            data-snippet="s_dynamic_review_snippet"
+        >
+            <div class="o_not_editable">
+                <h3 class="mb32">Customer Reviews</h3>
+            </div>
+            <div class="o_portal_reviews o_not_editable" data-anchor="true" />
+            <div class="d-flex justify-content-center o_portal_reviews_loader">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only" />
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>
